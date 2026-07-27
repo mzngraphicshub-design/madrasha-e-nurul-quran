@@ -1,206 +1,117 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Login | মাদরাসায়ে নূরুল কুরআন</title>
 
-  <title>Admin Login | মাদরাসায়ে নূরুল কুরআন</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #075c43, #0b9b70);
-      padding: 20px;
-    }
-
-    .login-box {
-      width: 100%;
-      max-width: 420px;
-      background: #fff;
-      border-radius: 18px;
-      padding: 35px 28px;
-      box-shadow: 0 15px 40px rgba(0,0,0,.18);
-    }
-
-    .logo {
-      width: 75px;
-      height: 75px;
-      margin: 0 auto 18px;
-      border-radius: 50%;
-      background: #087f5b;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 32px;
-    }
-
-    h1 {
-      text-align: center;
-      color: #075c43;
-      font-size: 23px;
-      margin-bottom: 5px;
-    }
-
-    .subtitle {
-      text-align: center;
-      color: #777;
-      font-size: 13px;
-      margin-bottom: 28px;
-    }
-
-    label {
-      display: block;
-      margin: 14px 0 7px;
-      font-weight: bold;
-      color: #333;
-    }
-
-    input {
-      width: 100%;
-      padding: 13px;
-      border: 1px solid #ddd;
-      border-radius: 9px;
-      outline: none;
-      font-size: 15px;
-    }
-
-    input:focus {
-      border-color: #087f5b;
-    }
-
-    button {
-      width: 100%;
-      margin-top: 22px;
-      padding: 14px;
-      border: none;
-      border-radius: 9px;
-      background: #087f5b;
-      color: white;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background: #075c43;
-    }
-
-    #message {
-      margin-top: 15px;
-      text-align: center;
-      font-size: 14px;
-      min-height: 20px;
-    }
-
-    .back {
-      display: block;
-      text-align: center;
-      margin-top: 20px;
-      color: #087f5b;
-      text-decoration: none;
-      font-size: 14px;
-    }
-  </style>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  font-family:Arial,sans-serif;background:linear-gradient(135deg,#075c43,#0b9b70);
+  padding:20px
+}
+.box{
+  width:100%;max-width:400px;background:white;padding:32px 25px;
+  border-radius:18px;box-shadow:0 15px 40px #0003
+}
+.logo{
+  width:70px;height:70px;margin:auto auto 15px;border-radius:50%;
+  background:#087f5b;color:white;display:flex;align-items:center;
+  justify-content:center;font-size:30px
+}
+h1{text-align:center;color:#075c43;font-size:22px}
+.sub{text-align:center;color:#777;margin:7px 0 25px;font-size:13px}
+label{display:block;margin:13px 0 6px;font-weight:bold}
+input{
+  width:100%;padding:13px;border:1px solid #ddd;border-radius:8px;
+  font-size:15px
+}
+button{
+  width:100%;padding:13px;margin-top:20px;border:0;border-radius:8px;
+  background:#087f5b;color:white;font-size:16px;font-weight:bold
+}
+#msg{text-align:center;margin-top:15px;font-size:14px}
+.back{display:block;text-align:center;margin-top:18px;color:#087f5b}
+</style>
 </head>
 
 <body>
 
-  <div class="login-box">
+<div class="box">
 
-    <div class="logo">🕌</div>
+<div class="logo">🕌</div>
 
-    <h1>মাদরাসায়ে নূরুল কুরআন</h1>
+<h1>মাদরাসায়ে নূরুল কুরআন</h1>
+<div class="sub">ADMIN MANAGEMENT SYSTEM</div>
 
-    <p class="subtitle">
-      Admin Management System
-    </p>
+<form id="loginForm">
 
-    <form id="loginForm">
+<label>Email</label>
+<input id="email" type="email"
+placeholder="Admin Email" required>
 
-      <label for="email">Admin Email / ID</label>
+<label>Password</label>
+<input id="password" type="password"
+placeholder="Password" required>
 
-      <input
-        type="email"
-        id="email"
-        placeholder="Admin email লিখুন"
-        required
-      >
+<button type="submit">🔐 Login</button>
 
-      <label for="password">Password</label>
+<div id="msg"></div>
 
-      <input
-        type="password"
-        id="password"
-        placeholder="Password লিখুন"
-        required
-      >
+</form>
 
-      <button type="submit">
-        🔐 Login to Dashboard
-      </button>
+<a class="back" href="index.html">← Website Home</a>
 
-      <div id="message"></div>
+</div>
 
-    </form>
-
-    <a href="index.html" class="back">
-      ← Website Home
-    </a>
-
-  </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-  const SUPABASE_URL = "https://qavublwhqiqsgpcmfyt.supabase.co";
+const SUPABASE_URL =
+"https://qavublwhqiqsgpcmfyt.supabase.co";
 
-  // এখানে আপনার Supabase Publishable key বসাবেন
-  const SUPABASE_KEY = "sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
+const SUPABASE_KEY =
+"sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
 
-  const supabaseClient = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
+const supabaseClient =
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
 
-  const loginForm = document.getElementById("loginForm");
-  const message = document.getElementById("message");
+document.getElementById("loginForm").addEventListener(
+"submit", async function(e){
 
-  loginForm.addEventListener("submit", async function (e) {
-    e.preventDefault();
+e.preventDefault();
 
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value;
+const email =
+document.getElementById("email").value.trim();
 
-    message.textContent = "Login হচ্ছে...";
+const password =
+document.getElementById("password").value;
 
-    const { data, error } =
-      await supabaseClient.auth.signInWithPassword({
-        email: email,
-        password: password
-      });
+const msg =
+document.getElementById("msg");
 
-    if (error) {
-  console.error("SUPABASE LOGIN ERROR:", error);
-  message.textContent = "❌ " + error.message;
-  return;
+msg.textContent="Login হচ্ছে...";
+
+const {data,error} =
+await supabaseClient.auth.signInWithPassword({
+email:email,
+password:password
+});
+
+if(error){
+msg.textContent="❌ "+error.message;
+return;
 }
 
-    message.textContent = "✅ Login সফল!";
+window.location.href="dashboard.html";
 
-    // Dashboard page-এ যাবে
-    window.location.href = "dashboard.html";
-  });
+});
 </script>
-  
+
 </body>
 </html>
