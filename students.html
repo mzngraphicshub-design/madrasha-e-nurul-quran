@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="bn">
 <head>
@@ -19,6 +20,7 @@ input,select,textarea{width:100%;padding:11px;margin-top:6px;border:1px solid #d
 textarea{resize:vertical}
 .full{grid-column:1/-1}
 button{border:0;border-radius:7px;padding:11px 18px;background:#087f5b;color:white;font-weight:bold;cursor:pointer}
+button:disabled{opacity:.6;cursor:not-allowed}
 .cancel{background:#777;margin-left:8px}
 .search{margin-bottom:15px}
 table{width:100%;border-collapse:collapse}
@@ -26,7 +28,8 @@ th,td{padding:12px 8px;border-bottom:1px solid #eee;text-align:left;font-size:14
 th{background:#075c43;color:white}
 .action{padding:7px 10px;font-size:12px;margin:2px}
 .delete{background:#c62828}
-#msg{margin-top:10px;font-size:14px}
+#msg{margin-top:10px;font-size:14px;min-height:20px}
+.loading{text-align:center;padding:20px}
 @media(max-width:700px){
 .form{grid-template-columns:1fr}
 .full{grid-column:auto}
@@ -46,9 +49,11 @@ table{min-width:800px}
 <div class="container">
 
 <div class="box">
+
 <h2 id="formTitle">➕ Add Student</h2>
 
 <form id="studentForm">
+
 <input type="hidden" id="editId">
 
 <div>
@@ -94,21 +99,37 @@ table{min-width:800px}
 </div>
 
 <div class="full">
-<button type="submit">💾 Save Student</button>
-<button type="button" class="cancel" id="cancelBtn" style="display:none">Cancel</button>
+
+<button type="submit" id="saveBtn">
+💾 Save Student
+</button>
+
+<button type="button" class="cancel" id="cancelBtn" style="display:none">
+Cancel
+</button>
+
 <div id="msg"></div>
+
 </div>
 
 </form>
 </div>
 
+
 <div class="box">
+
 <h2>👨‍🎓 Student List</h2>
 
-<input class="search" id="search" placeholder="🔍 ID বা নাম দিয়ে খুঁজুন...">
+<input
+class="search"
+id="search"
+placeholder="🔍 ID বা নাম দিয়ে খুঁজুন..."
+>
 
 <div class="table-wrap">
+
 <table>
+
 <thead>
 <tr>
 <th>ID</th>
@@ -120,223 +141,658 @@ table{min-width:800px}
 <th>Action</th>
 </tr>
 </thead>
+
 <tbody id="studentList">
-<tr><td colspan="7">Loading...</td></tr>
+
+<tr>
+<td colspan="7" class="loading">
+Loading...
+</td>
+</tr>
+
 </tbody>
+
 </table>
-</div>
+
 </div>
 
 </div>
+
+</div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-const SUPABASE_URL="https://qavublwhqiqsgpcmfyft.supabase.co";
-const SUPABASE_KEY="sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
 
-const db=window.supabase.createClient(
+const SUPABASE_URL =
+"https://qavublwhqiqsgpcmfyft.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
+
+const db = window.supabase.createClient(
 SUPABASE_URL,
 SUPABASE_KEY
 );
 
-let students=[];
-let classes=[];
+
+let students = [];
+let classes = [];
+
+
+// ===============================
+// START
+// ===============================
 
 async function start(){
 
-const {data:{session}}=await db.auth.getSession();
+try{
+
+const {data:{session}} =
+await db.auth.getSession();
 
 if(!session){
-location.href="admin.html";
+
+location.href = "admin.html";
 return;
+
 }
 
-await loadClasses();
-await loadStudents();
+
+// দুইটা request একই সময়ে চলবে
+await Promise.all([
+loadClasses(),
+loadStudents()
+]);
+
+
+}catch(error){
+
+document.getElementById("studentList").innerHTML =
+`<tr>
+<td colspan="7">
+❌ ${escapeHtml(error.message)}
+</td>
+</tr>`;
+
 }
+
+}
+
+
+// ===============================
+// LOAD CLASSES
+// ===============================
 
 async function loadClasses(){
 
-const {data,error}=await db
+const select =
+document.getElementById("classId");
+
+
+const {data,error} = await db
 .from("classes")
 .select("id,name")
 .order("id");
 
+
 if(error){
-alert(error.message);
+
+document.getElementById("msg").textContent =
+"❌ Class load error: " + error.message;
+
 return;
+
 }
 
-classes=data||[];
 
-const select=document.getElementById("classId");
+classes = data || [];
+
+
+select.innerHTML =
+'<option value="">শ্রেণি নির্বাচন করুন</option>';
+
 
 classes.forEach(c=>{
-const option=document.createElement("option");
-option.value=c.id;
-option.textContent=c.name;
+
+const option =
+document.createElement("option");
+
+option.value = c.id;
+
+option.textContent = c.name;
+
 select.appendChild(option);
+
 });
+
 }
+
+
+// ===============================
+// LOAD STUDENTS
+// ===============================
 
 async function loadStudents(){
 
-const {data,error}=await db
+const tbody =
+document.getElementById("studentList");
+
+
+tbody.innerHTML =
+`<tr>
+<td colspan="7" class="loading">
+Loading...
+</td>
+</tr>`;
+
+
+const {data,error} = await db
 .from("students")
-.select("*, classes(name)")
+.select(`
+id,
+student_id,
+name,
+father_name,
+mother_name,
+phone,
+class_id,
+admission_date,
+address,
+classes(name)
+`)
 .order("created_at",{ascending:false});
 
+
 if(error){
-document.getElementById("studentList").innerHTML=
-`<tr><td colspan="7">${error.message}</td></tr>`;
+
+tbody.innerHTML =
+`<tr>
+<td colspan="7">
+❌ ${escapeHtml(error.message)}
+</td>
+</tr>`;
+
 return;
+
 }
 
-students=data||[];
+
+students = data || [];
+
 render(students);
+
 }
+
+
+// ===============================
+// RENDER
+// ===============================
 
 function render(list){
 
-const tbody=document.getElementById("studentList");
+const tbody =
+document.getElementById("studentList");
+
 
 if(!list.length){
-tbody.innerHTML=
-'<tr><td colspan="7" style="text-align:center">কোনো Student পাওয়া যায়নি</td></tr>';
-return;
-}
 
-tbody.innerHTML=list.map(s=>`
-<tr>
-<td>${escapeHtml(s.student_id)}</td>
-<td>${escapeHtml(s.name)}</td>
-<td>${escapeHtml(s.father_name||"-")}</td>
-<td>${escapeHtml(s.phone||"-")}</td>
-<td>${escapeHtml(s.classes?.name||"-")}</td>
-<td>${s.admission_date||"-"}</td>
-<td>
-<button class="action" onclick="editStudent('${s.id}')">Edit</button>
-<button class="action delete" onclick="deleteStudent('${s.id}')">Delete</button>
+tbody.innerHTML =
+`<tr>
+<td colspan="7" style="text-align:center">
+কোনো Student পাওয়া যায়নি
 </td>
-</tr>
-`).join("");
+</tr>`;
+
+return;
+
 }
 
-document.getElementById("studentForm").addEventListener(
-"submit",async function(e){
+
+tbody.innerHTML =
+list.map(s=>`
+
+<tr>
+
+<td>
+${escapeHtml(s.student_id || "-")}
+</td>
+
+<td>
+${escapeHtml(s.name || "-")}
+</td>
+
+<td>
+${escapeHtml(s.father_name || "-")}
+</td>
+
+<td>
+${escapeHtml(s.phone || "-")}
+</td>
+
+<td>
+${escapeHtml(s.classes?.name || "-")}
+</td>
+
+<td>
+${escapeHtml(s.admission_date || "-")}
+</td>
+
+<td>
+
+<button
+class="action"
+onclick="editStudent('${s.id}')">
+Edit
+</button>
+
+<button
+class="action delete"
+onclick="deleteStudent('${s.id}')">
+Delete
+</button>
+
+</td>
+
+</tr>
+
+`).join("");
+
+}
+
+
+// ===============================
+// ADD / UPDATE STUDENT
+// ===============================
+
+document
+.getElementById("studentForm")
+.addEventListener("submit", async function(e){
 
 e.preventDefault();
 
-const editId=document.getElementById("editId").value;
 
-const student={
-student_id:document.getElementById("studentId").value.trim(),
-name:document.getElementById("name").value.trim(),
-father_name:document.getElementById("father").value.trim(),
-mother_name:document.getElementById("mother").value.trim(),
-phone:document.getElementById("phone").value.trim(),
-class_id:document.getElementById("classId").value,
-admission_date:document.getElementById("admissionDate").value||null,
-address:document.getElementById("address").value.trim()
+const editId =
+document.getElementById("editId").value;
+
+
+const student = {
+
+student_id:
+document.getElementById("studentId")
+.value.trim(),
+
+name:
+document.getElementById("name")
+.value.trim(),
+
+father_name:
+document.getElementById("father")
+.value.trim(),
+
+mother_name:
+document.getElementById("mother")
+.value.trim(),
+
+phone:
+document.getElementById("phone")
+.value.trim(),
+
+class_id:
+document.getElementById("classId")
+.value,
+
+admission_date:
+document.getElementById("admissionDate")
+.value || null,
+
+address:
+document.getElementById("address")
+.value.trim()
+
 };
 
-const msg=document.getElementById("msg");
-msg.textContent="Saving...";
+
+const msg =
+document.getElementById("msg");
+
+const saveBtn =
+document.getElementById("saveBtn");
+
+
+msg.textContent = "Saving...";
+
+saveBtn.disabled = true;
+
+
+try{
 
 let result;
 
+
 if(editId){
-result=await db.from("students")
+
+// UPDATE
+
+result =
+await db
+.from("students")
 .update(student)
-.eq("id",editId);
+.eq("id",editId)
+.select(`
+id,
+student_id,
+name,
+father_name,
+mother_name,
+phone,
+class_id,
+admission_date,
+address,
+classes(name)
+`)
+.single();
+
+
 }else{
-result=await db.from("students")
-.insert(student);
+
+// INSERT
+
+result =
+await db
+.from("students")
+.insert(student)
+.select(`
+id,
+student_id,
+name,
+father_name,
+mother_name,
+phone,
+class_id,
+admission_date,
+address,
+classes(name)
+`)
+.single();
+
 }
+
 
 if(result.error){
-msg.textContent="❌ "+result.error.message;
+
+msg.textContent =
+"❌ " + result.error.message;
+
 return;
+
 }
 
-msg.textContent="✅ Saved successfully";
+
+// ===============================
+// LOCAL UPDATE
+// আবার পুরো database load হবে না
+// ===============================
+
+if(editId){
+
+const index =
+students.findIndex(
+x => String(x.id) === String(editId)
+);
+
+
+if(index !== -1){
+
+students[index] =
+result.data;
+
+}
+
+}else{
+
+students.unshift(
+result.data
+);
+
+}
+
+
+render(students);
+
+
+msg.textContent =
+"✅ Saved successfully";
+
 
 resetForm();
-await loadStudents();
+
+
+}catch(error){
+
+msg.textContent =
+"❌ " + error.message;
+
+}finally{
+
+saveBtn.disabled = false;
+
+}
+
 });
+
+
+// ===============================
+// EDIT
+// ===============================
 
 function editStudent(id){
 
-const s=students.find(x=>x.id===id);
-if(!s)return;
+const student =
+students.find(
+x => String(x.id) === String(id)
+);
 
-document.getElementById("editId").value=s.id;
-document.getElementById("studentId").value=s.student_id;
-document.getElementById("name").value=s.name;
-document.getElementById("father").value=s.father_name||"";
-document.getElementById("mother").value=s.mother_name||"";
-document.getElementById("phone").value=s.phone||"";
-document.getElementById("classId").value=s.class_id||"";
-document.getElementById("admissionDate").value=s.admission_date||"";
-document.getElementById("address").value=s.address||"";
 
-document.getElementById("formTitle").textContent="✏️ Edit Student";
-document.getElementById("cancelBtn").style.display="inline-block";
+if(!student)return;
 
-window.scrollTo({top:0,behavior:"smooth"});
+
+document.getElementById("editId").value =
+student.id;
+
+document.getElementById("studentId").value =
+student.student_id || "";
+
+document.getElementById("name").value =
+student.name || "";
+
+document.getElementById("father").value =
+student.father_name || "";
+
+document.getElementById("mother").value =
+student.mother_name || "";
+
+document.getElementById("phone").value =
+student.phone || "";
+
+document.getElementById("classId").value =
+student.class_id || "";
+
+document.getElementById("admissionDate").value =
+student.admission_date || "";
+
+document.getElementById("address").value =
+student.address || "";
+
+
+document.getElementById("formTitle").textContent =
+"✏️ Edit Student";
+
+
+document.getElementById("saveBtn").textContent =
+"💾 Update Student";
+
+
+document.getElementById("cancelBtn").style.display =
+"inline-block";
+
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
 }
+
+
+// ===============================
+// DELETE
+// ===============================
 
 async function deleteStudent(id){
 
-if(!confirm("এই Student-কে Delete করতে চান?"))return;
+if(!confirm(
+"এই Student-কে Delete করতে চান?"
+)){
 
-const {error}=await db
+return;
+
+}
+
+
+try{
+
+const {error} =
+await db
 .from("students")
 .delete()
 .eq("id",id);
 
+
 if(error){
+
 alert(error.message);
+
 return;
+
 }
 
-await loadStudents();
+
+// local list থেকে remove
+students =
+students.filter(
+s => String(s.id) !== String(id)
+);
+
+
+render(students);
+
+
+}catch(error){
+
+alert(error.message);
+
 }
+
+}
+
+
+// ===============================
+// RESET FORM
+// ===============================
 
 function resetForm(){
 
-document.getElementById("studentForm").reset();
-document.getElementById("editId").value="";
-document.getElementById("formTitle").textContent="➕ Add Student";
-document.getElementById("cancelBtn").style.display="none";
+document
+.getElementById("studentForm")
+.reset();
+
+
+document.getElementById("editId").value =
+"";
+
+
+document.getElementById("formTitle").textContent =
+"➕ Add Student";
+
+
+document.getElementById("saveBtn").textContent =
+"💾 Save Student";
+
+
+document.getElementById("cancelBtn").style.display =
+"none";
+
 }
 
-document.getElementById("cancelBtn").onclick=resetForm;
 
-document.getElementById("search").addEventListener(
-"input",function(){
+document
+.getElementById("cancelBtn")
+.onclick = resetForm;
 
-const q=this.value.toLowerCase().trim();
 
-const filtered=students.filter(s=>
-(s.student_id||"").toLowerCase().includes(q)||
-(s.name||"").toLowerCase().includes(q)
+// ===============================
+// SEARCH
+// ===============================
+
+document
+.getElementById("search")
+.addEventListener(
+"input",
+function(){
+
+const q =
+this.value
+.toLowerCase()
+.trim();
+
+
+const filtered =
+students.filter(s =>
+
+(s.student_id || "")
+.toLowerCase()
+.includes(q)
+
+||
+
+(s.name || "")
+.toLowerCase()
+.includes(q)
+
 );
 
+
 render(filtered);
+
 });
 
+
+// ===============================
+// SECURITY
+// ===============================
+
 function escapeHtml(value){
+
 return String(value)
+
 .replaceAll("&","&amp;")
+
 .replaceAll("<","&lt;")
+
 .replaceAll(">","&gt;")
+
 .replaceAll('"',"&quot;")
+
 .replaceAll("'","&#039;");
+
 }
 
+
+// START
 start();
+
 </script>
 
 </body>
