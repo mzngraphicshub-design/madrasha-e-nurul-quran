@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Attendance View</title>
+<title>Attendance Report</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;font-family:Arial,sans-serif;background:#f4f7f6;color:#222}
@@ -12,7 +12,10 @@ body{margin:0;font-family:Arial,sans-serif;background:#f4f7f6;color:#222}
 .top a{color:#fff;text-decoration:none}
 .container{max-width:1100px;margin:25px auto;padding:0 15px}
 .box{background:#fff;padding:22px;border-radius:12px;box-shadow:0 2px 10px #0001;margin-bottom:20px}
-.filters{display:grid;grid-template-columns:1fr 1fr 150px;gap:14px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.tab{background:#ddd;color:#222}
+.tab.active{background:#087f5b;color:#fff}
+.filters{display:grid;grid-template-columns:1fr 1fr 130px;gap:14px}
 label{font-weight:bold;font-size:14px}
 input,select{width:100%;padding:11px;margin-top:6px;border:1px solid #ddd;border-radius:7px}
 button{border:0;padding:11px 17px;border-radius:7px;background:#087f5b;color:#fff;font-weight:bold;cursor:pointer}
@@ -22,18 +25,19 @@ th,td{padding:11px 8px;border-bottom:1px solid #ddd;text-align:left}
 th{background:#075c43;color:#fff}
 .present{color:#087f5b;font-weight:bold}
 .absent{color:#c62828;font-weight:bold}
-.summary{display:flex;gap:15px;margin-top:18px;flex-wrap:wrap}
-.card{padding:12px 18px;border-radius:8px;background:#eee;font-weight:bold}
+.summary{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+.card{padding:12px 18px;background:#eee;border-radius:8px;font-weight:bold}
 .table-wrap{overflow:auto}
 #msg{margin-top:12px}
-@media(max-width:700px){
-.filters{grid-template-columns:1fr}
-table{min-width:600px}
-}
+.report{display:none}
+.report.active{display:block}
+@media(max-width:700px){.filters{grid-template-columns:1fr}}
 @media print{
-.top,.filters,.no-print{display:none!important}
+.top,.tabs,.filters,.no-print{display:none!important}
 body{background:#fff}
 .box{box-shadow:none}
+.report{display:none!important}
+.report.active{display:block!important}
 }
 </style>
 </head>
@@ -41,53 +45,106 @@ body{background:#fff}
 <body>
 
 <header class="top">
-<h2>📋 Attendance Report</h2>
+<h2>📊 Attendance Report</h2>
 <a href="dashboard.html">← Dashboard</a>
 </header>
 
 <div class="container">
 
-<div class="box">
+<div class="box no-print">
 
-<div class="filters">
+<div class="tabs">
+<button class="tab active" onclick="switchTab('student',this)">
+👨‍🎓 Student
+</button>
+
+<button class="tab" onclick="switchTab('teacher',this)">
+👨‍🏫 Teacher
+</button>
+
+<button class="tab" onclick="switchTab('employee',this)">
+👨‍💼 Employee
+</button>
+</div>
+
+<!-- STUDENT FILTER -->
+<div id="studentFilters" class="filters">
 
 <div>
 <label>Date</label>
-<input type="date" id="date">
+<input type="date" id="studentDate">
 </div>
 
 <div>
 <label>Class</label>
-<select id="classId">
+<select id="studentClass">
 <option value="">সব Class</option>
 </select>
 </div>
 
 <div style="align-self:end">
-<button onclick="loadAttendance()">View</button>
+<button onclick="loadStudentAttendance()">View</button>
 </div>
 
 </div>
 
-<div id="msg"></div>
+<!-- TEACHER FILTER -->
+<div id="teacherFilters" class="filters" style="display:none">
+
+<div>
+<label>Date</label>
+<input type="date" id="teacherDate">
+</div>
+
+<div>
+<label>Teacher</label>
+<select id="teacherSelect">
+<option value="">সব Teacher</option>
+</select>
+</div>
+
+<div style="align-self:end">
+<button onclick="loadTeacherAttendance()">View</button>
+</div>
 
 </div>
 
-<div class="box">
+<!-- EMPLOYEE FILTER -->
+<div id="employeeFilters" class="filters" style="display:none">
 
-<div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
-<h3>📊 Attendance Report</h3>
-<button class="print no-print" onclick="window.print()">🖨️ Print</button>
+<div>
+<label>Date</label>
+<input type="date" id="employeeDate">
 </div>
+
+<div>
+<label>Employee</label>
+<select id="employeeSelect">
+<option value="">সব Employee</option>
+</select>
+</div>
+
+<div style="align-self:end">
+<button onclick="loadEmployeeAttendance()">View</button>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- STUDENT REPORT -->
+<div id="studentReport" class="box report active">
+
+<h3>👨‍🎓 Student Attendance</h3>
 
 <div class="summary">
-<div class="card">Total: <span id="total">0</span></div>
-<div class="card">Present: <span id="present">0</span></div>
-<div class="card">Absent: <span id="absent">0</span></div>
+<div class="card">Total: <span id="studentTotal">0</span></div>
+<div class="card">Present: <span id="studentPresent">0</span></div>
+<div class="card">Absent: <span id="studentAbsent">0</span></div>
 </div>
 
 <div class="table-wrap">
-
 <table>
 <thead>
 <tr>
@@ -98,26 +155,95 @@ body{background:#fff}
 <th>Attendance</th>
 </tr>
 </thead>
-
-<tbody id="list">
+<tbody id="studentList">
 <tr>
-<td colspan="5" style="text-align:center">
-Date নির্বাচন করে View চাপুন
-</td>
+<td colspan="5">Date নির্বাচন করে View চাপুন</td>
 </tr>
 </tbody>
 </table>
-
-</div>
 </div>
 
 </div>
+
+
+<!-- TEACHER REPORT -->
+<div id="teacherReport" class="box report">
+
+<h3>👨‍🏫 Teacher Attendance</h3>
+
+<div class="summary">
+<div class="card">Total: <span id="teacherTotal">0</span></div>
+<div class="card">Present: <span id="teacherPresent">0</span></div>
+<div class="card">Absent: <span id="teacherAbsent">0</span></div>
+</div>
+
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>ক্রমিক</th>
+<th>Teacher Name</th>
+<th>Designation</th>
+<th>Attendance</th>
+</tr>
+</thead>
+<tbody id="teacherList">
+<tr>
+<td colspan="4">Date নির্বাচন করে View চাপুন</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+
+
+<!-- EMPLOYEE REPORT -->
+<div id="employeeReport" class="box report">
+
+<h3>👨‍💼 Employee Attendance</h3>
+
+<div class="summary">
+<div class="card">Total: <span id="employeeTotal">0</span></div>
+<div class="card">Present: <span id="employeePresent">0</span></div>
+<div class="card">Absent: <span id="employeeAbsent">0</span></div>
+</div>
+
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>ক্রমিক</th>
+<th>Employee ID</th>
+<th>Name</th>
+<th>Designation</th>
+<th>Attendance</th>
+</tr>
+</thead>
+<tbody id="employeeList">
+<tr>
+<td colspan="5">Date নির্বাচন করে View চাপুন</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+
+<div class="box no-print">
+<button class="print" onclick="window.print()">🖨️ Print Current Report</button>
+<div id="msg"></div>
+</div>
+
+</div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 
 const SUPABASE_URL="https://qavublwhqiqsgpcmfyft.supabase.co";
+
 const SUPABASE_KEY="sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
 
 const db=window.supabase.createClient(
@@ -125,53 +251,148 @@ SUPABASE_URL,
 SUPABASE_KEY
 );
 
-document.getElementById("date").value=
-new Date().toISOString().split("T")[0];
+
+let currentTab="student";
+
+
+function today(){
+
+return new Date().toISOString().split("T")[0];
+
+}
+
+
+document.getElementById("studentDate").value=today();
+document.getElementById("teacherDate").value=today();
+document.getElementById("employeeDate").value=today();
+
 
 async function start(){
 
 const {data:{session}}=await db.auth.getSession();
 
 if(!session){
+
 location.href="admin.html";
 return;
+
 }
+
+
+await loadClasses();
+await loadTeachers();
+await loadEmployees();
+
+}
+
+
+async function loadClasses(){
 
 const {data,error}=await db
 .from("classes")
-.select("*")
+.select("id,name")
 .order("id");
 
-if(error){
-document.getElementById("msg").textContent="❌ "+error.message;
-return;
-}
+if(error)return;
 
-const select=document.getElementById("classId");
+const select=document.getElementById("studentClass");
 
 (data||[]).forEach(c=>{
+
 select.innerHTML+=
-`<option value="${c.id}">${escapeHtml(c.name)}</option>`;
+`<option value="${c.id}">
+${escapeHtml(c.name)}
+</option>`;
+
 });
 
-await loadAttendance();
 }
 
-async function loadAttendance(){
 
-const date=document.getElementById("date").value;
-const classId=document.getElementById("classId").value;
+async function loadTeachers(){
 
-if(!date){
-alert("Date নির্বাচন করুন");
-return;
+const {data,error}=await db
+.from("teachers")
+.select("id,name,designation")
+.order("name");
+
+if(error)return;
+
+const select=document.getElementById("teacherSelect");
+
+(data||[]).forEach(t=>{
+
+select.innerHTML+=
+`<option value="${t.id}">
+${escapeHtml(t.name)}
+</option>`;
+
+});
+
 }
+
+
+async function loadEmployees(){
+
+const {data,error}=await db
+.from("employees")
+.select("id,name,employee_id,designation")
+.order("name");
+
+if(error)return;
+
+const select=document.getElementById("employeeSelect");
+
+(data||[]).forEach(e=>{
+
+select.innerHTML+=
+`<option value="${e.id}">
+${escapeHtml(e.name)}
+</option>`;
+
+});
+
+}
+
+
+function switchTab(type,button){
+
+currentTab=type;
+
+document.querySelectorAll(".tab")
+.forEach(x=>x.classList.remove("active"));
+
+button.classList.add("active");
+
+
+document.getElementById("studentFilters").style.display=
+type==="student"?"grid":"none";
+
+document.getElementById("teacherFilters").style.display=
+type==="teacher"?"grid":"none";
+
+document.getElementById("employeeFilters").style.display=
+type==="employee"?"grid":"none";
+
+
+document.querySelectorAll(".report")
+.forEach(x=>x.classList.remove("active"));
+
+document.getElementById(type+"Report")
+.classList.add("active");
+
+}
+
+
+async function loadStudentAttendance(){
+
+const date=document.getElementById("studentDate").value;
+const classId=document.getElementById("studentClass").value;
 
 let query=db
 .from("student_attendance")
 .select(`
 id,
-attendance_date,
 status,
 students(
 student_id,
@@ -183,79 +404,238 @@ classes(name)
 .eq("attendance_date",date)
 .order("id");
 
-if(classId){
-
-query=query.eq("students.class_id",classId);
-
-}
 
 const {data,error}=await query;
 
 if(error){
-document.getElementById("msg").textContent=
-"❌ "+error.message;
+
+showError(error.message);
 return;
+
 }
+
 
 let rows=data||[];
 
 if(classId){
-rows=rows.filter(x=>String(x.students?.class_id)===String(classId));
+
+rows=rows.filter(x=>
+String(x.students?.class_id)===String(classId)
+);
+
 }
+
 
 const total=rows.length;
 
-const present=rows.filter(
-x=>x.status==="present"
-).length;
+const present=rows.filter(x=>x.status==="present").length;
 
-const absent=rows.filter(
-x=>x.status==="absent"
-).length;
+const absent=rows.filter(x=>x.status==="absent").length;
 
-document.getElementById("total").textContent=total;
-document.getElementById("present").textContent=present;
-document.getElementById("absent").textContent=absent;
 
-const tbody=document.getElementById("list");
+document.getElementById("studentTotal").textContent=total;
+document.getElementById("studentPresent").textContent=present;
+document.getElementById("studentAbsent").textContent=absent;
 
-if(!rows.length){
 
-tbody.innerHTML=`
+document.getElementById("studentList").innerHTML=
+
+rows.length ?
+
+rows.map((r,i)=>`
+
 <tr>
+<td>${i+1}</td>
+<td>${escapeHtml(r.students?.student_id||"-")}</td>
+<td>${escapeHtml(r.students?.name||"-")}</td>
+<td>${escapeHtml(r.students?.classes?.name||"-")}</td>
+<td class="${r.status==="present"?"present":"absent"}">
+${r.status==="present"?"✅ উপস্থিত":"❌ অনুপস্থিত"}
+</td>
+</tr>
+
+`).join("")
+
+:
+
+`<tr>
 <td colspan="5" style="text-align:center">
 এই তারিখে Attendance পাওয়া যায়নি
 </td>
 </tr>`;
 
-return;
 }
 
-tbody.innerHTML=rows.map((r,i)=>`
+
+async function loadTeacherAttendance(){
+
+const date=document.getElementById("teacherDate").value;
+const teacherId=document.getElementById("teacherSelect").value;
+
+let query=db
+.from("teacher_attendance")
+.select(`
+id,
+status,
+teachers(
+name,
+designation
+)
+`)
+.eq("attendance_date",date)
+.order("id");
+
+
+const {data,error}=await query;
+
+if(error){
+
+showError(error.message);
+return;
+
+}
+
+
+let rows=data||[];
+
+if(teacherId){
+
+rows=rows.filter(x=>
+String(x.teachers?.id)===String(teacherId)
+);
+
+}
+
+
+const total=rows.length;
+
+const present=rows.filter(x=>x.status==="present").length;
+
+const absent=rows.filter(x=>x.status==="absent").length;
+
+
+document.getElementById("teacherTotal").textContent=total;
+document.getElementById("teacherPresent").textContent=present;
+document.getElementById("teacherAbsent").textContent=absent;
+
+
+document.getElementById("teacherList").innerHTML=
+
+rows.length ?
+
+rows.map((r,i)=>`
 
 <tr>
-
 <td>${i+1}</td>
-
-<td>${escapeHtml(r.students?.student_id||"-")}</td>
-
-<td>${escapeHtml(r.students?.name||"-")}</td>
-
-<td>${escapeHtml(r.students?.classes?.name||"-")}</td>
-
+<td>${escapeHtml(r.teachers?.name||"-")}</td>
+<td>${escapeHtml(r.teachers?.designation||"-")}</td>
 <td class="${r.status==="present"?"present":"absent"}">
-
 ${r.status==="present"?"✅ উপস্থিত":"❌ অনুপস্থিত"}
-
 </td>
-
 </tr>
 
-`).join("");
+`).join("")
+
+:
+
+`<tr>
+<td colspan="4" style="text-align:center">
+এই তারিখে Attendance পাওয়া যায়নি
+</td>
+</tr>`;
+
+}
+
+
+async function loadEmployeeAttendance(){
+
+const date=document.getElementById("employeeDate").value;
+const employeeId=document.getElementById("employeeSelect").value;
+
+let query=db
+.from("employee_attendance")
+.select(`
+id,
+status,
+employees(
+name,
+employee_id,
+designation
+)
+`)
+.eq("attendance_date",date)
+.order("id");
+
+
+const {data,error}=await query;
+
+if(error){
+
+showError(error.message);
+return;
+
+}
+
+
+let rows=data||[];
+
+if(employeeId){
+
+rows=rows.filter(x=>
+String(x.employees?.id)===String(employeeId)
+);
+
+}
+
+
+const total=rows.length;
+
+const present=rows.filter(x=>x.status==="present").length;
+
+const absent=rows.filter(x=>x.status==="absent").length;
+
+
+document.getElementById("employeeTotal").textContent=total;
+document.getElementById("employeePresent").textContent=present;
+document.getElementById("employeeAbsent").textContent=absent;
+
+
+document.getElementById("employeeList").innerHTML=
+
+rows.length ?
+
+rows.map((r,i)=>`
+
+<tr>
+<td>${i+1}</td>
+<td>${escapeHtml(r.employees?.employee_id||"-")}</td>
+<td>${escapeHtml(r.employees?.name||"-")}</td>
+<td>${escapeHtml(r.employees?.designation||"-")}</td>
+<td class="${r.status==="present"?"present":"absent"}">
+${r.status==="present"?"✅ উপস্থিত":"❌ অনুপস্থিত"}
+</td>
+</tr>
+
+`).join("")
+
+:
+
+`<tr>
+<td colspan="5" style="text-align:center">
+এই তারিখে Attendance পাওয়া যায়নি
+</td>
+</tr>`;
+
+}
+
+
+function showError(error){
 
 document.getElementById("msg").textContent=
-"✅ Attendance loaded";
+"❌ "+error;
+
 }
+
 
 function escapeHtml(value){
 
@@ -267,6 +647,7 @@ return String(value)
 .replaceAll("'","&#039;");
 
 }
+
 
 start();
 
