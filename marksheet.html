@@ -1,1 +1,271 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Marksheet | মাদরাসায়ে নূরুল কুরআন</title>
 
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f4f7f6;font-family:Arial,sans-serif;color:#222}
+.top{background:#075c43;color:#fff;padding:16px 22px;display:flex;justify-content:space-between;align-items:center}
+.top h2{margin:0;color:#fff;font-size:20px}
+.top a{color:#fff;text-decoration:none}
+.container{max-width:900px;margin:25px auto;padding:0 15px}
+.box{background:#fff;padding:22px;border-radius:12px;box-shadow:0 2px 10px #0001}
+select{width:100%;padding:12px;border:1px solid #ddd;border-radius:7px;margin:8px 0 15px;font-size:15px}
+button{border:0;padding:11px 18px;border-radius:7px;background:#087f5b;color:#fff;font-weight:bold;cursor:pointer}
+.print{background:#333;margin-left:7px}
+#msg{margin:12px 0}
+.sheet{margin-top:25px;border:1px solid #ddd;padding:30px;display:none}
+.header{text-align:center;border-bottom:2px solid #075c43;padding-bottom:15px}
+.header h1{margin:0;color:#075c43;font-size:25px}
+.header p{margin:5px 0}
+.info{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:20px 0}
+table{width:100%;border-collapse:collapse}
+th,td{border:1px solid #777;padding:10px;text-align:center}
+th{background:#075c43;color:#fff}
+.total{text-align:right;margin-top:15px;font-weight:bold}
+.sign{display:flex;justify-content:space-between;margin-top:70px}
+.sign div{border-top:1px solid #555;padding-top:7px;text-align:center;width:180px}
+
+@media(max-width:600px){
+.info{grid-template-columns:1fr}
+.sheet{padding:15px}
+}
+
+@media print{
+body{background:#fff}
+.top,.box{display:none!important}
+.container{margin:0;padding:0;max-width:none}
+.sheet{display:block!important;border:0;margin:0;padding:20px}
+}
+</style>
+</head>
+
+<body>
+
+<header class="top">
+<h2>📄 Marksheet</h2>
+<a href="dashboard.html">← Dashboard</a>
+</header>
+
+<div class="container">
+
+<div class="box">
+<label><b>Result নির্বাচন করুন</b></label>
+
+<select id="resultSelect">
+<option value="">-- Result নির্বাচন করুন --</option>
+</select>
+
+<button onclick="showMarksheet()">View Marksheet</button>
+<button class="print" onclick="window.print()">🖨️ Print</button>
+
+<div id="msg"></div>
+</div>
+
+<div id="sheet" class="sheet">
+
+<div class="header">
+<h1>মাদরাসায়ে নূরুল কুরআন</h1>
+<p>MARKSHEET / RESULT</p>
+</div>
+
+<div class="info">
+<div><b>Student ID:</b> <span id="sid"></span></div>
+<div><b>Student Name:</b> <span id="sname"></span></div>
+<div><b>Class:</b> <span id="className"></span></div>
+<div><b>Exam:</b> <span id="exam"></span></div>
+<div><b>Year:</b> <span id="year"></span></div>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>ক্রমিক</th>
+<th>Subject</th>
+<th>Marks</th>
+<th>Grade</th>
+</tr>
+</thead>
+<tbody id="subjects"></tbody>
+</table>
+
+<div class="total">
+Total Marks: <span id="total"></span><br>
+Average: <span id="average"></span><br>
+Result: <span id="resultStatus"></span>
+</div>
+
+<div class="sign">
+<div>Class Teacher</div>
+<div>Principal</div>
+</div>
+
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL="https://qavublwhqiqsgpcmfyft.supabase.co";
+const SUPABASE_KEY="sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
+
+const db=window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
+let results=[];
+
+async function start(){
+
+const {data:{session}}=await db.auth.getSession();
+
+if(!session){
+location.href="admin.html";
+return;
+}
+
+const {data,error}=await db
+.from("results")
+.select(`
+id,
+exam_name,
+exam_year,
+students(
+student_id,
+name,
+classes(name)
+)
+`)
+.order("created_at",{ascending:false});
+
+if(error){
+document.getElementById("msg").textContent="❌ "+error.message;
+return;
+}
+
+results=data||[];
+
+const select=document.getElementById("resultSelect");
+
+results.forEach(r=>{
+const option=document.createElement("option");
+option.value=r.id;
+option.textContent=
+(r.students?.student_id||"")+" - "+
+(r.students?.name||"")+" | "+
+(r.exam_name||"")+" | "+
+(r.exam_year||"");
+select.appendChild(option);
+});
+}
+
+async function showMarksheet(){
+
+const id=document.getElementById("resultSelect").value;
+
+if(!id){
+alert("একটি Result নির্বাচন করুন");
+return;
+}
+
+const result=results.find(r=>String(r.id)===String(id));
+
+const {data,error}=await db
+.from("result_subjects")
+.select("subject_name,marks")
+.eq("result_id",id)
+.order("created_at");
+
+if(error){
+alert(error.message);
+return;
+}
+
+document.getElementById("sid").textContent=
+result.students?.student_id||"-";
+
+document.getElementById("sname").textContent=
+result.students?.name||"-";
+
+document.getElementById("className").textContent=
+result.students?.classes?.name||"-";
+
+document.getElementById("exam").textContent=
+result.exam_name||"-";
+
+document.getElementById("year").textContent=
+result.exam_year||"-";
+
+let total=0;
+let failed=false;
+
+const tbody=document.getElementById("subjects");
+
+tbody.innerHTML=(data||[]).map((s,i)=>{
+
+const marks=Number(s.marks)||0;
+total+=marks;
+
+if(marks<33) failed=true;
+
+return `
+<tr>
+<td>${i+1}</td>
+<td>${escapeHtml(s.subject_name)}</td>
+<td>${marks}</td>
+<td>${grade(marks)}</td>
+</tr>
+`;
+
+}).join("");
+
+const count=(data||[]).length;
+const average=count?total/count:0;
+
+document.getElementById("total").textContent=
+total.toFixed(2);
+
+document.getElementById("average").textContent=
+average.toFixed(2);
+
+document.getElementById("resultStatus").textContent=
+failed?"Failed":"Passed";
+
+document.getElementById("sheet").style.display="block";
+
+window.scrollTo({
+top:document.getElementById("sheet").offsetTop,
+behavior:"smooth"
+});
+}
+
+function grade(mark){
+
+if(mark>=80)return"A+";
+if(mark>=70)return"A";
+if(mark>=60)return"A-";
+if(mark>=50)return"B";
+if(mark>=40)return"C";
+if(mark>=33)return"D";
+return"F";
+}
+
+function escapeHtml(value){
+
+return String(value)
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+}
+
+start();
+</script>
+
+</body>
+</html>
