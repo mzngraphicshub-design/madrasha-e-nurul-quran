@@ -1,457 +1,129 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard | মাদরাসায়ে নূরুল কুরআন</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f7f6;
-      color: #222;
-    }
-
-    .sidebar {
-      position: fixed;
-      left: 0;
-      top: 0;
-      width: 250px;
-      height: 100vh;
-      background: #075c43;
-      color: white;
-      overflow-y: auto;
-      z-index: 1000;
-    }
-
-    .brand {
-      padding: 22px 15px;
-      text-align: center;
-      border-bottom: 1px solid rgba(255,255,255,.15);
-    }
-
-    .brand .icon {
-      font-size: 35px;
-      margin-bottom: 8px;
-    }
-
-    .brand h2 {
-      font-size: 17px;
-    }
-
-    .brand p {
-      font-size: 11px;
-      opacity: .8;
-      margin-top: 5px;
-    }
-
-    .menu {
-      padding: 15px 10px;
-    }
-
-    .menu-title {
-      font-size: 11px;
-      opacity: .6;
-      margin: 15px 10px 8px;
-      text-transform: uppercase;
-    }
-
-    .menu a {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      color: white;
-      text-decoration: none;
-      padding: 12px 13px;
-      border-radius: 8px;
-      margin-bottom: 4px;
-      font-size: 14px;
-    }
-
-    .menu a:hover,
-    .menu a.active {
-      background: rgba(255,255,255,.13);
-    }
-
-    .main {
-      margin-left: 250px;
-      min-height: 100vh;
-    }
-
-    .topbar {
-      height: 70px;
-      background: white;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 25px;
-      box-shadow: 0 2px 10px rgba(0,0,0,.06);
-    }
-
-    .topbar h1 {
-      font-size: 20px;
-      color: #075c43;
-    }
-
-    .admin-info {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 14px;
-    }
-
-    .admin-avatar {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      background: #087f5b;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .content {
-      padding: 25px;
-    }
-
-    .welcome {
-      background: white;
-      padding: 22px;
-      border-radius: 12px;
-      margin-bottom: 22px;
-      box-shadow: 0 3px 12px rgba(0,0,0,.05);
-    }
-
-    .welcome h2 {
-      color: #075c43;
-      margin-bottom: 7px;
-    }
-
-    .welcome p {
-      color: #777;
-      font-size: 14px;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-    }
-
-    .card {
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 3px 12px rgba(0,0,0,.05);
-    }
-
-    .card-icon {
-      font-size: 28px;
-      margin-bottom: 12px;
-    }
-
-    .card h3 {
-      font-size: 14px;
-      color: #777;
-      font-weight: normal;
-    }
-
-    .card .number {
-      font-size: 27px;
-      font-weight: bold;
-      margin-top: 7px;
-      color: #075c43;
-    }
-
-    .section {
-      margin-top: 25px;
-      background: white;
-      padding: 22px;
-      border-radius: 12px;
-      box-shadow: 0 3px 12px rgba(0,0,0,.05);
-    }
-
-    .section h2 {
-      color: #075c43;
-      font-size: 18px;
-      margin-bottom: 18px;
-    }
-
-    .class-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-    }
-
-    .class-item {
-      padding: 18px;
-      border: 1px solid #eee;
-      border-radius: 9px;
-      text-align: center;
-      font-weight: bold;
-    }
-
-    .logout {
-      color: #ffdddd !important;
-      margin-top: 10px;
-    }
-
-    @media (max-width: 1000px) {
-      .cards {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .class-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 700px) {
-      .sidebar {
-        width: 220px;
-      }
-
-      .main {
-        margin-left: 220px;
-      }
-
-      .cards {
-        grid-template-columns: 1fr;
-      }
-
-      .class-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .topbar {
-        padding: 0 15px;
-      }
-
-      .content {
-        padding: 15px;
-      }
-    }
-
-    @media (max-width: 550px) {
-      .sidebar {
-        width: 65px;
-      }
-
-      .brand h2,
-      .brand p,
-      .menu a span,
-      .menu-title {
-        display: none;
-      }
-
-      .brand {
-        padding: 18px 5px;
-      }
-
-      .menu a {
-        justify-content: center;
-        font-size: 20px;
-      }
-
-      .main {
-        margin-left: 65px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dashboard | মাদরাসায়ে নূরুল কুরআন</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#f4f7f6}
+.sidebar{position:fixed;width:240px;height:100vh;background:#075c43;color:#fff;padding:20px 12px}
+.brand{text-align:center;padding:10px;border-bottom:1px solid #ffffff22;margin-bottom:15px}
+.brand b{font-size:16px}.brand small{display:block;margin-top:5px;opacity:.7}
+.menu a{display:block;color:#fff;text-decoration:none;padding:11px 12px;border-radius:7px;margin:3px 0;font-size:14px}
+.menu a:hover,.menu a.active{background:#ffffff18}
+.main{margin-left:240px}
+.top{height:65px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 25px;box-shadow:0 2px 8px #00000010}
+.top h2{color:#075c43;font-size:20px}
+.logout{border:0;background:#087f5b;color:#fff;padding:9px 15px;border-radius:7px}
+.content{padding:25px}
+.welcome,.card,.classes{background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 10px #00000008}
+.welcome{margin-bottom:20px}.welcome h2{color:#075c43;margin-bottom:7px}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.card .icon{font-size:27px}.card p{color:#777;margin-top:8px}.card b{font-size:25px;color:#075c43}
+.classes{margin-top:20px}.classes h3{color:#075c43;margin-bottom:15px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.item{padding:18px;text-align:center;border:1px solid #eee;border-radius:8px;font-weight:bold}
+@media(max-width:900px){.cards{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.sidebar{width:65px;padding:15px 7px}.brand b,.brand small,.menu span{display:none}.menu a{text-align:center;font-size:20px}.main{margin-left:65px}.cards,.grid{grid-template-columns:1fr}.content{padding:12px}}
+</style>
 </head>
-
 <body>
 
-  <aside class="sidebar">
+<aside class="sidebar">
+<div class="brand">🕌<br><b>মাদরাসায়ে নূরুল কুরআন</b><small>ADMIN PANEL</small></div>
 
-    <div class="brand">
-      <div class="icon">🕌</div>
-      <h2>মাদরাসায়ে নূরুল কুরআন</h2>
-      <p>ADMIN MANAGEMENT SYSTEM</p>
-    </div>
+<div class="menu">
+<a class="active" href="dashboard.html">📊 <span>Dashboard</span></a>
+<a href="#">👨‍🎓 <span>Students</span></a>
+<a href="#">👨‍🏫 <span>Teachers</span></a>
+<a href="#">👨‍💼 <span>Employees</span></a>
+<a href="#">📚 <span>Classes</span></a>
+<a href="#">📝 <span>Attendance</span></a>
+<a href="#">💰 <span>Fees</span></a>
+<a href="#">💵 <span>Income</span></a>
+<a href="#">💸 <span>Expense</span></a>
+<a href="#">💼 <span>Salary</span></a>
+<a href="#">📋 <span>Results</span></a>
+<a href="#">📢 <span>Notice</span></a>
+<a href="#">📊 <span>Reports</span></a>
+<a href="#">⚙️ <span>Settings</span></a>
+<a href="#" id="logout">🚪 <span>Logout</span></a>
+</div>
+</aside>
 
-    <div class="menu">
+<main class="main">
+<header class="top">
+<h2>Dashboard</h2>
+<button class="logout" id="logout2">Logout</button>
+</header>
 
-      <div class="menu-title">Main</div>
+<section class="content">
+<div class="welcome">
+<h2>আসসালামু আলাইকুম 👋</h2>
+<p>মাদরাসায়ে নূরুল কুরআন Administration Dashboard</p>
+</div>
 
-      <a href="dashboard.html" class="active">
-        📊 <span>Dashboard</span>
-      </a>
+<div class="cards">
+<div class="card"><div class="icon">👨‍🎓</div><p>Students</p><b id="students">0</b></div>
+<div class="card"><div class="icon">👨‍🏫</div><p>Teachers</p><b id="teachers">0</b></div>
+<div class="card"><div class="icon">👨‍💼</div><p>Employees</p><b id="employees">0</b></div>
+<div class="card"><div class="icon">📚</div><p>Classes</p><b id="classes">0</b></div>
+</div>
 
-      <div class="menu-title">Academic</div>
+<div class="classes">
+<h3>📚 বিভাগ ও শ্রেণি</h3>
+<div class="grid">
+<div class="item">নূরানী</div>
+<div class="item">১ম শ্রেণি</div>
+<div class="item">২য় শ্রেণি</div>
+<div class="item">৩য় শ্রেণি</div>
+<div class="item">৪র্থ শ্রেণি</div>
+<div class="item">৫ম শ্রেণি</div>
+<div class="item">নাজেরা</div>
+<div class="item">হিফাজ</div>
+</div>
+</div>
+</section>
+</main>
 
-      <a href="#"><span>👨‍🎓</span><span>Students</span></a>
-      <a href="#"><span>👨‍🏫</span><span>Teachers</span></a>
-      <a href="#"><span>👨‍💼</span><span>Employees</span></a>
-      <a href="#"><span>📚</span><span>Classes</span></a>
-      <a href="#"><span>📝</span><span>Attendance</span></a>
-      <a href="#"><span>📋</span><span>Results</span></a>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL="https://qavublwhqiqsgpcmfyt.supabase.co";
+const SUPABASE_KEY="sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
 
-      <div class="menu-title">Finance</div>
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
-      <a href="#"><span>💰</span><span>Fees</span></a>
-      <a href="#"><span>💵</span><span>Income</span></a>
-      <a href="#"><span>💸</span><span>Expense</span></a>
-      <a href="#"><span>💼</span><span>Salary</span></a>
+async function start(){
+const {data:{session}}=await db.auth.getSession();
 
-      <div class="menu-title">Management</div>
+if(!session){
+location.href="admin.html";
+return;
+}
 
-      <a href="#"><span>📢</span><span>Notice</span></a>
-      <a href="#"><span>📊</span><span>Reports</span></a>
-      <a href="#"><span>⚙️</span><span>Settings</span></a>
+const tables=[
+["students","students"],
+["teachers","teachers"],
+["employees","employees"],
+["classes","classes"]
+];
 
-      <a href="#" class="logout" id="logoutBtn">
-        🚪 <span>Logout</span>
-      </a>
+for(const [table,id] of tables){
+const {count}=await db.from(table).select("*",{count:"exact",head:true});
+document.getElementById(id).textContent=count||0;
+}
+}
 
-    </div>
+async function logout(){
+await db.auth.signOut();
+location.href="admin.html";
+}
 
-  </aside>
+document.getElementById("logout").onclick=e=>{e.preventDefault();logout()};
+document.getElementById("logout2").onclick=logout;
 
-  <main class="main">
-
-    <header class="topbar">
-      <h1>Dashboard</h1>
-
-      <div class="admin-info">
-        <div class="admin-avatar">A</div>
-        <span id="adminEmail">Admin</span>
-      </div>
-    </header>
-
-    <div class="content">
-
-      <div class="welcome">
-        <h2>আসসালামু আলাইকুম 👋</h2>
-        <p>মাদরাসায়ে নূরুল কুরআন Administration Dashboard-এ স্বাগতম।</p>
-      </div>
-
-      <div class="cards">
-
-        <div class="card">
-          <div class="card-icon">👨‍🎓</div>
-          <h3>Total Students</h3>
-          <div class="number" id="studentCount">0</div>
-        </div>
-
-        <div class="card">
-          <div class="card-icon">👨‍🏫</div>
-          <h3>Total Teachers</h3>
-          <div class="number" id="teacherCount">0</div>
-        </div>
-
-        <div class="card">
-          <div class="card-icon">👨‍💼</div>
-          <h3>Total Employees</h3>
-          <div class="number" id="employeeCount">0</div>
-        </div>
-
-        <div class="card">
-          <div class="card-icon">📚</div>
-          <h3>Total Classes</h3>
-          <div class="number" id="classCount">0</div>
-        </div>
-
-      </div>
-
-      <div class="section">
-
-        <h2>📚 বিভাগ ও শ্রেণি</h2>
-
-        <div class="class-grid">
-
-          <div class="class-item">নূরানী</div>
-          <div class="class-item">১ম শ্রেণি</div>
-          <div class="class-item">২য় শ্রেণি</div>
-          <div class="class-item">৩য় শ্রেণি</div>
-          <div class="class-item">৪র্থ শ্রেণি</div>
-          <div class="class-item">৫ম শ্রেণি</div>
-          <div class="class-item">নাজেরা</div>
-          <div class="class-item">হিফাজ</div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </main>
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-  <script>
-    const SUPABASE_URL = "https://qavublwhqiqsgpcmfyt.supabase.co";
-
-    // আপনার Publishable key এখানে বসান
-    const SUPABASE_KEY = "sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
-
-    const supabaseClient = window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_KEY
-    );
-
-    async function checkAdmin() {
-
-      const { data: { session } } =
-        await supabaseClient.auth.getSession();
-
-      if (!session) {
-        window.location.href = "admin.html";
-        return;
-      }
-
-      document.getElementById("adminEmail").textContent =
-        session.user.email || "Admin";
-
-      loadCounts();
-    }
-
-    async function loadCounts() {
-
-      const tables = [
-        ["students", "studentCount"],
-        ["teachers", "teacherCount"],
-        ["employees", "employeeCount"],
-        ["classes", "classCount"]
-      ];
-
-      for (const [table, elementId] of tables) {
-
-        const { count, error } =
-          await supabaseClient
-            .from(table)
-            .select("*", {
-              count: "exact",
-              head: true
-            });
-
-        if (!error) {
-          document.getElementById(elementId).textContent =
-            count || 0;
-        }
-      }
-    }
-
-    document
-      .getElementById("logoutBtn")
-      .addEventListener("click", async function(e) {
-
-        e.preventDefault();
-
-        await supabaseClient.auth.signOut();
-
-        window.location.href = "admin.html";
-      });
-
-    checkAdmin();
-  </script>
-
+start();
+</script>
 </body>
 </html>
