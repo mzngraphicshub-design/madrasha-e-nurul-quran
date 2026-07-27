@@ -1,1 +1,376 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Student Fees | মাদরাসায়ে নূরুল কুরআন</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f7f6;color:#222}
+.top{background:#075c43;color:#fff;padding:17px 22px;display:flex;justify-content:space-between;align-items:center}
+.top h2{margin:0;color:#fff;font-size:20px}.top a{color:#fff;text-decoration:none}
+.container{max-width:1100px;margin:25px auto;padding:0 15px}
+.box{background:#fff;padding:22px;border-radius:12px;box-shadow:0 2px 10px #0001;margin-bottom:20px}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.full{grid-column:1/-1}
+label{font-weight:bold;font-size:14px}
+input,select{width:100%;padding:11px;margin-top:6px;border:1px solid #ddd;border-radius:7px}
+button{border:0;padding:10px 16px;border-radius:7px;background:#087f5b;color:#fff;font-weight:bold;cursor:pointer}
+.cancel{background:#777;margin-left:7px}.delete{background:#c62828}.edit{background:#1565c0}
+.search{margin-bottom:15px}
+table{width:100%;border-collapse:collapse}
+th,td{padding:10px 8px;border-bottom:1px solid #ddd;text-align:left;font-size:14px}
+th{background:#075c43;color:#fff}
+.table-wrap{overflow:auto}
+#msg{margin-top:12px}
+.summary{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.card{background:#eee;padding:12px 18px;border-radius:8px;font-weight:bold}
+@media(max-width:650px){.form{grid-template-columns:1fr}.full{grid-column:auto}}
+</style>
+</head>
 
+<body>
+
+<header class="top">
+<h2>💰 Student Fees</h2>
+<a href="dashboard.html">← Dashboard</a>
+</header>
+
+<div class="container">
+
+<div class="box">
+<h3 id="formTitle">➕ Add Fee Payment</h3>
+
+<form id="feeForm">
+<input type="hidden" id="editId">
+
+<div>
+<label>Student *</label>
+<select id="studentId" required>
+<option value="">Student নির্বাচন করুন</option>
+</select>
+</div>
+
+<div>
+<label>Month *</label>
+<input type="month" id="feeMonth" required>
+</div>
+
+<div>
+<label>Fee Amount *</label>
+<input type="number" id="amount" min="0" step="0.01" required placeholder="যেমন: 1000">
+</div>
+
+<div>
+<label>Paid Amount *</label>
+<input type="number" id="paidAmount" min="0" step="0.01" required placeholder="যেমন: 1000">
+</div>
+
+<div>
+<label>Payment Date</label>
+<input type="date" id="paymentDate">
+</div>
+
+<div>
+<label>Payment Method</label>
+<select id="method">
+<option value="Cash">Cash</option>
+<option value="bKash">bKash</option>
+<option value="Nagad">Nagad</option>
+<option value="Bank">Bank</option>
+</select>
+</div>
+
+<div class="full">
+<button type="submit">💾 Save Payment</button>
+<button type="button" class="cancel" id="cancelBtn" style="display:none">Cancel</button>
+<div id="msg"></div>
+</div>
+</form>
+</div>
+
+<div class="box">
+<h3>💰 Fee Collection</h3>
+
+<div class="summary">
+<div class="card">Total Fee: <span id="totalFee">0</span></div>
+<div class="card">Paid: <span id="totalPaid">0</span></div>
+<div class="card">Due: <span id="totalDue">0</span></div>
+</div>
+
+<input class="search" id="search" placeholder="🔍 Student name / ID দিয়ে খুঁজুন...">
+
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Student</th>
+<th>Month</th>
+<th>Fee</th>
+<th>Paid</th>
+<th>Due</th>
+<th>Date</th>
+<th>Method</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody id="feeList">
+<tr><td colspan="8">Loading...</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL="https://qavublwhqiqsgpcmfyft.supabase.co";
+const SUPABASE_KEY="sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
+
+const db=window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
+let students=[];
+let fees=[];
+
+document.getElementById("paymentDate").value=
+new Date().toISOString().split("T")[0];
+
+async function start(){
+
+const {data:{session}}=await db.auth.getSession();
+
+if(!session){
+location.href="admin.html";
+return;
+}
+
+await loadStudents();
+await loadFees();
+}
+
+async function loadStudents(){
+
+const {data,error}=await db
+.from("students")
+.select("id,student_id,name")
+.order("name");
+
+if(error){
+alert(error.message);
+return;
+}
+
+students=data||[];
+
+const select=document.getElementById("studentId");
+
+students.forEach(s=>{
+select.innerHTML+=`
+<option value="${s.id}">
+${escapeHtml(s.student_id||"")} - ${escapeHtml(s.name)}
+</option>`;
+});
+}
+
+async function loadFees(){
+
+const {data,error}=await db
+.from("fees")
+.select(`
+id,
+student_id,
+fee_month,
+amount,
+paid_amount,
+payment_date,
+payment_method,
+students(student_id,name)
+`)
+.order("payment_date",{ascending:false});
+
+if(error){
+document.getElementById("feeList").innerHTML=
+`<tr><td colspan="8">❌ ${escapeHtml(error.message)}</td></tr>`;
+return;
+}
+
+fees=data||[];
+render(fees);
+}
+
+function render(list){
+
+let totalFee=0,totalPaid=0;
+
+list.forEach(f=>{
+totalFee+=Number(f.amount)||0;
+totalPaid+=Number(f.paid_amount)||0;
+});
+
+document.getElementById("totalFee").textContent=totalFee.toFixed(2);
+document.getElementById("totalPaid").textContent=totalPaid.toFixed(2);
+document.getElementById("totalDue").textContent=
+(totalFee-totalPaid).toFixed(2);
+
+const tbody=document.getElementById("feeList");
+
+if(!list.length){
+tbody.innerHTML=
+'<tr><td colspan="8" style="text-align:center">কোনো Fee record নেই</td></tr>';
+return;
+}
+
+tbody.innerHTML=list.map(f=>{
+const amount=Number(f.amount)||0;
+const paid=Number(f.paid_amount)||0;
+const due=amount-paid;
+
+return `
+<tr>
+<td>
+${escapeHtml(f.students?.student_id||"-")}
+-
+${escapeHtml(f.students?.name||"-")}
+</td>
+<td>${escapeHtml(f.fee_month||"-")}</td>
+<td>${amount.toFixed(2)}</td>
+<td>${paid.toFixed(2)}</td>
+<td>${due.toFixed(2)}</td>
+<td>${escapeHtml(f.payment_date||"-")}</td>
+<td>${escapeHtml(f.payment_method||"-")}</td>
+<td>
+<button class="edit" onclick="editFee('${f.id}')">Edit</button>
+<button class="delete" onclick="deleteFee('${f.id}')">Delete</button>
+</td>
+</tr>`;
+}).join("");
+}
+
+document.getElementById("feeForm").addEventListener(
+"submit",async function(e){
+
+e.preventDefault();
+
+const editId=document.getElementById("editId").value;
+
+const amount=Number(document.getElementById("amount").value);
+const paid=Number(document.getElementById("paidAmount").value);
+
+if(paid>amount){
+alert("Paid Amount Fee Amount-এর চেয়ে বেশি হতে পারবে না।");
+return;
+}
+
+const record={
+student_id:document.getElementById("studentId").value,
+fee_month:document.getElementById("feeMonth").value,
+amount:amount,
+paid_amount:paid,
+payment_date:document.getElementById("paymentDate").value||null,
+payment_method:document.getElementById("method").value
+};
+
+const msg=document.getElementById("msg");
+msg.textContent="Saving...";
+
+let result;
+
+if(editId){
+result=await db.from("fees")
+.update(record)
+.eq("id",editId);
+}else{
+result=await db.from("fees")
+.insert(record);
+}
+
+if(result.error){
+msg.textContent="❌ "+result.error.message;
+return;
+}
+
+msg.textContent="✅ Saved successfully";
+resetForm();
+await loadFees();
+});
+
+function editFee(id){
+
+const f=fees.find(x=>String(x.id)===String(id));
+if(!f)return;
+
+document.getElementById("editId").value=f.id;
+document.getElementById("studentId").value=f.student_id;
+document.getElementById("feeMonth").value=f.fee_month||"";
+document.getElementById("amount").value=f.amount||0;
+document.getElementById("paidAmount").value=f.paid_amount||0;
+document.getElementById("paymentDate").value=f.payment_date||"";
+document.getElementById("method").value=f.payment_method||"Cash";
+
+document.getElementById("formTitle").textContent="✏️ Edit Fee";
+document.getElementById("cancelBtn").style.display="inline-block";
+
+window.scrollTo({top:0,behavior:"smooth"});
+}
+
+async function deleteFee(id){
+
+if(!confirm("এই Fee record Delete করতে চান?"))return;
+
+const {error}=await db
+.from("fees")
+.delete()
+.eq("id",id);
+
+if(error){
+alert(error.message);
+return;
+}
+
+await loadFees();
+}
+
+function resetForm(){
+
+document.getElementById("feeForm").reset();
+document.getElementById("editId").value="";
+document.getElementById("paymentDate").value=
+new Date().toISOString().split("T")[0];
+document.getElementById("formTitle").textContent="➕ Add Fee Payment";
+document.getElementById("cancelBtn").style.display="none";
+}
+
+document.getElementById("cancelBtn").onclick=resetForm;
+
+document.getElementById("search").addEventListener(
+"input",function(){
+
+const q=this.value.toLowerCase().trim();
+
+const filtered=fees.filter(f=>
+(f.students?.name||"").toLowerCase().includes(q)||
+(f.students?.student_id||"").toLowerCase().includes(q)
+);
+
+render(filtered);
+});
+
+function escapeHtml(value){
+return String(value)
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+}
+
+start();
+</script>
+
+</body>
+</html>
