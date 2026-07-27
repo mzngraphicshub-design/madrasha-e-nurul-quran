@@ -1,1 +1,343 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Students | মাদরাসায়ে নূরুল কুরআন</title>
 
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#f4f7f6;color:#222}
+.top{background:#075c43;color:white;padding:18px 25px;display:flex;justify-content:space-between;align-items:center}
+.top a{color:white;text-decoration:none}
+.container{max-width:1200px;margin:25px auto;padding:0 15px}
+.box{background:white;padding:22px;border-radius:12px;box-shadow:0 2px 10px #0001;margin-bottom:20px}
+h2{color:#075c43;margin-bottom:18px}
+.form{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+label{font-weight:bold;font-size:14px}
+input,select,textarea{width:100%;padding:11px;margin-top:6px;border:1px solid #ddd;border-radius:7px;font-size:14px}
+textarea{resize:vertical}
+.full{grid-column:1/-1}
+button{border:0;border-radius:7px;padding:11px 18px;background:#087f5b;color:white;font-weight:bold;cursor:pointer}
+.cancel{background:#777;margin-left:8px}
+.search{margin-bottom:15px}
+table{width:100%;border-collapse:collapse}
+th,td{padding:12px 8px;border-bottom:1px solid #eee;text-align:left;font-size:14px}
+th{background:#075c43;color:white}
+.action{padding:7px 10px;font-size:12px;margin:2px}
+.delete{background:#c62828}
+#msg{margin-top:10px;font-size:14px}
+@media(max-width:700px){
+.form{grid-template-columns:1fr}
+.full{grid-column:auto}
+.table-wrap{overflow-x:auto}
+table{min-width:800px}
+}
+</style>
+</head>
+
+<body>
+
+<header class="top">
+<h2 style="color:white;margin:0">👨‍🎓 Student Management</h2>
+<a href="dashboard.html">← Dashboard</a>
+</header>
+
+<div class="container">
+
+<div class="box">
+<h2 id="formTitle">➕ Add Student</h2>
+
+<form id="studentForm">
+<input type="hidden" id="editId">
+
+<div>
+<label>Student ID *</label>
+<input id="studentId" required placeholder="যেমন: NQ-001">
+</div>
+
+<div>
+<label>Student Name *</label>
+<input id="name" required placeholder="শিক্ষার্থীর নাম">
+</div>
+
+<div>
+<label>Father's Name</label>
+<input id="father" placeholder="পিতার নাম">
+</div>
+
+<div>
+<label>Mother's Name</label>
+<input id="mother" placeholder="মাতার নাম">
+</div>
+
+<div>
+<label>Mobile</label>
+<input id="phone" type="tel" placeholder="মোবাইল নম্বর">
+</div>
+
+<div>
+<label>Class *</label>
+<select id="classId" required>
+<option value="">শ্রেণি নির্বাচন করুন</option>
+</select>
+</div>
+
+<div>
+<label>Admission Date</label>
+<input id="admissionDate" type="date">
+</div>
+
+<div class="full">
+<label>Address</label>
+<textarea id="address" rows="2" placeholder="ঠিকানা"></textarea>
+</div>
+
+<div class="full">
+<button type="submit">💾 Save Student</button>
+<button type="button" class="cancel" id="cancelBtn" style="display:none">Cancel</button>
+<div id="msg"></div>
+</div>
+
+</form>
+</div>
+
+<div class="box">
+<h2>👨‍🎓 Student List</h2>
+
+<input class="search" id="search" placeholder="🔍 ID বা নাম দিয়ে খুঁজুন...">
+
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>নাম</th>
+<th>পিতা</th>
+<th>মোবাইল</th>
+<th>শ্রেণি</th>
+<th>ভর্তি তারিখ</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody id="studentList">
+<tr><td colspan="7">Loading...</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL="https://qavublwhqiqsgpcmfyft.supabase.co";
+const SUPABASE_KEY="sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
+
+const db=window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
+let students=[];
+let classes=[];
+
+async function start(){
+
+const {data:{session}}=await db.auth.getSession();
+
+if(!session){
+location.href="admin.html";
+return;
+}
+
+await loadClasses();
+await loadStudents();
+}
+
+async function loadClasses(){
+
+const {data,error}=await db
+.from("classes")
+.select("id,name")
+.order("id");
+
+if(error){
+alert(error.message);
+return;
+}
+
+classes=data||[];
+
+const select=document.getElementById("classId");
+
+classes.forEach(c=>{
+const option=document.createElement("option");
+option.value=c.id;
+option.textContent=c.name;
+select.appendChild(option);
+});
+}
+
+async function loadStudents(){
+
+const {data,error}=await db
+.from("students")
+.select("*, classes(name)")
+.order("created_at",{ascending:false});
+
+if(error){
+document.getElementById("studentList").innerHTML=
+`<tr><td colspan="7">${error.message}</td></tr>`;
+return;
+}
+
+students=data||[];
+render(students);
+}
+
+function render(list){
+
+const tbody=document.getElementById("studentList");
+
+if(!list.length){
+tbody.innerHTML=
+'<tr><td colspan="7" style="text-align:center">কোনো Student পাওয়া যায়নি</td></tr>';
+return;
+}
+
+tbody.innerHTML=list.map(s=>`
+<tr>
+<td>${escapeHtml(s.student_id)}</td>
+<td>${escapeHtml(s.name)}</td>
+<td>${escapeHtml(s.father_name||"-")}</td>
+<td>${escapeHtml(s.phone||"-")}</td>
+<td>${escapeHtml(s.classes?.name||"-")}</td>
+<td>${s.admission_date||"-"}</td>
+<td>
+<button class="action" onclick="editStudent('${s.id}')">Edit</button>
+<button class="action delete" onclick="deleteStudent('${s.id}')">Delete</button>
+</td>
+</tr>
+`).join("");
+}
+
+document.getElementById("studentForm").addEventListener(
+"submit",async function(e){
+
+e.preventDefault();
+
+const editId=document.getElementById("editId").value;
+
+const student={
+student_id:document.getElementById("studentId").value.trim(),
+name:document.getElementById("name").value.trim(),
+father_name:document.getElementById("father").value.trim(),
+mother_name:document.getElementById("mother").value.trim(),
+phone:document.getElementById("phone").value.trim(),
+class_id:document.getElementById("classId").value,
+admission_date:document.getElementById("admissionDate").value||null,
+address:document.getElementById("address").value.trim()
+};
+
+const msg=document.getElementById("msg");
+msg.textContent="Saving...";
+
+let result;
+
+if(editId){
+result=await db.from("students")
+.update(student)
+.eq("id",editId);
+}else{
+result=await db.from("students")
+.insert(student);
+}
+
+if(result.error){
+msg.textContent="❌ "+result.error.message;
+return;
+}
+
+msg.textContent="✅ Saved successfully";
+
+resetForm();
+await loadStudents();
+});
+
+function editStudent(id){
+
+const s=students.find(x=>x.id===id);
+if(!s)return;
+
+document.getElementById("editId").value=s.id;
+document.getElementById("studentId").value=s.student_id;
+document.getElementById("name").value=s.name;
+document.getElementById("father").value=s.father_name||"";
+document.getElementById("mother").value=s.mother_name||"";
+document.getElementById("phone").value=s.phone||"";
+document.getElementById("classId").value=s.class_id||"";
+document.getElementById("admissionDate").value=s.admission_date||"";
+document.getElementById("address").value=s.address||"";
+
+document.getElementById("formTitle").textContent="✏️ Edit Student";
+document.getElementById("cancelBtn").style.display="inline-block";
+
+window.scrollTo({top:0,behavior:"smooth"});
+}
+
+async function deleteStudent(id){
+
+if(!confirm("এই Student-কে Delete করতে চান?"))return;
+
+const {error}=await db
+.from("students")
+.delete()
+.eq("id",id);
+
+if(error){
+alert(error.message);
+return;
+}
+
+await loadStudents();
+}
+
+function resetForm(){
+
+document.getElementById("studentForm").reset();
+document.getElementById("editId").value="";
+document.getElementById("formTitle").textContent="➕ Add Student";
+document.getElementById("cancelBtn").style.display="none";
+}
+
+document.getElementById("cancelBtn").onclick=resetForm;
+
+document.getElementById("search").addEventListener(
+"input",function(){
+
+const q=this.value.toLowerCase().trim();
+
+const filtered=students.filter(s=>
+(s.student_id||"").toLowerCase().includes(q)||
+(s.name||"").toLowerCase().includes(q)
+);
+
+render(filtered);
+});
+
+function escapeHtml(value){
+return String(value)
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+}
+
+start();
+</script>
+
+</body>
+</html>
