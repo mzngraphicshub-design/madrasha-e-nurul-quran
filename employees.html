@@ -1,1 +1,293 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Employees | মাদরাসায়ে নূরুল কুরআন</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f7f6;color:#222}
+.top{background:#075c43;color:#fff;padding:17px 22px;display:flex;justify-content:space-between;align-items:center}
+.top h2{margin:0;color:#fff;font-size:20px}
+.top a{color:#fff;text-decoration:none}
+.container{max-width:1100px;margin:25px auto;padding:0 15px}
+.box{background:#fff;padding:22px;border-radius:12px;box-shadow:0 2px 10px #0001;margin-bottom:20px}
+h3{color:#075c43;margin-bottom:18px}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.full{grid-column:1/-1}
+label{display:block;font-weight:bold;font-size:14px}
+input,textarea{width:100%;padding:11px;margin-top:6px;border:1px solid #ddd;border-radius:7px;font-size:14px}
+textarea{resize:vertical}
+button{border:0;border-radius:7px;padding:10px 16px;background:#087f5b;color:#fff;font-weight:bold;cursor:pointer}
+.cancel{background:#777;margin-left:7px}
+.delete{background:#c62828}
+.search{margin-bottom:15px}
+table{width:100%;border-collapse:collapse}
+th,td{padding:11px 8px;border-bottom:1px solid #eee;text-align:left;font-size:14px}
+th{background:#075c43;color:#fff}
+.action{padding:7px 10px;font-size:12px;margin:2px}
+#msg{margin-top:10px}
+.table-wrap{overflow-x:auto}
+@media(max-width:650px){
+.form{grid-template-columns:1fr}
+.full{grid-column:auto}
+table{min-width:700px}
+}
+</style>
+</head>
 
+<body>
+
+<header class="top">
+<h2>👨‍💼 Employee Management</h2>
+<a href="dashboard.html">← Dashboard</a>
+</header>
+
+<div class="container">
+
+<div class="box">
+<h3 id="formTitle">➕ Add Employee</h3>
+
+<form id="employeeForm">
+<input type="hidden" id="editId">
+
+<div>
+<label>Employee Name *</label>
+<input id="name" required placeholder="কর্মচারীর নাম">
+</div>
+
+<div>
+<label>Employee ID</label>
+<input id="employeeId" placeholder="যেমন: EMP-001">
+</div>
+
+<div>
+<label>Mobile</label>
+<input id="phone" type="tel" placeholder="মোবাইল নম্বর">
+</div>
+
+<div>
+<label>Designation</label>
+<input id="designation" placeholder="পদবি">
+</div>
+
+<div class="full">
+<label>Address</label>
+<textarea id="address" rows="2" placeholder="ঠিকানা"></textarea>
+</div>
+
+<div class="full">
+<button type="submit">💾 Save Employee</button>
+<button type="button" class="cancel" id="cancelBtn" style="display:none">Cancel</button>
+<div id="msg"></div>
+</div>
+
+</form>
+</div>
+
+<div class="box">
+<h3>👨‍💼 Employee List</h3>
+
+<input class="search" id="search" placeholder="🔍 নাম / ID / মোবাইল দিয়ে খুঁজুন...">
+
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Employee ID</th>
+<th>নাম</th>
+<th>মোবাইল</th>
+<th>পদবি</th>
+<th>ঠিকানা</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody id="employeeList">
+<tr><td colspan="6">Loading...</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL="https://qavublwhqiqsgpcmfyft.supabase.co";
+const SUPABASE_KEY="sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
+
+const db=window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
+let employees=[];
+
+async function start(){
+
+const {data:{session}}=await db.auth.getSession();
+
+if(!session){
+location.href="admin.html";
+return;
+}
+
+await loadEmployees();
+}
+
+async function loadEmployees(){
+
+const {data,error}=await db
+.from("employees")
+.select("*")
+.order("created_at",{ascending:false});
+
+if(error){
+document.getElementById("employeeList").innerHTML=
+`<tr><td colspan="6">❌ ${escapeHtml(error.message)}</td></tr>`;
+return;
+}
+
+employees=data||[];
+render(employees);
+}
+
+function render(list){
+
+const tbody=document.getElementById("employeeList");
+
+if(!list.length){
+tbody.innerHTML=
+'<tr><td colspan="6" style="text-align:center">কোনো Employee নেই</td></tr>';
+return;
+}
+
+tbody.innerHTML=list.map(e=>`
+<tr>
+<td>${escapeHtml(e.employee_id||"-")}</td>
+<td>${escapeHtml(e.name)}</td>
+<td>${escapeHtml(e.phone||"-")}</td>
+<td>${escapeHtml(e.designation||"-")}</td>
+<td>${escapeHtml(e.address||"-")}</td>
+<td>
+<button class="action" onclick="editEmployee('${e.id}')">Edit</button>
+<button class="action delete" onclick="deleteEmployee('${e.id}')">Delete</button>
+</td>
+</tr>
+`).join("");
+}
+
+document.getElementById("employeeForm").addEventListener(
+"submit",async function(e){
+
+e.preventDefault();
+
+const editId=document.getElementById("editId").value;
+
+const employee={
+employee_id:document.getElementById("employeeId").value.trim()||null,
+name:document.getElementById("name").value.trim(),
+phone:document.getElementById("phone").value.trim(),
+designation:document.getElementById("designation").value.trim(),
+address:document.getElementById("address").value.trim()
+};
+
+const msg=document.getElementById("msg");
+msg.textContent="Saving...";
+
+let result;
+
+if(editId){
+result=await db.from("employees")
+.update(employee)
+.eq("id",editId);
+}else{
+result=await db.from("employees")
+.insert(employee);
+}
+
+if(result.error){
+msg.textContent="❌ "+result.error.message;
+return;
+}
+
+msg.textContent="✅ Saved successfully";
+resetForm();
+await loadEmployees();
+});
+
+function editEmployee(id){
+
+const e=employees.find(x=>x.id===id);
+if(!e)return;
+
+document.getElementById("editId").value=e.id;
+document.getElementById("employeeId").value=e.employee_id||"";
+document.getElementById("name").value=e.name||"";
+document.getElementById("phone").value=e.phone||"";
+document.getElementById("designation").value=e.designation||"";
+document.getElementById("address").value=e.address||"";
+
+document.getElementById("formTitle").textContent="✏️ Edit Employee";
+document.getElementById("cancelBtn").style.display="inline-block";
+
+window.scrollTo({top:0,behavior:"smooth"});
+}
+
+async function deleteEmployee(id){
+
+if(!confirm("এই Employee-কে Delete করতে চান?"))return;
+
+const {error}=await db
+.from("employees")
+.delete()
+.eq("id",id);
+
+if(error){
+alert(error.message);
+return;
+}
+
+await loadEmployees();
+}
+
+function resetForm(){
+
+document.getElementById("employeeForm").reset();
+document.getElementById("editId").value="";
+document.getElementById("formTitle").textContent="➕ Add Employee";
+document.getElementById("cancelBtn").style.display="none";
+}
+
+document.getElementById("cancelBtn").onclick=resetForm;
+
+document.getElementById("search").addEventListener(
+"input",function(){
+
+const q=this.value.toLowerCase().trim();
+
+const filtered=employees.filter(e=>
+(e.name||"").toLowerCase().includes(q)||
+(e.employee_id||"").toLowerCase().includes(q)||
+(e.phone||"").toLowerCase().includes(q)
+);
+
+render(filtered);
+});
+
+function escapeHtml(value){
+return String(value)
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+}
+
+start();
+</script>
+
+</body>
+</html>
