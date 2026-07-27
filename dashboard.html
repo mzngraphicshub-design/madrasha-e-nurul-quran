@@ -1,1 +1,457 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | মাদরাসায়ে নূরুল কুরআন</title>
 
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f7f6;
+      color: #222;
+    }
+
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 250px;
+      height: 100vh;
+      background: #075c43;
+      color: white;
+      overflow-y: auto;
+      z-index: 1000;
+    }
+
+    .brand {
+      padding: 22px 15px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255,255,255,.15);
+    }
+
+    .brand .icon {
+      font-size: 35px;
+      margin-bottom: 8px;
+    }
+
+    .brand h2 {
+      font-size: 17px;
+    }
+
+    .brand p {
+      font-size: 11px;
+      opacity: .8;
+      margin-top: 5px;
+    }
+
+    .menu {
+      padding: 15px 10px;
+    }
+
+    .menu-title {
+      font-size: 11px;
+      opacity: .6;
+      margin: 15px 10px 8px;
+      text-transform: uppercase;
+    }
+
+    .menu a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: white;
+      text-decoration: none;
+      padding: 12px 13px;
+      border-radius: 8px;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+
+    .menu a:hover,
+    .menu a.active {
+      background: rgba(255,255,255,.13);
+    }
+
+    .main {
+      margin-left: 250px;
+      min-height: 100vh;
+    }
+
+    .topbar {
+      height: 70px;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 25px;
+      box-shadow: 0 2px 10px rgba(0,0,0,.06);
+    }
+
+    .topbar h1 {
+      font-size: 20px;
+      color: #075c43;
+    }
+
+    .admin-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+    }
+
+    .admin-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #087f5b;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .content {
+      padding: 25px;
+    }
+
+    .welcome {
+      background: white;
+      padding: 22px;
+      border-radius: 12px;
+      margin-bottom: 22px;
+      box-shadow: 0 3px 12px rgba(0,0,0,.05);
+    }
+
+    .welcome h2 {
+      color: #075c43;
+      margin-bottom: 7px;
+    }
+
+    .welcome p {
+      color: #777;
+      font-size: 14px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 3px 12px rgba(0,0,0,.05);
+    }
+
+    .card-icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    .card h3 {
+      font-size: 14px;
+      color: #777;
+      font-weight: normal;
+    }
+
+    .card .number {
+      font-size: 27px;
+      font-weight: bold;
+      margin-top: 7px;
+      color: #075c43;
+    }
+
+    .section {
+      margin-top: 25px;
+      background: white;
+      padding: 22px;
+      border-radius: 12px;
+      box-shadow: 0 3px 12px rgba(0,0,0,.05);
+    }
+
+    .section h2 {
+      color: #075c43;
+      font-size: 18px;
+      margin-bottom: 18px;
+    }
+
+    .class-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .class-item {
+      padding: 18px;
+      border: 1px solid #eee;
+      border-radius: 9px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .logout {
+      color: #ffdddd !important;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 1000px) {
+      .cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .class-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 700px) {
+      .sidebar {
+        width: 220px;
+      }
+
+      .main {
+        margin-left: 220px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .class-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        padding: 0 15px;
+      }
+
+      .content {
+        padding: 15px;
+      }
+    }
+
+    @media (max-width: 550px) {
+      .sidebar {
+        width: 65px;
+      }
+
+      .brand h2,
+      .brand p,
+      .menu a span,
+      .menu-title {
+        display: none;
+      }
+
+      .brand {
+        padding: 18px 5px;
+      }
+
+      .menu a {
+        justify-content: center;
+        font-size: 20px;
+      }
+
+      .main {
+        margin-left: 65px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <aside class="sidebar">
+
+    <div class="brand">
+      <div class="icon">🕌</div>
+      <h2>মাদরাসায়ে নূরুল কুরআন</h2>
+      <p>ADMIN MANAGEMENT SYSTEM</p>
+    </div>
+
+    <div class="menu">
+
+      <div class="menu-title">Main</div>
+
+      <a href="dashboard.html" class="active">
+        📊 <span>Dashboard</span>
+      </a>
+
+      <div class="menu-title">Academic</div>
+
+      <a href="#"><span>👨‍🎓</span><span>Students</span></a>
+      <a href="#"><span>👨‍🏫</span><span>Teachers</span></a>
+      <a href="#"><span>👨‍💼</span><span>Employees</span></a>
+      <a href="#"><span>📚</span><span>Classes</span></a>
+      <a href="#"><span>📝</span><span>Attendance</span></a>
+      <a href="#"><span>📋</span><span>Results</span></a>
+
+      <div class="menu-title">Finance</div>
+
+      <a href="#"><span>💰</span><span>Fees</span></a>
+      <a href="#"><span>💵</span><span>Income</span></a>
+      <a href="#"><span>💸</span><span>Expense</span></a>
+      <a href="#"><span>💼</span><span>Salary</span></a>
+
+      <div class="menu-title">Management</div>
+
+      <a href="#"><span>📢</span><span>Notice</span></a>
+      <a href="#"><span>📊</span><span>Reports</span></a>
+      <a href="#"><span>⚙️</span><span>Settings</span></a>
+
+      <a href="#" class="logout" id="logoutBtn">
+        🚪 <span>Logout</span>
+      </a>
+
+    </div>
+
+  </aside>
+
+  <main class="main">
+
+    <header class="topbar">
+      <h1>Dashboard</h1>
+
+      <div class="admin-info">
+        <div class="admin-avatar">A</div>
+        <span id="adminEmail">Admin</span>
+      </div>
+    </header>
+
+    <div class="content">
+
+      <div class="welcome">
+        <h2>আসসালামু আলাইকুম 👋</h2>
+        <p>মাদরাসায়ে নূরুল কুরআন Administration Dashboard-এ স্বাগতম।</p>
+      </div>
+
+      <div class="cards">
+
+        <div class="card">
+          <div class="card-icon">👨‍🎓</div>
+          <h3>Total Students</h3>
+          <div class="number" id="studentCount">0</div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">👨‍🏫</div>
+          <h3>Total Teachers</h3>
+          <div class="number" id="teacherCount">0</div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">👨‍💼</div>
+          <h3>Total Employees</h3>
+          <div class="number" id="employeeCount">0</div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">📚</div>
+          <h3>Total Classes</h3>
+          <div class="number" id="classCount">0</div>
+        </div>
+
+      </div>
+
+      <div class="section">
+
+        <h2>📚 বিভাগ ও শ্রেণি</h2>
+
+        <div class="class-grid">
+
+          <div class="class-item">নূরানী</div>
+          <div class="class-item">১ম শ্রেণি</div>
+          <div class="class-item">২য় শ্রেণি</div>
+          <div class="class-item">৩য় শ্রেণি</div>
+          <div class="class-item">৪র্থ শ্রেণি</div>
+          <div class="class-item">৫ম শ্রেণি</div>
+          <div class="class-item">নাজেরা</div>
+          <div class="class-item">হিফাজ</div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    const SUPABASE_URL = "https://qavublwhqiqsgpcmfyt.supabase.co";
+
+    // আপনার Publishable key এখানে বসান
+    const SUPABASE_KEY = "YOUR_PUBLISHABLE_KEY";
+
+    const supabaseClient = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
+
+    async function checkAdmin() {
+
+      const { data: { session } } =
+        await supabaseClient.auth.getSession();
+
+      if (!session) {
+        window.location.href = "admin.html";
+        return;
+      }
+
+      document.getElementById("adminEmail").textContent =
+        session.user.email || "Admin";
+
+      loadCounts();
+    }
+
+    async function loadCounts() {
+
+      const tables = [
+        ["students", "studentCount"],
+        ["teachers", "teacherCount"],
+        ["employees", "employeeCount"],
+        ["classes", "classCount"]
+      ];
+
+      for (const [table, elementId] of tables) {
+
+        const { count, error } =
+          await supabaseClient
+            .from(table)
+            .select("*", {
+              count: "exact",
+              head: true
+            });
+
+        if (!error) {
+          document.getElementById(elementId).textContent =
+            count || 0;
+        }
+      }
+    }
+
+    document
+      .getElementById("logoutBtn")
+      .addEventListener("click", async function(e) {
+
+        e.preventDefault();
+
+        await supabaseClient.auth.signOut();
+
+        window.location.href = "admin.html";
+      });
+
+    checkAdmin();
+  </script>
+
+</body>
+</html>
