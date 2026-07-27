@@ -159,6 +159,47 @@
     </a>
 
   </div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<script>
+  const SUPABASE_URL = "https://qavublwhqiqsgpcmfyt.supabase.co";
+
+  // এখানে আপনার Supabase Publishable key বসাবেন
+  const SUPABASE_KEY = "YOUR_PUBLISHABLE_KEY";
+
+  const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+  const loginForm = document.getElementById("loginForm");
+  const message = document.getElementById("message");
+
+  loginForm.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+
+    message.textContent = "Login হচ্ছে...";
+
+    const { data, error } =
+      await supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: password
+      });
+
+    if (error) {
+      message.textContent = "❌ Email অথবা Password ভুল।";
+      return;
+    }
+
+    message.textContent = "✅ Login সফল!";
+
+    // Dashboard page-এ যাবে
+    window.location.href = "dashboard.html";
+  });
+</script>
+  
 </body>
 </html>
