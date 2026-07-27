@@ -1,1 +1,355 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Results | মাদরাসায়ে নূরুল কুরআন</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#f4f7f6;color:#222}
+.top{background:#075c43;color:white;padding:18px 25px;display:flex;justify-content:space-between;align-items:center}
+.top h2{color:white;margin:0}
+.top a{color:white;text-decoration:none}
+.container{max-width:1100px;margin:25px auto;padding:0 15px}
+.box{background:white;padding:22px;border-radius:12px;box-shadow:0 2px 10px #0001;margin-bottom:20px}
+h2,h3{color:#075c43;margin-bottom:18px}
+.form{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+label{display:block;font-weight:bold;font-size:14px}
+input,select{width:100%;padding:11px;margin-top:6px;border:1px solid #ddd;border-radius:7px;font-size:14px}
+.full{grid-column:1/-1}
+button{border:0;border-radius:7px;padding:10px 16px;background:#087f5b;color:white;font-weight:bold;cursor:pointer}
+.add{margin-top:10px}
+.remove{background:#c62828;padding:7px 10px}
+.subject{display:grid;grid-template-columns:1fr 180px 50px;gap:10px;margin-bottom:10px}
+.subject input{margin-top:0}
+#msg{margin-top:12px}
+table{width:100%;border-collapse:collapse;margin-top:15px}
+th,td{padding:10px;border-bottom:1px solid #eee;text-align:left}
+th{background:#075c43;color:white}
+@media(max-width:650px){
+.form{grid-template-columns:1fr}.full{grid-column:auto}
+.subject{grid-template-columns:1fr 100px 45px}
+.table-wrap{overflow-x:auto}table{min-width:650px}
+}
+</style>
+</head>
 
+<body>
+
+<header class="top">
+<h2>📝 Result / Marksheet</h2>
+<a href="dashboard.html">← Dashboard</a>
+</header>
+
+<div class="container">
+
+<div class="box">
+<h3>➕ Add Result</h3>
+
+<form id="resultForm">
+
+<div class="form">
+
+<div>
+<label>Student *</label>
+<select id="student" required>
+<option value="">Student নির্বাচন করুন</option>
+</select>
+</div>
+
+<div>
+<label>Exam Name *</label>
+<input id="examName" placeholder="যেমন: অর্ধবার্ষিক পরীক্ষা" required>
+</div>
+
+<div>
+<label>Exam Year *</label>
+<input id="examYear" type="number" value="2026" required>
+</div>
+
+<div class="full">
+<label>Subjects & Marks</label>
+
+<div id="subjects">
+
+<div class="subject">
+<input class="subjectName" placeholder="Subject Name" required>
+<input class="marks" type="number" min="0" max="100" placeholder="Marks" required>
+<button type="button" class="remove" onclick="removeSubject(this)">×</button>
+</div>
+
+</div>
+
+<button type="button" class="add" onclick="addSubject()">+ Add Subject</button>
+</div>
+
+<div class="full">
+<button type="submit">💾 Save Result</button>
+<div id="msg"></div>
+</div>
+
+</div>
+</form>
+</div>
+
+<div class="box">
+<h3>📋 Saved Results</h3>
+
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Student</th>
+<th>Exam</th>
+<th>Year</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody id="resultList">
+<tr><td colspan="4">Loading...</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL="https://qavublwhqiqsgpcmfyft.supabase.co";
+const SUPABASE_KEY="YOUR_PUBLISHABLE_KEY";
+
+const db=window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
+let results=[];
+
+async function start(){
+
+const {data:{session}}=await db.auth.getSession();
+
+if(!session){
+location.href="admin.html";
+return;
+}
+
+await loadStudents();
+await loadResults();
+}
+
+async function loadStudents(){
+
+const {data,error}=await db
+.from("students")
+.select("id,student_id,name")
+.order("name");
+
+if(error){
+alert(error.message);
+return;
+}
+
+const select=document.getElementById("student");
+
+(data||[]).forEach(s=>{
+const option=document.createElement("option");
+option.value=s.id;
+option.textContent=s.student_id+" - "+s.name;
+select.appendChild(option);
+});
+}
+
+function addSubject(){
+
+const div=document.createElement("div");
+div.className="subject";
+
+div.innerHTML=`
+<input class="subjectName" placeholder="Subject Name" required>
+<input class="marks" type="number" min="0" max="100" placeholder="Marks" required>
+<button type="button" class="remove" onclick="removeSubject(this)">×</button>
+`;
+
+document.getElementById("subjects").appendChild(div);
+}
+
+function removeSubject(button){
+
+const all=document.querySelectorAll(".subject");
+
+if(all.length===1){
+alert("কমপক্ষে একটি Subject রাখতে হবে।");
+return;
+}
+
+button.parentElement.remove();
+}
+
+document.getElementById("resultForm").addEventListener(
+"submit",async function(e){
+
+e.preventDefault();
+
+const msg=document.getElementById("msg");
+msg.textContent="Saving...";
+
+const studentId=document.getElementById("student").value;
+const examName=document.getElementById("examName").value.trim();
+const examYear=parseInt(document.getElementById("examYear").value);
+
+const resultInsert=await db
+.from("results")
+.insert({
+student_id:studentId,
+exam_name:examName,
+exam_year:examYear
+})
+.select()
+.single();
+
+if(resultInsert.error){
+msg.textContent="❌ "+resultInsert.error.message;
+return;
+}
+
+const resultId=resultInsert.data.id;
+
+const names=[...document.querySelectorAll(".subjectName")];
+const marks=[...document.querySelectorAll(".marks")];
+
+const subjectRows=names.map((input,i)=>({
+result_id:resultId,
+subject_name:input.value.trim(),
+marks:parseFloat(marks[i].value)
+}));
+
+const subjectInsert=await db
+.from("result_subjects")
+.insert(subjectRows);
+
+if(subjectInsert.error){
+
+await db.from("results").delete().eq("id",resultId);
+
+msg.textContent="❌ "+subjectInsert.error.message;
+return;
+}
+
+msg.textContent="✅ Result saved successfully.";
+
+document.getElementById("resultForm").reset();
+
+document.getElementById("examYear").value=new Date().getFullYear();
+
+document.getElementById("subjects").innerHTML=`
+<div class="subject">
+<input class="subjectName" placeholder="Subject Name" required>
+<input class="marks" type="number" min="0" max="100" placeholder="Marks" required>
+<button type="button" class="remove" onclick="removeSubject(this)">×</button>
+</div>
+`;
+
+await loadResults();
+});
+
+async function loadResults(){
+
+const {data,error}=await db
+.from("results")
+.select(`
+id,
+exam_name,
+exam_year,
+students(student_id,name)
+`)
+.order("created_at",{ascending:false});
+
+if(error){
+document.getElementById("resultList").innerHTML=
+`<tr><td colspan="4">${error.message}</td></tr>`;
+return;
+}
+
+results=data||[];
+
+const tbody=document.getElementById("resultList");
+
+if(!results.length){
+tbody.innerHTML=
+'<tr><td colspan="4" style="text-align:center">কোনো Result নেই</td></tr>';
+return;
+}
+
+tbody.innerHTML=results.map(r=>`
+<tr>
+<td>${escapeHtml(r.students?.student_id||"")} - ${escapeHtml(r.students?.name||"")}</td>
+<td>${escapeHtml(r.exam_name)}</td>
+<td>${r.exam_year}</td>
+<td>
+<button onclick="viewResult(${r.id})">View</button>
+<button class="remove" onclick="deleteResult(${r.id})">Delete</button>
+</td>
+</tr>
+`).join("");
+}
+
+async function viewResult(id){
+
+const {data,error}=await db
+.from("result_subjects")
+.select("subject_name,marks")
+.eq("result_id",id);
+
+if(error){
+alert(error.message);
+return;
+}
+
+const result=results.find(r=>r.id===id);
+
+let text=
+"Student: "+(result.students?.name||"")+
+"\nExam: "+result.exam_name+
+"\n\n";
+
+(data||[]).forEach(s=>{
+text+=s.subject_name+" : "+s.marks+"\n";
+});
+
+alert(text);
+}
+
+async function deleteResult(id){
+
+if(!confirm("এই Result Delete করতে চান?"))return;
+
+const {error}=await db
+.from("results")
+.delete()
+.eq("id",id);
+
+if(error){
+alert(error.message);
+return;
+}
+
+await loadResults();
+}
+
+function escapeHtml(value){
+return String(value)
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+}
+
+start();
+</script>
+
+</body>
+</html>
