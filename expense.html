@@ -1,1 +1,1726 @@
+<!DOCTYPE html>
+<html lang="bn">
 
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1">
+
+<title>Expense Management | মাদরাসায়ে নূরুল কুরআন</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f4f7f6;
+    color:#222;
+}
+
+.top{
+    background:#075c43;
+    color:#fff;
+    padding:17px 22px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.top h2{
+    margin:0;
+    color:#fff;
+    font-size:20px;
+}
+
+.top a{
+    color:#fff;
+    text-decoration:none;
+}
+
+.container{
+    max-width:1200px;
+    margin:25px auto;
+    padding:0 15px;
+}
+
+.box{
+    background:#fff;
+    padding:22px;
+    border-radius:12px;
+    box-shadow:0 2px 10px #0001;
+    margin-bottom:20px;
+}
+
+h3{
+    color:#075c43;
+    margin:0 0 18px;
+}
+
+.form{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+}
+
+.full{
+    grid-column:1/-1;
+}
+
+label{
+    font-weight:bold;
+    font-size:14px;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    padding:11px;
+    margin-top:6px;
+    border:1px solid #ddd;
+    border-radius:7px;
+    font-size:14px;
+    background:#fff;
+}
+
+textarea{
+    min-height:90px;
+    resize:vertical;
+}
+
+button{
+    border:0;
+    padding:10px 16px;
+    border-radius:7px;
+    background:#087f5b;
+    color:#fff;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+
+.cancel{
+    background:#777;
+    margin-left:7px;
+}
+
+.edit{
+    background:#1565c0;
+}
+
+.delete{
+    background:#c62828;
+}
+
+.print{
+    background:#6a1b9a;
+    margin-left:7px;
+}
+
+#msg{
+    margin-top:12px;
+    min-height:20px;
+    font-weight:bold;
+}
+
+.success{
+    color:#087f5b;
+}
+
+.error{
+    color:#c62828;
+}
+
+.summary{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-bottom:18px;
+}
+
+.card{
+    background:#eee;
+    padding:14px 20px;
+    border-radius:8px;
+    font-weight:bold;
+}
+
+.card.expense{
+    background:#ffebee;
+    color:#c62828;
+}
+
+.search{
+    width:100%;
+    margin-bottom:15px;
+}
+
+.table-wrap{
+    overflow:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,
+td{
+    padding:10px 8px;
+    border-bottom:1px solid #ddd;
+    text-align:left;
+    font-size:14px;
+}
+
+th{
+    background:#075c43;
+    color:#fff;
+}
+
+.action{
+    white-space:nowrap;
+}
+
+.action button{
+    padding:7px 10px;
+    font-size:12px;
+    margin:2px;
+}
+
+.loading{
+    text-align:center;
+    padding:20px;
+}
+
+.empty{
+    text-align:center;
+    padding:20px;
+    color:#777;
+}
+
+@media(max-width:650px){
+
+    .form{
+        grid-template-columns:1fr;
+    }
+
+    .full{
+        grid-column:auto;
+    }
+
+    table{
+        min-width:900px;
+    }
+
+    .top h2{
+        font-size:16px;
+    }
+
+}
+
+
+/* =========================
+   PRINT
+========================= */
+
+@media print{
+
+    body{
+        background:#fff;
+    }
+
+    .top{
+        background:#fff;
+        color:#000;
+        border-bottom:2px solid #075c43;
+    }
+
+    .top h2{
+        color:#000;
+    }
+
+    .top a,
+    .form-box,
+    .search,
+    .action,
+    #msg,
+    .print{
+        display:none !important;
+    }
+
+    .container{
+        max-width:100%;
+        margin:0;
+        padding:0;
+    }
+
+    .box{
+        box-shadow:none;
+        padding:10px;
+    }
+
+    .summary{
+        margin-bottom:10px;
+    }
+
+    table{
+        width:100%;
+        min-width:0 !important;
+    }
+
+    th{
+        background:#075c43 !important;
+        color:#fff !important;
+    }
+
+    h3{
+        color:#000;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header class="top">
+
+    <h2>
+        💸 Expense Management
+    </h2>
+
+    <a href="dashboard.html">
+        ← Dashboard
+    </a>
+
+</header>
+
+
+
+<div class="container">
+
+
+<!-- =====================================================
+     EXPENSE FORM
+===================================================== -->
+
+<div class="box form-box">
+
+    <h3 id="formTitle">
+        ➕ Add Expense
+    </h3>
+
+
+    <form id="expenseForm">
+
+
+        <input
+            type="hidden"
+            id="editId"
+            value=""
+        >
+
+
+        <!-- CATEGORY -->
+
+        <div>
+
+            <label>
+                Expense Category *
+            </label>
+
+            <select
+                id="category"
+                required>
+
+                <option value="">
+                    Category নির্বাচন করুন
+                </option>
+
+                <option value="বিদ্যুৎ বিল">
+                    ⚡ বিদ্যুৎ বিল
+                </option>
+
+                <option value="পানি বিল">
+                    💧 পানি বিল
+                </option>
+
+                <option value="গ্যাস বিল">
+                    🔥 গ্যাস বিল
+                </option>
+
+                <option value="বেতন">
+                    💰 বেতন
+                </option>
+
+                <option value="খাবার">
+                    🍚 খাবার
+                </option>
+
+                <option value="শিক্ষা উপকরণ">
+                    📚 শিক্ষা উপকরণ
+                </option>
+
+                <option value="অফিস খরচ">
+                    🏢 অফিস খরচ
+                </option>
+
+                <option value="রক্ষণাবেক্ষণ">
+                    🔧 রক্ষণাবেক্ষণ
+                </option>
+
+                <option value="চিকিৎসা">
+                    🏥 চিকিৎসা
+                </option>
+
+                <option value="যাতায়াত">
+                    🚗 যাতায়াত
+                </option>
+
+                <option value="অন্যান্য">
+                    📦 অন্যান্য
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <!-- AMOUNT -->
+
+        <div>
+
+            <label>
+                Amount *
+            </label>
+
+            <input
+                type="number"
+                id="amount"
+                min="0"
+                step="0.01"
+                placeholder="যেমন: 5000"
+                required>
+
+        </div>
+
+
+
+        <!-- DATE -->
+
+        <div>
+
+            <label>
+                Expense Date *
+            </label>
+
+            <input
+                type="date"
+                id="expenseDate"
+                required>
+
+        </div>
+
+
+
+        <!-- PAYMENT METHOD -->
+
+        <div>
+
+            <label>
+                Payment Method
+            </label>
+
+            <select id="paymentMethod">
+
+                <option value="Cash">
+                    Cash
+                </option>
+
+                <option value="bKash">
+                    bKash
+                </option>
+
+                <option value="Nagad">
+                    Nagad
+                </option>
+
+                <option value="Bank">
+                    Bank
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <!-- DESCRIPTION -->
+
+        <div class="full">
+
+            <label>
+                Description
+            </label>
+
+            <textarea
+                id="description"
+                placeholder="Expense সম্পর্কে বিস্তারিত লিখুন..."></textarea>
+
+        </div>
+
+
+
+        <!-- BUTTON -->
+
+        <div class="full">
+
+            <button
+                type="submit"
+                id="saveBtn">
+
+                💾 Save Expense
+
+            </button>
+
+
+            <button
+                type="button"
+                class="cancel"
+                id="cancelBtn"
+                style="display:none">
+
+                Cancel
+
+            </button>
+
+
+            <div id="msg"></div>
+
+        </div>
+
+
+    </form>
+
+</div>
+
+
+
+<!-- =====================================================
+     EXPENSE LIST
+===================================================== -->
+
+<div class="box">
+
+
+    <h3>
+        💸 Expense List
+    </h3>
+
+
+    <!-- SUMMARY -->
+
+    <div class="summary">
+
+        <div class="card expense">
+
+            Total Expense:
+            ৳ <span id="totalExpense">
+                0.00
+            </span>
+
+        </div>
+
+
+        <div class="card">
+
+            Total Records:
+            <span id="totalRecords">
+                0
+            </span>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- SEARCH -->
+
+    <input
+        class="search"
+        id="search"
+        placeholder="🔍 Category / Description / Amount দিয়ে খুঁজুন..."
+    >
+
+
+
+    <!-- PRINT -->
+
+    <button
+        type="button"
+        class="print"
+        onclick="printExpense()">
+
+        🖨️ Print Expense
+
+    </button>
+
+
+
+    <br><br>
+
+
+
+    <!-- TABLE -->
+
+    <div class="table-wrap">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Date
+                    </th>
+
+                    <th>
+                        Category
+                    </th>
+
+                    <th>
+                        Amount
+                    </th>
+
+                    <th>
+                        Payment Method
+                    </th>
+
+                    <th>
+                        Description
+                    </th>
+
+                    <th>
+                        Action
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody id="expenseList">
+
+                <tr>
+
+                    <td
+                        colspan="6"
+                        class="loading">
+
+                        Loading...
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+</div>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     SUPABASE
+===================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<script>
+
+/* =====================================================
+   SUPABASE CONFIG
+===================================================== */
+
+const SUPABASE_URL =
+"https://qavublwhqiqsgpcmfyft.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
+
+
+const db =
+window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
+
+
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+let expenses = [];
+
+
+
+/* =====================================================
+   TODAY
+===================================================== */
+
+function today(){
+
+    return new Date()
+        .toISOString()
+        .split("T")[0];
+
+}
+
+
+
+/* =====================================================
+   MESSAGE
+===================================================== */
+
+function showMessage(
+    text,
+    type = ""
+){
+
+    const msg =
+        document.getElementById("msg");
+
+    msg.textContent = text;
+
+    msg.className = type;
+
+}
+
+
+
+/* =====================================================
+   START
+===================================================== */
+
+async function start(){
+
+    try{
+
+        const {
+            data,
+            error
+        } =
+        await db.auth.getSession();
+
+
+        if(error){
+
+            showMessage(
+                "❌ Session error: " +
+                error.message,
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if(!data.session){
+
+            location.href =
+                "admin.html";
+
+            return;
+
+        }
+
+
+        document.getElementById(
+            "expenseDate"
+        ).value = today();
+
+
+        await loadExpenses();
+
+    }
+    catch(error){
+
+        showMessage(
+            "❌ Start error: " +
+            error.message,
+            "error"
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   LOAD EXPENSES
+===================================================== */
+
+async function loadExpenses(){
+
+    const tbody =
+        document.getElementById(
+            "expenseList"
+        );
+
+
+    tbody.innerHTML = `
+        <tr>
+            <td
+                colspan="6"
+                class="loading">
+
+                Loading...
+
+            </td>
+        </tr>
+    `;
+
+
+    const {
+        data,
+        error
+    } =
+    await db
+        .from("expenses")
+        .select("*")
+        .order(
+            "expense_date",
+            {
+                ascending:false
+            }
+        )
+        .order(
+            "id",
+            {
+                ascending:false
+            }
+        );
+
+
+    if(error){
+
+        expenses = [];
+
+
+        tbody.innerHTML = `
+            <tr>
+
+                <td
+                    colspan="6"
+                    class="error">
+
+                    ❌ ${
+                        escapeHtml(
+                            error.message
+                        )
+                    }
+
+                </td>
+
+            </tr>
+        `;
+
+
+        return;
+
+    }
+
+
+    expenses = data || [];
+
+
+    renderExpenses();
+
+}
+
+
+
+/* =====================================================
+   RENDER EXPENSES
+===================================================== */
+
+function renderExpenses(
+    list = expenses
+){
+
+    let total = 0;
+
+
+    list.forEach(
+        function(item){
+
+            total +=
+                Number(
+                    item.amount
+                ) || 0;
+
+        }
+    );
+
+
+    document.getElementById(
+        "totalExpense"
+    ).textContent =
+        total.toFixed(2);
+
+
+    document.getElementById(
+        "totalRecords"
+    ).textContent =
+        list.length;
+
+
+    const tbody =
+        document.getElementById(
+            "expenseList"
+        );
+
+
+    if(!list.length){
+
+        tbody.innerHTML = `
+            <tr>
+
+                <td
+                    colspan="6"
+                    class="empty">
+
+                    কোনো Expense record পাওয়া যায়নি।
+
+                </td>
+
+            </tr>
+        `;
+
+        return;
+
+    }
+
+
+    tbody.innerHTML =
+        list.map(
+            function(item){
+
+                const amount =
+                    Number(
+                        item.amount
+                    ) || 0;
+
+
+                return `
+
+                <tr>
+
+                    <td>
+
+                        ${
+                            escapeHtml(
+                                item.expense_date ||
+                                "-"
+                            )
+                        }
+
+                    </td>
+
+
+                    <td>
+
+                        ${
+                            escapeHtml(
+                                item.category ||
+                                "-"
+                            )
+                        }
+
+                    </td>
+
+
+                    <td>
+
+                        <strong>
+                            ৳ ${amount.toFixed(2)}
+                        </strong>
+
+                    </td>
+
+
+                    <td>
+
+                        ${
+                            escapeHtml(
+                                item.payment_method ||
+                                "-"
+                            )
+                        }
+
+                    </td>
+
+
+                    <td>
+
+                        ${
+                            escapeHtml(
+                                item.description ||
+                                "-"
+                            )
+                        }
+
+                    </td>
+
+
+                    <td class="action">
+
+
+                        <button
+                            type="button"
+                            class="edit"
+                            data-id="${
+                                escapeHtml(
+                                    String(
+                                        item.id
+                                    )
+                                )
+                            }"
+                            onclick="editExpenseFromButton(this)">
+
+                            Edit
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="delete"
+                            data-id="${
+                                escapeHtml(
+                                    String(
+                                        item.id
+                                    )
+                                )
+                            }"
+                            onclick="deleteExpenseFromButton(this)">
+
+                            Delete
+
+                        </button>
+
+
+                    </td>
+
+                </tr>
+
+                `;
+
+            }
+        )
+        .join("");
+
+}
+
+
+
+/* =====================================================
+   SAVE EXPENSE
+===================================================== */
+
+document.getElementById(
+    "expenseForm"
+).addEventListener(
+    "submit",
+    async function(e){
+
+        e.preventDefault();
+
+
+        const editId =
+            document.getElementById(
+                "editId"
+            ).value.trim();
+
+
+        const category =
+            document.getElementById(
+                "category"
+            ).value;
+
+
+        const amount =
+            Number(
+                document.getElementById(
+                    "amount"
+                ).value
+            );
+
+
+        const expenseDate =
+            document.getElementById(
+                "expenseDate"
+            ).value;
+
+
+        const paymentMethod =
+            document.getElementById(
+                "paymentMethod"
+            ).value;
+
+
+        const description =
+            document.getElementById(
+                "description"
+            ).value.trim();
+
+
+        if(!category){
+
+            showMessage(
+                "❌ Expense Category নির্বাচন করুন",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if(
+            !Number.isFinite(amount) ||
+            amount <= 0
+        ){
+
+            showMessage(
+                "❌ সঠিক Amount দিন",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if(!expenseDate){
+
+            showMessage(
+                "❌ Expense Date নির্বাচন করুন",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        const record = {
+
+            category:
+                category,
+
+            amount:
+                amount,
+
+            expense_date:
+                expenseDate,
+
+            payment_method:
+                paymentMethod,
+
+            description:
+                description || null
+
+        };
+
+
+        const saveBtn =
+            document.getElementById(
+                "saveBtn"
+            );
+
+
+        saveBtn.disabled = true;
+
+
+        showMessage(
+            editId
+            ?
+            "Updating..."
+            :
+            "Saving..."
+        );
+
+
+        try{
+
+            let result;
+
+
+            if(editId){
+
+                result =
+                    await db
+                        .from("expenses")
+                        .update(record)
+                        .eq(
+                            "id",
+                            editId
+                        )
+                        .select();
+
+            }
+            else{
+
+                result =
+                    await db
+                        .from("expenses")
+                        .insert(record)
+                        .select();
+
+            }
+
+
+            if(result.error){
+
+                showMessage(
+                    "❌ " +
+                    result.error.message,
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            showMessage(
+                editId
+                ?
+                "✅ Expense updated successfully"
+                :
+                "✅ Expense saved successfully",
+                "success"
+            );
+
+
+            resetForm();
+
+
+            await loadExpenses();
+
+        }
+        catch(error){
+
+            showMessage(
+                "❌ " +
+                error.message,
+                "error"
+            );
+
+        }
+        finally{
+
+            saveBtn.disabled = false;
+
+        }
+
+    }
+);
+
+
+
+/* =====================================================
+   EDIT BUTTON
+===================================================== */
+
+function editExpenseFromButton(
+    button
+){
+
+    const id =
+        button.getAttribute(
+            "data-id"
+        );
+
+
+    editExpense(id);
+
+}
+
+
+
+/* =====================================================
+   EDIT EXPENSE
+===================================================== */
+
+function editExpense(id){
+
+    if(
+        id === null ||
+        id === undefined ||
+        String(id).trim() === ""
+    ){
+
+        alert(
+            "❌ Invalid Expense ID"
+        );
+
+        return;
+
+    }
+
+
+    const expense =
+        expenses.find(
+            function(item){
+
+                return String(item.id) ===
+                    String(id);
+
+            }
+        );
+
+
+    if(!expense){
+
+        alert(
+            "❌ Expense record পাওয়া যায়নি।"
+        );
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "editId"
+    ).value =
+        String(
+            expense.id
+        );
+
+
+    document.getElementById(
+        "category"
+    ).value =
+        expense.category || "";
+
+
+    document.getElementById(
+        "amount"
+    ).value =
+        expense.amount ?? "";
+
+
+    document.getElementById(
+        "expenseDate"
+    ).value =
+        expense.expense_date || "";
+
+
+    document.getElementById(
+        "paymentMethod"
+    ).value =
+        expense.payment_method ||
+        "Cash";
+
+
+    document.getElementById(
+        "description"
+    ).value =
+        expense.description || "";
+
+
+    document.getElementById(
+        "formTitle"
+    ).textContent =
+        "✏️ Edit Expense";
+
+
+    document.getElementById(
+        "saveBtn"
+    ).textContent =
+        "💾 Update Expense";
+
+
+    document.getElementById(
+        "cancelBtn"
+    ).style.display =
+        "inline-block";
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+
+/* =====================================================
+   DELETE BUTTON
+===================================================== */
+
+function deleteExpenseFromButton(
+    button
+){
+
+    const id =
+        button.getAttribute(
+            "data-id"
+        );
+
+
+    deleteExpense(id);
+
+}
+
+
+
+/* =====================================================
+   DELETE EXPENSE
+===================================================== */
+
+async function deleteExpense(id){
+
+    if(
+        id === null ||
+        id === undefined ||
+        String(id).trim() === ""
+    ){
+
+        alert(
+            "❌ Invalid Expense ID"
+        );
+
+        return;
+
+    }
+
+
+    if(
+        !confirm(
+            "এই Expense record Delete করতে চান?"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    try{
+
+        const {
+            data,
+            error
+        } =
+        await db
+            .from("expenses")
+            .delete()
+            .eq(
+                "id",
+                id
+            )
+            .select("id");
+
+
+        if(error){
+
+            alert(
+                "❌ Delete failed:\n" +
+                error.message
+            );
+
+            return;
+
+        }
+
+
+        if(
+            !data ||
+            data.length === 0
+        ){
+
+            alert(
+                "❌ Record পাওয়া যায়নি অথবা Delete permission নেই।"
+            );
+
+            return;
+
+        }
+
+
+        alert(
+            "✅ Expense deleted successfully"
+        );
+
+
+        await loadExpenses();
+
+    }
+    catch(error){
+
+        alert(
+            "❌ Delete failed:\n" +
+            error.message
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+document.getElementById(
+    "search"
+).addEventListener(
+    "input",
+    function(){
+
+        const q =
+            this.value
+                .toLowerCase()
+                .trim();
+
+
+        if(!q){
+
+            renderExpenses(
+                expenses
+            );
+
+            return;
+
+        }
+
+
+        const filtered =
+            expenses.filter(
+                function(item){
+
+                    return (
+
+                        String(
+                            item.category || ""
+                        )
+                        .toLowerCase()
+                        .includes(q)
+
+                        ||
+
+                        String(
+                            item.description || ""
+                        )
+                        .toLowerCase()
+                        .includes(q)
+
+                        ||
+
+                        String(
+                            item.payment_method || ""
+                        )
+                        .toLowerCase()
+                        .includes(q)
+
+                        ||
+
+                        String(
+                            item.amount || ""
+                        )
+                        .toLowerCase()
+                        .includes(q)
+
+                        ||
+
+                        String(
+                            item.expense_date || ""
+                        )
+                        .toLowerCase()
+                        .includes(q)
+
+                    );
+
+                }
+            );
+
+
+        renderExpenses(
+            filtered
+        );
+
+    }
+);
+
+
+
+/* =====================================================
+   RESET FORM
+===================================================== */
+
+function resetForm(){
+
+    document.getElementById(
+        "expenseForm"
+    ).reset();
+
+
+    document.getElementById(
+        "editId"
+    ).value = "";
+
+
+    document.getElementById(
+        "expenseDate"
+    ).value =
+        today();
+
+
+    document.getElementById(
+        "paymentMethod"
+    ).value =
+        "Cash";
+
+
+    document.getElementById(
+        "formTitle"
+    ).textContent =
+        "➕ Add Expense";
+
+
+    document.getElementById(
+        "saveBtn"
+    ).textContent =
+        "💾 Save Expense";
+
+
+    document.getElementById(
+        "cancelBtn"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "msg"
+    ).textContent =
+        "";
+
+
+    document.getElementById(
+        "msg"
+    ).className =
+        "";
+
+}
+
+
+
+/* =====================================================
+   CANCEL
+===================================================== */
+
+document.getElementById(
+    "cancelBtn"
+).onclick =
+function(){
+
+    resetForm();
+
+};
+
+
+
+/* =====================================================
+   PRINT
+===================================================== */
+
+function printExpense(){
+
+    window.print();
+
+}
+
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHtml(value){
+
+    return String(value)
+
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+
+}
+
+
+
+/* =====================================================
+   RUN
+===================================================== */
+
+start();
+
+</script>
+
+</body>
+
+</html>
