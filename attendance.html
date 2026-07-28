@@ -2,31 +2,18 @@
 <html lang="bn">
 
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-name="viewport"
-content="width=device-width,initial-scale=1"
->
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Student Attendance | মাদরাসায়ে নূরুল কুরআন</title>
 
 <style>
-
-*{
-box-sizing:border-box;
-margin:0;
-padding:0;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 body{
 font-family:Arial,sans-serif;
 background:#f4f7f6;
 color:#222;
 }
-
-/* TOP BAR */
 
 .topbar{
 height:42px;
@@ -44,17 +31,11 @@ color:#fff;
 text-decoration:none;
 }
 
-
-/* CONTENT */
-
 .container{
 padding:16px;
 max-width:1100px;
 margin:auto;
 }
-
-
-/* CARD */
 
 .card{
 background:#fff;
@@ -69,9 +50,6 @@ color:#075c43;
 margin-bottom:18px;
 font-size:16px;
 }
-
-
-/* FILTER */
 
 .filters{
 display:grid;
@@ -109,9 +87,6 @@ button:hover{
 background:#075c43;
 }
 
-
-/* TABLE */
-
 .table-wrap{
 overflow-x:auto;
 }
@@ -119,7 +94,7 @@ overflow-x:auto;
 table{
 width:100%;
 border-collapse:collapse;
-min-width:650px;
+min-width:750px;
 }
 
 th{
@@ -141,16 +116,32 @@ height:34px;
 padding:0 8px;
 }
 
+.action-btn{
+padding:7px 10px;
+font-size:11px;
+margin-right:4px;
+}
 
-/* SAVE */
+.edit-btn{
+background:#0d6efd;
+}
+
+.edit-btn:hover{
+background:#084298;
+}
+
+.delete-btn{
+background:#dc3545;
+}
+
+.delete-btn:hover{
+background:#b02a37;
+}
 
 .save-box{
 text-align:right;
 margin-top:15px;
 }
-
-
-/* MESSAGE */
 
 .message{
 text-align:center;
@@ -158,9 +149,6 @@ padding:25px;
 color:#777;
 font-size:13px;
 }
-
-
-/* MOBILE */
 
 @media(max-width:600px){
 
@@ -181,16 +169,10 @@ font-size:12px;
 }
 
 }
-
 </style>
-
 </head>
 
-
 <body>
-
-
-<!-- ================= TOP ================= -->
 
 <div class="topbar">
 
@@ -204,16 +186,11 @@ font-size:12px;
 
 </div>
 
-
 <div class="container">
-
-
-<!-- ================= FILTER ================= -->
 
 <div class="card">
 
 <h3>📋 Attendance নেওয়া</h3>
-
 
 <div class="filters">
 
@@ -228,7 +205,6 @@ id="attendanceDate"
 
 </div>
 
-
 <div>
 
 <label>Class</label>
@@ -242,7 +218,6 @@ id="attendanceDate"
 </select>
 
 </div>
-
 
 <div>
 
@@ -260,12 +235,9 @@ Load Students
 </div>
 
 
-<!-- ================= STUDENT LIST ================= -->
-
 <div class="card">
 
 <h3>👨‍🎓 Student List</h3>
-
 
 <div class="table-wrap">
 
@@ -276,26 +248,22 @@ Load Students
 <tr>
 
 <th>ক্রমিক</th>
-
 <th>Student ID</th>
-
 <th>Student Name</th>
-
 <th>Class</th>
-
 <th>Attendance</th>
+<th>Action</th>
 
 </tr>
 
 </thead>
-
 
 <tbody id="studentTable">
 
 <tr>
 
 <td
-colspan="5"
+colspan="6"
 class="message"
 >
 Date এবং Class নির্বাচন করে Load Students করুন
@@ -308,7 +276,6 @@ Date এবং Class নির্বাচন করে Load Students করু�
 </table>
 
 </div>
-
 
 <div class="save-box">
 
@@ -323,11 +290,8 @@ type="button"
 
 </div>
 
-
 </div>
 
-
-<!-- ================= SUPABASE ================= -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -396,13 +360,11 @@ async function loadClasses(){
 const select =
 document.getElementById("classSelect");
 
-
 const {data,error} =
 await db
 .from("classes")
 .select("*")
 .order("id",{ascending:true});
-
 
 if(error){
 
@@ -412,13 +374,7 @@ return;
 
 }
 
-
 if(!data || data.length===0){
-
-/*
-যদি classes table-এ data না থাকে,
-তাহলে default class দেখাবে।
-*/
 
 const defaultClasses=[
 "নূরানী",
@@ -430,7 +386,6 @@ const defaultClasses=[
 "নাজেরা",
 "হিফজ"
 ];
-
 
 defaultClasses.forEach(function(name){
 
@@ -447,7 +402,6 @@ select.appendChild(option);
 return;
 
 }
-
 
 data.forEach(function(item){
 
@@ -490,7 +444,6 @@ document.getElementById("classSelect").value;
 const tbody =
 document.getElementById("studentTable");
 
-
 if(!date){
 
 alert("তারিখ নির্বাচন করুন।");
@@ -498,27 +451,19 @@ return;
 
 }
 
-
 tbody.innerHTML=
 `
 <tr>
-<td colspan="5" class="message">
+<td colspan="6" class="message">
 Students লোড হচ্ছে...
 </td>
 </tr>
 `;
 
-
 let query =
 db
 .from("students")
 .select("*");
-
-
-/*
-Class select করলে
-শুধু সেই class-এর students দেখাবে।
-*/
 
 if(className){
 
@@ -527,10 +472,8 @@ query.eq("class",className);
 
 }
 
-
 const {data,error} =
 await query;
-
 
 if(error){
 
@@ -539,7 +482,7 @@ console.log(error);
 tbody.innerHTML=
 `
 <tr>
-<td colspan="5" class="message">
+<td colspan="6" class="message">
 Student data load করা যায়নি।
 </td>
 </tr>
@@ -549,13 +492,12 @@ return;
 
 }
 
-
 if(!data || data.length===0){
 
 tbody.innerHTML=
 `
 <tr>
-<td colspan="5" class="message">
+<td colspan="6" class="message">
 এই Class-এ কোনো Student পাওয়া যায়নি।
 </td>
 </tr>
@@ -565,11 +507,18 @@ return;
 
 }
 
-
 tbody.innerHTML="";
 
 
-data.forEach(function(student,index){
+/*
+প্রতিটি student-এর existing attendance
+আগে থেকে থাকলে সেটাও Load করবে।
+*/
+
+for(let index=0; index<data.length; index++){
+
+const student =
+data[index];
 
 const id =
 student.id ||
@@ -593,12 +542,30 @@ student.class_name ||
 "";
 
 
+let currentStatus="present";
+
+
+const {data:attendanceData,error:attendanceError} =
+await db
+.from("student_attendance")
+.select("status")
+.eq("student_id",id)
+.eq("attendance_date",date)
+.maybeSingle();
+
+
+if(!attendanceError && attendanceData){
+
+currentStatus =
+attendanceData.status || "present";
+
+}
+
+
 const tr =
 document.createElement("tr");
 
-
 tr.dataset.studentId=id;
-
 
 tr.innerHTML=
 `
@@ -614,31 +581,147 @@ tr.innerHTML=
 
 <select class="status">
 
-<option value="present">
+<option value="present"
+${currentStatus==="present" ? "selected" : ""}>
 উপস্থিত
 </option>
 
-<option value="absent">
+<option value="absent"
+${currentStatus==="absent" ? "selected" : ""}>
 অনুপস্থিত
 </option>
 
-<option value="late">
+<option value="late"
+${currentStatus==="late" ? "selected" : ""}>
 বিলম্ব
 </option>
 
-<option value="leave">
+<option value="leave"
+${currentStatus==="leave" ? "selected" : ""}>
 ছুটি
 </option>
 
 </select>
 
 </td>
-`;
 
+<td>
+
+<button
+type="button"
+class="action-btn edit-btn"
+onclick="editAttendance(this)"
+>
+✏️ Edit
+</button>
+
+<button
+type="button"
+class="action-btn delete-btn"
+onclick="deleteAttendance(this)"
+>
+🗑️ Delete
+</button>
+
+</td>
+`;
 
 tbody.appendChild(tr);
 
-});
+}
+
+}
+
+
+/* ================= EDIT ================= */
+
+function editAttendance(button){
+
+const row =
+button.closest("tr");
+
+const select =
+row.querySelector(".status");
+
+if(!select)return;
+
+select.disabled=false;
+
+select.focus();
+
+alert("Attendance status পরিবর্তন করে Save Attendance চাপুন।");
+
+}
+
+
+/* ================= DELETE ================= */
+
+async function deleteAttendance(button){
+
+const row =
+button.closest("tr");
+
+if(!row)return;
+
+const studentId =
+row.dataset.studentId;
+
+const date =
+dateInput.value;
+
+if(!studentId || !date){
+
+alert("Student অথবা Date পাওয়া যায়নি।");
+return;
+
+}
+
+const confirmDelete =
+confirm(
+"এই Student-এর এই তারিখের Attendance Delete করতে চান?"
+);
+
+if(!confirmDelete)return;
+
+
+const {error} =
+await db
+.from("student_attendance")
+.delete()
+.eq("student_id",studentId)
+.eq("attendance_date",date);
+
+
+if(error){
+
+console.log(error);
+
+alert(
+"❌ Attendance Delete হয়নি।"
+);
+
+return;
+
+}
+
+
+/*
+Delete করার পর row-এর status
+আবার default উপস্থিত করে দেওয়া হচ্ছে।
+*/
+
+const select =
+row.querySelector(".status");
+
+if(select){
+
+select.value="present";
+
+}
+
+alert(
+"✅ Attendance সফলভাবে Delete হয়েছে।"
+);
 
 }
 
@@ -657,12 +740,10 @@ return;
 
 }
 
-
 const rows =
 document.querySelectorAll(
 "#studentTable tr[data-student-id]"
 );
-
 
 if(rows.length===0){
 
@@ -671,9 +752,7 @@ return;
 
 }
 
-
 const records=[];
-
 
 rows.forEach(function(row){
 
@@ -682,7 +761,6 @@ row.dataset.studentId;
 
 const status =
 row.querySelector(".status").value;
-
 
 records.push({
 
@@ -696,11 +774,6 @@ status:status
 
 });
 
-
-/*
-আগের attendance থাকলে
-update করার চেষ্টা করবে।
-*/
 
 const {error} =
 await db
@@ -726,7 +799,6 @@ return;
 
 }
 
-
 alert(
 "✅ Student Attendance সফলভাবে Save হয়েছে।"
 );
@@ -742,7 +814,6 @@ document
 "click",
 loadStudents
 );
-
 
 document
 .getElementById("saveAttendance")
