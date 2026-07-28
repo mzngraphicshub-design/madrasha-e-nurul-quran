@@ -1137,8 +1137,8 @@ Edit
 </button>
 
 <button class="delete"
-data-id="${s.id}"
-onclick="deleteSalary(this.dataset.id)">
+data-id="${String(s.id)}"
+onclick="deleteSalary(this.getAttribute('data-id'))">
 Delete
 </button>
 
@@ -1325,10 +1325,9 @@ Edit
 
 </button>
 
-
 <button class="delete"
-data-id="${s.id}"
-onclick="deleteSalary(this.dataset.id)">
+data-id="${String(s.id)}"
+onclick="deleteSalary(this.getAttribute('data-id'))">
 Delete
 </button>
 
@@ -1782,9 +1781,16 @@ DELETE
 
 async function deleteSalary(id){
 
-    console.log("Delete ID:", id);
+    console.log("DELETE ID =", id);
+    console.log("ID TYPE =", typeof id);
 
-    if(id === null || id === undefined || id === ""){
+    if(
+        id === null ||
+        id === undefined ||
+        id === "" ||
+        id === "null" ||
+        id === "undefined"
+    ){
         alert("❌ Invalid salary ID");
         return;
     }
@@ -1798,17 +1804,27 @@ async function deleteSalary(id){
         ? "teacher_salaries"
         : "employee_salaries";
 
+    const numericId = Number(id);
+
+    if(!Number.isInteger(numericId)){
+        alert("❌ Invalid salary ID: " + id);
+        return;
+    }
+
     const { data, error } = await db
         .from(table)
         .delete()
-        .eq("id", id)
-        .select();
+        .eq("id", numericId)
+        .select("id");
 
     if(error){
 
-        console.error("Delete error:", error);
+        console.error("DELETE ERROR:", error);
 
-        alert("❌ Delete failed:\n" + error.message);
+        alert(
+            "❌ Delete failed:\n" +
+            error.message
+        );
 
         return;
     }
@@ -1816,8 +1832,7 @@ async function deleteSalary(id){
     if(!data || data.length === 0){
 
         alert(
-            "❌ Record delete হয়নি।\n\n" +
-            "RLS policy অথবা ID সমস্যা হতে পারে।"
+            "❌ Record পাওয়া যায়নি অথবা Delete করার permission নেই।"
         );
 
         return;
