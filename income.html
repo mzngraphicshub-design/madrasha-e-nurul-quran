@@ -1,1 +1,1589 @@
+<!DOCTYPE html>
+<html lang="bn">
 
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Income Management | মাদরাসায়ে নূরুল কুরআন</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f4f7f6;
+    color:#222;
+}
+
+.top{
+    background:#075c43;
+    color:#fff;
+    padding:17px 22px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.top h2{
+    margin:0;
+    color:#fff;
+    font-size:20px;
+}
+
+.top a{
+    color:#fff;
+    text-decoration:none;
+}
+
+.container{
+    max-width:1200px;
+    margin:25px auto;
+    padding:0 15px;
+}
+
+.box{
+    background:#fff;
+    padding:22px;
+    border-radius:12px;
+    box-shadow:0 2px 10px #0001;
+    margin-bottom:20px;
+}
+
+h3{
+    color:#075c43;
+    margin:0 0 18px;
+}
+
+.form{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+}
+
+.full{
+    grid-column:1/-1;
+}
+
+label{
+    font-weight:bold;
+    font-size:14px;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    padding:11px;
+    margin-top:6px;
+    border:1px solid #ddd;
+    border-radius:7px;
+    font-size:14px;
+    background:#fff;
+}
+
+textarea{
+    resize:vertical;
+    min-height:80px;
+}
+
+button{
+    border:0;
+    padding:10px 16px;
+    border-radius:7px;
+    background:#087f5b;
+    color:#fff;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+
+.cancel{
+    background:#777;
+    margin-left:7px;
+}
+
+.edit{
+    background:#1565c0;
+}
+
+.delete{
+    background:#c62828;
+}
+
+#msg{
+    margin-top:12px;
+    min-height:20px;
+    font-weight:bold;
+}
+
+.success{
+    color:#087f5b;
+}
+
+.error{
+    color:#c62828;
+}
+
+.summary{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-bottom:18px;
+}
+
+.card{
+    background:#eee;
+    padding:12px 18px;
+    border-radius:8px;
+    font-weight:bold;
+}
+
+.search{
+    width:100%;
+    margin-bottom:15px;
+}
+
+.table-wrap{
+    overflow:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,
+td{
+    padding:10px 8px;
+    border-bottom:1px solid #ddd;
+    text-align:left;
+    font-size:14px;
+}
+
+th{
+    background:#075c43;
+    color:#fff;
+}
+
+.action{
+    white-space:nowrap;
+}
+
+.action button{
+    padding:7px 10px;
+    font-size:12px;
+    margin:2px;
+}
+
+.loading{
+    text-align:center;
+    padding:20px;
+}
+
+.donation{
+    background:#fff8e1;
+    border-left:5px solid #f9a825;
+}
+
+.custom-box{
+    display:none;
+}
+
+@media(max-width:650px){
+
+    .form{
+        grid-template-columns:1fr;
+    }
+
+    .full{
+        grid-column:auto;
+    }
+
+    table{
+        min-width:950px;
+    }
+}
+</style>
+
+</head>
+
+<body>
+
+
+<!-- ================= TOP ================= -->
+
+<header class="top">
+
+<h2>💵 Income Management</h2>
+
+<a href="dashboard.html">
+← Dashboard
+</a>
+
+</header>
+
+
+<div class="container">
+
+
+<!-- ================= INCOME FORM ================= -->
+
+<div class="box">
+
+<h3>
+➕ Add Income
+</h3>
+
+
+<form id="incomeForm">
+
+<input
+type="hidden"
+id="editId"
+value=""
+>
+
+
+<div>
+
+<label>
+Income Type *
+</label>
+
+<select id="incomeType" required>
+
+<option value="">
+Income Type নির্বাচন করুন
+</option>
+
+<option value="Student Fees">
+💰 Student Fees
+</option>
+
+<option value="Donation">
+🤲 অনুদান / Donation
+</option>
+
+<option value="Admission Fee">
+🎓 Admission Fee
+</option>
+
+<option value="Monthly Fee">
+📅 Monthly Fee
+</option>
+
+<option value="Other">
+📦 Other
+</option>
+
+<option value="Custom">
+➕ নতুন Income Type
+</option>
+
+</select>
+
+</div>
+
+
+<div
+id="customBox"
+class="custom-box">
+
+<label>
+Custom Income Type
+</label>
+
+<input
+type="text"
+id="customType"
+placeholder="যেমন: জমি ভাড়া, বই বিক্রি..."
+>
+
+</div>
+
+
+<div>
+
+<label>
+Amount *
+</label>
+
+<input
+type="number"
+id="amount"
+min="0"
+step="0.01"
+required
+placeholder="যেমন: 15000"
+>
+
+</div>
+
+
+<div>
+
+<label>
+Income Date *
+</label>
+
+<input
+type="date"
+id="incomeDate"
+required
+>
+
+</div>
+
+
+<div>
+
+<label>
+Payment Method
+</label>
+
+<select id="method">
+
+<option value="Cash">
+Cash
+</option>
+
+<option value="bKash">
+bKash
+</option>
+
+<option value="Nagad">
+Nagad
+</option>
+
+<option value="Bank">
+Bank
+</option>
+
+<option value="Other">
+Other
+</option>
+
+</select>
+
+</div>
+
+
+<div>
+
+<label>
+Received From
+</label>
+
+<input
+type="text"
+id="receivedFrom"
+placeholder="যার কাছ থেকে টাকা পাওয়া গেছে"
+>
+
+</div>
+
+
+<div class="full">
+
+<label>
+Title *
+</label>
+
+<input
+type="text"
+id="title"
+required
+placeholder="যেমন: রমজান মাসের অনুদান"
+>
+
+</div>
+
+
+<div class="full">
+
+<label>
+Description
+</label>
+
+<textarea
+id="description"
+placeholder="Income সম্পর্কে বিস্তারিত লিখুন..."></textarea>
+
+</div>
+
+
+<div class="full">
+
+<button
+type="submit"
+id="saveBtn">
+
+💾 Save Income
+
+</button>
+
+
+<button
+type="button"
+class="cancel"
+id="cancelBtn"
+style="display:none">
+
+Cancel
+
+</button>
+
+
+<div id="msg"></div>
+
+</div>
+
+</form>
+
+</div>
+
+
+<!-- ================= DONATION QUICK BOX ================= -->
+
+<div class="box donation">
+
+<h3>
+🤲 অনুদান / Donation
+</h3>
+
+<p>
+অনুদান গ্রহণ করলে উপরের <b>Income Type → অনুদান / Donation</b>
+নির্বাচন করে তথ্য সংরক্ষণ করুন।
+</p>
+
+</div>
+
+
+<!-- ================= INCOME LIST ================= -->
+
+<div class="box">
+
+<h3>
+💵 Income List
+</h3>
+
+
+<div class="summary">
+
+<div class="card">
+Total Income:
+<span id="totalIncome">
+0.00
+</span>
+</div>
+
+<div class="card">
+Donation:
+<span id="totalDonation">
+0.00
+</span>
+</div>
+
+<div class="card">
+Today:
+<span id="todayIncome">
+0.00
+</span>
+</div>
+
+</div>
+
+
+<input
+class="search"
+id="search"
+placeholder="🔍 Title / Type / নাম / Mobile দিয়ে খুঁজুন..."
+>
+
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Title</th>
+<th>Type</th>
+<th>Amount</th>
+<th>Date</th>
+<th>Method</th>
+<th>Received From</th>
+<th>Description</th>
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="incomeList">
+
+<tr>
+
+<td
+colspan="8"
+class="loading">
+
+Loading...
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+<!-- ================= SUPABASE ================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<script>
+
+/* =====================================================
+   SUPABASE CONFIG
+===================================================== */
+
+const SUPABASE_URL =
+"https://qavublwhqiqsgpcmfyft.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
+
+
+const db =
+window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
+
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+let incomes = [];
+
+
+/* =====================================================
+   TODAY
+===================================================== */
+
+function today(){
+
+    return new Date()
+    .toISOString()
+    .split("T")[0];
+
+}
+
+
+/* =====================================================
+   MESSAGE
+===================================================== */
+
+function showMessage(text,type=""){
+
+    const msg =
+    document.getElementById("msg");
+
+    msg.textContent = text;
+    msg.className = type;
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+async function start(){
+
+    try{
+
+        const {
+            data,
+            error
+        } = await db.auth.getSession();
+
+
+        if(error){
+
+            showMessage(
+                "❌ Session error: "+error.message,
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if(!data.session){
+
+            location.href="admin.html";
+
+            return;
+
+        }
+
+
+        document.getElementById(
+            "incomeDate"
+        ).value=today();
+
+
+        await loadIncome();
+
+    }
+
+    catch(error){
+
+        showMessage(
+            "❌ Start error: "+error.message,
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   LOAD INCOME
+===================================================== */
+
+async function loadIncome(){
+
+    const tbody =
+    document.getElementById("incomeList");
+
+
+    tbody.innerHTML=`
+
+        <tr>
+            <td colspan="8" class="loading">
+                Loading...
+            </td>
+        </tr>
+
+    `;
+
+
+    const {
+        data,
+        error
+    } = await db
+    .from("incomes")
+    .select("*")
+    .order("id",{ascending:false});
+
+
+    if(error){
+
+        incomes=[];
+
+        tbody.innerHTML=`
+
+            <tr>
+                <td colspan="8" class="error">
+                    ❌ ${escapeHtml(error.message)}
+                </td>
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    incomes=data || [];
+
+
+    renderIncome();
+
+}
+
+
+/* =====================================================
+   RENDER INCOME
+===================================================== */
+
+function renderIncome(list=incomes){
+
+    let total=0;
+    let donation=0;
+    let todayTotal=0;
+
+
+    const currentDate=today();
+
+
+    list.forEach(item=>{
+
+        const amount =
+        Number(item.amount)||0;
+
+
+        total += amount;
+
+
+        if(
+            String(item.income_type||"")
+            .toLowerCase()
+            .includes("donation") ||
+
+            String(item.income_type||"")
+            .includes("অনুদান")
+        ){
+
+            donation += amount;
+
+        }
+
+
+        if(
+            String(item.income_date||"")===
+            currentDate
+        ){
+
+            todayTotal += amount;
+
+        }
+
+    });
+
+
+    document.getElementById(
+        "totalIncome"
+    ).textContent =
+    total.toFixed(2);
+
+
+    document.getElementById(
+        "totalDonation"
+    ).textContent =
+    donation.toFixed(2);
+
+
+    document.getElementById(
+        "todayIncome"
+    ).textContent =
+    todayTotal.toFixed(2);
+
+
+    const tbody =
+    document.getElementById("incomeList");
+
+
+    if(!list.length){
+
+        tbody.innerHTML=`
+
+            <tr>
+
+                <td
+                colspan="8"
+                style="text-align:center">
+
+                    কোনো Income record নেই
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    tbody.innerHTML =
+    list.map(item=>{
+
+        const amount =
+        Number(item.amount)||0;
+
+
+        return `
+
+        <tr>
+
+            <td>
+                ${escapeHtml(item.title || "-")}
+            </td>
+
+
+            <td>
+                ${escapeHtml(item.income_type || "-")}
+            </td>
+
+
+            <td>
+                ${amount.toFixed(2)}
+            </td>
+
+
+            <td>
+                ${escapeHtml(item.income_date || "-")}
+            </td>
+
+
+            <td>
+                ${escapeHtml(item.payment_method || "-")}
+            </td>
+
+
+            <td>
+                ${escapeHtml(item.received_from || "-")}
+            </td>
+
+
+            <td>
+                ${escapeHtml(item.description || "-")}
+            </td>
+
+
+            <td class="action">
+
+                <button
+                type="button"
+                class="edit"
+                data-income-id="${escapeHtml(String(item.id))}"
+                onclick="editIncomeFromButton(this)">
+
+                    Edit
+
+                </button>
+
+
+                <button
+                type="button"
+                class="delete"
+                data-income-id="${escapeHtml(String(item.id))}"
+                onclick="deleteIncomeFromButton(this)">
+
+                    Delete
+
+                </button>
+
+            </td>
+
+        </tr>
+
+        `;
+
+    }).join("");
+
+}
+
+
+/* =====================================================
+   BUTTON HANDLERS
+===================================================== */
+
+function editIncomeFromButton(button){
+
+    const id =
+    button.getAttribute("data-income-id");
+
+    editIncome(id);
+
+}
+
+
+function deleteIncomeFromButton(button){
+
+    const id =
+    button.getAttribute("data-income-id");
+
+    deleteIncome(id);
+
+}
+
+
+/* =====================================================
+   INCOME TYPE CHANGE
+===================================================== */
+
+document.getElementById(
+    "incomeType"
+).addEventListener(
+    "change",
+    function(){
+
+        const customBox =
+        document.getElementById("customBox");
+
+
+        if(this.value==="Custom"){
+
+            customBox.style.display="block";
+
+            document.getElementById(
+                "customType"
+            ).required=true;
+
+        }
+
+        else{
+
+            customBox.style.display="none";
+
+            document.getElementById(
+                "customType"
+            ).required=false;
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   SAVE / UPDATE
+===================================================== */
+
+document.getElementById(
+    "incomeForm"
+).addEventListener(
+    "submit",
+    async function(e){
+
+        e.preventDefault();
+
+
+        const editId =
+        document.getElementById(
+            "editId"
+        ).value.trim();
+
+
+        let incomeType =
+        document.getElementById(
+            "incomeType"
+        ).value;
+
+
+        const customType =
+        document.getElementById(
+            "customType"
+        ).value.trim();
+
+
+        if(incomeType==="Custom"){
+
+            if(!customType){
+
+                showMessage(
+                    "❌ Custom Income Type লিখুন",
+                    "error"
+                );
+
+                return;
+
+            }
+
+            incomeType=customType;
+
+        }
+
+
+        if(!incomeType){
+
+            showMessage(
+                "❌ Income Type নির্বাচন করুন",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        const title =
+        document.getElementById(
+            "title"
+        ).value.trim();
+
+
+        const amount =
+        Number(
+            document.getElementById(
+                "amount"
+            ).value
+        );
+
+
+        const incomeDate =
+        document.getElementById(
+            "incomeDate"
+        ).value;
+
+
+        if(!title){
+
+            showMessage(
+                "❌ Title লিখুন",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if(
+            !Number.isFinite(amount) ||
+            amount<=0
+        ){
+
+            showMessage(
+                "❌ Amount সঠিকভাবে দিন",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if(!incomeDate){
+
+            showMessage(
+                "❌ Income Date নির্বাচন করুন",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        const record={
+
+            title:title,
+
+            income_type:incomeType,
+
+            amount:amount,
+
+            income_date:incomeDate,
+
+            payment_method:
+            document.getElementById(
+                "method"
+            ).value,
+
+            received_from:
+            document.getElementById(
+                "receivedFrom"
+            ).value.trim() || null,
+
+            description:
+            document.getElementById(
+                "description"
+            ).value.trim() || null
+
+        };
+
+
+        const saveBtn =
+        document.getElementById(
+            "saveBtn"
+        );
+
+
+        saveBtn.disabled=true;
+
+
+        try{
+
+            let result;
+
+
+            if(editId){
+
+                result =
+                await db
+                .from("incomes")
+                .update(record)
+                .eq("id",editId)
+                .select();
+
+            }
+
+            else{
+
+                result =
+                await db
+                .from("incomes")
+                .insert(record)
+                .select();
+
+            }
+
+
+            if(result.error){
+
+                showMessage(
+                    "❌ "+result.error.message,
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            showMessage(
+                editId
+                ? "✅ Income Updated Successfully"
+                : "✅ Income Saved Successfully",
+                "success"
+            );
+
+
+            resetForm();
+
+
+            await loadIncome();
+
+        }
+
+        catch(error){
+
+            showMessage(
+                "❌ "+error.message,
+                "error"
+            );
+
+        }
+
+        finally{
+
+            saveBtn.disabled=false;
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   EDIT INCOME
+===================================================== */
+
+function editIncome(id){
+
+    const income =
+    incomes.find(
+        item =>
+        String(item.id)===
+        String(id)
+    );
+
+
+    if(!income){
+
+        alert(
+            "❌ Income record পাওয়া যায়নি।"
+        );
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "editId"
+    ).value =
+    String(income.id);
+
+
+    const type =
+    income.income_type || "";
+
+
+    const select =
+    document.getElementById(
+        "incomeType"
+    );
+
+
+    const standardTypes=[
+
+        "Student Fees",
+        "Donation",
+        "Admission Fee",
+        "Monthly Fee",
+        "Other"
+
+    ];
+
+
+    if(standardTypes.includes(type)){
+
+        select.value=type;
+
+        document.getElementById(
+            "customBox"
+        ).style.display="none";
+
+    }
+
+    else{
+
+        select.value="Custom";
+
+        document.getElementById(
+            "customBox"
+        ).style.display="block";
+
+
+        document.getElementById(
+            "customType"
+        ).value=type;
+
+    }
+
+
+    document.getElementById(
+        "title"
+    ).value =
+    income.title || "";
+
+
+    document.getElementById(
+        "amount"
+    ).value =
+    income.amount ?? "";
+
+
+    document.getElementById(
+        "incomeDate"
+    ).value =
+    income.income_date || "";
+
+
+    document.getElementById(
+        "method"
+    ).value =
+    income.payment_method || "Cash";
+
+
+    document.getElementById(
+        "receivedFrom"
+    ).value =
+    income.received_from || "";
+
+
+    document.getElementById(
+        "description"
+    ).value =
+    income.description || "";
+
+
+    document.getElementById(
+        "saveBtn"
+    ).textContent =
+    "💾 Update Income";
+
+
+    document.getElementById(
+        "cancelBtn"
+    ).style.display =
+    "inline-block";
+
+
+    window.scrollTo({
+
+        top:0,
+        behavior:"smooth"
+
+    });
+
+}
+
+
+/* =====================================================
+   DELETE
+===================================================== */
+
+async function deleteIncome(id){
+
+    if(!id){
+
+        alert(
+            "❌ Invalid Income ID"
+        );
+
+        return;
+
+    }
+
+
+    if(!confirm(
+        "এই Income record Delete করতে চান?"
+    )){
+
+        return;
+
+    }
+
+
+    const {
+        data,
+        error
+    } =
+    await db
+    .from("incomes")
+    .delete()
+    .eq("id",id)
+    .select("id");
+
+
+    if(error){
+
+        alert(
+            "❌ Delete failed:\n"+
+            error.message
+        );
+
+        return;
+
+    }
+
+
+    if(!data || !data.length){
+
+        alert(
+            "❌ Record পাওয়া যায়নি অথবা Delete permission নেই।"
+        );
+
+        return;
+
+    }
+
+
+    alert(
+        "✅ Income deleted successfully"
+    );
+
+
+    await loadIncome();
+
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+document.getElementById(
+    "search"
+).addEventListener(
+    "input",
+    function(){
+
+        const q =
+        this.value
+        .toLowerCase()
+        .trim();
+
+
+        if(!q){
+
+            renderIncome();
+
+            return;
+
+        }
+
+
+        const filtered =
+        incomes.filter(item=>{
+
+            const title =
+            String(
+                item.title||""
+            ).toLowerCase();
+
+
+            const type =
+            String(
+                item.income_type||""
+            ).toLowerCase();
+
+
+            const from =
+            String(
+                item.received_from||""
+            ).toLowerCase();
+
+
+            const method =
+            String(
+                item.payment_method||""
+            ).toLowerCase();
+
+
+            const description =
+            String(
+                item.description||""
+            ).toLowerCase();
+
+
+            const date =
+            String(
+                item.income_date||""
+            ).toLowerCase();
+
+
+            return (
+
+                title.includes(q) ||
+
+                type.includes(q) ||
+
+                from.includes(q) ||
+
+                method.includes(q) ||
+
+                description.includes(q) ||
+
+                date.includes(q)
+
+            );
+
+        });
+
+
+        renderIncome(filtered);
+
+    }
+);
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+function resetForm(){
+
+    document.getElementById(
+        "incomeForm"
+    ).reset();
+
+
+    document.getElementById(
+        "editId"
+    ).value="";
+
+
+    document.getElementById(
+        "incomeDate"
+    ).value=today();
+
+
+    document.getElementById(
+        "saveBtn"
+    ).textContent =
+    "💾 Save Income";
+
+
+    document.getElementById(
+        "cancelBtn"
+    ).style.display =
+    "none";
+
+
+    document.getElementById(
+        "customBox"
+    ).style.display =
+    "none";
+
+
+    document.getElementById(
+        "customType"
+    ).required=false;
+
+
+    document.getElementById(
+        "msg"
+    ).textContent="";
+
+
+    document.getElementById(
+        "msg"
+    ).className="";
+
+}
+
+
+/* =====================================================
+   CANCEL
+===================================================== */
+
+document.getElementById(
+    "cancelBtn"
+).onclick=function(){
+
+    resetForm();
+
+};
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHtml(value){
+
+    return String(value)
+
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+/* =====================================================
+   RUN
+===================================================== */
+
+start();
+
+</script>
+
+</body>
+</html>
