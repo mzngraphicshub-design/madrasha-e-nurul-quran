@@ -2,18 +2,32 @@
 <html lang="bn">
 
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<meta
+name="viewport"
+content="width=device-width,initial-scale=1"
+>
+
 <title>Student Attendance | মাদরাসায়ে নূরুল কুরআন</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
 
 body{
 font-family:Arial,sans-serif;
 background:#f4f7f6;
 color:#222;
 }
+
+
+/* TOP BAR */
 
 .topbar{
 height:42px;
@@ -31,11 +45,17 @@ color:#fff;
 text-decoration:none;
 }
 
+
+/* CONTENT */
+
 .container{
 padding:16px;
 max-width:1100px;
 margin:auto;
 }
+
+
+/* CARD */
 
 .card{
 background:#fff;
@@ -50,6 +70,9 @@ color:#075c43;
 margin-bottom:18px;
 font-size:16px;
 }
+
+
+/* FILTER */
 
 .filters{
 display:grid;
@@ -81,11 +104,15 @@ color:#fff;
 border-radius:6px;
 padding:10px 16px;
 cursor:pointer;
+font-weight:bold;
 }
 
 button:hover{
 background:#075c43;
 }
+
+
+/* TABLE */
 
 .table-wrap{
 overflow-x:auto;
@@ -94,7 +121,7 @@ overflow-x:auto;
 table{
 width:100%;
 border-collapse:collapse;
-min-width:750px;
+min-width:850px;
 }
 
 th{
@@ -116,32 +143,37 @@ height:34px;
 padding:0 8px;
 }
 
-.action-btn{
+
+/* ACTION */
+
+.action{
+white-space:nowrap;
+}
+
+.action button{
 padding:7px 10px;
 font-size:11px;
 margin-right:4px;
 }
 
-.edit-btn{
-background:#0d6efd;
+.edit{
+background:#1565c0;
 }
 
-.edit-btn:hover{
-background:#084298;
+.delete{
+background:#c62828;
 }
 
-.delete-btn{
-background:#dc3545;
-}
 
-.delete-btn:hover{
-background:#b02a37;
-}
+/* SAVE */
 
 .save-box{
 text-align:right;
 margin-top:15px;
 }
+
+
+/* MESSAGE */
 
 .message{
 text-align:center;
@@ -149,6 +181,15 @@ padding:25px;
 color:#777;
 font-size:13px;
 }
+
+#msg{
+margin-top:12px;
+font-weight:bold;
+text-align:center;
+}
+
+
+/* MOBILE */
 
 @media(max-width:600px){
 
@@ -169,10 +210,16 @@ font-size:12px;
 }
 
 }
+
 </style>
+
 </head>
 
+
 <body>
+
+
+<!-- ================= TOP ================= -->
 
 <div class="topbar">
 
@@ -186,17 +233,27 @@ font-size:12px;
 
 </div>
 
+
 <div class="container">
+
+
+<!-- ================= FILTER ================= -->
 
 <div class="card">
 
-<h3>📋 Attendance নেওয়া</h3>
+<h3>
+📋 Attendance নেওয়া
+</h3>
+
 
 <div class="filters">
 
+
 <div>
 
-<label>Date</label>
+<label>
+Date
+</label>
 
 <input
 type="date"
@@ -205,11 +262,16 @@ id="attendanceDate"
 
 </div>
 
+
 <div>
 
-<label>Class</label>
+<label>
+Class
+</label>
 
-<select id="classSelect">
+<select
+id="classSelect"
+>
 
 <option value="">
 সকল Class
@@ -219,25 +281,35 @@ id="attendanceDate"
 
 </div>
 
+
 <div>
 
 <button
 id="loadStudents"
 type="button"
 >
+
 Load Students
+
 </button>
 
 </div>
 
-</div>
 
 </div>
 
+</div>
+
+
+
+<!-- ================= STUDENT LIST ================= -->
 
 <div class="card">
 
-<h3>👨‍🎓 Student List</h3>
+<h3>
+👨‍🎓 Student List
+</h3>
+
 
 <div class="table-wrap">
 
@@ -247,16 +319,34 @@ Load Students
 
 <tr>
 
-<th>ক্রমিক</th>
-<th>Student ID</th>
-<th>Student Name</th>
-<th>Class</th>
-<th>Attendance</th>
-<th>Action</th>
+<th>
+ক্রমিক
+</th>
+
+<th>
+Student ID
+</th>
+
+<th>
+Student Name
+</th>
+
+<th>
+Class
+</th>
+
+<th>
+Attendance
+</th>
+
+<th>
+Action
+</th>
 
 </tr>
 
 </thead>
+
 
 <tbody id="studentTable">
 
@@ -266,7 +356,9 @@ Load Students
 colspan="6"
 class="message"
 >
+
 Date এবং Class নির্বাচন করে Load Students করুন
+
 </td>
 
 </tr>
@@ -277,31 +369,49 @@ Date এবং Class নির্বাচন করে Load Students করু�
 
 </div>
 
+
 <div class="save-box">
 
 <button
 id="saveAttendance"
 type="button"
 >
+
 💾 Save Attendance
+
 </button>
 
 </div>
 
-</div>
+
+<div id="msg"></div>
 
 </div>
 
+
+</div>
+
+
+
+<!-- ================= SUPABASE ================= -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+
 <script>
+
+
+/* =====================================================
+SUPABASE
+===================================================== */
 
 const SUPABASE_URL =
 "https://qavublwhqiqsgpcmfyft.supabase.co";
 
+
 const SUPABASE_KEY =
 "sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
+
 
 const db =
 window.supabase.createClient(
@@ -310,73 +420,176 @@ SUPABASE_KEY
 );
 
 
-/* ================= DATE ================= */
+
+/* =====================================================
+VARIABLES
+===================================================== */
+
+let students = [];
+
+
+
+/* =====================================================
+DATE
+===================================================== */
 
 const dateInput =
-document.getElementById("attendanceDate");
+document.getElementById(
+"attendanceDate"
+);
+
 
 const today =
 new Date();
 
+
 const yyyy =
 today.getFullYear();
+
 
 const mm =
 String(today.getMonth()+1)
 .padStart(2,"0");
 
+
 const dd =
 String(today.getDate())
 .padStart(2,"0");
+
 
 dateInput.value =
 `${yyyy}-${mm}-${dd}`;
 
 
-/* ================= SESSION ================= */
+
+/* =====================================================
+ESCAPE HTML
+===================================================== */
+
+function escapeHtml(value){
+
+return String(value ?? "")
+
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+
+}
+
+
+
+/* =====================================================
+MESSAGE
+===================================================== */
+
+function showMessage(
+text,
+type=""
+){
+
+const msg =
+document.getElementById("msg");
+
+msg.textContent =
+text;
+
+msg.style.color =
+type==="error"
+?
+"#c62828"
+:
+"#087f5b";
+
+}
+
+
+
+/* =====================================================
+LOGIN
+===================================================== */
 
 async function checkLogin(){
 
 const {
-data:{session}
-}=await db.auth.getSession();
+data:{
+session
+}
+} =
+await db.auth.getSession();
+
 
 if(!session){
 
-location.href="admin.html";
+location.href =
+"admin.html";
+
 return false;
 
 }
+
 
 return true;
 
 }
 
 
-/* ================= LOAD CLASSES ================= */
+
+/* =====================================================
+LOAD CLASSES
+===================================================== */
 
 async function loadClasses(){
 
 const select =
-document.getElementById("classSelect");
+document.getElementById(
+"classSelect"
+);
 
-const {data,error} =
+
+const {
+data,
+error
+} =
 await db
+
 .from("classes")
+
 .select("*")
-.order("id",{ascending:true});
+
+.order(
+"id",
+{
+ascending:true
+}
+);
+
 
 if(error){
 
-console.log(error);
+console.error(error);
 
 return;
 
 }
 
-if(!data || data.length===0){
 
-const defaultClasses=[
+select.innerHTML =
+`
+<option value="">
+সকল Class
+</option>
+`;
+
+
+if(
+!data ||
+data.length===0
+){
+
+const defaultClasses = [
+
 "নূরানী",
 "১ম শ্রেণি",
 "২য় শ্রেণি",
@@ -385,17 +598,27 @@ const defaultClasses=[
 "৫ম শ্রেণি",
 "নাজেরা",
 "হিফজ"
+
 ];
 
-defaultClasses.forEach(function(name){
+
+defaultClasses.forEach(
+function(name){
 
 const option =
-document.createElement("option");
+document.createElement(
+"option"
+);
 
-option.value=name;
-option.textContent=name;
+option.value =
+name;
 
-select.appendChild(option);
+option.textContent =
+name;
+
+select.appendChild(
+option
+);
 
 });
 
@@ -403,87 +626,156 @@ return;
 
 }
 
-data.forEach(function(item){
+
+data.forEach(
+function(item){
+
+const classId =
+item.id ?? "";
+
+
+const className =
+item.name ||
+item.class_name ||
+item.title ||
+"";
+
+
+if(!className){
+return;
+}
+
 
 const option =
-document.createElement("option");
+document.createElement(
+"option"
+);
+
 
 option.value =
-item.name ||
-item.class_name ||
-item.title ||
-"";
+classId;
+
 
 option.textContent =
-item.name ||
-item.class_name ||
-item.title ||
-"";
+className;
 
-if(option.value){
 
-select.appendChild(option);
-
-}
+select.appendChild(
+option
+);
 
 });
 
 }
 
 
-/* ================= LOAD STUDENTS ================= */
+
+/* =====================================================
+LOAD STUDENTS
+===================================================== */
 
 async function loadStudents(){
 
 const date =
 dateInput.value;
 
-const className =
-document.getElementById("classSelect").value;
+
+const classId =
+document.getElementById(
+"classSelect"
+).value;
+
 
 const tbody =
-document.getElementById("studentTable");
+document.getElementById(
+"studentTable"
+);
+
 
 if(!date){
 
-alert("তারিখ নির্বাচন করুন।");
+alert(
+"তারিখ নির্বাচন করুন।"
+);
+
 return;
 
 }
 
-tbody.innerHTML=
+
+tbody.innerHTML =
 `
 <tr>
-<td colspan="6" class="message">
+<td
+colspan="6"
+class="message"
+>
 Students লোড হচ্ছে...
 </td>
 </tr>
 `;
 
+
 let query =
 db
-.from("students")
-.select("*");
 
-if(className){
+.from("students")
+
+.select(
+"id,student_id,name,class_id,classes(name)"
+)
+
+.order(
+"name",
+{
+ascending:true
+}
+);
+
+
+/*
+Class নির্বাচন করলে
+class_id দিয়ে filter হবে।
+*/
+
+if(classId){
 
 query =
-query.eq("class",className);
+query.eq(
+"class_id",
+classId
+);
 
 }
 
-const {data,error} =
+
+const {
+data,
+error
+} =
 await query;
+
 
 if(error){
 
-console.log(error);
+console.error(
+"STUDENT LOAD ERROR:",
+error
+);
 
-tbody.innerHTML=
+
+tbody.innerHTML =
 `
 <tr>
-<td colspan="6" class="message">
-Student data load করা যায়নি।
+<td
+colspan="6"
+class="message"
+>
+❌ Student data load করা যায়নি।
+<br>
+${escapeHtml(
+error.message
+)}
 </td>
 </tr>
 `;
@@ -492,12 +784,20 @@ return;
 
 }
 
-if(!data || data.length===0){
 
-tbody.innerHTML=
+students =
+data || [];
+
+
+if(!students.length){
+
+tbody.innerHTML =
 `
 <tr>
-<td colspan="6" class="message">
+<td
+colspan="6"
+class="message"
+>
 এই Class-এ কোনো Student পাওয়া যায়নি।
 </td>
 </tr>
@@ -507,97 +807,177 @@ return;
 
 }
 
-tbody.innerHTML="";
 
+/* =====================================================
+LOAD EXISTING ATTENDANCE
+===================================================== */
 
-/*
-প্রতিটি student-এর existing attendance
-আগে থেকে থাকলে সেটাও Load করবে।
-*/
-
-for(let index=0; index<data.length; index++){
-
-const student =
-data[index];
-
-const id =
-student.id ||
-student.student_id ||
-"";
-
-const studentId =
-student.student_id ||
-student.roll ||
-student.id ||
-"";
-
-const name =
-student.name ||
-student.student_name ||
-"";
-
-const cls =
-student.class ||
-student.class_name ||
-"";
-
-
-let currentStatus="present";
-
-
-const {data:attendanceData,error:attendanceError} =
+const {
+data:attendanceData,
+error:attendanceError
+} =
 await db
-.from("student_attendance")
-.select("status")
-.eq("student_id",id)
-.eq("attendance_date",date)
-.maybeSingle();
+
+.from(
+"student_attendance"
+)
+
+.select(
+"id,student_id,status,attendance_date"
+)
+
+.eq(
+"attendance_date",
+date
+);
 
 
-if(!attendanceError && attendanceData){
+if(attendanceError){
 
-currentStatus =
-attendanceData.status || "present";
+console.error(
+"ATTENDANCE LOAD ERROR:",
+attendanceError
+);
+
+showMessage(
+"❌ "+attendanceError.message,
+"error"
+);
+
+return;
 
 }
 
 
+const attendanceMap = {};
+
+
+(
+attendanceData || []
+).forEach(
+function(record){
+
+attendanceMap[
+String(record.student_id)
+] = record;
+
+});
+
+
+/* =====================================================
+BUILD TABLE
+===================================================== */
+
+tbody.innerHTML = "";
+
+
+students.forEach(
+function(student,index){
+
+const studentDbId =
+student.id;
+
+
+const studentId =
+student.student_id ||
+student.id ||
+"";
+
+
+const name =
+student.name ||
+"";
+
+
+const className =
+student.classes?.name ||
+"-";
+
+
+const record =
+attendanceMap[
+String(studentDbId)
+];
+
+
+const status =
+record?.status ||
+"present";
+
+
 const tr =
-document.createElement("tr");
+document.createElement(
+"tr"
+);
 
-tr.dataset.studentId=id;
 
-tr.innerHTML=
+tr.dataset.studentId =
+studentDbId;
+
+
+tr.dataset.attendanceId =
+record?.id ||
+"";
+
+
+tr.innerHTML =
 `
-<td>${index+1}</td>
 
-<td>${studentId}</td>
+<td>
+${index+1}
+</td>
 
-<td>${name}</td>
 
-<td>${cls}</td>
+<td>
+${escapeHtml(studentId)}
+</td>
+
+
+<td>
+${escapeHtml(name)}
+</td>
+
+
+<td>
+${escapeHtml(className)}
+</td>
+
 
 <td>
 
-<select class="status">
+<select
+class="status"
+data-student-id="${escapeHtml(studentDbId)}"
+>
 
-<option value="present"
-${currentStatus==="present" ? "selected" : ""}>
+<option
+value="present"
+${status==="present"?"selected":""}
+>
 উপস্থিত
 </option>
 
-<option value="absent"
-${currentStatus==="absent" ? "selected" : ""}>
+
+<option
+value="absent"
+${status==="absent"?"selected":""}
+>
 অনুপস্থিত
 </option>
 
-<option value="late"
-${currentStatus==="late" ? "selected" : ""}>
+
+<option
+value="late"
+${status==="late"?"selected":""}
+>
 বিলম্ব
 </option>
 
-<option value="leave"
-${currentStatus==="leave" ? "selected" : ""}>
+
+<option
+value="leave"
+${status==="leave"?"selected":""}
+>
 ছুটি
 </option>
 
@@ -605,179 +985,136 @@ ${currentStatus==="leave" ? "selected" : ""}>
 
 </td>
 
-<td>
+
+<td
+class="action"
+>
+
+${
+record
+?
+`
 
 <button
 type="button"
-class="action-btn edit-btn"
-onclick="editAttendance(this)"
+class="edit"
+onclick="editAttendance('${escapeHtml(record.id)}')"
 >
 ✏️ Edit
 </button>
 
+
 <button
 type="button"
-class="action-btn delete-btn"
-onclick="deleteAttendance(this)"
+class="delete"
+onclick="deleteAttendance('${escapeHtml(record.id)}')"
 >
 🗑️ Delete
 </button>
 
+`
+:
+`
+<span style="color:#999">
+Not saved
+</span>
+`
+}
+
 </td>
+
 `;
 
-tbody.appendChild(tr);
 
-}
-
-}
-
-
-/* ================= EDIT ================= */
-
-function editAttendance(button){
-
-const row =
-button.closest("tr");
-
-const select =
-row.querySelector(".status");
-
-if(!select)return;
-
-select.disabled=false;
-
-select.focus();
-
-alert("Attendance status পরিবর্তন করে Save Attendance চাপুন।");
-
-}
-
-
-/* ================= DELETE ================= */
-
-async function deleteAttendance(button){
-
-const row =
-button.closest("tr");
-
-if(!row)return;
-
-const studentId =
-row.dataset.studentId;
-
-const date =
-dateInput.value;
-
-if(!studentId || !date){
-
-alert("Student অথবা Date পাওয়া যায়নি।");
-return;
-
-}
-
-const confirmDelete =
-confirm(
-"এই Student-এর এই তারিখের Attendance Delete করতে চান?"
+tbody.appendChild(
+tr
 );
 
-if(!confirmDelete)return;
-
-
-const {error} =
-await db
-.from("student_attendance")
-.delete()
-.eq("student_id",studentId)
-.eq("attendance_date",date);
-
-
-if(error){
-
-console.log(error);
-
-alert(
-"❌ Attendance Delete হয়নি।"
-);
-
-return;
+});
 
 }
 
 
-/*
-Delete করার পর row-এর status
-আবার default উপস্থিত করে দেওয়া হচ্ছে।
-*/
 
-const select =
-row.querySelector(".status");
-
-if(select){
-
-select.value="present";
-
-}
-
-alert(
-"✅ Attendance সফলভাবে Delete হয়েছে।"
-);
-
-}
-
-
-/* ================= SAVE ATTENDANCE ================= */
+/* =====================================================
+SAVE ATTENDANCE
+===================================================== */
 
 async function saveAttendance(){
 
 const date =
 dateInput.value;
 
+
 if(!date){
 
-alert("তারিখ নির্বাচন করুন।");
+alert(
+"তারিখ নির্বাচন করুন।"
+);
+
 return;
 
 }
+
 
 const rows =
 document.querySelectorAll(
 "#studentTable tr[data-student-id]"
 );
 
+
 if(rows.length===0){
 
-alert("প্রথমে Student Load করুন।");
+alert(
+"প্রথমে Student Load করুন।"
+);
+
 return;
 
 }
 
-const records=[];
 
-rows.forEach(function(row){
+const records = [];
+
+
+rows.forEach(
+function(row){
 
 const studentId =
 row.dataset.studentId;
 
+
 const status =
-row.querySelector(".status").value;
+row.querySelector(
+".status"
+).value;
+
 
 records.push({
 
-student_id:studentId,
+student_id:
+Number(studentId),
 
-attendance_date:date,
+attendance_date:
+date,
 
-status:status
+status:
+status
 
 });
 
 });
 
 
-const {error} =
+const {
+error
+} =
 await db
-.from("student_attendance")
+
+.from(
+"student_attendance"
+)
+
 .upsert(
 records,
 {
@@ -789,57 +1126,407 @@ onConflict:
 
 if(error){
 
-console.log(error);
+console.error(
+"SAVE ERROR:",
+error
+);
 
-alert(
-"Attendance save হয়নি। Supabase table/column name check করুন।"
+showMessage(
+"❌ "+error.message,
+"error"
 );
 
 return;
 
 }
 
-alert(
+
+showMessage(
 "✅ Student Attendance সফলভাবে Save হয়েছে।"
 );
+
+
+await loadStudents();
 
 }
 
 
-/* ================= BUTTONS ================= */
+
+/* =====================================================
+EDIT ATTENDANCE
+===================================================== */
+
+async function editAttendance(
+id
+){
+
+if(
+!id ||
+String(id)==="null" ||
+String(id)==="undefined"
+){
+
+alert(
+"❌ Invalid Attendance ID"
+);
+
+return;
+
+}
+
+
+const {
+data,
+error
+} =
+await db
+
+.from(
+"student_attendance"
+)
+
+.select("*")
+
+.eq(
+"id",
+id
+)
+
+.maybeSingle();
+
+
+if(error){
+
+alert(
+"❌ "+error.message
+);
+
+return;
+
+}
+
+
+if(!data){
+
+alert(
+"❌ Attendance record পাওয়া যায়নি।"
+);
+
+return;
+
+}
+
+
+const currentStatus =
+data.status ||
+"present";
+
+
+const newStatus =
+currentStatus === "present"
+?
+"absent"
+:
+"present";
+
+
+const confirmEdit =
+confirm(
+
+"বর্তমান Status: "+
+(
+currentStatus==="present"
+?
+"উপস্থিত"
+:
+currentStatus==="absent"
+?
+"অনুপস্থিত"
+:
+currentStatus
+)+
+
+"\n\nনতুন Status হবে: "+
+(
+newStatus==="present"
+?
+"উপস্থিত"
+:
+"অনুপস্থিত"
+)+
+
+"\n\nUpdate করতে চান?"
+
+);
+
+
+if(!confirmEdit){
+
+return;
+
+}
+
+
+const {
+error:updateError
+} =
+await db
+
+.from(
+"student_attendance"
+)
+
+.update({
+
+status:
+newStatus
+
+})
+
+.eq(
+"id",
+id
+);
+
+
+if(updateError){
+
+alert(
+"❌ Edit failed:\n"+
+updateError.message
+);
+
+return;
+
+}
+
+
+alert(
+"✅ Attendance updated successfully"
+);
+
+
+await loadStudents();
+
+}
+
+
+
+/* =====================================================
+DELETE ATTENDANCE
+===================================================== */
+
+async function deleteAttendance(
+id
+){
+
+if(
+!id ||
+String(id)==="null" ||
+String(id)==="undefined"
+){
+
+alert(
+"❌ Invalid Attendance ID"
+);
+
+return;
+
+}
+
+
+const confirmDelete =
+confirm(
+
+"এই Student Attendance record Delete করতে চান?"
+
+);
+
+
+if(!confirmDelete){
+
+return;
+
+}
+
+
+/*
+IMPORTANT:
+Database-এর attendance record-এর
+নিজস্ব ID দিয়ে delete হচ্ছে।
+*/
+
+const {
+data,
+error
+} =
+await db
+
+.from(
+"student_attendance"
+)
+
+.delete()
+
+.eq(
+"id",
+id
+)
+
+.select(
+"id"
+);
+
+
+if(error){
+
+console.error(
+"DELETE ERROR:",
+error
+);
+
+
+alert(
+"❌ Delete failed:\n"+
+error.message
+);
+
+return;
+
+}
+
+
+/*
+যদি data empty হয়,
+তাহলে RLS policy delete আটকাচ্ছে।
+*/
+
+if(
+!data ||
+data.length===0
+){
+
+alert(
+"❌ Record Delete হয়নি।\n\nSupabase RLS DELETE permission check করুন।"
+);
+
+return;
+
+}
+
+
+alert(
+"✅ Student Attendance deleted successfully"
+);
+
+
+/*
+Database থেকে সত্যিই delete হওয়ার পর
+আবার list load করা হচ্ছে।
+*/
+
+await loadStudents();
+
+}
+
+
+
+/* =====================================================
+BUTTON EVENTS
+===================================================== */
 
 document
-.getElementById("loadStudents")
+
+.getElementById(
+"loadStudents"
+)
+
 .addEventListener(
 "click",
 loadStudents
 );
 
+
 document
-.getElementById("saveAttendance")
+
+.getElementById(
+"saveAttendance"
+)
+
 .addEventListener(
 "click",
 saveAttendance
 );
 
 
-/* ================= START ================= */
+
+/* =====================================================
+DATE CHANGE
+===================================================== */
+
+dateInput
+
+.addEventListener(
+"change",
+function(){
+
+loadStudents();
+
+});
+
+
+
+/* =====================================================
+CLASS CHANGE
+===================================================== */
+
+document
+
+.getElementById(
+"classSelect"
+)
+
+.addEventListener(
+"change",
+function(){
+
+loadStudents();
+
+});
+
+
+
+/* =====================================================
+START
+===================================================== */
 
 async function start(){
 
 const logged =
 await checkLogin();
 
-if(!logged)return;
+
+if(!logged){
+return;
+}
+
 
 await loadClasses();
 
+
+/*
+Page open হলে
+আজকের date-এর student list load করবে।
+*/
+
+await loadStudents();
+
 }
+
 
 start();
 
 </script>
 
 </body>
-
 </html>
