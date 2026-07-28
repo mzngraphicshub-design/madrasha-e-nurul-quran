@@ -123,7 +123,7 @@ button:disabled{
 }
 
 .print{
-    background:#6a1b9a;
+    background:#5e35b1;
     margin-left:7px;
 }
 
@@ -155,9 +155,8 @@ button:disabled{
     font-weight:bold;
 }
 
-.card.expense{
-    background:#ffebee;
-    color:#c62828;
+.card span{
+    color:#075c43;
 }
 
 .search{
@@ -202,9 +201,9 @@ th{
     padding:20px;
 }
 
-.empty{
+.no-data{
     text-align:center;
-    padding:20px;
+    padding:25px;
     color:#777;
 }
 
@@ -223,7 +222,7 @@ th{
     }
 
     .top h2{
-        font-size:16px;
+        font-size:17px;
     }
 
 }
@@ -242,7 +241,7 @@ th{
     .top{
         background:#fff;
         color:#000;
-        border-bottom:2px solid #075c43;
+        border-bottom:2px solid #000;
     }
 
     .top h2{
@@ -253,8 +252,8 @@ th{
     .form-box,
     .search,
     .action,
-    #msg,
-    .print{
+    .print,
+    #msg{
         display:none !important;
     }
 
@@ -267,10 +266,11 @@ th{
     .box{
         box-shadow:none;
         padding:10px;
+        margin:0;
     }
 
-    .summary{
-        margin-bottom:10px;
+    h3{
+        color:#000;
     }
 
     table{
@@ -279,12 +279,17 @@ th{
     }
 
     th{
-        background:#075c43 !important;
-        color:#fff !important;
+        background:#ddd !important;
+        color:#000 !important;
     }
 
-    h3{
-        color:#000;
+    .summary{
+        margin-bottom:15px;
+    }
+
+    .card{
+        border:1px solid #999;
+        background:#fff;
     }
 
 }
@@ -297,15 +302,19 @@ th{
 <body>
 
 
+<!-- =========================
+     HEADER
+========================= -->
+
 <header class="top">
 
-    <h2>
-        💸 Expense Management
-    </h2>
+<h2>
+💸 Expense Management
+</h2>
 
-    <a href="dashboard.html">
-        ← Dashboard
-    </a>
+<a href="dashboard.html">
+← Dashboard
+</a>
 
 </header>
 
@@ -314,337 +323,322 @@ th{
 <div class="container">
 
 
-<!-- =====================================================
-     EXPENSE FORM
-===================================================== -->
+<!-- =========================
+     ADD EXPENSE
+========================= -->
 
 <div class="box form-box">
 
-    <h3 id="formTitle">
-        ➕ Add Expense
-    </h3>
+<h3 id="formTitle">
+➕ Add Expense
+</h3>
 
 
-    <form id="expenseForm">
+<form id="expenseForm">
 
 
-        <input
-            type="hidden"
-            id="editId"
-            value=""
-        >
+<input
+type="hidden"
+id="editId"
+value=""
+>
 
 
-        <!-- CATEGORY -->
+<div>
 
-        <div>
+<label>
+Expense Date *
+</label>
 
-            <label>
-                Expense Category *
-            </label>
-
-            <select
-                id="category"
-                required>
-
-                <option value="">
-                    Category নির্বাচন করুন
-                </option>
-
-                <option value="বিদ্যুৎ বিল">
-                    ⚡ বিদ্যুৎ বিল
-                </option>
-
-                <option value="পানি বিল">
-                    💧 পানি বিল
-                </option>
-
-                <option value="গ্যাস বিল">
-                    🔥 গ্যাস বিল
-                </option>
-
-                <option value="বেতন">
-                    💰 বেতন
-                </option>
-
-                <option value="খাবার">
-                    🍚 খাবার
-                </option>
-
-                <option value="শিক্ষা উপকরণ">
-                    📚 শিক্ষা উপকরণ
-                </option>
-
-                <option value="অফিস খরচ">
-                    🏢 অফিস খরচ
-                </option>
-
-                <option value="রক্ষণাবেক্ষণ">
-                    🔧 রক্ষণাবেক্ষণ
-                </option>
-
-                <option value="চিকিৎসা">
-                    🏥 চিকিৎসা
-                </option>
-
-                <option value="যাতায়াত">
-                    🚗 যাতায়াত
-                </option>
-
-                <option value="অন্যান্য">
-                    📦 অন্যান্য
-                </option>
-
-            </select>
-
-        </div>
-
-
-
-        <!-- AMOUNT -->
-
-        <div>
-
-            <label>
-                Amount *
-            </label>
-
-            <input
-                type="number"
-                id="amount"
-                min="0"
-                step="0.01"
-                placeholder="যেমন: 5000"
-                required>
-
-        </div>
-
-
-
-        <!-- DATE -->
-
-        <div>
-
-            <label>
-                Expense Date *
-            </label>
-
-            <input
-                type="date"
-                id="expenseDate"
-                required>
-
-        </div>
-
-
-
-        <!-- PAYMENT METHOD -->
-
-        <div>
-
-            <label>
-                Payment Method
-            </label>
-
-            <select id="paymentMethod">
-
-                <option value="Cash">
-                    Cash
-                </option>
-
-                <option value="bKash">
-                    bKash
-                </option>
-
-                <option value="Nagad">
-                    Nagad
-                </option>
-
-                <option value="Bank">
-                    Bank
-                </option>
-
-            </select>
-
-        </div>
-
-
-
-        <!-- DESCRIPTION -->
-
-        <div class="full">
-
-            <label>
-                Description
-            </label>
-
-            <textarea
-                id="description"
-                placeholder="Expense সম্পর্কে বিস্তারিত লিখুন..."></textarea>
-
-        </div>
-
-
-
-        <!-- BUTTON -->
-
-        <div class="full">
-
-            <button
-                type="submit"
-                id="saveBtn">
-
-                💾 Save Expense
-
-            </button>
-
-
-            <button
-                type="button"
-                class="cancel"
-                id="cancelBtn"
-                style="display:none">
-
-                Cancel
-
-            </button>
-
-
-            <div id="msg"></div>
-
-        </div>
-
-
-    </form>
+<input
+type="date"
+id="expenseDate"
+required
+>
 
 </div>
 
 
 
-<!-- =====================================================
+<div>
+
+<label>
+Category *
+</label>
+
+<select
+id="category"
+required>
+
+<option value="">
+Category নির্বাচন করুন
+</option>
+
+<option value="Food">
+🍚 Food
+</option>
+
+<option value="Electricity">
+💡 Electricity
+</option>
+
+<option value="Water">
+💧 Water
+</option>
+
+<option value="Internet">
+🌐 Internet
+</option>
+
+<option value="Maintenance">
+🔧 Maintenance
+</option>
+
+<option value="Stationery">
+📚 Stationery
+</option>
+
+<option value="Transport">
+🚗 Transport
+</option>
+
+<option value="Office">
+🏢 Office
+</option>
+
+<option value="Salary">
+💰 Salary
+</option>
+
+<option value="Education">
+🎓 Education
+</option>
+
+<option value="Other">
+📦 Other
+</option>
+
+</select>
+
+</div>
+
+
+
+<div>
+
+<label>
+Amount *
+</label>
+
+<input
+type="number"
+id="amount"
+min="0"
+step="0.01"
+required
+placeholder="যেমন: 5000"
+>
+
+</div>
+
+
+
+<div>
+
+<label>
+Payment Method
+</label>
+
+<select id="paymentMethod">
+
+<option value="Cash">
+Cash
+</option>
+
+<option value="bKash">
+bKash
+</option>
+
+<option value="Nagad">
+Nagad
+</option>
+
+<option value="Bank">
+Bank
+</option>
+
+</select>
+
+</div>
+
+
+
+<div class="full">
+
+<label>
+Description
+</label>
+
+<textarea
+id="description"
+placeholder="Expense সম্পর্কে বিস্তারিত লিখুন..."></textarea>
+
+</div>
+
+
+
+<div class="full">
+
+<button
+type="submit"
+id="saveBtn">
+
+💾 Save Expense
+
+</button>
+
+
+<button
+type="button"
+class="cancel"
+id="cancelBtn"
+style="display:none">
+
+Cancel
+
+</button>
+
+
+<div id="msg"></div>
+
+</div>
+
+
+</form>
+
+</div>
+
+
+
+<!-- =========================
      EXPENSE LIST
-===================================================== -->
+========================= -->
 
 <div class="box">
 
-
-    <h3>
-        💸 Expense List
-    </h3>
-
-
-    <!-- SUMMARY -->
-
-    <div class="summary">
-
-        <div class="card expense">
-
-            Total Expense:
-            ৳ <span id="totalExpense">
-                0.00
-            </span>
-
-        </div>
-
-
-        <div class="card">
-
-            Total Records:
-            <span id="totalRecords">
-                0
-            </span>
-
-        </div>
-
-    </div>
+<h3>
+💸 Expense List
+</h3>
 
 
 
-    <!-- SEARCH -->
+<!-- SUMMARY -->
 
-    <input
-        class="search"
-        id="search"
-        placeholder="🔍 Category / Description / Amount দিয়ে খুঁজুন..."
-    >
+<div class="summary">
 
 
+<div class="card">
 
-    <!-- PRINT -->
+Total Expense:
+<span id="totalExpense">
+0.00
+</span>
 
-    <button
-        type="button"
-        class="print"
-        onclick="printExpense()">
-
-        🖨️ Print Expense
-
-    </button>
+</div>
 
 
+<div class="card">
 
-    <br><br>
+Records:
+<span id="totalRecords">
+0
+</span>
 
-
-
-    <!-- TABLE -->
-
-    <div class="table-wrap">
-
-        <table>
-
-            <thead>
-
-                <tr>
-
-                    <th>
-                        Date
-                    </th>
-
-                    <th>
-                        Category
-                    </th>
-
-                    <th>
-                        Amount
-                    </th>
-
-                    <th>
-                        Payment Method
-                    </th>
-
-                    <th>
-                        Description
-                    </th>
-
-                    <th>
-                        Action
-                    </th>
-
-                </tr>
-
-            </thead>
+</div>
 
 
-            <tbody id="expenseList">
+<button
+type="button"
+class="print"
+onclick="printExpenses()">
 
-                <tr>
+🖨️ Print
 
-                    <td
-                        colspan="6"
-                        class="loading">
+</button>
 
-                        Loading...
 
-                    </td>
+</div>
 
-                </tr>
 
-            </tbody>
 
-        </table>
+<!-- SEARCH -->
 
-    </div>
+<input
+class="search"
+id="search"
+placeholder="🔍 Category / Description / Payment Method দিয়ে খুঁজুন..."
+>
+
+
+
+<!-- TABLE -->
+
+<div class="table-wrap">
+
+<table id="expenseTable">
+
+<thead>
+
+<tr>
+
+<th>
+Date
+</th>
+
+<th>
+Category
+</th>
+
+<th>
+Description
+</th>
+
+<th>
+Amount
+</th>
+
+<th>
+Payment
+</th>
+
+<th>
+Action
+</th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="expenseList">
+
+<tr>
+
+<td
+colspan="6"
+class="loading">
+
+Loading...
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
 
 
 </div>
@@ -654,14 +648,15 @@ th{
 
 
 
-<!-- =====================================================
+<!-- =========================
      SUPABASE
-===================================================== -->
+========================= -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 
 <script>
+
 
 /* =====================================================
    SUPABASE CONFIG
@@ -669,6 +664,7 @@ th{
 
 const SUPABASE_URL =
 "https://qavublwhqiqsgpcmfyft.supabase.co";
+
 
 const SUPABASE_KEY =
 "sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
@@ -710,15 +706,19 @@ function today(){
 
 function showMessage(
     text,
-    type = ""
+    type=""
 ){
 
     const msg =
-        document.getElementById("msg");
+        document.getElementById(
+            "msg"
+        );
 
-    msg.textContent = text;
+    msg.textContent =
+        text;
 
-    msg.className = type;
+    msg.className =
+        type;
 
 }
 
@@ -764,7 +764,8 @@ async function start(){
 
         document.getElementById(
             "expenseDate"
-        ).value = today();
+        ).value =
+            today();
 
 
         await loadExpenses();
@@ -814,8 +815,11 @@ async function loadExpenses(){
         error
     } =
     await db
+
         .from("expenses")
+
         .select("*")
+
         .order(
             "expense_date",
             {
@@ -837,7 +841,6 @@ async function loadExpenses(){
 
         tbody.innerHTML = `
             <tr>
-
                 <td
                     colspan="6"
                     class="error">
@@ -849,20 +852,21 @@ async function loadExpenses(){
                     }
 
                 </td>
-
             </tr>
         `;
-
 
         return;
 
     }
 
 
-    expenses = data || [];
+    expenses =
+        data || [];
 
 
-    renderExpenses();
+    renderExpenses(
+        expenses
+    );
 
 }
 
@@ -875,6 +879,12 @@ async function loadExpenses(){
 function renderExpenses(
     list = expenses
 ){
+
+    const tbody =
+        document.getElementById(
+            "expenseList"
+        );
+
 
     let total = 0;
 
@@ -903,31 +913,25 @@ function renderExpenses(
         list.length;
 
 
-    const tbody =
-        document.getElementById(
-            "expenseList"
-        );
-
 
     if(!list.length){
 
         tbody.innerHTML = `
             <tr>
-
                 <td
                     colspan="6"
-                    class="empty">
+                    class="no-data">
 
-                    কোনো Expense record পাওয়া যায়নি।
+                    কোনো Expense record নেই
 
                 </td>
-
             </tr>
         `;
 
         return;
 
     }
+
 
 
     tbody.innerHTML =
@@ -970,9 +974,21 @@ function renderExpenses(
 
                     <td>
 
-                        <strong>
-                            ৳ ${amount.toFixed(2)}
-                        </strong>
+                        ${
+                            escapeHtml(
+                                item.description ||
+                                "-"
+                            )
+                        }
+
+                    </td>
+
+
+                    <td>
+
+                        ${
+                            amount.toFixed(2)
+                        }
 
                     </td>
 
@@ -989,32 +1005,13 @@ function renderExpenses(
                     </td>
 
 
-                    <td>
-
-                        ${
-                            escapeHtml(
-                                item.description ||
-                                "-"
-                            )
-                        }
-
-                    </td>
-
-
                     <td class="action">
 
 
                         <button
                             type="button"
                             class="edit"
-                            data-id="${
-                                escapeHtml(
-                                    String(
-                                        item.id
-                                    )
-                                )
-                            }"
-                            onclick="editExpenseFromButton(this)">
+                            onclick="editExpense('${escapeHtml(String(item.id))}')">
 
                             Edit
 
@@ -1024,14 +1021,7 @@ function renderExpenses(
                         <button
                             type="button"
                             class="delete"
-                            data-id="${
-                                escapeHtml(
-                                    String(
-                                        item.id
-                                    )
-                                )
-                            }"
-                            onclick="deleteExpenseFromButton(this)">
+                            onclick="deleteExpense('${escapeHtml(String(item.id))}')">
 
                             Delete
 
@@ -1071,6 +1061,12 @@ document.getElementById(
             ).value.trim();
 
 
+        const expenseDate =
+            document.getElementById(
+                "expenseDate"
+            ).value;
+
+
         const category =
             document.getElementById(
                 "category"
@@ -1085,12 +1081,6 @@ document.getElementById(
             );
 
 
-        const expenseDate =
-            document.getElementById(
-                "expenseDate"
-            ).value;
-
-
         const paymentMethod =
             document.getElementById(
                 "paymentMethod"
@@ -1103,10 +1093,23 @@ document.getElementById(
             ).value.trim();
 
 
+
+        if(!expenseDate){
+
+            showMessage(
+                "❌ Expense Date দিন",
+                "error"
+            );
+
+            return;
+
+        }
+
+
         if(!category){
 
             showMessage(
-                "❌ Expense Category নির্বাচন করুন",
+                "❌ Category নির্বাচন করুন",
                 "error"
             );
 
@@ -1130,36 +1133,26 @@ document.getElementById(
         }
 
 
-        if(!expenseDate){
-
-            showMessage(
-                "❌ Expense Date নির্বাচন করুন",
-                "error"
-            );
-
-            return;
-
-        }
-
 
         const record = {
-
-            category:
-                category,
-
-            amount:
-                amount,
 
             expense_date:
                 expenseDate,
 
-            payment_method:
-                paymentMethod,
+            category:
+                category,
 
             description:
-                description || null
+                description || null,
+
+            amount:
+                amount,
+
+            payment_method:
+                paymentMethod
 
         };
+
 
 
         const saveBtn =
@@ -1168,16 +1161,9 @@ document.getElementById(
             );
 
 
-        saveBtn.disabled = true;
+        saveBtn.disabled =
+            true;
 
-
-        showMessage(
-            editId
-            ?
-            "Updating..."
-            :
-            "Saving..."
-        );
 
 
         try{
@@ -1185,28 +1171,54 @@ document.getElementById(
             let result;
 
 
+            /* =========================
+               UPDATE
+            ========================= */
+
             if(editId){
 
                 result =
                     await db
-                        .from("expenses")
-                        .update(record)
-                        .eq(
-                            "id",
-                            editId
-                        )
-                        .select();
+
+                    .from(
+                        "expenses"
+                    )
+
+                    .update(
+                        record
+                    )
+
+                    .eq(
+                        "id",
+                        editId
+                    )
+
+                    .select();
+
 
             }
+
+            /* =========================
+               INSERT
+            ========================= */
+
             else{
 
                 result =
                     await db
-                        .from("expenses")
-                        .insert(record)
-                        .select();
+
+                    .from(
+                        "expenses"
+                    )
+
+                    .insert(
+                        record
+                    )
+
+                    .select();
 
             }
+
 
 
             if(result.error){
@@ -1222,6 +1234,7 @@ document.getElementById(
             }
 
 
+
             showMessage(
                 editId
                 ?
@@ -1232,10 +1245,12 @@ document.getElementById(
             );
 
 
+
             resetForm();
 
 
             await loadExpenses();
+
 
         }
         catch(error){
@@ -1249,7 +1264,8 @@ document.getElementById(
         }
         finally{
 
-            saveBtn.disabled = false;
+            saveBtn.disabled =
+                false;
 
         }
 
@@ -1259,52 +1275,19 @@ document.getElementById(
 
 
 /* =====================================================
-   EDIT BUTTON
-===================================================== */
-
-function editExpenseFromButton(
-    button
-){
-
-    const id =
-        button.getAttribute(
-            "data-id"
-        );
-
-
-    editExpense(id);
-
-}
-
-
-
-/* =====================================================
    EDIT EXPENSE
 ===================================================== */
 
 function editExpense(id){
 
-    if(
-        id === null ||
-        id === undefined ||
-        String(id).trim() === ""
-    ){
-
-        alert(
-            "❌ Invalid Expense ID"
-        );
-
-        return;
-
-    }
-
-
     const expense =
         expenses.find(
             function(item){
 
-                return String(item.id) ===
-                    String(id);
+                return String(
+                    item.id
+                ) ===
+                String(id);
 
             }
         );
@@ -1321,6 +1304,7 @@ function editExpense(id){
     }
 
 
+
     document.getElementById(
         "editId"
     ).value =
@@ -1330,21 +1314,24 @@ function editExpense(id){
 
 
     document.getElementById(
+        "expenseDate"
+    ).value =
+        expense.expense_date ||
+        "";
+
+
+    document.getElementById(
         "category"
     ).value =
-        expense.category || "";
+        expense.category ||
+        "";
 
 
     document.getElementById(
         "amount"
     ).value =
-        expense.amount ?? "";
-
-
-    document.getElementById(
-        "expenseDate"
-    ).value =
-        expense.expense_date || "";
+        expense.amount ??
+        "";
 
 
     document.getElementById(
@@ -1357,7 +1344,8 @@ function editExpense(id){
     document.getElementById(
         "description"
     ).value =
-        expense.description || "";
+        expense.description ||
+        "";
 
 
     document.getElementById(
@@ -1388,26 +1376,6 @@ function editExpense(id){
 
 
 /* =====================================================
-   DELETE BUTTON
-===================================================== */
-
-function deleteExpenseFromButton(
-    button
-){
-
-    const id =
-        button.getAttribute(
-            "data-id"
-        );
-
-
-    deleteExpense(id);
-
-}
-
-
-
-/* =====================================================
    DELETE EXPENSE
 ===================================================== */
 
@@ -1428,15 +1396,18 @@ async function deleteExpense(id){
     }
 
 
-    if(
-        !confirm(
+    const confirmed =
+        confirm(
             "এই Expense record Delete করতে চান?"
-        )
-    ){
+        );
+
+
+    if(!confirmed){
 
         return;
 
     }
+
 
 
     try{
@@ -1446,13 +1417,20 @@ async function deleteExpense(id){
             error
         } =
         await db
-            .from("expenses")
+
+            .from(
+                "expenses"
+            )
+
             .delete()
+
             .eq(
                 "id",
                 id
             )
+
             .select("id");
+
 
 
         if(error){
@@ -1467,6 +1445,7 @@ async function deleteExpense(id){
         }
 
 
+
         if(
             !data ||
             data.length === 0
@@ -1479,6 +1458,7 @@ async function deleteExpense(id){
             return;
 
         }
+
 
 
         alert(
@@ -1536,7 +1516,8 @@ document.getElementById(
                     return (
 
                         String(
-                            item.category || ""
+                            item.expense_date ||
+                            ""
                         )
                         .toLowerCase()
                         .includes(q)
@@ -1544,7 +1525,8 @@ document.getElementById(
                         ||
 
                         String(
-                            item.description || ""
+                            item.category ||
+                            ""
                         )
                         .toLowerCase()
                         .includes(q)
@@ -1552,7 +1534,8 @@ document.getElementById(
                         ||
 
                         String(
-                            item.payment_method || ""
+                            item.description ||
+                            ""
                         )
                         .toLowerCase()
                         .includes(q)
@@ -1560,15 +1543,8 @@ document.getElementById(
                         ||
 
                         String(
-                            item.amount || ""
-                        )
-                        .toLowerCase()
-                        .includes(q)
-
-                        ||
-
-                        String(
-                            item.expense_date || ""
+                            item.payment_method ||
+                            ""
                         )
                         .toLowerCase()
                         .includes(q)
@@ -1601,7 +1577,8 @@ function resetForm(){
 
     document.getElementById(
         "editId"
-    ).value = "";
+    ).value =
+        "";
 
 
     document.getElementById(
@@ -1668,7 +1645,7 @@ function(){
    PRINT
 ===================================================== */
 
-function printExpense(){
+function printExpenses(){
 
     window.print();
 
@@ -1720,6 +1697,7 @@ function escapeHtml(value){
 start();
 
 </script>
+
 
 </body>
 
