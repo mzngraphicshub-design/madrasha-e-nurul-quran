@@ -1787,172 +1787,76 @@ DELETE
 
 async function deleteSalary(id){
 
-if(
-id===null ||
-id===undefined ||
-String(id).trim()==="" ||
-String(id)==="null" ||
-String(id)==="undefined"
-){
+    const salaryId = String(id ?? "").trim();
 
-alert(
-"❌ Invalid salary ID"
-);
+    if(!salaryId || salaryId === "null" || salaryId === "undefined"){
+        alert("❌ Invalid salary ID");
+        return;
+    }
 
-return;
+    if(!confirm("এই Salary record Delete করতে চান?")){
+        return;
+    }
 
+    const table =
+        mode === "teacher"
+        ? "teacher_salaries"
+        : "employee_salaries";
+
+    try{
+
+        showMessage("Deleting...");
+
+        const { error } = await db
+            .from(table)
+            .delete()
+            .eq("id", salaryId);
+
+        if(error){
+
+            console.error("DELETE ERROR:", error);
+
+            alert(
+                "❌ Delete failed:\n\n" +
+                error.message
+            );
+
+            showMessage(
+                "❌ Delete failed: " + error.message,
+                "error"
+            );
+
+            return;
+        }
+
+        alert("✅ Deleted successfully");
+
+        showMessage(
+            "✅ Deleted successfully",
+            "success"
+        );
+
+        if(mode === "teacher"){
+            await loadTeacherSalary();
+        }else{
+            await loadEmployeeSalary();
+        }
+
+    }catch(error){
+
+        console.error("DELETE ERROR:", error);
+
+        alert(
+            "❌ Delete failed:\n\n" +
+            error.message
+        );
+
+        showMessage(
+            "❌ Delete failed: " + error.message,
+            "error"
+        );
+    }
 }
-
-
-const salaryId =
-String(id).trim();
-
-
-const list =
-mode==="teacher"
-?
-teacherSalaries
-:
-employeeSalaries;
-
-
-const exists =
-list.some(s=>
-String(s.id) ===
-salaryId
-);
-
-
-if(!exists){
-
-alert(
-"❌ Salary record পাওয়া যায়নি।"
-);
-
-return;
-
-}
-
-
-if(
-!confirm(
-"এই Salary record Delete করতে চান?"
-)
-){
-
-return;
-
-}
-
-
-const table =
-mode==="teacher"
-?
-"teacher_salaries"
-:
-"employee_salaries";
-
-
-showMessage(
-"Deleting..."
-);
-
-
-try{
-
-
-const {data,error} =
-await db
-
-.from(table)
-
-.delete()
-
-.eq(
-"id",
-salaryId
-)
-
-.select("id");
-
-
-if(error){
-
-showMessage(
-"❌ Delete failed: "+
-error.message,
-"error"
-);
-
-alert(
-"❌ Delete failed:\n"+
-error.message
-);
-
-return;
-
-}
-
-
-/*
-IMPORTANT:
-Supabase delete with RLS can return
-no rows even when successful.
-So reload the table and verify.
-*/
-
-
-await loadCurrentSalary();
-
-
-const currentList =
-mode==="teacher"
-?
-teacherSalaries
-:
-employeeSalaries;
-
-
-const stillExists =
-currentList.some(s=>
-String(s.id) ===
-salaryId
-);
-
-
-if(stillExists){
-
-showMessage(
-"❌ Delete হয়নি। Supabase RLS Policy চেক করুন।",
-"error"
-);
-
-alert(
-"❌ Delete হয়নি।\n\n"+
-"সম্ভবত Supabase Row Level Security (RLS) policy DELETE permission দিচ্ছে না।"
-);
-
-}else{
-
-showMessage(
-"✅ Deleted successfully",
-"success"
-);
-
-}
-
-}catch(error){
-
-showMessage(
-"❌ Delete failed: "+
-error.message,
-"error"
-);
-
-}
-
-}
-
 
 
 /* =========================
