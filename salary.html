@@ -1136,13 +1136,10 @@ Edit
 
 </button>
 
-
-<button
-class="delete"
-onclick="deleteSalary('${String(s.id)}')">
-
+<button class="delete"
+data-id="${s.id}"
+onclick="deleteSalary(this.dataset.id)">
 Delete
-
 </button>
 
 </td>
@@ -1329,12 +1326,10 @@ Edit
 </button>
 
 
-<button
-class="delete"
-onclick="deleteSalary('${String(s.id)}')">
-
+<button class="delete"
+data-id="${s.id}"
+onclick="deleteSalary(this.dataset.id)">
 Delete
-
 </button>
 
 </td>
@@ -1787,9 +1782,9 @@ DELETE
 
 async function deleteSalary(id){
 
-    const salaryId = String(id ?? "").trim();
+    console.log("Delete ID:", id);
 
-    if(!salaryId || salaryId === "null" || salaryId === "undefined"){
+    if(id === null || id === undefined || id === ""){
         alert("❌ Invalid salary ID");
         return;
     }
@@ -1803,61 +1798,39 @@ async function deleteSalary(id){
         ? "teacher_salaries"
         : "employee_salaries";
 
-    try{
+    const { data, error } = await db
+        .from(table)
+        .delete()
+        .eq("id", id)
+        .select();
 
-        showMessage("Deleting...");
+    if(error){
 
-        const { error } = await db
-            .from(table)
-            .delete()
-            .eq("id", salaryId);
+        console.error("Delete error:", error);
 
-        if(error){
+        alert("❌ Delete failed:\n" + error.message);
 
-            console.error("DELETE ERROR:", error);
+        return;
+    }
 
-            alert(
-                "❌ Delete failed:\n\n" +
-                error.message
-            );
-
-            showMessage(
-                "❌ Delete failed: " + error.message,
-                "error"
-            );
-
-            return;
-        }
-
-        alert("✅ Deleted successfully");
-
-        showMessage(
-            "✅ Deleted successfully",
-            "success"
-        );
-
-        if(mode === "teacher"){
-            await loadTeacherSalary();
-        }else{
-            await loadEmployeeSalary();
-        }
-
-    }catch(error){
-
-        console.error("DELETE ERROR:", error);
+    if(!data || data.length === 0){
 
         alert(
-            "❌ Delete failed:\n\n" +
-            error.message
+            "❌ Record delete হয়নি।\n\n" +
+            "RLS policy অথবা ID সমস্যা হতে পারে।"
         );
 
-        showMessage(
-            "❌ Delete failed: " + error.message,
-            "error"
-        );
+        return;
+    }
+
+    alert("✅ Salary deleted successfully");
+
+    if(mode === "teacher"){
+        await loadTeacherSalary();
+    }else{
+        await loadEmployeeSalary();
     }
 }
-
 
 /* =========================
 TEACHER TAB
