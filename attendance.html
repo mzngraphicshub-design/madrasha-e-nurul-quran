@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Attendance Management | মাদরাসায়ে নূরুল কুরআন</title>
+<title>Attendance Report | মাদরাসায়ে নূরুল কুরআন</title>
 
 <style>
 
@@ -59,17 +59,15 @@ margin-top:0;
 
 .form{
 display:grid;
-grid-template-columns:1fr 1fr;
+grid-template-columns:1fr 1fr 120px;
 gap:14px;
-}
-
-.full{
-grid-column:1/-1;
+align-items:end;
 }
 
 label{
 font-weight:bold;
 font-size:14px;
+display:block;
 }
 
 input,
@@ -85,7 +83,7 @@ background:#fff;
 
 button{
 border:0;
-padding:10px 16px;
+padding:10px 15px;
 border-radius:7px;
 background:#087f5b;
 color:#fff;
@@ -100,7 +98,7 @@ cursor:not-allowed;
 
 .tabs{
 display:flex;
-gap:10px;
+gap:8px;
 margin-bottom:20px;
 flex-wrap:wrap;
 }
@@ -125,31 +123,8 @@ margin-bottom:15px;
 .card{
 background:#eee;
 padding:10px 16px;
-border-radius:8px;
+border-radius:7px;
 font-weight:bold;
-}
-
-.table-wrap{
-overflow:auto;
-}
-
-table{
-width:100%;
-border-collapse:collapse;
-margin-top:15px;
-}
-
-th,
-td{
-padding:10px 8px;
-border-bottom:1px solid #ddd;
-font-size:14px;
-text-align:left;
-}
-
-th{
-background:#075c43;
-color:#fff;
 }
 
 .present{
@@ -160,6 +135,29 @@ font-weight:bold;
 .absent{
 color:#c62828;
 font-weight:bold;
+}
+
+.table-wrap{
+overflow:auto;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+min-width:850px;
+}
+
+th,
+td{
+padding:10px 8px;
+border-bottom:1px solid #ddd;
+text-align:left;
+font-size:14px;
+}
+
+th{
+background:#075c43;
+color:#fff;
 }
 
 .action{
@@ -180,9 +178,8 @@ background:#1565c0;
 background:#c62828;
 }
 
-.cancel{
-background:#777;
-margin-left:6px;
+.save{
+margin-top:15px;
 }
 
 #msg{
@@ -204,18 +201,31 @@ text-align:center;
 padding:20px;
 }
 
-@media(max-width:650px){
+.empty{
+text-align:center;
+padding:20px;
+}
+
+@media(max-width:700px){
 
 .form{
 grid-template-columns:1fr;
 }
 
-.full{
-grid-column:auto;
+.container{
+padding:0 10px;
 }
 
-table{
-min-width:800px;
+.box{
+padding:15px;
+}
+
+.top{
+padding:14px 15px;
+}
+
+.top h2{
+font-size:17px;
 }
 
 }
@@ -227,7 +237,7 @@ min-width:800px;
 
 <header class="top">
 
-<h2>📋 Attendance Management</h2>
+<h2>📊 Attendance Report</h2>
 
 <a href="dashboard.html">
 ← Dashboard
@@ -277,19 +287,13 @@ id="employeeTab">
 </div>
 
 
-<h3 id="formTitle">
-📋 Student Attendance
-</h3>
-
+<!-- ================= FILTER ================= -->
 
 <div class="form">
 
-
 <div>
 
-<label>
-Date
-</label>
+<label>Date</label>
 
 <input
 type="date"
@@ -301,9 +305,7 @@ id="date"
 
 <div id="classBox">
 
-<label>
-Class
-</label>
+<label>Class</label>
 
 <select id="classId">
 
@@ -316,16 +318,16 @@ Class
 </div>
 
 
-<div id="personBox">
+<div id="personFilterBox">
 
-<label id="personLabel">
-Student
+<label id="personFilterLabel">
+Teacher
 </label>
 
-<select id="personId">
+<select id="personFilter">
 
 <option value="">
-সব Student
+সব Teacher
 </option>
 
 </select>
@@ -335,58 +337,14 @@ Student
 
 <div>
 
-<label>
-Attendance Status
-</label>
-
-<select id="status">
-
-<option value="present">
-উপস্থিত
-</option>
-
-<option value="absent">
-অনুপস্থিত
-</option>
-
-</select>
-
-</div>
-
-
-<div class="full">
-
 <button
 type="button"
-id="loadBtn"
-onclick="loadPeople()">
+onclick="loadReport()">
 
-🔍 Load Attendance
+View
 
 </button>
 
-<button
-type="button"
-id="saveBtn"
-onclick="saveAttendance()">
-
-💾 Save Attendance
-
-</button>
-
-<button
-type="button"
-id="cancelBtn"
-class="cancel"
-style="display:none"
-onclick="cancelEdit()">
-
-Cancel
-
-</button>
-
-<div id="msg"></div>
-
 </div>
 
 </div>
@@ -395,30 +353,30 @@ Cancel
 
 
 
-<!-- ================= LIST ================= -->
+<!-- ================= REPORT ================= -->
 
 <div class="box">
 
-<h3 id="listTitle">
-👨‍🎓 Student Attendance List
+<h3 id="reportTitle">
+👨‍🎓 Student Attendance
 </h3>
 
 
 <div class="summary">
 
 <div class="card">
-
 Total:
 <span id="total">
 0
 </span>
-
 </div>
 
 
 <div class="card">
-
+<span class="present">
 Present:
+</span>
+
 <span id="present">
 0
 </span>
@@ -427,8 +385,10 @@ Present:
 
 
 <div class="card">
-
+<span class="absent">
 Absent:
+</span>
+
 <span id="absent">
 0
 </span>
@@ -444,26 +404,18 @@ Absent:
 
 <thead>
 
-<tr>
+<tr id="tableHead">
 
 <th>
 ক্রমিক
 </th>
 
 <th>
-ID
+Student Name
 </th>
 
 <th>
-Name
-</th>
-
-<th id="classHeader">
 Class
-</th>
-
-<th>
-Date
 </th>
 
 <th>
@@ -479,15 +431,15 @@ Action
 </thead>
 
 
-<tbody id="attendanceList">
+<tbody id="reportList">
 
 <tr>
 
 <td
-colspan="7"
+colspan="5"
 class="loading">
 
-Date নির্বাচন করে Load Attendance চাপুন
+Loading...
 
 </td>
 
@@ -500,6 +452,85 @@ Date নির্বাচন করে Load Attendance চাপুন
 </div>
 
 </div>
+
+
+
+<!-- ================= ATTENDANCE ENTRY ================= -->
+
+<div class="box">
+
+<h3 id="entryTitle">
+📋 Attendance নেওয়া
+</h3>
+
+
+<div
+class="table-wrap"
+id="entryBox">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>
+ID
+</th>
+
+<th>
+Name
+</th>
+
+<th>
+Class / Designation
+</th>
+
+<th>
+Attendance
+</th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="entryList">
+
+<tr>
+
+<td
+colspan="4"
+class="empty">
+
+Date নির্বাচন করে Load করুন
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+
+<button
+type="button"
+class="save"
+id="saveBtn"
+onclick="saveAttendance()">
+
+💾 Save Attendance
+
+</button>
+
+
+<div id="msg"></div>
+
+</div>
+
 
 </div>
 
@@ -517,8 +548,10 @@ SUPABASE
 const SUPABASE_URL =
 "https://qavublwhqiqsgpcmfyft.supabase.co";
 
+
 const SUPABASE_KEY =
 "sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
+
 
 const db =
 window.supabase.createClient(
@@ -532,16 +565,14 @@ SUPABASE_KEY
 VARIABLES
 ===================================================== */
 
-let mode="student";
+let mode = "student";
 
-let students=[];
-let teachers=[];
-let employees=[];
-let classes=[];
+let students = [];
+let teachers = [];
+let employees = [];
+let classes = [];
 
-let attendanceRecords=[];
-
-let editingId="";
+let currentReport = [];
 
 
 
@@ -560,17 +591,35 @@ return new Date()
 
 
 /* =====================================================
+ESCAPE HTML
+===================================================== */
+
+function escapeHtml(value){
+
+return String(value ?? "")
+
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+
+}
+
+
+
+/* =====================================================
 MESSAGE
 ===================================================== */
 
 function showMessage(text,type=""){
 
-const msg=
+const msg =
 document.getElementById("msg");
 
-msg.textContent=text;
+msg.textContent = text;
 
-msg.className=type;
+msg.className = type;
 
 }
 
@@ -585,12 +634,16 @@ async function start(){
 const {
 data:{session},
 error
-}=await db.auth.getSession();
+} =
+await db.auth.getSession();
 
 
 if(error){
 
-alert(error.message);
+alert(
+"Session error: "+
+error.message
+);
 
 return;
 
@@ -606,18 +659,15 @@ return;
 }
 
 
-document.getElementById("date").value=today();
+document.getElementById("date").value =
+today();
 
 
 await loadClasses();
 
-await loadStudents();
-
-await loadTeachers();
-
-await loadEmployees();
-
 await loadPeople();
+
+await loadReport();
 
 }
 
@@ -632,7 +682,8 @@ async function loadClasses(){
 const {
 data,
 error
-}=await db
+} =
+await db
 
 .from("classes")
 
@@ -645,31 +696,29 @@ if(error){
 
 console.error(error);
 
-classes=[];
-
 return;
 
 }
 
 
-classes=data || [];
+classes = data || [];
 
 
-const select=
+const select =
 document.getElementById("classId");
 
 
-select.innerHTML=
-`<option value="">সব Class</option>`;
+select.innerHTML =
+'<option value="">সব Class</option>';
 
 
 classes.forEach(c=>{
 
-select.innerHTML +=`
+select.innerHTML += `
 
 <option value="${escapeHtml(c.id)}">
 
-${escapeHtml(c.name || "-")}
+${escapeHtml(c.name)}
 
 </option>
 
@@ -682,56 +731,13 @@ ${escapeHtml(c.name || "-")}
 
 
 /* =====================================================
-LOAD STUDENTS
+LOAD PEOPLE
 ===================================================== */
 
-async function loadStudents(){
+async function loadPeople(){
 
-const {
-data,
-error
-}=await db
-
-.from("students")
-
-.select(`
-id,
-student_id,
-name,
-class_id,
-classes(name)
-`)
-
-.order("name");
-
-
-if(error){
-
-console.error(error);
-
-students=[];
-
-return;
-
-}
-
-
-students=data || [];
-
-}
-
-
-
-/* =====================================================
-LOAD TEACHERS
-===================================================== */
-
-async function loadTeachers(){
-
-const {
-data,
-error
-}=await db
+const teacherResult =
+await db
 
 .from("teachers")
 
@@ -740,33 +746,23 @@ error
 .order("name");
 
 
-if(error){
+if(teacherResult.error){
 
-console.error(error);
+console.error(
+"Teacher load:",
+teacherResult.error
+);
 
-teachers=[];
+}else{
 
-return;
+teachers =
+teacherResult.data || [];
 
 }
 
 
-teachers=data || [];
-
-}
-
-
-
-/* =====================================================
-LOAD EMPLOYEES
-===================================================== */
-
-async function loadEmployees(){
-
-const {
-data,
-error
-}=await db
+const employeeResult =
+await db
 
 .from("employees")
 
@@ -775,109 +771,255 @@ error
 .order("name");
 
 
-if(error){
+if(employeeResult.error){
 
-console.error(error);
+console.error(
+"Employee load:",
+employeeResult.error
+);
 
-employees=[];
+}else{
 
-return;
+employees =
+employeeResult.data || [];
 
 }
 
 
-employees=data || [];
+const studentResult =
+await db
+
+.from("students")
+
+.select(
+"id,student_id,name,class_id,classes(name)"
+)
+
+.order("name");
+
+
+if(studentResult.error){
+
+console.error(
+"Student load:",
+studentResult.error
+);
+
+}else{
+
+students =
+studentResult.data || [];
+
+}
+
+
+loadPersonFilter();
 
 }
 
 
 
 /* =====================================================
-LOAD PEOPLE
+PERSON FILTER
 ===================================================== */
 
-async function loadPeople(){
+function loadPersonFilter(){
 
-const date=
+const select =
+document.getElementById("personFilter");
+
+
+select.innerHTML = "";
+
+
+if(mode==="student"){
+
+select.innerHTML =
+'<option value="">সব Student</option>';
+
+students.forEach(s=>{
+
+select.innerHTML += `
+
+<option value="${escapeHtml(s.id)}">
+
+${escapeHtml(
+s.student_id || s.id
+)}
+ - 
+${escapeHtml(s.name)}
+
+</option>
+
+`;
+
+});
+
+}
+
+
+if(mode==="teacher"){
+
+select.innerHTML =
+'<option value="">সব Teacher</option>';
+
+teachers.forEach(t=>{
+
+select.innerHTML += `
+
+<option value="${escapeHtml(t.id)}">
+
+${escapeHtml(t.name)}
+
+</option>
+
+`;
+
+});
+
+}
+
+
+if(mode==="employee"){
+
+select.innerHTML =
+'<option value="">সব Employee</option>';
+
+employees.forEach(e=>{
+
+select.innerHTML += `
+
+<option value="${escapeHtml(e.id)}">
+
+${escapeHtml(
+e.employee_id || e.id
+)}
+ -
+${escapeHtml(e.name)}
+
+</option>
+
+`;
+
+});
+
+}
+
+}
+
+
+
+/* =====================================================
+LOAD REPORT
+===================================================== */
+
+async function loadReport(){
+
+const date =
 document.getElementById("date").value;
 
 
 if(!date){
 
-showMessage(
-"❌ Date নির্বাচন করুন",
-"error"
-);
+alert("Date নির্বাচন করুন");
 
 return;
 
 }
 
 
-showMessage("Loading...");
+const personId =
+document.getElementById(
+"personFilter"
+).value;
+
+
+const classId =
+document.getElementById(
+"classId"
+).value;
+
+
+const tbody =
+document.getElementById(
+"reportList"
+);
+
+
+tbody.innerHTML = `
+
+<tr>
+
+<td
+colspan="5"
+class="loading">
+
+Loading...
+
+</td>
+
+</tr>
+
+`;
+
+
+let table = "";
+
+let personColumn = "";
 
 
 if(mode==="student"){
 
-await loadStudentAttendance(date);
+table =
+"student_attendance";
 
-}
-
-else if(mode==="teacher"){
-
-await loadTeacherAttendance(date);
-
-}
-
-else{
-
-await loadEmployeeAttendance(date);
+personColumn =
+"student_id";
 
 }
 
 
-showMessage("");
+if(mode==="teacher"){
+
+table =
+"teacher_attendance";
+
+personColumn =
+"teacher_id";
 
 }
 
 
+if(mode==="employee"){
 
-/* =====================================================
-STUDENT ATTENDANCE
-===================================================== */
+table =
+"employee_attendance";
 
-async function loadStudentAttendance(date){
+personColumn =
+"employee_id";
 
-let query=db
+}
 
-.from("student_attendance")
+
+let query =
+db
+
+.from(table)
 
 .select("*")
 
 .eq(
 "attendance_date",
 date
-)
-
-.order(
-"id",
-{ascending:false}
 );
 
 
-const classId=
-document.getElementById("classId").value;
+if(personId){
 
-
-if(classId){
-
-query=query.eq(
-"student_id",
-students
-.filter(s=>
-String(s.class_id)===String(classId)
-)
-.map(s=>s.id)
+query =
+query.eq(
+personColumn,
+Number(personId)
 );
 
 }
@@ -886,173 +1028,123 @@ String(s.class_id)===String(classId)
 const {
 data,
 error
-}=await query;
+} =
+await query;
 
 
 if(error){
 
-showMessage(
-"❌ "+error.message,
-"error"
-);
+tbody.innerHTML = `
+
+<tr>
+
+<td
+colspan="5"
+class="error">
+
+❌ ${escapeHtml(error.message)}
+
+</td>
+
+</tr>
+
+`;
 
 return;
 
 }
 
 
-attendanceRecords=data || [];
+let records =
+data || [];
 
 
-renderStudentAttendance();
+if(mode==="student" && classId){
+
+records =
+records.filter(r=>{
+
+const student =
+students.find(s=>
+String(s.id) ===
+String(r.student_id)
+);
+
+return String(
+student?.class_id
+) === String(classId);
+
+});
+
+}
+
+
+currentReport =
+records;
+
+
+renderReport(records);
 
 }
 
 
 
 /* =====================================================
-TEACHER ATTENDANCE
+RENDER REPORT
 ===================================================== */
 
-async function loadTeacherAttendance(date){
+function renderReport(records){
 
-const {
-data,
-error
-}=await db
-
-.from("teacher_attendance")
-
-.select("*")
-
-.eq(
-"attendance_date",
-date
-)
-
-.order(
-"id",
-{ascending:false}
+const tbody =
+document.getElementById(
+"reportList"
 );
 
 
-if(error){
-
-showMessage(
-"❌ "+error.message,
-"error"
-);
-
-return;
-
-}
+let presentCount = 0;
+let absentCount = 0;
 
 
-attendanceRecords=data || [];
-
-
-renderTeacherAttendance();
-
-}
-
-
-
-/* =====================================================
-EMPLOYEE ATTENDANCE
-===================================================== */
-
-async function loadEmployeeAttendance(date){
-
-const {
-data,
-error
-}=await db
-
-.from("employee_attendance")
-
-.select("*")
-
-.eq(
-"attendance_date",
-date
-)
-
-.order(
-"id",
-{ascending:false}
-);
-
-
-if(error){
-
-showMessage(
-"❌ "+error.message,
-"error"
-);
-
-return;
-
-}
-
-
-attendanceRecords=data || [];
-
-
-renderEmployeeAttendance();
-
-}
-
-
-
-/* =====================================================
-STUDENT RENDER
-===================================================== */
-
-function renderStudentAttendance(){
-
-let total=0;
-let present=0;
-let absent=0;
-
-
-attendanceRecords.forEach(r=>{
-
-total++;
+records.forEach(r=>{
 
 if(r.status==="present"){
+presentCount++;
+}
 
-present++;
-
-}else{
-
-absent++;
-
+if(r.status==="absent"){
+absentCount++;
 }
 
 });
 
 
-updateSummary(
-total,
-present,
-absent
-);
-
-
-const tbody=
 document.getElementById(
-"attendanceList"
-);
+"total"
+).textContent =
+records.length;
 
 
-if(!attendanceRecords.length){
+document.getElementById(
+"present"
+).textContent =
+presentCount;
 
-tbody.innerHTML=`
+
+document.getElementById(
+"absent"
+).textContent =
+absentCount;
+
+
+if(!records.length){
+
+tbody.innerHTML = `
 
 <tr>
 
-<td colspan="7"
-style="text-align:center">
+<td
+colspan="5"
+class="empty">
 
 এই তারিখে কোনো Attendance record নেই।
 
@@ -1067,248 +1159,141 @@ return;
 }
 
 
-tbody.innerHTML=
-attendanceRecords.map(
-(r,i)=>{
+tbody.innerHTML =
+records.map((r,index)=>{
+
+let name = "Unknown";
+let id = "—";
+let extra = "—";
 
 
-const student=
-students.find(s=>
-String(s.id)===
+if(mode==="student"){
+
+const s =
+students.find(x=>
+String(x.id) ===
 String(r.student_id)
 );
 
 
-const name=
-student?.name || "Unknown";
+name =
+s?.name || "Unknown";
 
+id =
+s?.student_id || s?.id || "—";
 
-const studentId=
-student?.student_id || r.student_id || "-";
-
-
-const className=
-student?.classes?.name || "-";
-
-
-const status=
-r.status==="present"
-?
-"উপস্থিত"
-:
-"অনুপস্থিত";
-
-
-const statusClass=
-r.status==="present"
-?
-"present"
-:
-"absent";
-
-
-return `
-
-<tr>
-
-<td>${i+1}</td>
-
-<td>
-${escapeHtml(studentId)}
-</td>
-
-<td>
-${escapeHtml(name)}
-</td>
-
-<td>
-${escapeHtml(className)}
-</td>
-
-<td>
-${escapeHtml(r.attendance_date || "-")}
-</td>
-
-<td class="${statusClass}">
-${r.status==="present"?"✅":"❌"}
-${status}
-</td>
-
-<td class="action">
-
-<button
-class="edit"
-onclick="editAttendance('${escapeHtml(String(r.id))}')">
-
-Edit
-
-</button>
-
-<button
-class="delete"
-onclick="deleteAttendance('${escapeHtml(String(r.id))}')">
-
-Delete
-
-</button>
-
-</td>
-
-</tr>
-
-`;
-
-}).join("");
+extra =
+s?.classes?.name || "—";
 
 }
 
 
+if(mode==="teacher"){
 
-/* =====================================================
-TEACHER RENDER
-===================================================== */
-
-function renderTeacherAttendance(){
-
-let total=0;
-let present=0;
-let absent=0;
-
-
-attendanceRecords.forEach(r=>{
-
-total++;
-
-if(r.status==="present"){
-
-present++;
-
-}else{
-
-absent++;
-
-}
-
-});
-
-
-updateSummary(
-total,
-present,
-absent
-);
-
-
-const tbody=
-document.getElementById(
-"attendanceList"
-);
-
-
-if(!attendanceRecords.length){
-
-tbody.innerHTML=`
-
-<tr>
-
-<td colspan="7"
-style="text-align:center">
-
-এই তারিখে কোনো Teacher Attendance নেই।
-
-</td>
-
-</tr>
-
-`;
-
-return;
-
-}
-
-
-tbody.innerHTML=
-attendanceRecords.map(
-(r,i)=>{
-
-
-const teacher=
-teachers.find(t=>
-String(t.id)===
+const t =
+teachers.find(x=>
+String(x.id) ===
 String(r.teacher_id)
 );
 
 
-const name=
-teacher?.name || "Unknown";
+name =
+t?.name || "Unknown";
+
+id =
+t?.id || "—";
+
+extra =
+t?.designation || "—";
+
+}
 
 
-const teacherId=
-teacher?.id || r.teacher_id || "-";
+if(mode==="employee"){
+
+const e =
+employees.find(x=>
+String(x.id) ===
+String(r.employee_id)
+);
 
 
-const designation=
-teacher?.designation || "-";
+name =
+e?.name || "Unknown";
+
+id =
+e?.employee_id || e?.id || "—";
+
+extra =
+e?.designation || "—";
+
+}
 
 
-const status=
-r.status==="present"
+const status =
+r.status || "absent";
+
+
+const statusText =
+status==="present"
 ?
-"উপস্থিত"
+"✅ উপস্থিত"
 :
-"অনুপস্থিত";
-
-
-const statusClass=
-r.status==="present"
-?
-"present"
-:
-"absent";
+"❌ অনুপস্থিত";
 
 
 return `
 
 <tr>
 
-<td>${i+1}</td>
-
 <td>
-${escapeHtml(String(teacherId))}
+${index+1}
 </td>
 
 <td>
+
+<strong>
 ${escapeHtml(name)}
+</strong>
+
 </td>
 
 <td>
-${escapeHtml(designation)}
+
+${escapeHtml(
+String(extra)
+)}
+
 </td>
 
-<td>
-${escapeHtml(r.attendance_date || "-")}
-</td>
+<td class="${
+status==="present"
+?
+"present"
+:
+"absent"
+}">
 
-<td class="${statusClass}">
-${r.status==="present"?"✅":"❌"}
-${status}
+${statusText}
+
 </td>
 
 <td class="action">
 
 <button
 class="edit"
-onclick="editAttendance('${escapeHtml(String(r.id))}')">
+onclick="editAttendance('${escapeHtml(r.id)}')">
 
-Edit
+✏️ Edit
 
 </button>
 
+
 <button
 class="delete"
-onclick="deleteAttendance('${escapeHtml(String(r.id))}')">
+onclick="deleteAttendance('${escapeHtml(r.id)}')">
 
-Delete
+🗑️ Delete
 
 </button>
 
@@ -1325,56 +1310,86 @@ Delete
 
 
 /* =====================================================
-EMPLOYEE RENDER
+LOAD ENTRY LIST
 ===================================================== */
 
-function renderEmployeeAttendance(){
+async function loadStudents(){
 
-let total=0;
-let present=0;
-let absent=0;
+const date =
+document.getElementById("date").value;
 
 
-attendanceRecords.forEach(r=>{
+if(!date){
 
-total++;
+alert("Date নির্বাচন করুন");
 
-if(r.status==="present"){
-
-present++;
-
-}else{
-
-absent++;
+return;
 
 }
 
-});
+
+if(mode==="student"){
+
+await loadStudentEntry();
+
+}
 
 
-updateSummary(
-total,
-present,
-absent
-);
+if(mode==="teacher"){
+
+await loadTeacherEntry();
+
+}
 
 
-const tbody=
+if(mode==="employee"){
+
+await loadEmployeeEntry();
+
+}
+
+}
+
+
+
+/* =====================================================
+STUDENT ENTRY
+===================================================== */
+
+async function loadStudentEntry(){
+
+let list =
+[...students];
+
+
+const classId =
 document.getElementById(
-"attendanceList"
+"classId"
+).value;
+
+
+if(classId){
+
+list =
+list.filter(s=>
+String(s.class_id) ===
+String(classId)
 );
 
+}
 
-if(!attendanceRecords.length){
 
-tbody.innerHTML=`
+if(!list.length){
+
+document.getElementById(
+"entryList"
+).innerHTML = `
 
 <tr>
 
-<td colspan="7"
-style="text-align:center">
+<td colspan="4" class="empty">
 
-এই তারিখে কোনো Employee Attendance নেই।
+কোনো Student পাওয়া যায়নি।
 
 </td>
 
@@ -1387,92 +1402,105 @@ return;
 }
 
 
-tbody.innerHTML=
-attendanceRecords.map(
-(r,i)=>{
+const date =
+document.getElementById("date").value;
 
 
-const employee=
-employees.find(e=>
-String(e.id)===
-String(r.employee_id)
+const {
+data,
+error
+} =
+await db
+
+.from("student_attendance")
+
+.select("*")
+
+.eq(
+"attendance_date",
+date
 );
 
 
-const name=
-employee?.name || "Unknown";
+if(error){
+
+alert(error.message);
+
+return;
+
+}
 
 
-const employeeId=
-employee?.employee_id ||
-r.employee_id ||
-"-";
+const existing =
+data || [];
 
 
-const designation=
-employee?.designation || "-";
+document.getElementById(
+"entryList"
+).innerHTML =
+
+list.map((s,i)=>{
+
+const record =
+existing.find(r=>
+String(r.student_id) ===
+String(s.id)
+);
 
 
-const status=
-r.status==="present"
-?
-"উপস্থিত"
-:
-"অনুপস্থিত";
-
-
-const statusClass=
-r.status==="present"
-?
-"present"
-:
-"absent";
+const status =
+record?.status || "present";
 
 
 return `
 
 <tr>
 
-<td>${i+1}</td>
-
 <td>
-${escapeHtml(String(employeeId))}
-</td>
 
-<td>
-${escapeHtml(name)}
+${escapeHtml(
+s.student_id || s.id
+)}
+
 </td>
 
 <td>
-${escapeHtml(designation)}
+
+${escapeHtml(s.name)}
+
 </td>
 
 <td>
-${escapeHtml(r.attendance_date || "-")}
+
+${escapeHtml(
+s.classes?.name || "-"
+)}
+
 </td>
 
-<td class="${statusClass}">
-${r.status==="present"?"✅":"❌"}
-${status}
-</td>
+<td>
 
-<td class="action">
+<select
+id="entry_${i}"
+data-person-id="${escapeHtml(s.id)}">
 
-<button
-class="edit"
-onclick="editAttendance('${escapeHtml(String(r.id))}')">
+<option
+value="present"
+${status==="present"?"selected":""}>
 
-Edit
+উপস্থিত
 
-</button>
+</option>
 
-<button
-class="delete"
-onclick="deleteAttendance('${escapeHtml(String(r.id))}')">
+<option
+value="absent"
+${status==="absent"?"selected":""}>
 
-Delete
+অনুপস্থিত
 
-</button>
+</option>
+
+</select>
 
 </td>
 
@@ -1482,31 +1510,438 @@ Delete
 
 }).join("");
 
+
+window.entryPeople = list;
+
 }
 
 
 
 /* =====================================================
-SUMMARY
+TEACHER ENTRY
 ===================================================== */
 
-function updateSummary(
-total,
-present,
-absent
-){
+async function loadTeacherEntry(){
+
+const date =
+document.getElementById("date").value;
+
+
+const {
+data,
+error
+} =
+await db
+
+.from("teacher_attendance")
+
+.select("*")
+
+.eq(
+"attendance_date",
+date
+);
+
+
+if(error){
+
+alert(error.message);
+
+return;
+
+}
+
+
+const existing =
+data || [];
+
+
+if(!teachers.length){
 
 document.getElementById(
-"total"
-).textContent=total;
+"entryList"
+).innerHTML = `
+
+<tr>
+
+<td colspan="4">
+
+কোনো Teacher পাওয়া যায়নি।
+
+</td>
+
+</tr>
+
+`;
+
+return;
+
+}
+
 
 document.getElementById(
-"present"
-).textContent=present;
+"entryList"
+).innerHTML =
+
+teachers.map((t,i)=>{
+
+const record =
+existing.find(r=>
+String(r.teacher_id) ===
+String(t.id)
+);
+
+
+const status =
+record?.status || "present";
+
+
+return `
+
+<tr>
+
+<td>
+
+${escapeHtml(t.id)}
+
+</td>
+
+<td>
+
+${escapeHtml(t.name)}
+
+</td>
+
+<td>
+
+${escapeHtml(
+t.designation || "-"
+)}
+
+</td>
+
+<td>
+
+<select
+id="entry_${i}"
+data-person-id="${escapeHtml(t.id)}">
+
+<option
+value="present"
+${status==="present"?"selected":""}>
+
+উপস্থিত
+
+</option>
+
+<option
+value="absent"
+${status==="absent"?"selected":""}>
+
+অনুপস্থিত
+
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+`;
+
+}).join("");
+
+
+window.entryPeople =
+teachers;
+
+}
+
+
+
+/* =====================================================
+EMPLOYEE ENTRY
+===================================================== */
+
+async function loadEmployeeEntry(){
+
+const date =
+document.getElementById("date").value;
+
+
+const {
+data,
+error
+} =
+await db
+
+.from("employee_attendance")
+
+.select("*")
+
+.eq(
+"attendance_date",
+date
+);
+
+
+if(error){
+
+alert(error.message);
+
+return;
+
+}
+
+
+const existing =
+data || [];
+
+
+if(!employees.length){
 
 document.getElementById(
-"absent"
-).textContent=absent;
+"entryList"
+).innerHTML = `
+
+<tr>
+
+<td colspan="4">
+
+কোনো Employee পাওয়া যায়নি।
+
+</td>
+
+</tr>
+
+`;
+
+return;
+
+}
+
+
+document.getElementById(
+"entryList"
+).innerHTML =
+
+employees.map((e,i)=>{
+
+const record =
+existing.find(r=>
+String(r.employee_id) ===
+String(e.id)
+);
+
+
+const status =
+record?.status || "present";
+
+
+return `
+
+<tr>
+
+<td>
+
+${escapeHtml(
+e.employee_id || e.id
+)}
+
+</td>
+
+<td>
+
+${escapeHtml(e.name)}
+
+</td>
+
+<td>
+
+${escapeHtml(
+e.designation || "-"
+)}
+
+</td>
+
+<td>
+
+<select
+id="entry_${i}"
+data-person-id="${escapeHtml(e.id)}">
+
+<option
+value="present"
+${status==="present"?"selected":""}>
+
+উপস্থিত
+
+</option>
+
+<option
+value="absent"
+${status==="absent"?"selected":""}>
+
+অনুপস্থিত
+
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+`;
+
+}).join("");
+
+
+window.entryPeople =
+employees;
+
+}
+
+
+
+/* =====================================================
+SAVE ATTENDANCE
+===================================================== */
+
+async function saveAttendance(){
+
+if(!window.entryPeople ||
+!window.entryPeople.length){
+
+alert(
+"আগে Attendance list Load করুন"
+);
+
+return;
+
+}
+
+
+const date =
+document.getElementById("date").value;
+
+
+if(!date){
+
+alert("Date নির্বাচন করুন");
+
+return;
+
+}
+
+
+let table = "";
+let personColumn = "";
+
+
+if(mode==="student"){
+
+table =
+"student_attendance";
+
+personColumn =
+"student_id";
+
+}
+
+
+if(mode==="teacher"){
+
+table =
+"teacher_attendance";
+
+personColumn =
+"teacher_id";
+
+}
+
+
+if(mode==="employee"){
+
+table =
+"employee_attendance";
+
+personColumn =
+"employee_id";
+
+}
+
+
+const rows =
+window.entryPeople.map((person,i)=>({
+
+[personColumn]:
+Number(person.id),
+
+attendance_date:
+date,
+
+status:
+document.getElementById(
+"entry_"+i
+).value
+
+}));
+
+
+const saveBtn =
+document.getElementById(
+"saveBtn"
+);
+
+
+saveBtn.disabled = true;
+
+
+showMessage(
+"Saving..."
+);
+
+
+const {
+error
+} =
+await db
+
+.from(table)
+
+.upsert(
+rows,
+{
+onConflict:
+`${personColumn},attendance_date`
+}
+);
+
+
+saveBtn.disabled = false;
+
+
+if(error){
+
+showMessage(
+"❌ "+error.message,
+"error"
+);
+
+return;
+
+}
+
+
+showMessage(
+"✅ Attendance saved successfully",
+"success"
+);
+
+
+await loadReport();
 
 }
 
@@ -1516,7 +1951,7 @@ document.getElementById(
 EDIT ATTENDANCE
 ===================================================== */
 
-function editAttendance(id){
+async function editAttendance(id){
 
 if(
 id===null ||
@@ -1526,20 +1961,85 @@ String(id)==="null" ||
 String(id)==="undefined"
 ){
 
-alert("❌ Invalid Attendance ID");
+alert(
+"❌ Invalid attendance ID"
+);
 
 return;
 
 }
 
 
-const record=
-attendanceRecords.find(r=>
-String(r.id)===String(id)
+const numericId =
+Number(id);
+
+
+if(!Number.isInteger(numericId)){
+
+alert(
+"❌ Invalid attendance ID: "+
+id
 );
 
+return;
 
-if(!record){
+}
+
+
+let table = "";
+
+
+if(mode==="student"){
+
+table =
+"student_attendance";
+
+}
+
+
+if(mode==="teacher"){
+
+table =
+"teacher_attendance";
+
+}
+
+
+if(mode==="employee"){
+
+table =
+"employee_attendance";
+
+}
+
+
+const {
+data,
+error
+} =
+await db
+
+.from(table)
+
+.select("*")
+
+.eq("id",numericId)
+
+.maybeSingle();
+
+
+if(error){
+
+alert(
+"❌ "+error.message
+);
+
+return;
+
+}
+
+
+if(!data){
 
 alert(
 "❌ Attendance record পাওয়া যায়নি।"
@@ -1550,253 +2050,67 @@ return;
 }
 
 
-editingId=
-String(record.id);
-
-
-document.getElementById(
-"date"
-).value=
-record.attendance_date || "";
-
-
-if(mode==="student"){
-
-const student=
-students.find(s=>
-String(s.id)===
-String(record.student_id)
-);
-
-
-if(!student){
-
-alert(
-"❌ Student পাওয়া যায়নি।"
-);
-
-return;
-
-}
-
-
-document.getElementById(
-"classId"
-).value=
-student.class_id || "";
-
-
-loadPersonDropdown();
-
-
-document.getElementById(
-"personId"
-).value=
-String(record.student_id);
-
-
-}else if(mode==="teacher"){
-
-loadPersonDropdown();
-
-document.getElementById(
-"personId"
-).value=
-String(record.teacher_id);
-
-
-}else{
-
-loadPersonDropdown();
-
-document.getElementById(
-"personId"
-).value=
-String(record.employee_id);
-
-}
-
-
-document.getElementById(
-"status"
-).value=
-record.status || "present";
-
-
-document.getElementById(
-"saveBtn"
-).textContent=
-"💾 Update Attendance";
-
-
-document.getElementById(
-"cancelBtn"
-).style.display=
-"inline-block";
-
-
-document.getElementById(
-"formTitle"
-).textContent=
-"✏️ Edit Attendance";
-
-
-window.scrollTo({
-top:0,
-behavior:"smooth"
-});
-
-}
-
-
-
-/* =====================================================
-SAVE / UPDATE
-===================================================== */
-
-async function saveAttendance(){
-
-const personId=
-document.getElementById(
-"personId"
-).value;
-
-
-const date=
-document.getElementById(
-"date"
-).value;
-
-
-const status=
-document.getElementById(
-"status"
-).value;
-
-
-if(!personId){
-
-alert(
-"❌ Person নির্বাচন করুন"
-);
-
-return;
-
-}
-
-
-if(!date){
-
-alert(
-"❌ Date নির্বাচন করুন"
-);
-
-return;
-
-}
-
-
-const table=
-mode==="student"
+const newStatus =
+data.status === "present"
 ?
-"student_attendance"
+"absent"
 :
-mode==="teacher"
+"present";
+
+
+const confirmEdit =
+confirm(
+
+"বর্তমান Status: "+
+(data.status==="present"
 ?
-"teacher_attendance"
+"উপস্থিত"
 :
-"employee_attendance";
+"অনুপস্থিত"
+)+
 
+"\n\nনতুন Status হবে: "+
+(newStatus==="present"
+?
+"উপস্থিত"
+:
+"অনুপস্থিত"
+)+
 
-const record={
+"\n\nUpdate করতে চান?"
 
-attendance_date:date,
-
-status:status
-
-};
-
-
-if(mode==="student"){
-
-record.student_id=
-Number(personId);
-
-}
-
-else if(mode==="teacher"){
-
-record.teacher_id=
-Number(personId);
-
-}
-
-else{
-
-record.employee_id=
-Number(personId);
-
-}
-
-
-const saveBtn=
-document.getElementById(
-"saveBtn"
 );
 
 
-saveBtn.disabled=true;
+if(!confirmEdit){
+
+return;
+
+}
 
 
-try{
-
-let result;
-
-
-if(editingId){
-
-result=
+const {
+error:updateError
+} =
 await db
 
 .from(table)
 
-.update(record)
+.update({
+status:newStatus
+})
 
 .eq(
 "id",
-editingId
+numericId
 );
 
-}else{
 
-result=
-await db
-
-.from(table)
-
-.upsert(
-record,
-{
-onConflict:
-mode==="student"
-?
-"student_id,attendance_date"
-:
-mode==="teacher"
-?
-"teacher_id,attendance_date"
-:
-"employee_id,attendance_date"
-}
-);
-
-}
-
-
-if(result.error){
+if(updateError){
 
 alert(
-"❌ "+result.error.message
+"❌ Update failed:\n"+
+updateError.message
 );
 
 return;
@@ -1804,33 +2118,12 @@ return;
 }
 
 
-showMessage(
-editingId
-?
-"✅ Attendance updated successfully"
-:
-"✅ Attendance saved successfully",
-"success"
-);
-
-
-cancelEdit();
-
-
-await loadPeople();
-
-
-}catch(error){
-
 alert(
-"❌ "+error.message
+"✅ Attendance updated successfully"
 );
 
-}finally{
 
-saveBtn.disabled=false;
-
-}
+await loadReport();
 
 }
 
@@ -1851,7 +2144,7 @@ String(id)==="undefined"
 ){
 
 alert(
-"❌ Invalid Attendance ID"
+"❌ Invalid attendance ID"
 );
 
 return;
@@ -1859,36 +2152,56 @@ return;
 }
 
 
-if(!confirm(
-"এই Attendance record Delete করতে চান?"
-)){
-
-return;
-
-}
-
-
-const table=
-mode==="student"
-?
-"student_attendance"
-:
-mode==="teacher"
-?
-"teacher_attendance"
-:
-"employee_attendance";
-
-
-const numericId=
+const numericId =
 Number(id);
 
 
 if(!Number.isInteger(numericId)){
 
 alert(
-"❌ Invalid Attendance ID: "+id
+"❌ Invalid attendance ID: "+
+id
 );
+
+return;
+
+}
+
+
+let table = "";
+
+
+if(mode==="student"){
+
+table =
+"student_attendance";
+
+}
+
+
+if(mode==="teacher"){
+
+table =
+"teacher_attendance";
+
+}
+
+
+if(mode==="employee"){
+
+table =
+"employee_attendance";
+
+}
+
+
+const confirmDelete =
+confirm(
+"এই Attendance record Delete করতে চান?"
+);
+
+
+if(!confirmDelete){
 
 return;
 
@@ -1898,7 +2211,8 @@ return;
 const {
 data,
 error
-}=await db
+} =
+await db
 
 .from(table)
 
@@ -1914,7 +2228,10 @@ numericId
 
 if(error){
 
-console.error(error);
+console.error(
+"DELETE ERROR:",
+error
+);
 
 alert(
 "❌ Delete failed:\n"+
@@ -1929,7 +2246,7 @@ return;
 if(!data || data.length===0){
 
 alert(
-"❌ Record পাওয়া যায়নি অথবা Delete permission নেই।"
+"❌ Record পাওয়া যায়নি অথবা Delete করার permission নেই।"
 );
 
 return;
@@ -1937,165 +2254,14 @@ return;
 }
 
 
-showMessage(
-"✅ Attendance deleted successfully",
-"success"
+alert(
+"✅ Attendance deleted successfully"
 );
 
 
-await loadPeople();
+await loadReport();
 
 }
-
-
-
-/* =====================================================
-LOAD PERSON DROPDOWN
-===================================================== */
-
-function loadPersonDropdown(){
-
-const select=
-document.getElementById(
-"personId"
-);
-
-
-select.innerHTML="";
-
-
-if(mode==="student"){
-
-select.innerHTML=
-`<option value="">
-Student নির্বাচন করুন
-</option>`;
-
-
-const classId=
-document.getElementById(
-"classId"
-).value;
-
-
-let list=
-students;
-
-
-if(classId){
-
-list=
-students.filter(s=>
-String(s.class_id)===
-String(classId)
-);
-
-}
-
-
-list.forEach(s=>{
-
-select.innerHTML+=`
-
-<option value="${escapeHtml(s.id)}">
-
-${escapeHtml(s.student_id || "")}
- - 
-${escapeHtml(s.name || "Unknown")}
-
-</option>
-
-`;
-
-});
-
-}
-
-
-else if(mode==="teacher"){
-
-select.innerHTML=
-`<option value="">
-Teacher নির্বাচন করুন
-</option>`;
-
-
-teachers.forEach(t=>{
-
-select.innerHTML+=`
-
-<option value="${escapeHtml(t.id)}">
-
-${escapeHtml(t.name || "Unknown")}
-
-${t.phone
-?
-" - "+escapeHtml(t.phone)
-:
-""}
-
-</option>
-
-`;
-
-});
-
-}
-
-
-else{
-
-select.innerHTML=
-`<option value="">
-Employee নির্বাচন করুন
-</option>`;
-
-
-employees.forEach(e=>{
-
-select.innerHTML+=`
-
-<option value="${escapeHtml(e.id)}">
-
-${escapeHtml(
-e.employee_id || ""
-)}
-
-${e.employee_id?" - ":""}
-
-${escapeHtml(
-e.name || "Unknown"
-)}
-
-</option>
-
-`;
-
-});
-
-}
-
-}
-
-
-
-/* =====================================================
-CLASS CHANGE
-===================================================== */
-
-document.getElementById(
-"classId"
-).addEventListener(
-"change",
-function(){
-
-if(mode==="student"){
-
-loadPersonDropdown();
-
-}
-
-});
 
 
 
@@ -2105,51 +2271,52 @@ STUDENT TAB
 
 document.getElementById(
 "studentTab"
-).onclick=
+).onclick =
 async function(){
+
+if(mode==="student"){
+
+return;
+
+}
+
 
 mode="student";
 
-activateTab(
+
+setActiveTab(
 "studentTab"
 );
 
 
 document.getElementById(
-"formTitle"
-).textContent=
-"📋 Student Attendance";
+"reportTitle"
+).textContent =
+"👨‍🎓 Student Attendance";
 
 
 document.getElementById(
-"listTitle"
-).textContent=
-"👨‍🎓 Student Attendance List";
+"entryTitle"
+).textContent =
+"📋 Student Attendance নেওয়া";
 
 
 document.getElementById(
-"personLabel"
-).textContent=
+"personFilterLabel"
+).textContent =
 "Student";
 
 
 document.getElementById(
 "classBox"
-).style.display=
+).style.display =
 "block";
 
 
-document.getElementById(
-"classHeader"
-).textContent=
-"Class";
+loadPersonFilter();
 
 
-cancelEdit();
-
-loadPersonDropdown();
-
-await loadPeople();
+await loadReport();
 
 };
 
@@ -2161,51 +2328,52 @@ TEACHER TAB
 
 document.getElementById(
 "teacherTab"
-).onclick=
+).onclick =
 async function(){
+
+if(mode==="teacher"){
+
+return;
+
+}
+
 
 mode="teacher";
 
-activateTab(
+
+setActiveTab(
 "teacherTab"
 );
 
 
 document.getElementById(
-"formTitle"
-).textContent=
-"📋 Teacher Attendance";
+"reportTitle"
+).textContent =
+"👨‍🏫 Teacher Attendance";
 
 
 document.getElementById(
-"listTitle"
-).textContent=
-"👨‍🏫 Teacher Attendance List";
+"entryTitle"
+).textContent =
+"📋 Teacher Attendance নেওয়া";
 
 
 document.getElementById(
-"personLabel"
-).textContent=
+"personFilterLabel"
+).textContent =
 "Teacher";
 
 
 document.getElementById(
 "classBox"
-).style.display=
+).style.display =
 "none";
 
 
-document.getElementById(
-"classHeader"
-).textContent=
-"Designation";
+loadPersonFilter();
 
 
-cancelEdit();
-
-loadPersonDropdown();
-
-await loadPeople();
+await loadReport();
 
 };
 
@@ -2217,165 +2385,117 @@ EMPLOYEE TAB
 
 document.getElementById(
 "employeeTab"
-).onclick=
+).onclick =
 async function(){
+
+if(mode==="employee"){
+
+return;
+
+}
+
 
 mode="employee";
 
-activateTab(
+
+setActiveTab(
 "employeeTab"
 );
 
 
 document.getElementById(
-"formTitle"
-).textContent=
-"📋 Employee Attendance";
+"reportTitle"
+).textContent =
+"👨‍💼 Employee Attendance";
 
 
 document.getElementById(
-"listTitle"
-).textContent=
-"👨‍💼 Employee Attendance List";
+"entryTitle"
+).textContent =
+"📋 Employee Attendance নেওয়া";
 
 
 document.getElementById(
-"personLabel"
-).textContent=
+"personFilterLabel"
+).textContent =
 "Employee";
 
 
 document.getElementById(
 "classBox"
-).style.display=
+).style.display =
 "none";
 
 
-document.getElementById(
-"classHeader"
-).textContent=
-"Designation";
+loadPersonFilter();
 
 
-cancelEdit();
-
-loadPersonDropdown();
-
-await loadPeople();
+await loadReport();
 
 };
 
 
 
 /* =====================================================
-ACTIVATE TAB
+ACTIVE TAB
 ===================================================== */
 
-function activateTab(id){
+function setActiveTab(id){
 
-document
-.querySelectorAll(".tab")
-.forEach(btn=>
-btn.classList.remove("active")
+document.querySelectorAll(
+".tab"
+).forEach(btn=>{
+
+btn.classList.remove(
+"active"
 );
 
+});
 
-document
-.getElementById(id)
-.classList.add("active");
+
+document.getElementById(
+id
+).classList.add(
+"active"
+);
 
 }
 
 
 
 /* =====================================================
-CANCEL EDIT
+DATE CHANGE
 ===================================================== */
 
-function cancelEdit(){
+document.getElementById(
+"date"
+).addEventListener(
+"change",
+async function(){
 
-editingId="";
+await loadReport();
 
+});
+
+
+
+/* =====================================================
+CLASS CHANGE
+===================================================== */
 
 document.getElementById(
-"saveBtn"
-).textContent=
-"💾 Save Attendance";
-
-
-document.getElementById(
-"cancelBtn"
-).style.display=
-"none";
-
-
-document.getElementById(
-"status"
-).value=
-"present";
-
+"classId"
+).addEventListener(
+"change",
+async function(){
 
 if(mode==="student"){
 
-document.getElementById(
-"formTitle"
-).textContent=
-"📋 Student Attendance";
-
-}else if(mode==="teacher"){
-
-document.getElementById(
-"formTitle"
-).textContent=
-"📋 Teacher Attendance";
-
-}else{
-
-document.getElementById(
-"formTitle"
-).textContent=
-"📋 Employee Attendance";
+await loadReport();
 
 }
 
-}
-
-
-
-/* =====================================================
-ESCAPE HTML
-===================================================== */
-
-function escapeHtml(value){
-
-return String(value)
-
-.replaceAll(
-"&",
-"&amp;"
-)
-
-.replaceAll(
-"<",
-"&lt;"
-)
-
-.replaceAll(
-">",
-"&gt;"
-)
-
-.replaceAll(
-'"',
-"&quot;"
-)
-
-.replaceAll(
-"'",
-"&#039;"
-);
-
-}
+});
 
 
 
