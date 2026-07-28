@@ -4,27 +4,136 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Employee Attendance</title>
+
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f4f7f6;color:#222}
-.top{background:#075c43;color:#fff;padding:17px 22px;display:flex;justify-content:space-between}
-.top h2{margin:0;color:#fff}
-.top a{color:#fff;text-decoration:none}
-.container{max-width:1100px;margin:25px auto;padding:0 15px}
-.box{background:#fff;padding:22px;border-radius:12px;box-shadow:0 2px 10px #0001;margin-bottom:20px}
-.form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.full{grid-column:1/-1}
-label{font-weight:bold;font-size:14px}
-input,select{width:100%;padding:11px;margin-top:6px;border:1px solid #ddd;border-radius:7px}
-button{border:0;padding:11px 17px;border-radius:7px;background:#087f5b;color:#fff;font-weight:bold;cursor:pointer}
-table{width:100%;border-collapse:collapse;margin-top:15px}
-th,td{padding:10px;border-bottom:1px solid #ddd;text-align:left}
-th{background:#075c43;color:#fff}
-.table-wrap{overflow:auto}
-#msg{margin-top:12px}
+
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#f4f7f6;
+color:#222
+}
+
+.top{
+background:#075c43;
+color:#fff;
+padding:17px 22px;
+display:flex;
+justify-content:space-between;
+align-items:center
+}
+
+.top h2{
+margin:0;
+color:#fff
+}
+
+.top a{
+color:#fff;
+text-decoration:none
+}
+
+.container{
+max-width:1100px;
+margin:25px auto;
+padding:0 15px
+}
+
+.box{
+background:#fff;
+padding:22px;
+border-radius:12px;
+box-shadow:0 2px 10px #0001;
+margin-bottom:20px
+}
+
+.form{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:14px
+}
+
+.full{
+grid-column:1/-1
+}
+
+label{
+font-weight:bold;
+font-size:14px
+}
+
+input,select{
+width:100%;
+padding:11px;
+margin-top:6px;
+border:1px solid #ddd;
+border-radius:7px
+}
+
+button{
+border:0;
+padding:9px 13px;
+border-radius:7px;
+background:#087f5b;
+color:#fff;
+font-weight:bold;
+cursor:pointer
+}
+
+button:hover{
+opacity:.9
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:15px
+}
+
+th,td{
+padding:10px;
+border-bottom:1px solid #ddd;
+text-align:left
+}
+
+th{
+background:#075c43;
+color:#fff
+}
+
+.table-wrap{
+overflow:auto
+}
+
+.action{
+white-space:nowrap
+}
+
+.edit{
+background:#1565c0;
+margin-right:5px
+}
+
+.delete{
+background:#c62828
+}
+
+#msg{
+margin-top:12px;
+font-weight:bold
+}
+
 @media(max-width:650px){
-.form{grid-template-columns:1fr}
-.full{grid-column:auto}
+
+.form{
+grid-template-columns:1fr
+}
+
+.full{
+grid-column:auto
+}
+
 }
 </style>
 </head>
@@ -32,235 +141,747 @@ th{background:#075c43;color:#fff}
 <body>
 
 <header class="top">
+
 <h2>👨‍💼 Employee Attendance</h2>
-<a href="dashboard.html">← Dashboard</a>
+
+<a href="dashboard.html">
+← Dashboard
+</a>
+
 </header>
+
 
 <div class="container">
 
+
 <div class="box">
+
 <h3>Attendance নেওয়া</h3>
 
 <div class="form">
 
 <div>
+
 <label>Date</label>
-<input type="date" id="date">
+
+<input
+type="date"
+id="date"
+>
+
 </div>
+
 
 <div>
+
 <label>Employee</label>
+
 <select id="employee">
-<option value="">সব Employee</option>
+
+<option value="">
+সব Employee
+</option>
+
 </select>
+
 </div>
+
 
 <div class="full">
-<button onclick="loadEmployees()">Load Employees</button>
+
+<button
+onclick="loadEmployees()"
+type="button"
+>
+
+Load Employees
+
+</button>
+
 </div>
 
 </div>
+
 </div>
+
+
 
 <div class="box">
+
 <h3>👨‍💼 Employee List</h3>
 
+
 <div class="table-wrap">
+
 <table>
+
 <thead>
+
 <tr>
+
 <th>Employee ID</th>
+
 <th>নাম</th>
+
 <th>পদবি</th>
+
 <th>Attendance</th>
+
+<th>Action</th>
+
 </tr>
+
 </thead>
 
+
 <tbody id="employeeList">
+
 <tr>
-<td colspan="4">Date নির্বাচন করে Load Employees চাপুন</td>
+
+<td colspan="5">
+
+Date নির্বাচন করে Load Employees চাপুন
+
+</td>
+
 </tr>
+
 </tbody>
+
 </table>
+
 </div>
+
 
 <br>
 
-<button onclick="saveAttendance()">💾 Save Attendance</button>
+
+<button
+onclick="saveAttendance()"
+type="button"
+>
+
+💾 Save Attendance
+
+</button>
+
 
 <div id="msg"></div>
 
 </div>
+
 </div>
+
+
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 
-const SUPABASE_URL="https://qavublwhqiqsgpcmfyft.supabase.co";
-const SUPABASE_KEY="sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
+const SUPABASE_URL =
+"https://qavublwhqiqsgpcmfyft.supabase.co";
 
-const db=window.supabase.createClient(
+const SUPABASE_KEY =
+"sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
+
+const db =
+window.supabase.createClient(
 SUPABASE_URL,
 SUPABASE_KEY
 );
 
+
 let employees=[];
 
-document.getElementById("date").value=
+
+/* ================= DATE ================= */
+
+document.getElementById("date").value =
 new Date().toISOString().split("T")[0];
+
+
+/* ================= START ================= */
 
 async function start(){
 
-const {data:{session}}=await db.auth.getSession();
+const {
+data:{session}
+} = await db.auth.getSession();
+
 
 if(!session){
+
 location.href="admin.html";
 return;
+
 }
 
-const {data,error}=await db
+
+const {
+data,
+error
+} = await db
 .from("employees")
-.select("id,name,employee_id,designation")
+.select(
+"id,name,employee_id,designation"
+)
 .order("name");
 
+
 if(error){
+
 alert(error.message);
 return;
+
 }
 
-employees=data||[];
 
-const select=document.getElementById("employee");
+employees=data || [];
+
+
+const select =
+document.getElementById("employee");
+
+
+select.innerHTML =
+'<option value="">সব Employee</option>';
+
 
 employees.forEach(e=>{
-select.innerHTML+=`
-<option value="${e.id}">
-${escapeHtml(e.employee_id||"")} -
+
+select.innerHTML += `
+
+<option value="${escapeHtml(e.id)}">
+
+${escapeHtml(e.employee_id || "")}
+-
 ${escapeHtml(e.name)}
-</option>`;
+
+</option>
+
+`;
+
 });
 
+
 await loadEmployees();
+
 }
+
+
+/* ================= LOAD EMPLOYEES ================= */
 
 async function loadEmployees(){
 
-const selected=document.getElementById("employee").value;
-const date=document.getElementById("date").value;
+const selected =
+document.getElementById("employee").value;
+
+
+const date =
+document.getElementById("date").value;
+
+
+if(!date){
+
+alert("Date নির্বাচন করুন");
+
+return;
+
+}
+
 
 let list=employees;
 
+
 if(selected){
-list=employees.filter(e=>
-String(e.id)===String(selected)
+
+list =
+employees.filter(e=>
+String(e.id) ===
+String(selected)
 );
+
 }
 
-const {data:old,error}=await db
+
+const {
+data:old,
+error
+} = await db
 .from("employee_attendance")
-.select("employee_id,status")
-.eq("attendance_date",date);
+.select(
+"id,employee_id,status,attendance_date"
+)
+.eq(
+"attendance_date",
+date
+);
+
 
 if(error){
-document.getElementById("msg").textContent=
+
+document.getElementById("msg").textContent =
 "❌ "+error.message;
+
 return;
+
 }
+
 
 const oldMap={};
 
-(old||[]).forEach(x=>{
-oldMap[x.employee_id]=x.status;
+
+(old || []).forEach(x=>{
+
+oldMap[x.employee_id]=x;
+
 });
 
-const tbody=document.getElementById("employeeList");
+
+const tbody =
+document.getElementById(
+"employeeList"
+);
+
 
 if(!list.length){
-tbody.innerHTML=
-'<tr><td colspan="4">কোনো Employee নেই</td></tr>';
-return;
-}
 
-tbody.innerHTML=list.map(e=>{
-
-const status=oldMap[e.id]||"present";
-
-return `
+tbody.innerHTML =
+`
 <tr>
-<td>${escapeHtml(e.employee_id||"-")}</td>
-<td>${escapeHtml(e.name)}</td>
-<td>${escapeHtml(e.designation||"-")}</td>
-<td>
-<select id="status_${e.id}">
-<option value="present"
-${status==="present"?"selected":""}>
-উপস্থিত
-</option>
-
-<option value="absent"
-${status==="absent"?"selected":""}>
-অনুপস্থিত
-</option>
-</select>
+<td colspan="5">
+কোনো Employee নেই
 </td>
 </tr>
 `;
 
-}).join("");
+return;
+
 }
+
+
+tbody.innerHTML =
+list.map(e=>{
+
+const record =
+oldMap[e.id];
+
+
+const status =
+record?.status || "present";
+
+
+return `
+
+<tr>
+
+<td>
+
+${escapeHtml(
+e.employee_id || "-"
+)}
+
+</td>
+
+
+<td>
+
+${escapeHtml(e.name)}
+
+</td>
+
+
+<td>
+
+${escapeHtml(
+e.designation || "-"
+)}
+
+</td>
+
+
+<td>
+
+<select
+id="status_${escapeHtml(e.id)}"
+>
+
+<option
+value="present"
+${status==="present"?"selected":""}
+>
+
+উপস্থিত
+
+</option>
+
+
+<option
+value="absent"
+${status==="absent"?"selected":""}
+>
+
+অনুপস্থিত
+
+</option>
+
+</select>
+
+</td>
+
+
+<td class="action">
+
+${
+record
+?
+`
+
+<button
+type="button"
+class="edit"
+onclick="editAttendance('${escapeHtml(record.id)}')"
+>
+
+✏️ Edit
+
+</button>
+
+
+<button
+type="button"
+class="delete"
+onclick="deleteAttendance('${escapeHtml(record.id)}')"
+>
+
+🗑️ Delete
+
+</button>
+
+`
+:
+`
+<span style="color:#777">
+Not saved
+</span>
+`
+}
+
+</td>
+
+</tr>
+
+`;
+
+}).join("");
+
+}
+
+
+/* ================= SAVE ATTENDANCE ================= */
 
 async function saveAttendance(){
 
-const date=document.getElementById("date").value;
-const selected=document.getElementById("employee").value;
+const date =
+document.getElementById("date").value;
+
+
+const selected =
+document.getElementById("employee").value;
+
+
+if(!date){
+
+alert("Date নির্বাচন করুন");
+
+return;
+
+}
+
 
 let list=employees;
 
+
 if(selected){
-list=employees.filter(e=>
-String(e.id)===String(selected)
+
+list =
+employees.filter(e=>
+String(e.id) ===
+String(selected)
 );
+
 }
+
 
 if(!list.length){
+
 alert("Employee পাওয়া যায়নি");
+
 return;
+
 }
 
-const rows=list.map(e=>({
+
+const rows =
+list.map(e=>({
+
 employee_id:e.id,
+
 attendance_date:date,
-status:document.getElementById(
+
+status:
+document.getElementById(
 "status_"+e.id
 ).value
+
 }));
 
-const {error}=await db
+
+const {
+error
+} = await db
 .from("employee_attendance")
-.upsert(rows,{
-onConflict:"employee_id,attendance_date"
-});
+.upsert(
+rows,
+{
+onConflict:
+"employee_id,attendance_date"
+}
+);
+
 
 if(error){
-document.getElementById("msg").textContent=
+
+document.getElementById("msg").textContent =
 "❌ "+error.message;
+
 return;
+
 }
 
-document.getElementById("msg").textContent=
+
+document.getElementById("msg").textContent =
 "✅ Employee Attendance saved successfully";
+
+
+await loadEmployees();
+
 }
+
+
+/* ================= EDIT ================= */
+
+async function editAttendance(id){
+
+if(!id){
+
+alert("Invalid Attendance ID");
+
+return;
+
+}
+
+
+const {
+data,
+error
+} = await db
+.from("employee_attendance")
+.select("*")
+.eq("id",id)
+.maybeSingle();
+
+
+if(error){
+
+alert(
+"❌ "+error.message
+);
+
+return;
+
+}
+
+
+if(!data){
+
+alert(
+"❌ Attendance record পাওয়া যায়নি"
+);
+
+return;
+
+}
+
+
+const current =
+data.status || "present";
+
+
+const newStatus =
+current === "present"
+?
+"absent"
+:
+"present";
+
+
+const confirmEdit =
+confirm(
+
+"বর্তমান Status: "+
+(
+current==="present"
+?
+"উপস্থিত"
+:
+"অনুপস্থিত"
+)+
+
+"\n\nনতুন Status হবে: "+
+(
+newStatus==="present"
+?
+"উপস্থিত"
+:
+"অনুপস্থিত"
+)+
+
+"\n\nUpdate করতে চান?"
+
+);
+
+
+if(!confirmEdit){
+
+return;
+
+}
+
+
+const {
+error:updateError
+} = await db
+.from("employee_attendance")
+.update({
+status:newStatus
+})
+.eq("id",id);
+
+
+if(updateError){
+
+alert(
+"❌ Edit failed:\n"+
+updateError.message
+);
+
+return;
+
+}
+
+
+alert(
+"✅ Attendance updated successfully"
+);
+
+
+await loadEmployees();
+
+}
+
+
+/* ================= DELETE ================= */
+
+async function deleteAttendance(id){
+
+if(!id){
+
+alert("Invalid Attendance ID");
+
+return;
+
+}
+
+
+const confirmDelete =
+confirm(
+"এই Employee Attendance record Delete করতে চান?"
+);
+
+
+if(!confirmDelete){
+
+return;
+
+}
+
+
+const {
+data,
+error
+} = await db
+.from("employee_attendance")
+.delete()
+.eq("id",id)
+.select("id");
+
+
+if(error){
+
+alert(
+"❌ Delete failed:\n"+
+error.message
+);
+
+return;
+
+}
+
+
+if(!data || data.length===0){
+
+alert(
+"❌ Record Delete হয়নি। RLS permission check করুন।"
+);
+
+return;
+
+}
+
+
+alert(
+"✅ Employee Attendance deleted successfully"
+);
+
+
+await loadEmployees();
+
+}
+
+
+/* ================= EVENTS ================= */
 
 document.getElementById("date")
-.addEventListener("change",loadEmployees);
+.addEventListener(
+"change",
+loadEmployees
+);
+
 
 document.getElementById("employee")
-.addEventListener("change",loadEmployees);
+.addEventListener(
+"change",
+loadEmployees
+);
+
+
+/* ================= ESCAPE HTML ================= */
 
 function escapeHtml(value){
 
-return String(value)
+return String(value ?? "")
+
 .replaceAll("&","&amp;")
 .replaceAll("<","&lt;")
 .replaceAll(">","&gt;")
@@ -268,6 +889,9 @@ return String(value)
 .replaceAll("'","&#039;");
 
 }
+
+
+/* ================= RUN ================= */
 
 start();
 
