@@ -259,26 +259,22 @@ await loadCurrentSalary();
 /* =========================
    LOAD TEACHERS
 ========================= */
-
 async function loadTeachers(){
 
-const {data,error}=await db
-.from("teachers")
-.select("id,name,phone")
-.order("name");
+    const { data, error } = await db
+        .from("teachers")
+        .select("id,name,teacher_id,phone")
+        .order("name");
 
-if(error){
+    if(error){
+        showMessage("❌ Teacher load error: " + error.message);
+        return;
+    }
 
-showMessage("❌ Teacher load error: "+error.message);
+    teachers = data || [];
 
-return;
-
+    loadPersonDropdown();
 }
-
-teachers=data||[];
-
-}
-
 
 /* =========================
    LOAD EMPLOYEES
