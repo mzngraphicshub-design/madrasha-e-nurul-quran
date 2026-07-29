@@ -1,1 +1,625 @@
+<!DOCTYPE html>
+<html lang="bn">
 
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Student ID Card</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f4f7f6;
+}
+
+header{
+background:#075c43;
+color:#fff;
+padding:18px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+header a{
+color:#fff;
+text-decoration:none;
+font-weight:bold;
+}
+
+.container{
+max-width:1200px;
+margin:auto;
+padding:20px;
+}
+
+.card{
+background:#fff;
+padding:20px;
+border-radius:10px;
+box-shadow:0 2px 10px rgba(0,0,0,.08);
+margin-bottom:20px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+}
+
+.full{
+grid-column:1/-1;
+}
+
+label{
+font-weight:bold;
+display:block;
+margin-bottom:5px;
+}
+
+input,
+select,
+textarea{
+width:100%;
+padding:10px;
+border:1px solid #ddd;
+border-radius:8px;
+}
+
+button{
+padding:10px 18px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+color:#fff;
+font-weight:bold;
+}
+
+.save{
+background:#087f5b;
+}
+
+.print{
+background:#1565c0;
+}
+
+.upload{
+border:2px dashed #0b8b63;
+padding:20px;
+border-radius:10px;
+text-align:center;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:15px;
+}
+
+th{
+background:#075c43;
+color:#fff;
+padding:10px;
+}
+
+td{
+padding:10px;
+border-bottom:1px solid #ddd;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h2>🪪 Student ID Card</h2>
+
+<a href="dashboard.html">← Dashboard</a>
+
+</header>
+
+<div class="container">
+
+<div class="card">
+
+<h3>Add Student ID</h3>
+
+<form id="studentForm">
+
+<div class="grid">
+
+<div>
+
+<label>Student Name</label>
+
+<input id="student_name" required>
+
+</div>
+
+<div>
+
+<label>Father Name</label>
+
+<input id="father_name">
+
+</div>
+
+<div>
+
+<label>Mother Name</label>
+
+<input id="mother_name">
+
+</div>
+
+<div>
+
+<label>Class</label>
+
+<input id="class_name">
+
+</div>
+
+<div>
+
+<label>Roll</label>
+
+<input id="roll">
+
+</div>
+
+<div>
+
+<label>Session</label>
+
+<input id="session">
+
+</div>
+
+<div>
+
+<label>Mobile</label>
+
+<input id="mobile">
+
+</div>
+
+<div>
+
+<label>Blood Group</label>
+
+<input id="blood_group">
+
+</div>
+
+<div class="full">
+
+<label>Address</label>
+
+<textarea id="address"></textarea>
+
+</div>
+
+<div class="full">
+
+<label>Student Photo</label>
+
+<div class="upload">
+
+<input type="file" id="photo" accept="image/*">
+
+<p id="photoName">No Photo</p>
+
+</div>
+
+</div>
+
+<div class="full">
+
+<button class="save" type="submit">
+
+Save Student
+
+</button>
+
+</div>
+
+</div>
+
+</form>
+
+</div>
+
+<div class="card">
+
+<h3>Student List</h3>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Name</th>
+
+<th>Class</th>
+
+<th>Roll</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="studentList">
+
+<tr>
+
+<td colspan="4">Loading...</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<script>
+
+const SUPABASE_URL="https://qavublwhqiqsgpcmfyft.supabase.co";
+
+const SUPABASE_KEY="sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
+
+const db=window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
+let students=[];
+
+let photoUrl=""; 
+  // PART 2
+
+document.getElementById("photo").addEventListener("change",function(){
+
+if(this.files.length){
+
+document.getElementById("photoName").innerHTML=this.files[0].name;
+
+}
+
+});
+
+async function uploadPhoto(){
+
+const file=document.getElementById("photo").files[0];
+
+if(!file){
+
+return photoUrl;
+
+}
+
+const fileName=Date.now()+"_"+file.name;
+
+const {error}=await db.storage
+
+.from("student-photo")
+
+.upload(fileName,file);
+
+if(error){
+
+alert(error.message);
+
+return "";
+
+}
+
+const {data}=db.storage
+
+.from("student-photo")
+
+.getPublicUrl(fileName);
+
+photoUrl=data.publicUrl;
+
+return photoUrl;
+
+}
+
+async function loadStudents(){
+
+const {data,error}=await db
+
+.from("student_id_cards")
+
+.select("*")
+
+.order("id",{ascending:false});
+
+if(error){
+
+alert(error.message);
+
+return;
+
+}
+
+students=data||[];
+
+renderStudents();
+
+}
+
+function renderStudents(){
+
+const tbody=document.getElementById("studentList");
+
+if(!students.length){
+
+tbody.innerHTML="<tr><td colspan='4'>No Student Found</td></tr>";
+
+return;
+
+}
+
+tbody.innerHTML=students.map(s=>`
+
+<tr>
+
+<td>${s.student_name}</td>
+
+<td>${s.class_name||""}</td>
+
+<td>${s.roll||""}</td>
+
+<td>
+
+<button class="print"
+
+onclick="printID(${s.id})">
+
+Print ID
+
+</button>
+
+</td>
+
+</tr>
+
+`).join("");
+
+} 
+// PART 3
+
+document.getElementById("studentForm").addEventListener("submit",async function(e){
+
+e.preventDefault();
+
+const img=await uploadPhoto();
+
+const obj={
+
+student_name:document.getElementById("student_name").value,
+
+father_name:document.getElementById("father_name").value,
+
+mother_name:document.getElementById("mother_name").value,
+
+class_name:document.getElementById("class_name").value,
+
+roll:document.getElementById("roll").value,
+
+session:document.getElementById("session").value,
+
+mobile:document.getElementById("mobile").value,
+
+blood_group:document.getElementById("blood_group").value,
+
+address:document.getElementById("address").value,
+
+photo_url:img,
+
+status:"Active"
+
+};
+
+const {error}=await db
+
+.from("student_id_cards")
+
+.insert([obj]);
+
+if(error){
+
+alert(error.message);
+
+return;
+
+}
+
+alert("Student Saved Successfully");
+
+document.getElementById("studentForm").reset();
+
+document.getElementById("photoName").innerHTML="No Photo";
+
+photoUrl="";
+
+loadStudents();
+
+});
+
+function printID(id){
+
+const s=students.find(x=>x.id==id);
+
+if(!s)return;
+
+const w=window.open("","_blank");
+
+w.document.write(`
+
+<html>
+
+<head>
+
+<title>ID Card</title>
+
+<style>
+
+body{
+
+font-family:Arial;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+height:100vh;
+
+background:#eee;
+
+}
+
+.card{
+
+width:330px;
+
+border:2px solid #075c43;
+
+border-radius:15px;
+
+overflow:hidden;
+
+background:#fff;
+
+}
+
+.top{
+
+background:#075c43;
+
+color:#fff;
+
+padding:15px;
+
+text-align:center;
+
+}
+
+.photo{
+
+text-align:center;
+
+padding:15px;
+
+}
+
+.photo img{
+
+width:110px;
+
+height:110px;
+
+border-radius:50%;
+
+border:3px solid #075c43;
+
+object-fit:cover;
+
+}
+
+.info{
+
+padding:15px;
+
+line-height:1.8;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<div class="top">
+
+<h3>মাদরাসায়ে নূরুল কুরআন</h3>
+
+<p>Student Identity Card</p>
+
+</div>
+
+<div class="photo">
+
+<img src="${s.photo_url}">
+
+</div>
+
+<div class="info">
+
+<b>Name:</b> ${s.student_name}<br>
+
+<b>Class:</b> ${s.class_name}<br>
+
+<b>Roll:</b> ${s.roll}<br>
+
+<b>Session:</b> ${s.session}<br>
+
+<b>Blood:</b> ${s.blood_group}<br>
+
+<b>Mobile:</b> ${s.mobile}
+
+</div>
+
+</div>
+
+</body>
+
+</html>
+
+`);
+
+w.document.close();
+
+w.print();
+
+}
+
+loadStudents();
+
+</script>
+
+</body>
+
+</html>
+
+
+
+  
