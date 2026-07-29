@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Professional Student ID</title>
+<title>Student ID Management</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;600;700&display=swap" rel="stylesheet">
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
-
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
 
@@ -23,294 +22,135 @@ font-family:'Noto Sans Bengali',sans-serif;
 }
 
 body{
-background:#eef3f5;
+background:#eef2f5;
 }
 
 header{
-
 background:#075c43;
-
 color:#fff;
-
 padding:18px;
-
 display:flex;
-
 justify-content:space-between;
-
 align-items:center;
-
 }
 
 header a{
-
 color:#fff;
-
 text-decoration:none;
-
 font-weight:bold;
-
 }
 
 .container{
-
 max-width:1300px;
-
 margin:auto;
-
 padding:20px;
-
 }
 
-.box{
-
+.card{
 background:#fff;
-
 padding:20px;
-
 border-radius:15px;
-
-box-shadow:0 3px 10px rgba(0,0,0,.08);
-
+box-shadow:0 5px 15px rgba(0,0,0,.08);
 margin-bottom:20px;
-
 }
 
-.form{
+.card h2{
+color:#075c43;
+margin-bottom:20px;
+}
 
+.form-grid{
 display:grid;
-
 grid-template-columns:1fr 1fr;
-
 gap:15px;
-
 }
 
 .full{
-
 grid-column:1/-1;
-
-}
-
-label{
-
-font-weight:bold;
-
-display:block;
-
-margin-bottom:6px;
-
 }
 
 input,
-textarea{
-
+textarea,
+select{
 width:100%;
-
 padding:10px;
-
 border:1px solid #ddd;
-
 border-radius:8px;
-
 }
 
 textarea{
-
-height:110px;
-
+height:120px;
 resize:none;
-
 }
 
 button{
-
 padding:10px 18px;
-
 border:none;
-
 border-radius:8px;
-
 cursor:pointer;
-
 font-weight:bold;
-
 color:#fff;
-
 }
 
 .save{
-
 background:#087f5b;
-
 }
 
-.print{
-
-background:#1565c0;
-
-}
-
-.delete{
-
-background:#c62828;
-
-}
-
-.upload{
-
+.upload-box{
 border:2px dashed #0b8b63;
-
 padding:20px;
-
 text-align:center;
-
 border-radius:10px;
-
 }
 
 .preview{
-
 width:120px;
-
 height:120px;
-
 border-radius:50%;
-
-border:3px solid #075c43;
-
+border:4px solid #075c43;
 object-fit:cover;
-
 margin:10px auto;
-
 display:none;
-
 }
 
 table{
-
 width:100%;
-
 border-collapse:collapse;
-
-margin-top:15px;
-
 }
 
 th{
-
 background:#075c43;
-
 color:#fff;
-
 padding:10px;
-
 }
 
 td{
-
 padding:10px;
-
 border-bottom:1px solid #ddd;
-
 }
 
-.id-card{
-
-width:340px;
-
-background:#fff;
-
-border-radius:18px;
-
-overflow:hidden;
-
-border:3px solid #075c43;
-
-display:none;
-
-margin:auto;
-
-}
-
-.top{
-
-background:#075c43;
-
-color:#fff;
-
-padding:15px;
-
-text-align:center;
-
-}
-
-.top img{
-
-width:55px;
-
-margin-bottom:8px;
-
-}
-
-.student-photo{
-
-width:110px;
-
-height:110px;
-
-border-radius:50%;
-
-border:4px solid #075c43;
-
-object-fit:cover;
-
-display:block;
-
-margin:15px auto;
-
-}
-
-.info{
-
-padding:15px;
-
-line-height:1.8;
-
-font-size:15px;
-
-}
-
-.qr{
-
-display:flex;
-
-justify-content:center;
-
-margin:10px;
-
-}
-
-.footer{
-
-background:#075c43;
-
-color:#fff;
-
-text-align:center;
-
-padding:8px;
-
+.action button{
+margin:2px;
+padding:6px 10px;
 font-size:12px;
+}
 
+.print{
+background:#1565c0;
+}
+
+.delete{
+background:#c62828;
 }
 
 @media(max-width:768px){
 
-.form{
-
+.form-grid{
 grid-template-columns:1fr;
+}
 
+.full{
+grid-column:auto;
 }
 
 }
@@ -323,7 +163,7 @@ grid-template-columns:1fr;
 
 <header>
 
-<h2>🪪 Professional Student ID</h2>
+<h2>🪪 Student ID Management</h2>
 
 <a href="dashboard.html">← Dashboard</a>
 
@@ -331,15 +171,15 @@ grid-template-columns:1fr;
 
 <div class="container">
 
-<div class="box">
+<div class="card">
 
-<h3>Add Student</h3>
+<h2>Add Student</h2>
 
 <form id="studentForm">
 
 <input type="hidden" id="editId">
 
-<div class="form">
+<div class="form-grid">
 
 <input id="student_name" placeholder="Student Name" required>
 
@@ -363,7 +203,7 @@ grid-template-columns:1fr;
 
 </div>
 
-<div class="full upload">
+<div class="full upload-box">
 
 <input type="file" id="photo" accept="image/*">
 
@@ -388,14 +228,18 @@ Save Student
 </form>
 
 </div> 
-
 <!-- PART 2 -->
 
-<div class="box">
+<div class="card">
 
-<h3>Student List</h3>
+<h2>Student List</h2>
 
-<input id="search" placeholder="Search Student..." style="width:100%;padding:10px;margin-bottom:15px;">
+<input
+id="search"
+placeholder="Search Student..."
+style="width:100%;padding:10px;margin-bottom:15px;">
+
+<div style="overflow:auto;">
 
 <table>
 
@@ -405,13 +249,15 @@ Save Student
 
 <th>Photo</th>
 
-<th>Name</th>
+<th>Student ID</th>
 
-<th>ID</th>
+<th>Name</th>
 
 <th>Class</th>
 
 <th>Roll</th>
+
+<th>Status</th>
 
 <th>Action</th>
 
@@ -423,7 +269,11 @@ Save Student
 
 <tr>
 
-<td colspan="6">Loading...</td>
+<td colspan="7">
+
+Loading...
+
+</td>
 
 </tr>
 
@@ -433,49 +283,91 @@ Save Student
 
 </div>
 
-<div class="id-card" id="idCard">
+</div>
 
-<div class="top">
+<!-- PROFESSIONAL PVC ID -->
 
-<img src="logo.png">
+<div id="printArea" style="display:none;">
 
-<h3>মাদরাসায়ে নূরুল কুরআন</h3>
+<div id="idCardFront" style="width:340px;background:#fff;border:3px solid #075c43;border-radius:18px;overflow:hidden;">
 
-<p>STUDENT ID CARD</p>
+<div style="background:#075c43;color:#fff;text-align:center;padding:15px;">
+
+<img
+src="logo.png"
+style="width:55px;height:55px;object-fit:contain;">
+
+<h3>
+
+মাদরাসায়ে নূরুল কুরআন
+
+</h3>
+
+<p>
+
+STUDENT ID CARD
+
+</p>
 
 </div>
 
-<img id="cardPhoto" class="student-photo">
+<div style="text-align:center;padding:15px;">
 
-<div class="info">
+<img
 
-<b>Name :</b> <span id="c_name"></span><br>
+id="cardPhoto"
 
-<b>ID :</b> <span id="c_id"></span><br>
-
-<b>Father :</b> <span id="c_father"></span><br>
-
-<b>Class :</b> <span id="c_class"></span><br>
-
-<b>Roll :</b> <span id="c_roll"></span><br>
-
-<b>Session :</b> <span id="c_session"></span><br>
-
-<b>Blood :</b> <span id="c_blood"></span><br>
-
-<b>Mobile :</b> <span id="c_mobile"></span>
+style="width:110px;height:110px;border-radius:50%;border:4px solid #075c43;object-fit:cover;">
 
 </div>
 
-<div class="qr">
+<div style="padding:15px;line-height:1.8;">
 
-<canvas id="qr"></canvas>
+<b>ID :</b>
+
+<span id="cardID"></span><br>
+
+<b>Name :</b>
+
+<span id="cardName"></span><br>
+
+<b>Father :</b>
+
+<span id="cardFather"></span><br>
+
+<b>Class :</b>
+
+<span id="cardClass"></span><br>
+
+<b>Roll :</b>
+
+<span id="cardRoll"></span><br>
+
+<b>Session :</b>
+
+<span id="cardSession"></span><br>
+
+<b>Blood :</b>
+
+<span id="cardBlood"></span><br>
+
+<b>Mobile :</b>
+
+<span id="cardMobile"></span>
 
 </div>
 
-<div class="footer">
+<div
+id="qr"
+style="display:flex;justify-content:center;padding:10px;">
+
+</div>
+
+<div style="background:#075c43;color:#fff;text-align:center;padding:8px;">
 
 Principal Signature
+
+</div>
 
 </div>
 
@@ -489,7 +381,9 @@ const SUPABASE_URL="https://qavublwhqiqsgpcmfyft.supabase.co";
 
 const SUPABASE_KEY="sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
 
-const db=window.supabase.createClient(
+const db=
+
+window.supabase.createClient(
 
 SUPABASE_URL,
 
@@ -501,298 +395,5 @@ let students=[];
 
 let editId=null;
 
-let photoUrl="";  
-
-// PART 3
-
-document.getElementById("photo").addEventListener("change",function(){
-
-const file=this.files[0];
-
-if(!file)return;
-
-document.getElementById("photoName").innerHTML=file.name;
-
-document.getElementById("preview").src=URL.createObjectURL(file);
-
-document.getElementById("preview").style.display="block";
-
-});
-
-async function generateStudentCode(){
-
-const year=new Date().getFullYear();
-
-const {count}=await db
-
-.from("student_id_cards")
-
-.select("*",{
-
-count:"exact",
-
-head:true
-
-});
-
-return `MQ-${year}-${String((count||0)+1).padStart(4,"0")}`;
-
-}
-
-async function uploadPhoto(){
-
-const file=document.getElementById("photo").files[0];
-
-if(!file)return photoUrl;
-
-const fileName=Date.now()+"_"+file.name;
-
-const {error}=await db.storage
-
-.from("student-photo")
-
-.upload(fileName,file,{upsert:true});
-
-if(error){
-
-alert(error.message);
-
-return "";
-
-}
-
-const {data}=db.storage
-
-.from("student-photo")
-
-.getPublicUrl(fileName);
-
-photoUrl=data.publicUrl;
-
-return photoUrl;
-
-}
-
-async function loadStudents(){
-
-const {data,error}=await db
-
-.from("student_id_cards")
-
-.select("*")
-
-.order("id",{ascending:false});
-
-if(error){
-
-alert(error.message);
-
-return;
-
-}
-
-students=data||[];
-
-renderStudents();
-
-} 
-// PART 4
-
-function renderStudents(){
-
-const tbody=document.getElementById("studentList");
-
-if(!students.length){
-
-tbody.innerHTML="<tr><td colspan='6'>No Student Found</td></tr>";
-
-return;
-
-}
-
-tbody.innerHTML=students.map(s=>`
-
-<tr>
-
-<td>
-
-<img src="${s.photo_url||''}" style="width:50px;height:50px;border-radius:50%;object-fit:cover;">
-
-</td>
-
-<td>${s.student_name}</td>
-
-<td>${s.student_code}</td>
-
-<td>${s.class_name}</td>
-
-<td>${s.roll}</td>
-
-<td>
-
-<button class="print" onclick="printID(${s.id})">Print</button>
-
-<button class="delete" onclick="deleteStudent(${s.id})">Delete</button>
-
-</td>
-
-</tr>
-
-`).join("");
-
-}
-
-document.getElementById("studentForm").addEventListener("submit",async function(e){
-
-e.preventDefault();
-
-const code=await generateStudentCode();
-
-const img=await uploadPhoto();
-
-const obj={
-
-student_code:code,
-
-qr_url:`${location.origin}/student-profile.html?id=${code}`,
-
-student_name:document.getElementById("student_name").value,
-
-father_name:document.getElementById("father_name").value,
-
-mother_name:document.getElementById("mother_name").value,
-
-class_name:document.getElementById("class_name").value,
-
-roll:document.getElementById("roll").value,
-
-session:document.getElementById("session").value,
-
-mobile:document.getElementById("mobile").value,
-
-blood_group:document.getElementById("blood_group").value,
-
-address:document.getElementById("address").value,
-
-photo_url:img,
-
-id_status:"Active"
-
-};
-
-const {error}=await db
-
-.from("student_id_cards")
-
-.insert([obj]);
-
-if(error){
-
-alert(error.message);
-
-return;
-
-}
-
-alert("Student Saved Successfully");
-
-document.getElementById("studentForm").reset();
-
-document.getElementById("preview").style.display="none";
-
-document.getElementById("photoName").innerHTML="No Photo Selected";
-
-photoUrl="";
-
-loadStudents();
-
-});
-
-async function deleteStudent(id){
-
-if(!confirm("Delete Student?")) return;
-
-await db
-
-.from("student_id_cards")
-
-.delete()
-
-.eq("id",id);
-
-loadStudents();
-
-}
-
-function printID(id){
-
-const s=students.find(x=>x.id==id);
-
-if(!s)return;
-
-document.getElementById("idCard").style.display="block";
-
-document.getElementById("cardPhoto").src=s.photo_url;
-
-document.getElementById("c_name").innerHTML=s.student_name;
-
-document.getElementById("c_id").innerHTML=s.student_code;
-
-document.getElementById("c_father").innerHTML=s.father_name;
-
-document.getElementById("c_class").innerHTML=s.class_name;
-
-document.getElementById("c_roll").innerHTML=s.roll;
-
-document.getElementById("c_session").innerHTML=s.session;
-
-document.getElementById("c_blood").innerHTML=s.blood_group;
-
-document.getElementById("c_mobile").innerHTML=s.mobile;
-
-QRCode.toCanvas(
-
-document.getElementById("qr"),
-
-s.qr_url
-
-);
-
-setTimeout(()=>{
-
-window.print();
-
-document.getElementById("idCard").style.display="none";
-
-},500);
-
-}
-
-document.getElementById("search").addEventListener("input",function(){
-
-const q=this.value.toLowerCase();
-
-students=students.filter(x=>
-
-x.student_name.toLowerCase().includes(q)||
-
-x.student_code.toLowerCase().includes(q)
-
-);
-
-renderStudents();
-
-});
-
-loadStudents();
-
-</script>
-
-</body>
-
-</html> 
-  
-
-  
-
+let photoUrl="";
   
