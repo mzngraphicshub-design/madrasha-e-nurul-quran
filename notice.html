@@ -1,1 +1,784 @@
+<!DOCTYPE html>
+<html lang="bn">
 
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Notice Management | মাদরাসায়ে নূরুল কুরআন</title>
+
+<style>
+
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
+
+body{
+font-family:Arial,sans-serif;
+background:#f4f7f6;
+color:#222;
+}
+
+header{
+
+background:#075c43;
+color:#fff;
+padding:18px 22px;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+}
+
+header h2{
+font-size:22px;
+}
+
+header a{
+
+color:#fff;
+text-decoration:none;
+font-weight:bold;
+
+}
+
+.container{
+
+max-width:1200px;
+margin:auto;
+padding:20px;
+
+}
+
+.box{
+
+background:#fff;
+padding:22px;
+border-radius:12px;
+box-shadow:0 2px 10px #0001;
+margin-bottom:20px;
+
+}
+
+h3{
+
+color:#075c43;
+margin-bottom:18px;
+
+}
+
+.form{
+
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+
+}
+
+.full{
+
+grid-column:1/-1;
+
+}
+
+label{
+
+font-weight:bold;
+font-size:14px;
+
+}
+
+input,
+textarea,
+select{
+
+width:100%;
+padding:11px;
+margin-top:6px;
+border:1px solid #ddd;
+border-radius:8px;
+font-size:14px;
+
+}
+
+textarea{
+
+height:140px;
+resize:vertical;
+
+}
+
+button{
+
+border:none;
+padding:11px 18px;
+border-radius:8px;
+background:#087f5b;
+color:#fff;
+font-weight:bold;
+cursor:pointer;
+
+}
+
+.cancel{
+
+background:#777;
+
+}
+
+.edit{
+
+background:#1565c0;
+
+}
+
+.delete{
+
+background:#c62828;
+
+}
+
+.print{
+
+background:#444;
+
+}
+
+.search{
+
+margin-bottom:15px;
+
+}
+
+table{
+
+width:100%;
+border-collapse:collapse;
+
+}
+
+th,td{
+
+padding:10px;
+border-bottom:1px solid #ddd;
+text-align:left;
+
+}
+
+th{
+
+background:#075c43;
+color:#fff;
+
+}
+
+.action button{
+
+margin:2px;
+padding:6px 10px;
+font-size:12px;
+
+}
+
+#msg{
+
+margin-top:10px;
+font-weight:bold;
+
+}
+
+.success{
+
+color:green;
+
+}
+
+.error{
+
+color:red;
+
+}
+
+@media(max-width:700px){
+
+.form{
+
+grid-template-columns:1fr;
+
+}
+
+.full{
+
+grid-column:auto;
+
+}
+
+table{
+
+min-width:900px;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h2>📢 Notice Management</h2>
+
+<a href="dashboard.html">
+← Dashboard
+</a>
+
+</header>
+
+<div class="container">
+
+<div class="box">
+
+<h3 id="titleText">
+➕ Add Notice
+</h3>
+
+<form id="noticeForm">
+
+<input
+type="hidden"
+id="editId">
+
+<div>
+
+<label>
+Notice Title
+</label>
+
+<input
+type="text"
+id="title"
+required>
+
+</div>
+
+<div>
+
+<label>
+Publish Date
+</label>
+
+<input
+type="date"
+id="publish_date">
+
+</div>
+
+<div class="full">
+
+<label>
+Notice
+</label>
+
+<textarea
+id="notice"
+required></textarea>
+
+</div>
+
+<div>
+
+<label>Status</label>
+
+<select id="status">
+
+<option value="Active">
+Active
+</option>
+
+<option value="Inactive">
+Inactive
+</option>
+
+</select>
+
+</div>
+
+<div class="full">
+
+<button type="submit">
+
+💾 Save Notice
+
+</button>
+
+<button
+type="button"
+class="cancel"
+id="cancelBtn"
+style="display:none">
+
+Cancel
+
+</button>
+
+<div id="msg"></div>
+
+</div>
+
+</form>
+
+</div>
+
+<div class="box">
+
+<h3>
+
+📋 Notice List
+
+</h3>
+
+<input
+class="search"
+id="search"
+placeholder="Search Notice...">
+
+<div style="overflow:auto">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Title</th>
+<th>Date</th>
+<th>Status</th>
+<th>Notice</th>
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="noticeList">
+
+<tr>
+
+<td colspan="5">
+
+Loading...
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script> 
+<script>
+
+const SUPABASE_URL =
+"https://qavublwhqiqsgpcmfyft.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
+
+const db =
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
+let notices=[];
+
+function message(text,type="success"){
+
+const m=document.getElementById("msg");
+
+m.innerHTML=text;
+
+m.className=type;
+
+}
+
+async function start(){
+
+const {data:{session}}=
+await db.auth.getSession();
+
+if(!session){
+
+location.href="admin.html";
+
+return;
+
+}
+
+loadNotice();
+
+}
+
+async function loadNotice(){
+
+const {data,error}=await db
+.from("notices")
+.select("*")
+.order("id",{ascending:false});
+
+if(error){
+
+message(error.message,"error");
+
+return;
+
+}
+
+notices=data||[];
+
+renderNotice(notices);
+
+}
+
+function renderNotice(list){
+
+const tbody=
+document.getElementById("noticeList");
+
+if(!list.length){
+
+tbody.innerHTML=
+"<tr><td colspan='5'>No Notice Found</td></tr>";
+
+return;
+
+}
+
+tbody.innerHTML=list.map(n=>`
+
+<tr>
+
+<td>${n.title}</td>
+
+<td>${n.publish_date||""}</td>
+
+<td>${n.status}</td>
+
+<td>${n.notice}</td>
+
+<td>
+
+<button
+class="edit"
+onclick="editNotice(${n.id})">
+
+Edit
+
+</button>
+
+<button
+class="delete"
+onclick="deleteNotice(${n.id})">
+
+Delete
+
+</button>
+
+<button
+class="print"
+onclick="printNotice(${n.id})">
+
+Print
+
+</button>
+
+</td>
+
+</tr>
+
+`).join("");
+
+}
+
+document
+.getElementById("noticeForm")
+.addEventListener(
+"submit",
+async function(e){
+
+e.preventDefault();
+
+const id=
+document.getElementById("editId").value;
+
+const obj={
+
+title:
+document.getElementById("title").value,
+
+notice:
+document.getElementById("notice").value,
+
+publish_date:
+document.getElementById("publish_date").value,
+
+status:
+document.getElementById("status").value
+
+};
+
+let result;
+
+if(id){
+
+result=await db
+.from("notices")
+.update(obj)
+.eq("id",id);
+
+}else{
+
+result=await db
+.from("notices")
+.insert(obj);
+
+}
+
+if(result.error){
+
+message(result.error.message,"error");
+
+return;
+
+}
+
+message("Saved Successfully");
+
+resetForm();
+
+loadNotice();
+
+});
+
+function editNotice(id){
+
+const n=
+notices.find(x=>x.id==id);
+
+document.getElementById("editId").value=n.id;
+
+document.getElementById("title").value=n.title;
+
+document.getElementById("notice").value=n.notice;
+
+document.getElementById("publish_date").value=n.publish_date||"";
+
+document.getElementById("status").value=n.status;
+
+document.getElementById("titleText").innerHTML=
+"✏️ Edit Notice";
+
+document.getElementById("cancelBtn").style.display="inline-block";
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+async function deleteNotice(id){
+
+if(!confirm("Delete Notice?")) return;
+
+const {error}=await db
+.from("notices")
+.delete()
+.eq("id",id);
+
+if(error){
+
+alert(error.message);
+
+return;
+
+}
+
+loadNotice();
+
+}
+
+document
+.getElementById("cancelBtn")
+.onclick=function(){
+
+resetForm();
+
+};
+
+function resetForm(){
+
+document.getElementById("noticeForm").reset();
+
+document.getElementById("editId").value="";
+
+document.getElementById("cancelBtn").style.display="none";
+
+document.getElementById("titleText").innerHTML=
+"➕ Add Notice";
+
+}
+
+document
+.getElementById("search")
+.addEventListener(
+"input",
+function(){
+
+const q=
+this.value.toLowerCase();
+
+const f=
+notices.filter(n=>
+
+n.title.toLowerCase().includes(q) ||
+
+n.notice.toLowerCase().includes(q)
+
+);
+
+renderNotice(f);
+
+});
+
+start();
+function printNotice(id){
+
+const n=
+notices.find(x=>x.id==id);
+
+const win=
+window.open("","_blank");
+
+win.document.write(`
+
+<html>
+
+<head>
+
+<title>${n.title}</title>
+
+<style>
+
+body{
+
+font-family:Arial;
+padding:40px;
+line-height:1.8;
+
+}
+
+h2{
+
+text-align:center;
+color:#075c43;
+
+}
+
+hr{
+
+margin:15px 0;
+
+}
+
+.footer{
+
+margin-top:40px;
+font-size:14px;
+color:#666;
+text-align:center;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h2>
+
+মাদরাসায়ে নূরুল কুরআন
+
+</h2>
+
+<hr>
+
+<h3>
+
+${n.title}
+
+</h3>
+
+<p>
+
+<b>Date :</b>
+
+${n.publish_date||""}
+
+</p>
+
+<p>
+
+<b>Status :</b>
+
+${n.status}
+
+</p>
+
+<hr>
+
+<div>
+
+${String(n.notice).replace(/\n/g,"<br>")}
+
+</div>
+
+<div class="footer">
+
+Generated from Madrasa Management System
+
+</div>
+
+</body>
+
+</html>
+
+`);
+
+win.document.close();
+
+win.print();
+
+}
+
+</script>
+
+</body>
+
+</html>
+  
