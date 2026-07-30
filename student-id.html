@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="bn">
-
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Student ID Card</title>
+<title>Professional Student ID Card</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -18,26 +19,21 @@
 <style>
 
 *{
-
 margin:0;
-
 padding:0;
-
 box-sizing:border-box;
-
 font-family:'Noto Sans Bengali',sans-serif;
-
 }
 
 body{
-
-background:#eef2f6;
-
+background:#edf2f7;
 }
 
 header{
 
 background:#075c43;
+
+color:#fff;
 
 padding:18px;
 
@@ -47,15 +43,15 @@ justify-content:space-between;
 
 align-items:center;
 
-color:#fff;
-
-box-shadow:0 5px 15px rgba(0,0,0,.15);
+box-shadow:0 4px 12px rgba(0,0,0,.2);
 
 }
 
 header h2{
 
 font-size:24px;
+
+font-weight:700;
 
 }
 
@@ -75,9 +71,9 @@ padding:10px 18px;
 
 border-radius:8px;
 
-text-decoration:none;
-
 color:#fff;
+
+text-decoration:none;
 
 font-weight:bold;
 
@@ -103,9 +99,9 @@ gap:20px;
 
 background:#fff;
 
-border-radius:15px;
-
 padding:20px;
+
+border-radius:15px;
 
 box-shadow:0 5px 15px rgba(0,0,0,.08);
 
@@ -115,25 +111,27 @@ box-shadow:0 5px 15px rgba(0,0,0,.08);
 
 background:#fff;
 
-border-radius:15px;
-
 padding:20px;
+
+border-radius:15px;
 
 box-shadow:0 5px 15px rgba(0,0,0,.08);
 
 }
 
-.search-box{
+.search{
 
 width:100%;
 
 padding:12px;
 
-border:1px solid #ddd;
+border:1px solid #ccc;
 
 border-radius:8px;
 
-margin-bottom:12px;
+margin-bottom:10px;
+
+font-size:15px;
 
 }
 
@@ -145,15 +143,17 @@ padding:12px;
 
 background:#087f5b;
 
+color:#fff;
+
 border:none;
 
 border-radius:8px;
 
-color:#fff;
+cursor:pointer;
+
+font-size:15px;
 
 font-weight:bold;
-
-cursor:pointer;
 
 margin-bottom:15px;
 
@@ -161,7 +161,7 @@ margin-bottom:15px;
 
 .student-list{
 
-max-height:650px;
+max-height:700px;
 
 overflow:auto;
 
@@ -175,9 +175,9 @@ gap:10px;
 
 padding:10px;
 
-cursor:pointer;
-
 border-bottom:1px solid #eee;
+
+cursor:pointer;
 
 transition:.3s;
 
@@ -199,6 +199,8 @@ border-radius:50%;
 
 object-fit:cover;
 
+border:2px solid #075c43;
+
 }
 
 #idCard{
@@ -209,37 +211,28 @@ width:360px;
 
 margin:auto;
 
-border-radius:18px;
-
-overflow:hidden;
-
 background:#fff;
 
 border:3px solid #075c43;
+
+border-radius:18px;
+
+overflow:hidden;
 
 }
 
 </style>
 
-</head>
-
+</head> 
 <body>
 
 <header>
 
 <div>
 
-<h2>
+<h2>মাদরাসায়ে নূরুল কুরআন</h2>
 
-মাদরাসায়ে নূরুল কুরআন
-
-</h2>
-
-<p>
-
-Professional Student ID Card System
-
-</p>
+<p>Professional Student ID Card System</p>
 
 </div>
 
@@ -249,23 +242,23 @@ Professional Student ID Card System
 
 </a>
 
-</header> 
+</header>
 
- <div class="container">
+<div class="container">
 
 <div class="sidebar">
 
 <input
 type="text"
 id="searchBox"
-class="search-box"
+class="search"
 placeholder="Student ID / Roll / Name">
 
 <button
 id="searchBtn"
 class="btn">
 
-🔍 Search Student
+Search Student
 
 </button>
 
@@ -283,17 +276,13 @@ Loading Students...
 
 <div id="idCard">
 
-<div style="background:#075c43;color:#fff;padding:15px;text-align:center;">
+<div style="background:#075c43;color:#fff;text-align:center;padding:18px;">
 
 <img
 src="logo.png"
-style="
-width:70px;
-height:70px;
-object-fit:contain;
-">
+style="width:65px;height:65px;object-fit:contain;">
 
-<h2 style="margin-top:10px;">
+<h2 style="margin-top:8px;font-size:22px;">
 
 মাদরাসায়ে নূরুল কুরআন
 
@@ -312,39 +301,40 @@ STUDENT ID CARD
 <img
 id="cardPhoto"
 style="
+
 width:120px;
+
 height:120px;
+
 border-radius:50%;
+
 border:4px solid #075c43;
+
 object-fit:cover;
+
+box-shadow:0 5px 15px rgba(0,0,0,.25);
+
 ">
 
 <h2
 id="cardName"
-style="
-margin-top:12px;
-color:#075c43;
-">
+style="margin-top:12px;color:#075c43;">
 
 </h2>
 
 <p
 id="cardID"
-style="
-font-size:18px;
-font-weight:bold;
-margin-top:5px;
-">
+style="font-weight:bold;font-size:18px;margin-top:5px;">
 
 </p>
 
 <hr style="margin:15px 0;">
 
-<table style="width:100%;line-height:2;">
+<table style="width:100%;line-height:2;font-size:15px;">
 
 <tr>
 
-<td><b>Father</b></td>
+<td align="left"><b>Father</b></td>
 
 <td id="cardFather"></td>
 
@@ -352,7 +342,7 @@ margin-top:5px;
 
 <tr>
 
-<td><b>Mother</b></td>
+<td align="left"><b>Mother</b></td>
 
 <td id="cardMother"></td>
 
@@ -360,7 +350,7 @@ margin-top:5px;
 
 <tr>
 
-<td><b>Class</b></td>
+<td align="left"><b>Class</b></td>
 
 <td id="cardClass"></td>
 
@@ -368,7 +358,7 @@ margin-top:5px;
 
 <tr>
 
-<td><b>Roll</b></td>
+<td align="left"><b>Roll</b></td>
 
 <td id="cardRoll"></td>
 
@@ -376,7 +366,7 @@ margin-top:5px;
 
 <tr>
 
-<td><b>Session</b></td>
+<td align="left"><b>Session</b></td>
 
 <td id="cardSession"></td>
 
@@ -384,7 +374,7 @@ margin-top:5px;
 
 <tr>
 
-<td><b>Blood</b></td>
+<td align="left"><b>Blood</b></td>
 
 <td id="cardBlood"></td>
 
@@ -392,7 +382,7 @@ margin-top:5px;
 
 <tr>
 
-<td><b>Mobile</b></td>
+<td align="left"><b>Mobile</b></td>
 
 <td id="cardMobile"></td>
 
@@ -402,11 +392,7 @@ margin-top:5px;
 
 <div
 id="qr"
-style="
-margin-top:20px;
-display:flex;
-justify-content:center;
-">
+style="margin-top:20px;display:flex;justify-content:center;">
 
 </div>
 
@@ -415,15 +401,7 @@ id="printBtn"
 class="btn"
 style="margin-top:15px;">
 
-🖨 Print ID
-
-</button>
-
-<button
-id="pdfBtn"
-class="btn">
-
-📄 Download PDF
+Print ID
 
 </button>
 
@@ -434,12 +412,11 @@ class="btn">
 </div>
 
 </div> 
-
 <script>
 
 const SUPABASE_URL="https://qavublwhqiqsgpcmfyft.supabase.co";
 
-const SUPABASE_KEY="তোমার Publishable Key";
+const SUPABASE_KEY="sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
 
 const db=window.supabase.createClient(
 
@@ -463,6 +440,8 @@ const {data,error}=await db
 
 if(error){
 
+console.log(error);
+
 alert(error.message);
 
 return;
@@ -479,6 +458,8 @@ function renderStudents(){
 
 const list=document.getElementById("studentList");
 
+list.innerHTML="";
+
 if(students.length===0){
 
 list.innerHTML="<center>No Student Found</center>";
@@ -487,9 +468,7 @@ return;
 
 }
 
-list.innerHTML="";
-
-students.forEach(student=>{
+students.forEach(s=>{
 
 const div=document.createElement("div");
 
@@ -497,21 +476,21 @@ div.className="student-item";
 
 div.innerHTML=`
 
-<img src="${student.photo_url||'no-image.png'}">
+<img src="${s.photo_url||'no-image.png'}">
 
 <div>
 
-<b>${student.student_name}</b><br>
+<b>${s.student_name||''}</b><br>
 
-${student.class_name||""}<br>
+${s.class_name||''}<br>
 
-Roll : ${student.roll||""}
+Roll : ${s.roll||''}
 
 </div>
 
 `;
 
-div.onclick=()=>showCard(student.id);
+div.onclick=()=>showCard(s.id);
 
 list.appendChild(div);
 
@@ -522,57 +501,54 @@ async function showCard(id){
 
 const s=students.find(x=>x.id===id);
 
-if(!s) return;
+if(!s)return;
 
 /* Auto Student ID */
 
 if(!s.student_id){
 
-const code=`MQ-${new Date().getFullYear()}-${String(s.id).padStart(4,"0")}`;
+const studentCode=
+`MQ-${new Date().getFullYear()}-${String(s.id).padStart(4,"0")}`;
 
-const {error}=await db
+await db
 
 .from("students")
 
 .update({
 
-student_id:code
+student_id:studentCode
 
 })
 
 .eq("id",s.id);
 
-if(!error){
-
-s.student_id=code;
+s.student_id=studentCode;
 
 }
 
-}
-
-/* Card Show */
+/* Show Card */
 
 document.getElementById("idCard").style.display="block";
 
-document.getElementById("cardPhoto").src=s.photo_url||"no-image.png";
+cardPhoto.src=s.photo_url||"no-image.png";
 
-document.getElementById("cardName").innerText=s.student_name||"";
+cardName.innerText=s.student_name||"";
 
-document.getElementById("cardID").innerText=s.student_id||"";
+cardID.innerText=s.student_id||"";
 
-document.getElementById("cardFather").innerText=s.father_name||"-";
+cardFather.innerText=s.father_name||"-";
 
-document.getElementById("cardMother").innerText=s.mother_name||"-";
+cardMother.innerText=s.mother_name||"-";
 
-document.getElementById("cardClass").innerText=s.class_name||"-";
+cardClass.innerText=s.class_name||"-";
 
-document.getElementById("cardRoll").innerText=s.roll||"-";
+cardRoll.innerText=s.roll||"-";
 
-document.getElementById("cardSession").innerText=s.session||"-";
+cardSession.innerText=s.session||"-";
 
-document.getElementById("cardBlood").innerText=s.blood_group||"-";
+cardBlood.innerText=s.blood_group||"-";
 
-document.getElementById("cardMobile").innerText=s.mobile||"-";
+cardMobile.innerText=s.mobile||"-";
 
 /* QR */
 
@@ -582,16 +558,32 @@ qr.innerHTML="";
 
 const canvas=document.createElement("canvas");
 
-QRCode.toCanvas(canvas,s.student_id);
+QRCode.toCanvas(
+
+canvas,
+
+s.student_id,
+
+{width:140},
+
+function(error){
+
+if(!error){
 
 qr.appendChild(canvas);
 
 }
 
-loadStudents();
- /* ===========================
-   SEARCH SYSTEM
-=========================== */
+}
+
+);
+
+}
+
+loadStudents(); 
+/* =========================
+   SEARCH
+========================= */
 
 document.getElementById("searchBtn").onclick=searchStudent;
 
@@ -641,7 +633,7 @@ return;
 
 }
 
-result.forEach(student=>{
+result.forEach(s=>{
 
 const div=document.createElement("div");
 
@@ -649,21 +641,21 @@ div.className="student-item";
 
 div.innerHTML=`
 
-<img src="${student.photo_url||'no-image.png'}">
+<img src="${s.photo_url||'no-image.png'}">
 
 <div>
 
-<b>${student.student_name}</b><br>
+<b>${s.student_name}</b><br>
 
-${student.class_name||""}<br>
+${s.student_id||""}<br>
 
-Roll : ${student.roll||""}
+${s.class_name||""} | Roll : ${s.roll||""}
 
 </div>
 
 `;
 
-div.onclick=()=>showCard(student.id);
+div.onclick=()=>showCard(s.id);
 
 list.appendChild(div);
 
@@ -671,9 +663,9 @@ list.appendChild(div);
 
 }
 
-/* ===========================
+/* =========================
    PRINT
-=========================== */
+========================= */
 
 document.getElementById("printBtn").onclick=function(){
 
@@ -681,19 +673,9 @@ window.print();
 
 };
 
-/* ===========================
-   PDF
-=========================== */
-
-document.getElementById("pdfBtn").onclick=function(){
-
-window.print();
-
-};
-
-/* ===========================
+/* =========================
    AUTO REFRESH
-=========================== */
+========================= */
 
 setInterval(loadStudents,10000);
 
@@ -701,6 +683,10 @@ setInterval(loadStudents,10000);
 
 </body>
 
-</html>
+</html> 
+
+ 
+ 
+ 
 
  
