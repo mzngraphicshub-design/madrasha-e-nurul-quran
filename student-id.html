@@ -627,5 +627,71 @@ qr.appendChild(canvas);
 );
 
 } 
+/* ===========================
+SEARCH
+=========================== */
 
+document.getElementById("searchBtn").onclick=searchStudent;
+
+document.getElementById("searchBox").addEventListener("keyup",function(e){
+
+if(e.key==="Enter"){
+
+searchStudent();
+
+}
+
+});
+
+function searchStudent(){
+
+const key=document.getElementById("searchBox").value.trim().toLowerCase();
+
+if(key===""){
+
+renderStudents(students);
+
+return;
+
+}
+
+const result=students.filter(s=>
+
+(s.student_id||"").toLowerCase().includes(key)||
+
+(s.name||"").toLowerCase().includes(key)||
+
+(s.phone||"").toLowerCase().includes(key)
+
+);
+
+renderStudents(result);
+
+}
+
+/* ===========================
+PRINT
+=========================== */
+
+document.getElementById("printBtn").onclick=function(){
+
+window.print();
+
+};
+
+/* ===========================
+AUTO REFRESH
+=========================== */
+
+setInterval(async()=>{
+
+await loadStudents();
+
+},15000);
+
+</script>
+
+</body>
+
+</html>
    
