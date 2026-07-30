@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Professional Student ID Card</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<title>Student ID Card</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;700&display=swap" rel="stylesheet">
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -26,7 +25,9 @@ font-family:'Noto Sans Bengali',sans-serif;
 }
 
 body{
-background:#edf2f7;
+
+background:#eef2f7;
+
 }
 
 header{
@@ -35,7 +36,7 @@ background:#075c43;
 
 color:#fff;
 
-padding:18px;
+padding:18px 25px;
 
 display:flex;
 
@@ -43,33 +44,9 @@ justify-content:space-between;
 
 align-items:center;
 
-box-shadow:0 4px 12px rgba(0,0,0,.2);
-
 }
 
-header h2{
-
-font-size:24px;
-
-font-weight:700;
-
-}
-
-header p{
-
-font-size:13px;
-
-opacity:.8;
-
-}
-
-.back-btn{
-
-background:#0b8b63;
-
-padding:10px 18px;
-
-border-radius:8px;
+header a{
 
 color:#fff;
 
@@ -89,13 +66,13 @@ padding:20px;
 
 display:grid;
 
-grid-template-columns:360px 1fr;
+grid-template-columns:350px 1fr;
 
 gap:20px;
 
 }
 
-.sidebar{
+.left{
 
 background:#fff;
 
@@ -107,7 +84,7 @@ box-shadow:0 5px 15px rgba(0,0,0,.08);
 
 }
 
-.viewer{
+.right{
 
 background:#fff;
 
@@ -116,6 +93,12 @@ padding:20px;
 border-radius:15px;
 
 box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+display:flex;
+
+justify-content:center;
+
+align-items:flex-start;
 
 }
 
@@ -131,8 +114,6 @@ border-radius:8px;
 
 margin-bottom:10px;
 
-font-size:15px;
-
 }
 
 .btn{
@@ -141,29 +122,19 @@ width:100%;
 
 padding:12px;
 
+border:none;
+
 background:#087f5b;
 
 color:#fff;
 
-border:none;
-
 border-radius:8px;
-
-cursor:pointer;
-
-font-size:15px;
 
 font-weight:bold;
 
+cursor:pointer;
+
 margin-bottom:15px;
-
-}
-
-.student-list{
-
-max-height:700px;
-
-overflow:auto;
 
 }
 
@@ -179,13 +150,11 @@ border-bottom:1px solid #eee;
 
 cursor:pointer;
 
-transition:.3s;
-
 }
 
 .student-item:hover{
 
-background:#f5f5f5;
+background:#f7f7f7;
 
 }
 
@@ -199,19 +168,13 @@ border-radius:50%;
 
 object-fit:cover;
 
-border:2px solid #075c43;
+border:2px solid #087f5b;
 
 }
 
 #idCard{
 
-display:none;
-
 width:360px;
-
-margin:auto;
-
-background:#fff;
 
 border:3px solid #075c43;
 
@@ -219,12 +182,26 @@ border-radius:18px;
 
 overflow:hidden;
 
+background:#fff;
+
+display:none;
+
+}
+
+@media(max-width:900px){
+
+.container{
+
+grid-template-columns:1fr;
+
+}
+
 }
 
 </style>
 
 </head> 
-<body>
+   <body>
 
 <header>
 
@@ -232,21 +209,23 @@ overflow:hidden;
 
 <h2>মাদরাসায়ে নূরুল কুরআন</h2>
 
-<p>Professional Student ID Card System</p>
+<p style="font-size:13px;opacity:.8">
+Professional Student ID Card System
+</p>
 
 </div>
 
-<a href="dashboard.html" class="back-btn">
-
-⬅ Dashboard
-
+<a href="dashboard.html">
+← Dashboard
 </a>
 
 </header>
 
 <div class="container">
 
-<div class="sidebar">
+<!-- LEFT -->
+
+<div class="left">
 
 <input
 type="text"
@@ -258,13 +237,11 @@ placeholder="Student ID / Roll / Name">
 id="searchBtn"
 class="btn">
 
-Search Student
+🔍 Search Student
 
 </button>
 
-<div
-id="studentList"
-class="student-list">
+<div id="studentList">
 
 Loading Students...
 
@@ -272,23 +249,27 @@ Loading Students...
 
 </div>
 
-<div class="viewer">
+<!-- RIGHT -->
+
+<div class="right">
 
 <div id="idCard">
 
-<div style="background:#075c43;color:#fff;text-align:center;padding:18px;">
+<!-- Header -->
+
+<div style="background:#075c43;color:#fff;text-align:center;padding:15px;">
 
 <img
 src="logo.png"
-style="width:65px;height:65px;object-fit:contain;">
+style="width:60px;height:60px;object-fit:contain;">
 
-<h2 style="margin-top:8px;font-size:22px;">
+<h2 style="margin-top:10px;font-size:22px">
 
 মাদরাসায়ে নূরুল কুরআন
 
 </h2>
 
-<p>
+<p style="font-size:13px">
 
 STUDENT ID CARD
 
@@ -296,41 +277,47 @@ STUDENT ID CARD
 
 </div>
 
+<!-- Body -->
+
 <div style="padding:20px;text-align:center;">
 
 <img
 id="cardPhoto"
 style="
-
 width:120px;
-
 height:120px;
-
 border-radius:50%;
-
 border:4px solid #075c43;
-
 object-fit:cover;
-
-box-shadow:0 5px 15px rgba(0,0,0,.25);
-
 ">
 
 <h2
 id="cardName"
-style="margin-top:12px;color:#075c43;">
+style="
+margin-top:10px;
+color:#075c43;
+">
 
 </h2>
 
 <p
-id="cardID"
-style="font-weight:bold;font-size:18px;margin-top:5px;">
+id="cardStudentId"
+style="
+font-weight:bold;
+font-size:18px;
+margin-top:5px;
+">
 
 </p>
 
-<hr style="margin:15px 0;">
+<hr style="margin:15px 0">
 
-<table style="width:100%;line-height:2;font-size:15px;">
+<table
+style="
+width:100%;
+line-height:2;
+font-size:15px;
+">
 
 <tr>
 
@@ -358,25 +345,9 @@ style="font-weight:bold;font-size:18px;margin-top:5px;">
 
 <tr>
 
-<td align="left"><b>Roll</b></td>
+<td align="left"><b>Admission</b></td>
 
-<td id="cardRoll"></td>
-
-</tr>
-
-<tr>
-
-<td align="left"><b>Session</b></td>
-
-<td id="cardSession"></td>
-
-</tr>
-
-<tr>
-
-<td align="left"><b>Blood</b></td>
-
-<td id="cardBlood"></td>
+<td id="cardAdmission"></td>
 
 </tr>
 
@@ -384,7 +355,7 @@ style="font-weight:bold;font-size:18px;margin-top:5px;">
 
 <td align="left"><b>Mobile</b></td>
 
-<td id="cardMobile"></td>
+<td id="cardPhone"></td>
 
 </tr>
 
@@ -392,18 +363,35 @@ style="font-weight:bold;font-size:18px;margin-top:5px;">
 
 <div
 id="qr"
-style="margin-top:20px;display:flex;justify-content:center;">
+style="
+margin-top:18px;
+display:flex;
+justify-content:center;
+">
 
 </div>
 
 <button
 id="printBtn"
 class="btn"
-style="margin-top:15px;">
+style="margin-top:15px">
 
-Print ID
+🖨 Print ID
 
 </button>
+
+</div>
+
+<div
+style="
+background:#075c43;
+color:#fff;
+padding:10px;
+text-align:center;
+font-size:12px;
+">
+
+If Found Please Return To Madrasah Office
 
 </div>
 
@@ -419,14 +407,55 @@ const SUPABASE_URL="https://qavublwhqiqsgpcmfyft.supabase.co";
 const SUPABASE_KEY="sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
 
 const db=window.supabase.createClient(
-
 SUPABASE_URL,
-
 SUPABASE_KEY
-
 );
 
 let students=[];
+let classes=[];
+
+async function init(){
+
+const {data:{session}}=
+await db.auth.getSession();
+
+if(!session){
+
+location.href="admin.html";
+
+return;
+
+}
+
+await Promise.all([
+
+loadClasses(),
+
+loadStudents()
+
+]);
+
+}
+
+async function loadClasses(){
+
+const {data,error}=await db
+
+.from("classes")
+
+.select("id,name");
+
+if(error){
+
+console.log(error);
+
+return;
+
+}
+
+classes=data||[];
+
+}
 
 async function loadStudents(){
 
@@ -436,11 +465,9 @@ const {data,error}=await db
 
 .select("*")
 
-.order("id",{ascending:true});
+.order("created_at",{ascending:false});
 
 if(error){
-
-console.log(error);
 
 alert(error.message);
 
@@ -450,105 +477,126 @@ return;
 
 students=data||[];
 
-renderStudents();
+renderStudents(students);
 
 }
 
-function renderStudents(){
+function getClassName(id){
 
-const list=document.getElementById("studentList");
+const c=classes.find(x=>String(x.id)===String(id));
 
-list.innerHTML="";
+return c?c.name:"-";
 
-if(students.length===0){
+}
 
-list.innerHTML="<center>No Student Found</center>";
+function renderStudents(list){
+
+const box=document.getElementById("studentList");
+
+if(list.length===0){
+
+box.innerHTML="<center>No Student Found</center>";
 
 return;
 
 }
 
-students.forEach(s=>{
+box.innerHTML=list.map(s=>`
 
-const div=document.createElement("div");
+<div class="student-item"
 
-div.className="student-item";
+onclick="showCard('${s.id}')">
 
-div.innerHTML=`
-
-<img src="${s.photo_url||'no-image.png'}">
+<img src="${s.photo_url||'https://placehold.co/120x120'}">
 
 <div>
 
-<b>${s.student_name||''}</b><br>
+<b>${s.name||"-"}</b><br>
 
-${s.class_name||''}<br>
+ID : ${s.student_id||"-"}<br>
 
-Roll : ${s.roll||''}
+${getClassName(s.class_id)}
 
 </div>
 
-`;
+</div>
 
-div.onclick=()=>showCard(s.id);
+`).join("");
 
-list.appendChild(div);
+}
 
-});
+init(); 
+   async function showCard(id){
 
-} 
-async function showCard(id){
+const s=students.find(x=>String(x.id)===String(id));
 
-const s=students.find(x=>x.id===id);
+if(!s) return;
 
-if(!s)return;
-
-/* Auto Student ID */
+/* Student ID Auto Generate */
 
 if(!s.student_id){
 
-const studentCode=
-`MQ-${new Date().getFullYear()}-${String(s.id).padStart(4,"0")}`;
+const newId=`MQ-${new Date().getFullYear()}-${String(s.id).padStart(4,"0")}`;
 
-await db
+const {error}=await db
 
 .from("students")
 
 .update({
 
-student_id:studentCode
+student_id:newId
 
 })
 
 .eq("id",s.id);
 
-s.student_id=studentCode;
+if(!error){
+
+s.student_id=newId;
 
 }
+
+}
+
+/* Photo */
+
+document.getElementById("cardPhoto").src=
+
+s.photo_url||"https://placehold.co/120x120";
+
+/* Information */
+
+document.getElementById("cardName").innerText=
+
+s.name||"-";
+
+document.getElementById("cardStudentId").innerText=
+
+s.student_id||"-";
+
+document.getElementById("cardFather").innerText=
+
+s.father_name||"-";
+
+document.getElementById("cardMother").innerText=
+
+s.mother_name||"-";
+
+document.getElementById("cardClass").innerText=
+
+getClassName(s.class_id);
+
+document.getElementById("cardAdmission").innerText=
+
+s.admission_date||"-";
+
+document.getElementById("cardPhone").innerText=
+
+s.phone||"-";
 
 /* Show Card */
 
 document.getElementById("idCard").style.display="block";
-
-cardPhoto.src=s.photo_url||"no-image.png";
-
-cardName.innerText=s.student_name||"";
-
-cardID.innerText=s.student_id||"";
-
-cardFather.innerText=s.father_name||"-";
-
-cardMother.innerText=s.mother_name||"-";
-
-cardClass.innerText=s.class_name||"-";
-
-cardRoll.innerText=s.roll||"-";
-
-cardSession.innerText=s.session||"-";
-
-cardBlood.innerText=s.blood_group||"-";
-
-cardMobile.innerText=s.mobile||"-";
 
 /* QR */
 
@@ -566,9 +614,9 @@ s.student_id,
 
 {width:140},
 
-function(error){
+function(err){
 
-if(!error){
+if(!err){
 
 qr.appendChild(canvas);
 
@@ -578,115 +626,6 @@ qr.appendChild(canvas);
 
 );
 
-}
+} 
 
-loadStudents(); 
-/* =========================
-   SEARCH
-========================= */
-
-document.getElementById("searchBtn").onclick=searchStudent;
-
-document.getElementById("searchBox").addEventListener("keyup",function(e){
-
-if(e.key==="Enter"){
-
-searchStudent();
-
-}
-
-});
-
-function searchStudent(){
-
-const key=document.getElementById("searchBox").value.trim().toLowerCase();
-
-if(key===""){
-
-renderStudents();
-
-return;
-
-}
-
-const result=students.filter(s=>
-
-(s.student_name||"").toLowerCase().includes(key)||
-
-(s.student_id||"").toLowerCase().includes(key)||
-
-(s.roll||"").toString().includes(key)||
-
-(s.class_name||"").toLowerCase().includes(key)
-
-);
-
-const list=document.getElementById("studentList");
-
-list.innerHTML="";
-
-if(result.length===0){
-
-list.innerHTML="<center>No Student Found</center>";
-
-return;
-
-}
-
-result.forEach(s=>{
-
-const div=document.createElement("div");
-
-div.className="student-item";
-
-div.innerHTML=`
-
-<img src="${s.photo_url||'no-image.png'}">
-
-<div>
-
-<b>${s.student_name}</b><br>
-
-${s.student_id||""}<br>
-
-${s.class_name||""} | Roll : ${s.roll||""}
-
-</div>
-
-`;
-
-div.onclick=()=>showCard(s.id);
-
-list.appendChild(div);
-
-});
-
-}
-
-/* =========================
-   PRINT
-========================= */
-
-document.getElementById("printBtn").onclick=function(){
-
-window.print();
-
-};
-
-/* =========================
-   AUTO REFRESH
-========================= */
-
-setInterval(loadStudents,10000);
-
-</script>
-
-</body>
-
-</html> 
-
- 
- 
- 
-
- 
+   
