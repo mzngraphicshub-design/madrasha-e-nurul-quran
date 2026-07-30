@@ -396,4 +396,314 @@ let students=[];
 let editId=null;
 
 let photoUrl="";
-  
+
+// PART 3
+
+document.getElementById("photo").addEventListener("change",function(){
+
+const file=this.files[0];
+
+if(!file)return;
+
+document.getElementById("photoName").innerHTML=file.name;
+
+document.getElementById("preview").src=URL.createObjectURL(file);
+
+document.getElementById("preview").style.display="block";
+
+});
+
+async function generateStudentCode(){
+
+const year=new Date().getFullYear();
+
+const {count}=await db
+
+.from("student_id_cards")
+
+.select("*",{
+
+count:"exact",
+
+head:true
+
+});
+
+return `MQ-${year}-${String((count||0)+1).padStart(4,"0")}`;
+
+}
+
+async function uploadPhoto(){
+
+const file=document.getElementById("photo").files[0];
+
+if(!file)return photoUrl;
+
+const fileName=Date.now()+"_"+file.name;
+
+const {error}=await db.storage
+
+.from("student-photo")
+
+.upload(fileName,file,{upsert:true});
+
+if(error){
+
+alert(error.message);
+
+return "";
+
+}
+
+const {data}=db.storage
+
+.from("student-photo")
+
+.getPublicUrl(fileName);
+
+photoUrl=data.publicUrl;
+
+return photoUrl;
+
+}
+
+async function loadStudents(){
+
+const {data,error}=await db
+
+.from("student_id_cards")
+
+.select("*")
+
+.order("id",{ascending:false});
+
+if(error){
+
+alert(error.message);
+
+return;
+
+}
+
+students=data||[];
+
+renderStudents();
+
+}
+ // PART 4
+
+function renderStudents(){
+
+const tbody=document.getElementById("studentList");
+
+if(!students.length){
+
+tbody.innerHTML="<tr><td colspan='7'>No Student Found</td></tr>";
+
+return;
+
+}
+
+tbody.innerHTML=students.map(s=>`
+
+<tr>
+
+<td>
+
+<img src="${s.photo_url||''}"
+
+style="width:50px;height:50px;border-radius:50%;object-fit:cover;">
+
+</td>
+
+<td>${s.student_code||''}</td>
+
+<td>${s.student_name}</td>
+
+<td>${s.class_name||''}</td>
+
+<td>${s.roll||''}</td>
+
+<td>${s.id_status||'Active'}</td>
+
+<td class="action">
+
+<button class="print"
+
+onclick="printID(${s.id})">
+
+Print
+
+</button>
+
+<button class="delete"
+
+onclick="deleteStudent(${s.id})">
+
+Delete
+
+</button>
+
+</td>
+
+</tr>
+
+`).join("");
+
+}
+
+document.getElementById("studentForm").addEventListener("submit",async function(e){
+
+e.preventDefault();
+
+const code=await generateStudentCode();
+
+const img=await uploadPhoto();
+
+const obj={
+
+student_code:code,
+
+qr_url:`${location.origin}/student-profile.html?id=${code}`,
+
+student_name:student_name.value,
+
+father_name:father_name.value,
+
+mother_name:mother_name.value,
+
+class_name:class_name.value,
+
+roll:roll.value,
+
+session:session.value,
+
+mobile:mobile.value,
+
+blood_group:blood_group.value,
+
+address:address.value,
+
+photo_url:img,
+
+id_status:"Active"
+
+};
+
+const {error}=await db
+
+.from("student_id_cards")
+
+.insert([obj]);
+
+if(error){
+
+alert(error.message);
+
+return;
+
+}
+
+alert("Student Saved Successfully");
+
+studentForm.reset();
+
+preview.style.display="none";
+
+photoName.innerHTML="No Photo Selected";
+
+photoUrl="";
+
+loadStudents();
+
+});
+
+async function deleteStudent(id){
+
+if(!confirm("Delete Student?")) return;
+
+await db
+
+.from("student_id_cards")
+
+.delete()
+
+.eq("id",id);
+
+loadStudents();
+
+}
+
+function printID(id){
+
+const s=students.find(x=>x.id==id);
+
+if(!s)return;
+
+printArea.style.display="block";
+
+cardPhoto.src=s.photo_url;
+
+cardID.innerHTML=s.student_code;
+
+cardName.innerHTML=s.student_name;
+
+cardFather.innerHTML=s.father_name;
+
+cardClass.innerHTML=s.class_name;
+
+cardRoll.innerHTML=s.roll;
+
+cardSession.innerHTML=s.session;
+
+cardBlood.innerHTML=s.blood_group;
+
+cardMobile.innerHTML=s.mobile;
+
+qr.innerHTML="";
+
+QRCode.toCanvas(document.createElement("canvas"),s.qr_url,function(err,canvas){
+
+if(!err) qr.appendChild(canvas);
+
+});
+
+setTimeout(()=>{
+
+window.print();
+
+printArea.style.display="none";
+
+},700);
+
+}
+
+search.addEventListener("input",function(){
+
+const q=this.value.toLowerCase();
+
+const filtered=students.filter(x=>
+
+(x.student_name||"").toLowerCase().includes(q)||
+
+(x.student_code||"").toLowerCase().includes(q)
+
+);
+
+const old=students;
+
+students=filtered;
+
+renderStudents();
+
+students=old;
+
+});
+
+loadStudents();
+
+</script>
+
+</body>
+
+</html>
