@@ -184,7 +184,42 @@ const db = window.supabase.createClient(
 SUPABASE_URL,
 SUPABASE_KEY
 );
+async function uploadStudentPhoto(){
 
+const file=document.getElementById("photo").files[0];
+
+if(!file) return "";
+
+const fileName=
+Date.now()+"_"+file.name;
+
+const {error}=await db.storage
+
+.from("student-photo")
+
+.upload(fileName,file,{
+
+upsert:true
+
+});
+
+if(error){
+
+alert(error.message);
+
+return "";
+
+}
+
+const {data}=db.storage
+
+.from("student-photo")
+
+.getPublicUrl(fileName);
+
+return data.publicUrl;
+
+}
 
 let students = [];
 let classes = [];
@@ -426,39 +461,35 @@ const editId =
 document.getElementById("editId").value;
 
 
+const photo_url = await uploadStudentPhoto();
+
 const student = {
 
 student_id:
-document.getElementById("studentId")
-.value.trim(),
+document.getElementById("studentId").value.trim(),
 
 name:
-document.getElementById("name")
-.value.trim(),
+document.getElementById("name").value.trim(),
 
 father_name:
-document.getElementById("father")
-.value.trim(),
+document.getElementById("father").value.trim(),
 
 mother_name:
-document.getElementById("mother")
-.value.trim(),
+document.getElementById("mother").value.trim(),
 
 phone:
-document.getElementById("phone")
-.value.trim(),
+document.getElementById("phone").value.trim(),
 
 class_id:
-document.getElementById("classId")
-.value,
+document.getElementById("classId").value,
 
 admission_date:
-document.getElementById("admissionDate")
-.value || null,
+document.getElementById("admissionDate").value || null,
 
 address:
-document.getElementById("address")
-.value.trim()
+document.getElementById("address").value.trim(),
+
+photo_url: photo_url
 
 };
 
