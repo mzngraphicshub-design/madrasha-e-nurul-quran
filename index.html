@@ -510,53 +510,7 @@ style="width:260px;height:260px;border-radius:50%;object-fit:cover;border:6px so
 </div>
 
 </section> 
-<section>
 
-<div class="title">
-
-<h2>সর্বশেষ নোটিশ</h2>
-
-<p>Latest Notice</p>
-
-</div>
-
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:25px;">
-
-<div style="background:white;padding:25px;border-radius:15px;box-shadow:0 8px 25px rgba(0,0,0,.08);">
-
-<h3 style="color:#087f5b;">📢 ভর্তি চলছে</h3>
-
-<p style="margin-top:10px;color:#666;line-height:1.8;">
-২০২৬ শিক্ষাবর্ষে নতুন শিক্ষার্থী ভর্তি চলছে।
-</p>
-
-</div>
-
-<div style="background:white;padding:25px;border-radius:15px;box-shadow:0 8px 25px rgba(0,0,0,.08);">
-
-<h3 style="color:#087f5b;">📝 পরীক্ষা</h3>
-
-<p style="margin-top:10px;color:#666;line-height:1.8;">
-আগামী মাসে বার্ষিক পরীক্ষা অনুষ্ঠিত হবে।
-</p>
-
-</div>
-
-<div style="background:white;padding:25px;border-radius:15px;box-shadow:0 8px 25px rgba(0,0,0,.08);">
-
-<h3 style="color:#087f5b;">📚 ক্লাস</h3>
-
-<p style="margin-top:10px;color:#666;line-height:1.8;">
-নিয়মিত ক্লাসে উপস্থিত থাকার নির্দেশনা।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-<section>
 
 <div class="title">
 
@@ -564,7 +518,23 @@ style="width:260px;height:260px;border-radius:50%;object-fit:cover;border:6px so
 
 <p>Madrasah Gallery</p>
 
+</div><section>
+
+<div class="title">
+<h2>সর্বশেষ নোটিশ</h2>
+<p>Latest Notice</p>
 </div>
+
+<div id="noticeBox"
+style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:25px;">
+
+<div style="background:#fff;padding:25px;border-radius:15px;box-shadow:0 8px 25px rgba(0,0,0,.08);">
+Loading Notice...
+</div>
+
+</div>
+
+</section>
 
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;">
 
@@ -661,7 +631,56 @@ style="display:inline-block;background:#1877F2;color:#fff;padding:10px 20px;bord
 </p>
 
 </footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<script>
+const noticeDB = window.supabase.createClient(
+"https://qavublwhqiqsgpcmfyft.supabase.co",
+"sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ"
+);
+
+async function loadNotice(){
+
+const {data,error}=await noticeDB
+.from("notices")
+.select("*")
+.order("created_at",{ascending:false})
+.limit(3);
+
+const box=document.getElementById("noticeBox");
+
+if(error){
+box.innerHTML="<p>Notice Load Failed</p>";
+return;
+}
+
+if(!data || data.length===0){
+box.innerHTML="<p>কোনো নোটিশ নেই</p>";
+return;
+}
+
+box.innerHTML=data.map(n=>`
+
+<div style="background:#fff;padding:25px;border-radius:15px;box-shadow:0 8px 25px rgba(0,0,0,.08);">
+
+<h3 style="color:#087f5b;">📢 ${n.title}</h3>
+
+<p style="margin-top:10px;color:#666;line-height:1.8;">
+${n.description ?? ""}
+</p>
+
+<small style="color:#999;">
+${new Date(n.created_at).toLocaleDateString()}
+</small>
+
+</div>
+
+`).join("");
+
+}
+
+loadNotice();
+</script>
 </body>
 
 </html>
