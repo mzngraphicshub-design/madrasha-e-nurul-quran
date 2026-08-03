@@ -1,19 +1,54 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+
 <title>Notice Management</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-body{font-family:Arial;background:#f4f7f6;padding:20px}
-.box{max-width:900px;margin:auto;background:#fff;padding:20px;border-radius:10px}
-input,textarea{width:100%;padding:10px;margin:10px 0}
-button{padding:10px 20px;background:#087f5b;color:#fff;border:none;border-radius:6px}
-.card{border:1px solid #ddd;padding:15px;margin-top:15px;border-radius:8px}
+
+body{
+font-family:Arial;
+background:#f5f6fa;
+padding:20px;
+}
+
+.box{
+max-width:900px;
+margin:auto;
+background:#fff;
+padding:20px;
+border-radius:12px;
+}
+
+input,textarea{
+width:100%;
+padding:10px;
+margin:10px 0;
+}
+
+button{
+padding:10px 20px;
+background:#087f5b;
+color:#fff;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+
+.card{
+padding:15px;
+border:1px solid #ddd;
+margin-top:15px;
+border-radius:10px;
+}
+
 </style>
+
 </head>
 
 <body>
@@ -22,78 +57,144 @@ button{padding:10px 20px;background:#087f5b;color:#fff;border:none;border-radius
 
 <h2>Notice Management</h2>
 
-<input id="title" placeholder="Notice Title">
+<input
+id="title"
+placeholder="Notice Title">
 
-<textarea id="description" rows="5" placeholder="Notice Description"></textarea>
+<textarea
+id="description"
+rows="5"
+placeholder="Notice Description"></textarea>
 
-<button onclick="saveNotice()">Save Notice</button>
+<input
+type="file"
+id="pdf"
+accept=".pdf">
+
+<button onclick="saveNotice()">
+
+Save Notice
+
+</button>
 
 <hr>
 
-<div id="list"></div>
+<div id="list">
+
+Loading...
+
+</div>
 
 </div>
 
 <script>
 
 const db=window.supabase.createClient(
-"https://qavublwhqiqsgpcmfyft.supabase.co",
-"sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ"
-);
 
+"https://qavublwhqiqsgpcmfyft.supabase.co",
+
+"sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ"
+
+);
 async function load(){
 
-const {data}=await db
+const {data,error}=await db
 .from("notices")
 .select("*")
 .order("created_at",{ascending:false});
 
+if(error){
+
+alert(error.message);
+
+return;
+
+}
+
 document.getElementById("list").innerHTML=
+
 data.map(n=>`
+
 <div class="card">
+
 <h3>${n.title}</h3>
+
 <p>${n.description}</p>
 
-<button onclick="del(${n.id})">
-Delete
+${n.pdf_url?`
+
+<a href="${n.pdf_url}" target="_blank">
+
+<button>📄 Download PDF</button>
+
+</a>
+
+`:""}
+
+<button onclick="del('${n.id}')">
+
+🗑 Delete
+
 </button>
 
 </div>
+
 `).join("");
 
 }
-
 async function saveNotice(){
 
-await db.from("notices").insert({
+const file=document.getElementById("pdf").files[0];
+
+let pdf_url="";
+
+if(file){
+
+const fileName=Date.now()+"_"+file.name;
+
+const {error}=await db.storage
+.from("notice-pdf")
+.upload(fileName,file,{upsert:true});
+
+if(error){
+
+alert(error.message);
+
+return;
+
+}
+
+pdf_url=db.storage
+.from("notice-pdf")
+.getPublicUrl(fileName)
+.data.publicUrl;
+
+}
+
+const {error}=await db
+.from("notices")
+.insert({
 
 title:document.getElementById("title").value,
 
-description:document.getElementById("description").value
+description:document.getElementById("description").value,
+
+pdf_url:pdf_url
 
 });
 
-title.value="";
-description.value="";
+if(error){
+
+alert(error.message);
+
+return;
+
+}
+
+document.getElementById("title").value="";
+document.getElementById("description").value="";
+document.getElementById("pdf").value="";
 
 load();
 
 }
-
-async function del(id){
-
-await db
-.from("notices")
-.delete()
-.eq("id",id);
-
-load();
-
-}
-
-load();
-
-</script>
-
-</body>
-</html>
