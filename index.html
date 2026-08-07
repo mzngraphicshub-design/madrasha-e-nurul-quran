@@ -6,27 +6,28 @@
 
 <title>মাদরাসায়ে নূরুল কুরআন</title>
 
-<!-- Bornomala Font -->
 <style>
 @font-face{
-    font-family:'Bornomala';
-    src:url('Bornomala.ttf') format('truetype');
-    font-weight:normal;
+    font-family:"Bornomala";
+    src:url("./fonts/Bornomala-Regular.ttf") format("truetype");
+    font-weight:400;
     font-style:normal;
+    font-display:swap;
 }
 
 :root{
-    --navy:#062b55;
-    --blue:#0b63ce;
-    --blue2:#0e7bea;
-    --yellow:#ffd400;
-    --gold:#f5b900;
-    --white:#ffffff;
-    --light:#f4f8fd;
-    --text:#18324d;
-    --muted:#6c7d90;
-    --border:#dce7f2;
-    --shadow:0 12px 35px rgba(5,45,90,.10);
+    --navy:#031a35;
+    --navy2:#062b55;
+    --blue:#0875df;
+    --blue2:#18a0ff;
+    --gold:#ffd447;
+    --gold2:#f4b928;
+    --white:#fff;
+    --text:#173452;
+    --muted:#718399;
+    --glass:rgba(255,255,255,.12);
+    --line:rgba(255,255,255,.18);
+    --shadow:0 25px 70px rgba(0,25,60,.16);
 }
 
 *{
@@ -40,19 +41,61 @@ html{
 }
 
 body{
-    font-family:'Bornomala',Arial,sans-serif;
-    background:var(--light);
+    font-family:"Bornomala",sans-serif;
     color:var(--text);
+    background:#f3f8fd;
     overflow-x:hidden;
 }
 
 a{
-    text-decoration:none;
     color:inherit;
+    text-decoration:none;
 }
 
-button{
+button,input{
     font-family:inherit;
+}
+
+/* =========================
+   GLOBAL LIQUID BACKGROUND
+========================= */
+
+body::before,
+body::after{
+    content:"";
+    position:fixed;
+    width:420px;
+    height:420px;
+    border-radius:50%;
+    filter:blur(90px);
+    pointer-events:none;
+    z-index:-1;
+}
+
+body::before{
+    background:rgba(0,126,255,.10);
+    top:10%;
+    left:-200px;
+    animation:blob1 15s ease-in-out infinite alternate;
+}
+
+body::after{
+    background:rgba(255,204,45,.08);
+    right:-200px;
+    bottom:5%;
+    animation:blob2 18s ease-in-out infinite alternate;
+}
+
+@keyframes blob1{
+    0%{transform:translate(0,0) scale(1)}
+    50%{transform:translate(150px,100px) scale(1.3)}
+    100%{transform:translate(50px,220px) scale(.9)}
+}
+
+@keyframes blob2{
+    0%{transform:translate(0,0) scale(1)}
+    50%{transform:translate(-150px,-80px) scale(1.25)}
+    100%{transform:translate(-30px,-200px) scale(.9)}
 }
 
 /* =========================
@@ -60,43 +103,43 @@ button{
 ========================= */
 
 .topbar{
-    background:var(--navy);
-    color:#fff;
-    min-height:36px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:14px;
+    background:#02152c;
+    color:#dbe9f7;
+    min-height:38px;
+    font-size:13px;
 }
 
 .topbar-inner{
-    width:min(1200px,94%);
+    width:min(1250px,94%);
+    margin:auto;
+    min-height:38px;
     display:flex;
-    justify-content:space-between;
     align-items:center;
+    justify-content:space-between;
 }
 
-.top-left,
-.top-right{
+.top-info{
+    display:flex;
+    gap:22px;
+}
+
+.top-info span{
     display:flex;
     align-items:center;
+    gap:5px;
+}
+
+.top-links{
+    display:flex;
     gap:18px;
 }
 
-.top-item{
-    display:flex;
-    align-items:center;
-    gap:6px;
-}
-
-.top-right a{
-    color:#fff;
-    opacity:.9;
+.top-links a{
     transition:.3s;
 }
 
-.top-right a:hover{
-    color:var(--yellow);
+.top-links a:hover{
+    color:var(--gold);
 }
 
 /* =========================
@@ -104,98 +147,100 @@ button{
 ========================= */
 
 .header{
-    background:#fff;
-    border-bottom:1px solid #e4ebf3;
     position:relative;
     z-index:20;
+    background:rgba(255,255,255,.92);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    border-bottom:1px solid #e2eaf2;
 }
 
 .header-inner{
-    width:min(1200px,94%);
-    min-height:105px;
+    width:min(1250px,94%);
+    min-height:100px;
     margin:auto;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap:20px;
 }
 
 .brand{
     display:flex;
     align-items:center;
-    gap:16px;
+    gap:15px;
 }
 
 .logo{
-    width:72px;
-    height:72px;
+    width:68px;
+    height:68px;
     border-radius:50%;
     object-fit:contain;
     background:#fff;
+    box-shadow:0 8px 25px rgba(0,55,120,.12);
 }
 
-.brand-title h1{
-    font-size:28px;
+.brand-text h1{
     color:var(--navy);
+    font-size:28px;
     line-height:1.1;
 }
 
-.brand-title p{
-    color:#718092;
+.brand-text small{
     font-family:Arial,sans-serif;
-    font-size:10px;
-    letter-spacing:2px;
-    margin-top:5px;
+    color:#7890a8;
+    font-size:9px;
+    letter-spacing:3px;
 }
 
-.header-actions{
+.header-right{
     display:flex;
     gap:10px;
     align-items:center;
 }
 
-.login-btn{
-    background:var(--navy);
-    color:#fff;
+.portal-btn{
     border:0;
-    padding:13px 22px;
-    border-radius:8px;
     cursor:pointer;
-    transition:.3s;
-    box-shadow:0 6px 18px rgba(6,43,85,.18);
+    padding:12px 20px;
+    border-radius:12px;
+    color:white;
+    background:linear-gradient(135deg,var(--navy),var(--blue));
+    box-shadow:0 8px 25px rgba(0,95,210,.20);
+    transition:.35s;
 }
 
-.login-btn:hover{
-    background:var(--blue);
-    transform:translateY(-2px);
+.portal-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 14px 32px rgba(0,95,210,.28);
 }
 
 /* =========================
-   NAVIGATION
+   NAV
 ========================= */
 
 .navbar{
-    background:var(--blue);
     position:sticky;
     top:0;
     z-index:100;
-    box-shadow:0 5px 18px rgba(0,0,0,.12);
+    background:rgba(4,42,82,.94);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    box-shadow:0 8px 25px rgba(0,0,0,.12);
 }
 
 .nav-inner{
-    width:min(1200px,94%);
+    width:min(1250px,94%);
     margin:auto;
     display:flex;
     align-items:center;
 }
 
-.nav-links{
+.nav{
     display:flex;
-    align-items:center;
     width:100%;
 }
 
-.nav-links a{
+.nav a{
     color:#fff;
     padding:16px 15px;
     font-size:15px;
@@ -203,32 +248,30 @@ button{
     transition:.3s;
 }
 
-.nav-links a:hover,
-.nav-links a.active{
-    background:rgba(255,255,255,.12);
+.nav a:hover{
+    color:var(--gold);
+    background:rgba(255,255,255,.05);
 }
 
-.nav-links a::after{
+.nav a.active{
+    color:var(--gold);
+}
+
+.nav a.active::after{
     content:"";
     position:absolute;
-    bottom:0;
-    left:50%;
-    width:0;
     height:3px;
-    background:var(--yellow);
-    transition:.3s;
-    transform:translateX(-50%);
+    left:18px;
+    right:18px;
+    bottom:0;
+    background:var(--gold);
+    border-radius:10px;
 }
 
-.nav-links a:hover::after,
-.nav-links a.active::after{
-    width:70%;
-}
-
-.menu-btn{
+.menu{
     display:none;
+    background:none;
     border:0;
-    background:transparent;
     color:#fff;
     font-size:28px;
     cursor:pointer;
@@ -238,46 +281,45 @@ button{
    NOTICE TICKER
 ========================= */
 
-.notice-wrap{
-    background:var(--yellow);
+.ticker{
+    background:var(--gold);
+    min-height:45px;
     display:flex;
     align-items:center;
-    min-height:43px;
     overflow:hidden;
 }
 
-.notice-label{
-    background:#e9ad00;
-    height:43px;
+.ticker-label{
     min-width:130px;
-    padding:0 18px;
+    height:45px;
+    background:var(--gold2);
     display:flex;
-    align-items:center;
     justify-content:center;
+    align-items:center;
+    color:#122945;
     font-weight:bold;
-    color:#102b49;
     z-index:2;
 }
 
-.notice-scroll{
+.ticker-window{
     overflow:hidden;
     white-space:nowrap;
     flex:1;
 }
 
-.notice-track{
+.ticker-track{
     display:inline-block;
     padding-left:100%;
-    animation:ticker 25s linear infinite;
+    animation:ticker 30s linear infinite;
 }
 
-.notice-track span{
-    margin-right:70px;
+.ticker-track span{
+    margin-right:90px;
 }
 
 @keyframes ticker{
-    from{transform:translateX(0);}
-    to{transform:translateX(-100%);}
+    from{transform:translateX(0)}
+    to{transform:translateX(-100%)}
 }
 
 /* =========================
@@ -285,46 +327,51 @@ button{
 ========================= */
 
 .hero{
-    min-height:560px;
+    min-height:650px;
     position:relative;
     overflow:hidden;
-    background:
-        radial-gradient(circle at 80% 25%,rgba(39,143,255,.35),transparent 25%),
-        linear-gradient(120deg,#041e3d,#075bb9 55%,#0a79dc);
     color:#fff;
+    background:
+        radial-gradient(circle at 78% 20%,rgba(27,165,255,.35),transparent 28%),
+        radial-gradient(circle at 15% 85%,rgba(255,207,63,.10),transparent 25%),
+        linear-gradient(135deg,#02152c,#053a76 55%,#0879df);
 }
 
 .hero::before{
     content:"";
     position:absolute;
-    width:420px;
-    height:420px;
-    border:1px solid rgba(255,255,255,.12);
+    width:700px;
+    height:700px;
+    border:1px solid rgba(255,255,255,.07);
     border-radius:50%;
-    right:-150px;
-    top:-100px;
-    animation:float 7s ease-in-out infinite;
+    right:-260px;
+    top:-270px;
+    animation:rotateRing 28s linear infinite;
 }
 
 .hero::after{
     content:"";
     position:absolute;
-    width:280px;
-    height:280px;
-    border:1px solid rgba(255,255,255,.08);
+    width:500px;
+    height:500px;
+    border:1px solid rgba(255,255,255,.05);
     border-radius:50%;
-    right:100px;
-    bottom:-150px;
+    right:-150px;
+    top:-170px;
+}
+
+@keyframes rotateRing{
+    to{transform:rotate(360deg)}
 }
 
 .hero-inner{
-    width:min(1200px,94%);
-    min-height:560px;
+    width:min(1250px,94%);
+    min-height:650px;
     margin:auto;
     display:grid;
-    grid-template-columns:1.25fr .75fr;
+    grid-template-columns:1.15fr .85fr;
     align-items:center;
-    gap:50px;
+    gap:60px;
     position:relative;
     z-index:2;
 }
@@ -333,241 +380,311 @@ button{
     animation:heroIn 1s ease both;
 }
 
-.hero-badge{
+.hero-tag{
     display:inline-flex;
-    align-items:center;
-    gap:8px;
-    border:1px solid rgba(255,255,255,.3);
-    background:rgba(255,255,255,.09);
-    padding:8px 15px;
-    border-radius:30px;
+    padding:8px 16px;
+    border-radius:50px;
+    border:1px solid rgba(255,255,255,.2);
+    background:rgba(255,255,255,.08);
+    backdrop-filter:blur(15px);
     margin-bottom:20px;
 }
 
 .hero h2{
-    font-size:55px;
-    line-height:1.1;
-    margin-bottom:20px;
+    font-size:64px;
+    line-height:1.06;
+    margin-bottom:22px;
 }
 
 .hero h2 span{
-    color:var(--yellow);
+    color:var(--gold);
 }
 
-.hero-text{
-    max-width:650px;
+.hero-description{
+    color:#d9eaff;
     font-size:18px;
-    line-height:1.8;
-    color:#e9f3ff;
+    line-height:1.9;
+    max-width:650px;
 }
 
-.hero-buttons{
+.hero-actions{
     display:flex;
     gap:12px;
-    margin-top:28px;
     flex-wrap:wrap;
+    margin-top:30px;
 }
 
-.btn-primary,
-.btn-outline{
-    padding:13px 22px;
-    border-radius:8px;
-    transition:.3s;
+.btn{
     display:inline-flex;
     align-items:center;
     gap:8px;
+    padding:13px 23px;
+    border-radius:12px;
+    transition:.35s;
 }
 
-.btn-primary{
-    background:var(--yellow);
-    color:#132b44;
+.btn-gold{
+    background:var(--gold);
+    color:#142b45;
 }
 
-.btn-primary:hover{
-    transform:translateY(-3px);
-    box-shadow:0 10px 25px rgba(0,0,0,.2);
-}
-
-.btn-outline{
-    border:1px solid rgba(255,255,255,.5);
+.btn-glass{
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.28);
     color:#fff;
-}
-
-.btn-outline:hover{
-    background:#fff;
-    color:var(--navy);
-}
-
-/* Hero Card */
-
-.hero-card{
-    background:rgba(255,255,255,.10);
-    border:1px solid rgba(255,255,255,.2);
     backdrop-filter:blur(12px);
-    padding:28px;
-    border-radius:20px;
-    box-shadow:0 20px 50px rgba(0,0,0,.15);
-    animation:cardFloat 5s ease-in-out infinite;
 }
 
-.hero-card-title{
-    font-size:22px;
-    color:var(--yellow);
-    margin-bottom:20px;
+.btn:hover{
+    transform:translateY(-4px);
 }
 
-.hero-feature{
+/* =========================
+   LIQUID GLASS HERO CARD
+========================= */
+
+.liquid-card{
+    position:relative;
+    overflow:hidden;
+    border-radius:30px;
+    padding:32px;
+    background:rgba(255,255,255,.10);
+    border:1px solid rgba(255,255,255,.22);
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
+    box-shadow:
+        0 30px 80px rgba(0,0,0,.20),
+        inset 0 1px 0 rgba(255,255,255,.25);
+    animation:floatCard 6s ease-in-out infinite;
+}
+
+.liquid-card::before{
+    content:"";
+    position:absolute;
+    width:250px;
+    height:250px;
+    border-radius:50%;
+    background:rgba(255,255,255,.13);
+    filter:blur(35px);
+    top:-120px;
+    left:-100px;
+    animation:liquidMove 8s ease-in-out infinite alternate;
+}
+
+.liquid-card::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+        115deg,
+        transparent 20%,
+        rgba(255,255,255,.13) 48%,
+        transparent 68%
+    );
+    transform:translateX(-120%);
+    animation:shine 7s ease-in-out infinite;
+}
+
+@keyframes floatCard{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-12px)}
+}
+
+@keyframes liquidMove{
+    0%{transform:translate(0,0) scale(1)}
+    50%{transform:translate(160px,90px) scale(1.25)}
+    100%{transform:translate(60px,180px) scale(.9)}
+}
+
+@keyframes shine{
+    0%,35%{transform:translateX(-120%)}
+    70%,100%{transform:translateX(120%)}
+}
+
+.liquid-card-content{
+    position:relative;
+    z-index:2;
+}
+
+.card-heading{
+    color:var(--gold);
+    font-size:23px;
+    margin-bottom:22px;
+}
+
+.feature{
     display:flex;
-    gap:12px;
     align-items:center;
-    padding:14px 0;
-    border-bottom:1px solid rgba(255,255,255,.13);
+    gap:14px;
+    padding:15px 0;
+    border-bottom:1px solid rgba(255,255,255,.12);
 }
 
-.hero-feature:last-child{
+.feature:last-child{
     border-bottom:0;
 }
 
-.hero-feature-icon{
-    width:40px;
-    height:40px;
-    border-radius:10px;
+.feature-icon{
+    width:45px;
+    height:45px;
+    border-radius:14px;
+    background:rgba(255,255,255,.11);
     display:flex;
     align-items:center;
     justify-content:center;
-    background:rgba(255,255,255,.12);
+    font-size:22px;
 }
 
 /* =========================
-   COMMON SECTION
+   QUICK PORTAL
 ========================= */
 
-.section{
-    padding:85px 0;
-}
-
-.container{
-    width:min(1200px,94%);
-    margin:auto;
-}
-
-.section-head{
-    text-align:center;
-    margin-bottom:45px;
-}
-
-.section-head .mini{
-    color:var(--blue);
-    font-size:15px;
-    margin-bottom:7px;
-}
-
-.section-head h2{
-    color:var(--navy);
-    font-size:35px;
-}
-
-.section-head p{
-    max-width:650px;
-    margin:12px auto 0;
-    color:var(--muted);
-    line-height:1.7;
-}
-
-/* =========================
-   QUICK SERVICES
-========================= */
-
-.services{
-    margin-top:-45px;
+.portal{
+    margin-top:-50px;
     position:relative;
     z-index:5;
 }
 
-.service-grid{
+.portal-grid{
     display:grid;
     grid-template-columns:repeat(4,1fr);
     gap:18px;
 }
 
-.service{
-    background:#fff;
-    padding:28px 20px;
-    border-radius:15px;
+.portal-card{
+    position:relative;
+    overflow:hidden;
+    background:rgba(255,255,255,.86);
+    border:1px solid rgba(255,255,255,.9);
+    border-radius:22px;
+    padding:25px 20px;
     box-shadow:var(--shadow);
-    border:1px solid var(--border);
-    transition:.35s;
-    text-align:center;
+    backdrop-filter:blur(20px);
+    transition:.4s;
 }
 
-.service:hover{
-    transform:translateY(-8px);
-    border-color:#9dc7f5;
+.portal-card::before{
+    content:"";
+    position:absolute;
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    background:rgba(11,117,223,.08);
+    right:-50px;
+    top:-50px;
+    transition:.5s;
 }
 
-.service-icon{
-    width:58px;
-    height:58px;
-    margin:auto auto 15px;
-    border-radius:16px;
+.portal-card:hover{
+    transform:translateY(-10px);
+}
+
+.portal-card:hover::before{
+    transform:scale(2.2);
+}
+
+.portal-icon{
+    width:55px;
+    height:55px;
     display:flex;
     align-items:center;
     justify-content:center;
-    background:#e9f3ff;
-    font-size:27px;
+    border-radius:16px;
+    background:#e8f3ff;
+    font-size:26px;
+    margin-bottom:15px;
 }
 
-.service h3{
+.portal-card h3{
     color:var(--navy);
-    margin-bottom:7px;
 }
 
-.service p{
+.portal-card p{
     color:var(--muted);
     font-size:14px;
+    margin-top:5px;
+}
+
+/* =========================
+   COMMON
+========================= */
+
+.section{
+    padding:90px 0;
+}
+
+.container{
+    width:min(1250px,94%);
+    margin:auto;
+}
+
+.section-head{
+    text-align:center;
+    margin-bottom:48px;
+}
+
+.section-head small{
+    color:var(--blue);
+}
+
+.section-head h2{
+    color:var(--navy);
+    font-size:38px;
+    margin-top:5px;
+}
+
+.section-head p{
+    max-width:680px;
+    margin:12px auto;
+    color:var(--muted);
+    line-height:1.8;
 }
 
 /* =========================
    ABOUT
 ========================= */
 
-.about{
+.about-grid{
     display:grid;
     grid-template-columns:.9fr 1.1fr;
-    gap:55px;
+    gap:60px;
     align-items:center;
 }
 
-.about-img{
-    min-height:380px;
-    border-radius:24px;
-    background:
-        linear-gradient(135deg,rgba(6,43,85,.72),rgba(11,99,206,.45)),
-        url('images/madrasa.jpg') center/cover;
+.about-visual{
+    min-height:430px;
+    border-radius:30px;
     position:relative;
     overflow:hidden;
+    background:
+        linear-gradient(135deg,rgba(3,26,53,.78),rgba(8,117,223,.42)),
+        url("images/madrasa.jpg") center/cover;
     box-shadow:var(--shadow);
 }
 
-.about-img-box{
+.about-glass{
     position:absolute;
     left:25px;
+    right:25px;
     bottom:25px;
-    background:#fff;
-    padding:18px 22px;
-    border-radius:12px;
-    box-shadow:var(--shadow);
+    padding:22px;
+    border-radius:20px;
+    background:rgba(255,255,255,.12);
+    backdrop-filter:blur(15px);
+    color:#fff;
+    border:1px solid rgba(255,255,255,.2);
 }
 
-.about-img-box strong{
-    color:var(--navy);
-    font-size:22px;
+.about-glass strong{
+    color:var(--gold);
+    font-size:27px;
 }
 
 .about-content h2{
-    font-size:38px;
     color:var(--navy);
-    margin-bottom:18px;
+    font-size:39px;
+    line-height:1.2;
+    margin-bottom:20px;
 }
 
 .about-content p{
@@ -576,68 +693,163 @@ button{
     margin-bottom:15px;
 }
 
-.about-list{
-    margin-top:20px;
+.checks{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:12px;
+    margin-top:25px;
 }
 
-.about-list div{
-    padding:12px;
+.check{
     background:#fff;
-    border:1px solid var(--border);
-    border-radius:9px;
+    padding:13px;
+    border:1px solid #e0e9f2;
+    border-radius:12px;
 }
 
 /* =========================
-   DEPARTMENTS
+   STATS
 ========================= */
 
-.department-section{
+.stats{
+    background:linear-gradient(135deg,#041d39,#075db6);
+    color:#fff;
+}
+
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+}
+
+.stat{
+    text-align:center;
+    padding:30px;
+    border-right:1px solid rgba(255,255,255,.13);
+}
+
+.stat:last-child{
+    border:0;
+}
+
+.stat strong{
+    display:block;
+    font-family:Arial,sans-serif;
+    color:var(--gold);
+    font-size:38px;
+}
+
+.stat span{
+    color:#dcecff;
+}
+
+/* =========================
+   ACADEMIC
+========================= */
+
+.academic{
     background:#fff;
 }
 
-.department-grid{
+.academic-grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
     gap:22px;
 }
 
-.department{
-    padding:30px;
-    border-radius:18px;
-    border:1px solid var(--border);
-    background:linear-gradient(145deg,#fff,#f2f7fd);
-    transition:.35s;
+.academic-card{
+    position:relative;
+    overflow:hidden;
+    padding:32px;
+    border-radius:25px;
+    background:linear-gradient(145deg,#f8fbff,#eaf4ff);
+    border:1px solid #dceaf8;
+    transition:.4s;
 }
 
-.department:hover{
-    transform:translateY(-7px);
+.academic-card:hover{
+    transform:translateY(-8px);
     box-shadow:var(--shadow);
 }
 
-.department-icon{
-    font-size:38px;
-    margin-bottom:15px;
+.academic-card .number{
+    position:absolute;
+    right:20px;
+    top:10px;
+    font-family:Arial;
+    font-size:70px;
+    color:rgba(7,100,210,.06);
 }
 
-.department h3{
+.academic-icon{
+    font-size:42px;
+    margin-bottom:18px;
+}
+
+.academic-card h3{
     color:var(--navy);
-    font-size:23px;
+    font-size:25px;
 }
 
-.department p{
+.academic-card p{
     color:var(--muted);
-    line-height:1.7;
+    line-height:1.8;
     margin-top:8px;
+}
+
+/* =========================
+   PRINCIPAL MESSAGE
+========================= */
+
+.message{
+    background:
+        radial-gradient(circle at 10% 30%,rgba(14,123,234,.12),transparent 25%),
+        #f5f9fd;
+}
+
+.message-box{
+    display:grid;
+    grid-template-columns:.45fr 1fr;
+    gap:35px;
+    align-items:center;
+    padding:45px;
+    border-radius:30px;
+    background:rgba(255,255,255,.65);
+    border:1px solid rgba(255,255,255,.9);
+    box-shadow:var(--shadow);
+    backdrop-filter:blur(20px);
+}
+
+.principal-photo{
+    height:280px;
+    border-radius:22px;
+    background:#e8f2fc;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:85px;
+}
+
+.message-content h2{
+    color:var(--navy);
+    font-size:34px;
+}
+
+.message-content p{
+    color:var(--muted);
+    line-height:2;
+    margin-top:15px;
+}
+
+.signature{
+    color:var(--blue);
+    margin-top:15px;
 }
 
 /* =========================
    NOTICE
 ========================= */
 
-.notice-area{
+.notice-grid{
     display:grid;
     grid-template-columns:1fr .45fr;
     gap:25px;
@@ -645,45 +857,43 @@ button{
 
 .notice-list{
     background:#fff;
-    border-radius:18px;
+    border:1px solid #dfE9f3;
+    border-radius:25px;
     padding:10px 25px;
-    border:1px solid var(--border);
+    box-shadow:0 15px 45px rgba(0,40,90,.06);
 }
 
 .notice-item{
-    padding:20px 5px;
-    border-bottom:1px solid var(--border);
     display:flex;
-    gap:15px;
-    align-items:flex-start;
-    transition:.3s;
+    gap:18px;
+    padding:20px 5px;
+    border-bottom:1px solid #e7eef5;
 }
 
 .notice-item:last-child{
     border-bottom:0;
 }
 
-.notice-item:hover{
-    padding-left:10px;
-}
-
 .notice-date{
+    width:65px;
     min-width:65px;
-    text-align:center;
-    background:#eaf3ff;
-    border-radius:9px;
-    padding:8px;
+    height:65px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    background:#eaf4ff;
     color:var(--blue);
+    border-radius:15px;
 }
 
 .notice-date strong{
-    display:block;
+    font-family:Arial;
     font-size:22px;
 }
 
 .notice-item h3{
     color:var(--navy);
-    font-size:19px;
 }
 
 .notice-item p{
@@ -692,73 +902,79 @@ button{
 }
 
 .notice-side{
-    background:var(--navy);
-    color:#fff;
     padding:30px;
-    border-radius:18px;
+    border-radius:25px;
+    background:linear-gradient(145deg,#05264b,#0875df);
+    color:#fff;
 }
 
 .notice-side h3{
-    color:var(--yellow);
-    font-size:24px;
-    margin-bottom:20px;
+    color:var(--gold);
+    margin-bottom:15px;
 }
 
 .notice-side a{
     display:block;
-    padding:12px 0;
-    border-bottom:1px solid rgba(255,255,255,.15);
+    padding:14px 0;
+    border-bottom:1px solid rgba(255,255,255,.13);
 }
 
 /* =========================
-   RESULT SEARCH
+   RESULT PORTAL
 ========================= */
 
-.result-box{
+.result-section{
+    background:#fff;
+}
+
+.result-portal{
+    padding:50px;
+    border-radius:30px;
     background:
-        linear-gradient(120deg,#062b55,#0876df);
-    color:#fff;
-    padding:45px;
-    border-radius:25px;
+        radial-gradient(circle at 90% 10%,rgba(255,211,68,.18),transparent 22%),
+        linear-gradient(135deg,#031b37,#0765c8);
     display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:35px;
-    align-items:center;
+    grid-template-columns:1fr .7fr;
+    gap:40px;
+    color:#fff;
+    box-shadow:var(--shadow);
 }
 
-.result-box h2{
-    font-size:34px;
-    margin-bottom:10px;
+.result-portal h2{
+    color:var(--gold);
+    font-size:38px;
 }
 
-.result-box p{
-    color:#d8eaff;
-    line-height:1.7;
+.result-portal p{
+    color:#d5e8fa;
+    line-height:1.9;
+    margin-top:10px;
 }
 
 .result-form{
-    background:#fff;
+    background:rgba(255,255,255,.11);
+    border:1px solid rgba(255,255,255,.2);
+    border-radius:20px;
     padding:25px;
-    border-radius:15px;
+    backdrop-filter:blur(15px);
 }
 
 .result-form input{
     width:100%;
     padding:14px;
-    margin-bottom:12px;
-    border:1px solid var(--border);
-    border-radius:8px;
+    border:0;
     outline:none;
-    font-family:inherit;
+    border-radius:10px;
+    margin-bottom:12px;
 }
 
 .result-form button{
     width:100%;
     padding:13px;
     border:0;
-    border-radius:8px;
-    background:var(--yellow);
-    color:#132b44;
+    border-radius:10px;
+    background:var(--gold);
+    color:#132b45;
     cursor:pointer;
 }
 
@@ -774,28 +990,28 @@ button{
 
 .teacher{
     background:#fff;
-    border:1px solid var(--border);
-    border-radius:16px;
+    border:1px solid #dfE8f1;
+    border-radius:22px;
     overflow:hidden;
-    transition:.3s;
+    transition:.4s;
 }
 
 .teacher:hover{
-    transform:translateY(-7px);
+    transform:translateY(-8px);
     box-shadow:var(--shadow);
 }
 
-.teacher-img{
-    height:220px;
-    background:#e9f3ff;
+.teacher-photo{
+    height:230px;
+    background:linear-gradient(135deg,#e8f3ff,#cfe6ff);
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:60px;
+    font-size:75px;
 }
 
 .teacher-info{
-    padding:18px;
+    padding:20px;
 }
 
 .teacher-info h3{
@@ -804,7 +1020,6 @@ button{
 
 .teacher-info p{
     color:var(--muted);
-    margin-top:4px;
 }
 
 /* =========================
@@ -814,25 +1029,34 @@ button{
 .gallery{
     display:grid;
     grid-template-columns:repeat(4,1fr);
+    grid-auto-rows:210px;
     gap:12px;
 }
 
-.gallery div{
-    height:210px;
+.gallery-item{
     overflow:hidden;
-    border-radius:13px;
+    border-radius:20px;
+    position:relative;
     background:#dcecff;
 }
 
-.gallery img{
+.gallery-item:nth-child(1){
+    grid-row:span 2;
+}
+
+.gallery-item:nth-child(4){
+    grid-column:span 2;
+}
+
+.gallery-item img{
     width:100%;
     height:100%;
     object-fit:cover;
-    transition:.5s;
+    transition:.6s;
 }
 
-.gallery div:hover img{
-    transform:scale(1.1);
+.gallery-item:hover img{
+    transform:scale(1.12);
 }
 
 /* =========================
@@ -846,20 +1070,21 @@ button{
 .contact-grid{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:35px;
+    gap:25px;
 }
 
-.contact-card{
+.contact-box{
+    background:#f6faff;
     padding:30px;
-    border:1px solid var(--border);
-    border-radius:18px;
+    border-radius:25px;
+    border:1px solid #dce8f4;
 }
 
 .contact-row{
     display:flex;
     gap:15px;
-    padding:16px 0;
-    border-bottom:1px solid var(--border);
+    padding:17px 0;
+    border-bottom:1px solid #e1eaf3;
 }
 
 .contact-row:last-child{
@@ -867,13 +1092,14 @@ button{
 }
 
 .contact-icon{
-    width:45px;
-    height:45px;
-    background:#e9f3ff;
-    border-radius:10px;
+    width:46px;
+    height:46px;
+    min-width:46px;
     display:flex;
     align-items:center;
     justify-content:center;
+    border-radius:14px;
+    background:#e6f2ff;
 }
 
 /* =========================
@@ -881,95 +1107,55 @@ button{
 ========================= */
 
 .footer{
-    background:#041d38;
+    background:#02152c;
     color:#fff;
-    padding:55px 0 20px;
+    padding:65px 0 20px;
 }
 
 .footer-grid{
     display:grid;
     grid-template-columns:1.2fr .8fr .8fr 1fr;
-    gap:30px;
+    gap:35px;
 }
 
 .footer h3{
-    color:var(--yellow);
+    color:var(--gold);
     margin-bottom:18px;
 }
 
-.footer p{
-    color:#b9c9d9;
-    line-height:1.8;
+.footer p,
+.footer a{
+    color:#aebfd0;
+    line-height:1.9;
 }
 
 .footer a{
     display:block;
-    color:#cbd8e6;
-    padding:5px 0;
+    padding:3px 0;
     transition:.3s;
 }
 
 .footer a:hover{
-    color:var(--yellow);
-    padding-left:5px;
+    color:var(--gold);
+    transform:translateX(5px);
 }
 
 .copyright{
     border-top:1px solid rgba(255,255,255,.1);
-    margin-top:35px;
-    padding-top:18px;
+    margin-top:40px;
+    padding-top:20px;
     text-align:center;
-    color:#91a6ba;
+    color:#71869b;
 }
 
 /* =========================
-   BACK TO TOP
+   SCROLL ANIMATION
 ========================= */
-
-.back-top{
-    position:fixed;
-    right:20px;
-    bottom:20px;
-    width:45px;
-    height:45px;
-    border:0;
-    border-radius:50%;
-    background:var(--yellow);
-    color:var(--navy);
-    cursor:pointer;
-    display:none;
-    z-index:999;
-}
-
-/* =========================
-   ANIMATION
-========================= */
-
-@keyframes heroIn{
-    from{
-        opacity:0;
-        transform:translateY(30px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-@keyframes cardFloat{
-    0%,100%{transform:translateY(0);}
-    50%{transform:translateY(-10px);}
-}
-
-@keyframes float{
-    0%,100%{transform:translate(0,0);}
-    50%{transform:translate(-20px,25px);}
-}
 
 .reveal{
     opacity:0;
     transform:translateY(35px);
-    transition:opacity .7s ease,transform .7s ease;
+    transition:opacity .8s ease,transform .8s ease;
 }
 
 .reveal.show{
@@ -978,68 +1164,121 @@ button{
 }
 
 /* =========================
+   BACK TOP
+========================= */
+
+.back-top{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    width:48px;
+    height:48px;
+    border:0;
+    border-radius:50%;
+    background:var(--gold);
+    color:var(--navy);
+    cursor:pointer;
+    z-index:999;
+    display:none;
+    box-shadow:0 10px 30px rgba(0,0,0,.18);
+}
+
+/* =========================
    RESPONSIVE
 ========================= */
 
-@media(max-width:900px){
+@media(max-width:950px){
 
-    .topbar{
-        font-size:11px;
-    }
-
-    .top-left span:nth-child(n+2){
+    .top-links{
         display:none;
     }
 
-    .top-right a{
+    .header-right{
         display:none;
     }
 
-    .header-inner{
-        min-height:82px;
-    }
-
-    .logo{
-        width:55px;
-        height:55px;
-    }
-
-    .brand-title h1{
-        font-size:20px;
-    }
-
-    .header-actions{
-        display:none;
-    }
-
-    .menu-btn{
+    .menu{
         display:block;
         margin-left:auto;
     }
 
-    .nav-inner{
-        width:100%;
-        padding:0 15px;
-        justify-content:flex-end;
-    }
-
-    .nav-links{
+    .nav{
         display:none;
         flex-direction:column;
-        align-items:stretch;
-        padding-bottom:10px;
     }
 
-    .nav-links.open{
+    .nav.open{
         display:flex;
     }
 
-    .nav-links a{
-        padding:12px 10px;
+    .hero-inner{
+        grid-template-columns:1fr;
+        padding:80px 0;
     }
 
-    .notice-label{
-        min-width:90px;
+    .hero h2{
+        font-size:48px;
+    }
+
+    .portal-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .about-grid,
+    .message-box,
+    .result-portal,
+    .contact-grid{
+        grid-template-columns:1fr;
+    }
+
+    .academic-grid{
+        grid-template-columns:1fr;
+    }
+
+    .teacher-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .notice-grid{
+        grid-template-columns:1fr;
+    }
+
+    .stats-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .stat{
+        border-bottom:1px solid rgba(255,255,255,.13);
+    }
+
+    .footer-grid{
+        grid-template-columns:1fr 1fr;
+    }
+}
+
+@media(max-width:600px){
+
+    .top-info{
+        gap:8px;
+        font-size:11px;
+    }
+
+    .brand-text h1{
+        font-size:19px;
+    }
+
+    .brand-text small{
+        font-size:7px;
+        letter-spacing:1px;
+    }
+
+    .logo{
+        width:53px;
+        height:53px;
+    }
+
+    .ticker-label{
+        min-width:85px;
         font-size:12px;
     }
 
@@ -1048,35 +1287,61 @@ button{
     }
 
     .hero-inner{
-        grid-template-columns:1fr;
-        padding:65px 0;
         min-height:auto;
+        padding:60px 0;
     }
 
     .hero h2{
         font-size:38px;
     }
 
-    .hero-text{
+    .hero-description{
         font-size:15px;
     }
 
-    .hero-card{
-        margin-top:10px;
+    .portal{
+        margin-top:-25px;
     }
 
-    .service-grid{
+    .portal-grid{
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+    }
+
+    .portal-card{
+        padding:18px 14px;
+    }
+
+    .portal-card h3{
+        font-size:17px;
+    }
+
+    .portal-card p{
+        font-size:12px;
+    }
+
+    .section{
+        padding:60px 0;
+    }
+
+    .section-head h2{
+        font-size:29px;
+    }
+
+    .checks{
+        grid-template-columns:1fr;
+    }
+
+    .stats-grid{
         grid-template-columns:1fr 1fr;
     }
 
-    .about,
-    .result-box,
-    .contact-grid{
-        grid-template-columns:1fr;
+    .stat{
+        padding:22px 10px;
     }
 
-    .department-grid{
-        grid-template-columns:1fr;
+    .stat strong{
+        font-size:30px;
     }
 
     .teacher-grid{
@@ -1085,51 +1350,41 @@ button{
 
     .gallery{
         grid-template-columns:1fr 1fr;
+        grid-auto-rows:150px;
     }
 
-    .notice-area{
-        grid-template-columns:1fr;
+    .gallery-item:nth-child(1){
+        grid-row:span 1;
+    }
+
+    .gallery-item:nth-child(4){
+        grid-column:span 1;
+    }
+
+    .result-portal{
+        padding:28px 20px;
+    }
+
+    .result-portal h2{
+        font-size:29px;
     }
 
     .footer-grid{
-        grid-template-columns:1fr 1fr;
+        grid-template-columns:1fr;
     }
 }
 
-@media(max-width:520px){
+@media(prefers-reduced-motion:reduce){
 
-    .section{
-        padding:55px 0;
-    }
-
-    .section-head h2{
-        font-size:28px;
-    }
-
-    .hero h2{
-        font-size:32px;
-    }
-
-    .service-grid,
-    .teacher-grid,
-    .gallery,
-    .footer-grid{
-        grid-template-columns:1fr;
-    }
-
-    .about-list{
-        grid-template-columns:1fr;
-    }
-
-    .result-box{
-        padding:25px;
-    }
-
-    .result-box h2{
-        font-size:27px;
+    *,
+    *::before,
+    *::after{
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
+        transition-duration:.01ms !important;
+        scroll-behavior:auto !important;
     }
 }
-
 </style>
 </head>
 
@@ -1139,20 +1394,14 @@ button{
 <div class="topbar">
     <div class="topbar-inner">
 
-        <div class="top-left">
-
-            <div class="top-item">
-                📅 <span id="dateBn">লোড হচ্ছে...</span>
-            </div>
-
-            <div class="top-item">
-                🕐 <span id="clock">00:00:00</span>
-            </div>
-
+        <div class="top-info">
+            <span>📅 <b id="dateBn">লোড হচ্ছে...</b></span>
+            <span>🕐 <b id="clock">00:00:00</b></span>
         </div>
 
-        <div class="top-right">
-            <a href="#">বাংলা</a>
+        <div class="top-links">
+            <a href="#notices">নোটিশ</a>
+            <a href="#results">ফলাফল</a>
             <a href="#contact">যোগাযোগ</a>
         </div>
 
@@ -1165,38 +1414,37 @@ button{
 
     <div class="header-inner">
 
-        <a href="#" class="brand">
+        <a href="#home" class="brand">
 
-            <!-- নিজের Logo এখানে -->
             <img
                 src="images/logo.png"
                 class="logo"
                 alt="মাদরাসায়ে নূরুল কুরআন">
 
-            <div class="brand-title">
+            <div class="brand-text">
 
                 <h1>মাদরাসায়ে নূরুল কুরআন</h1>
 
-                <p>MADRASHA-E NURUL QURAN</p>
+                <small>MADRASHA-E NURUL QURAN</small>
 
             </div>
 
         </a>
 
-        <div class="header-actions">
+        <div class="header-right">
 
             <button
-                class="login-btn"
-                onclick="openLogin()">
+                class="portal-btn"
+                onclick="goLogin()">
 
-                🔐 লগইন ▾
+                🔐 অ্যাডমিন পোর্টাল
 
             </button>
 
         </div>
 
         <button
-            class="menu-btn"
+            class="menu"
             onclick="toggleMenu()">
 
             ☰
@@ -1208,31 +1456,22 @@ button{
 </header>
 
 
-<!-- NAVIGATION -->
+<!-- NAV -->
 <nav class="navbar">
 
     <div class="nav-inner">
 
-        <div
-            class="nav-links"
-            id="navLinks">
+        <div class="nav" id="nav">
 
             <a class="active" href="#home">হোম</a>
-
-            <a href="#about">আমাদের সম্পর্কে</a>
-
+            <a href="#about">পরিচিতি</a>
             <a href="#academic">একাডেমিক</a>
-
+            <a href="#message">প্রধানের বক্তব্য</a>
             <a href="#teachers">শিক্ষকবৃন্দ</a>
-
             <a href="#students">শিক্ষার্থী</a>
-
             <a href="#results">ফলাফল</a>
-
             <a href="#notices">নোটিশ</a>
-
             <a href="#gallery">গ্যালারি</a>
-
             <a href="#contact">যোগাযোগ</a>
 
         </div>
@@ -1243,22 +1482,26 @@ button{
 
 
 <!-- NOTICE TICKER -->
-<div class="notice-wrap">
+<div class="ticker">
 
-    <div class="notice-label">
-        📢 নোটিশ
+    <div class="ticker-label">
+        📢 গুরুত্বপূর্ণ নোটিশ
     </div>
 
-    <div class="notice-scroll">
+    <div class="ticker-window">
 
-        <div class="notice-track">
+        <div class="ticker-track">
 
             <span>
-                মাদরাসায়ে নূরুল কুরআনের সকল নোটিশ ও গুরুত্বপূর্ণ তথ্য এখানে প্রকাশ করা হবে।
+                মাদরাসায়ে নূরুল কুরআনের অফিসিয়াল ওয়েবসাইটে আপনাকে স্বাগতম।
             </span>
 
             <span>
-                নতুন শিক্ষার্থী ভর্তি কার্যক্রম সম্পর্কে বিস্তারিত জানতে আমাদের সাথে যোগাযোগ করুন।
+                সকল নোটিশ, ফলাফল ও গুরুত্বপূর্ণ তথ্য নিয়মিত আপডেট করা হবে।
+            </span>
+
+            <span>
+                ভর্তি ও একাডেমিক তথ্যের জন্য মাদরাসা অফিসে যোগাযোগ করুন।
             </span>
 
         </div>
@@ -1269,16 +1512,14 @@ button{
 
 
 <!-- HERO -->
-<section
-    class="hero"
-    id="home">
+<section class="hero" id="home">
 
     <div class="hero-inner">
 
         <div class="hero-content">
 
-            <div class="hero-badge">
-                🌙 জ্ঞান ও আমূল্য শিক্ষার সমন্বিত পরিবেশ
+            <div class="hero-tag">
+                🌙 Quranic Digital Campus
             </div>
 
             <h2>
@@ -1287,30 +1528,39 @@ button{
                 <span>গড়ি সুন্দর ভবিষ্যৎ</span>
             </h2>
 
-            <p class="hero-text">
+            <p class="hero-description">
 
-                মাদরাসায়ে নূরুল কুরআন — কুরআন, সুন্নাহ,
-                নৈতিকতা ও প্রয়োজনীয় শিক্ষার সমন্বয়ে
-                শিক্ষার্থীদের জ্ঞানী, আদর্শবান ও দায়িত্বশীল
-                মানুষ হিসেবে গড়ে তোলার একটি প্রয়াস।
+                মাদরাসায়ে নূরুল কুরআন —
+                কুরআন, সুন্নাহ, নৈতিকতা ও প্রয়োজনীয়
+                শিক্ষার সমন্বয়ে শিক্ষার্থীদের জ্ঞানী,
+                আদর্শবান ও দায়িত্বশীল মানুষ হিসেবে
+                গড়ে তোলার একটি সুন্দর প্রয়াস।
 
             </p>
 
-            <div class="hero-buttons">
+            <div class="hero-actions">
 
                 <a
                     href="#academic"
-                    class="btn-primary">
+                    class="btn btn-gold">
 
-                    📚 ভর্তি তথ্য
+                    📚 একাডেমিক বিভাগ
 
                 </a>
 
                 <a
                     href="#results"
-                    class="btn-outline">
+                    class="btn btn-glass">
 
                     📊 ফলাফল দেখুন
+
+                </a>
+
+                <a
+                    href="#notices"
+                    class="btn btn-glass">
+
+                    📢 নোটিশ
 
                 </a>
 
@@ -1319,35 +1569,75 @@ button{
         </div>
 
 
-        <div class="hero-card">
+        <!-- LIQUID GLASS CARD -->
+        <div class="liquid-card">
 
-            <div class="hero-card-title">
-                🏫 প্রতিষ্ঠানের তথ্য
-            </div>
+            <div class="liquid-card-content">
 
-            <div class="hero-feature">
-                <div class="hero-feature-icon">📖</div>
-                <div>নূরানী বিভাগ</div>
-            </div>
+                <div class="card-heading">
+                    🏫 আমাদের শিক্ষা ব্যবস্থা
+                </div>
 
-            <div class="hero-feature">
-                <div class="hero-feature-icon">📗</div>
-                <div>নাজেরা বিভাগ</div>
-            </div>
+                <div class="feature">
 
-            <div class="hero-feature">
-                <div class="hero-feature-icon">🌙</div>
-                <div>হিফজ বিভাগ</div>
-            </div>
+                    <div class="feature-icon">📖</div>
 
-            <div class="hero-feature">
-                <div class="hero-feature-icon">👨‍🏫</div>
-                <div>অভিজ্ঞ শিক্ষকবৃন্দ</div>
-            </div>
+                    <div>
+                        <strong>নূরানী বিভাগ</strong>
+                        <br>
+                        <small>কুরআন শিক্ষার ভিত্তি</small>
+                    </div>
 
-            <div class="hero-feature">
-                <div class="hero-feature-icon">💻</div>
-                <div>ডিজিটাল ব্যবস্থাপনা</div>
+                </div>
+
+                <div class="feature">
+
+                    <div class="feature-icon">📗</div>
+
+                    <div>
+                        <strong>নাজেরা বিভাগ</strong>
+                        <br>
+                        <small>বিশুদ্ধ কুরআন তিলাওয়াত</small>
+                    </div>
+
+                </div>
+
+                <div class="feature">
+
+                    <div class="feature-icon">🌙</div>
+
+                    <div>
+                        <strong>হিফজ বিভাগ</strong>
+                        <br>
+                        <small>কুরআন হিফজ ও মুরাজাআ</small>
+                    </div>
+
+                </div>
+
+                <div class="feature">
+
+                    <div class="feature-icon">👨‍🏫</div>
+
+                    <div>
+                        <strong>অভিজ্ঞ শিক্ষকবৃন্দ</strong>
+                        <br>
+                        <small>সুশৃঙ্খল শিক্ষা পরিবেশ</small>
+                    </div>
+
+                </div>
+
+                <div class="feature">
+
+                    <div class="feature-icon">💻</div>
+
+                    <div>
+                        <strong>ডিজিটাল ব্যবস্থাপনা</strong>
+                        <br>
+                        <small>আধুনিক অনলাইন সেবা</small>
+                    </div>
+
+                </div>
+
             </div>
 
         </div>
@@ -1357,50 +1647,50 @@ button{
 </section>
 
 
-<!-- QUICK SERVICES -->
-<section class="services">
+<!-- QUICK PORTAL -->
+<section class="portal">
 
     <div class="container">
 
-        <div class="service-grid reveal">
+        <div class="portal-grid reveal">
 
-            <a href="#results" class="service">
+            <a href="#results" class="portal-card">
 
-                <div class="service-icon">📊</div>
+                <div class="portal-icon">📊</div>
 
-                <h3>ফলাফল</h3>
+                <h3>ফলাফল পোর্টাল</h3>
 
                 <p>রোল ও আইডি দিয়ে ফলাফল দেখুন</p>
 
             </a>
 
-            <a href="#notices" class="service">
+            <a href="#notices" class="portal-card">
 
-                <div class="service-icon">📢</div>
+                <div class="portal-icon">📢</div>
 
-                <h3>নোটিশ</h3>
+                <h3>নোটিশ বোর্ড</h3>
 
                 <p>সকল গুরুত্বপূর্ণ নোটিশ দেখুন</p>
 
             </a>
 
-            <a href="#academic" class="service">
+            <a href="#students" class="portal-card">
 
-                <div class="service-icon">📚</div>
+                <div class="portal-icon">🎓</div>
 
-                <h3>একাডেমিক</h3>
+                <h3>শিক্ষার্থী সেবা</h3>
 
-                <p>শিক্ষা ও বিভাগ সম্পর্কে জানুন</p>
+                <p>শিক্ষার্থীদের অনলাইন সেবা</p>
 
             </a>
 
-            <a href="#contact" class="service">
+            <a href="#contact" class="portal-card">
 
-                <div class="service-icon">☎️</div>
+                <div class="portal-icon">☎️</div>
 
                 <h3>যোগাযোগ</h3>
 
-                <p>আমাদের সাথে যোগাযোগ করুন</p>
+                <p>মাদরাসার সাথে যোগাযোগ করুন</p>
 
             </a>
 
@@ -1412,66 +1702,97 @@ button{
 
 
 <!-- ABOUT -->
-<section
-    class="section"
-    id="about">
+<section class="section" id="about">
 
     <div class="container">
 
-        <div class="about reveal">
+        <div class="about-grid reveal">
 
-            <div class="about-img">
+            <div class="about-visual">
 
-                <div class="about-img-box">
+                <div class="about-glass">
 
-                    <strong>১৪৩৩</strong>
+                    <strong>জ্ঞান • আমল • আখলাক</strong>
+
                     <br>
-                    <small>শিক্ষা ও আদর্শের পথচলা</small>
+
+                    <span>
+                        শিক্ষার মাধ্যমে সুন্দর মানুষ গড়ার প্রত্যয়
+                    </span>
 
                 </div>
 
             </div>
 
+
             <div class="about-content">
 
                 <div class="section-head" style="text-align:left;margin-bottom:20px">
 
-                    <div class="mini">
-                        আমাদের পরিচয়
-                    </div>
+                    <small>আমাদের পরিচিতি</small>
 
                     <h2>
-                        শিক্ষা, আদর্শ ও নৈতিকতার সমন্বয়
+                        শিক্ষা হোক চরিত্র গঠনের মাধ্যম
                     </h2>
 
                 </div>
 
                 <p>
                     মাদরাসায়ে নূরুল কুরআন শিক্ষার্থীদের
-                    কুরআন ও ইসলামি শিক্ষার পাশাপাশি প্রয়োজনীয়
-                    জ্ঞান ও নৈতিক মূল্যবোধে সমৃদ্ধ করার লক্ষ্যে
-                    কাজ করে যাচ্ছে।
+                    কুরআন ও ইসলামি শিক্ষার পাশাপাশি
+                    প্রয়োজনীয় জ্ঞান, নৈতিকতা ও দায়িত্ববোধে
+                    সমৃদ্ধ করার লক্ষ্যে কাজ করে যাচ্ছে।
                 </p>
 
                 <p>
-                    আমাদের লক্ষ্য হলো এমন একটি সুন্দর
-                    শিক্ষার পরিবেশ তৈরি করা যেখানে একজন
-                    শিক্ষার্থী জ্ঞান, আমল, আখলাক ও দায়িত্ববোধে
-                    নিজেকে গড়ে তুলতে পারে।
+                    আমাদের উদ্দেশ্য শুধু একজন শিক্ষার্থীকে
+                    শিক্ষিত করা নয়; বরং তাকে একজন আদর্শ,
+                    সৎ ও দায়িত্বশীল মানুষ হিসেবে গড়ে তোলা।
                 </p>
 
-                <div class="about-list">
+                <div class="checks">
 
-                    <div>✓ কুরআন ও ইসলামি শিক্ষা</div>
-
-                    <div>✓ নৈতিক ও আদর্শিক শিক্ষা</div>
-
-                    <div>✓ অভিজ্ঞ শিক্ষকবৃন্দ</div>
-
-                    <div>✓ আধুনিক ব্যবস্থাপনা</div>
+                    <div class="check">✓ কুরআন ও সুন্নাহভিত্তিক শিক্ষা</div>
+                    <div class="check">✓ নৈতিক ও আদর্শিক শিক্ষা</div>
+                    <div class="check">✓ অভিজ্ঞ শিক্ষকবৃন্দ</div>
+                    <div class="check">✓ সুন্দর ও নিরাপদ পরিবেশ</div>
 
                 </div>
 
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- STATS -->
+<section class="section stats">
+
+    <div class="container">
+
+        <div class="stats-grid reveal">
+
+            <div class="stat">
+                <strong>০৩</strong>
+                <span>শিক্ষা বিভাগ</span>
+            </div>
+
+            <div class="stat">
+                <strong>০১+</strong>
+                <span>অভিজ্ঞ শিক্ষক</span>
+            </div>
+
+            <div class="stat">
+                <strong>০১+</strong>
+                <span>শিক্ষার্থী</span>
+            </div>
+
+            <div class="stat">
+                <strong>১৪৩৩</strong>
+                <span>শিক্ষাবর্ষ</span>
             </div>
 
         </div>
@@ -1482,66 +1803,69 @@ button{
 
 
 <!-- ACADEMIC -->
-<section
-    class="section department-section"
-    id="academic">
+<section class="section academic" id="academic">
 
     <div class="container">
 
         <div class="section-head reveal">
 
-            <div class="mini">আমাদের শিক্ষা বিভাগ</div>
+            <small>একাডেমিক</small>
 
-            <h2>একাডেমিক বিভাগসমূহ</h2>
+            <h2>আমাদের শিক্ষা বিভাগ</h2>
 
             <p>
-                শিক্ষার্থীর বয়স, যোগ্যতা ও প্রয়োজন অনুযায়ী
-                বিভিন্ন শিক্ষা কার্যক্রম পরিচালিত হয়।
+                শিক্ষার্থীর প্রয়োজন ও যোগ্যতা অনুযায়ী
+                বিভিন্ন পর্যায়ে শিক্ষা কার্যক্রম পরিচালিত হয়।
             </p>
 
         </div>
 
 
-        <div class="department-grid reveal">
+        <div class="academic-grid reveal">
 
-            <div class="department">
+            <div class="academic-card">
 
-                <div class="department-icon">📖</div>
+                <span class="number">01</span>
+
+                <div class="academic-icon">📖</div>
 
                 <h3>নূরানী বিভাগ</h3>
 
                 <p>
-                    কুরআন শিক্ষার প্রাথমিক ভিত্তি,
-                    আরবি বর্ণমালা, মাখরাজ ও প্রয়োজনীয়
-                    ইসলামি শিক্ষা।
+                    আরবি বর্ণমালা, মাখরাজ, প্রয়োজনীয়
+                    দোয়া ও কুরআন শিক্ষার প্রাথমিক ভিত্তি।
                 </p>
 
             </div>
 
-            <div class="department">
 
-                <div class="department-icon">📗</div>
+            <div class="academic-card">
+
+                <span class="number">02</span>
+
+                <div class="academic-icon">📗</div>
 
                 <h3>নাজেরা বিভাগ</h3>
 
                 <p>
-                    বিশুদ্ধভাবে কুরআন তিলাওয়াত,
-                    তাজবিদ ও নিয়মিত অনুশীলনের মাধ্যমে
-                    কুরআন পাঠের দক্ষতা অর্জন।
+                    তাজবিদ ও মাখরাজের নিয়ম অনুসরণ করে
+                    বিশুদ্ধ কুরআন তিলাওয়াতের প্রশিক্ষণ।
                 </p>
 
             </div>
 
-            <div class="department">
 
-                <div class="department-icon">🌙</div>
+            <div class="academic-card">
+
+                <span class="number">03</span>
+
+                <div class="academic-icon">🌙</div>
 
                 <h3>হিফজ বিভাগ</h3>
 
                 <p>
-                    পরিকল্পিত রুটিন, নিয়মিত সবক,
-                    আমুখতা ও মুরাজাআর মাধ্যমে
-                    কুরআন হিফজের ব্যবস্থা।
+                    পরিকল্পিত সবক, আমুখতা ও মুরাজাআর
+                    মাধ্যমে কুরআন হিফজের ব্যবস্থা।
                 </p>
 
             </div>
@@ -1553,38 +1877,80 @@ button{
 </section>
 
 
-<!-- NOTICES -->
-<section
-    class="section"
-    id="notices">
+<!-- PRINCIPAL MESSAGE -->
+<section class="section message" id="message">
+
+    <div class="container">
+
+        <div class="message-box reveal">
+
+            <div class="principal-photo">
+                👨‍🏫
+            </div>
+
+            <div class="message-content">
+
+                <small style="color:#0875df">
+                    প্রধানের বক্তব্য
+                </small>
+
+                <h2>
+                    একটি সুন্দর প্রজন্ম গড়াই আমাদের লক্ষ্য
+                </h2>
+
+                <p>
+                    আমাদের প্রত্যাশা হলো প্রতিটি শিক্ষার্থী
+                    কুরআনের শিক্ষা হৃদয়ে ধারণ করে
+                    জ্ঞান, আমল ও উত্তম চরিত্রের মাধ্যমে
+                    সমাজে একজন আদর্শ মানুষ হিসেবে
+                    প্রতিষ্ঠিত হবে।
+                </p>
+
+                <div class="signature">
+                    — প্রধান / অধ্যক্ষ
+                    <br>
+                    মাদরাসায়ে নূরুল কুরআন
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- NOTICE -->
+<section class="section" id="notices">
 
     <div class="container">
 
         <div class="section-head reveal">
 
-            <div class="mini">সর্বশেষ আপডেট</div>
+            <small>সর্বশেষ আপডেট</small>
 
             <h2>নোটিশ ও ঘোষণা</h2>
 
         </div>
 
 
-        <div class="notice-area reveal">
+        <div class="notice-grid reveal">
 
             <div class="notice-list" id="noticeList">
 
                 <div class="notice-item">
 
                     <div class="notice-date">
-
                         <strong>০১</strong>
                         আগস্ট
-
                     </div>
 
                     <div>
 
-                        <h3>মাদরাসার ওয়েবসাইটে স্বাগতম</h3>
+                        <h3>
+                            মাদরাসায়ে নূরুল কুরআন ওয়েবসাইট
+                        </h3>
 
                         <p>
                             সকল গুরুত্বপূর্ণ তথ্য ও নোটিশ
@@ -1599,19 +1965,19 @@ button{
                 <div class="notice-item">
 
                     <div class="notice-date">
-
                         <strong>০২</strong>
                         আগস্ট
-
                     </div>
 
                     <div>
 
-                        <h3>ভর্তি সংক্রান্ত বিজ্ঞপ্তি</h3>
+                        <h3>
+                            ভর্তি সংক্রান্ত বিজ্ঞপ্তি
+                        </h3>
 
                         <p>
-                            ভর্তি সংক্রান্ত তথ্যের জন্য
-                            অফিসে যোগাযোগ করুন।
+                            ভর্তি সংক্রান্ত বিস্তারিত তথ্য
+                            মাদরাসা অফিসে পাওয়া যাবে।
                         </p>
 
                     </div>
@@ -1623,15 +1989,12 @@ button{
 
             <div class="notice-side">
 
-                <h3>📢 গুরুত্বপূর্ণ লিংক</h3>
+                <h3>📌 গুরুত্বপূর্ণ লিংক</h3>
 
-                <a href="#">ভর্তি বিজ্ঞপ্তি →</a>
-
-                <a href="#">পরীক্ষার রুটিন →</a>
-
-                <a href="#">ফলাফল →</a>
-
-                <a href="#">ডাউনলোড →</a>
+                <a href="#results">ফলাফল →</a>
+                <a href="#academic">একাডেমিক →</a>
+                <a href="#students">শিক্ষার্থী সেবা →</a>
+                <a href="#contact">যোগাযোগ →</a>
 
             </div>
 
@@ -1643,22 +2006,32 @@ button{
 
 
 <!-- RESULT -->
-<section
-    class="section"
-    id="results">
+<section class="section result-section" id="results">
 
     <div class="container">
 
-        <div class="result-box reveal">
+        <div class="result-portal reveal">
 
             <div>
 
-                <h2>📊 পরীক্ষার ফলাফল</h2>
+                <small style="color:#8bc7ff">
+                    STUDENT RESULT PORTAL
+                </small>
+
+                <h2>
+                    পরীক্ষার ফলাফল
+                </h2>
 
                 <p>
                     শিক্ষার্থীর রোল নম্বর ও আইডি ব্যবহার করে
-                    অনলাইনে পরীক্ষার ফলাফল দেখুন।
+                    অনলাইনে পরীক্ষার ফলাফল দেখা যাবে।
                 </p>
+
+                <br>
+
+                <span>
+                    🔒 নিরাপদ ফলাফল অনুসন্ধান ব্যবস্থা
+                </span>
 
             </div>
 
@@ -1666,13 +2039,13 @@ button{
             <div class="result-form">
 
                 <input
-                    type="text"
                     id="roll"
+                    type="text"
                     placeholder="রোল নম্বর">
 
                 <input
-                    type="text"
                     id="studentId"
+                    type="text"
                     placeholder="শিক্ষার্থী আইডি">
 
                 <button onclick="checkResult()">
@@ -1691,43 +2064,41 @@ button{
 
 
 <!-- STUDENTS -->
-<section
-    class="section"
-    id="students">
+<section class="section" id="students">
 
     <div class="container">
 
         <div class="section-head reveal">
 
-            <div class="mini">শিক্ষার্থী সেবা</div>
+            <small>Student Services</small>
 
-            <h2>শিক্ষার্থীদের জন্য অনলাইন সেবা</h2>
+            <h2>শিক্ষার্থী সেবা</h2>
 
         </div>
 
 
-        <div class="service-grid reveal">
+        <div class="portal-grid reveal">
 
-            <div class="service">
-                <div class="service-icon">🪪</div>
-                <h3>আইডি কার্ড</h3>
-                <p>শিক্ষার্থীর আইডি সংক্রান্ত তথ্য</p>
+            <div class="portal-card">
+                <div class="portal-icon">🪪</div>
+                <h3>শিক্ষার্থী আইডি</h3>
+                <p>শিক্ষার্থীর পরিচয় ও তথ্য</p>
             </div>
 
-            <div class="service">
-                <div class="service-icon">🎫</div>
+            <div class="portal-card">
+                <div class="portal-icon">🎫</div>
                 <h3>এডমিট কার্ড</h3>
                 <p>পরীক্ষার এডমিট কার্ড</p>
             </div>
 
-            <div class="service">
-                <div class="service-icon">💰</div>
+            <div class="portal-card">
+                <div class="portal-icon">💰</div>
                 <h3>বেতন / ফি</h3>
                 <p>শিক্ষার্থীর ফি সংক্রান্ত তথ্য</p>
             </div>
 
-            <div class="service">
-                <div class="service-icon">📥</div>
+            <div class="portal-card">
+                <div class="portal-icon">📥</div>
                 <h3>ডাউনলোড</h3>
                 <p>প্রয়োজনীয় ফাইল ডাউনলোড</p>
             </div>
@@ -1740,21 +2111,19 @@ button{
 
 
 <!-- TEACHERS -->
-<section
-    class="section department-section"
-    id="teachers">
+<section class="section academic" id="teachers">
 
     <div class="container">
 
         <div class="section-head reveal">
 
-            <div class="mini">আমাদের শক্তি</div>
+            <small>আমাদের শিক্ষকবৃন্দ</small>
 
-            <h2>শিক্ষকবৃন্দ</h2>
+            <h2>শিক্ষক ও কর্মীবৃন্দ</h2>
 
             <p>
-                শিক্ষার্থীদের সঠিক দিকনির্দেশনায়
-                শিক্ষকবৃন্দ গুরুত্বপূর্ণ ভূমিকা পালন করেন।
+                শিক্ষার্থীদের সঠিক দিকনির্দেশনা ও
+                সুন্দর ভবিষ্যৎ গঠনে আমাদের শিক্ষকবৃন্দ।
             </p>
 
         </div>
@@ -1764,13 +2133,15 @@ button{
 
             <div class="teacher">
 
-                <div class="teacher-img">👨‍🏫</div>
+                <div class="teacher-photo">
+                    👨‍🏫
+                </div>
 
                 <div class="teacher-info">
 
                     <h3>শিক্ষকবৃন্দ</h3>
 
-                    <p>কুরআন ও ইসলামি শিক্ষা</p>
+                    <p>নূরানী বিভাগ</p>
 
                 </div>
 
@@ -1779,7 +2150,9 @@ button{
 
             <div class="teacher">
 
-                <div class="teacher-img">👨‍🏫</div>
+                <div class="teacher-photo">
+                    👨‍🏫
+                </div>
 
                 <div class="teacher-info">
 
@@ -1794,7 +2167,9 @@ button{
 
             <div class="teacher">
 
-                <div class="teacher-img">👨‍🏫</div>
+                <div class="teacher-photo">
+                    👨‍🏫
+                </div>
 
                 <div class="teacher-info">
 
@@ -1809,7 +2184,9 @@ button{
 
             <div class="teacher">
 
-                <div class="teacher-img">👨‍🏫</div>
+                <div class="teacher-photo">
+                    👨‍🏫
+                </div>
 
                 <div class="teacher-info">
 
@@ -1829,15 +2206,13 @@ button{
 
 
 <!-- GALLERY -->
-<section
-    class="section"
-    id="gallery">
+<section class="section" id="gallery">
 
     <div class="container">
 
         <div class="section-head reveal">
 
-            <div class="mini">আমাদের স্মৃতি</div>
+            <small>আমাদের স্মৃতি</small>
 
             <h2>ফটো গ্যালারি</h2>
 
@@ -1846,20 +2221,28 @@ button{
 
         <div class="gallery reveal">
 
-            <div>
+            <div class="gallery-item">
                 <img src="images/gallery1.jpg" alt="">
             </div>
 
-            <div>
+            <div class="gallery-item">
                 <img src="images/gallery2.jpg" alt="">
             </div>
 
-            <div>
+            <div class="gallery-item">
                 <img src="images/gallery3.jpg" alt="">
             </div>
 
-            <div>
+            <div class="gallery-item">
                 <img src="images/gallery4.jpg" alt="">
+            </div>
+
+            <div class="gallery-item">
+                <img src="images/gallery5.jpg" alt="">
+            </div>
+
+            <div class="gallery-item">
+                <img src="images/gallery6.jpg" alt="">
             </div>
 
         </div>
@@ -1870,15 +2253,13 @@ button{
 
 
 <!-- CONTACT -->
-<section
-    class="section contact"
-    id="contact">
+<section class="section contact" id="contact">
 
     <div class="container">
 
         <div class="section-head reveal">
 
-            <div class="mini">যোগাযোগ</div>
+            <small>যোগাযোগ</small>
 
             <h2>আমাদের সাথে যোগাযোগ করুন</h2>
 
@@ -1887,7 +2268,7 @@ button{
 
         <div class="contact-grid reveal">
 
-            <div class="contact-card">
+            <div class="contact-box">
 
                 <div class="contact-row">
 
@@ -1895,7 +2276,7 @@ button{
 
                     <div>
                         <strong>ঠিকানা</strong>
-                        <p>মাদরাসার ঠিকানা এখানে লিখুন</p>
+                        <p>মাদরাসার সম্পূর্ণ ঠিকানা এখানে লিখুন</p>
                     </div>
 
                 </div>
@@ -1927,17 +2308,17 @@ button{
             </div>
 
 
-            <div class="contact-card">
+            <div class="contact-box">
 
-                <h3 style="color:#062b55;margin-bottom:15px">
+                <h3 style="color:#062b55">
                     অনলাইন যোগাযোগ
                 </h3>
 
-                <p style="color:#6c7d90;line-height:1.8">
+                <p style="color:#718399;line-height:1.9;margin-top:10px">
 
-                    যেকোনো তথ্য, ভর্তি, ফলাফল বা
-                    অন্যান্য বিষয়ে জানতে আমাদের সাথে
-                    যোগাযোগ করতে পারেন।
+                    ভর্তি, ফলাফল, নোটিশ অথবা যেকোনো
+                    প্রয়োজনীয় তথ্যের জন্য আমাদের সাথে
+                    যোগাযোগ করুন।
 
                 </p>
 
@@ -1945,7 +2326,7 @@ button{
 
                 <a
                     href="#"
-                    class="btn-primary">
+                    class="btn btn-gold">
 
                     💬 যোগাযোগ করুন
 
@@ -1981,15 +2362,12 @@ button{
 
             <div>
 
-                <h3>গুরুত্বপূর্ণ</h3>
+                <h3>প্রতিষ্ঠান</h3>
 
                 <a href="#about">আমাদের সম্পর্কে</a>
-
                 <a href="#academic">একাডেমিক</a>
-
+                <a href="#message">প্রধানের বক্তব্য</a>
                 <a href="#teachers">শিক্ষকবৃন্দ</a>
-
-                <a href="#results">ফলাফল</a>
 
             </div>
 
@@ -1998,13 +2376,10 @@ button{
 
                 <h3>সেবা</h3>
 
+                <a href="#results">ফলাফল</a>
                 <a href="#notices">নোটিশ</a>
-
-                <a href="#gallery">গ্যালারি</a>
-
                 <a href="#students">শিক্ষার্থী সেবা</a>
-
-                <a href="#">ডাউনলোড</a>
+                <a href="#gallery">গ্যালারি</a>
 
             </div>
 
@@ -2014,9 +2389,7 @@ button{
                 <h3>যোগাযোগ</h3>
 
                 <p>📍 মাদরাসার ঠিকানা</p>
-
                 <p>📞 ০১XXXXXXXXX</p>
-
                 <p>✉️ info@example.com</p>
 
             </div>
@@ -2052,43 +2425,36 @@ button{
 <script>
 
 /* =========================
-   CLOCK + DATE
+   CLOCK
 ========================= */
 
 function updateClock(){
 
     const now = new Date();
 
-    const time =
-        now.toLocaleTimeString('bn-BD',{
-            hour:'2-digit',
-            minute:'2-digit',
-            second:'2-digit'
+    document.getElementById("clock").textContent =
+        now.toLocaleTimeString("bn-BD",{
+            hour:"2-digit",
+            minute:"2-digit",
+            second:"2-digit"
         });
 
-    document.getElementById('clock').textContent=time;
-
-
-    const date =
-        now.toLocaleDateString('bn-BD',{
-            weekday:'long',
-            year:'numeric',
-            month:'long',
-            day:'numeric'
+    document.getElementById("dateBn").textContent =
+        now.toLocaleDateString("bn-BD",{
+            weekday:"long",
+            year:"numeric",
+            month:"long",
+            day:"numeric"
         });
-
-    document.getElementById('dateBn').textContent=date;
-
 }
 
 updateClock();
-
 setInterval(updateClock,1000);
 
 
 /* YEAR */
 
-document.getElementById('year').textContent=
+document.getElementById("year").textContent =
     new Date().getFullYear();
 
 
@@ -2099,8 +2465,8 @@ document.getElementById('year').textContent=
 function toggleMenu(){
 
     document
-        .getElementById('navLinks')
-        .classList.toggle('open');
+        .getElementById("nav")
+        .classList.toggle("open");
 
 }
 
@@ -2109,16 +2475,9 @@ function toggleMenu(){
    LOGIN
 ========================= */
 
-function openLogin(){
+function goLogin(){
 
-    /*
-      পরে এখানে তোমার
-      admin-login.html
-      অথবা dashboard.html
-      link বসাবে।
-    */
-
-    window.location.href='login.html';
+    window.location.href="login.html";
 
 }
 
@@ -2130,32 +2489,26 @@ function openLogin(){
 function checkResult(){
 
     const roll =
-        document.getElementById('roll').value.trim();
+        document.getElementById("roll").value.trim();
 
     const studentId =
-        document.getElementById('studentId').value.trim();
+        document.getElementById("studentId").value.trim();
 
-    const box =
-        document.getElementById('resultMessage');
+    const message =
+        document.getElementById("resultMessage");
 
 
     if(!roll || !studentId){
 
-        box.innerHTML=
-        '<p style="color:#d33;margin-top:10px">রোল ও আইডি লিখুন।</p>';
+        message.innerHTML =
+            "<p style='color:#ffd447;margin-top:10px'>রোল নম্বর ও শিক্ষার্থী আইডি লিখুন।</p>";
 
         return;
-
     }
 
 
-    /*
-      পরে Supabase Result System
-      এখানে connect করা হবে।
-    */
-
-    box.innerHTML=
-    '<p style="color:#087f5b;margin-top:10px">ফলাফল অনুসন্ধান করা হচ্ছে...</p>';
+    message.innerHTML =
+        "<p style='color:#fff;margin-top:10px'>ফলাফল অনুসন্ধান করা হচ্ছে...</p>";
 
 }
 
@@ -2163,10 +2516,6 @@ function checkResult(){
 /* =========================
    SCROLL REVEAL
 ========================= */
-
-const reveals =
-    document.querySelectorAll('.reveal');
-
 
 const observer =
     new IntersectionObserver(
@@ -2176,7 +2525,7 @@ const observer =
 
                 if(entry.isIntersecting){
 
-                    entry.target.classList.add('show');
+                    entry.target.classList.add("show");
 
                 }
 
@@ -2184,32 +2533,29 @@ const observer =
 
         },
         {
-            threshold:.12
+            threshold:.10
         }
     );
 
 
-reveals.forEach(el=>observer.observe(el));
+document
+    .querySelectorAll(".reveal")
+    .forEach(el=>observer.observe(el));
 
 
 /* =========================
-   BACK TOP
+   BACK TO TOP
 ========================= */
 
-window.addEventListener('scroll',()=>{
+window.addEventListener("scroll",()=>{
 
-    const btn =
-        document.getElementById('backTop');
+    const button =
+        document.getElementById("backTop");
 
-    if(window.scrollY>500){
-
-        btn.style.display='block';
-
-    }else{
-
-        btn.style.display='none';
-
-    }
+    button.style.display =
+        window.scrollY > 600
+        ? "block"
+        : "none";
 
 });
 
@@ -2219,45 +2565,65 @@ window.addEventListener('scroll',()=>{
 ========================= */
 
 const sections =
-    document.querySelectorAll('section[id]');
+    document.querySelectorAll("section[id]");
 
-const navItems =
-    document.querySelectorAll('.nav-links a');
+const links =
+    document.querySelectorAll(".nav a");
 
 
-window.addEventListener('scroll',()=>{
+window.addEventListener("scroll",()=>{
 
-    let current='';
+    let current = "";
 
     sections.forEach(section=>{
 
         const top =
-            section.offsetTop-150;
+            section.offsetTop - 170;
 
-        if(window.scrollY>=top){
+        if(window.scrollY >= top){
 
-            current=section.getAttribute('id');
+            current =
+                section.getAttribute("id");
 
         }
 
     });
 
 
-    navItems.forEach(link=>{
+    links.forEach(link=>{
 
-        link.classList.remove('active');
+        link.classList.remove("active");
 
         if(
-            link.getAttribute('href') === '#'+current
+            link.getAttribute("href") === "#" + current
         ){
 
-            link.classList.add('active');
+            link.classList.add("active");
 
         }
 
     });
 
 });
+
+
+/* =========================
+   CLOSE MOBILE MENU
+========================= */
+
+document
+    .querySelectorAll(".nav a")
+    .forEach(link=>{
+
+        link.addEventListener("click",()=>{
+
+            document
+                .getElementById("nav")
+                .classList.remove("open");
+
+        });
+
+    });
 
 </script>
 
