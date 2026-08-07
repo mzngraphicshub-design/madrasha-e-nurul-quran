@@ -2,488 +2,194 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Students | মাদরাসায়ে নূরুল কুরআন</title>
 
 <style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-
+*{box-sizing:border-box}
 :root{
-    --primary:#087f5b;
-    --primary-dark:#056044;
-    --primary-light:#e9f7f2;
-    --bg:#f5f7f9;
-    --white:#fff;
-    --text:#17212b;
-    --muted:#6b7280;
-    --border:#e5e7eb;
-    --danger:#dc3545;
-    --shadow:0 8px 30px rgba(15,23,42,.07);
+--primary:#087f5b;
+--dark:#056044;
+--light:#e9f7f2;
+--bg:#f5f7f9;
+--white:#fff;
+--text:#17212b;
+--muted:#6b7280;
+--border:#e5e7eb;
+--danger:#dc3545;
+--blue:#1769aa;
 }
-
 body{
-    font-family:"Noto Sans Bengali","SolaimanLipi",Arial,sans-serif;
-    background:var(--bg);
-    color:var(--text);
-    min-height:100vh;
+margin:0;
+font-family:"Noto Sans Bengali","SolaimanLipi",Arial,sans-serif;
+background:var(--bg);
+color:var(--text)
 }
-
 .topbar{
-    background:var(--white);
-    border-bottom:1px solid var(--border);
-    min-height:72px;
-    padding:0 28px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    position:sticky;
-    top:0;
-    z-index:100;
+background:var(--white);
+border-bottom:1px solid var(--border);
+min-height:72px;
+padding:0 28px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+position:sticky;
+top:0;
+z-index:10
 }
-
-.brand-title{
-    color:var(--primary-dark);
-    font-size:20px;
-    font-weight:800;
-}
-
-.brand-sub{
-    font-size:11px;
-    color:var(--muted);
-    margin-top:3px;
-    letter-spacing:.7px;
-}
-
+.brand-title{font-size:20px;font-weight:800;color:var(--dark)}
+.brand-sub{font-size:11px;color:var(--muted)}
 .dashboard-link{
-    color:var(--primary);
-    border:1px solid #cde9df;
-    background:var(--primary-light);
-    padding:9px 14px;
-    border-radius:8px;
-    text-decoration:none;
-    font-size:13px;
-    font-weight:700;
+color:var(--primary);
+background:var(--light);
+border:1px solid #cde9df;
+padding:9px 14px;
+border-radius:8px;
+text-decoration:none;
+font-weight:700
 }
-
-.container{
-    max-width:1250px;
-    margin:28px auto;
-    padding:0 18px 50px;
-}
-
-.page-heading{
-    margin-bottom:22px;
-}
-
-.page-heading h1{
-    font-size:27px;
-    margin-bottom:5px;
-}
-
-.page-heading p{
-    color:var(--muted);
-    font-size:14px;
-}
-
+.container{max-width:1250px;margin:28px auto;padding:0 18px 50px}
+.page-heading{margin-bottom:22px}
+.page-heading h1{font-size:27px;margin:0 0 5px}
+.page-heading p{color:var(--muted);font-size:14px}
 .stats{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:16px;
-    margin-bottom:20px;
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:16px;
+margin-bottom:20px
 }
-
-.stat-box{
-    background:#fff;
-    border:1px solid var(--border);
-    border-radius:14px;
-    padding:20px;
-    box-shadow:var(--shadow);
+.stat-box,.box{
+background:#fff;
+border:1px solid var(--border);
+border-radius:15px;
+box-shadow:0 8px 30px #0f172a0b
 }
-
-.stat-label{
-    color:var(--muted);
-    font-size:13px;
-    margin-bottom:8px;
-}
-
-.stat-number{
-    font-size:28px;
-    font-weight:800;
-    color:var(--primary-dark);
-}
-
-.box{
-    background:#fff;
-    border:1px solid var(--border);
-    border-radius:15px;
-    padding:24px;
-    box-shadow:var(--shadow);
-    margin-bottom:20px;
-}
-
-.box-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:15px;
-    margin-bottom:20px;
-}
-
-.box-title{
-    font-size:19px;
-    font-weight:800;
-    color:var(--primary-dark);
-}
-
-.box-description{
-    color:var(--muted);
-    font-size:12px;
-    margin-top:4px;
-}
-
+.stat-box{padding:20px}
+.stat-label{color:var(--muted);font-size:13px}
+.stat-number{font-size:28px;font-weight:800;color:var(--dark);margin-top:6px}
+.box{padding:24px;margin-bottom:20px}
+.box-title{font-size:19px;font-weight:800;color:var(--dark)}
+.box-description{font-size:12px;color:var(--muted);margin-top:4px}
+.box-header{margin-bottom:20px}
 .form-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:16px;
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:16px
 }
-
-.form-group{
-    display:flex;
-    flex-direction:column;
+.full{grid-column:1/-1}
+.form-group{display:flex;flex-direction:column}
+label{font-size:13px;font-weight:700;margin-bottom:6px}
+input,select,textarea{
+width:100%;
+border:1px solid var(--border);
+border-radius:9px;
+padding:12px 13px;
+font-family:inherit;
+font-size:14px;
+outline:none;
+background:#fff
 }
-
-.form-group.full{
-    grid-column:1/-1;
+input:focus,select:focus,textarea:focus{
+border-color:var(--primary);
+box-shadow:0 0 0 3px #087f5b1a
 }
-
-label{
-    font-size:13px;
-    font-weight:700;
-    color:#374151;
-    margin-bottom:6px;
-}
-
-input,
-select,
-textarea{
-    width:100%;
-    border:1px solid var(--border);
-    background:#fff;
-    border-radius:9px;
-    padding:12px 13px;
-    font-size:14px;
-    outline:none;
-    transition:.2s;
-    font-family:inherit;
-}
-
-input:focus,
-select:focus,
-textarea:focus{
-    border-color:var(--primary);
-    box-shadow:0 0 0 3px rgba(8,127,91,.10);
-}
-
-input[readonly]{
-    background:#f1f5f9;
-    color:#475569;
-}
-
-textarea{
-    min-height:90px;
-    resize:vertical;
-}
-
-.form-note{
-    background:var(--primary-light);
-    border:1px solid #cde9df;
-    color:var(--primary-dark);
-    padding:11px 13px;
-    border-radius:9px;
-    font-size:12px;
-    line-height:1.6;
-}
-
-.buttons{
-    display:flex;
-    gap:9px;
-    flex-wrap:wrap;
-}
-
+input[readonly]{background:#f1f5f9}
+textarea{resize:vertical;min-height:90px}
+.buttons{display:flex;gap:9px;margin-top:5px}
 button{
-    border:0;
-    border-radius:9px;
-    padding:11px 17px;
-    font-family:inherit;
-    font-size:13px;
-    font-weight:700;
-    cursor:pointer;
+border:0;
+border-radius:9px;
+padding:11px 17px;
+font-family:inherit;
+font-weight:700;
+cursor:pointer
 }
-
-.btn-primary{
-    background:var(--primary);
-    color:#fff;
-}
-
-.btn-primary:hover{
-    background:var(--primary-dark);
-}
-
-.btn-secondary{
-    background:#eef1f3;
-    color:#374151;
-}
-
-.btn-danger{
-    background:#fee2e2;
-    color:#b91c1c;
-}
-
-.btn-edit{
-    background:#e8f2ff;
-    color:#1769aa;
-}
-
-button:disabled{
-    opacity:.6;
-    cursor:not-allowed;
-}
-
-.message{
-    min-height:22px;
-    margin-top:12px;
-    font-size:13px;
-    font-weight:600;
-}
-
-.message.success{
-    color:#087f5b;
-}
-
-.message.error{
-    color:#c62828;
-}
-
+.btn-primary{background:var(--primary);color:#fff}
+.btn-secondary{background:#eef1f3;color:#374151}
+.btn-danger{background:#fee2e2;color:#b91c1c}
+.btn-edit{background:#e8f2ff;color:var(--blue)}
+button:disabled{opacity:.6}
+.message{min-height:22px;margin-top:12px;font-size:13px;font-weight:600}
+.success{color:var(--primary)}
+.error{color:#c62828}
 .search-row{
-    display:flex;
-    gap:12px;
-    margin-bottom:16px;
+display:grid;
+grid-template-columns:1fr 220px;
+gap:12px;
+margin-bottom:16px
 }
-
-.search-box{
-    flex:1;
+.table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:11px}
+table{width:100%;border-collapse:collapse;min-width:1050px}
+th{
+background:#f1f7f5;
+color:var(--dark);
+padding:13px 11px;
+font-size:12px;
+text-align:left;
+white-space:nowrap
 }
-
-.table-wrap{
-    width:100%;
-    overflow-x:auto;
-    border:1px solid var(--border);
-    border-radius:11px;
+td{
+padding:13px 11px;
+border-bottom:1px solid #f0f1f2;
+font-size:13px
 }
-
-table{
-    width:100%;
-    border-collapse:collapse;
-    min-width:900px;
+.student-id{font-weight:800;color:var(--dark)}
+.badge{
+display:inline-block;
+background:var(--light);
+color:var(--dark);
+padding:5px 8px;
+border-radius:6px;
+font-size:11px;
+font-weight:700
 }
-
-thead th{
-    background:#f1f7f5;
-    color:var(--primary-dark);
-    font-size:12px;
-    font-weight:800;
-    padding:13px 11px;
-    text-align:left;
-    border-bottom:1px solid var(--border);
-    white-space:nowrap;
+.action-buttons{display:flex;gap:6px}
+.action-buttons button{padding:7px 10px;font-size:11px}
+.photo{
+width:40px;height:40px;
+border-radius:8px;
+object-fit:cover
 }
-
-tbody td{
-    padding:13px 11px;
-    border-bottom:1px solid #f0f1f2;
-    font-size:13px;
-    vertical-align:middle;
+.center{text-align:center;padding:30px!important;color:var(--muted)}
+.loading{
+height:3px;
+background:#e8f0ed;
+overflow:hidden;
+margin-bottom:15px
 }
-
-tbody tr:hover{
-    background:#fafdfc;
+.loading:after{
+content:"";
+display:block;
+height:100%;
+width:40%;
+background:var(--primary);
+animation:load 1s infinite
 }
-
-.student-id{
-    color:var(--primary-dark);
-    font-weight:800;
+@keyframes load{
+from{transform:translateX(-100%)}
+to{transform:translateX(300%)}
 }
-
-.class-badge{
-    display:inline-block;
-    background:var(--primary-light);
-    color:var(--primary-dark);
-    padding:5px 8px;
-    border-radius:6px;
-    font-size:11px;
-    font-weight:700;
+.session-info{
+background:var(--light);
+border:1px solid #cde9df;
+padding:11px 13px;
+border-radius:9px;
+font-size:12px;
+color:var(--dark);
+margin-bottom:16px
 }
-
-.action-buttons{
-    display:flex;
-    gap:6px;
-}
-
-.action-buttons button{
-    padding:7px 10px;
-    font-size:11px;
-}
-
-.photo-preview,
-.no-photo{
-    width:40px;
-    height:40px;
-    border-radius:8px;
-}
-
-.photo-preview{
-    object-fit:cover;
-    border:1px solid var(--border);
-}
-
-.no-photo{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:#f1f5f9;
-    color:#94a3b8;
-    font-size:10px;
-}
-
-.center{
-    text-align:center;
-    padding:30px!important;
-    color:var(--muted);
-}
-
-.loading-line{
-    width:100%;
-    height:3px;
-    background:#e8f0ed;
-    overflow:hidden;
-    border-radius:10px;
-    margin-bottom:15px;
-}
-
-.loading-line::after{
-    content:"";
-    display:block;
-    height:100%;
-    width:40%;
-    background:var(--primary);
-    animation:loading 1.1s infinite;
-}
-
-@keyframes loading{
-    from{transform:translateX(-100%)}
-    to{transform:translateX(300%)}
-}
-
-.admission-info{
-    background:#f8fafc;
-    border:1px solid var(--border);
-    border-radius:11px;
-    padding:15px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:15px;
-}
-
-.admission-info strong{
-    display:block;
-    margin-bottom:4px;
-    font-size:14px;
-}
-
-.admission-info span{
-    color:var(--muted);
-    font-size:12px;
-}
-
-.admission-link{
-    text-decoration:none;
-    background:var(--primary);
-    color:#fff;
-    padding:10px 14px;
-    border-radius:8px;
-    font-size:12px;
-    font-weight:700;
-    white-space:nowrap;
-}
-
 @media(max-width:800px){
-
-    .topbar{
-        padding:14px 16px;
-    }
-
-    .brand-title{
-        font-size:17px;
-    }
-
-    .brand-sub{
-        font-size:9px;
-    }
-
-    .dashboard-link{
-        padding:8px 10px;
-        font-size:11px;
-    }
-
-    .container{
-        margin:18px auto;
-        padding:0 12px 40px;
-    }
-
-    .page-heading h1{
-        font-size:23px;
-    }
-
-    .stats{
-        grid-template-columns:1fr;
-    }
-
-    .box{
-        padding:17px;
-    }
-
-    .box-header{
-        align-items:flex-start;
-        flex-direction:column;
-    }
-
-    .form-grid{
-        grid-template-columns:1fr;
-    }
-
-    .form-group.full{
-        grid-column:auto;
-    }
-
-    .search-row{
-        flex-direction:column;
-    }
-
-    .admission-info{
-        flex-direction:column;
-        align-items:flex-start;
-    }
-
-    .admission-link{
-        width:100%;
-        text-align:center;
-    }
+.topbar{padding:14px 16px}
+.brand-title{font-size:17px}
+.container{margin:18px auto;padding:0 12px 40px}
+.stats{grid-template-columns:1fr 1fr}
+.form-grid{grid-template-columns:1fr}
+.full{grid-column:auto}
+.search-row{grid-template-columns:1fr}
+.box{padding:17px}
+}
+@media(max-width:500px){
+.stats{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -491,449 +197,209 @@ tbody tr:hover{
 <body>
 
 <header class="topbar">
+<div>
+<div class="brand-title">মাদরাসায়ে নূরুল কুরআন</div>
+<div class="brand-sub">STUDENT MANAGEMENT SYSTEM</div>
+</div>
 
-    <div>
-        <div class="brand-title">
-            মাদরাসায়ে নূরুল কুরআন
-        </div>
-
-        <div class="brand-sub">
-            STUDENT MANAGEMENT SYSTEM
-        </div>
-    </div>
-
-    <a href="dashboard.html" class="dashboard-link">
-        ← Dashboard
-    </a>
-
+<a href="dashboard.html" class="dashboard-link">
+← Dashboard
+</a>
 </header>
-
 
 <main class="container">
 
-    <div class="page-heading">
-
-        <h1>
-            Student Management
-        </h1>
-
-        <p>
-            শিক্ষার্থীদের তথ্য সংরক্ষণ, সম্পাদনা ও ব্যবস্থাপনা
-        </p>
-
-    </div>
-
-
-    <!-- STATS -->
-
-    <section class="stats">
-
-        <div class="stat-box">
-
-            <div class="stat-label">
-                মোট শিক্ষার্থী
-            </div>
-
-            <div
-                class="stat-number"
-                id="totalStudents">
-                0
-            </div>
-
-        </div>
-
-
-        <div class="stat-box">
-
-            <div class="stat-label">
-                দৃশ্যমান শিক্ষার্থী
-            </div>
-
-            <div
-                class="stat-number"
-                id="visibleStudents">
-                0
-            </div>
-
-        </div>
-
-
-        <div class="stat-box">
-
-            <div class="stat-label">
-                Pending Admission
-            </div>
-
-            <div
-                class="stat-number"
-                id="onlineAdmissionCount">
-                —
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- ADMISSION -->
-
-    <section class="box">
-
-        <div class="box-header">
-
-            <div>
-
-                <div class="box-title">
-                    Online Admission
-                </div>
-
-                <div class="box-description">
-                    Website থেকে আসা application এখানে দেখা যাবে।
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="admission-info">
-
-            <div>
-
-                <strong>
-                    Online Application System
-                </strong>
-
-                <span>
-                    Online আবেদন Pending থাকবে।
-                    Approval হওয়ার পর Student হিসেবে যুক্ত করা যাবে।
-                </span>
-
-            </div>
-
-
-            <a
-                href="admission.html"
-                target="_blank"
-                class="admission-link">
-
-                Open Admission Form
-
-            </a>
-
-        </div>
-
-    </section>
-
-
-    <!-- ADD / EDIT -->
-
-    <section class="box">
-
-        <div class="box-header">
-
-            <div>
-
-                <div
-                    class="box-title"
-                    id="formTitle">
-
-                    Add Student
-
-                </div>
-
-                <div class="box-description">
-                    Manual student entry
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <form id="studentForm">
-
-            <input
-                type="hidden"
-                id="editId">
-
-
-            <div class="form-grid">
-
-
-                <div class="form-group">
-
-                    <label>
-                        Student ID
-                    </label>
-
-                    <input
-                        id="studentId"
-                        readonly
-                        placeholder="Auto generated">
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Student Name *
-                    </label>
-
-                    <input
-                        id="name"
-                        required
-                        placeholder="শিক্ষার্থীর পূর্ণ নাম">
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Father's Name
-                    </label>
-
-                    <input
-                        id="father"
-                        placeholder="পিতার নাম">
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Mother's Name
-                    </label>
-
-                    <input
-                        id="mother"
-                        placeholder="মাতার নাম">
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Mobile
-                    </label>
-
-                    <input
-                        id="phone"
-                        type="tel"
-                        placeholder="মোবাইল নম্বর">
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Class *
-                    </label>
-
-                    <select
-                        id="classId"
-                        required>
-
-                        <option value="">
-                            শ্রেণি নির্বাচন করুন
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Admission Date
-                    </label>
-
-                    <input
-                        id="admissionDate"
-                        type="date">
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Student Photo
-                    </label>
-
-                    <input
-                        id="photo"
-                        type="file"
-                        accept="image/*">
-
-                </div>
-
-
-                <div class="form-group full">
-
-                    <label>
-                        Address
-                    </label>
-
-                    <textarea
-                        id="address"
-                        placeholder="শিক্ষার্থীর ঠিকানা">
-                    </textarea>
-
-                </div>
-
-
-                <div class="form-group full">
-
-                    <div class="form-note">
-
-                        Student ID manually দিতে হবে না।
-                        New student save করলে system automatic
-                        Student ID generate করবে।
-
-                    </div>
-
-                </div>
-
-
-                <div class="form-group full">
-
-                    <div class="buttons">
-
-                        <button
-                            type="submit"
-                            class="btn-primary"
-                            id="saveBtn">
-
-                            Save Student
-
-                        </button>
-
-
-                        <button
-                            type="button"
-                            class="btn-secondary"
-                            id="cancelBtn"
-                            style="display:none">
-
-                            Cancel
-
-                        </button>
-
-                    </div>
-
-
-                    <div
-                        id="msg"
-                        class="message">
-                    </div>
-
-                </div>
-
-            </div>
-
-        </form>
-
-    </section>
-
-
-    <!-- STUDENT LIST -->
-
-    <section class="box">
-
-        <div class="box-header">
-
-            <div>
-
-                <div class="box-title">
-                    Student List
-                </div>
-
-                <div class="box-description">
-                    সকল শিক্ষার্থীর তালিকা
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="search-row">
-
-            <div class="search-box">
-
-                <input
-                    id="search"
-                    placeholder="Student ID, নাম অথবা মোবাইল দিয়ে খুঁজুন...">
-
-            </div>
-
-        </div>
-
-
-        <div class="table-wrap">
-
-            <table>
-
-                <thead>
-
-                    <tr>
-
-                        <th>Photo</th>
-                        <th>Student ID</th>
-                        <th>নাম</th>
-                        <th>পিতা</th>
-                        <th>মোবাইল</th>
-                        <th>শ্রেণি</th>
-                        <th>ভর্তি তারিখ</th>
-                        <th>Action</th>
-
-                    </tr>
-
-                </thead>
-
-
-                <tbody id="studentList">
-
-                    <tr>
-
-                        <td
-                            colspan="8"
-                            class="center">
-
-                            <div class="loading-line"></div>
-
-                            Loading...
-
-                        </td>
-
-                    </tr>
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-    </section>
+<div class="page-heading">
+<h1>Student Management</h1>
+<p>শিক্ষার্থীদের তথ্য সংরক্ষণ, সম্পাদনা ও ব্যবস্থাপনা</p>
+</div>
+
+<div class="stats">
+
+<div class="stat-box">
+<div class="stat-label">মোট শিক্ষার্থী</div>
+<div class="stat-number" id="totalStudents">0</div>
+</div>
+
+<div class="stat-box">
+<div class="stat-label">দৃশ্যমান শিক্ষার্থী</div>
+<div class="stat-number" id="visibleStudents">0</div>
+</div>
+
+<div class="stat-box">
+<div class="stat-label">বর্তমান Session</div>
+<div class="stat-number" id="currentSession">-</div>
+</div>
+
+<div class="stat-box">
+<div class="stat-label">Pending Admission</div>
+<div class="stat-number" id="onlineAdmissionCount">0</div>
+</div>
+
+</div>
+
+<section class="box">
+
+<div class="box-header">
+<div class="box-title">➕ Add Student</div>
+<div class="box-description">
+Session অনুযায়ী শিক্ষার্থীর তথ্য সংরক্ষণ করুন
+</div>
+</div>
+
+<div class="session-info">
+<strong>Current Session:</strong>
+<span id="sessionText">Loading...</span>
+</div>
+
+<form id="studentForm">
+
+<input type="hidden" id="editId">
+
+<div class="form-grid">
+
+<div class="form-group">
+<label>Student ID</label>
+<input id="studentId" readonly placeholder="Auto generated">
+</div>
+
+<div class="form-group">
+<label>Student Name *</label>
+<input id="name" required placeholder="শিক্ষার্থীর পূর্ণ নাম">
+</div>
+
+<div class="form-group">
+<label>Father's Name</label>
+<input id="father" placeholder="পিতার নাম">
+</div>
+
+<div class="form-group">
+<label>Mother's Name</label>
+<input id="mother" placeholder="মাতার নাম">
+</div>
+
+<div class="form-group">
+<label>Mobile</label>
+<input id="phone" type="tel" placeholder="মোবাইল নম্বর">
+</div>
+
+<div class="form-group">
+<label>Session *</label>
+<select id="session" required>
+<option value="">Session নির্বাচন করুন</option>
+<option value="2026-27">2026-27</option>
+<option value="2027-28">2027-28</option>
+<option value="2028-29">2028-29</option>
+<option value="2029-30">2029-30</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>Class *</label>
+<select id="classId" required>
+<option value="">শ্রেণি নির্বাচন করুন</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>Admission Date</label>
+<input id="admissionDate" type="date">
+</div>
+
+<div class="form-group">
+<label>Student Photo</label>
+<input id="photo" type="file" accept="image/*">
+</div>
+
+<div class="form-group full">
+<label>Address</label>
+<textarea id="address" placeholder="শিক্ষার্থীর ঠিকানা"></textarea>
+</div>
+
+<div class="form-group full">
+<div class="buttons">
+
+<button type="submit" class="btn-primary" id="saveBtn">
+💾 Save Student
+</button>
+
+<button type="button" class="btn-secondary" id="cancelBtn" style="display:none">
+Cancel
+</button>
+
+</div>
+
+<div id="msg" class="message"></div>
+</div>
+
+</div>
+
+</form>
+</section>
+
+<section class="box">
+
+<div class="box-header">
+<div class="box-title">👨‍🎓 Student List</div>
+<div class="box-description">
+Session অনুযায়ী শিক্ষার্থীদের তালিকা
+</div>
+</div>
+
+<div class="search-row">
+
+<input
+id="search"
+placeholder="Student ID, নাম অথবা মোবাইল দিয়ে খুঁজুন...">
+
+<select id="filterSession">
+<option value="">All Sessions</option>
+<option value="2026-27">2026-27</option>
+<option value="2027-28">2027-28</option>
+<option value="2028-29">2028-29</option>
+<option value="2029-30">2029-30</option>
+</select>
+
+</div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+<tr>
+<th>Photo</th>
+<th>Student ID</th>
+<th>নাম</th>
+<th>পিতা</th>
+<th>মোবাইল</th>
+<th>Session</th>
+<th>Class</th>
+<th>ভর্তি তারিখ</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody id="studentList">
+<tr>
+<td colspan="9" class="center">
+<div class="loading"></div>
+Loading...
+</td>
+</tr>
+</tbody>
+
+</table>
+
+</div>
+
+</section>
 
 </main>
 
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-
 <script>
-
-/* =====================================================
-   SUPABASE
-===================================================== */
 
 const SUPABASE_URL =
 "https://qavublwhqiqsgpcmfyft.supabase.co";
@@ -943,1255 +409,822 @@ const SUPABASE_KEY =
 
 const db =
 window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
+SUPABASE_URL,
+SUPABASE_KEY
 );
 
-
-/* =====================================================
-   GLOBAL
-===================================================== */
-
-let students = [];
-let classes = [];
+let students=[];
+let classes=[];
+let currentUser=null;
 
 
-/* =====================================================
-   SESSION CHECK
-===================================================== */
+/* =========================
+   SESSION
+========================= */
 
-async function checkSession(){
+const SESSION_LIST=[
+"2026-27",
+"2027-28",
+"2028-29",
+"2029-30"
+];
 
-    const {
-        data,
-        error
-    } = await db.auth.getSession();
+function getCurrentSession(){
 
-
-    if(error){
-
-        console.error(
-            "Session error:",
-            error.message
-        );
-
-        location.href =
-            "admin.html";
-
-        return false;
-
-    }
-
-
-    const session =
-        data?.session;
-
-
-    if(!session){
-
-        location.href =
-            "admin.html";
-
-        return false;
-
-    }
-
-
-    console.log(
-        "Logged in:",
-        session.user.email
-    );
-
-
-    return true;
+return "2026-27";
 
 }
 
 
-/* =====================================================
-   AUTH STATE
-===================================================== */
-
-db.auth.onAuthStateChange(
-    (event, session)=>{
-
-        if(
-            event === "SIGNED_OUT" ||
-            !session
-        ){
-
-            location.href =
-                "admin.html";
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   START
-===================================================== */
+/* =========================
+   START + AUTH SESSION
+========================= */
 
 async function start(){
 
-    /* FIRST SESSION CHECK */
+try{
 
-    const loggedIn =
-        await checkSession();
+const {
+data:{session},
+error
+}=await db.auth.getSession();
 
+if(error) throw error;
 
-    if(!loggedIn){
+if(!session){
 
-        return;
+location.href="admin.html";
+return;
 
-    }
+}
 
+currentUser=session;
 
-    /* THEN LOAD DATA */
+const current=getCurrentSession();
 
-    await loadClasses();
+document.getElementById("session").value=current;
+document.getElementById("filterSession").value=current;
 
-    await loadStudents();
+document.getElementById("currentSession").textContent=current;
+document.getElementById("sessionText").textContent=current;
 
-    await loadOnlineAdmissionCount();
+await Promise.all([
+loadClasses(),
+loadStudents(),
+loadOnlineAdmissionCount()
+]);
+
+}catch(error){
+
+showMessage(error.message,"error");
+
+}
 
 }
 
 
-/* =====================================================
+/* =========================
+   KEEP LOGIN SESSION
+========================= */
+
+db.auth.onAuthStateChange(
+(event,session)=>{
+
+if(!session){
+
+location.href="admin.html";
+
+}
+
+}
+);
+
+
+/* =========================
    LOAD CLASSES
-===================================================== */
+========================= */
 
 async function loadClasses(){
 
-    const select =
-        document.getElementById(
-            "classId"
-        );
+const select=
+document.getElementById("classId");
 
+const {
+data,
+error
+}=await db
+.from("classes")
+.select("id,name")
+.order("id");
 
-    const {
-        data,
-        error
-    } = await db
-        .from("classes")
-        .select("id,name")
-        .order("id");
+if(error){
 
+showMessage(
+"Class load error: "+error.message,
+"error"
+);
 
-    if(error){
+return;
 
-        showMessage(
-            "Class load error: " +
-            error.message,
-            "error"
-        );
+}
 
-        return;
+classes=data||[];
 
-    }
+select.innerHTML=
+'<option value="">শ্রেণি নির্বাচন করুন</option>';
 
+classes.forEach(c=>{
 
-    classes =
-        data || [];
+const option=
+document.createElement("option");
 
+option.value=c.id;
+option.textContent=c.name;
 
-    select.innerHTML =
-        `<option value="">
-            শ্রেণি নির্বাচন করুন
-        </option>`;
+select.appendChild(option);
 
-
-    classes.forEach(c=>{
-
-        const option =
-            document.createElement(
-                "option"
-            );
-
-
-        option.value =
-            c.id;
-
-
-        option.textContent =
-            c.name;
-
-
-        select.appendChild(
-            option
-        );
-
-    });
+});
 
 }
 
 
-/* =====================================================
+/* =========================
    LOAD STUDENTS
-===================================================== */
+========================= */
 
 async function loadStudents(){
 
-    const tbody =
-        document.getElementById(
-            "studentList"
-        );
+const tbody=
+document.getElementById("studentList");
 
+tbody.innerHTML=`
+<tr>
+<td colspan="9" class="center">
+<div class="loading"></div>
+Loading...
+</td>
+</tr>`;
 
-    tbody.innerHTML = `
-        <tr>
-            <td colspan="8" class="center">
-                <div class="loading-line"></div>
-                Loading...
-            </td>
-        </tr>
-    `;
+const {
+data,
+error
+}=await db
+.from("students")
+.select(`
+id,
+student_id,
+name,
+father_name,
+mother_name,
+phone,
+class_id,
+session,
+admission_date,
+address,
+photo_url,
+created_at,
+classes(name)
+`)
+.order(
+"created_at",
+{ascending:false}
+);
 
+if(error){
 
-    const {
-        data,
-        error
-    } = await db
-        .from("students")
-        .select(`
-            id,
-            student_id,
-            name,
-            father_name,
-            mother_name,
-            phone,
-            class_id,
-            admission_date,
-            address,
-            photo_url,
-            created_at,
-            classes(name)
-        `)
-        .order(
-            "created_at",
-            {
-                ascending:false
-            }
-        );
+tbody.innerHTML=`
+<tr>
+<td colspan="9" class="center">
+❌ ${escapeHtml(error.message)}
+</td>
+</tr>`;
 
+return;
 
-    if(error){
+}
 
-        tbody.innerHTML = `
-            <tr>
-                <td colspan="8" class="center">
-                    ❌ ${escapeHtml(
-                        error.message
-                    )}
-                </td>
-            </tr>
-        `;
+students=data||[];
 
-        return;
-
-    }
-
-
-    students =
-        data || [];
-
-
-    updateStats();
-
-    render(students);
+updateStats();
+applyFilters();
 
 }
 
 
-/* =====================================================
+/* =========================
    ADMISSION COUNT
-===================================================== */
+========================= */
 
 async function loadOnlineAdmissionCount(){
 
-    const {
-        count,
-        error
-    } = await db
-        .from(
-            "admission_applications"
-        )
-        .select(
-            "id",
-            {
-                count:"exact",
-                head:true
-            }
-        )
-        .eq(
-            "status",
-            "pending"
-        );
+const {
+count,
+error
+}=await db
+.from("admission_applications")
+.select("id",{
+count:"exact",
+head:true
+})
+.eq("status","pending");
 
+if(!error){
 
-    if(error){
+document.getElementById(
+"onlineAdmissionCount"
+).textContent=count||0;
 
-        document.getElementById(
-            "onlineAdmissionCount"
-        ).textContent = "—";
-
-        return;
-
-    }
-
-
-    document.getElementById(
-        "onlineAdmissionCount"
-    ).textContent =
-        count || 0;
+}
 
 }
 
 
-/* =====================================================
+/* =========================
    STATS
-===================================================== */
+========================= */
 
 function updateStats(){
 
-    document.getElementById(
-        "totalStudents"
-    ).textContent =
-        students.length;
-
-
-    document.getElementById(
-        "visibleStudents"
-    ).textContent =
-        students.length;
+document.getElementById(
+"totalStudents"
+).textContent=students.length;
 
 }
 
 
-/* =====================================================
+/* =========================
+   FILTER
+========================= */
+
+function applyFilters(){
+
+const q=
+document.getElementById("search")
+.value
+.toLowerCase()
+.trim();
+
+const selectedSession=
+document.getElementById("filterSession")
+.value;
+
+let list=students.filter(s=>{
+
+const sessionMatch=
+!selectedSession ||
+String(s.session||"")===selectedSession;
+
+const searchMatch=
+!q ||
+String(s.student_id||"")
+.toLowerCase()
+.includes(q) ||
+String(s.name||"")
+.toLowerCase()
+.includes(q) ||
+String(s.phone||"")
+.toLowerCase()
+.includes(q);
+
+return sessionMatch && searchMatch;
+
+});
+
+render(list);
+
+}
+
+
+/* =========================
    RENDER
-===================================================== */
+========================= */
 
 function render(list){
 
-    const tbody =
-        document.getElementById(
-            "studentList"
-        );
+const tbody=
+document.getElementById("studentList");
 
+document.getElementById(
+"visibleStudents"
+).textContent=list.length;
 
-    document.getElementById(
-        "visibleStudents"
-    ).textContent =
-        list.length;
+if(!list.length){
 
+tbody.innerHTML=`
+<tr>
+<td colspan="9" class="center">
+কোনো Student পাওয়া যায়নি
+</td>
+</tr>`;
 
-    if(!list.length){
+return;
 
-        tbody.innerHTML = `
-            <tr>
-                <td colspan="8" class="center">
-                    কোনো Student পাওয়া যায়নি
-                </td>
-            </tr>
-        `;
+}
 
-        return;
+tbody.innerHTML=list.map(s=>{
 
-    }
+const photo=s.photo_url
+? `<img src="${escapeHtml(s.photo_url)}" class="photo">`
+: `<span class="badge">No Photo</span>`;
 
+return `
+<tr>
 
-    tbody.innerHTML =
-        list.map(s=>{
+<td>${photo}</td>
 
-            const photo =
-                s.photo_url
-                ? `
-                    <img
-                        src="${escapeHtml(
-                            s.photo_url
-                        )}"
-                        class="photo-preview"
-                        alt="Student">
-                  `
-                : `
-                    <div class="no-photo">
-                        No Photo
-                    </div>
-                  `;
+<td>
+<span class="student-id">
+${escapeHtml(s.student_id||"-")}
+</span>
+</td>
 
+<td>${escapeHtml(s.name||"-")}</td>
 
-            return `
+<td>${escapeHtml(s.father_name||"-")}</td>
 
-                <tr>
+<td>${escapeHtml(s.phone||"-")}</td>
 
-                    <td>
-                        ${photo}
-                    </td>
+<td>
+<span class="badge">
+${escapeHtml(s.session||"-")}
+</span>
+</td>
 
+<td>
+<span class="badge">
+${escapeHtml(s.classes?.name||"-")}
+</span>
+</td>
 
-                    <td>
+<td>${escapeHtml(s.admission_date||"-")}</td>
 
-                        <span class="student-id">
+<td>
+<div class="action-buttons">
 
-                            ${escapeHtml(
-                                s.student_id || "-"
-                            )}
+<button
+class="btn-edit"
+onclick="editStudent('${s.id}')">
+Edit
+</button>
 
-                        </span>
+<button
+class="btn-danger"
+onclick="deleteStudent('${s.id}')">
+Delete
+</button>
 
-                    </td>
+</div>
+</td>
 
+</tr>
+`;
 
-                    <td>
-                        ${escapeHtml(
-                            s.name || "-"
-                        )}
-                    </td>
-
-
-                    <td>
-                        ${escapeHtml(
-                            s.father_name || "-"
-                        )}
-                    </td>
-
-
-                    <td>
-                        ${escapeHtml(
-                            s.phone || "-"
-                        )}
-                    </td>
-
-
-                    <td>
-
-                        <span class="class-badge">
-
-                            ${escapeHtml(
-                                s.classes?.name || "-"
-                            )}
-
-                        </span>
-
-                    </td>
-
-
-                    <td>
-                        ${escapeHtml(
-                            s.admission_date || "-"
-                        )}
-                    </td>
-
-
-                    <td>
-
-                        <div class="action-buttons">
-
-                            <button
-                                class="btn-edit"
-                                onclick="editStudent('${s.id}')">
-
-                                Edit
-
-                            </button>
-
-
-                            <button
-                                class="btn-danger"
-                                onclick="deleteStudent('${s.id}')">
-
-                                Delete
-
-                            </button>
-
-                        </div>
-
-                    </td>
-
-                </tr>
-
-            `;
-
-        }).join("");
+}).join("");
 
 }
 
 
-/* =====================================================
+/* =========================
    PHOTO UPLOAD
-===================================================== */
+========================= */
 
 async function uploadStudentPhoto(){
 
-    const file =
-        document.getElementById(
-            "photo"
-        ).files[0];
+const file=
+document.getElementById("photo").files[0];
 
+if(!file)return null;
 
-    if(!file){
+const ext=
+file.name.split(".").pop();
 
-        return null;
+const fileName=
+"student_"+Date.now()+"_"+
+Math.random().toString(36)
+.substring(2)+"."+ext;
 
-    }
+const {error}=
+await db.storage
+.from("student-photo")
+.upload(fileName,file,{
+upsert:false
+});
 
+if(error){
 
-    const extension =
-        file.name
-        .split(".")
-        .pop();
+throw new Error(
+"Photo upload failed: "+error.message
+);
 
+}
 
-    const fileName =
-        "student_" +
-        Date.now() +
-        "_" +
-        Math.random()
-            .toString(36)
-            .substring(2) +
-        "." +
-        extension;
+const {data}=
+db.storage
+.from("student-photo")
+.getPublicUrl(fileName);
 
-
-    const {
-        error
-    } = await db.storage
-        .from("student-photo")
-        .upload(
-            fileName,
-            file,
-            {
-                upsert:false
-            }
-        );
-
-
-    if(error){
-
-        throw new Error(
-            "Photo upload failed: " +
-            error.message
-        );
-
-    }
-
-
-    const {
-        data
-    } =
-        db.storage
-        .from("student-photo")
-        .getPublicUrl(
-            fileName
-        );
-
-
-    return data.publicUrl;
+return data.publicUrl;
 
 }
 
 
-/* =====================================================
-   GENERATE STUDENT ID
-===================================================== */
+/* =========================
+   STUDENT ID
+========================= */
 
 async function generateStudentId(){
 
-    const {
-        data,
-        error
-    } = await db.rpc(
-        "next_student_id"
-    );
+const {
+data,
+error
+}=await db.rpc(
+"next_student_id"
+);
 
+if(error){
 
-    if(error){
+throw new Error(
+"Student ID generate failed: "+
+error.message
+);
 
-        throw new Error(
-            "Student ID generate failed: " +
-            error.message
-        );
+}
 
-    }
-
-
-    return data;
+return data;
 
 }
 
 
-/* =====================================================
-   SAVE STUDENT
-===================================================== */
+/* =========================
+   SAVE / UPDATE
+========================= */
 
 document
 .getElementById("studentForm")
 .addEventListener(
-    "submit",
-    async function(e){
+"submit",
+async e=>{
 
-        e.preventDefault();
+e.preventDefault();
 
+const editId=
+document.getElementById("editId").value;
 
-        /* SESSION CHECK AGAIN */
+const msg=
+document.getElementById("msg");
 
-        const loggedIn =
-            await checkSession();
+const saveBtn=
+document.getElementById("saveBtn");
 
+saveBtn.disabled=true;
 
-        if(!loggedIn){
+msg.className="message";
+msg.textContent="Saving...";
 
-            return;
+try{
 
-        }
+let photoUrl=null;
 
+if(
+document.getElementById("photo")
+.files[0]
+){
 
-        const editId =
-            document.getElementById(
-                "editId"
-            ).value;
+photoUrl=
+await uploadStudentPhoto();
+
+}
+
+const student={
+
+name:
+document.getElementById("name")
+.value.trim(),
+
+father_name:
+document.getElementById("father")
+.value.trim(),
+
+mother_name:
+document.getElementById("mother")
+.value.trim(),
+
+phone:
+document.getElementById("phone")
+.value.trim(),
+
+session:
+document.getElementById("session")
+.value,
+
+class_id:
+document.getElementById("classId")
+.value,
+
+admission_date:
+document.getElementById("admissionDate")
+.value||null,
 
+address:
+document.getElementById("address")
+.value.trim()
 
-        const msg =
-            document.getElementById(
-                "msg"
-            );
+};
 
+if(!editId){
 
-        const saveBtn =
-            document.getElementById(
-                "saveBtn"
-            );
+student.student_id=
+await generateStudentId();
 
+if(photoUrl)
+student.photo_url=photoUrl;
 
-        saveBtn.disabled =
-            true;
+const {
+data,
+error
+}=await db
+.from("students")
+.insert(student)
+.select(`
+id,
+student_id,
+name,
+father_name,
+mother_name,
+phone,
+class_id,
+session,
+admission_date,
+address,
+photo_url,
+created_at,
+classes(name)
+`)
+.single();
 
+if(error)throw error;
 
-        msg.className =
-            "message";
+students.unshift(data);
 
+msg.className="message success";
 
-        msg.textContent =
-            "Saving...";
+msg.textContent=
+"Student added successfully. ID: "+
+data.student_id;
 
+}else{
 
-        try{
+if(photoUrl)
+student.photo_url=photoUrl;
 
-            let photoUrl =
-                null;
+const {
+data,
+error
+}=await db
+.from("students")
+.update(student)
+.eq("id",editId)
+.select(`
+id,
+student_id,
+name,
+father_name,
+mother_name,
+phone,
+class_id,
+session,
+admission_date,
+address,
+photo_url,
+created_at,
+classes(name)
+`)
+.single();
 
+if(error)throw error;
 
-            const selectedFile =
-                document
-                .getElementById(
-                    "photo"
-                )
-                .files[0];
+const index=
+students.findIndex(
+x=>String(x.id)===String(editId)
+);
 
+if(index!==-1)
+students[index]=data;
 
-            if(selectedFile){
+msg.className="message success";
+msg.textContent=
+"Student updated successfully.";
 
-                photoUrl =
-                    await uploadStudentPhoto();
+}
 
-            }
+updateStats();
+applyFilters();
 
+setTimeout(resetForm,900);
 
-            const student = {
+}catch(error){
 
-                name:
-                    document
-                    .getElementById(
-                        "name"
-                    )
-                    .value
-                    .trim(),
+msg.className="message error";
+msg.textContent=error.message;
 
-                father_name:
-                    document
-                    .getElementById(
-                        "father"
-                    )
-                    .value
-                    .trim(),
+}finally{
 
-                mother_name:
-                    document
-                    .getElementById(
-                        "mother"
-                    )
-                    .value
-                    .trim(),
+saveBtn.disabled=false;
 
-                phone:
-                    document
-                    .getElementById(
-                        "phone"
-                    )
-                    .value
-                    .trim(),
+}
 
-                class_id:
-                    document
-                    .getElementById(
-                        "classId"
-                    )
-                    .value,
-
-                admission_date:
-                    document
-                    .getElementById(
-                        "admissionDate"
-                    )
-                    .value
-                    || null,
-
-                address:
-                    document
-                    .getElementById(
-                        "address"
-                    )
-                    .value
-                    .trim()
-
-            };
-
-
-            /* ADD */
-
-            if(!editId){
-
-                const generatedId =
-                    await generateStudentId();
-
-
-                student.student_id =
-                    generatedId;
-
-
-                if(photoUrl){
-
-                    student.photo_url =
-                        photoUrl;
-
-                }
-
-
-                const {
-                    data,
-                    error
-                } = await db
-                    .from("students")
-                    .insert(student)
-                    .select(`
-                        id,
-                        student_id,
-                        name,
-                        father_name,
-                        mother_name,
-                        phone,
-                        class_id,
-                        admission_date,
-                        address,
-                        photo_url,
-                        created_at,
-                        classes(name)
-                    `)
-                    .single();
-
-
-                if(error){
-
-                    throw error;
-
-                }
-
-
-                students.unshift(
-                    data
-                );
-
-
-                msg.className =
-                    "message success";
-
-
-                msg.textContent =
-                    "Student added successfully. ID: " +
-                    data.student_id;
-
-            }
-
-
-            /* UPDATE */
-
-            else{
-
-                if(photoUrl){
-
-                    student.photo_url =
-                        photoUrl;
-
-                }
-
-
-                const {
-                    data,
-                    error
-                } = await db
-                    .from("students")
-                    .update(student)
-                    .eq(
-                        "id",
-                        editId
-                    )
-                    .select(`
-                        id,
-                        student_id,
-                        name,
-                        father_name,
-                        mother_name,
-                        phone,
-                        class_id,
-                        admission_date,
-                        address,
-                        photo_url,
-                        created_at,
-                        classes(name)
-                    `)
-                    .single();
-
-
-                if(error){
-
-                    throw error;
-
-                }
-
-
-                const index =
-                    students.findIndex(
-                        x =>
-                        String(x.id) ===
-                        String(editId)
-                    );
-
-
-                if(index !== -1){
-
-                    students[index] =
-                        data;
-
-                }
-
-
-                msg.className =
-                    "message success";
-
-
-                msg.textContent =
-                    "Student updated successfully.";
-
-            }
-
-
-            updateStats();
-
-            render(students);
-
-
-            setTimeout(
-                resetForm,
-                1000
-            );
-
-
-        }catch(error){
-
-            msg.className =
-                "message error";
-
-
-            msg.textContent =
-                error.message;
-
-        }finally{
-
-            saveBtn.disabled =
-                false;
-
-        }
-
-    }
+}
 );
 
 
-/* =====================================================
+/* =========================
    EDIT
-===================================================== */
+========================= */
 
 function editStudent(id){
 
-    const student =
-        students.find(
-            x =>
-            String(x.id) ===
-            String(id)
-        );
+const student=
+students.find(
+x=>String(x.id)===String(id)
+);
 
+if(!student)return;
 
-    if(!student){
+document.getElementById("editId").value=
+student.id;
 
-        return;
+document.getElementById("studentId").value=
+student.student_id||"";
 
-    }
+document.getElementById("name").value=
+student.name||"";
 
+document.getElementById("father").value=
+student.father_name||"";
 
-    document.getElementById(
-        "editId"
-    ).value =
-        student.id;
+document.getElementById("mother").value=
+student.mother_name||"";
 
+document.getElementById("phone").value=
+student.phone||"";
 
-    document.getElementById(
-        "studentId"
-    ).value =
-        student.student_id || "";
+document.getElementById("session").value=
+student.session||getCurrentSession();
 
+document.getElementById("classId").value=
+student.class_id||"";
 
-    document.getElementById(
-        "name"
-    ).value =
-        student.name || "";
+document.getElementById("admissionDate").value=
+student.admission_date||"";
 
+document.getElementById("address").value=
+student.address||"";
 
-    document.getElementById(
-        "father"
-    ).value =
-        student.father_name || "";
+document.getElementById("saveBtn").textContent=
+"💾 Update Student";
 
+document.getElementById("cancelBtn").style.display=
+"inline-block";
 
-    document.getElementById(
-        "mother"
-    ).value =
-        student.mother_name || "";
-
-
-    document.getElementById(
-        "phone"
-    ).value =
-        student.phone || "";
-
-
-    document.getElementById(
-        "classId"
-    ).value =
-        student.class_id || "";
-
-
-    document.getElementById(
-        "admissionDate"
-    ).value =
-        student.admission_date || "";
-
-
-    document.getElementById(
-        "address"
-    ).value =
-        student.address || "";
-
-
-    document.getElementById(
-        "formTitle"
-    ).textContent =
-        "Edit Student";
-
-
-    document.getElementById(
-        "saveBtn"
-    ).textContent =
-        "Update Student";
-
-
-    document.getElementById(
-        "cancelBtn"
-    ).style.display =
-        "inline-block";
-
-
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
 
 }
 
 
-/* =====================================================
+/* =========================
    DELETE
-===================================================== */
+========================= */
 
 async function deleteStudent(id){
 
-    const loggedIn =
-        await checkSession();
+if(!confirm(
+"এই Student-কে Delete করতে চান?"
+))return;
 
+try{
 
-    if(!loggedIn){
+const {error}=
+await db
+.from("students")
+.delete()
+.eq("id",id);
 
-        return;
+if(error)throw error;
 
-    }
+students=
+students.filter(
+s=>String(s.id)!==String(id)
+);
 
+updateStats();
+applyFilters();
 
-    const student =
-        students.find(
-            s =>
-            String(s.id) ===
-            String(id)
-        );
+}catch(error){
 
+alert(error.message);
 
-    if(!student){
-
-        return;
-
-    }
-
-
-    if(!confirm(
-        "এই Student-কে Delete করতে চান?"
-    )){
-
-        return;
-
-    }
-
-
-    try{
-
-        const {
-            error
-        } = await db
-            .from("students")
-            .delete()
-            .eq(
-                "id",
-                id
-            );
-
-
-        if(error){
-
-            throw error;
-
-        }
-
-
-        students =
-            students.filter(
-                s =>
-                String(s.id) !==
-                String(id)
-            );
-
-
-        updateStats();
-
-        render(students);
-
-
-    }catch(error){
-
-        alert(
-            error.message
-        );
-
-    }
+}
 
 }
 
 
-/* =====================================================
+/* =========================
    RESET
-===================================================== */
+========================= */
 
 function resetForm(){
 
-    document
-    .getElementById(
-        "studentForm"
-    )
-    .reset();
+document
+.getElementById("studentForm")
+.reset();
 
+document.getElementById("editId").value="";
+document.getElementById("studentId").value="";
 
-    document.getElementById(
-        "editId"
-    ).value = "";
+document.getElementById("session").value=
+getCurrentSession();
 
+document.getElementById("formTitle").textContent=
+"➕ Add Student";
 
-    document.getElementById(
-        "studentId"
-    ).value = "";
+document.getElementById("saveBtn").textContent=
+"💾 Save Student";
 
+document.getElementById("cancelBtn").style.display=
+"none";
 
-    document.getElementById(
-        "formTitle"
-    ).textContent =
-        "Add Student";
-
-
-    document.getElementById(
-        "saveBtn"
-    ).textContent =
-        "Save Student";
-
-
-    document.getElementById(
-        "cancelBtn"
-    ).style.display =
-        "none";
-
-
-    document.getElementById(
-        "msg"
-    ).textContent = "";
+document.getElementById("msg").textContent="";
 
 }
 
 
-document
-.getElementById(
-    "cancelBtn"
-)
-.onclick =
-    resetForm;
-
-
-/* =====================================================
-   SEARCH
-===================================================== */
+/* =========================
+   SEARCH + SESSION FILTER
+========================= */
 
 document
-.getElementById(
-    "search"
-)
+.getElementById("search")
 .addEventListener(
-    "input",
-    function(){
+"input",
+applyFilters
+);
 
-        const q =
-            this.value
-            .toLowerCase()
-            .trim();
-
-
-        if(!q){
-
-            render(students);
-
-            return;
-
-        }
-
-
-        const filtered =
-            students.filter(
-                s =>
-
-                (s.student_id || "")
-                .toLowerCase()
-                .includes(q)
-
-                ||
-
-                (s.name || "")
-                .toLowerCase()
-                .includes(q)
-
-                ||
-
-                (s.phone || "")
-                .toLowerCase()
-                .includes(q)
-
-            );
-
-
-        render(filtered);
-
-    }
+document
+.getElementById("filterSession")
+.addEventListener(
+"change",
+applyFilters
 );
 
 
-/* =====================================================
-   MESSAGE
-===================================================== */
+/* =========================
+   CANCEL
+========================= */
 
-function showMessage(
-    text,
-    type=""
-){
-
-    const msg =
-        document.getElementById(
-            "msg"
-        );
+document
+.getElementById("cancelBtn")
+.onclick=resetForm;
 
 
-    msg.className =
-        "message " + type;
-
-
-    msg.textContent =
-        text;
-
-}
-
-
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
+/* =========================
+   ESCAPE
+========================= */
 
 function escapeHtml(value){
 
-    return String(value ?? "")
-
-        .replaceAll(
-            "&",
-            "&amp;"
-        )
-
-        .replaceAll(
-            "<",
-            "&lt;"
-        )
-
-        .replaceAll(
-            ">",
-            "&gt;"
-        )
-
-        .replaceAll(
-            '"',
-            "&quot;"
-        )
-
-        .replaceAll(
-            "'",
-            "&#039;"
-        );
+return String(value??"")
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
 
 }
 
 
-/* =====================================================
+/* =========================
+   MESSAGE
+========================= */
+
+function showMessage(text,type=""){
+
+const msg=
+document.getElementById("msg");
+
+msg.className=
+"message "+type;
+
+msg.textContent=text;
+
+}
+
+
+/* =========================
    START
-===================================================== */
+========================= */
 
 start();
 
