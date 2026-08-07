@@ -1,178 +1,964 @@
-
 <!DOCTYPE html>
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Students | মাদরাসায়ে নূরুল কুরআন</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,sans-serif;background:#f4f7f6;color:#222}
-.top{background:#075c43;color:white;padding:18px 25px;display:flex;justify-content:space-between;align-items:center}
-.top a{color:white;text-decoration:none}
-.container{max-width:1200px;margin:25px auto;padding:0 15px}
-.box{background:white;padding:22px;border-radius:12px;box-shadow:0 2px 10px #0001;margin-bottom:20px}
-h2{color:#075c43;margin-bottom:18px}
-.form{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-label{font-weight:bold;font-size:14px}
-input,select,textarea{width:100%;padding:11px;margin-top:6px;border:1px solid #ddd;border-radius:7px;font-size:14px}
-textarea{resize:vertical}
-.full{grid-column:1/-1}
-button{border:0;border-radius:7px;padding:11px 18px;background:#087f5b;color:white;font-weight:bold;cursor:pointer}
-button:disabled{opacity:.6;cursor:not-allowed}
-.cancel{background:#777;margin-left:8px}
-.search{margin-bottom:15px}
-table{width:100%;border-collapse:collapse}
-th,td{padding:12px 8px;border-bottom:1px solid #eee;text-align:left;font-size:14px}
-th{background:#075c43;color:white}
-.action{padding:7px 10px;font-size:12px;margin:2px}
-.delete{background:#c62828}
-#msg{margin-top:10px;font-size:14px;min-height:20px}
-.loading{text-align:center;padding:20px}
-@media(max-width:700px){
-.form{grid-template-columns:1fr}
-.full{grid-column:auto}
-.table-wrap{overflow-x:auto}
-table{min-width:800px}
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --primary:#087f5b;
+    --primary-dark:#056044;
+    --primary-light:#e9f7f2;
+    --bg:#f5f7f9;
+    --white:#ffffff;
+    --text:#17212b;
+    --muted:#6b7280;
+    --border:#e5e7eb;
+    --danger:#dc3545;
+    --warning:#d97706;
+    --shadow:0 8px 30px rgba(15,23,42,.07);
+}
+
+body{
+    font-family:
+        "Noto Sans Bengali",
+        "SolaimanLipi",
+        Arial,
+        sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    min-height:100vh;
+}
+
+/* =========================
+   TOP BAR
+========================= */
+
+.topbar{
+    background:var(--white);
+    border-bottom:1px solid var(--border);
+    min-height:72px;
+    padding:0 28px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.brand{
+    display:flex;
+    flex-direction:column;
+    gap:3px;
+}
+
+.brand-title{
+    color:var(--primary-dark);
+    font-size:20px;
+    font-weight:800;
+}
+
+.brand-sub{
+    font-size:11px;
+    color:var(--muted);
+    letter-spacing:.7px;
+}
+
+.dashboard-link{
+    color:var(--primary);
+    border:1px solid #cde9df;
+    background:var(--primary-light);
+    padding:9px 14px;
+    border-radius:8px;
+    text-decoration:none;
+    font-size:13px;
+    font-weight:700;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.container{
+    max-width:1250px;
+    margin:28px auto;
+    padding:0 18px 50px;
+}
+
+.page-heading{
+    margin-bottom:22px;
+}
+
+.page-heading h1{
+    font-size:27px;
+    margin-bottom:5px;
+}
+
+.page-heading p{
+    color:var(--muted);
+    font-size:14px;
+}
+
+/* =========================
+   STAT BOXES
+========================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+    margin-bottom:20px;
+}
+
+.stat-box{
+    background:var(--white);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:20px;
+    box-shadow:var(--shadow);
+}
+
+.stat-label{
+    color:var(--muted);
+    font-size:13px;
+    margin-bottom:8px;
+}
+
+.stat-number{
+    font-size:28px;
+    font-weight:800;
+    color:var(--primary-dark);
+}
+
+/* =========================
+   BOX
+========================= */
+
+.box{
+    background:var(--white);
+    border:1px solid var(--border);
+    border-radius:15px;
+    padding:24px;
+    box-shadow:var(--shadow);
+    margin-bottom:20px;
+}
+
+.box-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    margin-bottom:20px;
+}
+
+.box-title{
+    font-size:19px;
+    font-weight:800;
+    color:var(--primary-dark);
+}
+
+.box-description{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:4px;
+}
+
+/* =========================
+   FORM
+========================= */
+
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:16px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+}
+
+.form-group.full{
+    grid-column:1/-1;
+}
+
+label{
+    font-size:13px;
+    font-weight:700;
+    color:#374151;
+    margin-bottom:6px;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    border:1px solid var(--border);
+    background:#fff;
+    border-radius:9px;
+    padding:12px 13px;
+    font-size:14px;
+    outline:none;
+    transition:.2s;
+    font-family:inherit;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+    border-color:var(--primary);
+    box-shadow:0 0 0 3px rgba(8,127,91,.10);
+}
+
+input[readonly]{
+    background:#f1f5f9;
+    color:#475569;
+    cursor:not-allowed;
+}
+
+textarea{
+    min-height:90px;
+    resize:vertical;
+}
+
+.form-note{
+    background:var(--primary-light);
+    border:1px solid #cde9df;
+    color:var(--primary-dark);
+    padding:11px 13px;
+    border-radius:9px;
+    font-size:12px;
+    line-height:1.6;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.buttons{
+    display:flex;
+    gap:9px;
+    flex-wrap:wrap;
+    margin-top:4px;
+}
+
+button{
+    border:0;
+    border-radius:9px;
+    padding:11px 17px;
+    font-family:inherit;
+    font-size:13px;
+    font-weight:700;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.btn-primary{
+    background:var(--primary);
+    color:white;
+}
+
+.btn-primary:hover{
+    background:var(--primary-dark);
+}
+
+.btn-secondary{
+    background:#eef1f3;
+    color:#374151;
+}
+
+.btn-danger{
+    background:#fee2e2;
+    color:#b91c1c;
+}
+
+.btn-edit{
+    background:#e8f2ff;
+    color:#1769aa;
+}
+
+button:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+
+/* =========================
+   MESSAGE
+========================= */
+
+.message{
+    min-height:22px;
+    margin-top:12px;
+    font-size:13px;
+    font-weight:600;
+}
+
+.message.success{
+    color:#087f5b;
+}
+
+.message.error{
+    color:#c62828;
+}
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-row{
+    display:flex;
+    gap:12px;
+    align-items:center;
+    margin-bottom:16px;
+}
+
+.search-box{
+    flex:1;
+}
+
+.search-box input{
+    margin:0;
+}
+
+/* =========================
+   TABLE
+========================= */
+
+.table-wrap{
+    width:100%;
+    overflow-x:auto;
+    border:1px solid var(--border);
+    border-radius:11px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:900px;
+}
+
+thead th{
+    background:#f1f7f5;
+    color:var(--primary-dark);
+    font-size:12px;
+    font-weight:800;
+    padding:13px 11px;
+    text-align:left;
+    border-bottom:1px solid var(--border);
+    white-space:nowrap;
+}
+
+tbody td{
+    padding:13px 11px;
+    border-bottom:1px solid #f0f1f2;
+    font-size:13px;
+    vertical-align:middle;
+}
+
+tbody tr:hover{
+    background:#fafdfc;
+}
+
+tbody tr:last-child td{
+    border-bottom:0;
+}
+
+.student-id{
+    color:var(--primary-dark);
+    font-weight:800;
+}
+
+.class-badge{
+    display:inline-block;
+    background:var(--primary-light);
+    color:var(--primary-dark);
+    padding:5px 8px;
+    border-radius:6px;
+    font-size:11px;
+    font-weight:700;
+}
+
+.action-buttons{
+    display:flex;
+    gap:6px;
+}
+
+.action-buttons button{
+    padding:7px 10px;
+    font-size:11px;
+}
+
+.photo-preview{
+    width:40px;
+    height:40px;
+    border-radius:8px;
+    object-fit:cover;
+    border:1px solid var(--border);
+    background:#f3f4f6;
+}
+
+.no-photo{
+    width:40px;
+    height:40px;
+    border-radius:8px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#f1f5f9;
+    color:#94a3b8;
+    font-size:10px;
+}
+
+/* =========================
+   EMPTY / LOADING
+========================= */
+
+.center{
+    text-align:center;
+    padding:30px!important;
+    color:var(--muted);
+}
+
+.loading-line{
+    width:100%;
+    height:3px;
+    background:#e8f0ed;
+    overflow:hidden;
+    border-radius:10px;
+    margin-bottom:15px;
+}
+
+.loading-line::after{
+    content:"";
+    display:block;
+    height:100%;
+    width:40%;
+    background:var(--primary);
+    animation:loading 1.1s infinite;
+}
+
+@keyframes loading{
+    from{transform:translateX(-100%)}
+    to{transform:translateX(300%)}
+}
+
+/* =========================
+   ONLINE ADMISSION LINK
+========================= */
+
+.admission-info{
+    background:#f8fafc;
+    border:1px solid var(--border);
+    border-radius:11px;
+    padding:15px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+}
+
+.admission-info strong{
+    display:block;
+    margin-bottom:4px;
+    font-size:14px;
+}
+
+.admission-info span{
+    color:var(--muted);
+    font-size:12px;
+}
+
+.admission-link{
+    text-decoration:none;
+    background:var(--primary);
+    color:#fff;
+    padding:10px 14px;
+    border-radius:8px;
+    font-size:12px;
+    font-weight:700;
+    white-space:nowrap;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:800px){
+
+    .topbar{
+        padding:14px 16px;
+        min-height:auto;
+    }
+
+    .brand-title{
+        font-size:17px;
+    }
+
+    .brand-sub{
+        font-size:9px;
+    }
+
+    .dashboard-link{
+        padding:8px 10px;
+        font-size:11px;
+    }
+
+    .container{
+        margin:18px auto;
+        padding:0 12px 40px;
+    }
+
+    .page-heading h1{
+        font-size:23px;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .box{
+        padding:17px;
+        border-radius:12px;
+    }
+
+    .box-header{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .form-group.full{
+        grid-column:auto;
+    }
+
+    .search-row{
+        flex-direction:column;
+        align-items:stretch;
+    }
+
+    .admission-info{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .admission-link{
+        width:100%;
+        text-align:center;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<header class="top">
-<h2 style="color:white;margin:0">👨‍🎓 Student Management</h2>
-<a href="dashboard.html">← Dashboard</a>
+<header class="topbar">
+
+    <div class="brand">
+        <div class="brand-title">মাদরাসায়ে নূরুল কুরআন</div>
+        <div class="brand-sub">STUDENT MANAGEMENT SYSTEM</div>
+    </div>
+
+    <a href="dashboard.html" class="dashboard-link">
+        Dashboard
+    </a>
+
 </header>
 
-<div class="container">
 
-<div class="box">
+<main class="container">
 
-<h2 id="formTitle">➕ Add Student</h2>
-
-<form id="studentForm">
-
-<input type="hidden" id="editId">
-
-<div>
-<label>Student ID *</label>
-<input id="studentId" required placeholder="যেমন: NQ-001">
-</div>
-
-<div>
-<label>Student Name *</label>
-<input id="name" required placeholder="শিক্ষার্থীর নাম">
-</div>
-
-<div>
-<label>Father's Name</label>
-<input id="father" placeholder="পিতার নাম">
-</div>
-
-<div>
-<label>Mother's Name</label>
-<input id="mother" placeholder="মাতার নাম">
-</div>
-
-<div>
-<label>Mobile</label>
-<input id="phone" type="tel" placeholder="মোবাইল নম্বর">
-</div>
-
-<div>
-<label>Class *</label>
-<select id="classId" required>
-<option value="">শ্রেণি নির্বাচন করুন</option>
-</select>
-</div>
-
-<div>
-<label>Admission Date</label>
-<input id="admissionDate" type="date">
-</div>
-
-<div class="full">
-<label>Address</label>
-<textarea id="address" rows="2" placeholder="ঠিকানা"></textarea>
-</div>
-
-  <div class="full">
-
-<label>Student Photo</label>
-
-<input
-type="file"
-id="photo"
-accept="image/*">
-</div> 
-<div class="full">
-
-<button type="submit" id="saveBtn">
-💾 Save Student
-</button>
-
-<button type="button" class="cancel" id="cancelBtn" style="display:none">
-Cancel
-</button>
-
-<div id="msg"></div>
-
-</div>
-
-</form>
-</div>
+    <div class="page-heading">
+        <h1>Student Management</h1>
+        <p>শিক্ষার্থীদের তথ্য সংরক্ষণ, সম্পাদনা ও ব্যবস্থাপনা</p>
+    </div>
 
 
-<div class="box">
+    <!-- =========================
+         STATISTICS
+    ========================== -->
 
-<h2>👨‍🎓 Student List</h2>
+    <section class="stats">
 
-<input
-class="search"
-id="search"
-placeholder="🔍 ID বা নাম দিয়ে খুঁজুন..."
->
+        <div class="stat-box">
+            <div class="stat-label">মোট শিক্ষার্থী</div>
+            <div class="stat-number" id="totalStudents">0</div>
+        </div>
 
-<div class="table-wrap">
+        <div class="stat-box">
+            <div class="stat-label">দৃশ্যমান শিক্ষার্থী</div>
+            <div class="stat-number" id="visibleStudents">0</div>
+        </div>
 
-<table>
+        <div class="stat-box">
+            <div class="stat-label">অনলাইন Admission</div>
+            <div class="stat-number" id="onlineAdmissionCount">—</div>
+        </div>
 
-<thead>
-<tr>
-<th>ID</th>
-<th>নাম</th>
-<th>পিতা</th>
-<th>মোবাইল</th>
-<th>শ্রেণি</th>
-<th>ভর্তি তারিখ</th>
-<th>Action</th>
-</tr>
-</thead>
+    </section>
 
-<tbody id="studentList">
 
-<tr>
-<td colspan="7" class="loading">
-Loading...
-</td>
-</tr>
+    <!-- =========================
+         ONLINE ADMISSION
+    ========================== -->
 
-</tbody>
+    <section class="box">
 
-</table>
+        <div class="box-header">
 
-</div>
+            <div>
+                <div class="box-title">Online Admission</div>
 
-</div>
+                <div class="box-description">
+                    Website থেকে আসা application Dashboard থেকে approval করার পর
+                    শিক্ষার্থী হিসেবে যুক্ত হবে।
+                </div>
+            </div>
 
-</div>
+        </div>
+
+        <div class="admission-info">
+
+            <div>
+                <strong>Online Application System</strong>
+
+                <span>
+                    Online আবেদন প্রথমে Pending থাকবে।
+                    Approval হওয়ার আগে Student ID তৈরি হবে না।
+                </span>
+            </div>
+
+            <a
+                href="admission.html"
+                target="_blank"
+                class="admission-link">
+                Open Admission Form
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         ADD / EDIT STUDENT
+    ========================== -->
+
+    <section class="box">
+
+        <div class="box-header">
+
+            <div>
+                <div class="box-title" id="formTitle">
+                    Add Student
+                </div>
+
+                <div class="box-description">
+                    Manual student entry
+                </div>
+            </div>
+
+        </div>
+
+
+        <form id="studentForm">
+
+            <input
+                type="hidden"
+                id="editId">
+
+
+            <div class="form-grid">
+
+
+                <!-- STUDENT ID -->
+
+                <div class="form-group">
+
+                    <label for="studentId">
+                        Student ID
+                    </label>
+
+                    <input
+                        id="studentId"
+                        readonly
+                        placeholder="Auto generated">
+
+                </div>
+
+
+                <!-- NAME -->
+
+                <div class="form-group">
+
+                    <label for="name">
+                        Student Name *
+                    </label>
+
+                    <input
+                        id="name"
+                        required
+                        placeholder="শিক্ষার্থীর পূর্ণ নাম">
+
+                </div>
+
+
+                <!-- FATHER -->
+
+                <div class="form-group">
+
+                    <label for="father">
+                        Father's Name
+                    </label>
+
+                    <input
+                        id="father"
+                        placeholder="পিতার নাম">
+
+                </div>
+
+
+                <!-- MOTHER -->
+
+                <div class="form-group">
+
+                    <label for="mother">
+                        Mother's Name
+                    </label>
+
+                    <input
+                        id="mother"
+                        placeholder="মাতার নাম">
+
+                </div>
+
+
+                <!-- PHONE -->
+
+                <div class="form-group">
+
+                    <label for="phone">
+                        Mobile
+                    </label>
+
+                    <input
+                        id="phone"
+                        type="tel"
+                        placeholder="মোবাইল নম্বর">
+
+                </div>
+
+
+                <!-- CLASS -->
+
+                <div class="form-group">
+
+                    <label for="classId">
+                        Class *
+                    </label>
+
+                    <select id="classId" required>
+
+                        <option value="">
+                            শ্রেণি নির্বাচন করুন
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- ADMISSION DATE -->
+
+                <div class="form-group">
+
+                    <label for="admissionDate">
+                        Admission Date
+                    </label>
+
+                    <input
+                        id="admissionDate"
+                        type="date">
+
+                </div>
+
+
+                <!-- PHOTO -->
+
+                <div class="form-group">
+
+                    <label for="photo">
+                        Student Photo
+                    </label>
+
+                    <input
+                        id="photo"
+                        type="file"
+                        accept="image/*">
+
+                </div>
+
+
+                <!-- ADDRESS -->
+
+                <div class="form-group full">
+
+                    <label for="address">
+                        Address
+                    </label>
+
+                    <textarea
+                        id="address"
+                        placeholder="শিক্ষার্থীর ঠিকানা"></textarea>
+
+                </div>
+
+
+                <!-- NOTE -->
+
+                <div class="form-group full">
+
+                    <div class="form-note">
+                        Student ID manually লিখতে হবে না।
+                        Manual entry-এর সময় system automatically
+                        পরবর্তী Student ID তৈরি করবে।
+                    </div>
+
+                </div>
+
+
+                <!-- BUTTON -->
+
+                <div class="form-group full">
+
+                    <div class="buttons">
+
+                        <button
+                            type="submit"
+                            class="btn-primary"
+                            id="saveBtn">
+                            Save Student
+                        </button>
+
+                        <button
+                            type="button"
+                            class="btn-secondary"
+                            id="cancelBtn"
+                            style="display:none">
+                            Cancel
+                        </button>
+
+                    </div>
+
+                    <div
+                        id="msg"
+                        class="message">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </section>
+
+
+    <!-- =========================
+         STUDENT LIST
+    ========================== -->
+
+    <section class="box">
+
+        <div class="box-header">
+
+            <div>
+                <div class="box-title">
+                    Student List
+                </div>
+
+                <div class="box-description">
+                    সকল অনুমোদিত শিক্ষার্থীর তালিকা
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="search-row">
+
+            <div class="search-box">
+
+                <input
+                    id="search"
+                    placeholder="Student ID, নাম অথবা মোবাইল দিয়ে খুঁজুন...">
+
+            </div>
+
+        </div>
+
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Photo</th>
+                        <th>Student ID</th>
+                        <th>নাম</th>
+                        <th>পিতা</th>
+                        <th>মোবাইল</th>
+                        <th>শ্রেণি</th>
+                        <th>ভর্তি তারিখ</th>
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="studentList">
+
+                    <tr>
+                        <td
+                            colspan="8"
+                            class="center">
+                            <div class="loading-line"></div>
+                            Loading...
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+</main>
 
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
+
+/* =====================================================
+   SUPABASE
+===================================================== */
 
 const SUPABASE_URL =
 "https://qavublwhqiqsgpcmfyft.supabase.co";
@@ -180,657 +966,1135 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
 
-const db = window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
+const db =
+window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
 );
-async function uploadStudentPhoto(){
 
-const file=document.getElementById("photo").files[0];
 
-if(!file) return "";
-
-const fileName=
-Date.now()+"_"+file.name;
-
-const {error}=await db.storage
-
-.from("student-photo")
-
-.upload(fileName,file,{
-
-upsert:true
-
-});
-
-if(error){
-
-alert(error.message);
-
-return "";
-
-}
-
-const {data}=db.storage
-
-.from("student-photo")
-
-.getPublicUrl(fileName);
-
-return data.publicUrl;
-
-}
+/* =====================================================
+   GLOBAL
+===================================================== */
 
 let students = [];
 let classes = [];
 
 
-// ===============================
-// START
-// ===============================
+/* =====================================================
+   START
+===================================================== */
 
 async function start(){
 
-try{
+    try{
 
-const {data:{session}} =
-await db.auth.getSession();
+        const {
+            data:{session}
+        } = await db.auth.getSession();
 
-if(!session){
 
-location.href = "admin.html";
-return;
+        if(!session){
+
+            location.href = "admin.html";
+            return;
+
+        }
+
+
+        await Promise.all([
+            loadClasses(),
+            loadStudents(),
+            loadOnlineAdmissionCount()
+        ]);
+
+
+    }catch(error){
+
+        showMessage(
+            error.message,
+            "error"
+        );
+
+    }
 
 }
 
 
-// দুইটা request একই সময়ে চলবে
-await Promise.all([
-loadClasses(),
-loadStudents()
-]);
-
-
-}catch(error){
-
-document.getElementById("studentList").innerHTML =
-`<tr>
-<td colspan="7">
-❌ ${escapeHtml(error.message)}
-</td>
-</tr>`;
-
-}
-
-}
-
-
-// ===============================
-// LOAD CLASSES
-// ===============================
+/* =====================================================
+   LOAD CLASSES
+===================================================== */
 
 async function loadClasses(){
 
-const select =
-document.getElementById("classId");
+    const select =
+        document.getElementById("classId");
 
 
-const {data,error} = await db
-.from("classes")
-.select("id,name")
-.order("id");
+    const {
+        data,
+        error
+    } = await db
+        .from("classes")
+        .select("id,name")
+        .order("id");
 
 
-if(error){
+    if(error){
 
-document.getElementById("msg").textContent =
-"❌ Class load error: " + error.message;
+        showMessage(
+            "Class load error: " + error.message,
+            "error"
+        );
 
-return;
+        return;
+
+    }
+
+
+    classes =
+        data || [];
+
+
+    select.innerHTML =
+        '<option value="">শ্রেণি নির্বাচন করুন</option>';
+
+
+    classes.forEach(c=>{
+
+        const option =
+            document.createElement("option");
+
+        option.value =
+            c.id;
+
+        option.textContent =
+            c.name;
+
+        select.appendChild(option);
+
+    });
 
 }
 
 
-classes = data || [];
-
-
-select.innerHTML =
-'<option value="">শ্রেণি নির্বাচন করুন</option>';
-
-
-classes.forEach(c=>{
-
-const option =
-document.createElement("option");
-
-option.value = c.id;
-
-option.textContent = c.name;
-
-select.appendChild(option);
-
-});
-
-}
-
-
-// ===============================
-// LOAD STUDENTS
-// ===============================
+/* =====================================================
+   LOAD STUDENTS
+===================================================== */
 
 async function loadStudents(){
 
-const tbody =
-document.getElementById("studentList");
+    const tbody =
+        document.getElementById("studentList");
 
 
-tbody.innerHTML =
-`<tr>
-<td colspan="7" class="loading">
-Loading...
-</td>
-</tr>`;
+    tbody.innerHTML = `
+        <tr>
+            <td colspan="8" class="center">
+                <div class="loading-line"></div>
+                Loading...
+            </td>
+        </tr>
+    `;
 
 
-const {data,error} = await db
-.from("students")
-.select(`
-id,
-student_id,
-name,
-father_name,
-mother_name,
-phone,
-class_id,
-admission_date,
-address,
-classes(name)
-`)
-.order("created_at",{ascending:false});
+    const {
+        data,
+        error
+    } = await db
+        .from("students")
+        .select(`
+            id,
+            student_id,
+            name,
+            father_name,
+            mother_name,
+            phone,
+            class_id,
+            admission_date,
+            address,
+            photo_url,
+            created_at,
+            classes(name)
+        `)
+        .order(
+            "created_at",
+            {ascending:false}
+        );
 
 
-if(error){
+    if(error){
 
-tbody.innerHTML =
-`<tr>
-<td colspan="7">
-❌ ${escapeHtml(error.message)}
-</td>
-</tr>`;
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="8" class="center">
+                    ${escapeHtml(error.message)}
+                </td>
+            </tr>
+        `;
 
-return;
+        return;
+
+    }
+
+
+    students =
+        data || [];
+
+
+    updateStats();
+
+    render(students);
 
 }
 
 
-students = data || [];
+/* =====================================================
+   ONLINE APPLICATION COUNT
+===================================================== */
 
-render(students);
+async function loadOnlineAdmissionCount(){
+
+    const {
+        count,
+        error
+    } = await db
+        .from("admission_applications")
+        .select(
+            "id",
+            {
+                count:"exact",
+                head:true
+            }
+        )
+        .eq(
+            "status",
+            "pending"
+        );
+
+
+    if(error){
+
+        document.getElementById(
+            "onlineAdmissionCount"
+        ).textContent = "—";
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "onlineAdmissionCount"
+    ).textContent =
+        count || 0;
 
 }
 
 
-// ===============================
-// RENDER
-// ===============================
+/* =====================================================
+   STATISTICS
+===================================================== */
+
+function updateStats(){
+
+    document.getElementById(
+        "totalStudents"
+    ).textContent =
+        students.length;
+
+
+    document.getElementById(
+        "visibleStudents"
+    ).textContent =
+        students.length;
+
+}
+
+
+/* =====================================================
+   RENDER
+===================================================== */
 
 function render(list){
 
-const tbody =
-document.getElementById("studentList");
+    const tbody =
+        document.getElementById(
+            "studentList"
+        );
 
 
-if(!list.length){
+    document.getElementById(
+        "visibleStudents"
+    ).textContent =
+        list.length;
 
-tbody.innerHTML =
-`<tr>
-<td colspan="7" style="text-align:center">
-কোনো Student পাওয়া যায়নি
-</td>
-</tr>`;
 
-return;
+    if(!list.length){
+
+        tbody.innerHTML = `
+            <tr>
+                <td
+                    colspan="8"
+                    class="center">
+                    কোনো Student পাওয়া যায়নি
+                </td>
+            </tr>
+        `;
+
+        return;
+
+    }
+
+
+    tbody.innerHTML =
+        list.map(s=>{
+
+            const photo =
+                s.photo_url
+                ? `
+                    <img
+                        src="${escapeHtml(s.photo_url)}"
+                        class="photo-preview"
+                        alt="Student">
+                  `
+                : `
+                    <div class="no-photo">
+                        No Photo
+                    </div>
+                  `;
+
+
+            return `
+
+                <tr>
+
+                    <td>
+                        ${photo}
+                    </td>
+
+                    <td>
+                        <span class="student-id">
+                            ${escapeHtml(
+                                s.student_id || "-"
+                            )}
+                        </span>
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            s.name || "-"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            s.father_name || "-"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            s.phone || "-"
+                        )}
+                    </td>
+
+                    <td>
+                        <span class="class-badge">
+                            ${escapeHtml(
+                                s.classes?.name || "-"
+                            )}
+                        </span>
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            s.admission_date || "-"
+                        )}
+                    </td>
+
+                    <td>
+
+                        <div class="action-buttons">
+
+                            <button
+                                class="btn-edit"
+                                onclick="editStudent('${s.id}')">
+                                Edit
+                            </button>
+
+                            <button
+                                class="btn-danger"
+                                onclick="deleteStudent('${s.id}')">
+                                Delete
+                            </button>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        }).join("");
 
 }
 
 
-tbody.innerHTML =
-list.map(s=>`
+/* =====================================================
+   PHOTO UPLOAD
+===================================================== */
 
-<tr>
+async function uploadStudentPhoto(){
 
-<td>
-${escapeHtml(s.student_id || "-")}
-</td>
+    const file =
+        document
+        .getElementById("photo")
+        .files[0];
 
-<td>
-${escapeHtml(s.name || "-")}
-</td>
 
-<td>
-${escapeHtml(s.father_name || "-")}
-</td>
+    if(!file){
 
-<td>
-${escapeHtml(s.phone || "-")}
-</td>
+        return null;
 
-<td>
-${escapeHtml(s.classes?.name || "-")}
-</td>
+    }
 
-<td>
-${escapeHtml(s.admission_date || "-")}
-</td>
 
-<td>
+    const extension =
+        file.name
+        .split(".")
+        .pop();
 
-<button
-class="action"
-onclick="editStudent('${s.id}')">
-Edit
-</button>
 
-<button
-class="action delete"
-onclick="deleteStudent('${s.id}')">
-Delete
-</button>
+    const fileName =
+        "student_" +
+        Date.now() +
+        "_" +
+        Math.random()
+        .toString(36)
+        .substring(2) +
+        "." +
+        extension;
 
-</td>
 
-</tr>
+    const {
+        error
+    } = await db.storage
+        .from("student-photo")
+        .upload(
+            fileName,
+            file,
+            {
+                upsert:false
+            }
+        );
 
-`).join("");
+
+    if(error){
+
+        throw new Error(
+            "Photo upload failed: " +
+            error.message
+        );
+
+    }
+
+
+    const {
+        data
+    } =
+        db.storage
+        .from("student-photo")
+        .getPublicUrl(
+            fileName
+        );
+
+
+    return data.publicUrl;
 
 }
 
 
-// ===============================
-// ADD / UPDATE STUDENT
-// ===============================
+/* =====================================================
+   GENERATE STUDENT ID
+===================================================== */
+
+async function generateStudentId(){
+
+    const {
+        data,
+        error
+    } = await db.rpc(
+        "next_student_id"
+    );
+
+
+    if(error){
+
+        throw new Error(
+            "Student ID generate failed: " +
+            error.message
+        );
+
+    }
+
+
+    return data;
+
+}
+
+
+/* =====================================================
+   ADD / UPDATE
+===================================================== */
 
 document
 .getElementById("studentForm")
-.addEventListener("submit", async function(e){
+.addEventListener(
+    "submit",
+    async function(e){
 
-e.preventDefault();
-
-
-const editId =
-document.getElementById("editId").value;
+        e.preventDefault();
 
 
-const photo_url = await uploadStudentPhoto();
-
-const student = {
-
-student_id:
-document.getElementById("studentId").value.trim(),
-
-name:
-document.getElementById("name").value.trim(),
-
-father_name:
-document.getElementById("father").value.trim(),
-
-mother_name:
-document.getElementById("mother").value.trim(),
-
-phone:
-document.getElementById("phone").value.trim(),
-
-class_id:
-document.getElementById("classId").value,
-
-admission_date:
-document.getElementById("admissionDate").value || null,
-
-address:
-document.getElementById("address").value.trim(),
-
-photo_url: photo_url
-
-};
+        const editId =
+            document
+            .getElementById("editId")
+            .value;
 
 
-const msg =
-document.getElementById("msg");
-
-const saveBtn =
-document.getElementById("saveBtn");
+        const msg =
+            document
+            .getElementById("msg");
 
 
-msg.textContent = "Saving...";
-
-saveBtn.disabled = true;
-
-
-try{
-
-let result;
+        const saveBtn =
+            document
+            .getElementById("saveBtn");
 
 
-if(editId){
-
-// UPDATE
-
-result =
-await db
-.from("students")
-.update(student)
-.eq("id",editId)
-.select(`
-id,
-student_id,
-name,
-father_name,
-mother_name,
-phone,
-class_id,
-admission_date,
-address,
-classes(name)
-`)
-.single();
+        saveBtn.disabled =
+            true;
 
 
-}else{
-
-// INSERT
-
-result =
-await db
-.from("students")
-.insert(student)
-.select(`
-id,
-student_id,
-name,
-father_name,
-mother_name,
-phone,
-class_id,
-admission_date,
-address,
-classes(name)
-`)
-.single();
-
-}
+        msg.className =
+            "message";
 
 
-if(result.error){
-
-msg.textContent =
-"❌ " + result.error.message;
-
-return;
-
-}
+        msg.textContent =
+            "Saving...";
 
 
-// ===============================
-// LOCAL UPDATE
-// আবার পুরো database load হবে না
-// ===============================
+        try{
 
-if(editId){
+            /* =========================
+               PHOTO
+            ========================= */
 
-const index =
-students.findIndex(
-x => String(x.id) === String(editId)
+            let photoUrl = null;
+
+
+            const selectedFile =
+                document
+                .getElementById("photo")
+                .files[0];
+
+
+            if(selectedFile){
+
+                photoUrl =
+                    await uploadStudentPhoto();
+
+            }
+
+
+            /* =========================
+               BASIC DATA
+            ========================= */
+
+            const student = {
+
+                name:
+                    document
+                    .getElementById("name")
+                    .value
+                    .trim(),
+
+                father_name:
+                    document
+                    .getElementById("father")
+                    .value
+                    .trim(),
+
+                mother_name:
+                    document
+                    .getElementById("mother")
+                    .value
+                    .trim(),
+
+                phone:
+                    document
+                    .getElementById("phone")
+                    .value
+                    .trim(),
+
+                class_id:
+                    document
+                    .getElementById("classId")
+                    .value,
+
+                admission_date:
+                    document
+                    .getElementById("admissionDate")
+                    .value
+                    || null,
+
+                address:
+                    document
+                    .getElementById("address")
+                    .value
+                    .trim()
+
+            };
+
+
+            /* =========================
+               MANUAL ADD
+               AUTO STUDENT ID
+            ========================= */
+
+            if(!editId){
+
+                const generatedId =
+                    await generateStudentId();
+
+
+                student.student_id =
+                    generatedId;
+
+
+                if(photoUrl){
+
+                    student.photo_url =
+                        photoUrl;
+
+                }
+
+
+                const {
+                    data,
+                    error
+                } = await db
+                    .from("students")
+                    .insert(student)
+                    .select(`
+                        id,
+                        student_id,
+                        name,
+                        father_name,
+                        mother_name,
+                        phone,
+                        class_id,
+                        admission_date,
+                        address,
+                        photo_url,
+                        created_at,
+                        classes(name)
+                    `)
+                    .single();
+
+
+                if(error){
+
+                    throw error;
+
+                }
+
+
+                students.unshift(
+                    data
+                );
+
+
+                msg.className =
+                    "message success";
+
+                msg.textContent =
+                    "Student successfully added. Student ID: " +
+                    data.student_id;
+
+            }
+
+            /* =========================
+               UPDATE
+            ========================= */
+
+            else{
+
+                if(photoUrl){
+
+                    student.photo_url =
+                        photoUrl;
+
+                }
+
+
+                const {
+                    data,
+                    error
+                } = await db
+                    .from("students")
+                    .update(student)
+                    .eq(
+                        "id",
+                        editId
+                    )
+                    .select(`
+                        id,
+                        student_id,
+                        name,
+                        father_name,
+                        mother_name,
+                        phone,
+                        class_id,
+                        admission_date,
+                        address,
+                        photo_url,
+                        created_at,
+                        classes(name)
+                    `)
+                    .single();
+
+
+                if(error){
+
+                    throw error;
+
+                }
+
+
+                const index =
+                    students.findIndex(
+                        x =>
+                        String(x.id) ===
+                        String(editId)
+                    );
+
+
+                if(index !== -1){
+
+                    students[index] =
+                        data;
+
+                }
+
+
+                msg.className =
+                    "message success";
+
+                msg.textContent =
+                    "Student information updated successfully.";
+
+            }
+
+
+            updateStats();
+
+            render(students);
+
+
+            setTimeout(
+                resetForm,
+                900
+            );
+
+
+        }catch(error){
+
+            msg.className =
+                "message error";
+
+            msg.textContent =
+                error.message;
+
+        }finally{
+
+            saveBtn.disabled =
+                false;
+
+        }
+
+    }
 );
 
 
-if(index !== -1){
-
-students[index] =
-result.data;
-
-}
-
-}else{
-
-students.unshift(
-result.data
-);
-
-}
-
-
-render(students);
-
-
-msg.textContent =
-"✅ Saved successfully";
-
-
-resetForm();
-
-
-}catch(error){
-
-msg.textContent =
-"❌ " + error.message;
-
-}finally{
-
-saveBtn.disabled = false;
-
-}
-
-});
-
-
-// ===============================
-// EDIT
-// ===============================
+/* =====================================================
+   EDIT
+===================================================== */
 
 function editStudent(id){
 
-const student =
-students.find(
-x => String(x.id) === String(id)
-);
+    const student =
+        students.find(
+            x =>
+            String(x.id) ===
+            String(id)
+        );
 
 
-if(!student)return;
+    if(!student){
+
+        return;
+
+    }
 
 
-document.getElementById("editId").value =
-student.id;
-
-document.getElementById("studentId").value =
-student.student_id || "";
-
-document.getElementById("name").value =
-student.name || "";
-
-document.getElementById("father").value =
-student.father_name || "";
-
-document.getElementById("mother").value =
-student.mother_name || "";
-
-document.getElementById("phone").value =
-student.phone || "";
-
-document.getElementById("classId").value =
-student.class_id || "";
-
-document.getElementById("admissionDate").value =
-student.admission_date || "";
-
-document.getElementById("address").value =
-student.address || "";
+    document.getElementById(
+        "editId"
+    ).value =
+        student.id;
 
 
-document.getElementById("formTitle").textContent =
-"✏️ Edit Student";
+    document.getElementById(
+        "studentId"
+    ).value =
+        student.student_id || "";
 
 
-document.getElementById("saveBtn").textContent =
-"💾 Update Student";
+    document.getElementById(
+        "name"
+    ).value =
+        student.name || "";
 
 
-document.getElementById("cancelBtn").style.display =
-"inline-block";
+    document.getElementById(
+        "father"
+    ).value =
+        student.father_name || "";
 
 
-window.scrollTo({
-top:0,
-behavior:"smooth"
-});
+    document.getElementById(
+        "mother"
+    ).value =
+        student.mother_name || "";
+
+
+    document.getElementById(
+        "phone"
+    ).value =
+        student.phone || "";
+
+
+    document.getElementById(
+        "classId"
+    ).value =
+        student.class_id || "";
+
+
+    document.getElementById(
+        "admissionDate"
+    ).value =
+        student.admission_date || "";
+
+
+    document.getElementById(
+        "address"
+    ).value =
+        student.address || "";
+
+
+    document.getElementById(
+        "formTitle"
+    ).textContent =
+        "Edit Student";
+
+
+    document.getElementById(
+        "saveBtn"
+    ).textContent =
+        "Update Student";
+
+
+    document.getElementById(
+        "cancelBtn"
+    ).style.display =
+        "inline-block";
+
+
+    document.getElementById(
+        "msg"
+    ).textContent =
+        "";
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
 
 }
 
 
-// ===============================
-// DELETE
-// ===============================
+/* =====================================================
+   DELETE
+===================================================== */
 
 async function deleteStudent(id){
 
-if(!confirm(
-"এই Student-কে Delete করতে চান?"
-)){
+    const student =
+        students.find(
+            s =>
+            String(s.id) ===
+            String(id)
+        );
 
-return;
+
+    if(!student){
+
+        return;
+
+    }
+
+
+    const confirmed =
+        confirm(
+            "এই Student-কে Delete করতে চান?"
+        );
+
+
+    if(!confirmed){
+
+        return;
+
+    }
+
+
+    try{
+
+        const {
+            error
+        } = await db
+            .from("students")
+            .delete()
+            .eq(
+                "id",
+                id
+            );
+
+
+        if(error){
+
+            throw error;
+
+        }
+
+
+        students =
+            students.filter(
+                s =>
+                String(s.id) !==
+                String(id)
+            );
+
+
+        updateStats();
+
+        render(students);
+
+
+    }catch(error){
+
+        alert(
+            error.message
+        );
+
+    }
 
 }
 
 
-try{
-
-const {error} =
-await db
-.from("students")
-.delete()
-.eq("id",id);
-
-
-if(error){
-
-alert(error.message);
-
-return;
-
-}
-
-
-// local list থেকে remove
-students =
-students.filter(
-s => String(s.id) !== String(id)
-);
-
-
-render(students);
-
-
-}catch(error){
-
-alert(error.message);
-
-}
-
-}
-
-
-// ===============================
-// RESET FORM
-// ===============================
+/* =====================================================
+   RESET
+===================================================== */
 
 function resetForm(){
 
-document
-.getElementById("studentForm")
-.reset();
+    document
+    .getElementById(
+        "studentForm"
+    )
+    .reset();
 
 
-document.getElementById("editId").value =
-"";
+    document.getElementById(
+        "editId"
+    ).value = "";
 
 
-document.getElementById("formTitle").textContent =
-"➕ Add Student";
+    document.getElementById(
+        "studentId"
+    ).value = "";
 
 
-document.getElementById("saveBtn").textContent =
-"💾 Save Student";
+    document.getElementById(
+        "formTitle"
+    ).textContent =
+        "Add Student";
 
 
-document.getElementById("cancelBtn").style.display =
-"none";
+    document.getElementById(
+        "saveBtn"
+    ).textContent =
+        "Save Student";
+
+
+    document.getElementById(
+        "cancelBtn"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "msg"
+    ).textContent = "";
 
 }
 
 
-document
-.getElementById("cancelBtn")
-.onclick = resetForm;
-
-
-// ===============================
-// SEARCH
-// ===============================
+/* =====================================================
+   CANCEL
+===================================================== */
 
 document
-.getElementById("search")
+.getElementById(
+    "cancelBtn"
+)
+.onclick =
+    resetForm;
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+document
+.getElementById(
+    "search"
+)
 .addEventListener(
-"input",
-function(){
+    "input",
+    function(){
 
-const q =
-this.value
-.toLowerCase()
-.trim();
+        const q =
+            this.value
+            .toLowerCase()
+            .trim();
 
 
-const filtered =
-students.filter(s =>
+        if(!q){
 
-(s.student_id || "")
-.toLowerCase()
-.includes(q)
+            render(students);
 
-||
+            return;
 
-(s.name || "")
-.toLowerCase()
-.includes(q)
+        }
 
+
+        const filtered =
+            students.filter(
+                s =>
+
+                (s.student_id || "")
+                .toLowerCase()
+                .includes(q)
+
+                ||
+
+                (s.name || "")
+                .toLowerCase()
+                .includes(q)
+
+                ||
+
+                (s.phone || "")
+                .toLowerCase()
+                .includes(q)
+
+            );
+
+
+        render(filtered);
+
+    }
 );
 
 
-render(filtered);
+/* =====================================================
+   MESSAGE
+===================================================== */
 
-});
+function showMessage(
+    text,
+    type=""
+){
+
+    const msg =
+        document.getElementById(
+            "msg"
+        );
 
 
-// ===============================
-// SECURITY
-// ===============================
+    msg.className =
+        "message " + type;
 
-function escapeHtml(value){
 
-return String(value)
-
-.replaceAll("&","&amp;")
-
-.replaceAll("<","&lt;")
-
-.replaceAll(">","&gt;")
-
-.replaceAll('"',"&quot;")
-
-.replaceAll("'","&#039;");
+    msg.textContent =
+        text;
 
 }
 
 
-// START
+/* =====================================================
+   SECURITY / ESCAPE HTML
+===================================================== */
+
+function escapeHtml(value){
+
+    return String(value ?? "")
+
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
 start();
 
 </script>
