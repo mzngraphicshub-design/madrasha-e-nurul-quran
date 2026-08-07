@@ -3,115 +3,852 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Admin Login | মাদরাসায়ে নূরুল কুরআন</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+
+@font-face{
+    font-family:"Bornomala";
+    src:url("./fonts/Bornomala-Regular.ttf") format("truetype");
+    font-display:swap;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --bg:#06111f;
+    --bg2:#0a1d32;
+    --blue:#1687ff;
+    --cyan:#27c5ff;
+    --white:#ffffff;
+    --muted:#8fa5bb;
+    --border:rgba(255,255,255,.12);
+}
+
+html,body{
+    width:100%;
+    min-height:100%;
+}
+
 body{
-  min-height:100vh;display:flex;align-items:center;justify-content:center;
-  font-family:Arial,sans-serif;background:linear-gradient(135deg,#075c43,#0b9b70);
-  padding:20px
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:25px;
+
+    font-family:"Bornomala",Arial,sans-serif;
+    color:var(--white);
+
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(22,135,255,.22),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 85% 80%,
+            rgba(39,197,255,.14),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #030b15,
+            #061626 48%,
+            #082442
+        );
+
+    overflow:hidden;
 }
-.box{
-  width:100%;max-width:400px;background:white;padding:32px 25px;
-  border-radius:18px;box-shadow:0 15px 40px #0003
+
+
+/* =================================
+   ANIMATED BACKGROUND
+================================= */
+
+.background{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
+    z-index:0;
 }
-.logo{
-  width:70px;height:70px;margin:auto auto 15px;border-radius:50%;
-  background:#087f5b;color:white;display:flex;align-items:center;
-  justify-content:center;font-size:30px
+
+.blob{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(70px);
+    opacity:.45;
 }
-h1{text-align:center;color:#075c43;font-size:22px}
-.sub{text-align:center;color:#777;margin:7px 0 25px;font-size:13px}
-label{display:block;margin:13px 0 6px;font-weight:bold}
+
+.blob.one{
+    width:300px;
+    height:300px;
+    background:#0879ff;
+    left:-120px;
+    top:-100px;
+    animation:moveOne 12s ease-in-out infinite alternate;
+}
+
+.blob.two{
+    width:260px;
+    height:260px;
+    background:#00c6ff;
+    right:-100px;
+    bottom:-90px;
+    animation:moveTwo 15s ease-in-out infinite alternate;
+}
+
+.blob.three{
+    width:180px;
+    height:180px;
+    background:#1465d8;
+    left:55%;
+    top:10%;
+    opacity:.18;
+    animation:moveThree 10s ease-in-out infinite alternate;
+}
+
+@keyframes moveOne{
+    from{
+        transform:translate(0,0) scale(1);
+    }
+    to{
+        transform:translate(170px,120px) scale(1.35);
+    }
+}
+
+@keyframes moveTwo{
+    from{
+        transform:translate(0,0) scale(1);
+    }
+    to{
+        transform:translate(-150px,-130px) scale(1.3);
+    }
+}
+
+@keyframes moveThree{
+    from{
+        transform:translate(0,0);
+    }
+    to{
+        transform:translate(-100px,150px);
+    }
+}
+
+
+/* =================================
+   FLOATING GRID
+================================= */
+
+.grid{
+    position:absolute;
+    inset:0;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        );
+
+    background-size:55px 55px;
+
+    mask-image:linear-gradient(
+        to bottom,
+        transparent,
+        black 25%,
+        black 75%,
+        transparent
+    );
+}
+
+
+/* =================================
+   LOGIN WRAPPER
+================================= */
+
+.login-wrapper{
+    width:100%;
+    max-width:430px;
+    position:relative;
+    z-index:5;
+
+    animation:
+        loginIn .9s cubic-bezier(.16,1,.3,1) both;
+}
+
+@keyframes loginIn{
+
+    from{
+        opacity:0;
+        transform:
+            translateY(35px)
+            scale(.96);
+    }
+
+    to{
+        opacity:1;
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+/* =================================
+   GLASS LOGIN CARD
+================================= */
+
+.login-card{
+    position:relative;
+    padding:38px 34px 30px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.105),
+            rgba(255,255,255,.045)
+        );
+
+    border:1px solid var(--border);
+
+    border-radius:28px;
+
+    backdrop-filter:blur(25px);
+    -webkit-backdrop-filter:blur(25px);
+
+    box-shadow:
+        0 35px 90px rgba(0,0,0,.42),
+        inset 0 1px 0 rgba(255,255,255,.10);
+
+    overflow:hidden;
+}
+
+
+/* animated light */
+
+.login-card::before{
+    content:"";
+
+    position:absolute;
+
+    width:180px;
+    height:180px;
+
+    top:-100px;
+    right:-80px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(39,197,255,.25),
+            transparent 70%
+        );
+
+    animation:
+        cardGlow 5s ease-in-out infinite alternate;
+}
+
+@keyframes cardGlow{
+
+    from{
+        transform:scale(1);
+        opacity:.5;
+    }
+
+    to{
+        transform:scale(1.5);
+        opacity:1;
+    }
+}
+
+
+/* =================================
+   TOP LINE
+================================= */
+
+.top-line{
+    width:55px;
+    height:4px;
+
+    border-radius:20px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--blue),
+            var(--cyan)
+        );
+
+    margin-bottom:24px;
+
+    animation:lineIn 1s ease .3s both;
+}
+
+@keyframes lineIn{
+
+    from{
+        width:0;
+        opacity:0;
+    }
+
+    to{
+        width:55px;
+        opacity:1;
+    }
+}
+
+
+/* =================================
+   TEXT
+================================= */
+
+.login-card h1{
+    position:relative;
+    z-index:2;
+
+    font-size:27px;
+    line-height:1.25;
+
+    color:#fff;
+
+    margin-bottom:8px;
+}
+
+.subtitle{
+    position:relative;
+    z-index:2;
+
+    font-family:Arial,sans-serif;
+
+    font-size:10px;
+    letter-spacing:3px;
+
+    color:#7190ac;
+
+    margin-bottom:32px;
+}
+
+
+/* =================================
+   FORM
+================================= */
+
+.form-group{
+    position:relative;
+    margin-bottom:20px;
+}
+
+.form-group label{
+    display:block;
+
+    font-size:14px;
+    font-weight:600;
+
+    color:#d9e8f7;
+
+    margin-bottom:8px;
+}
+
+.input-wrap{
+    position:relative;
+}
+
+.input-wrap::before{
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    bottom:0;
+
+    width:0;
+    height:2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--blue),
+            var(--cyan)
+        );
+
+    border-radius:20px;
+
+    transition:.4s;
+
+    z-index:2;
+}
+
+.input-wrap:focus-within::before{
+    width:100%;
+}
+
 input{
-  width:100%;padding:13px;border:1px solid #ddd;border-radius:8px;
-  font-size:15px
+    width:100%;
+    height:52px;
+
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:13px;
+
+    outline:none;
+
+    background:rgba(0,0,0,.18);
+
+    color:#fff;
+
+    padding:0 15px;
+
+    font-family:Arial,sans-serif;
+    font-size:14px;
+
+    transition:.35s;
 }
-button{
-  width:100%;padding:13px;margin-top:20px;border:0;border-radius:8px;
-  background:#087f5b;color:white;font-size:16px;font-weight:bold
+
+input::placeholder{
+    color:#647b91;
 }
-#msg{text-align:center;margin-top:15px;font-size:14px}
-.back{display:block;text-align:center;margin-top:18px;color:#087f5b}
+
+input:hover{
+    border-color:rgba(255,255,255,.20);
+}
+
+input:focus{
+    border-color:rgba(22,135,255,.55);
+
+    background:rgba(0,0,0,.25);
+
+    box-shadow:
+        0 0 0 4px rgba(22,135,255,.08);
+}
+
+
+/* =================================
+   LOGIN BUTTON
+================================= */
+
+.login-btn{
+    position:relative;
+
+    width:100%;
+    height:53px;
+
+    border:0;
+    border-radius:13px;
+
+    margin-top:8px;
+
+    color:#fff;
+
+    font-family:"Bornomala",Arial,sans-serif;
+    font-size:16px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    overflow:hidden;
+
+    background:
+        linear-gradient(
+            110deg,
+            #0769d7,
+            #128cff,
+            #16b9ed
+        );
+
+    background-size:200% 100%;
+
+    box-shadow:
+        0 12px 30px rgba(0,119,255,.22);
+
+    transition:.35s;
+
+    animation:buttonGradient 5s ease infinite;
+}
+
+@keyframes buttonGradient{
+
+    0%{
+        background-position:0% 50%;
+    }
+
+    50%{
+        background-position:100% 50%;
+    }
+
+    100%{
+        background-position:0% 50%;
+    }
+}
+
+.login-btn::before{
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:-120%;
+
+    width:80%;
+    height:100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.20),
+            transparent
+        );
+
+    transform:skewX(-20deg);
+
+    transition:.7s;
+}
+
+.login-btn:hover::before{
+    left:130%;
+}
+
+.login-btn:hover{
+    transform:translateY(-3px);
+
+    box-shadow:
+        0 17px 38px rgba(0,119,255,.34);
+}
+
+.login-btn:active{
+    transform:translateY(-1px);
+}
+
+
+/* =================================
+   MESSAGE
+================================= */
+
+#msg{
+    min-height:20px;
+
+    text-align:center;
+
+    margin-top:15px;
+
+    font-family:Arial,sans-serif;
+    font-size:12px;
+
+    color:#9fb3c7;
+}
+
+
+/* =================================
+   BACK TO WEBSITE
+================================= */
+
+.back{
+    display:block;
+
+    text-align:center;
+
+    margin-top:25px;
+
+    color:#8ba5bd;
+
+    font-family:"Bornomala",Arial,sans-serif;
+    font-size:13px;
+
+    transition:.3s;
+}
+
+.back:hover{
+    color:#35bdff;
+    transform:translateY(-2px);
+}
+
+
+/* =================================
+   FOOTER TEXT
+================================= */
+
+.security{
+    text-align:center;
+
+    margin-top:22px;
+
+    font-family:Arial,sans-serif;
+
+    font-size:10px;
+
+    color:#587086;
+
+    letter-spacing:.5px;
+}
+
+
+/* =================================
+   RESPONSIVE
+================================= */
+
+@media(max-width:500px){
+
+    body{
+        padding:18px;
+    }
+
+    .login-card{
+        padding:32px 23px 26px;
+        border-radius:24px;
+    }
+
+    .login-card h1{
+        font-size:23px;
+    }
+
+    .subtitle{
+        font-size:8px;
+        letter-spacing:2px;
+    }
+
+    input{
+        height:50px;
+    }
+
+    .login-btn{
+        height:51px;
+    }
+}
+
+
+/* =================================
+   REDUCED MOTION
+================================= */
+
+@media(prefers-reduced-motion:reduce){
+
+    *,
+    *::before,
+    *::after{
+
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
+        transition-duration:.01ms !important;
+
+    }
+}
+
 </style>
 </head>
 
+
 <body>
 
-<div class="box">
 
-<div class="logo">🕌</div>
+<!-- BACKGROUND -->
 
-<h1>মাদরাসায়ে নূরুল কুরআন</h1>
-<div class="sub">ADMIN MANAGEMENT SYSTEM</div>
+<div class="background">
 
-<form id="loginForm">
+    <div class="grid"></div>
 
-<label>Email</label>
-<input id="email" type="email"
-placeholder="Admin Email" required>
-
-<label>Password</label>
-<input id="password" type="password"
-placeholder="Password" required>
-
-<button type="submit">🔐 Login</button>
-
-<div id="msg"></div>
-
-</form>
-
-<a class="back" href="index.html">← Website Home</a>
+    <div class="blob one"></div>
+    <div class="blob two"></div>
+    <div class="blob three"></div>
 
 </div>
 
+
+<!-- LOGIN -->
+
+<div class="login-wrapper">
+
+    <div class="login-card">
+
+        <div class="top-line"></div>
+
+        <h1>
+            মাদরাসায়ে নূরুল কুরআন
+        </h1>
+
+        <div class="subtitle">
+            ADMIN MANAGEMENT SYSTEM
+        </div>
+
+
+        <form id="loginForm">
+
+
+            <div class="form-group">
+
+                <label for="email">
+                    Email
+                </label>
+
+                <div class="input-wrap">
+
+                    <input
+                        id="email"
+                        type="email"
+                        placeholder="Admin Email"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <div class="input-wrap">
+
+                    <input
+                        id="password"
+                        type="password"
+                        placeholder="Password"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="login-btn"
+                type="submit">
+
+                Login
+
+            </button>
+
+
+            <div id="msg"></div>
+
+        </form>
+
+
+        <a
+            class="back"
+            href="index.html">
+
+            Website Home
+
+        </a>
+
+
+        <div class="security">
+            Secure Administration Portal
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- SUPABASE -->
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+
 <script>
+
 const SUPABASE_URL =
 "https://qavublwhqiqsgpcmfyft.supabase.co";
 
 const SUPABASE_KEY =
 "sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
 
+
 const supabaseClient =
 window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
+    SUPABASE_URL,
+    SUPABASE_KEY
 );
 
-document.getElementById("loginForm").addEventListener(
-"submit", async function(e){
 
-e.preventDefault();
+document
+.getElementById("loginForm")
+.addEventListener(
+    "submit",
+    async function(e){
 
-const email =
-document.getElementById("email").value.trim();
+        e.preventDefault();
 
-const password =
-document.getElementById("password").value;
 
-const msg =
-document.getElementById("msg");
+        const email =
+        document
+        .getElementById("email")
+        .value
+        .trim();
 
-msg.textContent="Login হচ্ছে...";
 
-const {data,error} =
-await supabaseClient.auth.signInWithPassword({
-email:email,
-password:password
-});
+        const password =
+        document
+        .getElementById("password")
+        .value;
 
-if(error){
-msg.textContent="❌ "+error.message;
-return;
-}
 
-window.location.href="dashboard.html";
+        const msg =
+        document
+        .getElementById("msg");
 
-});
+
+        msg.textContent =
+        "Login হচ্ছে...";
+
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient.auth
+        .signInWithPassword({
+
+            email:email,
+            password:password
+
+        });
+
+
+        if(error){
+
+            msg.textContent =
+            error.message;
+
+            return;
+        }
+
+
+        msg.textContent =
+        "Login সফল হয়েছে...";
+
+
+        setTimeout(function(){
+
+            window.location.href =
+            "dashboard.html";
+
+        },500);
+
+    }
+);
+
 </script>
+
 
 </body>
 </html>
