@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>মাদরাসায়ে নূরুল কুরআন</title>
 
+<meta name="description" content="মাদরাসায়ে নূরুল কুরআন — দ্বীনি ও আধুনিক শিক্ষার সমন্বিত শিক্ষা প্রতিষ্ঠান।">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
 
-/* =====================================================
+/* =========================================================
    BORNOMALA FONT
-===================================================== */
+========================================================= */
 
 @font-face{
     font-family:"Bornomala";
@@ -22,9 +25,29 @@
 }
 
 
-/* =====================================================
-   GLOBAL
-===================================================== */
+/* =========================================================
+   ROOT
+========================================================= */
+
+:root{
+    --blue:#063b82;
+    --blue2:#0a65c7;
+    --dark:#06234b;
+    --light:#f5f8fc;
+    --yellow:#ffd900;
+    --yellow2:#f5c400;
+    --white:#ffffff;
+    --text:#172b4d;
+    --muted:#68778d;
+    --border:#e4eaf2;
+    --shadow:0 12px 35px rgba(15,45,90,.10);
+    --radius:16px;
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
 
 *{
     margin:0;
@@ -37,15 +60,23 @@ html{
 }
 
 body{
-    font-family:"Bornomala", Arial, sans-serif;
-    background:#f4f7fc;
-    color:#17243b;
+    font-family:"Bornomala",Arial,sans-serif;
+    background:var(--light);
+    color:var(--text);
+    overflow-x:hidden;
 }
 
+body,
 button,
 input,
-textarea{
-    font-family:"Bornomala", Arial, sans-serif;
+textarea,
+select{
+    font-family:"Bornomala",Arial,sans-serif;
+}
+
+img{
+    max-width:100%;
+    display:block;
 }
 
 a{
@@ -53,214 +84,195 @@ a{
     color:inherit;
 }
 
+button{
+    cursor:pointer;
+}
+
 .container{
-    width:min(1200px, calc(100% - 32px));
+    width:min(1180px,calc(100% - 30px));
     margin:auto;
 }
 
 
-/* =====================================================
-   TOP INFORMATION BAR
-===================================================== */
+/* =========================================================
+   SCROLL PROGRESS
+========================================================= */
 
-.top-bar{
-    background:#06285c;
-    color:#fff;
-    font-size:14px;
+.progress{
+    position:fixed;
+    top:0;
+    left:0;
+    height:3px;
+    width:0;
+    background:var(--yellow);
+    z-index:99999;
 }
 
-.top-inner{
-    min-height:40px;
 
+/* =========================================================
+   TOP BAR
+========================================================= */
+
+.topbar{
+    background:var(--dark);
+    color:#fff;
+    font-size:13px;
+}
+
+.topbar-inner{
+    min-height:38px;
     display:flex;
     align-items:center;
     justify-content:space-between;
-
-    gap:20px;
+    gap:15px;
 }
 
 .top-left,
 .top-right{
     display:flex;
     align-items:center;
-    gap:18px;
+    gap:15px;
 }
 
-.top-right span:first-child{
-    color:#ffe000;
-    font-weight:bold;
+.topbar .yellow{
+    color:var(--yellow);
 }
 
-.top-divider{
-    opacity:.3;
+.topbar a{
+    opacity:.9;
+}
+
+.topbar a:hover{
+    color:var(--yellow);
 }
 
 
-/* =====================================================
-   MAIN HEADER
-===================================================== */
+/* =========================================================
+   HEADER
+========================================================= */
 
-.main-header{
+.header{
     background:#fff;
-    border-bottom:1px solid #e4eaf3;
+    border-bottom:1px solid var(--border);
 }
 
 .header-inner{
-    min-height:94px;
-
+    min-height:90px;
     display:flex;
     align-items:center;
     justify-content:space-between;
-
-    gap:25px;
+    gap:20px;
 }
-
-
-/* BRAND */
 
 .brand{
     display:flex;
     align-items:center;
-    gap:14px;
+    gap:13px;
 }
 
-.brand-logo{
-    width:68px;
-    height:68px;
-
+.logo{
+    width:65px;
+    height:65px;
     object-fit:contain;
 }
 
-.brand-text h1{
+.brand-name{
+    color:var(--dark);
     font-size:23px;
-    line-height:1.2;
-    color:#06285c;
     font-weight:bold;
+    line-height:1.2;
 }
 
-.brand-text small{
-    display:block;
-
-    margin-top:4px;
-
+.brand-en{
     font-family:Arial,sans-serif;
-
-    font-size:10px;
-    letter-spacing:1.3px;
-
-    color:#75839a;
+    color:#7a8799;
+    font-size:9px;
+    letter-spacing:1.5px;
+    margin-top:5px;
 }
 
 
-/* =====================================================
+/* =========================================================
    LOGIN
-===================================================== */
+========================================================= */
 
-.login-area{
+.login-wrap{
     position:relative;
 }
 
-.login-button{
+.login-btn{
     border:0;
-
-    background:#06285c;
+    background:var(--blue);
     color:#fff;
-
-    padding:12px 20px;
-
-    border-radius:5px;
-
-    cursor:pointer;
-
-    font-size:15px;
+    padding:11px 18px;
+    border-radius:8px;
     font-weight:bold;
-
     transition:.25s;
 }
 
-.login-button:hover{
-    background:#1769d2;
+.login-btn:hover{
+    background:var(--blue2);
     transform:translateY(-2px);
 }
 
-.login-dropdown{
+.login-menu{
     position:absolute;
-
     right:0;
-    top:52px;
-
+    top:50px;
     width:230px;
-
     background:#fff;
-
-    border:1px solid #dce4ef;
-
-    box-shadow:0 15px 35px rgba(0,0,0,.15);
-
-    border-radius:7px;
-
+    border:1px solid var(--border);
+    border-radius:12px;
+    box-shadow:var(--shadow);
     overflow:hidden;
-
     opacity:0;
     visibility:hidden;
-
-    transform:translateY(-8px);
-
+    transform:translateY(-10px);
     transition:.25s;
-
-    z-index:9999;
+    z-index:9000;
 }
 
-.login-dropdown.active{
+.login-menu.show{
     opacity:1;
     visibility:visible;
     transform:translateY(0);
 }
 
-.login-dropdown-title{
-    background:#06285c;
+.login-title{
+    padding:13px 16px;
+    background:var(--blue);
     color:#fff;
-
-    padding:12px 15px;
-
     font-weight:bold;
 }
 
-.login-dropdown a{
+.login-menu a{
     display:block;
-
-    padding:13px 15px;
-
-    border-bottom:1px solid #edf1f6;
-
+    padding:13px 16px;
+    border-bottom:1px solid var(--border);
     font-size:14px;
-
-    transition:.2s;
 }
 
-.login-dropdown a:last-child{
+.login-menu a:last-child{
     border-bottom:0;
 }
 
-.login-dropdown a:hover{
-    background:#eef5ff;
-    color:#1769d2;
-    padding-left:20px;
+.login-menu a:hover{
+    background:#f0f6ff;
+    color:var(--blue2);
 }
 
 
-/* =====================================================
-   NAVIGATION
-===================================================== */
+/* =========================================================
+   NAV
+========================================================= */
 
-.navigation{
-    background:#1769d2;
+.nav{
+    background:var(--blue);
     color:#fff;
 }
 
 .nav-inner{
     min-height:50px;
-
     display:flex;
     align-items:center;
     justify-content:space-between;
@@ -272,132 +284,99 @@ a{
 }
 
 .nav-links a{
-    padding:13px 17px;
-
+    display:block;
+    padding:13px 16px;
     font-size:14px;
-    font-weight:bold;
-
     transition:.2s;
 }
 
-.nav-links a:hover{
-    background:#06285c;
-}
-
+.nav-links a:hover,
 .nav-links a.active{
-    background:#06285c;
+    background:var(--dark);
 }
 
-
-/* MOBILE MENU BUTTON */
-
-.mobile-menu{
+.menu-btn{
     display:none;
-
     border:0;
-
-    background:#06285c;
+    background:var(--dark);
     color:#fff;
-
-    padding:7px 12px;
-
-    border-radius:5px;
-
-    font-size:21px;
-
-    cursor:pointer;
+    font-size:22px;
+    padding:5px 11px;
+    border-radius:7px;
 }
 
 
-/* =====================================================
-   YELLOW NOTICE TICKER
-===================================================== */
+/* =========================================================
+   NOTICE TICKER
+========================================================= */
 
-.notice-ticker{
-    height:44px;
-
-    background:#ffe000;
-
+.ticker{
+    background:var(--yellow);
+    min-height:43px;
     display:flex;
     align-items:center;
-
     overflow:hidden;
 }
 
-.notice-label{
-    height:44px;
-
+.ticker-label{
+    flex-shrink:0;
+    background:var(--yellow2);
+    color:#172000;
+    height:43px;
+    padding:0 20px;
     display:flex;
     align-items:center;
-
-    padding:0 20px;
-
-    background:#e4b900;
-
-    color:#111;
-
     font-weight:bold;
-
-    white-space:nowrap;
-
     z-index:2;
 }
 
-.notice-moving{
+.ticker-track{
     white-space:nowrap;
-
-    padding-left:30px;
-
-    animation:noticeMove 25s linear infinite;
-
+    animation:ticker 28s linear infinite;
+    padding-left:25px;
     font-size:14px;
     font-weight:bold;
 }
 
-@keyframes noticeMove{
-
-    0%{
-        transform:translateX(100%);
-    }
-
-    100%{
-        transform:translateX(-100%);
-    }
-
+@keyframes ticker{
+    from{transform:translateX(100%);}
+    to{transform:translateX(-100%);}
 }
 
 
-/* =====================================================
-   HERO FOUNDATION
-===================================================== */
+/* =========================================================
+   HERO
+========================================================= */
 
 .hero{
-    min-height:530px;
-
+    position:relative;
     background:
-    linear-gradient(
-        90deg,
-        rgba(4,28,67,.95),
-        rgba(10,77,150,.68)
-    ),
-    url("img/hero.jpg") center/cover;
-
+        radial-gradient(circle at 85% 20%,rgba(31,126,232,.35),transparent 32%),
+        linear-gradient(135deg,#041f46 0%,#06458e 55%,#0b6dc9 100%);
     color:#fff;
+    overflow:hidden;
+}
 
-    display:flex;
-    align-items:center;
+.hero:after{
+    content:"";
+    position:absolute;
+    width:420px;
+    height:420px;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:50%;
+    right:-150px;
+    bottom:-230px;
 }
 
 .hero-inner{
-    padding:75px 0;
-
+    min-height:500px;
     display:grid;
-
-    grid-template-columns:1.4fr .7fr;
-
-    gap:50px;
-
+    grid-template-columns:1.25fr .75fr;
+    gap:45px;
     align-items:center;
+    padding:65px 0;
+    position:relative;
+    z-index:2;
 }
 
 .hero-content{
@@ -405,268 +384,1050 @@ a{
 }
 
 @keyframes heroIn{
-
     from{
         opacity:0;
         transform:translateY(25px);
     }
-
     to{
         opacity:1;
         transform:translateY(0);
     }
-
 }
 
-.hero-badge{
-    display:inline-block;
-
-    border:1px solid rgba(255,255,255,.4);
-
+.hero-tag{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    padding:7px 13px;
+    border:1px solid rgba(255,255,255,.25);
     background:rgba(255,255,255,.08);
-
-    padding:7px 15px;
-
     border-radius:30px;
-
-    margin-bottom:18px;
-
     font-size:13px;
-}
-
-.hero h2{
-    font-size:clamp(38px,5vw,62px);
-
-    line-height:1.15;
-
     margin-bottom:18px;
 }
 
-.hero h2 span{
-    color:#ffe000;
+.hero h1{
+    font-size:clamp(38px,5.5vw,65px);
+    line-height:1.12;
+    margin-bottom:18px;
 }
 
-.hero p{
+.hero h1 span{
+    color:var(--yellow);
+}
+
+.hero-text{
     max-width:650px;
-
-    color:#edf5ff;
-
+    color:#e9f3ff;
     font-size:17px;
-
-    margin-bottom:28px;
+    line-height:1.9;
+    margin-bottom:25px;
 }
 
-.hero-buttons{
+.hero-actions{
     display:flex;
-
-    gap:12px;
-
     flex-wrap:wrap;
+    gap:10px;
 }
 
-.hero-button{
-    display:inline-block;
-
-    padding:12px 21px;
-
-    border-radius:5px;
-
+.btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:7px;
+    padding:11px 18px;
+    border-radius:8px;
     font-weight:bold;
-
     transition:.25s;
 }
 
-.hero-primary{
-    background:#ffe000;
-    color:#06285c;
+.btn-yellow{
+    background:var(--yellow);
+    color:var(--dark);
 }
 
-.hero-primary:hover{
+.btn-yellow:hover{
     background:#fff;
-
     transform:translateY(-3px);
 }
 
-.hero-secondary{
-    border:1px solid #fff;
+.btn-outline{
+    border:1px solid rgba(255,255,255,.5);
     color:#fff;
 }
 
-.hero-secondary:hover{
+.btn-outline:hover{
     background:#fff;
-    color:#06285c;
+    color:var(--dark);
 }
 
 
-/* HERO SIDE CARD */
+/* HERO INFO PANEL */
 
-.hero-card{
-    background:rgba(255,255,255,.10);
-
-    border:1px solid rgba(255,255,255,.28);
-
-    border-radius:10px;
-
-    padding:25px;
-
-    backdrop-filter:blur(7px);
-
-    animation:cardFloat 4s ease-in-out infinite;
+.hero-panel{
+    background:rgba(255,255,255,.09);
+    border:1px solid rgba(255,255,255,.2);
+    border-radius:18px;
+    padding:22px;
+    backdrop-filter:blur(10px);
+    box-shadow:0 20px 50px rgba(0,0,0,.15);
 }
 
-@keyframes cardFloat{
-
-    0%,100%{
-        transform:translateY(0);
-    }
-
-    50%{
-        transform:translateY(-7px);
-    }
-
-}
-
-.hero-card h3{
-    color:#ffe000;
-
+.hero-panel-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
     margin-bottom:12px;
 }
 
-.hero-card-item{
-    padding:10px 0;
-
-    border-bottom:1px solid rgba(255,255,255,.2);
-
-    font-size:14px;
+.hero-panel h3{
+    color:var(--yellow);
+    font-size:20px;
 }
 
-.hero-card-item:last-child{
+.live-dot{
+    width:9px;
+    height:9px;
+    background:#55e88a;
+    border-radius:50%;
+    box-shadow:0 0 0 5px rgba(85,232,138,.12);
+}
+
+.info-row{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:13px 0;
+    border-bottom:1px solid rgba(255,255,255,.12);
+}
+
+.info-row:last-child{
     border-bottom:0;
 }
 
+.info-icon{
+    width:36px;
+    height:36px;
+    display:grid;
+    place-items:center;
+    background:rgba(255,255,255,.09);
+    border-radius:9px;
+}
 
-/* =====================================================
-   MOBILE
-===================================================== */
 
-@media(max-width:850px){
+/* =========================================================
+   QUICK PORTAL
+========================================================= */
 
-    .top-inner{
-        flex-direction:column;
-        align-items:flex-start;
+.portal{
+    margin-top:-35px;
+    position:relative;
+    z-index:5;
+}
 
-        padding:7px 0;
-    }
+.portal-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+}
 
-    .header-inner{
-        min-height:78px;
-    }
+.portal-card{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:20px 15px;
+    box-shadow:var(--shadow);
+    text-align:center;
+    transition:.3s;
+}
 
-    .brand-logo{
-        width:53px;
-        height:53px;
-    }
+.portal-card:hover{
+    transform:translateY(-7px);
+    border-color:#bcd4f2;
+}
 
-    .brand-text h1{
-        font-size:18px;
-    }
+.portal-icon{
+    width:50px;
+    height:50px;
+    margin:0 auto 10px;
+    border-radius:13px;
+    background:#edf5ff;
+    display:grid;
+    place-items:center;
+    font-size:22px;
+}
 
-    .brand-text small{
-        font-size:8px;
-    }
+.portal-card h3{
+    color:var(--dark);
+    font-size:16px;
+}
 
-    .mobile-menu{
-        display:block;
-    }
+.portal-card p{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:4px;
+}
 
-    .nav-links{
-        display:none;
 
-        position:absolute;
+/* =========================================================
+   SECTION
+========================================================= */
 
-        left:0;
-        right:0;
+.section{
+    padding:75px 0;
+}
 
-        top:172px;
+.section-head{
+    text-align:center;
+    max-width:680px;
+    margin:0 auto 35px;
+}
 
-        background:#1769d2;
+.section-kicker{
+    color:var(--blue2);
+    font-size:14px;
+    font-weight:bold;
+    margin-bottom:7px;
+}
 
-        flex-direction:column;
+.section-title{
+    color:var(--dark);
+    font-size:34px;
+    line-height:1.25;
+}
 
-        align-items:stretch;
+.section-desc{
+    color:var(--muted);
+    font-size:15px;
+    line-height:1.8;
+    margin-top:9px;
+}
 
-        z-index:5000;
-    }
 
-    .nav-links.show{
-        display:flex;
-    }
+/* =========================================================
+   ABOUT
+========================================================= */
+
+.about-grid{
+    display:grid;
+    grid-template-columns:.85fr 1.15fr;
+    gap:40px;
+    align-items:center;
+}
+
+.about-visual{
+    min-height:330px;
+    background:
+        linear-gradient(135deg,rgba(6,59,130,.9),rgba(10,101,199,.72)),
+        url("img/about.jpg") center/cover;
+    border-radius:20px;
+    position:relative;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+}
+
+.about-badge{
+    position:absolute;
+    left:20px;
+    bottom:20px;
+    background:#fff;
+    color:var(--dark);
+    border-radius:12px;
+    padding:15px 18px;
+    box-shadow:0 10px 30px rgba(0,0,0,.15);
+}
+
+.about-badge strong{
+    display:block;
+    color:var(--blue);
+    font-size:22px;
+}
+
+.about-content h3{
+    color:var(--dark);
+    font-size:28px;
+    margin-bottom:12px;
+}
+
+.about-content p{
+    color:var(--muted);
+    line-height:2;
+    font-size:15px;
+}
+
+.feature-list{
+    margin-top:20px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.feature{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:12px;
+    font-size:14px;
+}
+
+.feature span{
+    color:var(--blue2);
+}
+
+
+/* =========================================================
+   ACADEMIC
+========================================================= */
+
+.academic{
+    background:#fff;
+}
+
+.academic-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.academic-card{
+    border:1px solid var(--border);
+    border-radius:16px;
+    overflow:hidden;
+    background:#fff;
+    transition:.3s;
+}
+
+.academic-card:hover{
+    transform:translateY(-6px);
+    box-shadow:var(--shadow);
+}
+
+.academic-top{
+    height:8px;
+    background:var(--blue);
+}
+
+.academic-card:nth-child(2) .academic-top{
+    background:var(--yellow2);
+}
+
+.academic-card:nth-child(3) .academic-top{
+    background:#19a56a;
+}
+
+.academic-body{
+    padding:25px;
+}
+
+.academic-icon{
+    font-size:34px;
+    margin-bottom:10px;
+}
+
+.academic-body h3{
+    color:var(--dark);
+    font-size:22px;
+}
+
+.academic-body p{
+    color:var(--muted);
+    line-height:1.8;
+    font-size:14px;
+    margin:8px 0 15px;
+}
+
+.read-more{
+    color:var(--blue2);
+    font-weight:bold;
+    font-size:14px;
+}
+
+
+/* =========================================================
+   NOTICE BOARD
+========================================================= */
+
+.notice-section{
+    background:#f1f6fc;
+}
+
+.notice-grid{
+    display:grid;
+    grid-template-columns:1fr .7fr;
+    gap:22px;
+}
+
+.notice-box,
+.event-box{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:22px;
+}
+
+.box-heading{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding-bottom:15px;
+    border-bottom:1px solid var(--border);
+    margin-bottom:10px;
+}
+
+.box-heading h3{
+    color:var(--dark);
+    font-size:21px;
+}
+
+.view-all{
+    color:var(--blue2);
+    font-size:13px;
+    font-weight:bold;
+}
+
+.notice-item{
+    display:flex;
+    gap:14px;
+    padding:14px 0;
+    border-bottom:1px solid #edf0f4;
+}
+
+.notice-item:last-child{
+    border-bottom:0;
+}
+
+.notice-date{
+    min-width:54px;
+    height:55px;
+    border-radius:9px;
+    background:#edf5ff;
+    display:grid;
+    place-items:center;
+    color:var(--blue);
+    font-weight:bold;
+    font-size:13px;
+    text-align:center;
+}
+
+.notice-item h4{
+    font-size:15px;
+    color:var(--dark);
+}
+
+.notice-item p{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:3px;
+}
+
+.event{
+    padding:15px 0;
+    border-bottom:1px solid var(--border);
+}
+
+.event:last-child{
+    border-bottom:0;
+}
+
+.event strong{
+    color:var(--blue);
+}
+
+.event p{
+    color:var(--muted);
+    font-size:13px;
+    margin-top:4px;
+}
+
+
+/* =========================================================
+   STATISTICS
+========================================================= */
+
+.stats{
+    background:var(--dark);
+    color:#fff;
+}
+
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+
+.stat{
+    text-align:center;
+    padding:25px 10px;
+    border-right:1px solid rgba(255,255,255,.12);
+}
+
+.stat:last-child{
+    border-right:0;
+}
+
+.stat-number{
+    color:var(--yellow);
+    font-family:Arial,sans-serif;
+    font-size:34px;
+    font-weight:bold;
+}
+
+.stat-label{
+    margin-top:5px;
+    color:#d9e7f8;
+    font-size:14px;
+}
+
+
+/* =========================================================
+   WHY US
+========================================================= */
+
+.why-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.why-card{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:15px;
+    padding:25px;
+    transition:.3s;
+}
+
+.why-card:hover{
+    box-shadow:var(--shadow);
+    transform:translateY(-5px);
+}
+
+.why-icon{
+    width:48px;
+    height:48px;
+    background:#edf5ff;
+    border-radius:12px;
+    display:grid;
+    place-items:center;
+    font-size:21px;
+    margin-bottom:14px;
+}
+
+.why-card h3{
+    color:var(--dark);
+    font-size:19px;
+}
+
+.why-card p{
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.8;
+    margin-top:6px;
+}
+
+
+/* =========================================================
+   GALLERY
+========================================================= */
+
+.gallery{
+    background:#fff;
+}
+
+.gallery-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+}
+
+.gallery-item{
+    height:190px;
+    border-radius:13px;
+    overflow:hidden;
+    position:relative;
+    background:
+        linear-gradient(135deg,#0a65c7,#06234b);
+}
+
+.gallery-item img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:.5s;
+}
+
+.gallery-item:hover img{
+    transform:scale(1.08);
+}
+
+.gallery-overlay{
+    position:absolute;
+    inset:auto 0 0 0;
+    padding:35px 13px 13px;
+    background:linear-gradient(transparent,rgba(0,0,0,.7));
+    color:#fff;
+}
+
+
+/* =========================================================
+   CONTACT
+========================================================= */
+
+.contact{
+    background:#f1f6fc;
+}
+
+.contact-grid{
+    display:grid;
+    grid-template-columns:.8fr 1.2fr;
+    gap:20px;
+}
+
+.contact-card{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:25px;
+}
+
+.contact-row{
+    display:flex;
+    gap:13px;
+    padding:14px 0;
+    border-bottom:1px solid var(--border);
+}
+
+.contact-row:last-child{
+    border-bottom:0;
+}
+
+.contact-icon{
+    width:42px;
+    height:42px;
+    background:#edf5ff;
+    border-radius:10px;
+    display:grid;
+    place-items:center;
+}
+
+.contact-row h4{
+    color:var(--dark);
+}
+
+.contact-row p{
+    color:var(--muted);
+    font-size:13px;
+    margin-top:3px;
+}
+
+.map-box{
+    min-height:330px;
+    border-radius:16px;
+    background:
+        linear-gradient(rgba(6,59,130,.82),rgba(6,35,75,.9)),
+        repeating-linear-gradient(
+            45deg,
+            #0a65c7 0,
+            #0a65c7 10px,
+            #0757a8 10px,
+            #0757a8 20px
+        );
+    display:grid;
+    place-items:center;
+    color:#fff;
+    text-align:center;
+    padding:25px;
+}
+
+.map-box h3{
+    font-size:25px;
+}
+
+.map-box p{
+    color:#dbeaff;
+    margin:8px 0 18px;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer{
+    background:#031b39;
+    color:#fff;
+}
+
+.footer-main{
+    padding:50px 0 30px;
+    display:grid;
+    grid-template-columns:1.2fr .8fr .8fr;
+    gap:40px;
+}
+
+.footer-brand{
+    display:flex;
+    gap:12px;
+    align-items:center;
+}
+
+.footer-logo{
+    width:55px;
+    height:55px;
+    object-fit:contain;
+}
+
+.footer h3{
+    color:var(--yellow);
+    margin-bottom:13px;
+}
+
+.footer p{
+    color:#b8c7db;
+    line-height:1.9;
+    font-size:13px;
+}
+
+.footer-links a{
+    display:block;
+    color:#c8d5e6;
+    padding:5px 0;
+    font-size:13px;
+}
+
+.footer-links a:hover{
+    color:var(--yellow);
+}
+
+.footer-bottom{
+    border-top:1px solid rgba(255,255,255,.1);
+    padding:17px 0;
+    color:#9fb0c5;
+    font-size:12px;
+    text-align:center;
+}
+
+
+/* =========================================================
+   BACK TO TOP
+========================================================= */
+
+.top-btn{
+    position:fixed;
+    right:18px;
+    bottom:18px;
+    width:43px;
+    height:43px;
+    border:0;
+    border-radius:50%;
+    background:var(--blue);
+    color:#fff;
+    box-shadow:var(--shadow);
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(10px);
+    transition:.3s;
+    z-index:8000;
+}
+
+.top-btn.show{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+}
+
+
+/* =========================================================
+   REVEAL
+========================================================= */
+
+.reveal{
+    opacity:0;
+    transform:translateY(25px);
+    transition:.7s ease;
+}
+
+.reveal.visible{
+    opacity:1;
+    transform:translateY(0);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:950px){
 
     .nav-links a{
-        border-bottom:1px solid rgba(255,255,255,.15);
+        padding:13px 10px;
+        font-size:13px;
     }
 
     .hero-inner{
         grid-template-columns:1fr;
-
-        padding:65px 0;
     }
 
-    .hero-card{
+    .hero-panel{
         display:none;
+    }
+
+    .portal-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .about-grid{
+        grid-template-columns:1fr;
+    }
+
+    .about-visual{
+        min-height:280px;
+    }
+
+    .notice-grid{
+        grid-template-columns:1fr;
+    }
+
+    .gallery-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .contact-grid{
+        grid-template-columns:1fr;
+    }
+
+    .footer-main{
+        grid-template-columns:1fr 1fr;
     }
 
 }
 
-@media(max-width:500px){
 
-    .top-left,
+@media(max-width:720px){
+
+    .topbar-inner{
+        min-height:35px;
+        font-size:11px;
+    }
+
     .top-right{
-        gap:10px;
-        flex-wrap:wrap;
+        display:none;
     }
 
-    .login-button{
-        padding:9px 13px;
-        font-size:13px;
+    .header-inner{
+        min-height:76px;
     }
 
-    .hero h2{
-        font-size:40px;
+    .logo{
+        width:53px;
+        height:53px;
     }
 
-    .notice-label{
+    .brand-name{
+        font-size:18px;
+    }
+
+    .brand-en{
+        font-size:7px;
+    }
+
+    .login-btn{
+        padding:8px 11px;
+        font-size:12px;
+    }
+
+    .menu-btn{
+        display:block;
+    }
+
+    .nav{
+        position:relative;
+    }
+
+    .nav-inner{
+        min-height:48px;
+    }
+
+    .nav-links{
+        display:none;
+        position:absolute;
+        top:48px;
+        left:0;
+        width:100%;
+        background:var(--blue);
+        flex-direction:column;
+        align-items:stretch;
+        z-index:7000;
+        box-shadow:0 15px 25px rgba(0,0,0,.15);
+    }
+
+    .nav-links.open{
+        display:flex;
+    }
+
+    .nav-links a{
+        padding:12px 18px;
+        border-bottom:1px solid rgba(255,255,255,.1);
+    }
+
+    .ticker-label{
         padding:0 12px;
+        font-size:12px;
+    }
+
+    .ticker-track{
+        font-size:12px;
+    }
+
+    .hero-inner{
+        min-height:auto;
+        padding:55px 0 65px;
+    }
+
+    .hero h1{
+        font-size:39px;
+    }
+
+    .hero-text{
+        font-size:14px;
+        line-height:1.8;
+    }
+
+    .section{
+        padding:55px 0;
+    }
+
+    .section-title{
+        font-size:28px;
+    }
+
+    .academic-grid,
+    .why-grid{
+        grid-template-columns:1fr;
+    }
+
+    .stats-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .stat{
+        border-right:0;
+        border-bottom:1px solid rgba(255,255,255,.1);
+    }
+
+    .feature-list{
+        grid-template-columns:1fr;
+    }
+
+    .footer-main{
+        grid-template-columns:1fr;
+        gap:25px;
+    }
+
+}
+
+
+@media(max-width:450px){
+
+    .container{
+        width:min(100% - 22px,1180px);
+    }
+
+    .brand-name{
+        font-size:16px;
+    }
+
+    .brand-en{
+        display:none;
+    }
+
+    .login-btn{
+        font-size:0;
+    }
+
+    .login-btn:first-letter{
+        font-size:16px;
+    }
+
+    .hero h1{
+        font-size:34px;
+    }
+
+    .hero-actions{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+    }
+
+    .btn{
+        padding:10px 8px;
+        font-size:12px;
+    }
+
+    .portal-card{
+        padding:16px 8px;
+    }
+
+    .portal-card h3{
+        font-size:14px;
+    }
+
+    .gallery-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .gallery-item{
+        height:140px;
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media(prefers-reduced-motion:reduce){
+
+    *,
+    *:before,
+    *:after{
+        animation:none !important;
+        transition:none !important;
+        scroll-behavior:auto !important;
     }
 
 }
 
 </style>
-
 </head>
 
 
 <body>
 
 
+<!-- PROGRESS -->
+
+<div class="progress" id="progress"></div>
+
+
 <!-- =====================================================
      TOP BAR
 ===================================================== -->
 
-<div class="top-bar">
+<div class="topbar">
 
-    <div class="container top-inner">
+    <div class="container topbar-inner">
 
         <div class="top-left">
 
             <span>
-                📅 <b id="dateText">লোড হচ্ছে...</b>
+                📅 <span id="dateText">লোড হচ্ছে...</span>
             </span>
 
-            <span class="top-divider">|</span>
+            <span class="yellow">|</span>
 
             <span>
-                🕐 <b id="timeText">লোড হচ্ছে...</b>
+                🕐 <span id="timeText">লোড হচ্ছে...</span>
             </span>
 
         </div>
@@ -674,9 +1435,11 @@ a{
 
         <div class="top-right">
 
-            <span>বাংলা</span>
+            <a href="#">বাংলা</a>
 
-            <span>📞 যোগাযোগ</span>
+            <span>|</span>
+
+            <a href="#contact">☎ যোগাযোগ</a>
 
         </div>
 
@@ -690,29 +1453,27 @@ a{
      HEADER
 ===================================================== -->
 
-<header class="main-header">
+<header class="header">
 
     <div class="container header-inner">
 
-
-        <!-- BRAND -->
 
         <a href="index.html" class="brand">
 
             <img
                 src="img/logo.png"
-                class="brand-logo"
+                class="logo"
                 alt="মাদরাসায়ে নূরুল কুরআন">
 
-            <div class="brand-text">
+            <div>
 
-                <h1>
+                <div class="brand-name">
                     মাদরাসায়ে নূরুল কুরআন
-                </h1>
+                </div>
 
-                <small>
+                <div class="brand-en">
                     MADRASA-E NURUL QURAN
-                </small>
+                </div>
 
             </div>
 
@@ -720,13 +1481,11 @@ a{
 
 
 
-        <!-- LOGIN -->
-
-        <div class="login-area">
+        <div class="login-wrap">
 
             <button
-                class="login-button"
-                id="loginButton">
+                class="login-btn"
+                id="loginBtn">
 
                 🔐 Login ▾
 
@@ -734,34 +1493,28 @@ a{
 
 
             <div
-                class="login-dropdown"
-                id="loginDropdown">
+                class="login-menu"
+                id="loginMenu">
 
-
-                <div class="login-dropdown-title">
-                    🔐 Portal Login
+                <div class="login-title">
+                    🔐 পোর্টাল লগইন
                 </div>
-
 
                 <a href="dashboard.html">
                     👨‍💼 Admin Login
                 </a>
 
-
                 <a href="student-login.html">
                     🧑‍🎓 Student Login
                 </a>
-
 
                 <a href="teacher-login.html">
                     👨‍🏫 Teacher Login
                 </a>
 
-
             </div>
 
         </div>
-
 
     </div>
 
@@ -773,14 +1526,13 @@ a{
      NAVIGATION
 ===================================================== -->
 
-<nav class="navigation">
+<nav class="nav">
 
     <div class="container nav-inner">
 
-
         <div class="nav-links" id="navLinks">
 
-            <a href="index.html" class="active">
+            <a class="active" href="index.html">
                 হোম
             </a>
 
@@ -812,7 +1564,7 @@ a{
                 গ্যালারি
             </a>
 
-            <a href="contact.html">
+            <a href="#contact">
                 যোগাযোগ
             </a>
 
@@ -820,13 +1572,13 @@ a{
 
 
         <button
-            class="mobile-menu"
-            id="mobileMenu">
+            class="menu-btn"
+            id="menuBtn"
+            aria-label="Menu">
 
             ☰
 
         </button>
-
 
     </div>
 
@@ -838,18 +1590,15 @@ a{
      NOTICE TICKER
 ===================================================== -->
 
-<div class="notice-ticker">
+<div class="ticker">
 
-    <div class="notice-label">
-
+    <div class="ticker-label">
         📢 নোটিশ
-
     </div>
 
+    <div class="ticker-track">
 
-    <div class="notice-moving">
-
-        মাদরাসায়ে নূরুল কুরআনের সর্বশেষ নোটিশ ও গুরুত্বপূর্ণ বিজ্ঞপ্তির জন্য ওয়েবসাইট নিয়মিত ভিজিট করুন।
+        মাদরাসায়ে নূরুল কুরআনের সর্বশেষ নোটিশ, বিজ্ঞপ্তি, ভর্তি তথ্য ও গুরুত্বপূর্ণ ঘোষণা জানতে আমাদের ওয়েবসাইট নিয়মিত ভিজিট করুন।
 
     </div>
 
@@ -868,40 +1617,34 @@ a{
 
         <div class="hero-content">
 
-
-            <div class="hero-badge">
-
+            <div class="hero-tag">
                 🌙 দ্বীনি ও আধুনিক শিক্ষার সমন্বিত পরিবেশ
-
             </div>
 
 
-            <h2>
-
+            <h1>
                 কুরআনের আলোয়<br>
-
                 <span>গড়ি সুন্দর ভবিষ্যৎ</span>
+            </h1>
 
-            </h2>
 
+            <p class="hero-text">
 
-            <p>
-
-                মাদরাসায়ে নূরুল কুরআন—
-                কুরআন, সুন্নাহ, নৈতিকতা ও প্রয়োজনীয়
-                শিক্ষার সমন্বয়ে শিক্ষার্থীদের জ্ঞানী,
-                আদর্শবান ও দায়িত্বশীল মানুষ হিসেবে
-                গড়ে তোলার একটি প্রয়াস।
+                মাদরাসায়ে নূরুল কুরআন একটি আদর্শ
+                শিক্ষাঙ্গন, যেখানে কুরআন-সুন্নাহ,
+                নৈতিকতা ও প্রয়োজনীয় শিক্ষার সমন্বয়ে
+                শিক্ষার্থীদের জ্ঞানী, আদর্শবান ও
+                দায়িত্বশীল মানুষ হিসেবে গড়ে তোলার
+                প্রয়াস করা হয়।
 
             </p>
 
 
-            <div class="hero-buttons">
-
+            <div class="hero-actions">
 
                 <a
                     href="admission.html"
-                    class="hero-button hero-primary">
+                    class="btn btn-yellow">
 
                     📝 ভর্তি তথ্য
 
@@ -910,52 +1653,597 @@ a{
 
                 <a
                     href="result.html"
-                    class="hero-button hero-secondary">
+                    class="btn btn-outline">
 
                     📊 ফলাফল দেখুন
 
                 </a>
 
+            </div>
+
+        </div>
+
+
+
+        <div class="hero-panel">
+
+            <div class="hero-panel-head">
+
+                <h3>
+                    🏫 আমাদের বিভাগ
+                </h3>
+
+                <span class="live-dot"></span>
+
+            </div>
+
+
+            <div class="info-row">
+
+                <div class="info-icon">📖</div>
+
+                <div>
+                    নূরানী বিভাগ
+                </div>
+
+            </div>
+
+
+            <div class="info-row">
+
+                <div class="info-icon">🕌</div>
+
+                <div>
+                    নাজেরা বিভাগ
+                </div>
+
+            </div>
+
+
+            <div class="info-row">
+
+                <div class="info-icon">🌙</div>
+
+                <div>
+                    হিফজ বিভাগ
+                </div>
+
+            </div>
+
+
+            <div class="info-row">
+
+                <div class="info-icon">👨‍🏫</div>
+
+                <div>
+                    অভিজ্ঞ শিক্ষকবৃন্দ
+                </div>
+
+            </div>
+
+
+            <div class="info-row">
+
+                <div class="info-icon">💻</div>
+
+                <div>
+                    ডিজিটাল ব্যবস্থাপনা
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     QUICK PORTAL
+===================================================== -->
+
+<section class="portal">
+
+    <div class="container portal-grid">
+
+
+        <a href="result.html" class="portal-card">
+
+            <div class="portal-icon">
+                📊
+            </div>
+
+            <h3>
+                ফলাফল
+            </h3>
+
+            <p>
+                পরীক্ষার ফলাফল দেখুন
+            </p>
+
+        </a>
+
+
+        <a href="#notice" class="portal-card">
+
+            <div class="portal-icon">
+                📢
+            </div>
+
+            <h3>
+                নোটিশ
+            </h3>
+
+            <p>
+                সর্বশেষ বিজ্ঞপ্তি
+            </p>
+
+        </a>
+
+
+        <a href="admission.html" class="portal-card">
+
+            <div class="portal-icon">
+                📝
+            </div>
+
+            <h3>
+                ভর্তি তথ্য
+            </h3>
+
+            <p>
+                ভর্তি সংক্রান্ত তথ্য
+            </p>
+
+        </a>
+
+
+        <a href="#gallery" class="portal-card">
+
+            <div class="portal-icon">
+                🖼️
+            </div>
+
+            <h3>
+                গ্যালারি
+            </h3>
+
+            <p>
+                ছবি ও কার্যক্রম
+            </p>
+
+        </a>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     ABOUT
+===================================================== -->
+
+<section class="section" id="about">
+
+    <div class="container">
+
+
+        <div class="section-head reveal">
+
+            <div class="section-kicker">
+                আমাদের সম্পর্কে
+            </div>
+
+            <h2 class="section-title">
+                একটি সুন্দর শিক্ষাঙ্গনের প্রত্যয়
+            </h2>
+
+            <p class="section-desc">
+                জ্ঞান, আমল, আদব ও নৈতিকতার সমন্বয়ে
+                শিক্ষার্থীদের ভবিষ্যতের জন্য প্রস্তুত করা আমাদের লক্ষ্য।
+            </p>
+
+        </div>
+
+
+
+        <div class="about-grid">
+
+
+            <div class="about-visual reveal">
+
+                <div class="about-badge">
+
+                    <strong>
+                        নূরুল কুরআন
+                    </strong>
+
+                    আলোর পথে শিক্ষার প্রত্যয়
+
+                </div>
+
+            </div>
+
+
+
+            <div class="about-content reveal">
+
+                <h3>
+                    কেন মাদরাসায়ে নূরুল কুরআন?
+                </h3>
+
+                <p>
+
+                    আমাদের লক্ষ্য হলো শিক্ষার্থীদের মধ্যে
+                    কুরআন ও ইসলামী শিক্ষার পাশাপাশি প্রয়োজনীয়
+                    জ্ঞান, শৃঙ্খলা, নৈতিকতা ও মানবিক মূল্যবোধ
+                    গড়ে তোলা। একটি নিরাপদ, সুন্দর ও
+                    শিক্ষাবান্ধব পরিবেশে প্রতিটি শিক্ষার্থীর
+                    মেধা ও সম্ভাবনা বিকাশে আমরা কাজ করি।
+
+                </p>
+
+
+                <div class="feature-list">
+
+                    <div class="feature">
+                        <span>✓</span>
+                        কুরআনভিত্তিক শিক্ষা
+                    </div>
+
+                    <div class="feature">
+                        <span>✓</span>
+                        নৈতিক চরিত্র গঠন
+                    </div>
+
+                    <div class="feature">
+                        <span>✓</span>
+                        অভিজ্ঞ শিক্ষক
+                    </div>
+
+                    <div class="feature">
+                        <span>✓</span>
+                        শিক্ষাবান্ধব পরিবেশ
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     ACADEMIC
+===================================================== -->
+
+<section class="section academic" id="academic">
+
+    <div class="container">
+
+
+        <div class="section-head reveal">
+
+            <div class="section-kicker">
+                একাডেমিক বিভাগ
+            </div>
+
+            <h2 class="section-title">
+                আমাদের শিক্ষা কার্যক্রম
+            </h2>
+
+            <p class="section-desc">
+                শিক্ষার্থীদের বয়স, যোগ্যতা ও প্রয়োজন অনুযায়ী
+                বিভিন্ন বিভাগে শিক্ষা কার্যক্রম পরিচালিত হয়।
+            </p>
+
+        </div>
+
+
+
+        <div class="academic-grid">
+
+
+            <div class="academic-card reveal">
+
+                <div class="academic-top"></div>
+
+                <div class="academic-body">
+
+                    <div class="academic-icon">
+                        📖
+                    </div>
+
+                    <h3>
+                        নূরানী বিভাগ
+                    </h3>
+
+                    <p>
+                        কুরআন মাজীদ শুদ্ধভাবে পড়ার প্রাথমিক
+                        ভিত্তি ও প্রয়োজনীয় দ্বীনি শিক্ষার ব্যবস্থা।
+                    </p>
+
+                    <a href="#" class="read-more">
+                        বিস্তারিত →
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="academic-card reveal">
+
+                <div class="academic-top"></div>
+
+                <div class="academic-body">
+
+                    <div class="academic-icon">
+                        🕌
+                    </div>
+
+                    <h3>
+                        নাজেরা বিভাগ
+                    </h3>
+
+                    <p>
+                        কুরআন মাজীদ সহীহ তিলাওয়াত, মাখরাজ,
+                        তাজবিদ ও নিয়মিত অনুশীলনের মাধ্যমে শিক্ষা।
+                    </p>
+
+                    <a href="#" class="read-more">
+                        বিস্তারিত →
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="academic-card reveal">
+
+                <div class="academic-top"></div>
+
+                <div class="academic-body">
+
+                    <div class="academic-icon">
+                        🌙
+                    </div>
+
+                    <h3>
+                        হিফজ বিভাগ
+                    </h3>
+
+                    <p>
+                        অভিজ্ঞ শিক্ষকের তত্ত্বাবধানে কুরআন
+                        হিফজ ও নিয়মিত সবক, আমুখতা ও দাওর ব্যবস্থা।
+                    </p>
+
+                    <a href="#" class="read-more">
+                        বিস্তারিত →
+                    </a>
+
+                </div>
 
             </div>
 
 
         </div>
 
+    </div>
+
+</section>
 
 
-        <div class="hero-card">
+
+<!-- =====================================================
+     NOTICE
+===================================================== -->
+
+<section class="section notice-section" id="notice">
+
+    <div class="container">
 
 
-            <h3>
-                🏫 প্রতিষ্ঠানের তথ্য
-            </h3>
+        <div class="section-head reveal">
+
+            <div class="section-kicker">
+                সর্বশেষ আপডেট
+            </div>
+
+            <h2 class="section-title">
+                নোটিশ ও গুরুত্বপূর্ণ তথ্য
+            </h2>
+
+        </div>
 
 
-            <div class="hero-card-item">
-                📖 নূরানী বিভাগ
+
+        <div class="notice-grid">
+
+
+            <div class="notice-box reveal">
+
+                <div class="box-heading">
+
+                    <h3>
+                        📢 সর্বশেষ নোটিশ
+                    </h3>
+
+                    <a href="#" class="view-all">
+                        সব দেখুন →
+                    </a>
+
+                </div>
+
+
+                <div id="homeNotices">
+
+                    <div class="notice-item">
+
+                        <div class="notice-date">
+                            নতুন
+                        </div>
+
+                        <div>
+
+                            <h4>
+                                নোটিশ লোড হচ্ছে...
+                            </h4>
+
+                            <p>
+                                অনুগ্রহ করে কিছুক্ষণ অপেক্ষা করুন।
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
 
 
-            <div class="hero-card-item">
-                🕌 নাজেরা বিভাগ
+
+            <div class="event-box reveal">
+
+                <div class="box-heading">
+
+                    <h3>
+                        📅 গুরুত্বপূর্ণ
+                    </h3>
+
+                </div>
+
+
+                <div class="event">
+
+                    <strong>
+                        📝 ভর্তি সংক্রান্ত তথ্য
+                    </strong>
+
+                    <p>
+                        ভর্তি সংক্রান্ত তথ্য জানতে
+                        মাদরাসার অফিসে যোগাযোগ করুন।
+                    </p>
+
+                </div>
+
+
+                <div class="event">
+
+                    <strong>
+                        📊 পরীক্ষার ফলাফল
+                    </strong>
+
+                    <p>
+                        অনলাইনে ফলাফল দেখতে ফলাফল
+                        বিভাগে প্রবেশ করুন।
+                    </p>
+
+                </div>
+
+
+                <div class="event">
+
+                    <strong>
+                        ☎ যোগাযোগ
+                    </strong>
+
+                    <p>
+                        যেকোনো প্রয়োজনে কর্তৃপক্ষের
+                        সঙ্গে যোগাযোগ করুন।
+                    </p>
+
+                </div>
+
             </div>
 
 
-            <div class="hero-card-item">
-                🌙 হিফজ বিভাগ
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     STATS
+===================================================== -->
+
+<section class="section stats">
+
+    <div class="container stats-grid">
+
+
+        <div class="stat reveal">
+
+            <div
+                class="stat-number"
+                data-count="3">
+                0
             </div>
 
-
-            <div class="hero-card-item">
-                👨‍🏫 অভিজ্ঞ শিক্ষকবৃন্দ
+            <div class="stat-label">
+                শিক্ষা বিভাগ
             </div>
 
+        </div>
 
-            <div class="hero-card-item">
-                💻 ডিজিটাল ব্যবস্থাপনা
+
+        <div class="stat reveal">
+
+            <div
+                class="stat-number"
+                data-count="100">
+                0
             </div>
 
+            <div class="stat-label">
+                শিক্ষার্থীর লক্ষ্য
+            </div>
+
+        </div>
+
+
+        <div class="stat reveal">
+
+            <div
+                class="stat-number"
+                data-count="10">
+                0
+            </div>
+
+            <div class="stat-label">
+                অভিজ্ঞ শিক্ষক
+            </div>
+
+        </div>
+
+
+        <div class="stat reveal">
+
+            <div
+                class="stat-number"
+                data-count="1">
+                0
+            </div>
+
+            <div class="stat-label">
+                আদর্শ লক্ষ্য
+            </div>
 
         </div>
 
@@ -966,66 +2254,550 @@ a{
 
 
 
+<!-- =====================================================
+     WHY US
+===================================================== -->
+
+<section class="section" id="students">
+
+    <div class="container">
+
+
+        <div class="section-head reveal">
+
+            <div class="section-kicker">
+                আমাদের বৈশিষ্ট্য
+            </div>
+
+            <h2 class="section-title">
+                কেন আমাদের বেছে নেবেন?
+            </h2>
+
+        </div>
+
+
+
+        <div class="why-grid">
+
+
+            <div class="why-card reveal">
+
+                <div class="why-icon">
+                    📖
+                </div>
+
+                <h3>
+                    কুরআন ও সুন্নাহ
+                </h3>
+
+                <p>
+                    ইসলামী আদর্শ ও কুরআন-সুন্নাহভিত্তিক
+                    শিক্ষার মাধ্যমে সুন্দর চরিত্র গঠনের চেষ্টা।
+                </p>
+
+            </div>
+
+
+            <div class="why-card reveal">
+
+                <div class="why-icon">
+                    👨‍🏫
+                </div>
+
+                <h3>
+                    অভিজ্ঞ শিক্ষক
+                </h3>
+
+                <p>
+                    শিক্ষার্থীদের প্রতি যত্নশীল ও
+                    দায়িত্বশীল শিক্ষকবৃন্দের তত্ত্বাবধান।
+                </p>
+
+            </div>
+
+
+            <div class="why-card reveal">
+
+                <div class="why-icon">
+                    🏫
+                </div>
+
+                <h3>
+                    সুন্দর পরিবেশ
+                </h3>
+
+                <p>
+                    নিরাপদ, পরিচ্ছন্ন ও শিক্ষাবান্ধব
+                    পরিবেশে শিক্ষার সুযোগ।
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     GALLERY
+===================================================== -->
+
+<section class="section gallery" id="gallery">
+
+    <div class="container">
+
+
+        <div class="section-head reveal">
+
+            <div class="section-kicker">
+                ফটো গ্যালারি
+            </div>
+
+            <h2 class="section-title">
+                আমাদের কার্যক্রম
+            </h2>
+
+            <p class="section-desc">
+                মাদরাসার বিভিন্ন শিক্ষা ও কার্যক্রমের
+                কিছু মুহূর্ত।
+            </p>
+
+        </div>
+
+
+
+        <div class="gallery-grid">
+
+
+            <div class="gallery-item reveal">
+
+                <img
+                    src="img/gallery1.jpg"
+                    alt="মাদরাসার কার্যক্রম"
+                    onerror="this.style.display='none'">
+
+                <div class="gallery-overlay">
+                    শিক্ষা কার্যক্রম
+                </div>
+
+            </div>
+
+
+            <div class="gallery-item reveal">
+
+                <img
+                    src="img/gallery2.jpg"
+                    alt="মাদরাসার কার্যক্রম"
+                    onerror="this.style.display='none'">
+
+                <div class="gallery-overlay">
+                    শিক্ষার্থীদের কার্যক্রম
+                </div>
+
+            </div>
+
+
+            <div class="gallery-item reveal">
+
+                <img
+                    src="img/gallery3.jpg"
+                    alt="মাদরাসার কার্যক্রম"
+                    onerror="this.style.display='none'">
+
+                <div class="gallery-overlay">
+                    অনুষ্ঠান
+                </div>
+
+            </div>
+
+
+            <div class="gallery-item reveal">
+
+                <img
+                    src="img/gallery4.jpg"
+                    alt="মাদরাসার কার্যক্রম"
+                    onerror="this.style.display='none'">
+
+                <div class="gallery-overlay">
+                    স্মরণীয় মুহূর্ত
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CONTACT
+===================================================== -->
+
+<section class="section contact" id="contact">
+
+    <div class="container">
+
+
+        <div class="section-head reveal">
+
+            <div class="section-kicker">
+                যোগাযোগ
+            </div>
+
+            <h2 class="section-title">
+                আমাদের সঙ্গে যোগাযোগ করুন
+            </h2>
+
+        </div>
+
+
+
+        <div class="contact-grid">
+
+
+            <div class="contact-card reveal">
+
+
+                <div class="contact-row">
+
+                    <div class="contact-icon">
+                        📍
+                    </div>
+
+                    <div>
+
+                        <h4>
+                            ঠিকানা
+                        </h4>
+
+                        <p>
+                            মাদরাসায়ে নূরুল কুরআন
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="contact-row">
+
+                    <div class="contact-icon">
+                        ☎
+                    </div>
+
+                    <div>
+
+                        <h4>
+                            ফোন
+                        </h4>
+
+                        <p>
+                            যোগাযোগ নম্বর এখানে দিন
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="contact-row">
+
+                    <div class="contact-icon">
+                        ✉
+                    </div>
+
+                    <div>
+
+                        <h4>
+                            ই-মেইল
+                        </h4>
+
+                        <p>
+                            ই-মেইল ঠিকানা এখানে দিন
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="contact-row">
+
+                    <div class="contact-icon">
+                        🌐
+                    </div>
+
+                    <div>
+
+                        <h4>
+                            অনলাইন
+                        </h4>
+
+                        <p>
+                            ওয়েবসাইটের মাধ্যমে যোগাযোগ করুন
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="map-box reveal">
+
+                <div>
+
+                    <h3>
+                        📍 আমাদের অবস্থান
+                    </h3>
+
+                    <p>
+                        Google Maps location এখানে যুক্ত করা যাবে।
+                    </p>
+
+                    <a
+                        href="#"
+                        class="btn btn-yellow">
+
+                        🗺️ Google Maps দেখুন
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="footer">
+
+    <div class="container footer-main">
+
+
+        <div>
+
+            <div class="footer-brand">
+
+                <img
+                    src="img/logo.png"
+                    class="footer-logo"
+                    alt="Logo">
+
+                <div>
+
+                    <strong>
+                        মাদরাসায়ে নূরুল কুরআন
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <p style="margin-top:15px">
+
+                কুরআনের আলোয় শিক্ষার্থীদের
+                জ্ঞান, আদব, নৈতিকতা ও মানবিক
+                মূল্যবোধে সমৃদ্ধ করার প্রত্যয়।
+
+            </p>
+
+        </div>
+
+
+
+        <div>
+
+            <h3>
+                গুরুত্বপূর্ণ লিংক
+            </h3>
+
+            <div class="footer-links">
+
+                <a href="index.html">
+                    হোম
+                </a>
+
+                <a href="result.html">
+                    ফলাফল
+                </a>
+
+                <a href="admission.html">
+                    ভর্তি
+                </a>
+
+                <a href="#notice">
+                    নোটিশ
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <div>
+
+            <h3>
+                যোগাযোগ
+            </h3>
+
+            <div class="footer-links">
+
+                <a href="#contact">
+                    📍 ঠিকানা
+                </a>
+
+                <a href="#contact">
+                    ☎ ফোন
+                </a>
+
+                <a href="#contact">
+                    ✉ ই-মেইল
+                </a>
+
+                <a href="#">
+                    📘 Facebook Page
+                </a>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        © <span id="year"></span>
+        মাদরাসায়ে নূরুল কুরআন —
+        সর্বস্বত্ব সংরক্ষিত।
+
+    </div>
+
+</footer>
+
+
+
+<!-- BACK TO TOP -->
+
+<button
+    class="top-btn"
+    id="topBtn"
+    aria-label="Back to top">
+
+    ↑
+
+</button>
+
+
+
 <script>
 
-/* =====================================================
+/* =========================================================
+   SUPABASE
+========================================================= */
+
+const SUPABASE_URL =
+"https://qavublwhqiqsgpcmfyft.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
+
+const db =
+window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
+
+/* =========================================================
    LOGIN DROPDOWN
-===================================================== */
+========================================================= */
 
-const loginButton =
-document.getElementById("loginButton");
+const loginBtn =
+document.getElementById("loginBtn");
 
-const loginDropdown =
-document.getElementById("loginDropdown");
+const loginMenu =
+document.getElementById("loginMenu");
 
-
-loginButton.addEventListener("click",function(e){
+loginBtn.addEventListener("click",function(e){
 
     e.stopPropagation();
 
-    loginDropdown.classList.toggle("active");
+    loginMenu.classList.toggle("show");
 
 });
-
 
 document.addEventListener("click",function(){
 
-    loginDropdown.classList.remove("active");
+    loginMenu.classList.remove("show");
 
 });
 
 
-
-/* =====================================================
+/* =========================================================
    MOBILE MENU
-===================================================== */
+========================================================= */
 
-const mobileMenu =
-document.getElementById("mobileMenu");
+const menuBtn =
+document.getElementById("menuBtn");
 
 const navLinks =
 document.getElementById("navLinks");
 
+menuBtn.addEventListener("click",function(){
 
-mobileMenu.addEventListener("click",function(){
-
-    navLinks.classList.toggle("show");
+    navLinks.classList.toggle("open");
 
 });
 
 
+document.querySelectorAll(".nav-links a")
+.forEach(function(link){
 
-/* =====================================================
-   DATE
-===================================================== */
+    link.addEventListener("click",function(){
 
-function updateDate(){
+        navLinks.classList.remove("open");
+
+    });
+
+});
+
+
+/* =========================================================
+   DATE + TIME
+========================================================= */
+
+function updateClock(){
 
     const now = new Date();
 
 
     const days = [
-
         "রবিবার",
         "সোমবার",
         "মঙ্গলবার",
@@ -1033,12 +2805,10 @@ function updateDate(){
         "বৃহস্পতিবার",
         "শুক্রবার",
         "শনিবার"
-
     ];
 
 
     const months = [
-
         "জানুয়ারি",
         "ফেব্রুয়ারি",
         "মার্চ",
@@ -1051,34 +2821,20 @@ function updateDate(){
         "অক্টোবর",
         "নভেম্বর",
         "ডিসেম্বর"
-
     ];
 
 
     document.getElementById("dateText").textContent =
-
         days[now.getDay()]
-        + " • "
-        + now.getDate()
-        + " "
-        + months[now.getMonth()]
-        + " "
-        + now.getFullYear();
-
-}
-
-
-/* =====================================================
-   LIVE TIME
-===================================================== */
-
-function updateTime(){
-
-    const now = new Date();
+        +" • "
+        +now.getDate()
+        +" "
+        +months[now.getMonth()]
+        +" "
+        +now.getFullYear();
 
 
     document.getElementById("timeText").textContent =
-
         now.toLocaleTimeString(
             "bn-BD",
             {
@@ -1091,16 +2847,353 @@ function updateTime(){
 
 }
 
+updateClock();
 
-updateDate();
-
-updateTime();
+setInterval(updateClock,1000);
 
 
-setInterval(updateTime,1000);
+/* =========================================================
+   YEAR
+========================================================= */
+
+document.getElementById("year").textContent =
+new Date().getFullYear();
+
+
+/* =========================================================
+   SCROLL PROGRESS
+========================================================= */
+
+window.addEventListener("scroll",function(){
+
+    const scrollTop =
+        document.documentElement.scrollTop;
+
+    const height =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+
+    const percent =
+        height > 0
+        ? (scrollTop / height) * 100
+        : 0;
+
+    document.getElementById("progress").style.width =
+        percent + "%";
+
+});
+
+
+/* =========================================================
+   BACK TO TOP
+========================================================= */
+
+const topBtn =
+document.getElementById("topBtn");
+
+window.addEventListener("scroll",function(){
+
+    if(window.scrollY > 500){
+
+        topBtn.classList.add("show");
+
+    }else{
+
+        topBtn.classList.remove("show");
+
+    }
+
+});
+
+
+topBtn.addEventListener("click",function(){
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+});
+
+
+/* =========================================================
+   SCROLL REVEAL
+========================================================= */
+
+const observer =
+new IntersectionObserver(
+    function(entries){
+
+        entries.forEach(function(entry){
+
+            if(entry.isIntersecting){
+
+                entry.target.classList.add("visible");
+
+                observer.unobserve(entry.target);
+
+            }
+
+        });
+
+    },
+    {
+        threshold:.12
+    }
+);
+
+
+document.querySelectorAll(".reveal")
+.forEach(function(element){
+
+    observer.observe(element);
+
+});
+
+
+/* =========================================================
+   COUNTER
+========================================================= */
+
+const counters =
+document.querySelectorAll(".stat-number");
+
+
+let counterStarted = false;
+
+
+function startCounters(){
+
+    if(counterStarted) return;
+
+    const stats =
+        document.querySelector(".stats");
+
+    if(!stats) return;
+
+
+    const rect =
+        stats.getBoundingClientRect();
+
+
+    if(rect.top < window.innerHeight){
+
+        counterStarted = true;
+
+
+        counters.forEach(function(counter){
+
+            const target =
+                Number(counter.dataset.count);
+
+            let current = 0;
+
+            const duration = 900;
+
+            const start = performance.now();
+
+
+            function animate(time){
+
+                const progress =
+                    Math.min(
+                        (time - start) / duration,
+                        1
+                    );
+
+                current =
+                    Math.floor(
+                        progress * target
+                    );
+
+                counter.textContent =
+                    current + "+";
+
+
+                if(progress < 1){
+
+                    requestAnimationFrame(animate);
+
+                }
+
+            }
+
+
+            requestAnimationFrame(animate);
+
+        });
+
+    }
+
+}
+
+
+window.addEventListener(
+    "scroll",
+    startCounters
+);
+
+
+/* =========================================================
+   LOAD NOTICES FROM SUPABASE
+========================================================= */
+
+async function loadHomeNotices(){
+
+    const box =
+        document.getElementById("homeNotices");
+
+
+    try{
+
+        const result =
+            await db
+            .from("notices")
+            .select("*")
+            .order("publish_date",{ascending:false})
+            .limit(5);
+
+
+        if(result.error){
+
+            console.log(
+                "Notice error:",
+                result.error.message
+            );
+
+            showFallbackNotice();
+
+            return;
+
+        }
+
+
+        const data =
+            result.data || [];
+
+
+        if(!data.length){
+
+            showFallbackNotice();
+
+            return;
+
+        }
+
+
+        box.innerHTML =
+            data.map(function(notice){
+
+                let dateText = "নতুন";
+
+                if(notice.publish_date){
+
+                    const d =
+                        new Date(notice.publish_date);
+
+                    dateText =
+                        d.getDate()
+                        +" "
+                        +(d.toLocaleString(
+                            "bn-BD",
+                            {month:"short"}
+                        ));
+
+                }
+
+
+                return `
+
+                <div class="notice-item">
+
+                    <div class="notice-date">
+                        ${dateText}
+                    </div>
+
+                    <div>
+
+                        <h4>
+                            ${escapeHTML(
+                                notice.title || "নোটিশ"
+                            )}
+                        </h4>
+
+                        <p>
+                            ${escapeHTML(
+                                notice.description ||
+                                notice.notice ||
+                                ""
+                            )}
+                        </p>
+
+                    </div>
+
+                </div>
+
+                `;
+
+            }).join("");
+
+
+    }catch(error){
+
+        console.log(error);
+
+        showFallbackNotice();
+
+    }
+
+}
+
+
+function showFallbackNotice(){
+
+    document.getElementById("homeNotices").innerHTML = `
+
+        <div class="notice-item">
+
+            <div class="notice-date">
+                📢
+            </div>
+
+            <div>
+
+                <h4>
+                    বর্তমানে কোনো নোটিশ নেই
+                </h4>
+
+                <p>
+                    নতুন নোটিশ প্রকাশিত হলে এখানে দেখা যাবে।
+                </p>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   SECURITY — ESCAPE HTML
+========================================================= */
+
+function escapeHTML(value){
+
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+loadHomeNotices();
 
 </script>
-
 
 </body>
 </html>
