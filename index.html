@@ -1,692 +1,599 @@
 <!DOCTYPE html>
 <html lang="bn">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
 <title>মাদরাসায়ে নূরুল কুরআন</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-
 <style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Noto Sans Bengali',sans-serif;
-scroll-behavior:smooth;
-}
-
+*{margin:0;padding:0;box-sizing:border-box}
 body{
-background:#f5f7f9;
-color:#222;
-overflow-x:hidden;
+font-family:Arial,"Noto Sans Bengali",sans-serif;
+background:#f5f8f7;
+color:#17201d;
+line-height:1.6
+}
+a{text-decoration:none;color:inherit}
+.container{max-width:1200px;margin:auto;padding:0 18px}
+
+/* TOP */
+.topbar{
+background:#064d39;color:#fff;
+font-size:13px;padding:8px 0
+}
+.topbar .container{
+display:flex;justify-content:space-between;gap:15px
 }
 
-a{
-text-decoration:none;
+/* NAV */
+nav{
+background:#fff;
+position:sticky;top:0;z-index:1000;
+box-shadow:0 3px 15px #00000012
 }
-
-img{
-max-width:100%;
-display:block;
+.nav-inner{
+height:72px;display:flex;
+align-items:center;justify-content:space-between
 }
-
-header{
-
-position:fixed;
-top:0;
-left:0;
-width:100%;
-padding:15px 60px;
-
-display:flex;
-justify-content:space-between;
-align-items:center;
-
-background:rgba(255,255,255,.92);
-backdrop-filter:blur(12px);
-
-box-shadow:0 4px 20px rgba(0,0,0,.08);
-
-z-index:9999;
-
+.brand{
+display:flex;align-items:center;gap:12px
 }
-
 .logo{
-
-display:flex;
-align-items:center;
-gap:15px;
-
+width:48px;height:48px;object-fit:contain
+}
+.brand strong{
+display:block;color:#075c43;font-size:18px
+}
+.brand small{color:#777}
+.nav-links{
+display:flex;gap:25px;align-items:center
+}
+.nav-links a{
+font-weight:bold;font-size:14px
+}
+.nav-links a:hover{color:#087f5b}
+.menu{
+display:none;background:#075c43
 }
 
-.logo img{
-
-width:55px;
-height:55px;
-border-radius:50%;
-
-}
-
-.logo h2{
-
-font-size:22px;
-color:#087f5b;
-
-}
-
-nav{
-
-display:flex;
-gap:28px;
-
-}
-
-nav a{
-
-color:#222;
-font-weight:600;
-transition:.3s;
-
-}
-
-nav a:hover{
-
-color:#087f5b;
-
-}
-
-.menu-btn{
-
-display:none;
-font-size:28px;
-cursor:pointer;
-
-}
-
+/* HERO */
 .hero{
-
-height:100vh;
-
+min-height:560px;
+display:flex;align-items:center;
 background:
-linear-gradient(rgba(0,70,50,.65),rgba(0,0,0,.55)),
-url("img/banner.jpg") center/cover;
-
-display:flex;
-justify-content:center;
-align-items:center;
-
-text-align:center;
-
-color:white;
-
-padding:20px;
-
+linear-gradient(90deg,#043f2fcf,#075c4370),
+url("img/hero.jpg") center/cover;
+color:white
 }
-
-.hero img{
-
-width:130px;
-height:130px;
-
-margin:auto;
-
-background:white;
-
-padding:10px;
-
-border-radius:50%;
-
-margin-bottom:25px;
-
-}
-
-.hero h1{
-
-font-size:54px;
-margin-bottom:15px;
-
-}
-
-.hero h3{
-
-font-size:25px;
-font-weight:400;
-
-margin-bottom:20px;
-
-}
-
-.hero p{
-
-font-size:20px;
-max-width:700px;
-margin:auto;
-
-line-height:1.8;
-
-margin-bottom:35px;
-
-}
-
-.btn{
-
+.hero-content{max-width:700px}
+.badge{
 display:inline-block;
-
-padding:14px 34px;
-
-border-radius:10px;
-
-font-weight:bold;
-
-transition:.3s;
-
-margin:8px;
-
+background:#ffffff1f;
+border:1px solid #ffffff55;
+padding:7px 14px;border-radius:30px;
+margin-bottom:18px
 }
-
-.btn-primary{
-
-background:#0aa36d;
-color:white;
-
-}
-
-.btn-primary:hover{
-
-background:#067c53;
-
-}
-
-.btn-outline{
-
-border:2px solid white;
-color:white;
-
-}
-
-.btn-outline:hover{
-
-background:white;
-color:#087f5b;
-
-}
-
-section{
-
-padding:90px 7%;
-
-}
-
-.title{
-
-text-align:center;
-margin-bottom:50px;
-
-}
-
-.title h2{
-
-font-size:36px;
-color:#087f5b;
-
-}
-
-.title p{
-
-margin-top:10px;
-color:#666;
-
-}
-
-@media(max-width:900px){
-
-header{
-
-padding:15px 20px;
-
-}
-
-nav{
-
-display:none;
-
-}
-
-.menu-btn{
-
-display:block;
-
-}
-
 .hero h1{
-
-font-size:36px;
-
+font-size:clamp(35px,6vw,68px);
+line-height:1.12;margin-bottom:18px
 }
-
-.hero h3{
-
-font-size:18px;
-
-}
-
+.hero h1 span{color:#c9f7dc}
 .hero p{
-
-font-size:16px;
-
+font-size:18px;max-width:620px;
+color:#f0fff7;margin-bottom:28px
+}
+.buttons{display:flex;gap:12px;flex-wrap:wrap}
+.btn{
+padding:13px 22px;border-radius:8px;
+font-weight:bold;display:inline-block
+}
+.primary{background:#fff;color:#075c43}
+.secondary{
+border:1px solid #fff;color:#fff
 }
 
+/* QUICK */
+.quick{
+margin-top:-45px;position:relative;z-index:5
+}
+.quick-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:14px
+}
+.quick-card{
+background:#fff;padding:22px;
+border-radius:12px;
+box-shadow:0 8px 25px #00000012;
+transition:.25s
+}
+.quick-card:hover{
+transform:translateY(-5px)
+}
+.quick-card b{
+display:block;color:#075c43;
+font-size:17px
+}
+.quick-card span{font-size:13px;color:#777}
+
+/* SECTION */
+section{padding:75px 0}
+.section-head{text-align:center;margin-bottom:38px}
+.section-head h2{
+color:#075c43;font-size:32px
+}
+.section-head p{color:#777}
+
+/* ABOUT */
+.about{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:45px;align-items:center
+}
+.about-img{
+width:100%;height:370px;
+object-fit:cover;border-radius:20px
+}
+.about h2{font-size:34px;color:#075c43}
+.about p{color:#666;margin:15px 0}
+
+/* DEPARTMENTS */
+.departments{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px
+}
+.dept{
+background:#fff;padding:28px;
+border-radius:15px;
+border:1px solid #e6ece9
+}
+.dept-icon{
+font-size:35px;margin-bottom:12px
+}
+.dept h3{color:#075c43}
+.dept p{color:#777;font-size:14px}
+
+/* NOTICE */
+.notice-section{background:#edf7f3}
+.notice-box{
+background:#fff;
+border-radius:15px;
+padding:10px;
+box-shadow:0 5px 25px #0000000c
+}
+.notice{
+display:flex;justify-content:space-between;
+gap:15px;padding:17px;
+border-bottom:1px solid #eee
+}
+.notice:last-child{border:0}
+.notice-title{font-weight:bold}
+.notice-date{
+font-size:12px;color:#087f5b;
+white-space:nowrap
 }
 
+/* FEATURES */
+.features{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:15px
+}
+.feature{
+background:#fff;padding:22px;
+border-radius:12px;
+text-align:center;
+border:1px solid #e8eeeb
+}
+.feature-icon{font-size:30px}
+.feature h3{font-size:15px;margin-top:8px}
+
+/* CTA */
+.cta{
+background:#075c43;
+color:white;text-align:center;
+border-radius:20px;padding:55px 20px
+}
+.cta h2{font-size:32px;margin-bottom:10px}
+.cta p{opacity:.9;margin-bottom:22px}
+
+/* FOOTER */
+footer{
+background:#063c2e;color:#dcece6;
+padding:45px 0 20px
+}
+.footer-grid{
+display:grid;
+grid-template-columns:2fr 1fr 1fr;
+gap:35px
+}
+footer h3{color:#fff;margin-bottom:12px}
+footer p,footer a{font-size:14px;color:#c5d9d2}
+footer a{display:block;margin:5px 0}
+.copyright{
+border-top:1px solid #ffffff20;
+margin-top:30px;padding-top:18px;
+text-align:center;font-size:13px
+}
+
+/* MOBILE */
+@media(max-width:800px){
+.nav-links{
+display:none;position:absolute;
+top:72px;left:0;right:0;
+background:#fff;padding:20px;
+flex-direction:column
+}
+.nav-links.show{display:flex}
+.menu{display:block}
+.quick-grid{grid-template-columns:1fr 1fr}
+.about{grid-template-columns:1fr}
+.departments{grid-template-columns:1fr}
+.features{grid-template-columns:1fr 1fr}
+.footer-grid{grid-template-columns:1fr}
+.hero{min-height:600px}
+}
+
+@media(max-width:480px){
+.quick-grid{grid-template-columns:1fr}
+.features{grid-template-columns:1fr}
+.topbar .container{flex-direction:column}
+}
 </style>
-
 </head>
 
 <body>
 
-<header>
-
-<div class="logo">
-
-<img src="img/logo.png">
-
-<h2>মাদরাসায়ে নূরুল কুরআন</h2>
-
+<div class="topbar">
+<div class="container">
+<span>📖 শিক্ষা • আদব • আমল</span>
+<span>মাদরাসায়ে নূরুল কুরআন</span>
+</div>
 </div>
 
 <nav>
+<div class="container nav-inner">
 
-<a href="#">হোম</a>
+<a class="brand" href="index.html">
 
-<a href="#">আমাদের সম্পর্কে</a>
+<img class="logo" src="img/logo.png" alt="Logo">
 
-<a href="#">বিভাগ</a>
+<div>
+<strong>মাদরাসায়ে নূরুল কুরআন</strong>
+<small>Madrasha-E Nurul Quran</small>
+</div>
 
-<a href="#">নোটিশ</a>
+</a>
 
-<a href="#">গ্যালারি</a>
+<div class="nav-links" id="navLinks">
+<a href="index.html">হোম</a>
+<a href="#about">আমাদের সম্পর্কে</a>
+<a href="#departments">বিভাগ</a>
+<a href="#notice">নোটিশ</a>
+<a href="#features">সুবিধাসমূহ</a>
+<a href="https://www.facebook.com/share/17s6qFEAnq/" target="_blank">Facebook</a>
+</div>
 
-<a href="#">যোগাযোগ</a>
+<button class="menu" onclick="toggleMenu()">☰</button>
 
+</div>
 </nav>
 
-<div class="menu-btn">
+<!-- HERO -->
 
-<i class="fa-solid fa-bars"></i>
+<header class="hero">
+
+<div class="container">
+
+<div class="hero-content">
+
+<div class="badge">🌙 দ্বীনি ও আধুনিক শিক্ষার সমন্বিত পরিবেশ</div>
+
+<h1>
+কুরআনের আলোয়<br>
+<strong>গড়ি সুন্দর ভবিষ্যৎ</strong>
+</h1>
+
+<p>
+মাদরাসায়ে নূরুল কুরআন—কুরআন, সুন্নাহ, নৈতিকতা ও প্রয়োজনীয় শিক্ষার সমন্বয়ে
+শিক্ষার্থীদের জ্ঞানী, আদর্শবান ও দায়িত্বশীল মানুষ হিসেবে গড়ে তোলার একটি প্রয়াস।
+</p>
+
+<div class="buttons">
+<a href="#about" class="btn primary">আমাদের সম্পর্কে →</a>
+<a href="https://www.facebook.com/share/17s6qFEAnq/" target="_blank" class="btn secondary">
+Facebook Page
+</a>
+</div>
+
+</div>
 
 </div>
 
 </header>
 
-<section class="hero">
+<!-- QUICK -->
 
-<div>
+<div class="quick">
 
-<img src="img/logo.png">
+<div class="container quick-grid">
 
-<h1>মাদরাসায়ে নূরুল কুরআন</h1>
-
-<h3>MADRASAH-E NURUL QURAN</h3>
-
-<p>
-
-কুরআন ও সুন্নাহভিত্তিক আধুনিক ইসলামি শিক্ষা প্রতিষ্ঠানে আপনাকে স্বাগতম।
-
-</p>
-
-<a href="#" class="btn btn-primary">
-
-ভর্তি চলছে
-
+<a href="#notice" class="quick-card">
+<b>📢 নোটিশ</b>
+<span>সর্বশেষ বিজ্ঞপ্তি দেখুন</span>
 </a>
 
-<a href="#" class="btn btn-outline">
+<a href="result.html" class="quick-card">
+<b>📊 ফলাফল</b>
+<span>শিক্ষার্থীর ফলাফল দেখুন</span>
+</a>
 
-যোগাযোগ করুন
+<a href="admission.html" class="quick-card">
+<b>📝 ভর্তি</b>
+<span>ভর্তি সংক্রান্ত তথ্য</span>
+</a>
 
+<a href="contact.html" class="quick-card">
+<b>☎ যোগাযোগ</b>
+<span>আমাদের সাথে যোগাযোগ করুন</span>
 </a>
 
 </div>
 
-</section> 
+</div>
+
+<!-- ABOUT -->
+
 <section id="about">
 
-<div class="title">
+<div class="container about">
+
+<div>
+<img src="img/about.jpg"
+class="about-img"
+alt="মাদরাসায়ে নূরুল কুরআন">
+</div>
+
+<div>
 
 <h2>আমাদের সম্পর্কে</h2>
 
-<p>ইসলামি আদর্শে আধুনিক শিক্ষা</p>
-
-</div>
-
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:40px;align-items:center;">
-
-<div>
-
-<img src="img/about.jpg" style="border-radius:18px;box-shadow:0 15px 35px rgba(0,0,0,.15);">
-
-</div>
-
-<div>
-
-<h2 style="color:#087f5b;margin-bottom:20px;">
-মাদরাসায়ে নূরুল কুরআন
-</h2>
-
-<p style="line-height:2;color:#555;">
-
-আমাদের লক্ষ্য কুরআন ও সুন্নাহর আলোকে একজন আদর্শ মুসলিম তৈরি করা।
-এখানে নূরানী, নাজেরা, হিফজ ও সাধারণ শিক্ষা সমন্বয়ে আধুনিক পরিবেশে পাঠদান করা হয়।
-
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-<section>
-
-<div class="title">
-
-<h2>আমাদের বিভাগ</h2>
-
-<p>যে বিভাগসমূহে শিক্ষা প্রদান করা হয়</p>
-
-</div>
-
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:25px;">
-
-<div style="background:#fff;padding:35px;border-radius:18px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.08);">
-
-<h3>📖 নূরানী</h3>
-
-</div>
-
-<div style="background:#fff;padding:35px;border-radius:18px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.08);">
-
-<h3>📚 নাজেরা</h3>
-
-</div>
-
-<div style="background:#fff;padding:35px;border-radius:18px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.08);">
-
-<h3>🕌 হিফজ</h3>
-
-</div>
-
-<div style="background:#fff;padding:35px;border-radius:18px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.08);">
-
-<h3>🎓 সাধারণ শিক্ষা</h3>
-
-</div>
-
-</div>
-
-</section> 
-<section>
-
-<div class="title">
-
-<h2>প্রধান শিক্ষকের বক্তব্য</h2>
-
-<p>Message From Principal</p>
-
-</div>
-
-<div style="display:grid;grid-template-columns:300px 1fr;gap:40px;align-items:center;">
-
-<div style="text-align:center;">
-
-<img src="img/principal.jpg"
-style="width:260px;height:260px;border-radius:50%;object-fit:cover;border:6px solid #087f5b;margin:auto;">
-
-<h3 style="margin-top:20px;color:#087f5b;">
-প্রধান শিক্ষক
-</h3>
-
-</div>
-
-<div>
-
-<p style="line-height:2;color:#555;">
-
-আলহামদুলিল্লাহ।
-আমাদের প্রতিষ্ঠানের মূল লক্ষ্য হচ্ছে শিক্ষার্থীদের কুরআন, সুন্নাহ ও উত্তম চরিত্রের আলোকে গড়ে তোলা। আধুনিক প্রযুক্তির পাশাপাশি ইসলামি শিক্ষার সমন্বয়ে আমরা একটি সুন্দর প্রজন্ম তৈরি করতে বদ্ধপরিকর।
-
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-<section style="background:#087f5b;color:white;">
-
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:30px;text-align:center;">
-
-<div>
-
-<h1>৫০০+</h1>
-
-<p>শিক্ষার্থী</p>
-
-</div>
-
-<div>
-
-<h1>২৫+</h1>
-
-<p>শিক্ষক</p>
-
-</div>
-
-<div>
-
-<h1>৮</h1>
-
-<p>বিভাগ</p>
-
-</div>
-
-<div>
-
-<h1>১০০%</h1>
-
-<p>সাফল্য</p>
-
-</div>
-
-</div>
-
-</section> 
-
-
-<div class="title">
-
-<h2>ফটো গ্যালারি</h2>
-
-<p>Madrasah Gallery</p>
-
-</div><section>
-
-<div class="title">
-<h2>সর্বশেষ নোটিশ</h2>
-<p>Latest Notice</p>
-</div>
-
-<div id="noticeBox"
-style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:25px;">
-
-<div style="background:#fff;padding:25px;border-radius:15px;box-shadow:0 8px 25px rgba(0,0,0,.08);">
-Loading Notice...
-</div>
-
-</div>
-
-</section>
-
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;">
-
-<img src="img/gallery1.jpg" style="border-radius:15px;height:220px;object-fit:cover;">
-
-<img src="img/gallery2.jpg" style="border-radius:15px;height:220px;object-fit:cover;">
-
-<img src="img/gallery3.jpg" style="border-radius:15px;height:220px;object-fit:cover;">
-
-<img src="img/gallery4.jpg" style="border-radius:15px;height:220px;object-fit:cover;">
-
-</div>
-
-</section> 
-  <section style="background:#f8fafb;">
-
-<div class="title">
-
-<h2>দান করুন</h2>
-
-<p>আপনার সহযোগিতায় দ্বীনের খেদমত এগিয়ে যাবে</p>
-
-</div>
-
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:25px;">
-
-<div style="background:#fff;padding:30px;border-radius:15px;text-align:center;box-shadow:0 8px 25px rgba(0,0,0,.08);">
-<h3>🟣 বিকাশ</h3>
-<p style="margin-top:15px;">01XXXXXXXXX</p>
-</div>
-
-<div style="background:#fff;padding:30px;border-radius:15px;text-align:center;box-shadow:0 8px 25px rgba(0,0,0,.08);">
-<h3>🟠 নগদ</h3>
-<p style="margin-top:15px;">01XXXXXXXXX</p>
-</div>
-
-<div style="background:#fff;padding:30px;border-radius:15px;text-align:center;box-shadow:0 8px 25px rgba(0,0,0,.08);">
-<h3>🏦 ব্যাংক</h3>
-<p style="margin-top:15px;">
-Madrasah-e Nurul Quran
-</p>
-</div>
-
-</div>
-
-</section>
-
-<section>
-
-<div class="title">
-
-<h2>যোগাযোগ</h2>
-
-</div>
-
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:30px;">
-
-<div>
-<h3>📍 ঠিকানা</h3>
-<p>ভল্লবপুর, দিঘলী, চন্দ্রগঞ্জ, লক্ষ্মীপুর।</p>
-</div>
-
-<div>
-<h3>📞 ফোন</h3>
-<p>01312040301</p>
-</div>
-
-<div>
-<h3>✉️ ইমেইল</h3>
-<p>madrasayenurulquran2019@gmail.com</p>
-</div>
-
-<div style="margin-top:15px;">
-<a href="https://www.facebook.com/share/17s6qFEAnq/" target="_blank"
-style="display:inline-block;background:#1877F2;color:#fff;padding:10px 20px;border-radius:8px;font-weight:bold;">
-📘 আমাদের Facebook Page
-</a>
-</div>
-
-</div>
-
-</section>
-
-<footer style="background:#075c43;color:#fff;padding:40px 20px;text-align:center;">
-
-<h3>মাদরাসায়ে নূরুল কুরআন</h3>
-
-<p style="margin:15px 0;">
-কুরআন ও সুন্নাহভিত্তিক আধুনিক ইসলামি শিক্ষা
+<p>
+মাদরাসায়ে নূরুল কুরআন একটি আদর্শ দ্বীনি শিক্ষা প্রতিষ্ঠান।
+এখানে শিক্ষার্থীদের কুরআন শিক্ষা, ইসলামী আদর্শ, নৈতিকতা ও প্রয়োজনীয়
+সাধারণ শিক্ষার মাধ্যমে আলোকিত করার চেষ্টা করা হয়।
 </p>
 
 <p>
-© 2026 All Rights Reserved.
+আমাদের লক্ষ্য—শিক্ষার্থীদের শুধু ভালো ফলাফলের জন্য নয়, বরং সুন্দর চরিত্র,
+আদব, আমল ও মানবিক মূল্যবোধসম্পন্ন মানুষ হিসেবে গড়ে তোলা।
 </p>
 
-</footer>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script>
-const noticeDB = window.supabase.createClient(
-"https://qavublwhqiqsgpcmfyft.supabase.co",
-"sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ"
-);
-
-async function loadNotice(){
-
-const {data,error}=await noticeDB
-.from("notices")
-.select("*")
-.order("created_at",{ascending:false})
-.limit(3);
-
-const box=document.getElementById("noticeBox");
-
-if(error){
-box.innerHTML="<p>Notice Load Failed</p>";
-return;
-}
-
-if(!data || data.length===0){
-box.innerHTML="<p>কোনো নোটিশ নেই</p>";
-return;
-}
-
-box.innerHTML=data.map(n=>`
-
-<div style="background:#fff;padding:25px;border-radius:15px;box-shadow:0 8px 25px rgba(0,0,0,.08);">
-
-<h3 style="color:#087f5b;">📢 ${n.title}</h3>
-
-<p style="margin-top:10px;color:#666;line-height:1.8;">
-${n.description ?? ""}
-</p>
-
-<small style="color:#999;">
-${new Date(n.created_at).toLocaleDateString()}
-</small>
+<a href="about.html" class="btn primary"
+style="background:#075c43;color:#fff">
+বিস্তারিত জানুন →
+</a>
 
 </div>
 
-`).join("");
+</div>
+
+</section>
+
+<!-- DEPARTMENTS -->
+
+<section id="departments">
+
+<div class="container">
+
+<div class="section-head">
+<h2>আমাদের বিভাগসমূহ</h2>
+<p>শিক্ষার্থীদের বয়স ও প্রয়োজন অনুযায়ী পাঠ্যক্রম</p>
+</div>
+
+<div class="departments">
+
+<div class="dept">
+<div class="dept-icon">📖</div>
+<h3>নূরানী বিভাগ</h3>
+<p>
+কুরআন পড়ার প্রাথমিক শিক্ষা, আরবি হরফ, মাখরাজ ও প্রয়োজনীয় দোয়া শেখানো হয়।
+</p>
+</div>
+
+<div class="dept">
+<div class="dept-icon">🕌</div>
+<h3>নাজেরা বিভাগ</h3>
+<p>
+শুদ্ধ উচ্চারণ, তাজবিদ ও নিয়মিত কুরআন তিলাওয়াতের মাধ্যমে দক্ষতা বৃদ্ধি।
+</p>
+</div>
+
+<div class="dept">
+<div class="dept-icon">🌙</div>
+<h3>হিফজ বিভাগ</h3>
+<p>
+অভিজ্ঞ শিক্ষকদের তত্ত্বাবধানে কুরআনুল কারীম হিফজের সুবিন্যস্ত কার্যক্রম।
+</p>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- NOTICE -->
+
+<section id="notice" class="notice-section">
+
+<div class="container">
+
+<div class="section-head">
+<h2>📢 সর্বশেষ নোটিশ</h2>
+<p>মাদরাসার গুরুত্বপূর্ণ বিজ্ঞপ্তি</p>
+</div>
+
+<div class="notice-box" id="noticeList">
+
+<div class="notice">
+<div class="notice-title">নোটিশ লোড হচ্ছে...</div>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- FEATURES -->
+
+<section id="features">
+
+<div class="container">
+
+<div class="section-head">
+<h2>প্রতিষ্ঠানের সুবিধাসমূহ</h2>
+<p>একটি আধুনিক ও সুন্দর ব্যবস্থাপনা ব্যবস্থা</p>
+</div>
+
+<div class="features">
+
+<div class="feature">
+<div class="feature-icon">👨‍🏫</div>
+<h3>অভিজ্ঞ শিক্ষকবৃন্দ</h3>
+</div>
+
+<div class="feature">
+<div class="feature-icon">📚</div>
+<h3>সমৃদ্ধ পাঠ্যক্রম</h3>
+</div>
+
+<div class="feature">
+<div class="feature-icon">📝</div>
+<h3>পরীক্ষা ও ফলাফল</h3>
+</div>
+
+<div class="feature">
+<div class="feature-icon">📱</div>
+<h3>ডিজিটাল ব্যবস্থাপনা</h3>
+</div>
+
+<div class="feature">
+<div class="feature-icon">🧑‍🎓</div>
+<h3>শিক্ষার্থী ব্যবস্থাপনা</h3>
+</div>
+
+<div class="feature">
+<div class="feature-icon">📋</div>
+<h3>অনলাইন নোটিশ</h3>
+</div>
+
+<div class="feature">
+<div class="feature-icon">🪪</div>
+<h3>আইডি কার্ড</h3>
+</div>
+
+<div class="feature">
+<div class="feature-icon">📸</div>
+<h3>ফটো গ্যালারি</h3>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- CTA -->
+
+<section>
+
+<div class="container">
+
+<div class="cta">
+
+<h2>আপনার সন্তানের সুন্দর ভবিষ্যতের পথে</h2>
+
+<p>
+কুরআন ও নৈতিক শিক্ষার আলোয় সন্তানকে গড়ে তুলুন।
+</p>
+
+<a href="admission.html" class="btn primary">
+ভর্তি সম্পর্কে জানুন →
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+
+<div class="container">
+
+<div class="footer-grid">
+
+<div>
+
+<h3>মাদরাসায়ে নূরুল কুরআন</h3>
+
+<p>
+কুরআনের শিক্ষা, সুন্দর চরিত্র ও নৈতিকতার মাধ্যমে
+একটি আলোকিত প্রজন্ম গড়ে তোলাই আমাদের লক্ষ্য।
+</p>
+
+</div>
+
+<div>
+
+<h3>গুরুত্বপূর্ণ লিংক</h3>
+
+<a href="index.html">হোম</a>
+<a href="about.html">আমাদের সম্পর্কে</a>
+<a href="result.html">ফলাফল</a>
+<a href="contact.html">যোগাযোগ</a>
+
+</div>
+
+<div>
+
+<h3>সামাজিক যোগাযোগ</h3>
+
+<a href="https://www.facebook.com/share/17s6qFEAnq/" target="_blank">
+🌐 Facebook Page
+</a>
+
+</div>
+
+</div>
+
+<div class="copyright">
+
+© 2026 মাদরাসায়ে নূরুল কুরআন — সর্বস্বত্ব সংরক্ষিত।
+
+</div>
+
+</div>
+
+</footer>
+
+<script>
+
+function toggleMenu(){
+
+document
+.getElementById("navLinks")
+.classList.toggle("show");
 
 }
 
-loadNotice();
 </script>
+
 </body>
-
 </html>
-
-  
-  
-
-
-  
