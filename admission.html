@@ -1,1 +1,1247 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
+<title>Online Admission | মাদরাসায়ে নূরুল কুরআন</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --primary:#087f5b;
+    --primary-dark:#075c43;
+    --bg:#f4f7f6;
+    --card:#ffffff;
+    --border:#e3e9e6;
+    --text:#18332a;
+    --muted:#718078;
+}
+
+body{
+    font-family:
+    "Noto Sans Bengali",
+    "Segoe UI",
+    Arial,
+    sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    min-height:100vh;
+}
+
+/* Header */
+
+.header{
+    background:#fff;
+    border-bottom:1px solid var(--border);
+    padding:16px 20px;
+    position:sticky;
+    top:0;
+    z-index:50;
+}
+
+.header-inner{
+    max-width:1100px;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+}
+
+.brand{
+    text-decoration:none;
+    color:var(--primary-dark);
+}
+
+.brand-title{
+    font-size:20px;
+    font-weight:800;
+}
+
+.brand-sub{
+    font-size:10px;
+    color:#87938e;
+    margin-top:3px;
+    letter-spacing:.8px;
+}
+
+.back-btn{
+    text-decoration:none;
+    border:1px solid #dce7e2;
+    color:var(--primary);
+    background:#f5faf8;
+    padding:9px 15px;
+    border-radius:8px;
+    font-size:13px;
+    font-weight:600;
+}
+
+/* Main */
+
+.container{
+    width:100%;
+    max-width:1000px;
+    margin:30px auto;
+    padding:0 15px;
+}
+
+.page-heading{
+    margin-bottom:22px;
+}
+
+.page-heading h1{
+    font-size:27px;
+    color:var(--primary-dark);
+    margin-bottom:6px;
+}
+
+.page-heading p{
+    font-size:13px;
+    color:var(--muted);
+}
+
+/* Card */
+
+.card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:25px;
+    margin-bottom:20px;
+    box-shadow:0 6px 25px rgba(0,0,0,.04);
+}
+
+.card-title{
+    color:var(--primary-dark);
+    font-size:18px;
+    margin-bottom:4px;
+}
+
+.card-subtitle{
+    color:var(--muted);
+    font-size:12px;
+    margin-bottom:22px;
+}
+
+/* Notice */
+
+.notice{
+    background:#f0f8f5;
+    border:1px solid #dcefe8;
+    border-radius:10px;
+    padding:13px 15px;
+    font-size:12px;
+    color:#376457;
+    margin-bottom:22px;
+    line-height:1.7;
+}
+
+/* Form */
+
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:17px;
+}
+
+.form-group{
+    width:100%;
+}
+
+.full{
+    grid-column:1/-1;
+}
+
+label{
+    display:block;
+    font-size:12px;
+    font-weight:700;
+    color:#40554d;
+    margin-bottom:7px;
+}
+
+.required{
+    color:#d12f2f;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    border:1px solid #dfe7e3;
+    background:#fff;
+    border-radius:9px;
+    padding:12px 13px;
+    outline:none;
+    font-family:inherit;
+    font-size:13px;
+    color:#253b33;
+    transition:.2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+    border-color:var(--primary);
+    box-shadow:0 0 0 3px rgba(8,127,91,.08);
+}
+
+textarea{
+    min-height:90px;
+    resize:vertical;
+}
+
+input[type="file"]{
+    padding:9px;
+    background:#fafcfb;
+}
+
+.help{
+    font-size:10px;
+    color:#8a9691;
+    margin-top:5px;
+}
+
+/* Section */
+
+.form-section{
+    grid-column:1/-1;
+    margin-top:8px;
+    padding-top:17px;
+    border-top:1px solid #edf1ef;
+}
+
+.form-section h3{
+    font-size:14px;
+    color:var(--primary-dark);
+    margin-bottom:15px;
+}
+
+/* Photo preview */
+
+.photo-preview{
+    display:none;
+    margin-top:10px;
+}
+
+.photo-preview img{
+    width:90px;
+    height:90px;
+    object-fit:cover;
+    border-radius:10px;
+    border:1px solid var(--border);
+}
+
+/* Button */
+
+.submit-area{
+    grid-column:1/-1;
+    padding-top:5px;
+}
+
+.submit-btn{
+    width:100%;
+    background:var(--primary);
+    color:#fff;
+    border:0;
+    border-radius:9px;
+    padding:13px 20px;
+    font-family:inherit;
+    font-size:14px;
+    font-weight:700;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.submit-btn:hover{
+    background:var(--primary-dark);
+}
+
+.submit-btn:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+
+/* Message */
+
+.message{
+    display:none;
+    padding:13px 15px;
+    border-radius:9px;
+    font-size:12px;
+    line-height:1.6;
+    margin-top:14px;
+}
+
+.message.success{
+    display:block;
+    background:#eaf8f2;
+    border:1px solid #ccebdd;
+    color:#166344;
+}
+
+.message.error{
+    display:block;
+    background:#fff1f1;
+    border:1px solid #f1d1d1;
+    color:#a52b2b;
+}
+
+/* Success */
+
+.success-screen{
+    display:none;
+    text-align:center;
+    padding:45px 20px;
+}
+
+.success-icon{
+    width:65px;
+    height:65px;
+    border-radius:50%;
+    background:#e9f8f1;
+    color:var(--primary);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin:0 auto 18px;
+    font-size:30px;
+}
+
+.success-screen h2{
+    color:var(--primary-dark);
+    font-size:22px;
+    margin-bottom:10px;
+}
+
+.success-screen p{
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.8;
+    max-width:600px;
+    margin:auto;
+}
+
+.application-number{
+    margin:20px auto;
+    background:#f5faf8;
+    border:1px solid #dcece5;
+    border-radius:9px;
+    padding:13px;
+    max-width:350px;
+    color:var(--primary-dark);
+    font-size:13px;
+    font-weight:700;
+}
+
+/* Footer */
+
+.footer{
+    text-align:center;
+    color:#87938e;
+    font-size:11px;
+    padding:20px 10px 30px;
+}
+
+/* Mobile */
+
+@media(max-width:700px){
+
+    .header{
+        padding:13px 15px;
+    }
+
+    .brand-title{
+        font-size:16px;
+    }
+
+    .back-btn{
+        padding:8px 10px;
+        font-size:11px;
+    }
+
+    .container{
+        margin:20px auto;
+        padding:0 10px;
+    }
+
+    .page-heading h1{
+        font-size:22px;
+    }
+
+    .card{
+        padding:17px;
+        border-radius:13px;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+        gap:15px;
+    }
+
+    .full{
+        grid-column:auto;
+    }
+
+    .form-section{
+        grid-column:auto;
+    }
+
+    .submit-area{
+        grid-column:auto;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+
+<div class="header-inner">
+
+<a href="index.html" class="brand">
+<div class="brand-title">
+মাদরাসায়ে নূরুল কুরআন
+</div>
+
+<div class="brand-sub">
+MADRASHA-E NURUL QURAN
+</div>
+</a>
+
+<a href="students.html" class="back-btn">
+Student Management
+</a>
+
+</div>
+
+</header>
+
+
+<main class="container">
+
+<div class="page-heading">
+
+<h1>Online Admission</h1>
+
+<p>
+মাদরাসায়ে নূরুল কুরআনে ভর্তির জন্য অনলাইন আবেদন করুন
+</p>
+
+</div>
+
+
+<div class="card" id="formCard">
+
+<h2 class="card-title">
+Admission Application
+</h2>
+
+<p class="card-subtitle">
+নিচের তথ্যগুলো সঠিকভাবে পূরণ করে আবেদন জমা দিন
+</p>
+
+
+<div class="notice">
+
+আবেদন জমা দেওয়ার পর আপনার আবেদনটি প্রথমে
+<strong>Pending</strong> অবস্থায় থাকবে।
+মাদরাসা কর্তৃপক্ষ আবেদন যাচাই করার পর অনুমোদন করবে।
+অনুমোদনের সময় Student ID স্বয়ংক্রিয়ভাবে তৈরি হবে।
+
+</div>
+
+
+<form id="admissionForm">
+
+<div class="form-grid">
+
+
+<!-- Student -->
+
+<div class="form-section">
+
+<h3>Student Information</h3>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Student Name <span class="required">*</span>
+</label>
+
+<input
+type="text"
+id="name"
+placeholder="শিক্ষার্থীর পূর্ণ নাম"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Date of Birth
+</label>
+
+<input
+type="date"
+id="dateOfBirth">
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Gender
+</label>
+
+<select id="gender">
+
+<option value="">নির্বাচন করুন</option>
+<option value="Male">Male</option>
+<option value="Female">Female</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Applying Class <span class="required">*</span>
+</label>
+
+<select id="className" required>
+
+<option value="">
+শ্রেণি নির্বাচন করুন
+</option>
+
+</select>
+
+</div>
+
+
+<!-- Parents -->
+
+<div class="form-section">
+
+<h3>Parents Information</h3>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Father's Name
+</label>
+
+<input
+type="text"
+id="fatherName"
+placeholder="পিতার নাম">
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Mother's Name
+</label>
+
+<input
+type="text"
+id="motherName"
+placeholder="মাতার নাম">
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Guardian's Name
+</label>
+
+<input
+type="text"
+id="guardianName"
+placeholder="অভিভাবকের নাম">
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Guardian Relation
+</label>
+
+<select id="guardianRelation">
+
+<option value="">নির্বাচন করুন</option>
+<option value="Father">Father</option>
+<option value="Mother">Mother</option>
+<option value="Brother">Brother</option>
+<option value="Sister">Sister</option>
+<option value="Uncle">Uncle</option>
+<option value="Other">Other</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Mobile Number <span class="required">*</span>
+</label>
+
+<input
+type="tel"
+id="phone"
+placeholder="01XXXXXXXXX"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Alternative Mobile
+</label>
+
+<input
+type="tel"
+id="alternativePhone"
+placeholder="বিকল্প মোবাইল নম্বর">
+
+</div>
+
+
+<!-- Address -->
+
+<div class="form-section">
+
+<h3>Address Information</h3>
+
+</div>
+
+
+<div class="form-group full">
+
+<label>
+Present / Permanent Address
+</label>
+
+<textarea
+id="address"
+placeholder="বর্তমান / স্থায়ী ঠিকানা"></textarea>
+
+</div>
+
+
+<!-- Previous School -->
+
+<div class="form-section">
+
+<h3>Previous Education</h3>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Previous School / Madrasa
+</label>
+
+<input
+type="text"
+id="previousSchool"
+placeholder="পূর্বের স্কুল / মাদরাসার নাম">
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Previous Class
+</label>
+
+<input
+type="text"
+id="previousClass"
+placeholder="পূর্বের শ্রেণি">
+
+</div>
+
+
+<div class="form-group full">
+
+<label>
+Admission Reason
+</label>
+
+<textarea
+id="admissionReason"
+placeholder="ভর্তির কারণ"></textarea>
+
+</div>
+
+
+<!-- Photo -->
+
+<div class="form-section">
+
+<h3>Student Photo</h3>
+
+</div>
+
+
+<div class="form-group full">
+
+<label>
+Student Photo
+</label>
+
+<input
+type="file"
+id="photo"
+accept="image/jpeg,image/png,image/webp">
+
+<div class="help">
+JPG, PNG অথবা WEBP ছবি ব্যবহার করুন।
+</div>
+
+<div class="photo-preview" id="photoPreview">
+
+<img id="previewImage" src="" alt="Photo Preview">
+
+</div>
+
+</div>
+
+
+<!-- Submit -->
+
+<div class="submit-area">
+
+<button
+type="submit"
+class="submit-btn"
+id="submitBtn">
+
+Submit Admission Application
+
+</button>
+
+<div
+class="message"
+id="message">
+</div>
+
+</div>
+
+
+</div>
+
+</form>
+
+</div>
+
+
+<!-- Success -->
+
+<div
+class="card success-screen"
+id="successScreen">
+
+<div class="success-icon">
+✓
+</div>
+
+<h2>
+Application Submitted
+</h2>
+
+<p>
+আপনার ভর্তি আবেদন সফলভাবে জমা হয়েছে।
+আপনার আবেদনটি এখন কর্তৃপক্ষের যাচাইয়ের জন্য
+Pending অবস্থায় রয়েছে।
+</p>
+
+<div class="application-number">
+
+Application ID:
+<span id="applicationNumber">-</span>
+
+</div>
+
+<p>
+আবেদন অনুমোদিত হলে Student ID স্বয়ংক্রিয়ভাবে তৈরি হবে।
+</p>
+
+</div>
+
+
+</main>
+
+
+<footer class="footer">
+
+মাদরাসায়ে নূরুল কুরআন
+<br>
+Online Admission System
+
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<script>
+
+/* =========================================
+   SUPABASE
+========================================= */
+
+const SUPABASE_URL =
+"https://qavublwhqiqsgpcmfyft.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
+
+const db =
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
+
+/* =========================================
+   ELEMENTS
+========================================= */
+
+const form =
+document.getElementById("admissionForm");
+
+const submitBtn =
+document.getElementById("submitBtn");
+
+const message =
+document.getElementById("message");
+
+const photoInput =
+document.getElementById("photo");
+
+const photoPreview =
+document.getElementById("photoPreview");
+
+const previewImage =
+document.getElementById("previewImage");
+
+
+/* =========================================
+   MESSAGE
+========================================= */
+
+function showMessage(text,type){
+
+message.textContent = text;
+
+message.className =
+"message " + type;
+
+}
+
+
+/* =========================================
+   PHOTO PREVIEW
+========================================= */
+
+photoInput.addEventListener(
+"change",
+function(){
+
+const file =
+this.files[0];
+
+if(!file){
+
+photoPreview.style.display =
+"none";
+
+return;
+
+}
+
+const reader =
+new FileReader();
+
+reader.onload =
+function(e){
+
+previewImage.src =
+e.target.result;
+
+photoPreview.style.display =
+"block";
+
+};
+
+reader.readAsDataURL(file);
+
+});
+
+
+/* =========================================
+   LOAD CLASSES
+========================================= */
+
+async function loadClasses(){
+
+const select =
+document.getElementById("className");
+
+try{
+
+const {data,error} =
+await db
+.from("classes")
+.select("id,name")
+.order("id");
+
+if(error){
+
+console.error(error);
+
+return;
+
+}
+
+select.innerHTML =
+'<option value="">শ্রেণি নির্বাচন করুন</option>';
+
+(data || []).forEach(c=>{
+
+const option =
+document.createElement("option");
+
+option.value =
+c.name;
+
+option.textContent =
+c.name;
+
+select.appendChild(option);
+
+});
+
+
+}catch(error){
+
+console.error(error);
+
+}
+
+}
+
+
+/* =========================================
+   UPLOAD PHOTO
+========================================= */
+
+async function uploadPhoto(){
+
+const file =
+photoInput.files[0];
+
+if(!file){
+
+return null;
+
+}
+
+const extension =
+file.name
+.split(".")
+.pop()
+.toLowerCase();
+
+const fileName =
+"admission_" +
+Date.now() +
+"_" +
+Math.random()
+.toString(36)
+.substring(2) +
+"." +
+extension;
+
+
+const {error} =
+await db.storage
+.from("student-photo")
+.upload(
+fileName,
+file,
+{
+upsert:false
+}
+);
+
+
+if(error){
+
+throw error;
+
+}
+
+
+const {data} =
+db.storage
+.from("student-photo")
+.getPublicUrl(fileName);
+
+
+return data.publicUrl;
+
+}
+
+
+/* =========================================
+   SUBMIT
+========================================= */
+
+form.addEventListener(
+"submit",
+async function(e){
+
+e.preventDefault();
+
+
+submitBtn.disabled =
+true;
+
+submitBtn.textContent =
+"Submitting...";
+
+showMessage(
+"আবেদন জমা হচ্ছে, অনুগ্রহ করে অপেক্ষা করুন...",
+"success"
+);
+
+
+try{
+
+
+/* PHOTO */
+
+let photoUrl =
+null;
+
+try{
+
+photoUrl =
+await uploadPhoto();
+
+}catch(photoError){
+
+console.error(
+"Photo upload error:",
+photoError
+);
+
+}
+
+
+/* =====================================
+   APPLICATION DATA
+===================================== */
+
+const application = {
+
+name:
+document
+.getElementById("name")
+.value
+.trim(),
+
+date_of_birth:
+document
+.getElementById("dateOfBirth")
+.value || null,
+
+gender:
+document
+.getElementById("gender")
+.value || null,
+
+father_name_text:
+document
+.getElementById("fatherName")
+.value
+.trim() || null,
+
+mother_name_text:
+document
+.getElementById("motherName")
+.value
+.trim() || null,
+
+guardian_name_text:
+document
+.getElementById("guardianName")
+.value
+.trim() || null,
+
+guardian_relation_text:
+document
+.getElementById("guardianRelation")
+.value || null,
+
+alternative_guardian_text:
+document
+.getElementById("alternativePhone")
+.value
+.trim() || null,
+
+address_text:
+document
+.getElementById("address")
+.value
+.trim() || null,
+
+applying_class_name:
+document
+.getElementById("className")
+.value,
+
+previous_school_text:
+document
+.getElementById("previousSchool")
+.value
+.trim() || null,
+
+previous_class_text:
+document
+.getElementById("previousClass")
+.value
+.trim() || null,
+
+admission_reason_text:
+document
+.getElementById("admissionReason")
+.value
+.trim() || null,
+
+photo_url:
+photoUrl,
+
+status:
+"pending"
+
+};
+
+
+/* =====================================
+   INSERT
+===================================== */
+
+const {data,error} =
+await db
+.from("admission_applications")
+.insert(application)
+.select("id")
+.single();
+
+
+if(error){
+
+console.error(error);
+
+throw error;
+
+}
+
+
+/* =====================================
+   SUCCESS
+===================================== */
+
+document
+.getElementById("formCard")
+.style.display =
+"none";
+
+
+const successScreen =
+document
+.getElementById("successScreen");
+
+successScreen.style.display =
+"block";
+
+
+document
+.getElementById("applicationNumber")
+.textContent =
+data?.id || "-";
+
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+
+}catch(error){
+
+console.error(error);
+
+showMessage(
+"আবেদন জমা দেওয়া যায়নি: " +
+error.message,
+"error"
+);
+
+submitBtn.disabled =
+false;
+
+submitBtn.textContent =
+"Submit Admission Application";
+
+}
+
+});
+
+
+/* =========================================
+   START
+========================================= */
+
+loadClasses();
+
+</script>
+
+</body>
+</html>
