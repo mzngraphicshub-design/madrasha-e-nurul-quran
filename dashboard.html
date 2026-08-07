@@ -2,326 +2,992 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
 <title>Dashboard | মাদরাসায়ে নূরুল কুরআন</title>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
+
+/* =========================================================
+   ROOT
+========================================================= */
+
+:root{
+  --blue:#075985;
+  --blue-dark:#063b5c;
+  --blue-light:#eaf6ff;
+  --sky:#0ea5e9;
+  --yellow:#f5c542;
+  --yellow-light:#fff8d9;
+  --white:#ffffff;
+  --bg:#f3f8fc;
+  --text:#17324d;
+  --muted:#708397;
+  --border:#dce8f0;
+  --shadow:0 10px 35px rgba(7,89,133,.09);
+}
+
 *{
   box-sizing:border-box;
   margin:0;
   padding:0;
 }
 
-body{
-  font-family:Arial,sans-serif;
-  background:#f4f7f6;
-  color:#222;
+html{
+  scroll-behavior:smooth;
 }
 
-/* SIDEBAR */
+body{
+  font-family:"Bornomala",Arial,sans-serif;
+  background:
+    radial-gradient(circle at 90% 5%,#dff4ff 0,transparent 25%),
+    radial-gradient(circle at 10% 90%,#fff6ce 0,transparent 22%),
+    var(--bg);
+  color:var(--text);
+  min-height:100vh;
+}
+
+
+/* =========================================================
+   BORNOMALA FONT
+========================================================= */
+
+@font-face{
+  font-family:"Bornomala";
+  src:url("fonts/Bornomala-Regular.ttf") format("truetype");
+  font-weight:400;
+  font-style:normal;
+  font-display:swap;
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
 .sidebar{
   position:fixed;
   left:0;
   top:0;
-  width:240px;
+  width:260px;
   height:100vh;
-  background:#075c43;
-  color:#fff;
-  padding:20px 12px;
+  background:
+    linear-gradient(180deg,#063b5c 0%,#075985 55%,#0877a8 100%);
+  color:white;
+  padding:18px 13px;
   overflow-y:auto;
+  z-index:1000;
+  box-shadow:8px 0 30px rgba(4,48,74,.14);
 }
 
+.sidebar::-webkit-scrollbar{
+  width:5px;
+}
+
+.sidebar::-webkit-scrollbar-thumb{
+  background:#ffffff35;
+  border-radius:20px;
+}
+
+
+/* =========================================================
+   BRAND
+========================================================= */
+
 .brand{
+  position:relative;
   text-align:center;
-  padding:10px;
-  border-bottom:1px solid #ffffff22;
-  margin-bottom:15px;
+  padding:15px 8px 20px;
+  margin-bottom:16px;
+  border-bottom:1px solid #ffffff25;
+}
+
+.brand-logo{
+  width:58px;
+  height:58px;
+  margin:0 auto 10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:18px;
+  background:linear-gradient(145deg,#fff,#e7f6ff);
+  color:var(--blue);
+  box-shadow:0 8px 20px #0002;
+  font-size:25px;
+  font-weight:bold;
 }
 
 .brand b{
-  font-size:16px;
+  display:block;
+  font-size:17px;
+  line-height:1.5;
 }
 
 .brand small{
   display:block;
-  margin-top:5px;
-  opacity:.7;
+  margin-top:4px;
+  color:#d8f3ff;
+  letter-spacing:1.5px;
+  font-size:9px;
 }
 
-/* MENU */
+
+/* =========================================================
+   MENU
+========================================================= */
+
+.menu-title{
+  padding:8px 12px;
+  color:#c8edff;
+  font-size:10px;
+  letter-spacing:1.3px;
+  text-transform:uppercase;
+}
+
 .menu a{
-  display:block;
-  color:#fff;
+  position:relative;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  color:#eaf8ff;
   text-decoration:none;
   padding:11px 12px;
-  border-radius:7px;
+  border-radius:11px;
   margin:3px 0;
   font-size:14px;
+  transition:.25s ease;
 }
 
-.menu a:hover,
-.menu a.active{
+.menu a:hover{
   background:#ffffff18;
+  transform:translateX(4px);
+  color:#fff;
 }
 
-/* MAIN */
+.menu a.active{
+  background:linear-gradient(90deg,#ffffff22,#ffffff0a);
+  color:#fff;
+  box-shadow:inset 3px 0 var(--yellow);
+}
+
+.menu a.active:after{
+  content:"";
+  position:absolute;
+  right:10px;
+  width:6px;
+  height:6px;
+  background:var(--yellow);
+  border-radius:50%;
+}
+
+.icon{
+  width:27px;
+  height:27px;
+  border-radius:8px;
+  background:#ffffff12;
+  border:1px solid #ffffff14;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:12px;
+  font-weight:bold;
+  flex:none;
+}
+
+.notice-link{
+  background:#ffffff0c;
+}
+
+.notice-link .icon{
+  background:#f5c542;
+  color:#17324d;
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
 .main{
-  margin-left:240px;
+  margin-left:260px;
   min-height:100vh;
 }
 
+
+/* =========================================================
+   TOPBAR
+========================================================= */
+
 .top{
-  height:65px;
-  background:#fff;
+  position:sticky;
+  top:0;
+  min-height:72px;
+  background:#ffffffdd;
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  border-bottom:1px solid #dce8f080;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:0 25px;
-  box-shadow:0 2px 8px #00000010;
+  padding:12px 28px;
+  z-index:900;
+}
+
+.top-left{
+  display:flex;
+  align-items:center;
+  gap:13px;
+}
+
+.top-mark{
+  width:40px;
+  height:40px;
+  border-radius:12px;
+  background:var(--blue-light);
+  border:1px solid #cceaf8;
+  color:var(--blue);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
 }
 
 .top h2{
-  color:#075c43;
-  font-size:20px;
+  color:var(--blue-dark);
+  font-size:21px;
+}
+
+.top small{
+  display:block;
+  color:var(--muted);
+  font-size:11px;
+  margin-top:2px;
+}
+
+.top-right{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.live{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  background:#eefaf4;
+  border:1px solid #ccebd9;
+  color:#167047;
+  padding:8px 11px;
+  border-radius:20px;
+  font-size:11px;
+}
+
+.live-dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#16a34a;
+  box-shadow:0 0 0 5px #16a34a18;
 }
 
 .logout{
   border:0;
-  background:#087f5b;
+  background:var(--blue);
   color:#fff;
-  padding:9px 15px;
-  border-radius:7px;
+  padding:10px 15px;
+  border-radius:10px;
   cursor:pointer;
+  font-family:inherit;
+  transition:.25s;
 }
 
-/* CONTENT */
+.logout:hover{
+  background:var(--blue-dark);
+  transform:translateY(-2px);
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
 .content{
-  padding:25px;
+  padding:28px;
+  max-width:1500px;
+  margin:auto;
 }
 
-.welcome,
-.card,
-.classes{
-  background:#fff;
-  border-radius:12px;
-  padding:20px;
-  box-shadow:0 2px 10px #00000008;
-}
+
+/* =========================================================
+   WELCOME HERO
+========================================================= */
 
 .welcome{
-  margin-bottom:20px;
+  position:relative;
+  overflow:hidden;
+  min-height:190px;
+  background:
+    linear-gradient(120deg,#06476d,#0878a9);
+  border-radius:22px;
+  padding:30px;
+  color:white;
+  box-shadow:var(--shadow);
+  margin-bottom:22px;
 }
 
-.welcome h2{
-  color:#075c43;
-  margin-bottom:7px;
+.welcome:before,
+.welcome:after{
+  content:"";
+  position:absolute;
+  border-radius:50%;
+  border:1px solid #ffffff20;
 }
 
-/* CARDS */
+.welcome:before{
+  width:270px;
+  height:270px;
+  right:-80px;
+  top:-140px;
+}
+
+.welcome:after{
+  width:210px;
+  height:210px;
+  right:70px;
+  bottom:-155px;
+}
+
+.welcome-content{
+  position:relative;
+  z-index:2;
+  max-width:700px;
+}
+
+.welcome-tag{
+  display:inline-block;
+  background:#f5c542;
+  color:#17324d;
+  padding:5px 10px;
+  border-radius:20px;
+  font-size:10px;
+  font-weight:bold;
+  margin-bottom:13px;
+}
+
+.welcome h1{
+  font-size:27px;
+  margin-bottom:8px;
+}
+
+.welcome p{
+  color:#dff5ff;
+  font-size:14px;
+}
+
+.hero-line{
+  margin-top:18px;
+  width:90px;
+  height:3px;
+  background:var(--yellow);
+  border-radius:10px;
+}
+
+
+/* =========================================================
+   STAT CARDS
+========================================================= */
+
 .cards{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:16px;
+  gap:17px;
 }
 
-.card .icon{
-  font-size:27px;
+.stat-card{
+  position:relative;
+  overflow:hidden;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:20px;
+  box-shadow:var(--shadow);
+  transition:.3s ease;
 }
 
-.card p{
-  color:#777;
-  margin-top:8px;
+.stat-card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 18px 40px rgba(7,89,133,.14);
 }
 
-.card b{
-  font-size:25px;
-  color:#075c43;
+.stat-card:after{
+  content:"";
+  position:absolute;
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  background:#eaf6ff;
+  right:-35px;
+  top:-35px;
 }
 
-/* CLASSES */
-.classes{
-  margin-top:20px;
+.stat-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
-.classes h3{
-  color:#075c43;
-  margin-bottom:15px;
+.stat-icon{
+  width:43px;
+  height:43px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:13px;
+  background:var(--blue-light);
+  border:1px solid #cceaf8;
+  color:var(--blue);
+  font-size:16px;
+  font-weight:bold;
 }
+
+.stat-card:nth-child(2) .stat-icon{
+  background:#fff8dc;
+  border-color:#f5e3a2;
+  color:#9a7400;
+}
+
+.stat-card:nth-child(3) .stat-icon{
+  background:#edf8f2;
+  border-color:#ccebd9;
+  color:#167047;
+}
+
+.stat-card:nth-child(4) .stat-icon{
+  background:#f2efff;
+  border-color:#ded6ff;
+  color:#6650b5;
+}
+
+.stat-title{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:17px;
+}
+
+.stat-number{
+  display:block;
+  color:var(--blue-dark);
+  font-size:30px;
+  font-weight:bold;
+  margin-top:5px;
+}
+
+.stat-footer{
+  margin-top:9px;
+  color:#91a0ad;
+  font-size:10px;
+}
+
+
+/* =========================================================
+   SECTION
+========================================================= */
+
+.section{
+  margin-top:23px;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:22px;
+  box-shadow:var(--shadow);
+}
+
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:18px;
+}
+
+.section-head h3{
+  color:var(--blue-dark);
+  font-size:18px;
+}
+
+.section-head p{
+  color:var(--muted);
+  font-size:11px;
+}
+
+
+/* =========================================================
+   CLASS CARDS
+========================================================= */
 
 .grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:12px;
+  gap:13px;
 }
 
-.item{
-  padding:18px;
+.class-item{
+  position:relative;
+  overflow:hidden;
+  padding:20px 15px;
   text-align:center;
-  border:1px solid #eee;
-  border-radius:8px;
+  border:1px solid var(--border);
+  border-radius:15px;
+  background:linear-gradient(145deg,#fff,#f7fbfe);
+  transition:.25s;
+}
+
+.class-item:before{
+  content:"";
+  display:block;
+  width:7px;
+  height:7px;
+  margin:0 auto 10px;
+  border-radius:50%;
+  background:var(--yellow);
+  box-shadow:0 0 0 5px #f5c54220;
+}
+
+.class-item:hover{
+  border-color:#a9dff5;
+  transform:translateY(-3px);
+  background:#f1faff;
+}
+
+.class-item strong{
+  display:block;
+  color:var(--blue-dark);
+  font-size:14px;
+}
+
+
+/* =========================================================
+   QUICK ACCESS
+========================================================= */
+
+.quick-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:13px;
+}
+
+.quick{
+  display:flex;
+  align-items:center;
+  gap:13px;
+  text-decoration:none;
+  color:var(--text);
+  padding:15px;
+  border:1px solid var(--border);
+  border-radius:14px;
+  background:#fbfdff;
+  transition:.25s;
+}
+
+.quick:hover{
+  border-color:#a9dff5;
+  background:#f1faff;
+  transform:translateY(-3px);
+}
+
+.quick-icon{
+  width:39px;
+  height:39px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:11px;
+  background:var(--blue-light);
+  color:var(--blue);
+  font-size:12px;
   font-weight:bold;
 }
 
-/* MOBILE */
-@media(max-width:900px){
+.quick b{
+  font-size:13px;
+}
+
+.quick small{
+  display:block;
+  color:var(--muted);
+  margin-top:3px;
+  font-size:10px;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer{
+  text-align:center;
+  padding:25px 10px;
+  color:#8a9aaa;
+  font-size:11px;
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.loading{
+  opacity:.55;
+  animation:pulse 1.4s infinite;
+}
+
+@keyframes pulse{
+  0%,100%{opacity:.45}
+  50%{opacity:1}
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:1100px){
 
   .cards{
     grid-template-columns:repeat(2,1fr);
   }
 
+  .grid{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .quick-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
 }
 
-@media(max-width:600px){
+
+@media(max-width:750px){
 
   .sidebar{
-    width:65px;
-    padding:15px 7px;
+    width:72px;
+    padding:12px 7px;
   }
 
   .brand b,
   .brand small,
-  .menu span{
+  .menu span,
+  .menu-title{
     display:none;
   }
 
+  .brand{
+    padding-bottom:15px;
+  }
+
+  .brand-logo{
+    width:45px;
+    height:45px;
+    font-size:18px;
+  }
+
   .menu a{
-    text-align:center;
-    font-size:20px;
+    justify-content:center;
+    padding:12px 5px;
+  }
+
+  .menu a.active:after{
+    right:4px;
   }
 
   .main{
-    margin-left:65px;
-  }
-
-  .cards,
-  .grid{
-    grid-template-columns:1fr;
+    margin-left:72px;
   }
 
   .content{
-    padding:12px;
+    padding:15px;
   }
 
   .top{
-    padding:0 12px;
+    padding:10px 15px;
+  }
+
+  .top h2{
+    font-size:17px;
+  }
+
+  .top small{
+    display:none;
+  }
+
+  .live{
+    display:none;
+  }
+
+  .welcome{
+    padding:23px;
+    min-height:170px;
+  }
+
+  .welcome h1{
+    font-size:22px;
+  }
+
+  .cards{
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+  }
+
+  .grid,
+  .quick-grid{
+    grid-template-columns:repeat(2,1fr);
   }
 
 }
+
+
+@media(max-width:480px){
+
+  .cards,
+  .grid,
+  .quick-grid{
+    grid-template-columns:1fr;
+  }
+
+  .welcome h1{
+    font-size:20px;
+  }
+
+  .section{
+    padding:16px;
+  }
+
+}
+
 </style>
+
 </head>
+
 
 <body>
 
-<!-- ================= SIDEBAR ================= -->
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
 
 <aside class="sidebar">
 
+
   <div class="brand">
-    🕌<br>
-    <b>মাদরাসায়ে নূরুল কুরআন</b>
-    <small>ADMIN PANEL</small>
+
+    <div class="brand-logo">
+      MNQ
+    </div>
+
+    <b>
+      মাদরাসায়ে নূরুল কুরআন
+    </b>
+
+    <small>
+      ADMINISTRATION PORTAL
+    </small>
+
   </div>
+
 
   <div class="menu">
 
-    <!-- Dashboard -->
-    <a class="active" href="dashboard.html">
-      📊 <span>Dashboard</span>
+    <div class="menu-title">
+      Main Menu
+    </div>
+
+
+    <a
+      class="active"
+      href="dashboard.html">
+
+      <i class="icon">01</i>
+      <span>Dashboard</span>
+
     </a>
 
-    <!-- Students -->
+
     <a href="students.html">
-      👨‍🎓 <span>Students</span>
-    </a> 
-    
-<a href="student-id.html">
-    🪪 <span>Student ID Card</span>
-</a> 
-    
-    <!-- Teachers -->
+
+      <i class="icon">02</i>
+      <span>Students</span>
+
+    </a>
+
+
+    <a href="student-id.html">
+
+      <i class="icon">ID</i>
+      <span>Student ID Card</span>
+
+    </a>
+
+
     <a href="teachers.html">
-      👨‍🏫 <span>Teachers</span>
+
+      <i class="icon">03</i>
+      <span>Teachers</span>
+
     </a>
 
-    <!-- Employees -->
+
     <a href="employees.html">
-      👨‍💼 <span>Employees</span>
+
+      <i class="icon">04</i>
+      <span>Employees</span>
+
     </a>
 
-    <!-- Classes -->
+
     <a href="#">
-      📚 <span>Classes</span>
+
+      <i class="icon">05</i>
+      <span>Classes</span>
+
     </a>
 
-    <!-- Student Attendance -->
+
+    <div class="menu-title">
+      Attendance
+    </div>
+
+
     <a href="attendance.html">
-      📋 <span>Student Attendance</span>
+
+      <i class="icon">06</i>
+      <span>Student Attendance</span>
+
     </a>
 
-    <!-- Attendance Report -->
+
     <a href="attendance-view.html">
-      📊 <span>Attendance Report</span>
+
+      <i class="icon">07</i>
+      <span>Attendance Report</span>
+
     </a>
 
-    <!-- Teacher Attendance -->
+
     <a href="teacher-attendance.html">
-      👨‍🏫 <span>Teacher Attendance</span>
+
+      <i class="icon">08</i>
+      <span>Teacher Attendance</span>
+
     </a>
 
-    <!-- Employee Attendance -->
+
     <a href="employee-attendance.html">
-      👨‍💼 <span>Employee Attendance</span>
+
+      <i class="icon">09</i>
+      <span>Employee Attendance</span>
+
     </a>
 
-    <!-- Student Fees -->
+
+    <div class="menu-title">
+      Finance
+    </div>
+
+
     <a href="fees.html">
-      💰 <span>Student Fees</span>
+
+      <i class="icon">10</i>
+      <span>Student Fees</span>
+
     </a>
 
-    <!-- ================= INCOME & DONATION ================= -->
 
-<a href="income.html">
-  💵 <span>Income & Donation</span>
-</a>
+    <a href="income.html">
 
-    <!-- Expense Management -->
+      <i class="icon">11</i>
+      <span>Income & Donation</span>
+
+    </a>
+
+
     <a href="expense.html">
-      💸 <span>Expense Management</span>
+
+      <i class="icon">12</i>
+      <span>Expense Management</span>
+
     </a>
 
-    <!-- Salary -->
+
     <a href="salary.html">
-      💰 <span>Salary</span>
+
+      <i class="icon">13</i>
+      <span>Salary</span>
+
     </a>
 
-    <!-- Results -->
+
+    <div class="menu-title">
+      Academic
+    </div>
+
+
     <a href="results.html">
-      📋 <span>Results</span>
+
+      <i class="icon">14</i>
+      <span>Results</span>
+
     </a>
 
-    <!-- Marksheet -->
+
     <a href="marksheet.html">
-      🧾 <span>Marksheet</span>
-    </a> 
 
-<a href="notice.html" class="card">
-    <h3>📢 Notice Management</h3>
-    <p>নোটিশ যোগ / সম্পাদনা / মুছুন</p>
-</a>
+      <i class="icon">15</i>
+      <span>Marksheet</span>
 
-    <!-- Reports -->
-    <a href="#">
-      📊 <span>Reports</span>
     </a>
 
-    <!-- Settings -->
-    <a href="#">
-      ⚙️ <span>Settings</span>
+
+    <a
+      href="notice.html"
+      class="notice-link">
+
+      <i class="icon">N</i>
+      <span>Notice Management</span>
+
     </a>
 
-    <!-- Logout -->
-    <a href="#" id="logout">
-      🚪 <span>Logout</span>
+
+    <div class="menu-title">
+      System
+    </div>
+
+
+    <a href="#">
+
+      <i class="icon">16</i>
+      <span>Reports</span>
+
+    </a>
+
+
+    <a href="#">
+
+      <i class="icon">17</i>
+      <span>Settings</span>
+
+    </a>
+
+
+    <a
+      href="#"
+      id="logout">
+
+      <i class="icon">↪</i>
+      <span>Logout</span>
+
     </a>
 
   </div>
@@ -329,175 +995,497 @@ body{
 </aside>
 
 
-<!-- ================= MAIN ================= -->
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
 
 <main class="main">
 
+
   <header class="top">
 
-    <h2>Dashboard</h2>
 
-    <button
-      class="logout"
-      id="logout2">
+    <div class="top-left">
 
-      Logout
+      <div class="top-mark">
+        MN
+      </div>
 
-    </button>
+      <div>
+
+        <h2>
+          Administration Dashboard
+        </h2>
+
+        <small>
+          মাদরাসায়ে নূরুল কুরআন
+        </small>
+
+      </div>
+
+    </div>
+
+
+    <div class="top-right">
+
+      <div class="live">
+
+        <span class="live-dot"></span>
+
+        System Online
+
+      </div>
+
+
+      <button
+        class="logout"
+        id="logout2">
+
+        Logout
+
+      </button>
+
+    </div>
 
   </header>
 
 
+
   <section class="content">
 
-    <!-- Welcome -->
+
+    <!-- =================================================
+         HERO
+    ================================================= -->
 
     <div class="welcome">
 
-      <h2>
-        আসসালামু আলাইকুম 👋
-      </h2>
+      <div class="welcome-content">
 
-      <p>
-        মাদরাসায়ে নূরুল কুরআন Administration Dashboard
-      </p>
+        <span class="welcome-tag">
+          ADMIN PORTAL
+        </span>
+
+        <h1>
+          আসসালামু আলাইকুম
+        </h1>
+
+        <p>
+          মাদরাসায়ে নূরুল কুরআনের প্রশাসনিক ব্যবস্থাপনা
+          এক জায়গা থেকে পরিচালনা করুন।
+        </p>
+
+        <div class="hero-line"></div>
+
+      </div>
 
     </div>
 
 
-    <!-- Statistics -->
+
+    <!-- =================================================
+         STATISTICS
+    ================================================= -->
 
     <div class="cards">
 
-      <div class="card">
 
-        <div class="icon">
-          👨‍🎓
+      <div class="stat-card">
+
+        <div class="stat-top">
+
+          <div class="stat-icon">
+            ST
+          </div>
+
         </div>
 
-        <p>
-          Students
-        </p>
+        <div class="stat-title">
+          মোট শিক্ষার্থী
+        </div>
 
-        <b id="students">
+        <strong
+          id="students"
+          class="stat-number loading">
+
           0
-        </b>
+
+        </strong>
+
+        <div class="stat-footer">
+          Registered Students
+        </div>
 
       </div>
 
 
-      <div class="card">
 
-        <div class="icon">
-          👨‍🏫
+      <div class="stat-card">
+
+        <div class="stat-top">
+
+          <div class="stat-icon">
+            TC
+          </div>
+
         </div>
 
-        <p>
-          Teachers
-        </p>
+        <div class="stat-title">
+          মোট শিক্ষক
+        </div>
 
-        <b id="teachers">
+        <strong
+          id="teachers"
+          class="stat-number loading">
+
           0
-        </b>
+
+        </strong>
+
+        <div class="stat-footer">
+          Teaching Staff
+        </div>
 
       </div>
 
 
-      <div class="card">
 
-        <div class="icon">
-          👨‍💼
+      <div class="stat-card">
+
+        <div class="stat-top">
+
+          <div class="stat-icon">
+            EM
+          </div>
+
         </div>
 
-        <p>
-          Employees
-        </p>
+        <div class="stat-title">
+          মোট কর্মচারী
+        </div>
 
-        <b id="employees">
+        <strong
+          id="employees"
+          class="stat-number loading">
+
           0
-        </b>
+
+        </strong>
+
+        <div class="stat-footer">
+          Office & Support Staff
+        </div>
 
       </div>
 
 
-      <div class="card">
 
-        <div class="icon">
-          📚
+      <div class="stat-card">
+
+        <div class="stat-top">
+
+          <div class="stat-icon">
+            CL
+          </div>
+
         </div>
 
-        <p>
-          Classes
-        </p>
+        <div class="stat-title">
+          মোট বিভাগ / শ্রেণি
+        </div>
 
-        <b id="classes">
+        <strong
+          id="classes"
+          class="stat-number loading">
+
           0
-        </b>
+
+        </strong>
+
+        <div class="stat-footer">
+          Academic Classes
+        </div>
 
       </div>
+
 
     </div>
 
 
-    <!-- Classes -->
 
-    <div class="classes">
+    <!-- =================================================
+         CLASSES
+    ================================================= -->
 
-      <h3>
-        📚 বিভাগ ও শ্রেণি
-      </h3>
+    <div class="section">
+
+
+      <div class="section-head">
+
+        <div>
+
+          <h3>
+            বিভাগ ও শ্রেণি
+          </h3>
+
+          <p>
+            Academic Departments & Classes
+          </p>
+
+        </div>
+
+      </div>
+
 
       <div class="grid">
 
-        <div class="item">
-          নূরানী
+
+        <div class="class-item">
+          <strong>নূরানী</strong>
         </div>
 
-        <div class="item">
-          ১ম শ্রেণি
+
+        <div class="class-item">
+          <strong>১ম শ্রেণি</strong>
         </div>
 
-        <div class="item">
-          ২য় শ্রেণি
+
+        <div class="class-item">
+          <strong>২য় শ্রেণি</strong>
         </div>
 
-        <div class="item">
-          ৩য় শ্রেণি
+
+        <div class="class-item">
+          <strong>৩য় শ্রেণি</strong>
         </div>
 
-        <div class="item">
-          ৪র্থ শ্রেণি
+
+        <div class="class-item">
+          <strong>৪র্থ শ্রেণি</strong>
         </div>
 
-        <div class="item">
-          ৫ম শ্রেণি
+
+        <div class="class-item">
+          <strong>৫ম শ্রেণি</strong>
         </div>
 
-        <div class="item">
-          নাজেরা
+
+        <div class="class-item">
+          <strong>নাজেরা</strong>
         </div>
 
-        <div class="item">
-          হিফজ
+
+        <div class="class-item">
+          <strong>হিফজ</strong>
         </div>
+
 
       </div>
 
     </div>
+
+
+
+    <!-- =================================================
+         QUICK ACCESS
+    ================================================= -->
+
+    <div class="section">
+
+
+      <div class="section-head">
+
+        <div>
+
+          <h3>
+            দ্রুত প্রবেশ
+          </h3>
+
+          <p>
+            Frequently Used Management Modules
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="quick-grid">
+
+
+        <a
+          class="quick"
+          href="notice.html">
+
+          <div class="quick-icon">
+            N
+          </div>
+
+          <div>
+
+            <b>
+              Notice Management
+            </b>
+
+            <small>
+              নোটিশ প্রকাশ ও ব্যবস্থাপনা
+            </small>
+
+          </div>
+
+        </a>
+
+
+
+        <a
+          class="quick"
+          href="students.html">
+
+          <div class="quick-icon">
+            ST
+          </div>
+
+          <div>
+
+            <b>
+              Students
+            </b>
+
+            <small>
+              শিক্ষার্থী ব্যবস্থাপনা
+            </small>
+
+          </div>
+
+        </a>
+
+
+
+        <a
+          class="quick"
+          href="results.html">
+
+          <div class="quick-icon">
+            RS
+          </div>
+
+          <div>
+
+            <b>
+              Results
+            </b>
+
+            <small>
+              পরীক্ষার ফলাফল
+            </small>
+
+          </div>
+
+        </a>
+
+
+
+        <a
+          class="quick"
+          href="fees.html">
+
+          <div class="quick-icon">
+            FE
+          </div>
+
+          <div>
+
+            <b>
+              Student Fees
+            </b>
+
+            <small>
+              বেতন ও ফি ব্যবস্থাপনা
+            </small>
+
+          </div>
+
+        </a>
+
+
+
+        <a
+          class="quick"
+          href="attendance.html">
+
+          <div class="quick-icon">
+            AT
+          </div>
+
+          <div>
+
+            <b>
+              Attendance
+            </b>
+
+            <small>
+              হাজিরা ব্যবস্থাপনা
+            </small>
+
+          </div>
+
+        </a>
+
+
+
+        <a
+          class="quick"
+          href="income.html">
+
+          <div class="quick-icon">
+            IN
+          </div>
+
+          <div>
+
+            <b>
+              Income & Donation
+            </b>
+
+            <small>
+              আয় ও অনুদান
+            </small>
+
+          </div>
+
+        </a>
+
+
+      </div>
+
+    </div>
+
+
+    <div class="footer">
+
+      মাদরাসায়ে নূরুল কুরআন —
+      Administration Management System
+
+    </div>
+
 
   </section>
 
 </main>
 
 
-<!-- ================= SUPABASE ================= -->
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!-- =====================================================
+     SUPABASE + AUTH
+===================================================== -->
 
 <script>
 
+
 const SUPABASE_URL =
 "https://qavublwhqiqsgpcmfyft.supabase.co";
+
 
 const SUPABASE_KEY =
 "sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
@@ -510,119 +1498,153 @@ window.supabase.createClient(
 );
 
 
-/* ================= START ================= */
 
-async function start(){
+/* =====================================================
+   AUTH CHECK
+===================================================== */
 
-  try{
+async function checkLogin(){
 
-    const {
-      data,
+  const {
+    data,
+    error
+  } = await db.auth.getSession();
+
+
+  if(error){
+
+    console.error(
+      "Authentication error:",
       error
-    } = await db.auth.getSession();
+    );
 
+    window.location.replace(
+      "admin.html"
+    );
 
-    if(error){
-
-      console.error(
-        "Session error:",
-        error
-      );
-
-      return;
-
-    }
-
-
-    if(!data.session){
-
-      location.href =
-        "admin.html";
-
-      return;
-
-    }
-
-
-    const tables = [
-
-      ["students","students"],
-
-      ["teachers","teachers"],
-
-      ["employees","employees"],
-
-      ["classes","classes"]
-
-    ];
-
-
-    for(
-      const [table,id]
-      of tables
-    ){
-
-      try{
-
-        const {
-          count,
-          error
-        } = await db
-
-          .from(table)
-
-          .select(
-            "*",
-            {
-              count:"exact",
-              head:true
-            }
-          );
-
-
-        if(!error){
-
-          const element =
-            document.getElementById(id);
-
-
-          if(element){
-
-            element.textContent =
-              count || 0;
-
-          }
-
-        }
-
-      }
-
-      catch(e){
-
-        console.log(
-          table,
-          e
-        );
-
-      }
-
-    }
+    return false;
 
   }
 
-  catch(error){
 
-    console.error(
-      "Dashboard error:",
-      error
+  if(
+    !data ||
+    !data.session
+  ){
+
+    window.location.replace(
+      "admin.html"
     );
+
+    return false;
+
+  }
+
+
+  return true;
+
+}
+
+
+
+/* =====================================================
+   STATISTICS
+===================================================== */
+
+async function loadStatistics(){
+
+
+  const tables = [
+
+    ["students","students"],
+
+    ["teachers","teachers"],
+
+    ["employees","employees"],
+
+    ["classes","classes"]
+
+  ];
+
+
+  for(
+    const [table,id]
+    of tables
+  ){
+
+    try{
+
+      const {
+        count,
+        error
+      } = await db
+
+        .from(table)
+
+        .select(
+          "*",
+          {
+            count:"exact",
+            head:true
+          }
+        );
+
+
+      const element =
+        document.getElementById(id);
+
+
+      if(!element){
+
+        continue;
+
+      }
+
+
+      element.classList.remove(
+        "loading"
+      );
+
+
+      if(error){
+
+        console.log(
+          table +
+          " table:",
+          error.message
+        );
+
+        element.textContent =
+          "—";
+
+        continue;
+
+      }
+
+
+      element.textContent =
+        count || 0;
+
+    }
+
+    catch(error){
+
+      console.log(
+        table,
+        error
+      );
+
+    }
 
   }
 
 }
 
 
-/* ================= LOGOUT ================= */
+
+/* =====================================================
+   LOGOUT
+===================================================== */
 
 async function logout(){
 
@@ -634,7 +1656,7 @@ async function logout(){
 
   catch(error){
 
-    console.log(
+    console.error(
       "Logout error:",
       error
     );
@@ -642,13 +1664,17 @@ async function logout(){
   }
 
 
-  location.href =
-    "admin.html";
+  window.location.replace(
+    "admin.html"
+  );
 
 }
 
 
-/* ================= LOGOUT BUTTON ================= */
+
+/* =====================================================
+   LOGOUT BUTTONS
+===================================================== */
 
 const logoutButton =
 document.getElementById(
@@ -672,8 +1698,6 @@ if(logoutButton){
 }
 
 
-/* ================= TOP LOGOUT ================= */
-
 const logoutButton2 =
 document.getElementById(
   "logout2"
@@ -684,19 +1708,60 @@ if(logoutButton2){
 
   logoutButton2.addEventListener(
     "click",
-    function(){
-
-      logout();
-
-    }
+    logout
   );
 
 }
 
 
-/* ================= RUN ================= */
+
+/* =====================================================
+   START
+===================================================== */
+
+async function start(){
+
+  const loggedIn =
+    await checkLogin();
+
+
+  if(!loggedIn){
+
+    return;
+
+  }
+
+
+  await loadStatistics();
+
+}
+
 
 start();
+
+
+
+/* =====================================================
+   AUTH STATE
+===================================================== */
+
+db.auth.onAuthStateChange(
+  function(event,session){
+
+    if(
+      event === "SIGNED_OUT" ||
+      !session
+    ){
+
+      window.location.replace(
+        "admin.html"
+      );
+
+    }
+
+  }
+);
+
 
 </script>
 
