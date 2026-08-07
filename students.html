@@ -55,36 +55,19 @@ body{
 .brand-sub{
     font-size:11px;
     color:var(--muted);
-    letter-spacing:.7px;
     margin-top:3px;
-}
-
-.top-actions{
-    display:flex;
-    gap:8px;
-    align-items:center;
-}
-
-.dashboard-link,
-.logout-btn{
-    padding:9px 14px;
-    border-radius:8px;
-    font-size:13px;
-    font-weight:700;
-    cursor:pointer;
-    text-decoration:none;
+    letter-spacing:.7px;
 }
 
 .dashboard-link{
     color:var(--primary);
     border:1px solid #cde9df;
     background:var(--primary-light);
-}
-
-.logout-btn{
-    border:0;
-    background:#fee2e2;
-    color:#b91c1c;
+    padding:9px 14px;
+    border-radius:8px;
+    text-decoration:none;
+    font-size:13px;
+    font-weight:700;
 }
 
 .container{
@@ -115,7 +98,7 @@ body{
 }
 
 .stat-box{
-    background:var(--white);
+    background:#fff;
     border:1px solid var(--border);
     border-radius:14px;
     padding:20px;
@@ -135,7 +118,7 @@ body{
 }
 
 .box{
-    background:var(--white);
+    background:#fff;
     border:1px solid var(--border);
     border-radius:15px;
     padding:24px;
@@ -306,7 +289,7 @@ button:disabled{
 table{
     width:100%;
     border-collapse:collapse;
-    min-width:950px;
+    min-width:900px;
 }
 
 thead th{
@@ -356,18 +339,19 @@ tbody tr:hover{
     font-size:11px;
 }
 
-.photo-preview{
+.photo-preview,
+.no-photo{
     width:40px;
     height:40px;
     border-radius:8px;
+}
+
+.photo-preview{
     object-fit:cover;
     border:1px solid var(--border);
 }
 
 .no-photo{
-    width:40px;
-    height:40px;
-    border-radius:8px;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -435,13 +419,13 @@ tbody tr:hover{
     border-radius:8px;
     font-size:12px;
     font-weight:700;
+    white-space:nowrap;
 }
 
 @media(max-width:800px){
 
     .topbar{
         padding:14px 16px;
-        min-height:auto;
     }
 
     .brand-title{
@@ -452,16 +436,9 @@ tbody tr:hover{
         font-size:9px;
     }
 
-    .top-actions{
-        flex-direction:column;
-        align-items:stretch;
-    }
-
-    .dashboard-link,
-    .logout-btn{
+    .dashboard-link{
+        padding:8px 10px;
         font-size:11px;
-        padding:7px 9px;
-        text-align:center;
     }
 
     .container{
@@ -479,7 +456,6 @@ tbody tr:hover{
 
     .box{
         padding:17px;
-        border-radius:12px;
     }
 
     .box-header{
@@ -526,17 +502,9 @@ tbody tr:hover{
         </div>
     </div>
 
-    <div class="top-actions">
-
-        <a href="dashboard.html" class="dashboard-link">
-            ← Dashboard
-        </a>
-
-        <button class="logout-btn" id="logoutBtn">
-            Logout
-        </button>
-
-    </div>
+    <a href="dashboard.html" class="dashboard-link">
+        ← Dashboard
+    </a>
 
 </header>
 
@@ -556,7 +524,7 @@ tbody tr:hover{
     </div>
 
 
-    <!-- STATISTICS -->
+    <!-- STATS -->
 
     <section class="stats">
 
@@ -566,7 +534,9 @@ tbody tr:hover{
                 মোট শিক্ষার্থী
             </div>
 
-            <div class="stat-number" id="totalStudents">
+            <div
+                class="stat-number"
+                id="totalStudents">
                 0
             </div>
 
@@ -579,7 +549,9 @@ tbody tr:hover{
                 দৃশ্যমান শিক্ষার্থী
             </div>
 
-            <div class="stat-number" id="visibleStudents">
+            <div
+                class="stat-number"
+                id="visibleStudents">
                 0
             </div>
 
@@ -592,7 +564,9 @@ tbody tr:hover{
                 Pending Admission
             </div>
 
-            <div class="stat-number" id="onlineAdmissionCount">
+            <div
+                class="stat-number"
+                id="onlineAdmissionCount">
                 —
             </div>
 
@@ -601,7 +575,7 @@ tbody tr:hover{
     </section>
 
 
-    <!-- ONLINE ADMISSION -->
+    <!-- ADMISSION -->
 
     <section class="box">
 
@@ -614,8 +588,7 @@ tbody tr:hover{
                 </div>
 
                 <div class="box-description">
-                    Website থেকে আসা application approval করার পর
-                    শিক্ষার্থী হিসেবে যুক্ত হবে।
+                    Website থেকে আসা application এখানে দেখা যাবে।
                 </div>
 
             </div>
@@ -632,11 +605,12 @@ tbody tr:hover{
                 </strong>
 
                 <span>
-                    Online আবেদন প্রথমে Pending থাকবে।
-                    Approval হওয়ার আগে Student ID তৈরি হবে না।
+                    Online আবেদন Pending থাকবে।
+                    Approval হওয়ার পর Student হিসেবে যুক্ত করা যাবে।
                 </span>
 
             </div>
+
 
             <a
                 href="admission.html"
@@ -660,8 +634,12 @@ tbody tr:hover{
 
             <div>
 
-                <div class="box-title" id="formTitle">
+                <div
+                    class="box-title"
+                    id="formTitle">
+
                     Add Student
+
                 </div>
 
                 <div class="box-description">
@@ -675,7 +653,9 @@ tbody tr:hover{
 
         <form id="studentForm">
 
-            <input type="hidden" id="editId">
+            <input
+                type="hidden"
+                id="editId">
 
 
             <div class="form-grid">
@@ -755,7 +735,9 @@ tbody tr:hover{
                         Class *
                     </label>
 
-                    <select id="classId" required>
+                    <select
+                        id="classId"
+                        required>
 
                         <option value="">
                             শ্রেণি নির্বাচন করুন
@@ -801,7 +783,8 @@ tbody tr:hover{
 
                     <textarea
                         id="address"
-                        placeholder="শিক্ষার্থীর ঠিকানা"></textarea>
+                        placeholder="শিক্ষার্থীর ঠিকানা">
+                    </textarea>
 
                 </div>
 
@@ -810,9 +793,9 @@ tbody tr:hover{
 
                     <div class="form-note">
 
-                        Student ID manually লিখতে হবে না।
-                        Manual entry-এর সময় system automatically
-                        পরবর্তী Student ID তৈরি করবে।
+                        Student ID manually দিতে হবে না।
+                        New student save করলে system automatic
+                        Student ID generate করবে।
 
                     </div>
 
@@ -846,7 +829,10 @@ tbody tr:hover{
                     </div>
 
 
-                    <div id="msg" class="message"></div>
+                    <div
+                        id="msg"
+                        class="message">
+                    </div>
 
                 </div>
 
@@ -870,7 +856,7 @@ tbody tr:hover{
                 </div>
 
                 <div class="box-description">
-                    সকল অনুমোদিত শিক্ষার্থীর তালিকা
+                    সকল শিক্ষার্থীর তালিকা
                 </div>
 
             </div>
@@ -942,6 +928,7 @@ tbody tr:hover{
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+
 <script>
 
 /* =====================================================
@@ -976,7 +963,7 @@ let classes = [];
 async function checkSession(){
 
     const {
-        data:{session},
+        data,
         error
     } = await db.auth.getSession();
 
@@ -988,45 +975,45 @@ async function checkSession(){
             error.message
         );
 
-        location.href = "admin.html";
+        location.href =
+            "admin.html";
 
-        return null;
+        return false;
 
     }
 
 
+    const session =
+        data?.session;
+
+
     if(!session){
 
-        location.href = "admin.html";
+        location.href =
+            "admin.html";
 
-        return null;
+        return false;
 
     }
 
 
     console.log(
-        "Active session:",
+        "Logged in:",
         session.user.email
     );
 
 
-    return session;
+    return true;
 
 }
 
 
 /* =====================================================
-   AUTH STATE LISTENER
+   AUTH STATE
 ===================================================== */
 
 db.auth.onAuthStateChange(
-    (event, session) => {
-
-        console.log(
-            "Auth event:",
-            event
-        );
-
+    (event, session)=>{
 
         if(
             event === "SIGNED_OUT" ||
@@ -1043,99 +1030,37 @@ db.auth.onAuthStateChange(
 
 
 /* =====================================================
-   LOGOUT
-===================================================== */
-
-document
-.getElementById("logoutBtn")
-.addEventListener(
-    "click",
-    async function(){
-
-        const confirmed =
-            confirm(
-                "আপনি কি Logout করতে চান?"
-            );
-
-
-        if(!confirmed){
-
-            return;
-
-        }
-
-
-        const {
-            error
-        } = await db.auth.signOut();
-
-
-        if(error){
-
-            alert(
-                "Logout failed: " +
-                error.message
-            );
-
-            return;
-
-        }
-
-
-        location.href =
-            "admin.html";
-
-    }
-);
-
-
-/* =====================================================
    START
 ===================================================== */
 
 async function start(){
 
-    try{
+    /* FIRST SESSION CHECK */
 
-        const session =
-            await checkSession();
-
-
-        if(!session){
-
-            return;
-
-        }
+    const loggedIn =
+        await checkSession();
 
 
-        await Promise.all([
+    if(!loggedIn){
 
-            loadClasses(),
-
-            loadStudents(),
-
-            loadOnlineAdmissionCount()
-
-        ]);
-
-
-    }catch(error){
-
-        console.error(error);
-
-        showMessage(
-            "Loading error: " +
-            error.message,
-            "error"
-        );
+        return;
 
     }
+
+
+    /* THEN LOAD DATA */
+
+    await loadClasses();
+
+    await loadStudents();
+
+    await loadOnlineAdmissionCount();
 
 }
 
 
 /* =====================================================
-   LOAD 8 CLASSES
+   LOAD CLASSES
 ===================================================== */
 
 async function loadClasses(){
@@ -1146,58 +1071,30 @@ async function loadClasses(){
         );
 
 
-    /*
-       এখানে ৮টি Class রাখা হয়েছে।
-       প্রতিটির English + Bangla নাম আছে।
-    */
+    const {
+        data,
+        error
+    } = await db
+        .from("classes")
+        .select("id,name")
+        .order("id");
 
-    const classList = [
 
-        {
-            id:"nurani",
-            name:"Nurani — নূরানী"
-        },
+    if(error){
 
-        {
-            id:"class_1",
-            name:"Class 1 — ১ম শ্রেণি"
-        },
+        showMessage(
+            "Class load error: " +
+            error.message,
+            "error"
+        );
 
-        {
-            id:"class_2",
-            name:"Class 2 — ২য় শ্রেণি"
-        },
+        return;
 
-        {
-            id:"class_3",
-            name:"Class 3 — ৩য় শ্রেণি"
-        },
-
-        {
-            id:"class_4",
-            name:"Class 4 — ৪র্থ শ্রেণি"
-        },
-
-        {
-            id:"class_5",
-            name:"Class 5 — ৫ম শ্রেণি"
-        },
-
-        {
-            id:"najera",
-            name:"Najera — নাজেরা"
-        },
-
-        {
-            id:"hifaz",
-            name:"Hifaz — হিফজ"
-        }
-
-    ];
+    }
 
 
     classes =
-        classList;
+        data || [];
 
 
     select.innerHTML =
@@ -1269,7 +1166,8 @@ async function loadStudents(){
             admission_date,
             address,
             photo_url,
-            created_at
+            created_at,
+            classes(name)
         `)
         .order(
             "created_at",
@@ -1308,7 +1206,7 @@ async function loadStudents(){
 
 
 /* =====================================================
-   ONLINE ADMISSION COUNT
+   ADMISSION COUNT
 ===================================================== */
 
 async function loadOnlineAdmissionCount(){
@@ -1337,8 +1235,7 @@ async function loadOnlineAdmissionCount(){
 
         document.getElementById(
             "onlineAdmissionCount"
-        ).textContent =
-            "—";
+        ).textContent = "—";
 
         return;
 
@@ -1354,33 +1251,7 @@ async function loadOnlineAdmissionCount(){
 
 
 /* =====================================================
-   CLASS NAME
-===================================================== */
-
-function getClassName(classId){
-
-    const item =
-        classes.find(
-            c =>
-            String(c.id) ===
-            String(classId)
-        );
-
-
-    if(item){
-
-        return item.name;
-
-    }
-
-
-    return classId || "-";
-
-}
-
-
-/* =====================================================
-   STATISTICS
+   STATS
 ===================================================== */
 
 function updateStats(){
@@ -1421,12 +1292,8 @@ function render(list){
 
         tbody.innerHTML = `
             <tr>
-                <td
-                    colspan="8"
-                    class="center">
-
+                <td colspan="8" class="center">
                     কোনো Student পাওয়া যায়নি
-
                 </td>
             </tr>
         `;
@@ -1437,138 +1304,118 @@ function render(list){
 
 
     tbody.innerHTML =
-        list.map(
-            s=>{
+        list.map(s=>{
 
-                const photo =
-                    s.photo_url
-                    ? `
-                        <img
-                            src="${escapeHtml(
-                                s.photo_url
-                            )}"
-                            class="photo-preview"
-                            alt="Student">
-                      `
-                    : `
-                        <div class="no-photo">
-                            No Photo
+            const photo =
+                s.photo_url
+                ? `
+                    <img
+                        src="${escapeHtml(
+                            s.photo_url
+                        )}"
+                        class="photo-preview"
+                        alt="Student">
+                  `
+                : `
+                    <div class="no-photo">
+                        No Photo
+                    </div>
+                  `;
+
+
+            return `
+
+                <tr>
+
+                    <td>
+                        ${photo}
+                    </td>
+
+
+                    <td>
+
+                        <span class="student-id">
+
+                            ${escapeHtml(
+                                s.student_id || "-"
+                            )}
+
+                        </span>
+
+                    </td>
+
+
+                    <td>
+                        ${escapeHtml(
+                            s.name || "-"
+                        )}
+                    </td>
+
+
+                    <td>
+                        ${escapeHtml(
+                            s.father_name || "-"
+                        )}
+                    </td>
+
+
+                    <td>
+                        ${escapeHtml(
+                            s.phone || "-"
+                        )}
+                    </td>
+
+
+                    <td>
+
+                        <span class="class-badge">
+
+                            ${escapeHtml(
+                                s.classes?.name || "-"
+                            )}
+
+                        </span>
+
+                    </td>
+
+
+                    <td>
+                        ${escapeHtml(
+                            s.admission_date || "-"
+                        )}
+                    </td>
+
+
+                    <td>
+
+                        <div class="action-buttons">
+
+                            <button
+                                class="btn-edit"
+                                onclick="editStudent('${s.id}')">
+
+                                Edit
+
+                            </button>
+
+
+                            <button
+                                class="btn-danger"
+                                onclick="deleteStudent('${s.id}')">
+
+                                Delete
+
+                            </button>
+
                         </div>
-                      `;
 
+                    </td>
 
-                return `
+                </tr>
 
-                    <tr>
+            `;
 
-                        <td>
-                            ${photo}
-                        </td>
-
-
-                        <td>
-
-                            <span
-                                class="student-id">
-
-                                ${escapeHtml(
-                                    s.student_id ||
-                                    "-"
-                                )}
-
-                            </span>
-
-                        </td>
-
-
-                        <td>
-
-                            ${escapeHtml(
-                                s.name ||
-                                "-"
-                            )}
-
-                        </td>
-
-
-                        <td>
-
-                            ${escapeHtml(
-                                s.father_name ||
-                                "-"
-                            )}
-
-                        </td>
-
-
-                        <td>
-
-                            ${escapeHtml(
-                                s.phone ||
-                                "-"
-                            )}
-
-                        </td>
-
-
-                        <td>
-
-                            <span
-                                class="class-badge">
-
-                                ${escapeHtml(
-                                    getClassName(
-                                        s.class_id
-                                    )
-                                )}
-
-                            </span>
-
-                        </td>
-
-
-                        <td>
-
-                            ${escapeHtml(
-                                s.admission_date ||
-                                "-"
-                            )}
-
-                        </td>
-
-
-                        <td>
-
-                            <div
-                                class="action-buttons">
-
-                                <button
-                                    class="btn-edit"
-                                    onclick="editStudent('${s.id}')">
-
-                                    Edit
-
-                                </button>
-
-
-                                <button
-                                    class="btn-danger"
-                                    onclick="deleteStudent('${s.id}')">
-
-                                    Delete
-
-                                </button>
-
-                            </div>
-
-                        </td>
-
-                    </tr>
-
-                `;
-
-            }
-        ).join("");
+        }).join("");
 
 }
 
@@ -1580,11 +1427,9 @@ function render(list){
 async function uploadStudentPhoto(){
 
     const file =
-        document
-        .getElementById(
+        document.getElementById(
             "photo"
-        )
-        .files[0];
+        ).files[0];
 
 
     if(!file){
@@ -1605,8 +1450,8 @@ async function uploadStudentPhoto(){
         Date.now() +
         "_" +
         Math.random()
-        .toString(36)
-        .substring(2) +
+            .toString(36)
+            .substring(2) +
         "." +
         extension;
 
@@ -1679,13 +1524,11 @@ async function generateStudentId(){
 
 
 /* =====================================================
-   ADD / UPDATE STUDENT
+   SAVE STUDENT
 ===================================================== */
 
 document
-.getElementById(
-    "studentForm"
-)
+.getElementById("studentForm")
 .addEventListener(
     "submit",
     async function(e){
@@ -1693,16 +1536,13 @@ document
         e.preventDefault();
 
 
-        /*
-           আবার Session check
-           Save করার সময়ও।
-        */
+        /* SESSION CHECK AGAIN */
 
-        const session =
+        const loggedIn =
             await checkSession();
 
 
-        if(!session){
+        if(!loggedIn){
 
             return;
 
@@ -1710,11 +1550,9 @@ document
 
 
         const editId =
-            document
-            .getElementById(
+            document.getElementById(
                 "editId"
-            )
-            .value;
+            ).value;
 
 
         const msg =
@@ -1773,7 +1611,6 @@ document
                     .value
                     .trim(),
 
-
                 father_name:
                     document
                     .getElementById(
@@ -1781,7 +1618,6 @@ document
                     )
                     .value
                     .trim(),
-
 
                 mother_name:
                     document
@@ -1791,7 +1627,6 @@ document
                     .value
                     .trim(),
 
-
                 phone:
                     document
                     .getElementById(
@@ -1800,7 +1635,6 @@ document
                     .value
                     .trim(),
 
-
                 class_id:
                     document
                     .getElementById(
@@ -1808,15 +1642,13 @@ document
                     )
                     .value,
 
-
                 admission_date:
                     document
                     .getElementById(
                         "admissionDate"
                     )
-                    .value ||
-                    null,
-
+                    .value
+                    || null,
 
                 address:
                     document
@@ -1853,13 +1685,22 @@ document
                     data,
                     error
                 } = await db
-                    .from(
-                        "students"
-                    )
-                    .insert(
-                        student
-                    )
-                    .select()
+                    .from("students")
+                    .insert(student)
+                    .select(`
+                        id,
+                        student_id,
+                        name,
+                        father_name,
+                        mother_name,
+                        phone,
+                        class_id,
+                        admission_date,
+                        address,
+                        photo_url,
+                        created_at,
+                        classes(name)
+                    `)
                     .single();
 
 
@@ -1902,17 +1743,26 @@ document
                     data,
                     error
                 } = await db
-                    .from(
-                        "students"
-                    )
-                    .update(
-                        student
-                    )
+                    .from("students")
+                    .update(student)
                     .eq(
                         "id",
                         editId
                     )
-                    .select()
+                    .select(`
+                        id,
+                        student_id,
+                        name,
+                        father_name,
+                        mother_name,
+                        phone,
+                        class_id,
+                        admission_date,
+                        address,
+                        photo_url,
+                        created_at,
+                        classes(name)
+                    `)
                     .single();
 
 
@@ -1956,14 +1806,11 @@ document
 
             setTimeout(
                 resetForm,
-                900
+                1000
             );
 
 
         }catch(error){
-
-            console.error(error);
-
 
             msg.className =
                 "message error";
@@ -2076,12 +1923,6 @@ function editStudent(id){
         "inline-block";
 
 
-    document.getElementById(
-        "msg"
-    ).textContent =
-        "";
-
-
     window.scrollTo({
         top:0,
         behavior:"smooth"
@@ -2096,11 +1937,11 @@ function editStudent(id){
 
 async function deleteStudent(id){
 
-    const session =
+    const loggedIn =
         await checkSession();
 
 
-    if(!session){
+    if(!loggedIn){
 
         return;
 
@@ -2122,13 +1963,9 @@ async function deleteStudent(id){
     }
 
 
-    const confirmed =
-        confirm(
-            "এই Student-কে Delete করতে চান?"
-        );
-
-
-    if(!confirmed){
+    if(!confirm(
+        "এই Student-কে Delete করতে চান?"
+    )){
 
         return;
 
@@ -2140,9 +1977,7 @@ async function deleteStudent(id){
         const {
             error
         } = await db
-            .from(
-                "students"
-            )
+            .from("students")
             .delete()
             .eq(
                 "id",
@@ -2196,14 +2031,12 @@ function resetForm(){
 
     document.getElementById(
         "editId"
-    ).value =
-        "";
+    ).value = "";
 
 
     document.getElementById(
         "studentId"
-    ).value =
-        "";
+    ).value = "";
 
 
     document.getElementById(
@@ -2226,15 +2059,10 @@ function resetForm(){
 
     document.getElementById(
         "msg"
-    ).textContent =
-        "";
+    ).textContent = "";
 
 }
 
-
-/* =====================================================
-   CANCEL
-===================================================== */
 
 document
 .getElementById(
@@ -2291,14 +2119,6 @@ document
                 .toLowerCase()
                 .includes(q)
 
-                ||
-
-                getClassName(
-                    s.class_id
-                )
-                .toLowerCase()
-                .includes(q)
-
             );
 
 
@@ -2324,8 +2144,7 @@ function showMessage(
 
 
     msg.className =
-        "message " +
-        type;
+        "message " + type;
 
 
     msg.textContent =
@@ -2340,34 +2159,32 @@ function showMessage(
 
 function escapeHtml(value){
 
-    return String(
-        value ?? ""
-    )
+    return String(value ?? "")
 
-    .replaceAll(
-        "&",
-        "&amp;"
-    )
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
 
-    .replaceAll(
-        "<",
-        "&lt;"
-    )
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
 
-    .replaceAll(
-        ">",
-        "&gt;"
-    )
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
 
-    .replaceAll(
-        '"',
-        "&quot;"
-    )
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
 
-    .replaceAll(
-        "'",
-        "&#039;"
-    );
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
 
 }
 
