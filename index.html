@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>মাদরাসায়ে নূরুল কুরআন</title>
+<title>মাদরাসায়ে নূরুল কুরআন | Madrasha-E Nurul Quran</title>
 
 <style>
 *{
@@ -19,8 +19,8 @@ scroll-behavior:smooth
 
 body{
 font-family:Arial,"Noto Sans Bengali",sans-serif;
-background:#f5f9ff;
-color:#17233c;
+background:#f4f7fb;
+color:#18243a;
 line-height:1.6
 }
 
@@ -30,126 +30,190 @@ color:inherit
 }
 
 .container{
-max-width:1200px;
-margin:auto;
-padding:0 18px
+width:min(1200px,calc(100% - 32px));
+margin:auto
 }
 
-/* ================= TOP BAR ================= */
+/* TOP UTILITY */
 
-.topbar{
+.utility{
 background:#082b63;
 color:#fff;
-font-size:13px;
-padding:8px 0
+font-size:13px
 }
 
-.top-inner{
+.utility-inner{
+min-height:38px;
 display:flex;
-justify-content:space-between;
 align-items:center;
+justify-content:space-between;
 gap:15px
 }
 
-.live-time{
-font-weight:bold;
-color:#ffe000
-}
-
-/* ================= NAVBAR ================= */
-
-nav{
-background:#fff;
-position:sticky;
-top:0;
-z-index:1000;
-box-shadow:0 4px 20px #082b6314
-}
-
-.nav-inner{
-height:76px;
+.utility-left,
+.utility-right{
 display:flex;
 align-items:center;
-justify-content:space-between
+gap:18px
+}
+
+.utility-right span{
+color:#ffe000;
+font-weight:bold
+}
+
+/* HEADER */
+
+.header{
+background:#fff;
+border-bottom:1px solid #e5ebf4
+}
+
+.header-inner{
+min-height:92px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:25px
 }
 
 .brand{
 display:flex;
 align-items:center;
-gap:12px
+gap:14px
 }
 
 .logo{
-width:52px;
-height:52px;
+width:64px;
+height:64px;
 object-fit:contain
 }
 
-.brand strong{
-display:block;
-font-size:18px;
-color:#082b63
+.brand-title{
+color:#082b63;
+font-size:22px;
+font-weight:800
 }
 
-.brand small{
+.brand-sub{
+display:block;
+font-size:11px;
+letter-spacing:1px;
 color:#718096;
-font-size:11px
+margin-top:2px
+}
+
+/* LOGIN */
+
+.login-wrap{
+position:relative
+}
+
+.login-btn{
+background:#082b63;
+color:#fff;
+border:0;
+padding:12px 20px;
+border-radius:5px;
+font-weight:bold;
+cursor:pointer
+}
+
+.login-btn:hover{
+background:#1769d2
+}
+
+.login-menu{
+display:none;
+position:absolute;
+right:0;
+top:50px;
+width:220px;
+background:#fff;
+border:1px solid #e2e8f0;
+box-shadow:0 12px 30px #0002;
+z-index:1001
+}
+
+.login-menu.show{
+display:block
+}
+
+.login-menu a{
+display:block;
+padding:13px 15px;
+border-bottom:1px solid #edf1f6;
+font-size:14px
+}
+
+.login-menu a:hover{
+background:#f0f6ff;
+color:#1769d2
+}
+
+/* NAV */
+
+.nav{
+background:#1769d2;
+color:#fff
+}
+
+.nav-inner{
+min-height:48px;
+display:flex;
+align-items:center;
+justify-content:space-between
 }
 
 .nav-links{
 display:flex;
-align-items:center;
-gap:23px
+align-items:center
 }
 
 .nav-links a{
-font-size:14px;
-font-weight:bold;
-color:#243b64;
-transition:.2s
-}
-
-.nav-links a:hover{
-color:#1769d2
-}
-
-.menu{
-display:none;
-background:#082b63;
-color:white;
-border:0;
-padding:9px 13px;
-border-radius:7px;
-font-size:20px
-}
-
-/* ================= NOTICE TICKER ================= */
-
-.notice-ticker{
-background:#ffd900;
-color:#111;
-height:43px;
-display:flex;
-align-items:center;
-overflow:hidden;
+padding:13px 15px;
 font-size:14px;
 font-weight:bold
 }
 
-.notice-label{
-background:#e6b900;
+.nav-links a:hover{
+background:#082b63
+}
+
+.menu{
+display:none;
+border:0;
+background:#082b63;
+color:#fff;
+font-size:20px;
+padding:7px 12px;
+border-radius:4px
+}
+
+/* NOTICE TICKER */
+
+.notice-bar{
+background:#ffe000;
 height:43px;
 display:flex;
 align-items:center;
-padding:0 18px;
-white-space:nowrap;
-z-index:2
+overflow:hidden
 }
 
-.ticker-track{
+.notice-label{
+background:#e4b900;
+height:43px;
+padding:0 20px;
+display:flex;
+align-items:center;
+font-weight:800;
+white-space:nowrap
+}
+
+.ticker{
 white-space:nowrap;
-animation:ticker 24s linear infinite;
-padding-left:30px
+padding-left:30px;
+animation:ticker 28s linear infinite
 }
 
 @keyframes ticker{
@@ -157,36 +221,28 @@ padding-left:30px
 100%{transform:translateX(-100%)}
 }
 
-/* ================= HERO ================= */
+/* HERO */
 
 .hero{
-min-height:570px;
-display:flex;
-align-items:center;
 background:
-linear-gradient(90deg,#061f4ddd,#0a4b91aa),
+linear-gradient(90deg,#061e48ed,#1769d299),
 url("img/hero.jpg") center/cover;
-color:white
+min-height:500px;
+color:#fff
 }
 
-.hero-content{
-max-width:720px
-}
-
-.badge{
-display:inline-block;
-background:#ffffff18;
-border:1px solid #ffffff55;
-padding:7px 15px;
-border-radius:30px;
-margin-bottom:18px;
-font-size:13px
+.hero-inner{
+min-height:500px;
+display:grid;
+grid-template-columns:1.4fr .8fr;
+align-items:center;
+gap:40px
 }
 
 .hero h1{
-font-size:clamp(38px,6vw,68px);
+font-size:clamp(36px,5vw,60px);
 line-height:1.12;
-margin-bottom:20px
+margin-bottom:15px
 }
 
 .hero h1 span{
@@ -194,333 +250,362 @@ color:#ffe000
 }
 
 .hero p{
-font-size:18px;
 max-width:650px;
-color:#eef6ff;
-margin-bottom:30px
+color:#edf5ff;
+font-size:17px;
+margin-bottom:25px
 }
 
-.buttons{
+.hero-buttons{
 display:flex;
-gap:12px;
+gap:10px;
 flex-wrap:wrap
 }
 
 .btn{
-padding:13px 23px;
-border-radius:8px;
-font-weight:bold;
 display:inline-block;
-transition:.25s
+padding:12px 20px;
+border-radius:5px;
+font-weight:bold
 }
 
-.primary{
+.btn-yellow{
 background:#ffe000;
 color:#082b63
 }
 
-.primary:hover{
-background:#fff;
-transform:translateY(-2px)
-}
-
-.secondary{
+.btn-white{
 border:1px solid #fff;
 color:#fff
 }
 
-.secondary:hover{
+.btn-white:hover{
 background:#fff;
 color:#082b63
 }
 
-/* ================= QUICK CARDS ================= */
-
-.quick{
-margin-top:-48px;
-position:relative;
-z-index:5
+.hero-panel{
+background:#ffffff12;
+border:1px solid #ffffff3d;
+padding:25px;
+border-radius:8px;
+backdrop-filter:blur(4px)
 }
 
-.quick-grid{
+.hero-panel h3{
+color:#ffe000;
+margin-bottom:12px
+}
+
+.hero-panel div{
+border-bottom:1px solid #ffffff2e;
+padding:9px 0;
+font-size:14px
+}
+
+/* PORTAL */
+
+.portal-section{
+background:#fff;
+padding:35px 0
+}
+
+.portal-grid{
 display:grid;
 grid-template-columns:repeat(4,1fr);
 gap:15px
 }
 
-.quick-card{
+.portal{
+border:1px solid #dce5f1;
 background:#fff;
 padding:22px;
-border-radius:13px;
-box-shadow:0 8px 30px #082b6318;
-border-top:4px solid #1769d2;
-transition:.25s
-}
-
-.quick-card:hover{
-transform:translateY(-6px);
-box-shadow:0 15px 35px #082b6325
-}
-
-.quick-card b{
-display:block;
-color:#082b63;
-font-size:17px
-}
-
-.quick-card span{
-font-size:13px;
-color:#718096
-}
-
-/* ================= SECTION ================= */
-
-section{
-padding:78px 0
-}
-
-.section-head{
 text-align:center;
-margin-bottom:40px
+transition:.2s
 }
 
-.section-head h2{
-font-size:34px;
+.portal:hover{
+border-color:#1769d2;
+box-shadow:0 8px 22px #082b6314;
+transform:translateY(-3px)
+}
+
+.portal-icon{
+font-size:30px;
+margin-bottom:7px
+}
+
+.portal h3{
+font-size:16px;
 color:#082b63
 }
 
-.section-head p{
+.portal p{
+font-size:12px;
 color:#718096
 }
 
-/* ================= ABOUT ================= */
+/* COMMON SECTION */
+
+.section{
+padding:65px 0
+}
+
+.section-title{
+text-align:center;
+margin-bottom:35px
+}
+
+.section-title h2{
+color:#082b63;
+font-size:30px
+}
+
+.section-title .line{
+width:55px;
+height:3px;
+background:#ffe000;
+margin:9px auto
+}
+
+.section-title p{
+font-size:14px;
+color:#718096
+}
+
+/* ABOUT */
 
 .about{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:48px;
+gap:40px;
 align-items:center
 }
 
 .about-img{
 width:100%;
-height:380px;
-object-fit:cover;
-border-radius:20px;
-box-shadow:0 15px 40px #082b6318
+height:340px;
+object-fit:cover
 }
 
 .about h2{
-font-size:35px;
-color:#082b63
+color:#082b63;
+font-size:30px
 }
 
 .about p{
 color:#596579;
-margin:15px 0
+margin:12px 0
 }
 
-/* ================= DEPARTMENT ================= */
+/* DEPARTMENT */
 
-.departments{
+.department-grid{
 display:grid;
 grid-template-columns:repeat(3,1fr);
+gap:18px
+}
+
+.department{
+background:#fff;
+border:1px solid #dfe7f1;
+padding:25px;
+border-top:4px solid #1769d2
+}
+
+.department h3{
+color:#082b63;
+margin:8px 0
+}
+
+.department p{
+font-size:14px;
+color:#718096
+}
+
+/* NOTICE */
+
+.notice-section{
+background:#edf4fc
+}
+
+.notice-grid{
+display:grid;
+grid-template-columns:2fr 1fr;
 gap:22px
 }
 
-.dept{
+.notice-box,
+.side-box{
 background:#fff;
-padding:30px;
-border-radius:17px;
-border:1px solid #e1eaf5;
-box-shadow:0 8px 25px #082b630b;
-transition:.25s
+border:1px solid #dce5f1
 }
 
-.dept:hover{
-transform:translateY(-6px);
-border-color:#1769d2
-}
-
-.dept-icon{
-width:58px;
-height:58px;
-display:flex;
-align-items:center;
-justify-content:center;
-background:#eaf3ff;
-border-radius:15px;
-font-size:30px;
-margin-bottom:15px
-}
-
-.dept h3{
-color:#082b63;
-margin-bottom:7px
-}
-
-.dept p{
-color:#718096;
-font-size:14px
-}
-
-/* ================= NOTICE ================= */
-
-.notice-section{
-background:#eaf3ff
-}
-
-.notice-box{
-background:#fff;
-border-radius:16px;
-padding:8px;
-box-shadow:0 8px 30px #082b6310
-}
-
-.notice{
+.notice-item{
+padding:16px;
+border-bottom:1px solid #edf1f6;
 display:flex;
 justify-content:space-between;
-gap:15px;
-padding:18px;
-border-bottom:1px solid #edf1f6
+gap:15px
 }
 
-.notice:last-child{
+.notice-item:last-child{
 border:0
 }
 
-.notice-title{
-font-weight:bold;
-color:#20385f
+.notice-item strong{
+color:#243b64
 }
 
 .notice-date{
-font-size:12px;
 color:#1769d2;
+font-size:12px;
 white-space:nowrap
 }
 
-/* ================= FEATURES ================= */
+.side-box h3{
+background:#082b63;
+color:#fff;
+padding:13px
+}
 
-.features{
+.side-box a{
+display:block;
+padding:11px 14px;
+border-bottom:1px solid #edf1f6;
+font-size:14px
+}
+
+.side-box a:hover{
+color:#1769d2;
+background:#f5f9ff
+}
+
+/* FEATURES */
+
+.feature-grid{
 display:grid;
 grid-template-columns:repeat(4,1fr);
-gap:17px
+gap:15px
 }
 
 .feature{
 background:#fff;
-padding:25px;
-border-radius:14px;
-text-align:center;
-border:1px solid #e3ebf6;
-transition:.25s
-}
-
-.feature:hover{
-transform:translateY(-4px);
-box-shadow:0 10px 25px #082b6314
+border:1px solid #dfe7f1;
+padding:22px;
+text-align:center
 }
 
 .feature-icon{
-font-size:32px
+font-size:28px
 }
 
 .feature h3{
-font-size:15px;
-color:#20385f;
-margin-top:8px
+font-size:14px;
+color:#243b64;
+margin-top:7px
 }
 
-/* ================= CTA ================= */
+/* FOOTER */
 
-.cta{
-background:
-linear-gradient(135deg,#082b63,#1769d2);
-color:#fff;
-text-align:center;
-border-radius:22px;
-padding:58px 20px;
-box-shadow:0 15px 35px #082b6325
-}
-
-.cta h2{
-font-size:32px;
-margin-bottom:10px
-}
-
-.cta p{
-opacity:.9;
-margin-bottom:23px
-}
-
-/* ================= FOOTER ================= */
-
-footer{
+.footer{
 background:#061d45;
-color:#dce8f8;
-padding:48px 0 20px
+color:#cbd8ea;
+padding:45px 0 18px
 }
 
 .footer-grid{
 display:grid;
 grid-template-columns:2fr 1fr 1fr;
-gap:40px
+gap:35px
 }
 
-footer h3{
+.footer h3{
 color:#fff;
 margin-bottom:12px
 }
 
-footer p,
-footer a{
-font-size:14px;
-color:#b9c9df
+.footer p,
+.footer a{
+font-size:13px;
+color:#b9c8dd
 }
 
-footer a{
+.footer a{
 display:block;
-margin:5px 0
+margin:6px 0
 }
 
-footer a:hover{
+.footer a:hover{
 color:#ffe000
 }
 
 .copyright{
 border-top:1px solid #ffffff1c;
 margin-top:30px;
-padding-top:18px;
+padding-top:15px;
 text-align:center;
-font-size:13px
+font-size:12px
 }
 
-/* ================= MOBILE ================= */
+/* MOBILE */
 
 @media(max-width:850px){
+
+.utility-inner{
+flex-direction:column;
+align-items:flex-start;
+padding:7px 0
+}
+
+.header-inner{
+min-height:78px
+}
+
+.logo{
+width:52px;
+height:52px
+}
+
+.brand-title{
+font-size:17px
+}
 
 .nav-links{
 display:none;
 position:absolute;
-top:76px;
 left:0;
 right:0;
-background:#fff;
-padding:20px;
+top:170px;
+background:#1769d2;
 flex-direction:column;
-box-shadow:0 10px 20px #0001
+align-items:stretch;
+z-index:1000
 }
 
 .nav-links.show{
 display:flex
 }
 
+.nav-links a{
+padding:12px 18px;
+border-bottom:1px solid #ffffff20
+}
+
 .menu{
 display:block
 }
 
-.quick-grid{
+.hero-inner{
+grid-template-columns:1fr;
+padding:65px 0
+}
+
+.hero-panel{
+display:none
+}
+
+.portal-grid{
 grid-template-columns:1fr 1fr
 }
 
@@ -528,11 +613,15 @@ grid-template-columns:1fr 1fr
 grid-template-columns:1fr
 }
 
-.departments{
+.department-grid{
 grid-template-columns:1fr
 }
 
-.features{
+.notice-grid{
+grid-template-columns:1fr
+}
+
+.feature-grid{
 grid-template-columns:1fr 1fr
 }
 
@@ -540,34 +629,17 @@ grid-template-columns:1fr 1fr
 grid-template-columns:1fr
 }
 
-.hero{
-min-height:610px
-}
-
 }
 
 @media(max-width:500px){
 
-.top-inner{
-flex-direction:column;
-align-items:flex-start
-}
-
-.quick-grid{
+.portal-grid,
+.feature-grid{
 grid-template-columns:1fr
 }
 
-.features{
-grid-template-columns:1fr
-}
-
-.notice{
-flex-direction:column;
-gap:4px
-}
-
-.hero h1{
-font-size:42px
+.notice-item{
+flex-direction:column
 }
 
 }
@@ -576,138 +648,76 @@ font-size:42px
 
 <body>
 
-<!-- TOP BAR -->
+<!-- UTILITY BAR -->
 
-<div class="topbar">
+<div class="utility">
 
-<div class="container top-inner">
+<div class="container utility-inner">
 
-<span>📖 শিক্ষা • আদব • আমল</span>
+<div class="utility-left">
 
-<span class="live-time" id="liveDateTime">
-লোড হচ্ছে...
+<span>📅 <b id="dateText">লোড হচ্ছে...</b></span>
+
+<span>🕐 <b id="timeText">লোড হচ্ছে...</b></span>
+
+</div>
+
+<div class="utility-right">
+
+<span>বাংলা</span>
+
+<span>📞 যোগাযোগ</span>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- MAIN HEADER -->
+
+<header class="header">
+
+<div class="container header-inner">
+
+<a href="index.html" class="brand">
+
+<img src="img/logo.png" class="logo" alt="Logo">
+
+<div>
+
+<div class="brand-title">
+মাদরাসায়ে নূরুল কুরআন
+</div>
+
+<span class="brand-sub">
+MADRASA-E NURUL QURAN
 </span>
 
 </div>
 
-</div>
-
-
-<!-- NAVBAR -->
-
-<nav>
-
-<div class="container nav-inner">
-
-<a class="brand" href="index.html">
-
-<img
-src="img/logo.png"
-class="logo"
-alt="মাদরাসায়ে নূরুল কুরআন">
-
-<div>
-
-<strong>মাদরাসায়ে নূরুল কুরআন</strong>
-
-<small>MADRASA-E NURUL QURAN</small>
-
-</div>
-
 </a>
 
 
-<div class="nav-links" id="navLinks">
+<div class="login-wrap">
 
-<a href="index.html">হোম</a>
-
-<a href="#about">আমাদের সম্পর্কে</a>
-
-<a href="#departments">বিভাগ</a>
-
-<a href="#notice">নোটিশ</a>
-
-<a href="#features">সুবিধাসমূহ</a>
-
-<a
-href="https://www.facebook.com/share/17s6qFEAnq/"
-target="_blank">
-Facebook
-</a>
-
-</div>
-
-
-<button
-class="menu"
-onclick="toggleMenu()">
-☰
+<button class="login-btn" onclick="toggleLogin()">
+🔐 Login ▾
 </button>
 
-</div>
+<div class="login-menu" id="loginMenu">
 
-</nav>
-
-
-<!-- YELLOW NOTICE TICKER -->
-
-<div class="notice-ticker">
-
-<div class="notice-label">
-📢 নোটিশ
-</div>
-
-<div class="ticker-track" id="tickerText">
-
-মাদরাসায়ে নূরুল কুরআনের সর্বশেষ নোটিশ ও গুরুত্বপূর্ণ বিজ্ঞপ্তির জন্য আমাদের ওয়েবসাইট নিয়মিত দেখুন।
-
-</div>
-
-</div>
-
-
-<!-- HERO -->
-
-<header class="hero">
-
-<div class="container">
-
-<div class="hero-content">
-
-<div class="badge">
-🌙 দ্বীনি ও আধুনিক শিক্ষার সমন্বিত পরিবেশ
-</div>
-
-<h1>
-
-কুরআনের আলোয়<br>
-
-<span>গড়ি সুন্দর ভবিষ্যৎ</span>
-
-</h1>
-
-<p>
-
-মাদরাসায়ে নূরুল কুরআন—কুরআন, সুন্নাহ,
-নৈতিকতা ও প্রয়োজনীয় শিক্ষার সমন্বয়ে
-শিক্ষার্থীদের জ্ঞানী, আদর্শবান ও
-দায়িত্বশীল মানুষ হিসেবে গড়ে তোলার একটি প্রয়াস।
-
-</p>
-
-<div class="buttons">
-
-<a
-href="#about"
-class="btn primary">
-আমাদের সম্পর্কে →
+<a href="dashboard.html">
+👨‍💼 Admin Login
 </a>
 
-<a
-href="https://www.facebook.com/share/17s6qFEAnq/"
-target="_blank"
-class="btn secondary">
-Facebook Page
+<a href="student-login.html">
+🧑‍🎓 Student Login
+</a>
+
+<a href="teacher-login.html">
+👨‍🏫 Teacher Login
 </a>
 
 </div>
@@ -719,88 +729,162 @@ Facebook Page
 </header>
 
 
-<!-- QUICK LINKS -->
+<!-- NAVIGATION -->
 
-<div class="quick">
+<nav class="nav">
 
-<div class="container quick-grid">
+<div class="container nav-inner">
 
-<a href="#notice" class="quick-card">
+<div class="nav-links" id="navLinks">
 
-<b>📢 নোটিশ</b>
+<a href="index.html">হোম</a>
 
-<span>সর্বশেষ বিজ্ঞপ্তি দেখুন</span>
+<a href="#about">আমাদের সম্পর্কে</a>
 
-</a>
+<a href="#academic">একাডেমিক</a>
+
+<a href="#student">শিক্ষার্থী</a>
+
+<a href="#notice">নোটিশ</a>
+
+<a href="result.html">ফলাফল</a>
+
+<a href="#gallery">গ্যালারি</a>
+
+<a href="contact.html">যোগাযোগ</a>
+
+</div>
+
+<button class="menu" onclick="toggleMenu()">
+☰
+</button>
+
+</div>
+
+</nav>
 
 
-<a href="result.html" class="quick-card">
+<!-- NOTICE TICKER -->
 
-<b>📊 ফলাফল</b>
+<div class="notice-bar">
 
-<span>শিক্ষার্থীর ফলাফল দেখুন</span>
+<div class="notice-label">
+📢 NOTICE
+</div>
 
-</a>
+<div class="ticker" id="tickerText">
 
-
-<a href="admission.html" class="quick-card">
-
-<b>📝 ভর্তি</b>
-
-<span>ভর্তি সংক্রান্ত তথ্য</span>
-
-</a>
-
-
-<a href="contact.html" class="quick-card">
-
-<b>☎ যোগাযোগ</b>
-
-<span>আমাদের সাথে যোগাযোগ করুন</span>
-
-</a>
+মাদরাসায়ে নূরুল কুরআনের সর্বশেষ নোটিশ ও গুরুত্বপূর্ণ বিজ্ঞপ্তির জন্য ওয়েবসাইট নিয়মিত ভিজিট করুন।
 
 </div>
 
 </div>
 
 
-<!-- ABOUT -->
+<!-- HERO -->
 
-<section id="about">
+<section class="hero">
 
-<div class="container about">
+<div class="container hero-inner">
 
 <div>
 
-<img
-src="img/about.jpg"
-class="about-img"
-alt="মাদরাসায়ে নূরুল কুরআন">
+<h1>
+মাদরাসায়ে নূরুল কুরআন<br>
+<span>জ্ঞান • আদব • আমল</span>
+</h1>
+
+<p>
+কুরআন ও সুন্নাহর শিক্ষার পাশাপাশি প্রয়োজনীয়
+সাধারণ জ্ঞানের সমন্বয়ে একটি আদর্শ,
+নৈতিক ও আলোকিত প্রজন্ম গড়ে তোলাই আমাদের লক্ষ্য।
+</p>
+
+<div class="hero-buttons">
+
+<a href="admission.html" class="btn btn-yellow">
+📝 ভর্তি তথ্য
+</a>
+
+<a href="result.html" class="btn btn-white">
+📊 ফলাফল
+</a>
 
 </div>
 
-<div>
+</div>
 
-<h2>আমাদের সম্পর্কে</h2>
 
-<p>
-মাদরাসায়ে নূরুল কুরআন একটি আদর্শ দ্বীনি শিক্ষা প্রতিষ্ঠান।
-এখানে শিক্ষার্থীদের কুরআন শিক্ষা, ইসলামী আদর্শ,
-নৈতিকতা ও প্রয়োজনীয় সাধারণ শিক্ষার মাধ্যমে
-আলোকিত করার চেষ্টা করা হয়।
-</p>
+<div class="hero-panel">
 
-<p>
-আমাদের লক্ষ্য—শিক্ষার্থীদের সুন্দর চরিত্র,
-আদব, আমল ও মানবিক মূল্যবোধসম্পন্ন মানুষ হিসেবে গড়ে তোলা।
-</p>
+<h3>প্রতিষ্ঠানের তথ্য</h3>
 
-<a
-href="about.html"
-class="btn primary"
-style="display:inline-block;margin-top:10px">
-বিস্তারিত জানুন →
+<div>📖 নূরানী বিভাগ</div>
+
+<div>🕌 নাজেরা বিভাগ</div>
+
+<div>🌙 হিফজ বিভাগ</div>
+
+<div>👨‍🏫 অভিজ্ঞ শিক্ষকবৃন্দ</div>
+
+<div>💻 ডিজিটাল ব্যবস্থাপনা</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- PORTALS -->
+
+<section class="portal-section">
+
+<div class="container">
+
+<div class="portal-grid">
+
+<a href="student-login.html" class="portal">
+
+<div class="portal-icon">🧑‍🎓</div>
+
+<h3>Student Portal</h3>
+
+<p>শিক্ষার্থীর তথ্য ও ফলাফল</p>
+
+</a>
+
+
+<a href="teacher-login.html" class="portal">
+
+<div class="portal-icon">👨‍🏫</div>
+
+<h3>Teacher Portal</h3>
+
+<p>শিক্ষক সংক্রান্ত কার্যক্রম</p>
+
+</a>
+
+
+<a href="result.html" class="portal">
+
+<div class="portal-icon">📊</div>
+
+<h3>Result Portal</h3>
+
+<p>অনলাইন ফলাফল দেখুন</p>
+
+</a>
+
+
+<a href="dashboard.html" class="portal">
+
+<div class="portal-icon">🔐</div>
+
+<h3>Admin Portal</h3>
+
+<p>প্রশাসনিক ব্যবস্থাপনা</p>
+
 </a>
 
 </div>
@@ -810,62 +894,93 @@ style="display:inline-block;margin-top:10px">
 </section>
 
 
-<!-- DEPARTMENTS -->
+<!-- ABOUT -->
 
-<section id="departments">
+<section class="section" id="about">
+
+<div class="container about">
+
+<img src="img/about.jpg" class="about-img" alt="মাদরাসা">
+
+<div>
+
+<h2>মাদরাসায়ে নূরুল কুরআন</h2>
+
+<p>
+মাদরাসায়ে নূরুল কুরআন একটি দ্বীনি শিক্ষা প্রতিষ্ঠান,
+যেখানে কুরআন, সুন্নাহ, নৈতিকতা ও প্রয়োজনীয়
+শিক্ষার মাধ্যমে শিক্ষার্থীদের গড়ে তোলার চেষ্টা করা হয়।
+</p>
+
+<p>
+শিক্ষার্থীদের জ্ঞান অর্জনের পাশাপাশি আদব,
+আখলাক ও সুন্দর চরিত্র গঠনের উপর গুরুত্ব দেওয়া হয়।
+</p>
+
+<a href="about.html" class="btn btn-yellow">
+বিস্তারিত →
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ACADEMIC -->
+
+<section class="section" id="academic">
 
 <div class="container">
 
-<div class="section-head">
+<div class="section-title">
 
-<h2>আমাদের বিভাগসমূহ</h2>
+<h2>একাডেমিক বিভাগ</h2>
+
+<div class="line"></div>
+
+<p>শিক্ষার্থীদের জন্য সুবিন্যস্ত শিক্ষা কার্যক্রম</p>
+
+</div>
+
+
+<div class="department-grid">
+
+<div class="department">
+
+<div>📖</div>
+
+<h3>নূরানী</h3>
 
 <p>
-শিক্ষার্থীদের বয়স ও প্রয়োজন অনুযায়ী পাঠ্যক্রম
+আরবি হরফ, মাখরাজ, কুরআন পাঠ ও প্রয়োজনীয় দোয়া শিক্ষা।
 </p>
 
 </div>
 
 
-<div class="departments">
+<div class="department">
 
-<div class="dept">
+<div>🕌</div>
 
-<div class="dept-icon">📖</div>
-
-<h3>নূরানী বিভাগ</h3>
+<h3>নাজেরা</h3>
 
 <p>
-কুরআন পড়ার প্রাথমিক শিক্ষা,
-আরবি হরফ, মাখরাজ ও প্রয়োজনীয় দোয়া শেখানো হয়।
+তাজবিদ ও শুদ্ধ উচ্চারণের মাধ্যমে কুরআন তিলাওয়াতের প্রশিক্ষণ।
 </p>
 
 </div>
 
 
-<div class="dept">
+<div class="department">
 
-<div class="dept-icon">🕌</div>
+<div>🌙</div>
 
-<h3>নাজেরা বিভাগ</h3>
-
-<p>
-শুদ্ধ উচ্চারণ, তাজবিদ ও নিয়মিত কুরআন
-তিলাওয়াতের মাধ্যমে দক্ষতা বৃদ্ধি।
-</p>
-
-</div>
-
-
-<div class="dept">
-
-<div class="dept-icon">🌙</div>
-
-<h3>হিফজ বিভাগ</h3>
+<h3>হিফজ</h3>
 
 <p>
-অভিজ্ঞ শিক্ষকদের তত্ত্বাবধানে
-কুরআনুল কারীম হিফজের সুবিন্যস্ত কার্যক্রম।
+অভিজ্ঞ শিক্ষকদের তত্ত্বাবধানে কুরআনুল কারীম হিফজ কার্যক্রম।
 </p>
 
 </div>
@@ -879,26 +994,51 @@ style="display:inline-block;margin-top:10px">
 
 <!-- NOTICE -->
 
-<section id="notice" class="notice-section">
+<section class="section notice-section" id="notice">
 
 <div class="container">
 
-<div class="section-head">
+<div class="section-title">
 
-<h2>📢 সর্বশেষ নোটিশ</h2>
+<h2>সর্বশেষ নোটিশ</h2>
 
-<p>মাদরাসার গুরুত্বপূর্ণ বিজ্ঞপ্তি</p>
+<div class="line"></div>
 
 </div>
 
+
+<div class="notice-grid">
 
 <div class="notice-box">
 
-<div class="notice">
+<div class="notice-item">
 
-<div class="notice-title">
-নোটিশ লোড হচ্ছে...
+<strong>
+📢 ওয়েবসাইটে সর্বশেষ নোটিশ দেখতে নিয়মিত ভিজিট করুন।
+</strong>
+
+<span class="notice-date">
+নতুন
+</span>
+
 </div>
+
+</div>
+
+
+<div class="side-box">
+
+<h3>গুরুত্বপূর্ণ লিংক</h3>
+
+<a href="result.html">📊 পরীক্ষার ফলাফল</a>
+
+<a href="admission.html">📝 ভর্তি তথ্য</a>
+
+<a href="contact.html">☎ যোগাযোগ</a>
+
+<a href="https://www.facebook.com/share/17s6qFEAnq/" target="_blank">
+📘 Facebook Page
+</a>
 
 </div>
 
@@ -911,89 +1051,84 @@ style="display:inline-block;margin-top:10px">
 
 <!-- FEATURES -->
 
-<section id="features">
+<section class="section" id="student">
 
 <div class="container">
 
-<div class="section-head">
+<div class="section-title">
 
-<h2>প্রতিষ্ঠানের সুবিধাসমূহ</h2>
+<h2>অনলাইন সেবা</h2>
 
-<p>একটি আধুনিক ও সুন্দর ব্যবস্থাপনা ব্যবস্থা</p>
+<div class="line"></div>
 
 </div>
 
 
-<div class="features">
+<div class="feature-grid">
 
 <div class="feature">
-<div class="feature-icon">👨‍🏫</div>
-<h3>অভিজ্ঞ শিক্ষকবৃন্দ</h3>
-</div>
 
-<div class="feature">
-<div class="feature-icon">📚</div>
-<h3>সমৃদ্ধ পাঠ্যক্রম</h3>
-</div>
-
-<div class="feature">
-<div class="feature-icon">📝</div>
-<h3>পরীক্ষা ও ফলাফল</h3>
-</div>
-
-<div class="feature">
-<div class="feature-icon">📱</div>
-<h3>ডিজিটাল ব্যবস্থাপনা</h3>
-</div>
-
-<div class="feature">
 <div class="feature-icon">🧑‍🎓</div>
+
 <h3>শিক্ষার্থী ব্যবস্থাপনা</h3>
+
 </div>
 
 <div class="feature">
-<div class="feature-icon">📋</div>
-<h3>অনলাইন নোটিশ</h3>
+
+<div class="feature-icon">📊</div>
+
+<h3>অনলাইন ফলাফল</h3>
+
 </div>
 
 <div class="feature">
+
 <div class="feature-icon">🪪</div>
+
 <h3>আইডি কার্ড</h3>
+
 </div>
 
 <div class="feature">
+
+<div class="feature-icon">📢</div>
+
+<h3>অনলাইন নোটিশ</h3>
+
+</div>
+
+<div class="feature">
+
+<div class="feature-icon">💰</div>
+
+<h3>ফি ব্যবস্থাপনা</h3>
+
+</div>
+
+<div class="feature">
+
+<div class="feature-icon">👨‍🏫</div>
+
+<h3>শিক্ষক ব্যবস্থাপনা</h3>
+
+</div>
+
+<div class="feature">
+
 <div class="feature-icon">📸</div>
+
 <h3>ফটো গ্যালারি</h3>
-</div>
 
 </div>
 
+<div class="feature">
+
+<div class="feature-icon">📁</div>
+
+<h3>ডকুমেন্ট সেবা</h3>
+
 </div>
-
-</section>
-
-
-<!-- CTA -->
-
-<section>
-
-<div class="container">
-
-<div class="cta">
-
-<h2>
-আপনার সন্তানের সুন্দর ভবিষ্যতের পথে
-</h2>
-
-<p>
-কুরআন ও নৈতিক শিক্ষার আলোয় সন্তানকে গড়ে তুলুন।
-</p>
-
-<a
-href="admission.html"
-class="btn primary">
-ভর্তি সম্পর্কে জানুন →
-</a>
 
 </div>
 
@@ -1004,7 +1139,7 @@ class="btn primary">
 
 <!-- FOOTER -->
 
-<footer>
+<footer class="footer">
 
 <div class="container">
 
@@ -1015,8 +1150,8 @@ class="btn primary">
 <h3>মাদরাসায়ে নূরুল কুরআন</h3>
 
 <p>
-কুরআনের শিক্ষা, সুন্দর চরিত্র ও নৈতিকতার মাধ্যমে
-একটি আলোকিত প্রজন্ম গড়ে তোলাই আমাদের লক্ষ্য।
+জ্ঞান, আদব ও আমলের সমন্বয়ে
+একটি আলোকিত প্রজন্ম গড়ে তোলাই আমাদের প্রত্যয়।
 </p>
 
 </div>
@@ -1024,7 +1159,7 @@ class="btn primary">
 
 <div>
 
-<h3>গুরুত্বপূর্ণ লিংক</h3>
+<h3>গুরুত্বপূর্ণ</h3>
 
 <a href="index.html">হোম</a>
 
@@ -1039,14 +1174,16 @@ class="btn primary">
 
 <div>
 
-<h3>সামাজিক যোগাযোগ</h3>
+<h3>Portal</h3>
 
-<a
-href="https://www.facebook.com/share/17s6qFEAnq/"
-target="_blank">
+<a href="dashboard.html">🔐 Admin Login</a>
 
-📘 Facebook Page
+<a href="student-login.html">🧑‍🎓 Student Login</a>
 
+<a href="teacher-login.html">👨‍🏫 Teacher Login</a>
+
+<a href="https://www.facebook.com/share/17s6qFEAnq/" target="_blank">
+📘 Facebook
 </a>
 
 </div>
@@ -1056,7 +1193,7 @@ target="_blank">
 
 <div class="copyright">
 
-© 2026 মাদরাসায়ে নূরুল কুরআন — সর্বস্বত্ব সংরক্ষিত।
+© 2026 Madrasha-E Nurul Quran. All Rights Reserved.
 
 </div>
 
@@ -1067,7 +1204,18 @@ target="_blank">
 
 <script>
 
-/* ================= MENU ================= */
+/* LOGIN DROPDOWN */
+
+function toggleLogin(){
+
+document
+.getElementById("loginMenu")
+.classList.toggle("show");
+
+}
+
+
+/* MOBILE MENU */
 
 function toggleMenu(){
 
@@ -1078,9 +1226,9 @@ document
 }
 
 
-/* ================= DATE + TIME ================= */
+/* DATE */
 
-function updateDateTime(){
+function updateDate(){
 
 const now=new Date();
 
@@ -1109,13 +1257,24 @@ const months=[
 "ডিসেম্বর"
 ];
 
-const date=
+document.getElementById("dateText").textContent=
+
 days[now.getDay()]+" • "+
 now.getDate()+" "+
 months[now.getMonth()]+" "+
 now.getFullYear();
 
-const time=
+}
+
+
+/* TIME */
+
+function updateTime(){
+
+const now=new Date();
+
+document.getElementById("timeText").textContent=
+
 now.toLocaleTimeString("bn-BD",{
 hour:"2-digit",
 minute:"2-digit",
@@ -1123,14 +1282,28 @@ second:"2-digit",
 hour12:true
 });
 
-document.getElementById("liveDateTime").textContent=
-"🕐 "+date+" | "+time;
+}
+
+updateDate();
+
+updateTime();
+
+setInterval(updateTime,1000);
+
+
+/* CLOSE LOGIN */
+
+document.addEventListener("click",function(e){
+
+if(!e.target.closest(".login-wrap")){
+
+document
+.getElementById("loginMenu")
+.classList.remove("show");
 
 }
 
-updateDateTime();
-
-setInterval(updateDateTime,1000);
+});
 
 </script>
 
