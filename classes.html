@@ -1,1 +1,1040 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Classes | মাদরাসায়ে নূরুল কুরআন</title>
 
+<style>
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f4f7fb;
+    color:#1e293b;
+}
+
+.top{
+    background:linear-gradient(135deg,#0d47a1,#1976d2);
+    color:#fff;
+    padding:16px 22px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    box-shadow:0 3px 15px #0002;
+}
+
+.top h2{
+    margin:0;
+    font-size:20px;
+}
+
+.top-right{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.top a{
+    color:#fff;
+    text-decoration:none;
+    font-size:14px;
+}
+
+.lang{
+    display:flex;
+    background:#ffffff22;
+    padding:3px;
+    border-radius:8px;
+}
+
+.lang button{
+    border:0;
+    background:transparent;
+    color:#fff;
+    padding:7px 10px;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.lang button.active{
+    background:#fff;
+    color:#0d47a1;
+}
+
+.container{
+    max-width:1150px;
+    margin:25px auto;
+    padding:0 15px;
+}
+
+.box{
+    background:#fff;
+    padding:22px;
+    border-radius:14px;
+    box-shadow:0 3px 15px #0d47a115;
+    margin-bottom:20px;
+    border:1px solid #e5eaf2;
+}
+
+h3{
+    margin:0 0 18px;
+    color:#0d47a1;
+}
+
+.filters{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+label{
+    display:block;
+    font-weight:bold;
+    font-size:14px;
+    margin-bottom:6px;
+}
+
+select,input{
+    width:100%;
+    padding:12px;
+    border:1px solid #d8dee9;
+    border-radius:8px;
+    font-size:14px;
+    outline:none;
+}
+
+select:focus,
+input:focus{
+    border-color:#1976d2;
+    box-shadow:0 0 0 3px #1976d215;
+}
+
+.class-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+
+.class-card{
+    background:#fff;
+    border:1px solid #dce5f2;
+    border-radius:13px;
+    padding:20px 15px;
+    text-align:center;
+    cursor:pointer;
+    transition:.2s;
+    box-shadow:0 2px 8px #0000000a;
+}
+
+.class-card:hover{
+    transform:translateY(-3px);
+    border-color:#1976d2;
+    box-shadow:0 6px 18px #1976d225;
+}
+
+.class-card.active{
+    background:linear-gradient(135deg,#0d47a1,#1976d2);
+    color:#fff;
+    border-color:#0d47a1;
+}
+
+.class-icon{
+    font-size:28px;
+    margin-bottom:8px;
+}
+
+.class-bn{
+    font-size:16px;
+    font-weight:bold;
+}
+
+.class-en{
+    font-size:13px;
+    margin-top:5px;
+    opacity:.75;
+}
+
+.class-card.active .class-en{
+    opacity:1;
+}
+
+.search{
+    margin-bottom:15px;
+}
+
+.table-wrap{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:750px;
+}
+
+th,td{
+    padding:11px 9px;
+    border-bottom:1px solid #edf0f5;
+    text-align:left;
+    font-size:14px;
+}
+
+th{
+    background:#0d47a1;
+    color:#fff;
+}
+
+tr:hover td{
+    background:#f7faff;
+}
+
+.loading,
+.empty{
+    text-align:center;
+    padding:25px;
+    color:#64748b;
+}
+
+.badge{
+    display:inline-block;
+    background:#e3f2fd;
+    color:#0d47a1;
+    padding:5px 9px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.count{
+    color:#1976d2;
+    font-weight:bold;
+}
+
+@media(max-width:800px){
+    .class-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media(max-width:600px){
+    .top{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .top-right{
+        width:100%;
+        justify-content:space-between;
+    }
+
+    .filters{
+        grid-template-columns:1fr;
+    }
+
+    .class-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="top">
+
+<h2 id="pageTitle">📚 শ্রেণি ব্যবস্থাপনা</h2>
+
+<div class="top-right">
+
+<div class="lang">
+<button id="bnBtn" class="active" onclick="setLanguage('bn')">
+বাংলা
+</button>
+
+<button id="enBtn" onclick="setLanguage('en')">
+English
+</button>
+</div>
+
+<a href="dashboard.html" id="dashboardLink">
+← Dashboard
+</a>
+
+</div>
+
+</header>
+
+
+<div class="container">
+
+
+<!-- SESSION -->
+
+<div class="box">
+
+<h3 id="sessionTitle">📅 Session নির্বাচন করুন</h3>
+
+<div class="filters">
+
+<div>
+<label id="sessionLabel">Session</label>
+
+<select id="sessionSelect">
+<option value="">Select Session</option>
+</select>
+</div>
+
+<div>
+<label id="searchLabel">Student Search</label>
+
+<input
+id="search"
+placeholder="🔍 নাম / রোল / ID দিয়ে খুঁজুন..."
+>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- CLASS -->
+
+<div class="box">
+
+<h3 id="classTitle">🎓 শ্রেণি নির্বাচন করুন</h3>
+
+<div class="class-grid" id="classGrid"></div>
+
+</div>
+
+
+<!-- STUDENTS -->
+
+<div class="box">
+
+<h3>
+<span id="studentTitle">👨‍🎓 শিক্ষার্থী তালিকা</span>
+
+<span class="count">
+(<span id="studentCount">0</span>)
+</span>
+</h3>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+<th id="thName">নাম</th>
+<th id="thRoll">রোল</th>
+<th id="thId">Student ID</th>
+<th id="thClass">Class</th>
+<th id="thSession">Session</th>
+</tr>
+
+</thead>
+
+<tbody id="studentList">
+
+<tr>
+<td colspan="5" class="loading">
+Session এবং Class নির্বাচন করুন
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+/* =====================================
+   SUPABASE
+===================================== */
+
+const SUPABASE_URL =
+"https://qavublwhqiqsgpcmfyft.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
+
+const db =
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
+
+/* =====================================
+   DATA
+===================================== */
+
+let students = [];
+
+let currentLanguage = "bn";
+
+let selectedClass = "";
+
+let selectedSession = "";
+
+
+/* =====================================
+   8 CLASSES
+===================================== */
+
+const classes = [
+
+{
+    bn:"নূরানী",
+    en:"Nurani"
+},
+
+{
+    bn:"১ম শ্রেণি",
+    en:"Class 1"
+},
+
+{
+    bn:"২য় শ্রেণি",
+    en:"Class 2"
+},
+
+{
+    bn:"৩য় শ্রেণি",
+    en:"Class 3"
+},
+
+{
+    bn:"৪র্থ শ্রেণি",
+    en:"Class 4"
+},
+
+{
+    bn:"৫ম শ্রেণি",
+    en:"Class 5"
+},
+
+{
+    bn:"নাজেরা",
+    en:"Najera"
+},
+
+{
+    bn:"হিফজ",
+    en:"Hifaz"
+}
+
+];
+
+
+/* =====================================
+   LANGUAGE
+===================================== */
+
+const text = {
+
+bn:{
+
+pageTitle:"📚 শ্রেণি ব্যবস্থাপনা",
+
+sessionTitle:"📅 Session নির্বাচন করুন",
+
+sessionLabel:"Session",
+
+searchLabel:"Student Search",
+
+searchPlaceholder:"🔍 নাম / রোল / ID দিয়ে খুঁজুন...",
+
+classTitle:"🎓 শ্রেণি নির্বাচন করুন",
+
+studentTitle:"👨‍🎓 শিক্ষার্থী তালিকা",
+
+name:"নাম",
+
+roll:"রোল",
+
+id:"Student ID",
+
+class:"Class",
+
+session:"Session",
+
+selectSession:"Session নির্বাচন করুন",
+
+selectClass:"প্রথমে Class নির্বাচন করুন",
+
+selectBoth:"Session এবং Class নির্বাচন করুন",
+
+noStudent:"এই Session ও Class-এ কোনো শিক্ষার্থী নেই",
+
+loading:"Loading...",
+
+dashboard:"← Dashboard"
+
+},
+
+en:{
+
+pageTitle:"📚 Class Management",
+
+sessionTitle:"📅 Select Session",
+
+sessionLabel:"Session",
+
+searchLabel:"Student Search",
+
+searchPlaceholder:"🔍 Search by name / roll / ID...",
+
+classTitle:"🎓 Select Class",
+
+studentTitle:"👨‍🎓 Student List",
+
+name:"Name",
+
+roll:"Roll",
+
+id:"Student ID",
+
+class:"Class",
+
+session:"Session",
+
+selectSession:"Select Session",
+
+selectClass:"Select Class",
+
+selectBoth:"Select Session and Class",
+
+noStudent:"No students found for this Session and Class",
+
+loading:"Loading...",
+
+dashboard:"← Dashboard"
+
+}
+
+};
+
+
+/* =====================================
+   SET LANGUAGE
+===================================== */
+
+function setLanguage(lang){
+
+currentLanguage = lang;
+
+document.documentElement.lang =
+lang === "bn" ? "bn" : "en";
+
+const t = text[lang];
+
+document.getElementById("pageTitle").textContent =
+t.pageTitle;
+
+document.getElementById("sessionTitle").textContent =
+t.sessionTitle;
+
+document.getElementById("sessionLabel").textContent =
+t.sessionLabel;
+
+document.getElementById("searchLabel").textContent =
+t.searchLabel;
+
+document.getElementById("search").placeholder =
+t.searchPlaceholder;
+
+document.getElementById("classTitle").textContent =
+t.classTitle;
+
+document.getElementById("studentTitle").textContent =
+t.studentTitle;
+
+document.getElementById("thName").textContent =
+t.name;
+
+document.getElementById("thRoll").textContent =
+t.roll;
+
+document.getElementById("thId").textContent =
+t.id;
+
+document.getElementById("thClass").textContent =
+t.class;
+
+document.getElementById("thSession").textContent =
+t.session;
+
+document.getElementById("dashboardLink").textContent =
+t.dashboard;
+
+document.getElementById("bnBtn")
+.classList.toggle("active",lang==="bn");
+
+document.getElementById("enBtn")
+.classList.toggle("active",lang==="en");
+
+renderClasses();
+
+renderStudents();
+
+}
+
+
+/* =====================================
+   CLASS CARDS
+===================================== */
+
+function renderClasses(){
+
+const grid =
+document.getElementById("classGrid");
+
+grid.innerHTML =
+classes.map((c,index)=>`
+
+<div
+class="class-card
+${selectedClass===c.bn || selectedClass===c.en ? "active":""}"
+onclick="selectClass(${index})">
+
+<div class="class-icon">🎓</div>
+
+<div class="class-bn">
+${c.bn}
+</div>
+
+<div class="class-en">
+${c.en}
+</div>
+
+</div>
+
+`).join("");
+
+}
+
+
+/* =====================================
+   SELECT CLASS
+===================================== */
+
+function selectClass(index){
+
+const c = classes[index];
+
+selectedClass =
+currentLanguage==="bn"
+? c.bn
+: c.en;
+
+renderClasses();
+
+loadStudents();
+
+}
+
+
+/* =====================================
+   AUTH
+===================================== */
+
+async function start(){
+
+try{
+
+const {
+data:{session}
+} =
+await db.auth.getSession();
+
+if(!session){
+
+location.href="admin.html";
+
+return;
+
+}
+
+await loadSessions();
+
+renderClasses();
+
+}catch(error){
+
+console.error(error);
+
+}
+
+}
+
+
+/* =====================================
+   LOAD SESSIONS
+===================================== */
+
+async function loadSessions(){
+
+const select =
+document.getElementById("sessionSelect");
+
+select.innerHTML =
+`<option value="">
+${text[currentLanguage].selectSession}
+</option>`;
+
+
+/*
+  এখানে students table থেকে
+  unique session নেওয়া হচ্ছে।
+*/
+
+const {data,error} =
+await db
+.from("students")
+.select("session")
+.not("session","is",null);
+
+
+if(error){
+
+console.error(error);
+
+return;
+
+}
+
+
+const sessions =
+[
+...new Set(
+(data||[])
+.map(x=>x.session)
+.filter(Boolean)
+)
+];
+
+
+sessions.sort().reverse();
+
+
+sessions.forEach(session=>{
+
+const option =
+document.createElement("option");
+
+option.value=session;
+
+option.textContent=session;
+
+select.appendChild(option);
+
+});
+
+}
+
+
+/* =====================================
+   SESSION CHANGE
+===================================== */
+
+document
+.getElementById("sessionSelect")
+.addEventListener(
+"change",
+function(){
+
+selectedSession=this.value;
+
+loadStudents();
+
+});
+
+
+/* =====================================
+   LOAD STUDENTS
+===================================== */
+
+async function loadStudents(){
+
+const tbody =
+document.getElementById("studentList");
+
+const t =
+text[currentLanguage];
+
+
+if(!selectedSession || !selectedClass){
+
+tbody.innerHTML =
+`
+<tr>
+<td colspan="5" class="empty">
+${t.selectBoth}
+</td>
+</tr>
+`;
+
+document.getElementById("studentCount")
+.textContent="0";
+
+return;
+
+}
+
+
+tbody.innerHTML =
+`
+<tr>
+<td colspan="5" class="loading">
+${t.loading}
+</td>
+</tr>
+`;
+
+
+/*
+   এখানে class-এর Bangla/English
+   দুই নামেই search করা হচ্ছে।
+*/
+
+const selected =
+classes.find(c=>
+c.bn===selectedClass ||
+c.en===selectedClass
+);
+
+
+if(!selected)return;
+
+
+const classNames=[
+selected.bn,
+selected.en
+];
+
+
+const {data,error} =
+await db
+.from("students")
+.select(`
+id,
+name,
+roll,
+student_id,
+class,
+session
+`)
+.eq("session",selectedSession)
+.in("class",classNames);
+
+
+if(error){
+
+console.error(error);
+
+tbody.innerHTML =
+`
+<tr>
+<td colspan="5" class="empty">
+❌ ${escapeHtml(error.message)}
+</td>
+</tr>
+`;
+
+return;
+
+}
+
+
+students=data||[];
+
+renderStudents();
+
+}
+
+
+/* =====================================
+   RENDER STUDENTS
+===================================== */
+
+function renderStudents(){
+
+const tbody =
+document.getElementById("studentList");
+
+const t =
+text[currentLanguage];
+
+const q =
+document
+.getElementById("search")
+.value
+.toLowerCase()
+.trim();
+
+
+let list =
+students.filter(s=>{
+
+if(!q)return true;
+
+return (
+
+String(s.name||"")
+.toLowerCase()
+.includes(q)
+
+||
+
+String(s.roll||"")
+.toLowerCase()
+.includes(q)
+
+||
+
+String(s.student_id||"")
+.toLowerCase()
+.includes(q)
+
+);
+
+});
+
+
+document.getElementById("studentCount")
+.textContent=list.length;
+
+
+if(!list.length){
+
+tbody.innerHTML =
+`
+<tr>
+<td colspan="5" class="empty">
+${t.noStudent}
+</td>
+</tr>
+`;
+
+return;
+
+}
+
+
+tbody.innerHTML =
+list.map(s=>`
+
+<tr>
+
+<td>
+<strong>
+${escapeHtml(s.name||"-")}
+</strong>
+</td>
+
+<td>
+<span class="badge">
+${escapeHtml(s.roll||"-")}
+</span>
+</td>
+
+<td>
+${escapeHtml(s.student_id||"-")}
+</td>
+
+<td>
+${escapeHtml(getClassName(s.class))}
+</td>
+
+<td>
+${escapeHtml(s.session||"-")}
+</td>
+
+</tr>
+
+`).join("");
+
+}
+
+
+/* =====================================
+   CLASS NAME
+===================================== */
+
+function getClassName(value){
+
+const c =
+classes.find(x=>
+x.bn===value ||
+x.en===value
+);
+
+if(!c)return value||"-";
+
+return currentLanguage==="bn"
+? c.bn
+: c.en;
+
+}
+
+
+/* =====================================
+   SEARCH
+===================================== */
+
+document
+.getElementById("search")
+.addEventListener(
+"input",
+renderStudents
+);
+
+
+/* =====================================
+   ESCAPE
+===================================== */
+
+function escapeHtml(value){
+
+return String(value)
+
+.replaceAll("&","&amp;")
+
+.replaceAll("<","&lt;")
+
+.replaceAll(">","&gt;")
+
+.replaceAll('"',"&quot;")
+
+.replaceAll("'","&#039;");
+
+}
+
+
+/* =====================================
+   START
+===================================== */
+
+start();
+
+</script>
+
+</body>
+</html>
