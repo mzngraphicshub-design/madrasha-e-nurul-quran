@@ -3,348 +3,876 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+
 <title>Students | মাদরাসায়ে নূরুল কুরআন</title>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
 <style>
-*{box-sizing:border-box}
+
+*{
+    box-sizing:border-box;
+}
+
 :root{
---primary:#087f5b;
---dark:#056044;
---light:#e9f7f2;
---bg:#f5f7f9;
---white:#fff;
---text:#17212b;
---muted:#6b7280;
---border:#e5e7eb;
---danger:#dc3545;
---blue:#1769aa;
+    --primary:#087f5b;
+    --dark:#056044;
+    --light:#e9f7f2;
+    --bg:#f5f7f9;
+    --white:#fff;
+    --text:#17212b;
+    --muted:#6b7280;
+    --border:#e5e7eb;
+    --danger:#dc3545;
+    --blue:#1769aa;
 }
+
 body{
-margin:0;
-font-family:"Noto Sans Bengali","SolaimanLipi",Arial,sans-serif;
-background:var(--bg);
-color:var(--text)
+    margin:0;
+    font-family:"Noto Sans Bengali","SolaimanLipi",Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
 }
+
 .topbar{
-background:var(--white);
-border-bottom:1px solid var(--border);
-min-height:72px;
-padding:0 28px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-position:sticky;
-top:0;
-z-index:10
+    background:#fff;
+    border-bottom:1px solid var(--border);
+    min-height:72px;
+    padding:0 28px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:10;
 }
-.brand-title{font-size:20px;font-weight:800;color:var(--dark)}
-.brand-sub{font-size:11px;color:var(--muted)}
+
+.brand-title{
+    font-size:20px;
+    font-weight:800;
+    color:var(--dark);
+}
+
+.brand-sub{
+    font-size:11px;
+    color:var(--muted);
+}
+
 .dashboard-link{
-color:var(--primary);
-background:var(--light);
-border:1px solid #cde9df;
-padding:9px 14px;
-border-radius:8px;
-text-decoration:none;
-font-weight:700
+    color:var(--primary);
+    background:var(--light);
+    border:1px solid #cde9df;
+    padding:9px 14px;
+    border-radius:8px;
+    text-decoration:none;
+    font-weight:700;
 }
-.container{max-width:1250px;margin:28px auto;padding:0 18px 50px}
-.page-heading{margin-bottom:22px}
-.page-heading h1{font-size:27px;margin:0 0 5px}
-.page-heading p{color:var(--muted);font-size:14px}
+
+.container{
+    max-width:1250px;
+    margin:28px auto;
+    padding:0 18px 50px;
+}
+
+.page-heading{
+    margin-bottom:22px;
+}
+
+.page-heading h1{
+    font-size:27px;
+    margin:0 0 5px;
+}
+
+.page-heading p{
+    color:var(--muted);
+    font-size:14px;
+}
+
 .stats{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:16px;
-margin-bottom:20px
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:16px;
+    margin-bottom:20px;
 }
-.stat-box,.box{
-background:#fff;
-border:1px solid var(--border);
-border-radius:15px;
-box-shadow:0 8px 30px #0f172a0b
+
+.stat-box,
+.box{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:15px;
+    box-shadow:0 8px 30px #0f172a0b;
 }
-.stat-box{padding:20px}
-.stat-label{color:var(--muted);font-size:13px}
-.stat-number{font-size:28px;font-weight:800;color:var(--dark);margin-top:6px}
-.box{padding:24px;margin-bottom:20px}
-.box-title{font-size:19px;font-weight:800;color:var(--dark)}
-.box-description{font-size:12px;color:var(--muted);margin-top:4px}
-.box-header{margin-bottom:20px}
+
+.stat-box{
+    padding:20px;
+}
+
+.stat-label{
+    color:var(--muted);
+    font-size:13px;
+}
+
+.stat-number{
+    font-size:28px;
+    font-weight:800;
+    color:var(--dark);
+    margin-top:6px;
+}
+
+.box{
+    padding:24px;
+    margin-bottom:20px;
+}
+
+.box-title{
+    font-size:19px;
+    font-weight:800;
+    color:var(--dark);
+}
+
+.box-description{
+    font-size:12px;
+    color:var(--muted);
+    margin-top:4px;
+}
+
+.box-header{
+    margin-bottom:20px;
+}
+
 .form-grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:16px
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:16px;
 }
-.full{grid-column:1/-1}
-.form-group{display:flex;flex-direction:column}
-label{font-size:13px;font-weight:700;margin-bottom:6px}
-input,select,textarea{
-width:100%;
-border:1px solid var(--border);
-border-radius:9px;
-padding:12px 13px;
-font-family:inherit;
-font-size:14px;
-outline:none;
-background:#fff
+
+.full{
+    grid-column:1/-1;
 }
-input:focus,select:focus,textarea:focus{
-border-color:var(--primary);
-box-shadow:0 0 0 3px #087f5b1a
+
+.form-group{
+    display:flex;
+    flex-direction:column;
 }
-input[readonly]{background:#f1f5f9}
-textarea{resize:vertical;min-height:90px}
-.buttons{display:flex;gap:9px;margin-top:5px}
+
+label{
+    font-size:13px;
+    font-weight:700;
+    margin-bottom:6px;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    border:1px solid var(--border);
+    border-radius:9px;
+    padding:12px 13px;
+    font-family:inherit;
+    font-size:14px;
+    outline:none;
+    background:#fff;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+    border-color:var(--primary);
+    box-shadow:0 0 0 3px #087f5b1a;
+}
+
+input[readonly]{
+    background:#f1f5f9;
+}
+
+textarea{
+    resize:vertical;
+    min-height:90px;
+}
+
+.buttons{
+    display:flex;
+    gap:9px;
+    margin-top:5px;
+    flex-wrap:wrap;
+}
+
 button{
-border:0;
-border-radius:9px;
-padding:11px 17px;
-font-family:inherit;
-font-weight:700;
-cursor:pointer
+    border:0;
+    border-radius:9px;
+    padding:11px 17px;
+    font-family:inherit;
+    font-weight:700;
+    cursor:pointer;
 }
-.btn-primary{background:var(--primary);color:#fff}
-.btn-secondary{background:#eef1f3;color:#374151}
-.btn-danger{background:#fee2e2;color:#b91c1c}
-.btn-edit{background:#e8f2ff;color:var(--blue)}
-button:disabled{opacity:.6}
-.message{min-height:22px;margin-top:12px;font-size:13px;font-weight:600}
-.success{color:var(--primary)}
-.error{color:#c62828}
+
+.btn-primary{
+    background:var(--primary);
+    color:#fff;
+}
+
+.btn-secondary{
+    background:#eef1f3;
+    color:#374151;
+}
+
+.btn-danger{
+    background:#fee2e2;
+    color:#b91c1c;
+}
+
+.btn-edit{
+    background:#e8f2ff;
+    color:var(--blue);
+}
+
+.btn-print{
+    background:#1769aa;
+    color:#fff;
+}
+
+.btn-print-all{
+    background:#056044;
+    color:#fff;
+}
+
+button:disabled{
+    opacity:.6;
+}
+
+.message{
+    min-height:22px;
+    margin-top:12px;
+    font-size:13px;
+    font-weight:600;
+}
+
+.success{
+    color:var(--primary);
+}
+
+.error{
+    color:#c62828;
+}
+
 .search-row{
-display:grid;
-grid-template-columns:1fr 220px;
-gap:12px;
-margin-bottom:16px
+    display:grid;
+    grid-template-columns:1fr 220px auto auto;
+    gap:12px;
+    margin-bottom:16px;
 }
-.table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:11px}
-table{width:100%;border-collapse:collapse;min-width:1050px}
+
+.table-wrap{
+    overflow-x:auto;
+    border:1px solid var(--border);
+    border-radius:11px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:1100px;
+}
+
 th{
-background:#f1f7f5;
-color:var(--dark);
-padding:13px 11px;
-font-size:12px;
-text-align:left;
-white-space:nowrap
+    background:#f1f7f5;
+    color:var(--dark);
+    padding:13px 11px;
+    font-size:12px;
+    text-align:left;
+    white-space:nowrap;
 }
+
 td{
-padding:13px 11px;
-border-bottom:1px solid #f0f1f2;
-font-size:13px
+    padding:13px 11px;
+    border-bottom:1px solid #f0f1f2;
+    font-size:13px;
 }
-.student-id{font-weight:800;color:var(--dark)}
+
+.student-id{
+    font-weight:800;
+    color:var(--dark);
+}
+
 .badge{
-display:inline-block;
-background:var(--light);
-color:var(--dark);
-padding:5px 8px;
-border-radius:6px;
-font-size:11px;
-font-weight:700
+    display:inline-block;
+    background:var(--light);
+    color:var(--dark);
+    padding:5px 8px;
+    border-radius:6px;
+    font-size:11px;
+    font-weight:700;
 }
-.action-buttons{display:flex;gap:6px}
-.action-buttons button{padding:7px 10px;font-size:11px}
+
+.action-buttons{
+    display:flex;
+    gap:6px;
+}
+
+.action-buttons button{
+    padding:7px 10px;
+    font-size:11px;
+}
+
 .photo{
-width:40px;height:40px;
-border-radius:8px;
-object-fit:cover
+    width:40px;
+    height:40px;
+    border-radius:8px;
+    object-fit:cover;
 }
-.center{text-align:center;padding:30px!important;color:var(--muted)}
+
+.center{
+    text-align:center;
+    padding:30px!important;
+    color:var(--muted);
+}
+
 .loading{
-height:3px;
-background:#e8f0ed;
-overflow:hidden;
-margin-bottom:15px
+    height:3px;
+    background:#e8f0ed;
+    overflow:hidden;
+    margin-bottom:15px;
 }
+
 .loading:after{
-content:"";
-display:block;
-height:100%;
-width:40%;
-background:var(--primary);
-animation:load 1s infinite
+    content:"";
+    display:block;
+    height:100%;
+    width:40%;
+    background:var(--primary);
+    animation:load 1s infinite;
 }
+
 @keyframes load{
-from{transform:translateX(-100%)}
-to{transform:translateX(300%)}
+    from{transform:translateX(-100%)}
+    to{transform:translateX(300%)}
 }
+
 .session-info{
-background:var(--light);
-border:1px solid #cde9df;
-padding:11px 13px;
-border-radius:9px;
-font-size:12px;
-color:var(--dark);
-margin-bottom:16px
+    background:var(--light);
+    border:1px solid #cde9df;
+    padding:11px 13px;
+    border-radius:9px;
+    font-size:12px;
+    color:var(--dark);
+    margin-bottom:16px;
 }
+
+/* =========================
+   PRINT AREA
+========================= */
+
+#printArea{
+    display:none;
+}
+
 @media(max-width:800px){
-.topbar{padding:14px 16px}
-.brand-title{font-size:17px}
-.container{margin:18px auto;padding:0 12px 40px}
-.stats{grid-template-columns:1fr 1fr}
-.form-grid{grid-template-columns:1fr}
-.full{grid-column:auto}
-.search-row{grid-template-columns:1fr}
-.box{padding:17px}
+
+    .topbar{
+        padding:14px 16px;
+    }
+
+    .brand-title{
+        font-size:17px;
+    }
+
+    .container{
+        margin:18px auto;
+        padding:0 12px 40px;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .full{
+        grid-column:auto;
+    }
+
+    .search-row{
+        grid-template-columns:1fr;
+    }
+
+    .box{
+        padding:17px;
+    }
+
 }
+
 @media(max-width:500px){
-.stats{grid-template-columns:1fr}
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
 }
+
+/* =========================
+   PRINT STYLE
+========================= */
+
+@media print{
+
+    body{
+        background:#fff;
+    }
+
+    body *{
+        visibility:hidden;
+    }
+
+    #printArea,
+    #printArea *{
+        visibility:visible;
+    }
+
+    #printArea{
+        display:block;
+        position:absolute;
+        left:0;
+        top:0;
+        width:100%;
+        background:#fff;
+        color:#000;
+        padding:15mm;
+    }
+
+    .print-header{
+        text-align:center;
+        border-bottom:2px solid #000;
+        padding-bottom:10px;
+        margin-bottom:15px;
+    }
+
+    .print-header h1{
+        margin:0;
+        font-size:24px;
+    }
+
+    .print-header p{
+        margin:4px 0;
+        font-size:13px;
+    }
+
+    .print-title{
+        text-align:center;
+        font-size:18px;
+        font-weight:800;
+        margin:15px 0;
+    }
+
+    .print-table{
+        width:100%;
+        border-collapse:collapse;
+        font-size:11px;
+    }
+
+    .print-table th,
+    .print-table td{
+        border:1px solid #000;
+        padding:7px;
+        text-align:left;
+    }
+
+    .print-table th{
+        background:#eee!important;
+        color:#000;
+    }
+
+    .print-photo{
+        width:55px;
+        height:65px;
+        object-fit:cover;
+        border:1px solid #000;
+    }
+
+    .single-student{
+        width:100%;
+        max-width:750px;
+        margin:auto;
+    }
+
+    .student-print-photo{
+        width:110px;
+        height:130px;
+        object-fit:cover;
+        border:1px solid #222;
+        margin-bottom:15px;
+    }
+
+    .single-info{
+        width:100%;
+        border-collapse:collapse;
+        margin-top:10px;
+    }
+
+    .single-info td{
+        border:1px solid #222;
+        padding:9px;
+        font-size:13px;
+    }
+
+    .single-info td:first-child{
+        width:32%;
+        font-weight:700;
+        background:#f2f2f2;
+    }
+
+    .print-footer{
+        margin-top:40px;
+        display:flex;
+        justify-content:space-between;
+        font-size:12px;
+    }
+
+    @page{
+        size:A4;
+        margin:10mm;
+    }
+
+}
+
 </style>
 </head>
 
 <body>
 
 <header class="topbar">
+
 <div>
-<div class="brand-title">মাদরাসায়ে নূরুল কুরআন</div>
-<div class="brand-sub">STUDENT MANAGEMENT SYSTEM</div>
+
+<div class="brand-title">
+মাদরাসায়ে নূরুল কুরআন
+</div>
+
+<div class="brand-sub">
+STUDENT MANAGEMENT SYSTEM
+</div>
+
 </div>
 
 <a href="dashboard.html" class="dashboard-link">
 ← Dashboard
 </a>
+
 </header>
+
 
 <main class="container">
 
 <div class="page-heading">
+
 <h1>Student Management</h1>
-<p>শিক্ষার্থীদের তথ্য সংরক্ষণ, সম্পাদনা ও ব্যবস্থাপনা</p>
+
+<p>
+শিক্ষার্থীদের তথ্য সংরক্ষণ, সম্পাদনা ও ব্যবস্থাপনা
+</p>
+
 </div>
+
 
 <div class="stats">
 
 <div class="stat-box">
-<div class="stat-label">মোট শিক্ষার্থী</div>
-<div class="stat-number" id="totalStudents">0</div>
+
+<div class="stat-label">
+মোট শিক্ষার্থী
 </div>
+
+<div class="stat-number" id="totalStudents">
+0
+</div>
+
+</div>
+
 
 <div class="stat-box">
-<div class="stat-label">দৃশ্যমান শিক্ষার্থী</div>
-<div class="stat-number" id="visibleStudents">0</div>
+
+<div class="stat-label">
+দৃশ্যমান শিক্ষার্থী
 </div>
+
+<div class="stat-number" id="visibleStudents">
+0
+</div>
+
+</div>
+
 
 <div class="stat-box">
-<div class="stat-label">বর্তমান Session</div>
-<div class="stat-number" id="currentSession">-</div>
+
+<div class="stat-label">
+বর্তমান Session
 </div>
+
+<div class="stat-number" id="currentSession">
+-
+</div>
+
+</div>
+
 
 <div class="stat-box">
-<div class="stat-label">Pending Admission</div>
-<div class="stat-number" id="onlineAdmissionCount">0</div>
+
+<div class="stat-label">
+Pending Admission
+</div>
+
+<div class="stat-number" id="onlineAdmissionCount">
+0
 </div>
 
 </div>
+
+</div>
+
+
+<!-- ADD STUDENT -->
 
 <section class="box">
 
 <div class="box-header">
-<div class="box-title">➕ Add Student</div>
+
+<div class="box-title" id="formTitle">
+Add Student
+</div>
+
 <div class="box-description">
 Session অনুযায়ী শিক্ষার্থীর তথ্য সংরক্ষণ করুন
 </div>
+
 </div>
 
+
 <div class="session-info">
+
 <strong>Current Session:</strong>
-<span id="sessionText">Loading...</span>
+
+<span id="sessionText">
+Loading...
+</span>
+
 </div>
+
 
 <form id="studentForm">
 
 <input type="hidden" id="editId">
 
+
 <div class="form-grid">
 
-<div class="form-group">
-<label>Student ID</label>
-<input id="studentId" readonly placeholder="Auto generated">
-</div>
 
 <div class="form-group">
-<label>Student Name *</label>
-<input id="name" required placeholder="শিক্ষার্থীর পূর্ণ নাম">
+
+<label>
+Student ID
+</label>
+
+<input
+id="studentId"
+readonly
+placeholder="Auto generated">
+
 </div>
 
-<div class="form-group">
-<label>Father's Name</label>
-<input id="father" placeholder="পিতার নাম">
-</div>
 
 <div class="form-group">
-<label>Mother's Name</label>
-<input id="mother" placeholder="মাতার নাম">
+
+<label>
+Student Name *
+</label>
+
+<input
+id="name"
+required
+placeholder="শিক্ষার্থীর পূর্ণ নাম">
+
 </div>
 
-<div class="form-group">
-<label>Mobile</label>
-<input id="phone" type="tel" placeholder="মোবাইল নম্বর">
-</div>
 
 <div class="form-group">
-<label>Session *</label>
+
+<label>
+Father's Name
+</label>
+
+<input
+id="father"
+placeholder="পিতার নাম">
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Mother's Name
+</label>
+
+<input
+id="mother"
+placeholder="মাতার নাম">
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Mobile
+</label>
+
+<input
+id="phone"
+type="tel"
+placeholder="মোবাইল নম্বর">
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Session *
+</label>
+
 <select id="session" required>
-<option value="">Session নির্বাচন করুন</option>
+
+<option value="">
+Session নির্বাচন করুন
+</option>
+
 <option value="2026">2026</option>
 <option value="2027">2027</option>
 <option value="2028">2028</option>
 <option value="2029">2029</option>
+
 </select>
+
 </div>
 
+
 <div class="form-group">
-<label>Class *</label>
+
+<label>
+Class *
+</label>
+
 <select id="classId" required>
-<option value="">শ্রেণি নির্বাচন করুন</option>
+
+<option value="">
+শ্রেণি নির্বাচন করুন
+</option>
+
 </select>
+
 </div>
+
 
 <div class="form-group">
-<label>Admission Date</label>
-<input id="admissionDate" type="date">
+
+<label>
+Admission Date
+</label>
+
+<input
+id="admissionDate"
+type="date">
+
 </div>
+
 
 <div class="form-group">
-<label>Student Photo</label>
-<input id="photo" type="file" accept="image/*">
+
+<label>
+Student Photo
+</label>
+
+<input
+id="photo"
+type="file"
+accept="image/*">
+
 </div>
 
-<div class="form-group full">
-<label>Address</label>
-<textarea id="address" placeholder="শিক্ষার্থীর ঠিকানা"></textarea>
-</div>
 
 <div class="form-group full">
+
+<label>
+Address
+</label>
+
+<textarea
+id="address"
+placeholder="শিক্ষার্থীর ঠিকানা"></textarea>
+
+</div>
+
+
+<div class="form-group full">
+
 <div class="buttons">
 
-<button type="submit" class="btn-primary" id="saveBtn">
-💾 Save Student
+<button
+type="submit"
+class="btn-primary"
+id="saveBtn">
+
+Save Student
+
 </button>
 
-<button type="button" class="btn-secondary" id="cancelBtn" style="display:none">
+
+<button
+type="button"
+class="btn-secondary"
+id="cancelBtn"
+style="display:none">
+
 Cancel
+
 </button>
 
 </div>
 
-<div id="msg" class="message"></div>
+
+<div
+id="msg"
+class="message"></div>
+
 </div>
+
 
 </div>
 
 </form>
+
 </section>
+
+
+<!-- STUDENT LIST -->
 
 <section class="box">
 
 <div class="box-header">
-<div class="box-title">👨‍🎓 Student List</div>
+
+<div class="box-title">
+Student List
+</div>
+
 <div class="box-description">
 Session অনুযায়ী শিক্ষার্থীদের তালিকা
 </div>
+
 </div>
+
 
 <div class="search-row">
 
@@ -352,22 +880,51 @@ Session অনুযায়ী শিক্ষার্থীদের তাল�
 id="search"
 placeholder="Student ID, নাম অথবা মোবাইল দিয়ে খুঁজুন...">
 
+
 <select id="filterSession">
-<option value="">All Sessions</option>
+
+<option value="">
+All Sessions
+</option>
+
 <option value="2026">2026</option>
 <option value="2027">2027</option>
 <option value="2028">2028</option>
 <option value="2029">2029</option>
+
 </select>
 
+
+<button
+class="btn-print"
+id="printFilteredBtn"
+type="button">
+
+Print List
+
+</button>
+
+
+<button
+class="btn-print-all"
+id="printAllBtn"
+type="button">
+
+Print All
+
+</button>
+
 </div>
+
 
 <div class="table-wrap">
 
 <table>
 
 <thead>
+
 <tr>
+
 <th>Photo</th>
 <th>Student ID</th>
 <th>নাম</th>
@@ -377,16 +934,28 @@ placeholder="Student ID, নাম অথবা মোবাইল দিয়ে 
 <th>Class</th>
 <th>ভর্তি তারিখ</th>
 <th>Action</th>
+
 </tr>
+
 </thead>
 
+
 <tbody id="studentList">
+
 <tr>
-<td colspan="9" class="center">
+
+<td
+colspan="9"
+class="center">
+
 <div class="loading"></div>
+
 Loading...
+
 </td>
+
 </tr>
+
 </tbody>
 
 </table>
@@ -395,9 +964,19 @@ Loading...
 
 </section>
 
+
 </main>
 
+
+<!-- =========================
+     PRINT AREA
+========================= -->
+
+<div id="printArea"></div>
+
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 
 <script>
 
@@ -413,21 +992,11 @@ SUPABASE_URL,
 SUPABASE_KEY
 );
 
+
 let students=[];
 let classes=[];
 let currentUser=null;
 
-
-/* =========================
-   SESSION
-========================= */
-
-const SESSION_LIST=[
-"2026",
-"2027",
-"2028",
-"2029"
-];
 
 function getCurrentSession(){
 
@@ -437,7 +1006,7 @@ return "2026";
 
 
 /* =========================
-   START + AUTH SESSION
+   AUTH
 ========================= */
 
 async function start(){
@@ -469,9 +1038,11 @@ document.getElementById("currentSession").textContent=current;
 document.getElementById("sessionText").textContent=current;
 
 await Promise.all([
+
 loadClasses(),
 loadStudents(),
 loadOnlineAdmissionCount()
+
 ]);
 
 }catch(error){
@@ -482,10 +1053,6 @@ showMessage(error.message,"error");
 
 }
 
-
-/* =========================
-   KEEP LOGIN SESSION
-========================= */
 
 db.auth.onAuthStateChange(
 (event,session)=>{
@@ -501,7 +1068,7 @@ location.href="admin.html";
 
 
 /* =========================
-   LOAD CLASSES
+   CLASSES
 ========================= */
 
 async function loadClasses(){
@@ -549,7 +1116,7 @@ select.appendChild(option);
 
 
 /* =========================
-   LOAD STUDENTS
+   STUDENTS
 ========================= */
 
 async function loadStudents(){
@@ -558,12 +1125,21 @@ const tbody=
 document.getElementById("studentList");
 
 tbody.innerHTML=`
+
 <tr>
+
 <td colspan="9" class="center">
+
 <div class="loading"></div>
+
 Loading...
+
 </td>
-</tr>`;
+
+</tr>
+
+`;
+
 
 const {
 data,
@@ -571,6 +1147,7 @@ error
 }=await db
 .from("students")
 .select(`
+
 id,
 student_id,
 name,
@@ -584,20 +1161,29 @@ address,
 photo_url,
 created_at,
 classes(name)
+
 `)
 .order(
 "created_at",
 {ascending:false}
 );
 
+
 if(error){
 
 tbody.innerHTML=`
+
 <tr>
+
 <td colspan="9" class="center">
-❌ ${escapeHtml(error.message)}
+
+${escapeHtml(error.message)}
+
 </td>
-</tr>`;
+
+</tr>
+
+`;
 
 return;
 
@@ -606,13 +1192,14 @@ return;
 students=data||[];
 
 updateStats();
+
 applyFilters();
 
 }
 
 
 /* =========================
-   ADMISSION COUNT
+   ONLINE ADMISSION
 ========================= */
 
 async function loadOnlineAdmissionCount(){
@@ -656,7 +1243,7 @@ document.getElementById(
    FILTER
 ========================= */
 
-function applyFilters(){
+function getFilteredStudents(){
 
 const q=
 document.getElementById("search")
@@ -668,27 +1255,40 @@ const selectedSession=
 document.getElementById("filterSession")
 .value;
 
-let list=students.filter(s=>{
+
+return students.filter(s=>{
 
 const sessionMatch=
 !selectedSession ||
 String(s.session||"")===selectedSession;
 
+
 const searchMatch=
 !q ||
+
 String(s.student_id||"")
 .toLowerCase()
 .includes(q) ||
+
 String(s.name||"")
 .toLowerCase()
 .includes(q) ||
+
 String(s.phone||"")
 .toLowerCase()
 .includes(q);
 
+
 return sessionMatch && searchMatch;
 
 });
+
+}
+
+
+function applyFilters(){
+
+const list=getFilteredStudents();
 
 render(list);
 
@@ -708,26 +1308,43 @@ document.getElementById(
 "visibleStudents"
 ).textContent=list.length;
 
+
 if(!list.length){
 
 tbody.innerHTML=`
+
 <tr>
+
 <td colspan="9" class="center">
+
 কোনো Student পাওয়া যায়নি
+
 </td>
-</tr>`;
+
+</tr>
+
+`;
 
 return;
 
 }
 
+
 tbody.innerHTML=list.map(s=>{
 
 const photo=s.photo_url
-? `<img src="${escapeHtml(s.photo_url)}" class="photo">`
-: `<span class="badge">No Photo</span>`;
+
+? `<img
+src="${escapeHtml(s.photo_url)}"
+class="photo">`
+
+: `<span class="badge">
+No Photo
+</span>`;
+
 
 return `
+
 <tr>
 
 <td>${photo}</td>
@@ -738,11 +1355,17 @@ ${escapeHtml(s.student_id||"-")}
 </span>
 </td>
 
-<td>${escapeHtml(s.name||"-")}</td>
+<td>
+${escapeHtml(s.name||"-")}
+</td>
 
-<td>${escapeHtml(s.father_name||"-")}</td>
+<td>
+${escapeHtml(s.father_name||"-")}
+</td>
 
-<td>${escapeHtml(s.phone||"-")}</td>
+<td>
+${escapeHtml(s.phone||"-")}
+</td>
 
 <td>
 <span class="badge">
@@ -756,27 +1379,46 @@ ${escapeHtml(s.classes?.name||"-")}
 </span>
 </td>
 
-<td>${escapeHtml(s.admission_date||"-")}</td>
+<td>
+${escapeHtml(s.admission_date||"-")}
+</td>
 
 <td>
+
 <div class="action-buttons">
 
 <button
 class="btn-edit"
 onclick="editStudent('${s.id}')">
+
 Edit
+
 </button>
+
+
+<button
+class="btn-print"
+onclick="printSingleStudent('${s.id}')">
+
+Print
+
+</button>
+
 
 <button
 class="btn-danger"
 onclick="deleteStudent('${s.id}')">
+
 Delete
+
 </button>
 
 </div>
+
 </td>
 
 </tr>
+
 `;
 
 }).join("");
@@ -800,8 +1442,10 @@ file.name.split(".").pop();
 
 const fileName=
 "student_"+Date.now()+"_"+
-Math.random().toString(36)
+Math.random()
+.toString(36)
 .substring(2)+"."+ext;
+
 
 const {error}=
 await db.storage
@@ -809,6 +1453,7 @@ await db.storage
 .upload(fileName,file,{
 upsert:false
 });
+
 
 if(error){
 
@@ -818,10 +1463,12 @@ throw new Error(
 
 }
 
+
 const {data}=
 db.storage
 .from("student-photo")
 .getPublicUrl(fileName);
+
 
 return data.publicUrl;
 
@@ -841,6 +1488,7 @@ error
 "next_student_id"
 );
 
+
 if(error){
 
 throw new Error(
@@ -850,13 +1498,14 @@ error.message
 
 }
 
+
 return data;
 
 }
 
 
 /* =========================
-   SAVE / UPDATE
+   SAVE
 ========================= */
 
 document
@@ -867,23 +1516,30 @@ async e=>{
 
 e.preventDefault();
 
+
 const editId=
 document.getElementById("editId").value;
+
 
 const msg=
 document.getElementById("msg");
 
+
 const saveBtn=
 document.getElementById("saveBtn");
+
 
 saveBtn.disabled=true;
 
 msg.className="message";
+
 msg.textContent="Saving...";
+
 
 try{
 
 let photoUrl=null;
+
 
 if(
 document.getElementById("photo")
@@ -894,6 +1550,7 @@ photoUrl=
 await uploadStudentPhoto();
 
 }
+
 
 const student={
 
@@ -931,13 +1588,16 @@ document.getElementById("address")
 
 };
 
+
 if(!editId){
 
 student.student_id=
 await generateStudentId();
 
+
 if(photoUrl)
 student.photo_url=photoUrl;
+
 
 const {
 data,
@@ -946,6 +1606,7 @@ error
 .from("students")
 .insert(student)
 .select(`
+
 id,
 student_id,
 name,
@@ -959,23 +1620,31 @@ address,
 photo_url,
 created_at,
 classes(name)
+
 `)
 .single();
 
+
 if(error)throw error;
+
 
 students.unshift(data);
 
-msg.className="message success";
+
+msg.className=
+"message success";
 
 msg.textContent=
 "Student added successfully. ID: "+
 data.student_id;
 
+
 }else{
+
 
 if(photoUrl)
 student.photo_url=photoUrl;
+
 
 const {
 data,
@@ -985,6 +1654,7 @@ error
 .update(student)
 .eq("id",editId)
 .select(`
+
 id,
 student_id,
 name,
@@ -998,34 +1668,49 @@ address,
 photo_url,
 created_at,
 classes(name)
+
 `)
 .single();
 
+
 if(error)throw error;
+
 
 const index=
 students.findIndex(
 x=>String(x.id)===String(editId)
 );
 
+
 if(index!==-1)
 students[index]=data;
 
-msg.className="message success";
+
+msg.className=
+"message success";
+
 msg.textContent=
 "Student updated successfully.";
 
 }
 
+
 updateStats();
+
 applyFilters();
+
 
 setTimeout(resetForm,900);
 
+
 }catch(error){
 
-msg.className="message error";
-msg.textContent=error.message;
+msg.className=
+"message error";
+
+msg.textContent=
+error.message;
+
 
 }finally{
 
@@ -1048,7 +1733,9 @@ students.find(
 x=>String(x.id)===String(id)
 );
 
+
 if(!student)return;
+
 
 document.getElementById("editId").value=
 student.id;
@@ -1080,11 +1767,18 @@ student.admission_date||"";
 document.getElementById("address").value=
 student.address||"";
 
-document.getElementById("saveBtn").textContent=
-"💾 Update Student";
 
-document.getElementById("cancelBtn").style.display=
-"inline-block";
+document.getElementById("formTitle")
+.textContent="Edit Student";
+
+
+document.getElementById("saveBtn")
+.textContent="Update Student";
+
+
+document.getElementById("cancelBtn")
+.style.display="inline-block";
+
 
 window.scrollTo({
 top:0,
@@ -1104,6 +1798,7 @@ if(!confirm(
 "এই Student-কে Delete করতে চান?"
 ))return;
 
+
 try{
 
 const {error}=
@@ -1112,15 +1807,20 @@ await db
 .delete()
 .eq("id",id);
 
+
 if(error)throw error;
+
 
 students=
 students.filter(
 s=>String(s.id)!==String(id)
 );
 
+
 updateStats();
+
 applyFilters();
+
 
 }catch(error){
 
@@ -1141,28 +1841,353 @@ document
 .getElementById("studentForm")
 .reset();
 
-document.getElementById("editId").value="";
-document.getElementById("studentId").value="";
 
-document.getElementById("session").value=
-getCurrentSession();
+document.getElementById("editId")
+.value="";
 
-document.getElementById("formTitle").textContent=
-"➕ Add Student";
 
-document.getElementById("saveBtn").textContent=
-"💾 Save Student";
+document.getElementById("studentId")
+.value="";
 
-document.getElementById("cancelBtn").style.display=
-"none";
 
-document.getElementById("msg").textContent="";
+document.getElementById("session")
+.value=getCurrentSession();
+
+
+document.getElementById("formTitle")
+.textContent="Add Student";
+
+
+document.getElementById("saveBtn")
+.textContent="Save Student";
+
+
+document.getElementById("cancelBtn")
+.style.display="none";
+
+
+document.getElementById("msg")
+.textContent="";
 
 }
 
 
 /* =========================
-   SEARCH + SESSION FILTER
+   PRINT ALL / FILTERED
+========================= */
+
+function printStudents(list,title){
+
+if(!list.length){
+
+alert("Print করার জন্য কোনো Student পাওয়া যায়নি.");
+
+return;
+
+}
+
+
+let sessionText=
+document.getElementById("filterSession").value;
+
+
+if(!sessionText)
+sessionText="All Sessions";
+
+
+const rows=list.map((s,index)=>{
+
+const photo=s.photo_url
+
+? `<img
+src="${escapeHtml(s.photo_url)}"
+class="print-photo">`
+
+: "-";
+
+
+return `
+
+<tr>
+
+<td>${index+1}</td>
+
+<td>${photo}</td>
+
+<td>
+${escapeHtml(s.student_id||"-")}
+</td>
+
+<td>
+${escapeHtml(s.name||"-")}
+</td>
+
+<td>
+${escapeHtml(s.father_name||"-")}
+</td>
+
+<td>
+${escapeHtml(s.phone||"-")}
+</td>
+
+<td>
+${escapeHtml(s.session||"-")}
+</td>
+
+<td>
+${escapeHtml(s.classes?.name||"-")}
+</td>
+
+<td>
+${escapeHtml(s.admission_date||"-")}
+</td>
+
+</tr>
+
+`;
+
+}).join("");
+
+
+document.getElementById("printArea")
+.innerHTML=`
+
+<div class="print-header">
+
+<h1>
+মাদরাসায়ে নূরুল কুরআন
+</h1>
+
+<p>
+STUDENT MANAGEMENT SYSTEM
+</p>
+
+</div>
+
+
+<div class="print-title">
+${escapeHtml(title)}
+</div>
+
+
+<p style="text-align:center;font-size:12px">
+Session: ${escapeHtml(sessionText)}
+&nbsp;&nbsp; | &nbsp;&nbsp;
+Total Student: ${list.length}
+</p>
+
+
+<table class="print-table">
+
+<thead>
+
+<tr>
+
+<th>#</th>
+<th>Photo</th>
+<th>Student ID</th>
+<th>নাম</th>
+<th>পিতা</th>
+<th>মোবাইল</th>
+<th>Session</th>
+<th>Class</th>
+<th>ভর্তি তারিখ</th>
+
+</tr>
+
+</thead>
+
+
+<tbody>
+
+${rows}
+
+</tbody>
+
+</table>
+
+
+<div class="print-footer">
+
+<span>
+প্রিন্ট তারিখ: ${new Date().toLocaleDateString("bn-BD")}
+</span>
+
+<span>
+মাদরাসায়ে নূরুল কুরআন
+</span>
+
+</div>
+
+`;
+
+
+window.print();
+
+}
+
+
+/* =========================
+   PRINT FILTERED
+========================= */
+
+document
+.getElementById("printFilteredBtn")
+.addEventListener(
+"click",
+()=>{
+
+printStudents(
+getFilteredStudents(),
+"Student List"
+);
+
+}
+);
+
+
+/* =========================
+   PRINT ALL
+========================= */
+
+document
+.getElementById("printAllBtn")
+.addEventListener(
+"click",
+()=>{
+
+printStudents(
+students,
+"All Student List"
+);
+
+}
+);
+
+
+/* =========================
+   PRINT SINGLE
+========================= */
+
+function printSingleStudent(id){
+
+const s=
+students.find(
+x=>String(x.id)===String(id)
+);
+
+
+if(!s)return;
+
+
+const photo=s.photo_url
+
+? `<img
+src="${escapeHtml(s.photo_url)}"
+class="student-print-photo">`
+
+: "";
+
+
+document.getElementById("printArea")
+.innerHTML=`
+
+<div class="single-student">
+
+<div class="print-header">
+
+<h1>
+মাদরাসায়ে নূরুল কুরআন
+</h1>
+
+<p>
+STUDENT INFORMATION
+</p>
+
+</div>
+
+
+<div style="text-align:center">
+
+${photo}
+
+</div>
+
+
+<table class="single-info">
+
+<tr>
+<td>Student ID</td>
+<td>${escapeHtml(s.student_id||"-")}</td>
+</tr>
+
+<tr>
+<td>Student Name</td>
+<td>${escapeHtml(s.name||"-")}</td>
+</tr>
+
+<tr>
+<td>Father's Name</td>
+<td>${escapeHtml(s.father_name||"-")}</td>
+</tr>
+
+<tr>
+<td>Mother's Name</td>
+<td>${escapeHtml(s.mother_name||"-")}</td>
+</tr>
+
+<tr>
+<td>Mobile</td>
+<td>${escapeHtml(s.phone||"-")}</td>
+</tr>
+
+<tr>
+<td>Session</td>
+<td>${escapeHtml(s.session||"-")}</td>
+</tr>
+
+<tr>
+<td>Class</td>
+<td>${escapeHtml(s.classes?.name||"-")}</td>
+</tr>
+
+<tr>
+<td>Admission Date</td>
+<td>${escapeHtml(s.admission_date||"-")}</td>
+</tr>
+
+<tr>
+<td>Address</td>
+<td>${escapeHtml(s.address||"-")}</td>
+</tr>
+
+</table>
+
+
+<div class="print-footer">
+
+<span>
+তারিখ: ${new Date().toLocaleDateString("bn-BD")}
+</span>
+
+<span>
+অভিভাবকের স্বাক্ষর: __________________
+</span>
+
+</div>
+
+</div>
+
+`;
+
+
+window.print();
+
+}
+
+
+/* =========================
+   SEARCH
 ========================= */
 
 document
@@ -1171,6 +2196,7 @@ document
 "input",
 applyFilters
 );
+
 
 document
 .getElementById("filterSession")
