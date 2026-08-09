@@ -2,1761 +2,238 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Dashboard | মাদরাসায়ে নূরুল কুরআন</title>
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
-
-/* =========================================================
-   ROOT
-========================================================= */
-
-:root{
-  --blue:#075985;
-  --blue-dark:#063b5c;
-  --blue-light:#eaf6ff;
-  --sky:#0ea5e9;
-  --yellow:#f5c542;
-  --yellow-light:#fff8d9;
-  --white:#ffffff;
-  --bg:#f3f8fc;
-  --text:#17324d;
-  --muted:#708397;
-  --border:#dce8f0;
-  --shadow:0 10px 35px rgba(7,89,133,.09);
-}
-
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
-html{
-  scroll-behavior:smooth;
-}
-
-body{
-  font-family:"Bornomala",Arial,sans-serif;
-  background:
-    radial-gradient(circle at 90% 5%,#dff4ff 0,transparent 25%),
-    radial-gradient(circle at 10% 90%,#fff6ce 0,transparent 22%),
-    var(--bg);
-  color:var(--text);
-  min-height:100vh;
-}
-
-
-/* =========================================================
-   BORNOMALA FONT
-========================================================= */
-
-@font-face{
-  font-family:"Bornomala";
-  src:url("fonts/Bornomala-Regular.ttf") format("truetype");
-  font-weight:400;
-  font-style:normal;
-  font-display:swap;
-}
-
-
-/* =========================================================
-   SIDEBAR
-========================================================= */
-
-.sidebar{
-  position:fixed;
-  left:0;
-  top:0;
-  width:260px;
-  height:100vh;
-  background:
-    linear-gradient(180deg,#063b5c 0%,#075985 55%,#0877a8 100%);
-  color:white;
-  padding:18px 13px;
-  overflow-y:auto;
-  z-index:1000;
-  box-shadow:8px 0 30px rgba(4,48,74,.14);
-}
-
-.sidebar::-webkit-scrollbar{
-  width:5px;
-}
-
-.sidebar::-webkit-scrollbar-thumb{
-  background:#ffffff35;
-  border-radius:20px;
-}
-
-
-/* =========================================================
-   BRAND
-========================================================= */
-
-.brand{
-  position:relative;
-  text-align:center;
-  padding:15px 8px 20px;
-  margin-bottom:16px;
-  border-bottom:1px solid #ffffff25;
-}
-
-.brand-logo{
-  width:58px;
-  height:58px;
-  margin:0 auto 10px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:18px;
-  background:linear-gradient(145deg,#fff,#e7f6ff);
-  color:var(--blue);
-  box-shadow:0 8px 20px #0002;
-  font-size:25px;
-  font-weight:bold;
-}
-
-.brand b{
-  display:block;
-  font-size:17px;
-  line-height:1.5;
-}
-
-.brand small{
-  display:block;
-  margin-top:4px;
-  color:#d8f3ff;
-  letter-spacing:1.5px;
-  font-size:9px;
-}
-
-
-/* =========================================================
-   MENU
-========================================================= */
-
-.menu-title{
-  padding:8px 12px;
-  color:#c8edff;
-  font-size:10px;
-  letter-spacing:1.3px;
-  text-transform:uppercase;
-}
-
-.menu a{
-  position:relative;
-  display:flex;
-  align-items:center;
-  gap:12px;
-  color:#eaf8ff;
-  text-decoration:none;
-  padding:11px 12px;
-  border-radius:11px;
-  margin:3px 0;
-  font-size:14px;
-  transition:.25s ease;
-}
-
-.menu a:hover{
-  background:#ffffff18;
-  transform:translateX(4px);
-  color:#fff;
-}
-
-.menu a.active{
-  background:linear-gradient(90deg,#ffffff22,#ffffff0a);
-  color:#fff;
-  box-shadow:inset 3px 0 var(--yellow);
-}
-
-.menu a.active:after{
-  content:"";
-  position:absolute;
-  right:10px;
-  width:6px;
-  height:6px;
-  background:var(--yellow);
-  border-radius:50%;
-}
-
-.icon{
-  width:27px;
-  height:27px;
-  border-radius:8px;
-  background:#ffffff12;
-  border:1px solid #ffffff14;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:12px;
-  font-weight:bold;
-  flex:none;
-}
-
-.notice-link{
-  background:#ffffff0c;
-}
-
-.notice-link .icon{
-  background:#f5c542;
-  color:#17324d;
-}
-
-
-/* =========================================================
-   MAIN
-========================================================= */
-
-.main{
-  margin-left:260px;
-  min-height:100vh;
-}
-
-
-/* =========================================================
-   TOPBAR
-========================================================= */
-
-.top{
-  position:sticky;
-  top:0;
-  min-height:72px;
-  background:#ffffffdd;
-  backdrop-filter:blur(18px);
-  -webkit-backdrop-filter:blur(18px);
-  border-bottom:1px solid #dce8f080;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:12px 28px;
-  z-index:900;
-}
-
-.top-left{
-  display:flex;
-  align-items:center;
-  gap:13px;
-}
-
-.top-mark{
-  width:40px;
-  height:40px;
-  border-radius:12px;
-  background:var(--blue-light);
-  border:1px solid #cceaf8;
-  color:var(--blue);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:bold;
-}
-
-.top h2{
-  color:var(--blue-dark);
-  font-size:21px;
-}
-
-.top small{
-  display:block;
-  color:var(--muted);
-  font-size:11px;
-  margin-top:2px;
-}
-
-.top-right{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-
-.live{
-  display:flex;
-  align-items:center;
-  gap:7px;
-  background:#eefaf4;
-  border:1px solid #ccebd9;
-  color:#167047;
-  padding:8px 11px;
-  border-radius:20px;
-  font-size:11px;
-}
-
-.live-dot{
-  width:7px;
-  height:7px;
-  border-radius:50%;
-  background:#16a34a;
-  box-shadow:0 0 0 5px #16a34a18;
-}
-
-.logout{
-  border:0;
-  background:var(--blue);
-  color:#fff;
-  padding:10px 15px;
-  border-radius:10px;
-  cursor:pointer;
-  font-family:inherit;
-  transition:.25s;
-}
-
-.logout:hover{
-  background:var(--blue-dark);
-  transform:translateY(-2px);
-}
-
-
-/* =========================================================
-   CONTENT
-========================================================= */
-
-.content{
-  padding:28px;
-  max-width:1500px;
-  margin:auto;
-}
-
-
-/* =========================================================
-   WELCOME HERO
-========================================================= */
-
-.welcome{
-  position:relative;
-  overflow:hidden;
-  min-height:190px;
-  background:
-    linear-gradient(120deg,#06476d,#0878a9);
-  border-radius:22px;
-  padding:30px;
-  color:white;
-  box-shadow:var(--shadow);
-  margin-bottom:22px;
-}
-
-.welcome:before,
-.welcome:after{
-  content:"";
-  position:absolute;
-  border-radius:50%;
-  border:1px solid #ffffff20;
-}
-
-.welcome:before{
-  width:270px;
-  height:270px;
-  right:-80px;
-  top:-140px;
-}
-
-.welcome:after{
-  width:210px;
-  height:210px;
-  right:70px;
-  bottom:-155px;
-}
-
-.welcome-content{
-  position:relative;
-  z-index:2;
-  max-width:700px;
-}
-
-.welcome-tag{
-  display:inline-block;
-  background:#f5c542;
-  color:#17324d;
-  padding:5px 10px;
-  border-radius:20px;
-  font-size:10px;
-  font-weight:bold;
-  margin-bottom:13px;
-}
-
-.welcome h1{
-  font-size:27px;
-  margin-bottom:8px;
-}
-
-.welcome p{
-  color:#dff5ff;
-  font-size:14px;
-}
-
-.hero-line{
-  margin-top:18px;
-  width:90px;
-  height:3px;
-  background:var(--yellow);
-  border-radius:10px;
-}
-
-
-/* =========================================================
-   STAT CARDS
-========================================================= */
-
-.cards{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:17px;
-}
-
-.stat-card{
-  position:relative;
-  overflow:hidden;
-  background:#fff;
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:20px;
-  box-shadow:var(--shadow);
-  transition:.3s ease;
-}
-
-.stat-card:hover{
-  transform:translateY(-5px);
-  box-shadow:0 18px 40px rgba(7,89,133,.14);
-}
-
-.stat-card:after{
-  content:"";
-  position:absolute;
-  width:90px;
-  height:90px;
-  border-radius:50%;
-  background:#eaf6ff;
-  right:-35px;
-  top:-35px;
-}
-
-.stat-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.stat-icon{
-  width:43px;
-  height:43px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:13px;
-  background:var(--blue-light);
-  border:1px solid #cceaf8;
-  color:var(--blue);
-  font-size:16px;
-  font-weight:bold;
-}
-
-.stat-card:nth-child(2) .stat-icon{
-  background:#fff8dc;
-  border-color:#f5e3a2;
-  color:#9a7400;
-}
-
-.stat-card:nth-child(3) .stat-icon{
-  background:#edf8f2;
-  border-color:#ccebd9;
-  color:#167047;
-}
-
-.stat-card:nth-child(4) .stat-icon{
-  background:#f2efff;
-  border-color:#ded6ff;
-  color:#6650b5;
-}
-
-.stat-title{
-  color:var(--muted);
-  font-size:13px;
-  margin-top:17px;
-}
-
-.stat-number{
-  display:block;
-  color:var(--blue-dark);
-  font-size:30px;
-  font-weight:bold;
-  margin-top:5px;
-}
-
-.stat-footer{
-  margin-top:9px;
-  color:#91a0ad;
-  font-size:10px;
-}
-
-
-/* =========================================================
-   SECTION
-========================================================= */
-
-.section{
-  margin-top:23px;
-  background:#fff;
-  border:1px solid var(--border);
-  border-radius:20px;
-  padding:22px;
-  box-shadow:var(--shadow);
-}
-
-.section-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:18px;
-}
-
-.section-head h3{
-  color:var(--blue-dark);
-  font-size:18px;
-}
-
-.section-head p{
-  color:var(--muted);
-  font-size:11px;
-}
-
-
-/* =========================================================
-   CLASS CARDS
-========================================================= */
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:13px;
-}
-
-.class-item{
-  position:relative;
-  overflow:hidden;
-  padding:20px 15px;
-  text-align:center;
-  border:1px solid var(--border);
-  border-radius:15px;
-  background:linear-gradient(145deg,#fff,#f7fbfe);
-  transition:.25s;
-}
-
-.class-item:before{
-  content:"";
-  display:block;
-  width:7px;
-  height:7px;
-  margin:0 auto 10px;
-  border-radius:50%;
-  background:var(--yellow);
-  box-shadow:0 0 0 5px #f5c54220;
-}
-
-.class-item:hover{
-  border-color:#a9dff5;
-  transform:translateY(-3px);
-  background:#f1faff;
-}
-
-.class-item strong{
-  display:block;
-  color:var(--blue-dark);
-  font-size:14px;
-}
-
-
-/* =========================================================
-   QUICK ACCESS
-========================================================= */
-
-.quick-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:13px;
-}
-
-.quick{
-  display:flex;
-  align-items:center;
-  gap:13px;
-  text-decoration:none;
-  color:var(--text);
-  padding:15px;
-  border:1px solid var(--border);
-  border-radius:14px;
-  background:#fbfdff;
-  transition:.25s;
-}
-
-.quick:hover{
-  border-color:#a9dff5;
-  background:#f1faff;
-  transform:translateY(-3px);
-}
-
-.quick-icon{
-  width:39px;
-  height:39px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:11px;
-  background:var(--blue-light);
-  color:var(--blue);
-  font-size:12px;
-  font-weight:bold;
-}
-
-.quick b{
-  font-size:13px;
-}
-
-.quick small{
-  display:block;
-  color:var(--muted);
-  margin-top:3px;
-  font-size:10px;
-}
-
-
-/* =========================================================
-   FOOTER
-========================================================= */
-
-.footer{
-  text-align:center;
-  padding:25px 10px;
-  color:#8a9aaa;
-  font-size:11px;
-}
-
-
-/* =========================================================
-   LOADING
-========================================================= */
-
-.loading{
-  opacity:.55;
-  animation:pulse 1.4s infinite;
-}
-
-@keyframes pulse{
-  0%,100%{opacity:.45}
-  50%{opacity:1}
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media(max-width:1100px){
-
-  .cards{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .grid{
-    grid-template-columns:repeat(3,1fr);
-  }
-
-  .quick-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-}
-
-
-@media(max-width:750px){
-
-  .sidebar{
-    width:72px;
-    padding:12px 7px;
-  }
-
-  .brand b,
-  .brand small,
-  .menu span,
-  .menu-title{
-    display:none;
-  }
-
-  .brand{
-    padding-bottom:15px;
-  }
-
-  .brand-logo{
-    width:45px;
-    height:45px;
-    font-size:18px;
-  }
-
-  .menu a{
-    justify-content:center;
-    padding:12px 5px;
-  }
-
-  .menu a.active:after{
-    right:4px;
-  }
-
-  .main{
-    margin-left:72px;
-  }
-
-  .content{
-    padding:15px;
-  }
-
-  .top{
-    padding:10px 15px;
-  }
-
-  .top h2{
-    font-size:17px;
-  }
-
-  .top small{
-    display:none;
-  }
-
-  .live{
-    display:none;
-  }
-
-  .welcome{
-    padding:23px;
-    min-height:170px;
-  }
-
-  .welcome h1{
-    font-size:22px;
-  }
-
-  .cards{
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
-  }
-
-  .grid,
-  .quick-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-}
-
-
-@media(max-width:480px){
-
-  .cards,
-  .grid,
-  .quick-grid{
-    grid-template-columns:1fr;
-  }
-
-  .welcome h1{
-    font-size:20px;
-  }
-
-  .section{
-    padding:16px;
-  }
-
-}
-
+*{box-sizing:border-box}
+body{margin:0;background:#f1f4f6;color:#17212b;font-family:"Noto Sans Bengali",Arial,sans-serif}
+header{height:76px;background:#55afd0;color:#fff;display:flex;align-items:center;padding:0 18px;gap:16px;position:sticky;top:0;z-index:20;box-shadow:0 2px 8px #0002}
+header button{background:none;border:0;color:#fff;font-size:26px;cursor:pointer}
+.logo{font-size:22px;font-weight:800;margin-right:auto}
+.top-user{font-size:13px}
+.logout{border:1px solid #ffffff77!important;border-radius:7px!important;padding:7px 10px!important;font-size:12px!important}
+main{max-width:1250px;margin:auto;padding:18px}
+.hero{background:linear-gradient(120deg,#101820,#173449);color:#fff;border-radius:16px;padding:28px;min-height:220px}
+.hero h1{font-size:30px;margin:0 0 8px}.hero p{font-size:17px;margin:0;color:#dce8ef}
+.date{margin-top:25px;background:#ffffff12;border:1px solid #ffffff20;border-radius:12px;padding:14px;font-size:17px}
+.title{font-size:21px;font-weight:800;margin:24px 0 10px;color:#155f80}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.card,.panel{background:#fff;border-radius:14px;box-shadow:0 2px 10px #00000012}
+.card{padding:17px;display:flex;align-items:center;gap:13px;border:1px solid #e6eaed}
+.icon{width:48px;height:48px;border-radius:10px;background:#126b8e;color:#fff;display:grid;place-items:center;font-weight:800;font-size:12px;flex:none}
+.card strong{display:block;font-size:23px;color:#12688e}.card span{color:#65727b;font-size:13px}
+.panel{padding:17px;margin-bottom:16px}
+.menu{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
+.menu .card{min-height:112px;justify-content:center;flex-direction:column;cursor:pointer;text-align:center;transition:.15s}
+.menu .card:hover{transform:translateY(-2px);box-shadow:0 6px 18px #0002;border-color:#8bc8df}
+.chart{height:300px;position:relative}
+.notice{background:#eaf6fb;border:1px solid #c9e6f0;padding:12px;border-radius:9px;color:#17607c;font-size:13px}
+footer{text-align:center;padding:28px;color:#7a858b;font-size:12px}
+.drawer{position:fixed;inset:0;z-index:50;display:none}.drawer.show{display:block}
+.drawer-bg{position:absolute;inset:0;background:#0005}.drawer-box{position:absolute;left:0;top:0;bottom:0;width:290px;background:#fff;padding:20px;overflow:auto}
+.drawer-box h3{margin:5px 0 20px;color:#12688e}.drawer-box a{display:block;padding:11px;border-radius:8px;text-decoration:none;color:#333;margin-bottom:5px}.drawer-box a:hover{background:#edf7fb}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.menu{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){header{height:68px}.logo{font-size:17px}.top-user{display:none}main{padding:12px}.hero{padding:20px}.hero h1{font-size:23px}.grid{grid-template-columns:1fr}.menu{grid-template-columns:repeat(2,1fr)}.card strong{font-size:21px}}
 </style>
-
 </head>
-
-
 <body>
 
-
-<!-- =====================================================
-     SIDEBAR
-===================================================== -->
-
-<aside class="sidebar">
-
-
-  <div class="brand">
-
-    <div class="brand-logo">
-      MNQ
-    </div>
-
-    <b>
-      মাদরাসায়ে নূরুল কুরআন
-    </b>
-
-    <small>
-      ADMINISTRATION PORTAL
-    </small>
-
-  </div>
-
-
-  <div class="menu">
-
-    <div class="menu-title">
-      Main Menu
-    </div>
-
-
-    <a
-      class="active"
-      href="dashboard.html">
-
-      <i class="icon">01</i>
-      <span>Dashboard</span>
-
-    </a>
-
-
-    <a href="students.html">
-
-      <i class="icon">02</i>
-      <span>Students</span>
-
-    </a>
-
-
-    <a href="student-id.html">
-
-      <i class="icon">ID</i>
-      <span>Student ID Card</span>
-
-    </a>
-
-
-    <a href="teachers.html">
-
-      <i class="icon">03</i>
-      <span>Teachers</span>
-
-    </a>
-
-
-    <a href="employees.html">
-
-      <i class="icon">04</i>
-      <span>Employees</span>
-
-    </a>
-
-
-    <a href="classes.html">Classes</a>
-      <i class="icon">05</i>
-      <span>Classes</span>
-
-    </a>
-
-    <div class="menu-title">
-      Attendance
-    </div>
-
-    <a href="attendance.html">
-      <i class="icon">06</i>
-      <span>Student Attendance</span>
-
-    </a>
-
-    <a href="attendance-view.html">
-      <i class="icon">07</i>
-      <span>Attendance Report</span>
-
-    </a>
-
-
-    <a href="teacher-attendance.html">
-      <i class="icon">08</i>
-      <span>Teacher Attendance</span>
-
-    </a>
-
-
-    <a href="employee-attendance.html">
-
-      <i class="icon">09</i>
-      <span>Employee Attendance</span>
-
-    </a>
-
-
-    <div class="menu-title">
-      Finance
-    </div>
-
-
-    <a href="fees.html">
-
-      <i class="icon">10</i>
-      <span>Student Fees</span>
-
-    </a>
-
-
-    <a href="income.html">
-
-      <i class="icon">11</i>
-      <span>Income & Donation</span>
-
-    </a>
-
-
-    <a href="expense.html">
-
-      <i class="icon">12</i>
-      <span>Expense Management</span>
-
-    </a>
-
-
-    <a href="salary.html">
-
-      <i class="icon">13</i>
-      <span>Salary</span>
-
-    </a>
-
-
-    <div class="menu-title">
-      Academic
-    </div>
-
-
-    <a href="results.html">
-
-      <i class="icon">14</i>
-      <span>Results</span>
-
-    </a>
-
-
-    <a href="marksheet.html">
-
-      <i class="icon">15</i>
-      <span>Marksheet</span>
-
-    </a>
-
-
-    <a
-      href="notice.html"
-      class="notice-link">
-
-      <i class="icon">N</i>
-      <span>Notice Management</span>
-
-    </a>
-
-
-    <div class="menu-title">
-      System
-    </div>
-
-
-    <a href="#">
-
-      <i class="icon">16</i>
-      <span>Reports</span>
-
-    </a>
-
-
-    <a href="#">
-
-      <i class="icon">17</i>
-      <span>Settings</span>
-
-    </a>
-
-
-    <a
-      href="#"
-      id="logout">
-
-      <i class="icon">↪</i>
-      <span>Logout</span>
-
-    </a>
-
-  </div>
-
-</aside>
-
-
-
-<!-- =====================================================
-     MAIN
-===================================================== -->
-
-<main class="main">
-
-
-  <header class="top">
-
-
-    <div class="top-left">
-
-      <div class="top-mark">
-        MN
-      </div>
-
-      <div>
-
-        <h2>
-          Administration Dashboard
-        </h2>
-
-        <small>
-          মাদরাসায়ে নূরুল কুরআন
-        </small>
-
-      </div>
-
-    </div>
-
-
-    <div class="top-right">
-
-      <div class="live">
-
-        <span class="live-dot"></span>
-
-        System Online
-
-      </div>
-
-
-      <button
-        class="logout"
-        id="logout2">
-
-        Logout
-
-      </button>
-
-    </div>
-
-  </header>
-
-
-
-  <section class="content">
-
-
-    <!-- =================================================
-         HERO
-    ================================================= -->
-
-    <div class="welcome">
-
-      <div class="welcome-content">
-
-        <span class="welcome-tag">
-          ADMIN PORTAL
-        </span>
-
-        <h1>
-          আসসালামু আলাইকুম
-        </h1>
-
-        <p>
-          মাদরাসায়ে নূরুল কুরআনের প্রশাসনিক ব্যবস্থাপনা
-          এক জায়গা থেকে পরিচালনা করুন।
-        </p>
-
-        <div class="hero-line"></div>
-
-      </div>
-
-    </div>
-
-
-
-    <!-- =================================================
-         STATISTICS
-    ================================================= -->
-
-    <div class="cards">
-
-
-      <div class="stat-card">
-
-        <div class="stat-top">
-
-          <div class="stat-icon">
-            ST
-          </div>
-
-        </div>
-
-        <div class="stat-title">
-          মোট শিক্ষার্থী
-        </div>
-
-        <strong
-          id="students"
-          class="stat-number loading">
-
-          0
-
-        </strong>
-
-        <div class="stat-footer">
-          Registered Students
-        </div>
-
-      </div>
-
-
-
-      <div class="stat-card">
-
-        <div class="stat-top">
-
-          <div class="stat-icon">
-            TC
-          </div>
-
-        </div>
-
-        <div class="stat-title">
-          মোট শিক্ষক
-        </div>
-
-        <strong
-          id="teachers"
-          class="stat-number loading">
-
-          0
-
-        </strong>
-
-        <div class="stat-footer">
-          Teaching Staff
-        </div>
-
-      </div>
-
-
-
-      <div class="stat-card">
-
-        <div class="stat-top">
-
-          <div class="stat-icon">
-            EM
-          </div>
-
-        </div>
-
-        <div class="stat-title">
-          মোট কর্মচারী
-        </div>
-
-        <strong
-          id="employees"
-          class="stat-number loading">
-
-          0
-
-        </strong>
-
-        <div class="stat-footer">
-          Office & Support Staff
-        </div>
-
-      </div>
-
-
-
-      <div class="stat-card">
-
-        <div class="stat-top">
-
-          <div class="stat-icon">
-            CL
-          </div>
-
-        </div>
-
-        <div class="stat-title">
-          মোট বিভাগ / শ্রেণি
-        </div>
-
-        <strong
-          id="classes"
-          class="stat-number loading">
-
-          0
-
-        </strong>
-
-        <div class="stat-footer">
-          Academic Classes
-        </div>
-
-      </div>
-
-
-    </div>
-
-
-
-    <!-- =================================================
-         CLASSES
-    ================================================= -->
-
-    <div class="section">
-
-
-      <div class="section-head">
-
-        <div>
-
-          <h3>
-            বিভাগ ও শ্রেণি
-          </h3>
-
-          <p>
-            Academic Departments & Classes
-          </p>
-
-        </div>
-
-      </div>
-
-
-      <div class="grid">
-
-
-        <div class="class-item">
-          <strong>নূরানী</strong>
-        </div>
-
-
-        <div class="class-item">
-          <strong>১ম শ্রেণি</strong>
-        </div>
-
-
-        <div class="class-item">
-          <strong>২য় শ্রেণি</strong>
-        </div>
-
-
-        <div class="class-item">
-          <strong>৩য় শ্রেণি</strong>
-        </div>
-
-
-        <div class="class-item">
-          <strong>৪র্থ শ্রেণি</strong>
-        </div>
-
-
-        <div class="class-item">
-          <strong>৫ম শ্রেণি</strong>
-        </div>
-
-
-        <div class="class-item">
-          <strong>নাজেরা</strong>
-        </div>
-
-
-        <div class="class-item">
-          <strong>হিফজ</strong>
-        </div>
-
-
-      </div>
-
-    </div>
-
-
-
-    <!-- =================================================
-         QUICK ACCESS
-    ================================================= -->
-
-    <div class="section">
-
-
-      <div class="section-head">
-
-        <div>
-
-          <h3>
-            দ্রুত প্রবেশ
-          </h3>
-
-          <p>
-            Frequently Used Management Modules
-          </p>
-
-        </div>
-
-      </div>
-
-
-      <div class="quick-grid">
-
-
-        <a
-          class="quick"
-          href="notice.html">
-
-          <div class="quick-icon">
-            N
-          </div>
-
-          <div>
-
-            <b>
-              Notice Management
-            </b>
-
-            <small>
-              নোটিশ প্রকাশ ও ব্যবস্থাপনা
-            </small>
-
-          </div>
-
-        </a>
-
-
-
-        <a
-          class="quick"
-          href="students.html">
-
-          <div class="quick-icon">
-            ST
-          </div>
-
-          <div>
-
-            <b>
-              Students
-            </b>
-
-            <small>
-              শিক্ষার্থী ব্যবস্থাপনা
-            </small>
-
-          </div>
-
-        </a>
-
-
-
-        <a
-          class="quick"
-          href="results.html">
-
-          <div class="quick-icon">
-            RS
-          </div>
-
-          <div>
-
-            <b>
-              Results
-            </b>
-
-            <small>
-              পরীক্ষার ফলাফল
-            </small>
-
-          </div>
-
-        </a>
-
-
-
-        <a
-          class="quick"
-          href="fees.html">
-
-          <div class="quick-icon">
-            FE
-          </div>
-
-          <div>
-
-            <b>
-              Student Fees
-            </b>
-
-            <small>
-              বেতন ও ফি ব্যবস্থাপনা
-            </small>
-
-          </div>
-
-        </a>
-
-
-
-        <a
-          class="quick"
-          href="attendance.html">
-
-          <div class="quick-icon">
-            AT
-          </div>
-
-          <div>
-
-            <b>
-              Attendance
-            </b>
-
-            <small>
-              হাজিরা ব্যবস্থাপনা
-            </small>
-
-          </div>
-
-        </a>
-
-
-
-        <a
-          class="quick"
-          href="income.html">
-
-          <div class="quick-icon">
-            IN
-          </div>
-
-          <div>
-
-            <b>
-              Income & Donation
-            </b>
-
-            <small>
-              আয় ও অনুদান
-            </small>
-
-          </div>
-
-        </a>
-
-
-      </div>
-
-    </div>
-
-
-    <div class="footer">
-
-      মাদরাসায়ে নূরুল কুরআন —
-      Administration Management System
-
-    </div>
-
-
-  </section>
-
+<header>
+<button onclick="openDrawer()">☰</button>
+<button onclick="location.href='dashboard.html'">Home</button>
+<div class="logo">মাদরাসায়ে নূরুল কুরআন</div>
+<div class="top-user" id="userEmail"></div>
+<button class="logout" onclick="logout()">Logout</button>
+</header>
+
+<div class="drawer" id="drawer">
+<div class="drawer-bg" onclick="closeDrawer()"></div>
+<div class="drawer-box">
+<h3>Dashboard Menu</h3>
+<div id="drawerLinks"></div>
+</div>
+</div>
+
+<main id="app" style="display:none">
+<section class="hero">
+<h1>Welcome to Dashboard</h1>
+<p>All-in-One Education Management System</p>
+<div class="date"><b id="day"></b><br><span id="date"></span><br><strong id="clock"></strong></div>
+</section>
+
+<div class="grid" style="margin-top:17px">
+<div class="card"><i class="icon">T</i><div><strong id="teacherCount">0</strong><span>সর্বমোট শিক্ষক</span></div></div>
+<div class="card"><i class="icon">E</i><div><strong id="employeeCount">0</strong><span>সর্বমোট কর্মচারী</span></div></div>
+<div class="card"><i class="icon">S</i><div><strong id="studentCount">0</strong><span>সর্বমোট শিক্ষার্থী</span></div></div>
+<div class="card"><i class="icon">C</i><div><strong id="classCount">0</strong><span>সর্বমোট শ্রেণি</span></div></div>
+</div>
+
+<div class="title">Quick Access</div>
+<section class="panel"><div class="menu" id="menu"></div></section>
+
+<div class="title">লেজার ওভারভিউ</div>
+<section class="panel">
+<div class="grid">
+<div class="card"><div><strong id="todayIncome">0 টাকা</strong><span>আজকের আয়</span></div></div>
+<div class="card"><div><strong id="totalIncome">0 টাকা</strong><span>সর্বমোট আয়</span></div></div>
+<div class="card"><div><strong id="totalExpense">0 টাকা</strong><span>সর্বমোট ব্যয়</span></div></div>
+<div class="card"><div><strong id="balance">0 টাকা</strong><span>বর্তমান ব্যালেন্স</span></div></div>
+</div>
+<div class="chart"><canvas id="ledger"></canvas></div>
+</section>
+
+<div class="title">আর্থিক সারসংক্ষেপ</div>
+<section class="panel"><div class="grid">
+<div class="card"><div><strong id="todayFees">0 টাকা</strong><span>আজকের ফি সংগ্রহ</span></div></div>
+<div class="card"><div><strong id="fees">0 টাকা</strong><span>মোট ফি সংগ্রহ</span></div></div>
+<div class="card"><div><strong id="dueFees">0 টাকা</strong><span>মোট অপরিশোধিত ফি</span></div></div>
+<div class="card"><div><strong id="salaries">0 টাকা</strong><span>মোট বেতন</span></div></div>
+</div><div class="chart"><canvas id="finance"></canvas></div></section>
+
+<div class="title">একাডেমিক ওভারভিউ</div>
+<section class="panel"><div class="grid">
+<div class="card"><div><strong id="activeStudents">0</strong><span>সক্রিয় শিক্ষার্থী</span></div></div>
+<div class="card"><div><strong>0</strong><span>অপেক্ষমাণ শিক্ষার্থী</span></div></div>
+<div class="card"><div><strong id="resultCount">0</strong><span>প্রকাশিত ফলাফল</span></div></div>
+<div class="card"><div><strong>0%</strong><span>আজকের উপস্থিতি</span></div></div>
+</div><div class="chart"><canvas id="academic"></canvas></div></section>
+
+<div class="title">SMS System</div>
+<section class="panel">
+<div class="notice">Bulk SMS, SMS history এবং SMS settings আপনার existing SMS page-এর সাথে যুক্ত করা হয়েছে।</div>
+<div class="grid" style="margin-top:13px">
+<div class="card" onclick="go('sms.html')" style="cursor:pointer"><i class="icon">SMS</i><div><strong>SMS</strong><span>Bulk SMS System</span></div></div>
+<div class="card" onclick="go('sms-history.html')" style="cursor:pointer"><i class="icon">H</i><div><strong>History</strong><span>SMS History</span></div></div>
+</div>
+</section>
+
+<div class="title">ভিজিটরদের তথ্য</div>
+<section class="panel"><div class="chart"><canvas id="visitors"></canvas></div></section>
 </main>
 
-
-
-<!-- =====================================================
-     SUPABASE + AUTH
-===================================================== -->
+<footer>মাদরাসায়ে নূরুল কুরআন Dashboard</footer>
 
 <script>
+const SUPABASE_URL="https://qavublwhqiqsgpcmfyft.supabase.co";
+const SUPABASE_KEY="sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
+const routes={
+"স্লাইডার":"slider.html","নোটিশ":"notices.html","ফটো":"photos.html","ভিডিও":"videos.html",
+"কোর্স":"courses.html","অনুষ্ঠান":"events.html","প্রকল্প":"projects.html","রুটিন":"routine.html",
+"ছুটিরদিন":"holidays.html","ডাউনলোড":"downloads.html","মতামত":"feedback.html","প্রশ্নোত্তর":"questions.html",
+"শিক্ষক":"teachers.html","সদস্য":"members.html","কর্মচারী":"employees.html","শিক্ষার্থী":"students.html",
+"প্রবেশপত্র":"admit-card.html","ফলাফল":"results.html","রিপোর্ট":"reports.html","ইনভয়েস":"fees.html",
+"বেতন":"salaries.html","অনুদান":"donations.html","দৈনন্দিন আয়":"income.html","দৈনন্দিন ব্যয়":"expenses.html",
+"লেজার":"ledger.html","লাইব্রেরি":"library.html","স্টক":"stock.html","ব্যাংক অ্যাকাউন্টস":"bank.html",
+"শিক্ষকদের উপস্থিতি":"teacher-attendance.html","কর্মচারীদের উপস্থিতি":"employee-attendance.html",
+"শিক্ষার্থীদের উপস্থিতি":"student-attendance.html","বাল্ক এসএমএস":"sms.html","অভিযোগ বক্স":"complaints.html",
+"শ্রেণি":"classes.html","অনলাইন ভর্তি":"admission.html"
+};
 
-const SUPABASE_URL =
-"https://qavublwhqiqsgpcmfyft.supabase.co";
+const items=[
+["S","স্লাইডার"],["N","নোটিশ"],["P","ফটো"],["V","ভিডিও"],["C","কোর্স"],["A","অনুষ্ঠান"],["P","প্রকল্প"],["R","রুটিন"],
+["H","ছুটিরদিন"],["D","ডাউনলোড"],["M","মতামত"],["Q","প্রশ্নোত্তর"],["T","শিক্ষক"],["M","সদস্য"],["E","কর্মচারী"],["S","শিক্ষার্থী"],
+["ID","প্রবেশপত্র"],["F","ফলাফল"],["R","রিপোর্ট"],["I","ইনভয়েস"],["B","বেতন"],["A","অনুদান"],["I","দৈনন্দিন আয়"],["E","দৈনন্দিন ব্যয়"],
+["L","লেজার"],["L","লাইব্রেরি"],["S","স্টক"],["B","ব্যাংক অ্যাকাউন্টস"],["A","শিক্ষকদের উপস্থিতি"],["A","কর্মচারীদের উপস্থিতি"],
+["A","শিক্ষার্থীদের উপস্থিতি"],["SMS","বাল্ক এসএমএস"],["C","অভিযোগ বক্স"],["C","শ্রেণি"],["A","অনলাইন ভর্তি"]
+];
 
+function buildMenus(){
+ const menu=document.getElementById("menu");
+ const drawer=document.getElementById("drawerLinks");
+ const make=(x)=>`<div class="card" onclick="go('${routes[x[1]]||'#'}')"><i class="icon">${x[0]}</i><span>${x[1]}</span></div>`;
+ menu.innerHTML=items.map(make).join("");
+ drawer.innerHTML=items.map(x=>`<a href="${routes[x[1]]||'#'}">${x[1]}</a>`).join("");
+}
+function go(url){if(url&&url!=="#") location.href=url}
+function openDrawer(){drawer.classList.add("show")}
+function closeDrawer(){drawer.classList.remove("show")}
+async function logout(){await db.auth.signOut();location.href="admin.html"}
 
-const SUPABASE_KEY =
-"sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
+function tick(){
+ const d=new Date();
+ document.getElementById("day").textContent=d.toLocaleDateString("bn-BD",{weekday:"long"});
+ document.getElementById("date").textContent=d.toLocaleDateString("bn-BD",{year:"numeric",month:"long",day:"numeric"});
+ document.getElementById("clock").textContent=d.toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit",second:"2-digit"});
+}
+setInterval(tick,1000);tick();
 
+function money(n){return Number(n||0).toLocaleString("en-US")+" টাকা"}
 
-const db =
-window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
-
-
-
-/* =====================================================
-   AUTH CHECK
-===================================================== */
-
-async function checkLogin(){
-
-  const {
-    data,
-    error
-  } = await db.auth.getSession();
-
-
-  if(error){
-
-    console.error(
-      "Authentication error:",
-      error
-    );
-
-    window.location.replace(
-      "admin.html"
-    );
-
-    return false;
-
-  }
-
-
-  if(
-    !data ||
-    !data.session
-  ){
-
-    window.location.replace(
-      "admin.html"
-    );
-
-    return false;
-
-  }
-
-
-  return true;
-
+function chart(id,type,labels,label,data,color){
+ new Chart(document.getElementById(id),{type,data:{labels,datasets:[{label,data,backgroundColor:color,borderColor:color,tension:.3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true}},scales:{y:{beginAtZero:true}}}});
 }
 
+async function countTable(table,id){
+ try{
+  const r=await db.from(table).select("id",{count:"exact",head:true});
+  if(!r.error) document.getElementById(id).textContent=r.count||0;
+ }catch(e){}
+}
 
+async function loadDashboardData(){
+ await Promise.all([
+  countTable("teachers","teacherCount"),
+  countTable("employees","employeeCount"),
+  countTable("students","studentCount"),
+  countTable("classes","classCount")
+ ]);
+ document.getElementById("activeStudents").textContent=document.getElementById("studentCount").textContent;
+ try{
+  const r=await db.from("results").select("id",{count:"exact",head:true});
+  if(!r.error)document.getElementById("resultCount").textContent=r.count||0;
+ }catch(e){}
 
-/* =====================================================
-   STATISTICS
-===================================================== */
-
-async function loadStatistics(){
-
-
-  const tables = [
-
-    ["students","students"],
-
-    ["teachers","teachers"],
-
-    ["employees","employees"],
-
-    ["classes","classes"]
-
-  ];
-
-
-  for(
-    const [table,id]
-    of tables
-  ){
-
-    try{
-
-      const {
-        count,
-        error
-      } = await db
-
-        .from(table)
-
-        .select(
-          "*",
-          {
-            count:"exact",
-            head:true
-          }
-        );
-
-
-      const element =
-        document.getElementById(id);
-
-
-      if(!element){
-
-        continue;
-
-      }
-
-
-      element.classList.remove(
-        "loading"
-      );
-
-
-      if(error){
-
-        console.log(
-          table +
-          " table:",
-          error.message
-        );
-
-        element.textContent =
-          "—";
-
-        continue;
-
-      }
-
-
-      element.textContent =
-        count || 0;
-
-    }
-
-    catch(error){
-
-      console.log(
-        table,
-        error
-      );
-
-    }
-
+ try{
+  const r=await db.from("fees").select("amount");
+  if(!r.error){
+   const total=(r.data||[]).reduce((a,x)=>a+Number(x.amount||0),0);
+   document.getElementById("fees").textContent=money(total);
   }
+ }catch(e){}
 
-}
-
-
-
-/* =====================================================
-   LOGOUT
-===================================================== */
-
-async function logout(){
-
-  try{
-
-    await db.auth.signOut();
-
+ try{
+  const r=await db.from("income").select("amount");
+  if(!r.error){
+   const total=(r.data||[]).reduce((a,x)=>a+Number(x.amount||0),0);
+   document.getElementById("totalIncome").textContent=money(total);
+   document.getElementById("balance").textContent=money(total);
   }
+ }catch(e){}
 
-  catch(error){
-
-    console.error(
-      "Logout error:",
-      error
-    );
-
+ try{
+  const r=await db.from("expenses").select("amount");
+  if(!r.error){
+   const total=(r.data||[]).reduce((a,x)=>a+Number(x.amount||0),0);
+   document.getElementById("totalExpense").textContent=money(total);
+   const inc=parseFloat(document.getElementById("totalIncome").textContent.replace(/[^0-9.-]/g,""))||0;
+   document.getElementById("balance").textContent=money(inc-total);
   }
-
-
-  window.location.replace(
-    "admin.html"
-  );
-
+ }catch(e){}
 }
-
-
-
-/* =====================================================
-   LOGOUT BUTTONS
-===================================================== */
-
-const logoutButton =
-document.getElementById(
-  "logout"
-);
-
-
-if(logoutButton){
-
-  logoutButton.addEventListener(
-    "click",
-    function(e){
-
-      e.preventDefault();
-
-      logout();
-
-    }
-  );
-
-}
-
-
-const logoutButton2 =
-document.getElementById(
-  "logout2"
-);
-
-
-if(logoutButton2){
-
-  logoutButton2.addEventListener(
-    "click",
-    logout
-  );
-
-}
-
-
-
-/* =====================================================
-   START
-===================================================== */
 
 async function start(){
+ const {data:{session}}=await db.auth.getSession();
+ if(!session){location.href="admin.html";return}
+ document.getElementById("userEmail").textContent=session.user.email||"";
+ document.getElementById("app").style.display="block";
+ buildMenus();
+ await loadDashboardData();
 
-  const loggedIn =
-    await checkLogin();
-
-
-  if(!loggedIn){
-
-    return;
-
-  }
-
-
-  await loadStatistics();
-
+ chart("ledger","line",["আয়","ব্যয়","ব্যালেন্স"],"Amount",[0,0,0],"#21833d");
+ chart("finance","bar",["ফি","বকেয়া","বেতন","অনুদান"],"Amount",[0,0,0,0],"#087d70");
+ chart("academic","bar",["শিক্ষার্থী","শিক্ষক","কর্মচারী","শ্রেণি"],"Count",[
+ Number(document.getElementById("studentCount").textContent)||0,
+ Number(document.getElementById("teacherCount").textContent)||0,
+ Number(document.getElementById("employeeCount").textContent)||0,
+ Number(document.getElementById("classCount").textContent)||0
+ ],"#8b56a8");
+ chart("visitors","bar",["আজ","গতকাল","এই সপ্তাহ","এই মাস"],"Visitors",[0,0,0,0],"#8f9fa8");
 }
-
-
 start();
-
-
-
-/* =====================================================
-   AUTH STATE
-===================================================== */
-
-db.auth.onAuthStateChange(
-  function(event,session){
-
-    if(
-      event === "SIGNED_OUT" ||
-      !session
-    ){
-
-      window.location.replace(
-        "admin.html"
-      );
-
-    }
-
-  }
-);
-
-
 </script>
-
 </body>
 </html>
