@@ -1,554 +1,1345 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
 <title>Students | মাদরাসায়ে নূরুল কুরআন</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- Bornomala Font -->
+<link
+href="https://banglawebfonts.pages.dev/css/bornomala.css"
+rel="stylesheet"
+>
 
 <style>
+
+/* =========================================
+   GLOBAL
+========================================= */
 
 *{
     box-sizing:border-box;
 }
 
 :root{
-    --primary:#087f5b;
-    --dark:#056044;
-    --light:#e9f7f2;
-    --bg:#f5f7f9;
+
+    --primary:#0d47a1;
+    --primary2:#1976d2;
+    --dark:#083b82;
+
+    --light:#e3f2fd;
+    --light2:#f4f8fd;
+
+    --bg:#f4f7fb;
     --white:#fff;
-    --text:#17212b;
-    --muted:#6b7280;
-    --border:#e5e7eb;
-    --danger:#dc3545;
-    --blue:#1769aa;
+
+    --text:#1e293b;
+    --muted:#64748b;
+
+    --border:#e2e8f0;
+
+    --danger:#dc2626;
+    --danger-light:#fee2e2;
+
+    --success:#15803d;
+    --success-light:#dcfce7;
+
+    --shadow:#0d47a115;
+
 }
+
+
+/* =========================================
+   BODY
+========================================= */
 
 body{
+
     margin:0;
-    font-family:"Noto Sans Bengali","SolaimanLipi",Arial,sans-serif;
+
+    font-family:
+    "Bornomala",
+    "Bornomala-Regular",
+    serif;
+
     background:var(--bg);
+
     color:var(--text);
+
 }
+
+
+/* =========================================
+   TOPBAR
+========================================= */
 
 .topbar{
-    background:#fff;
-    border-bottom:1px solid var(--border);
+
+    background:
+    linear-gradient(
+        135deg,
+        #0d47a1,
+        #1976d2
+    );
+
+    color:#fff;
+
     min-height:72px;
-    padding:0 28px;
+
+    padding:
+    14px 28px;
+
     display:flex;
+
     justify-content:space-between;
+
     align-items:center;
+
+    gap:20px;
+
     position:sticky;
+
     top:0;
-    z-index:10;
+
+    z-index:100;
+
+    box-shadow:
+    0 3px 15px #0002;
+
 }
+
 
 .brand-title{
-    font-size:20px;
+
+    font-size:21px;
+
     font-weight:800;
-    color:var(--dark);
+
+    margin-bottom:2px;
+
 }
+
 
 .brand-sub{
-    font-size:11px;
-    color:var(--muted);
+
+    font-family:
+    Arial,
+    sans-serif;
+
+    font-size:10px;
+
+    letter-spacing:1px;
+
+    opacity:.8;
+
 }
+
+
+.top-right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+}
+
 
 .dashboard-link{
-    color:var(--primary);
-    background:var(--light);
-    border:1px solid #cde9df;
-    padding:9px 14px;
+
+    color:#fff;
+
+    background:#ffffff20;
+
+    border:1px solid #ffffff35;
+
+    padding:
+    9px 14px;
+
     border-radius:8px;
+
     text-decoration:none;
+
+    font-family:
+    "Bornomala",
+    serif;
+
     font-weight:700;
+
+    transition:.2s;
+
 }
+
+
+.dashboard-link:hover{
+
+    background:#fff;
+
+    color:var(--primary);
+
+}
+
+
+/* =========================================
+   LANGUAGE
+========================================= */
+
+.lang{
+
+    display:flex;
+
+    background:#ffffff20;
+
+    padding:3px;
+
+    border-radius:8px;
+
+}
+
+
+.lang button{
+
+    border:0;
+
+    background:transparent;
+
+    color:#fff;
+
+    padding:
+    6px 9px;
+
+    border-radius:6px;
+
+    cursor:pointer;
+
+    font-family:
+    "Bornomala",
+    serif;
+
+    font-weight:bold;
+
+}
+
+
+.lang button.active{
+
+    background:#fff;
+
+    color:var(--primary);
+
+}
+
+
+/* =========================================
+   CONTAINER
+========================================= */
 
 .container{
+
     max-width:1250px;
-    margin:28px auto;
-    padding:0 18px 50px;
+
+    margin:
+    26px auto;
+
+    padding:
+    0 18px 50px;
+
 }
+
+
+/* =========================================
+   PAGE HEADING
+========================================= */
 
 .page-heading{
+
     margin-bottom:22px;
+
 }
+
 
 .page-heading h1{
-    font-size:27px;
-    margin:0 0 5px;
+
+    margin:
+    0 0 5px;
+
+    font-size:29px;
+
+    color:#0f172a;
+
 }
+
 
 .page-heading p{
+
+    margin:0;
+
     color:var(--muted);
-    font-size:14px;
+
+    font-size:15px;
+
 }
+
+
+/* =========================================
+   STATS
+========================================= */
 
 .stats{
+
     display:grid;
-    grid-template-columns:repeat(4,1fr);
+
+    grid-template-columns:
+    repeat(4,1fr);
+
     gap:16px;
+
     margin-bottom:20px;
+
 }
 
-.stat-box,
-.box{
-    background:#fff;
-    border:1px solid var(--border);
-    border-radius:15px;
-    box-shadow:0 8px 30px #0f172a0b;
-}
 
 .stat-box{
+
+    background:#fff;
+
+    border:
+    1px solid var(--border);
+
+    border-radius:14px;
+
     padding:20px;
+
+    box-shadow:
+    0 3px 15px #0d47a110;
+
+    position:relative;
+
+    overflow:hidden;
+
 }
+
+
+.stat-box::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    top:0;
+
+    width:4px;
+
+    height:100%;
+
+    background:
+    linear-gradient(
+        #0d47a1,
+        #1976d2
+    );
+
+}
+
 
 .stat-label{
+
     color:var(--muted);
+
     font-size:13px;
+
 }
+
 
 .stat-number{
-    font-size:28px;
+
+    font-family:
+    Arial,
+    sans-serif;
+
+    font-size:27px;
+
     font-weight:800;
+
     color:var(--dark);
+
     margin-top:6px;
+
 }
+
+
+/* =========================================
+   BOX
+========================================= */
 
 .box{
-    padding:24px;
+
+    background:#fff;
+
+    border:
+    1px solid var(--border);
+
+    border-radius:15px;
+
+    padding:23px;
+
     margin-bottom:20px;
+
+    box-shadow:
+    0 3px 15px #0d47a110;
+
 }
 
-.box-title{
-    font-size:19px;
-    font-weight:800;
-    color:var(--dark);
-}
-
-.box-description{
-    font-size:12px;
-    color:var(--muted);
-    margin-top:4px;
-}
 
 .box-header{
-    margin-bottom:20px;
+
+    margin-bottom:19px;
+
 }
+
+
+.box-title{
+
+    font-size:20px;
+
+    font-weight:800;
+
+    color:var(--primary);
+
+}
+
+
+.box-description{
+
+    font-size:13px;
+
+    color:var(--muted);
+
+    margin-top:4px;
+
+}
+
+
+/* =========================================
+   SESSION INFO
+========================================= */
+
+.session-info{
+
+    background:
+    linear-gradient(
+        135deg,
+        #e3f2fd,
+        #f4f9ff
+    );
+
+    border:
+    1px solid #bbd7f5;
+
+    padding:
+    11px 14px;
+
+    border-radius:9px;
+
+    font-size:13px;
+
+    color:var(--dark);
+
+    margin-bottom:18px;
+
+}
+
+
+/* =========================================
+   FORM
+========================================= */
 
 .form-grid{
+
     display:grid;
-    grid-template-columns:repeat(2,1fr);
+
+    grid-template-columns:
+    repeat(2,1fr);
+
     gap:16px;
+
 }
+
 
 .full{
-    grid-column:1/-1;
+
+    grid-column:
+    1/-1;
+
 }
+
 
 .form-group{
+
     display:flex;
+
     flex-direction:column;
+
 }
 
+
 label{
-    font-size:13px;
+
+    font-size:14px;
+
     font-weight:700;
+
     margin-bottom:6px;
+
 }
+
 
 input,
 select,
 textarea{
+
     width:100%;
-    border:1px solid var(--border);
+
+    border:
+    1px solid #d5dce6;
+
     border-radius:9px;
-    padding:12px 13px;
-    font-family:inherit;
+
+    padding:
+    11px 13px;
+
+    font-family:
+    "Bornomala",
+    serif;
+
     font-size:14px;
+
     outline:none;
+
     background:#fff;
+
+    color:var(--text);
+
+    transition:.2s;
+
 }
+
 
 input:focus,
 select:focus,
 textarea:focus{
-    border-color:var(--primary);
-    box-shadow:0 0 0 3px #087f5b1a;
+
+    border-color:
+    var(--primary2);
+
+    box-shadow:
+    0 0 0 3px #1976d215;
+
 }
+
 
 input[readonly]{
+
     background:#f1f5f9;
+
+    color:#64748b;
+
 }
+
 
 textarea{
+
     resize:vertical;
+
     min-height:90px;
+
 }
+
+
+/* =========================================
+   BUTTONS
+========================================= */
 
 .buttons{
+
     display:flex;
+
     gap:9px;
+
     margin-top:5px;
+
     flex-wrap:wrap;
+
 }
+
 
 button{
+
     border:0;
+
     border-radius:9px;
-    padding:11px 17px;
-    font-family:inherit;
+
+    padding:
+    10px 17px;
+
+    font-family:
+    "Bornomala",
+    serif;
+
     font-weight:700;
+
     cursor:pointer;
+
+    transition:.2s;
+
 }
+
+
+button:hover{
+
+    transform:translateY(-1px);
+
+}
+
 
 .btn-primary{
-    background:var(--primary);
+
+    background:
+    linear-gradient(
+        135deg,
+        #0d47a1,
+        #1976d2
+    );
+
     color:#fff;
+
 }
+
 
 .btn-secondary{
-    background:#eef1f3;
+
+    background:#eef2f7;
+
     color:#374151;
+
 }
+
 
 .btn-danger{
-    background:#fee2e2;
+
+    background:var(--danger-light);
+
     color:#b91c1c;
+
 }
+
 
 .btn-edit{
-    background:#e8f2ff;
-    color:var(--blue);
+
+    background:#e3f2fd;
+
+    color:#0d47a1;
+
 }
+
 
 .btn-print{
-    background:#1769aa;
+
+    background:#1976d2;
+
     color:#fff;
+
 }
+
 
 .btn-print-all{
-    background:#056044;
+
+    background:#0d47a1;
+
     color:#fff;
+
 }
+
 
 button:disabled{
+
     opacity:.6;
+
+    cursor:not-allowed;
+
+    transform:none;
+
 }
+
+
+/* =========================================
+   MESSAGE
+========================================= */
 
 .message{
+
     min-height:22px;
+
     margin-top:12px;
+
     font-size:13px;
+
     font-weight:600;
+
 }
+
 
 .success{
-    color:var(--primary);
+
+    color:var(--success);
+
 }
+
 
 .error{
+
     color:#c62828;
+
 }
+
+
+/* =========================================
+   SEARCH
+========================================= */
 
 .search-row{
+
     display:grid;
-    grid-template-columns:1fr 220px auto auto;
+
+    grid-template-columns:
+    1fr 220px auto auto;
+
     gap:12px;
+
     margin-bottom:16px;
+
 }
+
+
+/* =========================================
+   TABLE
+========================================= */
 
 .table-wrap{
+
     overflow-x:auto;
-    border:1px solid var(--border);
+
+    border:
+    1px solid var(--border);
+
     border-radius:11px;
+
 }
+
 
 table{
+
     width:100%;
+
     border-collapse:collapse;
+
     min-width:1100px;
+
 }
+
 
 th{
-    background:#f1f7f5;
-    color:var(--dark);
-    padding:13px 11px;
-    font-size:12px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #0d47a1,
+        #1976d2
+    );
+
+    color:#fff;
+
+    padding:
+    13px 11px;
+
+    font-size:13px;
+
     text-align:left;
+
     white-space:nowrap;
+
 }
+
 
 td{
-    padding:13px 11px;
-    border-bottom:1px solid #f0f1f2;
+
+    padding:
+    12px 11px;
+
+    border-bottom:
+    1px solid #edf0f5;
+
     font-size:13px;
+
+    vertical-align:middle;
+
 }
+
+
+tbody tr{
+
+    transition:.15s;
+
+}
+
+
+tbody tr:hover td{
+
+    background:#f7faff;
+
+}
+
 
 .student-id{
+
+    font-family:
+    Arial,
+    sans-serif;
+
     font-weight:800;
+
     color:var(--dark);
+
 }
+
 
 .badge{
+
     display:inline-block;
-    background:var(--light);
-    color:var(--dark);
-    padding:5px 8px;
-    border-radius:6px;
+
+    background:#e3f2fd;
+
+    color:#0d47a1;
+
+    padding:
+    5px 9px;
+
+    border-radius:20px;
+
     font-size:11px;
+
     font-weight:700;
+
 }
 
-.action-buttons{
-    display:flex;
-    gap:6px;
-}
-
-.action-buttons button{
-    padding:7px 10px;
-    font-size:11px;
-}
 
 .photo{
-    width:40px;
-    height:40px;
+
+    width:42px;
+
+    height:42px;
+
     border-radius:8px;
+
     object-fit:cover;
+
+    border:
+    1px solid #dbe4ef;
+
 }
+
+
+.action-buttons{
+
+    display:flex;
+
+    gap:6px;
+
+    flex-wrap:wrap;
+
+}
+
+
+.action-buttons button{
+
+    padding:
+    6px 9px;
+
+    font-size:11px;
+
+}
+
+
+/* =========================================
+   CENTER / LOADING
+========================================= */
 
 .center{
+
     text-align:center;
-    padding:30px!important;
+
+    padding:
+    30px!important;
+
     color:var(--muted);
+
 }
+
 
 .loading{
+
     height:3px;
-    background:#e8f0ed;
+
+    background:#e3edf9;
+
     overflow:hidden;
+
     margin-bottom:15px;
+
 }
+
 
 .loading:after{
+
     content:"";
+
     display:block;
+
     height:100%;
+
     width:40%;
-    background:var(--primary);
-    animation:load 1s infinite;
+
+    background:
+    linear-gradient(
+        90deg,
+        #0d47a1,
+        #1976d2
+    );
+
+    animation:
+    load 1s infinite;
+
 }
+
 
 @keyframes load{
-    from{transform:translateX(-100%)}
-    to{transform:translateX(300%)}
+
+    from{
+        transform:translateX(-100%);
+    }
+
+    to{
+        transform:translateX(300%);
+    }
+
 }
 
-.session-info{
-    background:var(--light);
-    border:1px solid #cde9df;
-    padding:11px 13px;
-    border-radius:9px;
-    font-size:12px;
-    color:var(--dark);
-    margin-bottom:16px;
+
+/* =========================================
+   EMPTY STATE
+========================================= */
+
+.empty-icon{
+
+    font-size:30px;
+
+    margin-bottom:6px;
+
 }
 
-/* =========================
+
+.empty-text{
+
+    font-size:14px;
+
+}
+
+
+/* =========================================
    PRINT AREA
-========================= */
+========================================= */
 
 #printArea{
+
     display:none;
+
 }
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media(max-width:900px){
+
+    .stats{
+
+        grid-template-columns:
+        repeat(2,1fr);
+
+    }
+
+    .search-row{
+
+        grid-template-columns:
+        1fr 1fr;
+
+    }
+
+}
+
 
 @media(max-width:800px){
 
     .topbar{
-        padding:14px 16px;
+
+        padding:
+        13px 16px;
+
+    }
+
+    .top-right{
+
+        gap:6px;
+
     }
 
     .brand-title{
-        font-size:17px;
+
+        font-size:18px;
+
     }
 
     .container{
-        margin:18px auto;
-        padding:0 12px 40px;
-    }
 
-    .stats{
-        grid-template-columns:1fr 1fr;
+        margin:
+        18px auto;
+
+        padding:
+        0 12px 40px;
+
     }
 
     .form-grid{
+
         grid-template-columns:1fr;
+
     }
 
     .full{
-        grid-column:auto;
-    }
 
-    .search-row{
-        grid-template-columns:1fr;
+        grid-column:auto;
+
     }
 
     .box{
+
         padding:17px;
+
     }
 
 }
+
+
+@media(max-width:600px){
+
+    .topbar{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+    .top-right{
+
+        width:100%;
+
+        justify-content:space-between;
+
+    }
+
+    .search-row{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
 
 @media(max-width:500px){
 
     .stats{
-        grid-template-columns:1fr;
+
+        grid-template-columns:1fr 1fr;
+
+    }
+
+    .stat-box{
+
+        padding:15px;
+
+    }
+
+    .stat-number{
+
+        font-size:23px;
+
     }
 
 }
 
-/* =========================
+
+/* =========================================
    PRINT STYLE
-========================= */
+========================================= */
 
 @media print{
 
     body{
+
         background:#fff;
+
     }
 
+
     body *{
+
         visibility:hidden;
+
     }
+
 
     #printArea,
     #printArea *{
+
         visibility:visible;
+
     }
+
 
     #printArea{
+
         display:block;
+
         position:absolute;
+
         left:0;
+
         top:0;
+
         width:100%;
+
         background:#fff;
+
         color:#000;
-        padding:15mm;
+
+        padding:10mm;
+
     }
+
 
     .print-header{
+
         text-align:center;
-        border-bottom:2px solid #000;
+
+        border-bottom:
+        2px solid #000;
+
         padding-bottom:10px;
+
         margin-bottom:15px;
+
     }
+
 
     .print-header h1{
+
         margin:0;
+
         font-size:24px;
+
     }
+
 
     .print-header p{
+
         margin:4px 0;
-        font-size:13px;
+
+        font-family:Arial,sans-serif;
+
+        font-size:12px;
+
     }
+
 
     .print-title{
+
         text-align:center;
+
         font-size:18px;
+
         font-weight:800;
+
         margin:15px 0;
+
     }
 
+
     .print-table{
+
         width:100%;
+
         border-collapse:collapse;
+
         font-size:11px;
+
     }
+
 
     .print-table th,
     .print-table td{
-        border:1px solid #000;
-        padding:7px;
+
+        border:
+        1px solid #000;
+
+        padding:6px;
+
         text-align:left;
+
     }
+
 
     .print-table th{
+
         background:#eee!important;
-        color:#000;
+
+        color:#000!important;
+
     }
+
 
     .print-photo{
-        width:55px;
-        height:65px;
+
+        width:50px;
+
+        height:60px;
+
         object-fit:cover;
-        border:1px solid #000;
+
+        border:
+        1px solid #000;
+
     }
+
 
     .single-student{
+
         width:100%;
+
         max-width:750px;
+
         margin:auto;
+
     }
+
 
     .student-print-photo{
+
         width:110px;
+
         height:130px;
+
         object-fit:cover;
-        border:1px solid #222;
+
+        border:
+        1px solid #222;
+
         margin-bottom:15px;
+
     }
+
 
     .single-info{
+
         width:100%;
+
         border-collapse:collapse;
+
         margin-top:10px;
+
     }
+
 
     .single-info td{
-        border:1px solid #222;
+
+        border:
+        1px solid #222;
+
         padding:9px;
+
         font-size:13px;
+
     }
+
 
     .single-info td:first-child{
+
         width:32%;
+
         font-weight:700;
+
         background:#f2f2f2;
+
     }
+
 
     .print-footer{
+
         margin-top:40px;
+
         display:flex;
+
         justify-content:space-between;
+
         font-size:12px;
+
     }
 
+
     @page{
+
         size:A4;
+
         margin:10mm;
+
     }
 
 }
 
 </style>
+
 </head>
 
+
 <body>
+
+
+<!-- =========================================
+     HEADER
+========================================= -->
 
 <header class="topbar">
 
 <div>
 
 <div class="brand-title">
-মাদরাসায়ে নূরুল কুরআন
+📚 মাদরাসায়ে নূরুল কুরআন
 </div>
 
 <div class="brand-sub">
@@ -557,18 +1348,34 @@ STUDENT MANAGEMENT SYSTEM
 
 </div>
 
-<a href="dashboard.html" class="dashboard-link">
+
+<div class="top-right">
+
+<a
+href="dashboard.html"
+class="dashboard-link"
+>
 ← Dashboard
 </a>
+
+</div>
 
 </header>
 
 
+
+<!-- =========================================
+     MAIN
+========================================= -->
+
 <main class="container">
+
 
 <div class="page-heading">
 
-<h1>Student Management</h1>
+<h1>
+👨‍🎓 Student Management
+</h1>
 
 <p>
 শিক্ষার্থীদের তথ্য সংরক্ষণ, সম্পাদনা ও ব্যবস্থাপনা
@@ -577,7 +1384,13 @@ STUDENT MANAGEMENT SYSTEM
 </div>
 
 
+
+<!-- =========================================
+     STATS
+========================================= -->
+
 <div class="stats">
+
 
 <div class="stat-box">
 
@@ -585,7 +1398,10 @@ STUDENT MANAGEMENT SYSTEM
 মোট শিক্ষার্থী
 </div>
 
-<div class="stat-number" id="totalStudents">
+<div
+class="stat-number"
+id="totalStudents"
+>
 0
 </div>
 
@@ -598,7 +1414,10 @@ STUDENT MANAGEMENT SYSTEM
 দৃশ্যমান শিক্ষার্থী
 </div>
 
-<div class="stat-number" id="visibleStudents">
+<div
+class="stat-number"
+id="visibleStudents"
+>
 0
 </div>
 
@@ -611,7 +1430,10 @@ STUDENT MANAGEMENT SYSTEM
 বর্তমান Session
 </div>
 
-<div class="stat-number" id="currentSession">
+<div
+class="stat-number"
+id="currentSession"
+>
 -
 </div>
 
@@ -624,23 +1446,34 @@ STUDENT MANAGEMENT SYSTEM
 Pending Admission
 </div>
 
-<div class="stat-number" id="onlineAdmissionCount">
+<div
+class="stat-number"
+id="onlineAdmissionCount"
+>
 0
 </div>
 
 </div>
 
+
 </div>
 
 
-<!-- ADD STUDENT -->
+
+<!-- =========================================
+     ADD STUDENT
+========================================= -->
 
 <section class="box">
 
+
 <div class="box-header">
 
-<div class="box-title" id="formTitle">
-Add Student
+<div
+class="box-title"
+id="formTitle"
+>
+➕ Add Student
 </div>
 
 <div class="box-description">
@@ -652,7 +1485,9 @@ Session অনুযায়ী শিক্ষার্থীর তথ্য স
 
 <div class="session-info">
 
-<strong>Current Session:</strong>
+<strong>
+📅 Current Session:
+</strong>
 
 <span id="sessionText">
 Loading...
@@ -661,13 +1496,19 @@ Loading...
 </div>
 
 
+
 <form id="studentForm">
 
-<input type="hidden" id="editId">
+<input
+type="hidden"
+id="editId"
+>
 
 
 <div class="form-grid">
 
+
+<!-- STUDENT ID -->
 
 <div class="form-group">
 
@@ -678,64 +1519,84 @@ Student ID
 <input
 id="studentId"
 readonly
-placeholder="Auto generated">
+placeholder="Auto generated"
+>
 
 </div>
 
 
+
+<!-- NAME -->
+
 <div class="form-group">
 
 <label>
-Student Name *
+শিক্ষার্থীর নাম *
 </label>
 
 <input
 id="name"
 required
-placeholder="শিক্ষার্থীর পূর্ণ নাম">
+placeholder="শিক্ষার্থীর পূর্ণ নাম"
+>
 
 </div>
 
 
+
+<!-- FATHER -->
+
 <div class="form-group">
 
 <label>
-Father's Name
+পিতার নাম
 </label>
 
 <input
 id="father"
-placeholder="পিতার নাম">
+placeholder="পিতার নাম"
+>
 
 </div>
 
 
+
+<!-- MOTHER -->
+
 <div class="form-group">
 
 <label>
-Mother's Name
+মাতার নাম
 </label>
 
 <input
 id="mother"
-placeholder="মাতার নাম">
+placeholder="মাতার নাম"
+>
 
 </div>
 
 
+
+<!-- PHONE -->
+
 <div class="form-group">
 
 <label>
-Mobile
+মোবাইল
 </label>
 
 <input
 id="phone"
 type="tel"
-placeholder="মোবাইল নম্বর">
+placeholder="মোবাইল নম্বর"
+>
 
 </div>
 
+
+
+<!-- SESSION -->
 
 <div class="form-group">
 
@@ -743,21 +1604,22 @@ placeholder="মোবাইল নম্বর">
 Session *
 </label>
 
-<select id="session" required>
+<select
+id="session"
+required
+>
 
 <option value="">
 Session নির্বাচন করুন
 </option>
 
-<option value="2026">2026</option>
-<option value="2027">2027</option>
-<option value="2028">2028</option>
-<option value="2029">2029</option>
-
 </select>
 
 </div>
 
+
+
+<!-- CLASS -->
 
 <div class="form-group">
 
@@ -765,7 +1627,10 @@ Session নির্বাচন করুন
 Class *
 </label>
 
-<select id="classId" required>
+<select
+id="classId"
+required
+>
 
 <option value="">
 শ্রেণি নির্বাচন করুন
@@ -776,45 +1641,60 @@ Class *
 </div>
 
 
+
+<!-- ADMISSION DATE -->
+
 <div class="form-group">
 
 <label>
-Admission Date
+ভর্তি তারিখ
 </label>
 
 <input
 id="admissionDate"
-type="date">
+type="date"
+>
 
 </div>
 
 
+
+<!-- PHOTO -->
+
 <div class="form-group">
 
 <label>
-Student Photo
+শিক্ষার্থীর ছবি
 </label>
 
 <input
 id="photo"
 type="file"
-accept="image/*">
+accept="image/*"
+>
 
 </div>
 
+
+
+<!-- ADDRESS -->
 
 <div class="form-group full">
 
 <label>
-Address
+ঠিকানা
 </label>
 
 <textarea
 id="address"
-placeholder="শিক্ষার্থীর ঠিকানা"></textarea>
+placeholder="শিক্ষার্থীর ঠিকানা"
+></textarea>
 
 </div>
 
+
+
+<!-- BUTTONS -->
 
 <div class="form-group full">
 
@@ -823,10 +1703,9 @@ placeholder="শিক্ষার্থীর ঠিকানা"></textarea>
 <button
 type="submit"
 class="btn-primary"
-id="saveBtn">
-
-Save Student
-
+id="saveBtn"
+>
+💾 Save Student
 </button>
 
 
@@ -834,10 +1713,9 @@ Save Student
 type="button"
 class="btn-secondary"
 id="cancelBtn"
-style="display:none">
-
-Cancel
-
+style="display:none"
+>
+✖ Cancel
 </button>
 
 </div>
@@ -845,7 +1723,8 @@ Cancel
 
 <div
 id="msg"
-class="message"></div>
+class="message"
+></div>
 
 </div>
 
@@ -857,40 +1736,44 @@ class="message"></div>
 </section>
 
 
-<!-- STUDENT LIST -->
+
+<!-- =========================================
+     STUDENT LIST
+========================================= -->
 
 <section class="box">
+
 
 <div class="box-header">
 
 <div class="box-title">
-Student List
+👨‍🎓 Student List
 </div>
 
 <div class="box-description">
-Session অনুযায়ী শিক্ষার্থীদের তালিকা
+Session ও Search অনুযায়ী শিক্ষার্থীদের তালিকা
 </div>
 
 </div>
+
 
 
 <div class="search-row">
 
+
 <input
 id="search"
-placeholder="Student ID, নাম অথবা মোবাইল দিয়ে খুঁজুন...">
+placeholder="🔍 Student ID, নাম অথবা মোবাইল দিয়ে খুঁজুন..."
+>
 
 
-<select id="filterSession">
+<select
+id="filterSession"
+>
 
 <option value="">
 All Sessions
 </option>
-
-<option value="2026">2026</option>
-<option value="2027">2027</option>
-<option value="2028">2028</option>
-<option value="2029">2029</option>
 
 </select>
 
@@ -898,23 +1781,23 @@ All Sessions
 <button
 class="btn-print"
 id="printFilteredBtn"
-type="button">
-
-Print List
-
+type="button"
+>
+🖨 Print List
 </button>
 
 
 <button
 class="btn-print-all"
 id="printAllBtn"
-type="button">
-
-Print All
-
+type="button"
+>
+🖨 Print All
 </button>
 
+
 </div>
+
 
 
 <div class="table-wrap">
@@ -925,15 +1808,41 @@ Print All
 
 <tr>
 
-<th>Photo</th>
-<th>Student ID</th>
-<th>নাম</th>
-<th>পিতা</th>
-<th>মোবাইল</th>
-<th>Session</th>
-<th>Class</th>
-<th>ভর্তি তারিখ</th>
-<th>Action</th>
+<th>
+Photo
+</th>
+
+<th>
+Student ID
+</th>
+
+<th>
+নাম
+</th>
+
+<th>
+পিতা
+</th>
+
+<th>
+মোবাইল
+</th>
+
+<th>
+Session
+</th>
+
+<th>
+Class
+</th>
+
+<th>
+ভর্তি তারিখ
+</th>
+
+<th>
+Action
+</th>
 
 </tr>
 
@@ -946,7 +1855,8 @@ Print All
 
 <td
 colspan="9"
-class="center">
+class="center"
+>
 
 <div class="loading"></div>
 
@@ -968,23 +1878,35 @@ Loading...
 </main>
 
 
-<!-- =========================
+
+<!-- =========================================
      PRINT AREA
-========================= -->
+========================================= -->
 
 <div id="printArea"></div>
 
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- SUPABASE -->
+
+<script
+src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
 
 
 <script>
+
+/* =========================================
+   SUPABASE
+========================================= */
 
 const SUPABASE_URL =
 "https://qavublwhqiqsgpcmfyft.supabase.co";
 
 const SUPABASE_KEY =
 "sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
+
 
 const db =
 window.supabase.createClient(
@@ -993,1268 +1915,2213 @@ SUPABASE_KEY
 );
 
 
-let students=[];
-let classes=[];
-let currentUser=null;
 
+/* =========================================
+   DATA
+========================================= */
+
+let students = [];
+
+let classes = [];
+
+let currentUser = null;
+
+
+
+/* =========================================
+   CURRENT YEAR
+========================================= */
 
 function getCurrentSession(){
 
-return "2026";
+    return String(
+        new Date().getFullYear()
+    );
 
 }
 
 
-/* =========================
+
+/* =========================================
    AUTH
-========================= */
+========================================= */
 
 async function start(){
 
-try{
+    try{
 
-const {
-data:{session},
-error
-}=await db.auth.getSession();
+        const {
+            data:{session},
+            error
+        } =
+        await db.auth.getSession();
 
-if(error) throw error;
 
-if(!session){
+        if(error)
+            throw error;
 
-location.href="admin.html";
-return;
+
+        if(!session){
+
+            location.href =
+            "admin.html";
+
+            return;
+
+        }
+
+
+        currentUser =
+        session;
+
+
+        await Promise.all([
+
+            loadClasses(),
+
+            loadSessions(),
+
+            loadStudents(),
+
+            loadOnlineAdmissionCount()
+
+        ]);
+
+
+        const current =
+        getCurrentSession();
+
+
+        document.getElementById(
+            "session"
+        ).value = current;
+
+
+        document.getElementById(
+            "filterSession"
+        ).value = current;
+
+
+        document.getElementById(
+            "currentSession"
+        ).textContent = current;
+
+
+        document.getElementById(
+            "sessionText"
+        ).textContent = current;
+
+
+        applyFilters();
+
+
+    }
+
+    catch(error){
+
+        showMessage(
+            error.message,
+            "error"
+        );
+
+    }
 
 }
 
-currentUser=session;
 
-const current=getCurrentSession();
 
-document.getElementById("session").value=current;
-document.getElementById("filterSession").value=current;
-
-document.getElementById("currentSession").textContent=current;
-document.getElementById("sessionText").textContent=current;
-
-await Promise.all([
-
-loadClasses(),
-loadStudents(),
-loadOnlineAdmissionCount()
-
-]);
-
-}catch(error){
-
-showMessage(error.message,"error");
-
-}
-
-}
-
+/* =========================================
+   AUTH STATE
+========================================= */
 
 db.auth.onAuthStateChange(
-(event,session)=>{
+    (event,session)=>{
 
-if(!session){
+        if(!session){
 
-location.href="admin.html";
+            location.href =
+            "admin.html";
 
-}
+        }
 
-}
+    }
 );
 
 
-/* =========================
-   CLASSES
-========================= */
+
+/* =========================================
+   LOAD CLASSES
+========================================= */
 
 async function loadClasses(){
 
-const select=
-document.getElementById("classId");
+    const select =
+    document.getElementById(
+        "classId"
+    );
 
-const {
-data,
-error
-}=await db
-.from("classes")
-.select("id,name")
-.order("id");
 
-if(error){
+    const {
+        data,
+        error
+    } =
+    await db
+    .from("classes")
+    .select("id,name")
+    .order("id");
 
-showMessage(
-"Class load error: "+error.message,
-"error"
-);
 
-return;
+    if(error){
+
+        showMessage(
+            "Class load error: "+
+            error.message,
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    classes =
+    data || [];
+
+
+    select.innerHTML = `
+        <option value="">
+            শ্রেণি নির্বাচন করুন
+        </option>
+    `;
+
+
+    classes.forEach(c=>{
+
+        const option =
+        document.createElement(
+            "option"
+        );
+
+
+        option.value =
+        c.id;
+
+
+        option.textContent =
+        c.name;
+
+
+        select.appendChild(
+            option
+        );
+
+    });
 
 }
 
-classes=data||[];
 
-select.innerHTML=
-'<option value="">শ্রেণি নির্বাচন করুন</option>';
 
-classes.forEach(c=>{
+/* =========================================
+   LOAD SESSIONS
+========================================= */
 
-const option=
-document.createElement("option");
+async function loadSessions(){
 
-option.value=c.id;
-option.textContent=c.name;
+    const formSession =
+    document.getElementById(
+        "session"
+    );
 
-select.appendChild(option);
 
-});
+    const filterSession =
+    document.getElementById(
+        "filterSession"
+    );
+
+
+    const {
+        data,
+        error
+    } =
+    await db
+    .from("students")
+    .select("session")
+    .not(
+        "session",
+        "is",
+        null
+    );
+
+
+    if(error){
+
+        console.error(
+            "Session load error:",
+            error
+        );
+
+        return;
+
+    }
+
+
+    let sessions =
+    [
+        ...new Set(
+            (data || [])
+            .map(x =>
+                String(x.session)
+            )
+            .filter(Boolean)
+        )
+    ];
+
+
+    const current =
+    getCurrentSession();
+
+
+    if(
+        !sessions.includes(
+            current
+        )
+    ){
+
+        sessions.push(current);
+
+    }
+
+
+    sessions.sort(
+        (a,b)=>
+        Number(b)-Number(a)
+    );
+
+
+    formSession.innerHTML = `
+        <option value="">
+            Session নির্বাচন করুন
+        </option>
+    `;
+
+
+    filterSession.innerHTML = `
+        <option value="">
+            All Sessions
+        </option>
+    `;
+
+
+    sessions.forEach(year=>{
+
+        const option1 =
+        document.createElement(
+            "option"
+        );
+
+        option1.value =
+        year;
+
+        option1.textContent =
+        year;
+
+        formSession.appendChild(
+            option1
+        );
+
+
+        const option2 =
+        document.createElement(
+            "option"
+        );
+
+        option2.value =
+        year;
+
+        option2.textContent =
+        year;
+
+        filterSession.appendChild(
+            option2
+        );
+
+    });
 
 }
 
 
-/* =========================
-   STUDENTS
-========================= */
+
+/* =========================================
+   LOAD STUDENTS
+========================================= */
 
 async function loadStudents(){
 
-const tbody=
-document.getElementById("studentList");
-
-tbody.innerHTML=`
-
-<tr>
-
-<td colspan="9" class="center">
-
-<div class="loading"></div>
-
-Loading...
-
-</td>
-
-</tr>
-
-`;
+    const tbody =
+    document.getElementById(
+        "studentList"
+    );
 
 
-const {
-data,
-error
-}=await db
-.from("students")
-.select(`
+    tbody.innerHTML = `
 
-id,
-student_id,
-name,
-father_name,
-mother_name,
-phone,
-class_id,
-session,
-admission_date,
-address,
-photo_url,
-created_at,
-classes(name)
+        <tr>
 
-`)
-.order(
-"created_at",
-{ascending:false}
-);
+        <td
+        colspan="9"
+        class="center"
+        >
+
+        <div class="loading"></div>
+
+        Loading...
+
+        </td>
+
+        </tr>
+
+    `;
 
 
-if(error){
+    const {
+        data,
+        error
+    } =
+    await db
+    .from("students")
+    .select(`
 
-tbody.innerHTML=`
+        id,
+        student_id,
+        name,
+        father_name,
+        mother_name,
+        phone,
+        class_id,
+        session,
+        admission_date,
+        address,
+        photo_url,
+        created_at,
+        classes(
+            name
+        )
 
-<tr>
+    `)
+    .order(
+        "created_at",
+        {
+            ascending:false
+        }
+    );
 
-<td colspan="9" class="center">
 
-${escapeHtml(error.message)}
+    if(error){
 
-</td>
+        tbody.innerHTML = `
 
-</tr>
+            <tr>
 
-`;
+            <td
+            colspan="9"
+            class="center"
+            >
 
-return;
+            ❌
+            ${escapeHtml(
+                error.message
+            )}
+
+            </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    students =
+    data || [];
+
+
+    updateStats();
+
+    applyFilters();
 
 }
 
-students=data||[];
-
-updateStats();
-
-applyFilters();
-
-}
 
 
-/* =========================
+/* =========================================
    ONLINE ADMISSION
-========================= */
+========================================= */
 
 async function loadOnlineAdmissionCount(){
 
-const {
-count,
-error
-}=await db
-.from("admission_applications")
-.select("id",{
-count:"exact",
-head:true
-})
-.eq("status","pending");
+    try{
 
-if(!error){
+        const {
+            count,
+            error
+        } =
+        await db
+        .from(
+            "admission_applications"
+        )
+        .select(
+            "id",
+            {
+                count:"exact",
+                head:true
+            }
+        )
+        .eq(
+            "status",
+            "pending"
+        );
 
-document.getElementById(
-"onlineAdmissionCount"
-).textContent=count||0;
+
+        if(!error){
+
+            document.getElementById(
+                "onlineAdmissionCount"
+            ).textContent =
+            count || 0;
+
+        }
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+    }
 
 }
 
-}
 
 
-/* =========================
+/* =========================================
    STATS
-========================= */
+========================================= */
 
 function updateStats(){
 
-document.getElementById(
-"totalStudents"
-).textContent=students.length;
+    document.getElementById(
+        "totalStudents"
+    ).textContent =
+    students.length;
 
 }
 
 
-/* =========================
+
+/* =========================================
    FILTER
-========================= */
+========================================= */
 
 function getFilteredStudents(){
 
-const q=
-document.getElementById("search")
-.value
-.toLowerCase()
-.trim();
-
-const selectedSession=
-document.getElementById("filterSession")
-.value;
+    const q =
+    document.getElementById(
+        "search"
+    )
+    .value
+    .toLowerCase()
+    .trim();
 
 
-return students.filter(s=>{
-
-const sessionMatch=
-!selectedSession ||
-String(s.session||"")===selectedSession;
-
-
-const searchMatch=
-!q ||
-
-String(s.student_id||"")
-.toLowerCase()
-.includes(q) ||
-
-String(s.name||"")
-.toLowerCase()
-.includes(q) ||
-
-String(s.phone||"")
-.toLowerCase()
-.includes(q);
+    const selectedSession =
+    document.getElementById(
+        "filterSession"
+    ).value;
 
 
-return sessionMatch && searchMatch;
+    return students.filter(
+        s=>{
 
-});
+            const sessionMatch =
+
+            !selectedSession ||
+
+            String(
+                s.session || ""
+            ) ===
+            String(
+                selectedSession
+            );
+
+
+            const searchMatch =
+
+            !q ||
+
+            String(
+                s.student_id || ""
+            )
+            .toLowerCase()
+            .includes(q)
+
+
+            ||
+
+            String(
+                s.name || ""
+            )
+            .toLowerCase()
+            .includes(q)
+
+
+            ||
+
+            String(
+                s.phone || ""
+            )
+            .toLowerCase()
+            .includes(q)
+
+
+            ||
+
+            String(
+                s.father_name || ""
+            )
+            .toLowerCase()
+            .includes(q);
+
+
+            return (
+                sessionMatch &&
+                searchMatch
+            );
+
+        }
+    );
 
 }
 
+
+
+/* =========================================
+   APPLY FILTERS
+========================================= */
 
 function applyFilters(){
 
-const list=getFilteredStudents();
+    const list =
+    getFilteredStudents();
 
-render(list);
+
+    render(list);
 
 }
 
 
-/* =========================
+
+/* =========================================
+   GET CLASS NAME
+========================================= */
+
+function getClassName(student){
+
+    if(
+        student &&
+        student.classes &&
+        student.classes.name
+    ){
+
+        return student.classes.name;
+
+    }
+
+
+    const c =
+    classes.find(
+        x =>
+        String(x.id) ===
+        String(
+            student?.class_id
+        )
+    );
+
+
+    return c
+    ? c.name
+    : "-";
+
+}
+
+
+
+/* =========================================
    RENDER
-========================= */
+========================================= */
 
 function render(list){
 
-const tbody=
-document.getElementById("studentList");
-
-document.getElementById(
-"visibleStudents"
-).textContent=list.length;
+    const tbody =
+    document.getElementById(
+        "studentList"
+    );
 
 
-if(!list.length){
+    document.getElementById(
+        "visibleStudents"
+    ).textContent =
+    list.length;
 
-tbody.innerHTML=`
 
-<tr>
+    if(!list.length){
 
-<td colspan="9" class="center">
+        tbody.innerHTML = `
 
-কোনো Student পাওয়া যায়নি
+            <tr>
 
-</td>
+            <td
+            colspan="9"
+            class="center"
+            >
 
-</tr>
+            <div class="empty-icon">
+                🎓
+            </div>
 
-`;
+            <div class="empty-text">
+                কোনো Student পাওয়া যায়নি
+            </div>
 
-return;
+            </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    tbody.innerHTML =
+    list.map(
+        s=>{
+
+            const photo =
+            s.photo_url
+
+            ?
+
+            `<img
+            src="${escapeHtml(
+                s.photo_url
+            )}"
+            class="photo"
+            alt="Student Photo"
+            onerror="
+                this.style.display='none'
+            "
+            >`
+
+            :
+
+            `<span class="badge">
+                No Photo
+            </span>`;
+
+
+            return `
+
+            <tr>
+
+            <td>
+                ${photo}
+            </td>
+
+
+            <td>
+
+                <span
+                class="student-id"
+                >
+                ${escapeHtml(
+                    s.student_id || "-"
+                )}
+                </span>
+
+            </td>
+
+
+            <td>
+
+                <strong>
+                ${escapeHtml(
+                    s.name || "-"
+                )}
+                </strong>
+
+            </td>
+
+
+            <td>
+                ${escapeHtml(
+                    s.father_name || "-"
+                )}
+            </td>
+
+
+            <td>
+                ${escapeHtml(
+                    s.phone || "-"
+                )}
+            </td>
+
+
+            <td>
+
+                <span class="badge">
+                ${escapeHtml(
+                    s.session || "-"
+                )}
+                </span>
+
+            </td>
+
+
+            <td>
+
+                <span class="badge">
+
+                ${escapeHtml(
+                    getClassName(s)
+                )}
+
+                </span>
+
+            </td>
+
+
+            <td>
+
+                ${escapeHtml(
+                    s.admission_date || "-"
+                )}
+
+            </td>
+
+
+            <td>
+
+                <div
+                class="action-buttons"
+                >
+
+
+                <button
+                class="btn-edit"
+                onclick="
+                editStudent('${escapeHtml(
+                    s.id
+                )}')
+                "
+                >
+                ✏ Edit
+                </button>
+
+
+                <button
+                class="btn-print"
+                onclick="
+                printSingleStudent('${escapeHtml(
+                    s.id
+                )}')
+                "
+                >
+                🖨
+                </button>
+
+
+                <button
+                class="btn-danger"
+                onclick="
+                deleteStudent('${escapeHtml(
+                    s.id
+                )}')
+                "
+                >
+                🗑
+                </button>
+
+
+                </div>
+
+            </td>
+
+            </tr>
+
+            `;
+
+        }
+    ).join("");
 
 }
 
 
-tbody.innerHTML=list.map(s=>{
 
-const photo=s.photo_url
-
-? `<img
-src="${escapeHtml(s.photo_url)}"
-class="photo">`
-
-: `<span class="badge">
-No Photo
-</span>`;
-
-
-return `
-
-<tr>
-
-<td>${photo}</td>
-
-<td>
-<span class="student-id">
-${escapeHtml(s.student_id||"-")}
-</span>
-</td>
-
-<td>
-${escapeHtml(s.name||"-")}
-</td>
-
-<td>
-${escapeHtml(s.father_name||"-")}
-</td>
-
-<td>
-${escapeHtml(s.phone||"-")}
-</td>
-
-<td>
-<span class="badge">
-${escapeHtml(s.session||"-")}
-</span>
-</td>
-
-<td>
-<span class="badge">
-${escapeHtml(s.classes?.name||"-")}
-</span>
-</td>
-
-<td>
-${escapeHtml(s.admission_date||"-")}
-</td>
-
-<td>
-
-<div class="action-buttons">
-
-<button
-class="btn-edit"
-onclick="editStudent('${s.id}')">
-
-Edit
-
-</button>
-
-
-<button
-class="btn-print"
-onclick="printSingleStudent('${s.id}')">
-
-Print
-
-</button>
-
-
-<button
-class="btn-danger"
-onclick="deleteStudent('${s.id}')">
-
-Delete
-
-</button>
-
-</div>
-
-</td>
-
-</tr>
-
-`;
-
-}).join("");
-
-}
-
-
-/* =========================
+/* =========================================
    PHOTO UPLOAD
-========================= */
+========================================= */
 
 async function uploadStudentPhoto(){
 
-const file=
-document.getElementById("photo").files[0];
-
-if(!file)return null;
-
-const ext=
-file.name.split(".").pop();
-
-const fileName=
-"student_"+Date.now()+"_"+
-Math.random()
-.toString(36)
-.substring(2)+"."+ext;
+    const file =
+    document.getElementById(
+        "photo"
+    )
+    .files[0];
 
 
-const {error}=
-await db.storage
-.from("student-photo")
-.upload(fileName,file,{
-upsert:false
-});
+    if(!file)
+        return null;
 
 
-if(error){
+    if(
+        !file.type.startsWith(
+            "image/"
+        )
+    ){
 
-throw new Error(
-"Photo upload failed: "+error.message
-);
+        throw new Error(
+            "শুধু Image file upload করা যাবে।"
+        );
+
+    }
+
+
+    if(
+        file.size >
+        5 * 1024 * 1024
+    ){
+
+        throw new Error(
+            "ছবির size 5MB-এর বেশি হতে পারবে না।"
+        );
+
+    }
+
+
+    const ext =
+    file.name
+    .split(".")
+    .pop()
+    .toLowerCase();
+
+
+    const fileName =
+
+    "student_" +
+
+    Date.now() +
+
+    "_" +
+
+    Math.random()
+    .toString(36)
+    .substring(2) +
+
+    "." +
+
+    ext;
+
+
+    const {
+        error
+    } =
+    await db.storage
+    .from("student-photo")
+    .upload(
+        fileName,
+        file,
+        {
+            upsert:false
+        }
+    );
+
+
+    if(error){
+
+        throw new Error(
+            "Photo upload failed: "+
+            error.message
+        );
+
+    }
+
+
+    const {
+        data
+    } =
+    db.storage
+    .from("student-photo")
+    .getPublicUrl(
+        fileName
+    );
+
+
+    return data.publicUrl;
 
 }
 
 
-const {data}=
-db.storage
-.from("student-photo")
-.getPublicUrl(fileName);
 
-
-return data.publicUrl;
-
-}
-
-
-/* =========================
-   STUDENT ID
-========================= */
+/* =========================================
+   GENERATE STUDENT ID
+========================================= */
 
 async function generateStudentId(){
 
-const {
-data,
-error
-}=await db.rpc(
-"next_student_id"
-);
+    const {
+        data,
+        error
+    } =
+    await db.rpc(
+        "next_student_id"
+    );
 
 
-if(error){
+    if(error){
 
-throw new Error(
-"Student ID generate failed: "+
-error.message
-);
+        throw new Error(
+            "Student ID generate failed: "+
+            error.message
+        );
+
+    }
+
+
+    return data;
 
 }
 
 
-return data;
 
-}
-
-
-/* =========================
-   SAVE
-========================= */
+/* =========================================
+   SAVE STUDENT
+========================================= */
 
 document
-.getElementById("studentForm")
+.getElementById(
+    "studentForm"
+)
 .addEventListener(
-"submit",
-async e=>{
+    "submit",
+    async e=>{
 
-e.preventDefault();
-
-
-const editId=
-document.getElementById("editId").value;
+        e.preventDefault();
 
 
-const msg=
-document.getElementById("msg");
+        const editId =
+        document.getElementById(
+            "editId"
+        ).value;
 
 
-const saveBtn=
-document.getElementById("saveBtn");
+        const msg =
+        document.getElementById(
+            "msg"
+        );
 
 
-saveBtn.disabled=true;
-
-msg.className="message";
-
-msg.textContent="Saving...";
-
-
-try{
-
-let photoUrl=null;
+        const saveBtn =
+        document.getElementById(
+            "saveBtn"
+        );
 
 
-if(
-document.getElementById("photo")
-.files[0]
-){
-
-photoUrl=
-await uploadStudentPhoto();
-
-}
+        saveBtn.disabled =
+        true;
 
 
-const student={
-
-name:
-document.getElementById("name")
-.value.trim(),
-
-father_name:
-document.getElementById("father")
-.value.trim(),
-
-mother_name:
-document.getElementById("mother")
-.value.trim(),
-
-phone:
-document.getElementById("phone")
-.value.trim(),
-
-session:
-document.getElementById("session")
-.value,
-
-class_id:
-document.getElementById("classId")
-.value,
-
-admission_date:
-document.getElementById("admissionDate")
-.value||null,
-
-address:
-document.getElementById("address")
-.value.trim()
-
-};
+        msg.className =
+        "message";
 
 
-if(!editId){
-
-student.student_id=
-await generateStudentId();
+        msg.textContent =
+        "Saving...";
 
 
-if(photoUrl)
-student.photo_url=photoUrl;
+        try{
+
+            let photoUrl =
+            null;
 
 
-const {
-data,
-error
-}=await db
-.from("students")
-.insert(student)
-.select(`
+            if(
+                document.getElementById(
+                    "photo"
+                ).files[0]
+            ){
 
-id,
-student_id,
-name,
-father_name,
-mother_name,
-phone,
-class_id,
-session,
-admission_date,
-address,
-photo_url,
-created_at,
-classes(name)
+                photoUrl =
+                await uploadStudentPhoto();
 
-`)
-.single();
+            }
 
 
-if(error)throw error;
+            const student = {
+
+                name:
+                document.getElementById(
+                    "name"
+                ).value.trim(),
 
 
-students.unshift(data);
+                father_name:
+                document.getElementById(
+                    "father"
+                ).value.trim(),
 
 
-msg.className=
-"message success";
-
-msg.textContent=
-"Student added successfully. ID: "+
-data.student_id;
+                mother_name:
+                document.getElementById(
+                    "mother"
+                ).value.trim(),
 
 
-}else{
+                phone:
+                document.getElementById(
+                    "phone"
+                ).value.trim(),
 
 
-if(photoUrl)
-student.photo_url=photoUrl;
+                session:
+                document.getElementById(
+                    "session"
+                ).value,
 
 
-const {
-data,
-error
-}=await db
-.from("students")
-.update(student)
-.eq("id",editId)
-.select(`
-
-id,
-student_id,
-name,
-father_name,
-mother_name,
-phone,
-class_id,
-session,
-admission_date,
-address,
-photo_url,
-created_at,
-classes(name)
-
-`)
-.single();
+                class_id:
+                document.getElementById(
+                    "classId"
+                ).value || null,
 
 
-if(error)throw error;
+                admission_date:
+                document.getElementById(
+                    "admissionDate"
+                ).value || null,
 
 
-const index=
-students.findIndex(
-x=>String(x.id)===String(editId)
+                address:
+                document.getElementById(
+                    "address"
+                ).value.trim()
+
+            };
+
+
+            if(!student.name){
+
+                throw new Error(
+                    "শিক্ষার্থীর নাম দিন।"
+                );
+
+            }
+
+
+            if(!student.session){
+
+                throw new Error(
+                    "Session নির্বাচন করুন।"
+                );
+
+            }
+
+
+            if(!student.class_id){
+
+                throw new Error(
+                    "Class নির্বাচন করুন।"
+                );
+
+            }
+
+
+
+            /* =========================
+               ADD
+            ========================= */
+
+            if(!editId){
+
+                student.student_id =
+                await generateStudentId();
+
+
+                if(photoUrl)
+                    student.photo_url =
+                    photoUrl;
+
+
+                const {
+                    data,
+                    error
+                } =
+                await db
+                .from("students")
+                .insert(student)
+                .select(`
+
+                    id,
+                    student_id,
+                    name,
+                    father_name,
+                    mother_name,
+                    phone,
+                    class_id,
+                    session,
+                    admission_date,
+                    address,
+                    photo_url,
+                    created_at,
+                    classes(name)
+
+                `)
+                .single();
+
+
+                if(error)
+                    throw error;
+
+
+                students.unshift(
+                    data
+                );
+
+
+                msg.className =
+                "message success";
+
+
+                msg.textContent =
+                "Student added successfully. ID: "+
+                data.student_id;
+
+            }
+
+
+
+            /* =========================
+               UPDATE
+            ========================= */
+
+            else{
+
+                if(photoUrl)
+                    student.photo_url =
+                    photoUrl;
+
+
+                const {
+                    data,
+                    error
+                } =
+                await db
+                .from("students")
+                .update(student)
+                .eq(
+                    "id",
+                    editId
+                )
+                .select(`
+
+                    id,
+                    student_id,
+                    name,
+                    father_name,
+                    mother_name,
+                    phone,
+                    class_id,
+                    session,
+                    admission_date,
+                    address,
+                    photo_url,
+                    created_at,
+                    classes(name)
+
+                `)
+                .single();
+
+
+                if(error)
+                    throw error;
+
+
+                const index =
+                students.findIndex(
+                    x =>
+                    String(x.id) ===
+                    String(editId)
+                );
+
+
+                if(index !== -1)
+                    students[index] =
+                    data;
+
+
+                msg.className =
+                "message success";
+
+
+                msg.textContent =
+                "Student updated successfully.";
+
+            }
+
+
+            updateStats();
+
+            applyFilters();
+
+
+            await loadSessions();
+
+
+            setTimeout(
+                resetForm,
+                1000
+            );
+
+
+        }
+
+        catch(error){
+
+            msg.className =
+            "message error";
+
+
+            msg.textContent =
+            error.message;
+
+        }
+
+
+        finally{
+
+            saveBtn.disabled =
+            false;
+
+        }
+
+    }
 );
 
 
-if(index!==-1)
-students[index]=data;
 
-
-msg.className=
-"message success";
-
-msg.textContent=
-"Student updated successfully.";
-
-}
-
-
-updateStats();
-
-applyFilters();
-
-
-setTimeout(resetForm,900);
-
-
-}catch(error){
-
-msg.className=
-"message error";
-
-msg.textContent=
-error.message;
-
-
-}finally{
-
-saveBtn.disabled=false;
-
-}
-
-}
-);
-
-
-/* =========================
+/* =========================================
    EDIT
-========================= */
+========================================= */
 
 function editStudent(id){
 
-const student=
-students.find(
-x=>String(x.id)===String(id)
-);
+    const student =
+    students.find(
+        x =>
+        String(x.id) ===
+        String(id)
+    );
 
 
-if(!student)return;
+    if(!student)
+        return;
 
 
-document.getElementById("editId").value=
-student.id;
-
-document.getElementById("studentId").value=
-student.student_id||"";
-
-document.getElementById("name").value=
-student.name||"";
-
-document.getElementById("father").value=
-student.father_name||"";
-
-document.getElementById("mother").value=
-student.mother_name||"";
-
-document.getElementById("phone").value=
-student.phone||"";
-
-document.getElementById("session").value=
-student.session||getCurrentSession();
-
-document.getElementById("classId").value=
-student.class_id||"";
-
-document.getElementById("admissionDate").value=
-student.admission_date||"";
-
-document.getElementById("address").value=
-student.address||"";
+    document.getElementById(
+        "editId"
+    ).value =
+    student.id;
 
 
-document.getElementById("formTitle")
-.textContent="Edit Student";
+    document.getElementById(
+        "studentId"
+    ).value =
+    student.student_id || "";
 
 
-document.getElementById("saveBtn")
-.textContent="Update Student";
+    document.getElementById(
+        "name"
+    ).value =
+    student.name || "";
 
 
-document.getElementById("cancelBtn")
-.style.display="inline-block";
+    document.getElementById(
+        "father"
+    ).value =
+    student.father_name || "";
 
 
-window.scrollTo({
-top:0,
-behavior:"smooth"
-});
+    document.getElementById(
+        "mother"
+    ).value =
+    student.mother_name || "";
+
+
+    document.getElementById(
+        "phone"
+    ).value =
+    student.phone || "";
+
+
+    document.getElementById(
+        "session"
+    ).value =
+    student.session || "";
+
+
+    document.getElementById(
+        "classId"
+    ).value =
+    student.class_id || "";
+
+
+    document.getElementById(
+        "admissionDate"
+    ).value =
+    student.admission_date || "";
+
+
+    document.getElementById(
+        "address"
+    ).value =
+    student.address || "";
+
+
+    document.getElementById(
+        "formTitle"
+    ).textContent =
+    "✏ Edit Student";
+
+
+    document.getElementById(
+        "saveBtn"
+    ).textContent =
+    "💾 Update Student";
+
+
+    document.getElementById(
+        "cancelBtn"
+    ).style.display =
+    "inline-block";
+
+
+    window.scrollTo({
+
+        top:0,
+
+        behavior:"smooth"
+
+    });
 
 }
 
 
-/* =========================
+
+/* =========================================
    DELETE
-========================= */
+========================================= */
 
 async function deleteStudent(id){
 
-if(!confirm(
-"এই Student-কে Delete করতে চান?"
-))return;
+    const student =
+    students.find(
+        x =>
+        String(x.id) ===
+        String(id)
+    );
 
 
-try{
-
-const {error}=
-await db
-.from("students")
-.delete()
-.eq("id",id);
+    if(!student)
+        return;
 
 
-if(error)throw error;
+    const ok =
+    confirm(
+        "“"+
+        (student.name || "Student")+
+        "” কে Delete করতে চান?"
+    );
 
 
-students=
-students.filter(
-s=>String(s.id)!==String(id)
-);
+    if(!ok)
+        return;
 
 
-updateStats();
+    try{
 
-applyFilters();
+        const {
+            error
+        } =
+        await db
+        .from("students")
+        .delete()
+        .eq(
+            "id",
+            id
+        );
 
 
-}catch(error){
+        if(error)
+            throw error;
 
-alert(error.message);
+
+        students =
+        students.filter(
+            s =>
+            String(s.id) !==
+            String(id)
+        );
+
+
+        updateStats();
+
+        applyFilters();
+
+
+        await loadSessions();
+
+
+        alert(
+            "Student successfully deleted."
+        );
+
+    }
+
+    catch(error){
+
+        alert(
+            error.message
+        );
+
+    }
 
 }
 
-}
 
 
-/* =========================
-   RESET
-========================= */
+/* =========================================
+   RESET FORM
+========================================= */
 
 function resetForm(){
 
-document
-.getElementById("studentForm")
-.reset();
+    document
+    .getElementById(
+        "studentForm"
+    )
+    .reset();
 
 
-document.getElementById("editId")
-.value="";
+    document.getElementById(
+        "editId"
+    ).value="";
 
 
-document.getElementById("studentId")
-.value="";
+    document.getElementById(
+        "studentId"
+    ).value="";
 
 
-document.getElementById("session")
-.value=getCurrentSession();
+    const current =
+    getCurrentSession();
 
 
-document.getElementById("formTitle")
-.textContent="Add Student";
+    document.getElementById(
+        "session"
+    ).value =
+    current;
 
 
-document.getElementById("saveBtn")
-.textContent="Save Student";
+    document.getElementById(
+        "formTitle"
+    ).textContent =
+    "➕ Add Student";
 
 
-document.getElementById("cancelBtn")
-.style.display="none";
+    document.getElementById(
+        "saveBtn"
+    ).textContent =
+    "💾 Save Student";
 
 
-document.getElementById("msg")
-.textContent="";
+    document.getElementById(
+        "cancelBtn"
+    ).style.display =
+    "none";
+
+
+    document.getElementById(
+        "msg"
+    ).textContent="";
 
 }
 
 
-/* =========================
-   PRINT ALL / FILTERED
-========================= */
 
-function printStudents(list,title){
+/* =========================================
+   PRINT STUDENTS
+========================================= */
 
-if(!list.length){
+function printStudents(
+    list,
+    title
+){
 
-alert("Print করার জন্য কোনো Student পাওয়া যায়নি.");
+    if(!list.length){
 
-return;
+        alert(
+            "Print করার জন্য কোনো Student পাওয়া যায়নি।"
+        );
+
+        return;
+
+    }
+
+
+    let sessionText =
+    document.getElementById(
+        "filterSession"
+    ).value;
+
+
+    if(!sessionText)
+        sessionText =
+        "All Sessions";
+
+
+    const rows =
+    list.map(
+        (s,index)=>{
+
+            const photo =
+            s.photo_url
+
+            ?
+
+            `<img
+            src="${escapeHtml(
+                s.photo_url
+            )}"
+            class="print-photo"
+            >`
+
+            :
+
+            "-";
+
+
+            return `
+
+            <tr>
+
+            <td>
+            ${index+1}
+            </td>
+
+            <td>
+            ${photo}
+            </td>
+
+            <td>
+            ${escapeHtml(
+                s.student_id || "-"
+            )}
+            </td>
+
+            <td>
+            ${escapeHtml(
+                s.name || "-"
+            )}
+            </td>
+
+            <td>
+            ${escapeHtml(
+                s.father_name || "-"
+            )}
+            </td>
+
+            <td>
+            ${escapeHtml(
+                s.phone || "-"
+            )}
+            </td>
+
+            <td>
+            ${escapeHtml(
+                s.session || "-"
+            )}
+            </td>
+
+            <td>
+            ${escapeHtml(
+                getClassName(s)
+            )}
+            </td>
+
+            <td>
+            ${escapeHtml(
+                s.admission_date || "-"
+            )}
+            </td>
+
+            </tr>
+
+            `;
+
+        }
+    ).join("");
+
+
+    document.getElementById(
+        "printArea"
+    ).innerHTML = `
+
+    <div class="print-header">
+
+        <h1>
+        মাদরাসায়ে নূরুল কুরআন
+        </h1>
+
+        <p>
+        STUDENT MANAGEMENT SYSTEM
+        </p>
+
+    </div>
+
+
+    <div class="print-title">
+
+        ${escapeHtml(title)}
+
+    </div>
+
+
+    <p
+    style="
+    text-align:center;
+    font-size:12px;
+    "
+    >
+
+    Session:
+    ${escapeHtml(sessionText)}
+
+    &nbsp; | &nbsp;
+
+    Total Student:
+    ${list.length}
+
+    </p>
+
+
+    <table class="print-table">
+
+        <thead>
+
+            <tr>
+
+                <th>#</th>
+
+                <th>Photo</th>
+
+                <th>Student ID</th>
+
+                <th>নাম</th>
+
+                <th>পিতা</th>
+
+                <th>মোবাইল</th>
+
+                <th>Session</th>
+
+                <th>Class</th>
+
+                <th>ভর্তি তারিখ</th>
+
+            </tr>
+
+        </thead>
+
+
+        <tbody>
+
+            ${rows}
+
+        </tbody>
+
+    </table>
+
+
+    <div class="print-footer">
+
+        <span>
+
+        প্রিন্ট তারিখ:
+        ${new Date()
+        .toLocaleDateString(
+            "bn-BD"
+        )}
+
+        </span>
+
+
+        <span>
+        মাদরাসায়ে নূরুল কুরআন
+        </span>
+
+    </div>
+
+    `;
+
+
+    window.print();
 
 }
 
 
-let sessionText=
-document.getElementById("filterSession").value;
 
-
-if(!sessionText)
-sessionText="All Sessions";
-
-
-const rows=list.map((s,index)=>{
-
-const photo=s.photo_url
-
-? `<img
-src="${escapeHtml(s.photo_url)}"
-class="print-photo">`
-
-: "-";
-
-
-return `
-
-<tr>
-
-<td>${index+1}</td>
-
-<td>${photo}</td>
-
-<td>
-${escapeHtml(s.student_id||"-")}
-</td>
-
-<td>
-${escapeHtml(s.name||"-")}
-</td>
-
-<td>
-${escapeHtml(s.father_name||"-")}
-</td>
-
-<td>
-${escapeHtml(s.phone||"-")}
-</td>
-
-<td>
-${escapeHtml(s.session||"-")}
-</td>
-
-<td>
-${escapeHtml(s.classes?.name||"-")}
-</td>
-
-<td>
-${escapeHtml(s.admission_date||"-")}
-</td>
-
-</tr>
-
-`;
-
-}).join("");
-
-
-document.getElementById("printArea")
-.innerHTML=`
-
-<div class="print-header">
-
-<h1>
-মাদরাসায়ে নূরুল কুরআন
-</h1>
-
-<p>
-STUDENT MANAGEMENT SYSTEM
-</p>
-
-</div>
-
-
-<div class="print-title">
-${escapeHtml(title)}
-</div>
-
-
-<p style="text-align:center;font-size:12px">
-Session: ${escapeHtml(sessionText)}
-&nbsp;&nbsp; | &nbsp;&nbsp;
-Total Student: ${list.length}
-</p>
-
-
-<table class="print-table">
-
-<thead>
-
-<tr>
-
-<th>#</th>
-<th>Photo</th>
-<th>Student ID</th>
-<th>নাম</th>
-<th>পিতা</th>
-<th>মোবাইল</th>
-<th>Session</th>
-<th>Class</th>
-<th>ভর্তি তারিখ</th>
-
-</tr>
-
-</thead>
-
-
-<tbody>
-
-${rows}
-
-</tbody>
-
-</table>
-
-
-<div class="print-footer">
-
-<span>
-প্রিন্ট তারিখ: ${new Date().toLocaleDateString("bn-BD")}
-</span>
-
-<span>
-মাদরাসায়ে নূরুল কুরআন
-</span>
-
-</div>
-
-`;
-
-
-window.print();
-
-}
-
-
-/* =========================
+/* =========================================
    PRINT FILTERED
-========================= */
+========================================= */
 
 document
-.getElementById("printFilteredBtn")
+.getElementById(
+    "printFilteredBtn"
+)
 .addEventListener(
-"click",
-()=>{
+    "click",
+    ()=>{
 
-printStudents(
-getFilteredStudents(),
-"Student List"
+        printStudents(
+            getFilteredStudents(),
+            "Student List"
+        );
+
+    }
 );
 
-}
-);
 
 
-/* =========================
+/* =========================================
    PRINT ALL
-========================= */
+========================================= */
 
 document
-.getElementById("printAllBtn")
+.getElementById(
+    "printAllBtn"
+)
 .addEventListener(
-"click",
-()=>{
+    "click",
+    ()=>{
 
-printStudents(
-students,
-"All Student List"
+        printStudents(
+            students,
+            "All Student List"
+        );
+
+    }
 );
 
-}
-);
 
 
-/* =========================
+/* =========================================
    PRINT SINGLE
-========================= */
+========================================= */
 
 function printSingleStudent(id){
 
-const s=
-students.find(
-x=>String(x.id)===String(id)
-);
+    const s =
+    students.find(
+        x =>
+        String(x.id) ===
+        String(id)
+    );
 
 
-if(!s)return;
+    if(!s)
+        return;
 
 
-const photo=s.photo_url
+    const photo =
+    s.photo_url
 
-? `<img
-src="${escapeHtml(s.photo_url)}"
-class="student-print-photo">`
+    ?
 
-: "";
+    `<img
+    src="${escapeHtml(
+        s.photo_url
+    )}"
+    class="student-print-photo"
+    >`
 
+    :
 
-document.getElementById("printArea")
-.innerHTML=`
-
-<div class="single-student">
-
-<div class="print-header">
-
-<h1>
-মাদরাসায়ে নূরুল কুরআন
-</h1>
-
-<p>
-STUDENT INFORMATION
-</p>
-
-</div>
+    "";
 
 
-<div style="text-align:center">
+    document.getElementById(
+        "printArea"
+    ).innerHTML = `
 
-${photo}
-
-</div>
-
-
-<table class="single-info">
-
-<tr>
-<td>Student ID</td>
-<td>${escapeHtml(s.student_id||"-")}</td>
-</tr>
-
-<tr>
-<td>Student Name</td>
-<td>${escapeHtml(s.name||"-")}</td>
-</tr>
-
-<tr>
-<td>Father's Name</td>
-<td>${escapeHtml(s.father_name||"-")}</td>
-</tr>
-
-<tr>
-<td>Mother's Name</td>
-<td>${escapeHtml(s.mother_name||"-")}</td>
-</tr>
-
-<tr>
-<td>Mobile</td>
-<td>${escapeHtml(s.phone||"-")}</td>
-</tr>
-
-<tr>
-<td>Session</td>
-<td>${escapeHtml(s.session||"-")}</td>
-</tr>
-
-<tr>
-<td>Class</td>
-<td>${escapeHtml(s.classes?.name||"-")}</td>
-</tr>
-
-<tr>
-<td>Admission Date</td>
-<td>${escapeHtml(s.admission_date||"-")}</td>
-</tr>
-
-<tr>
-<td>Address</td>
-<td>${escapeHtml(s.address||"-")}</td>
-</tr>
-
-</table>
+    <div class="single-student">
 
 
-<div class="print-footer">
+        <div class="print-header">
 
-<span>
-তারিখ: ${new Date().toLocaleDateString("bn-BD")}
-</span>
+            <h1>
+            মাদরাসায়ে নূরুল কুরআন
+            </h1>
 
-<span>
-অভিভাবকের স্বাক্ষর: __________________
-</span>
+            <p>
+            STUDENT INFORMATION
+            </p>
 
-</div>
-
-</div>
-
-`;
+        </div>
 
 
-window.print();
+        <div
+        style="
+        text-align:center;
+        "
+        >
+
+            ${photo}
+
+        </div>
+
+
+        <table class="single-info">
+
+
+            <tr>
+
+                <td>
+                Student ID
+                </td>
+
+                <td>
+                ${escapeHtml(
+                    s.student_id || "-"
+                )}
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                Student Name
+                </td>
+
+                <td>
+                ${escapeHtml(
+                    s.name || "-"
+                )}
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                Father's Name
+                </td>
+
+                <td>
+                ${escapeHtml(
+                    s.father_name || "-"
+                )}
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                Mother's Name
+                </td>
+
+                <td>
+                ${escapeHtml(
+                    s.mother_name || "-"
+                )}
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                Mobile
+                </td>
+
+                <td>
+                ${escapeHtml(
+                    s.phone || "-"
+                )}
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                Session
+                </td>
+
+                <td>
+                ${escapeHtml(
+                    s.session || "-"
+                )}
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                Class
+                </td>
+
+                <td>
+                ${escapeHtml(
+                    getClassName(s)
+                )}
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                Admission Date
+                </td>
+
+                <td>
+                ${escapeHtml(
+                    s.admission_date || "-"
+                )}
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                Address
+                </td>
+
+                <td>
+                ${escapeHtml(
+                    s.address || "-"
+                )}
+                </td>
+
+            </tr>
+
+
+        </table>
+
+
+        <div class="print-footer">
+
+            <span>
+
+            তারিখ:
+            ${new Date()
+            .toLocaleDateString(
+                "bn-BD"
+            )}
+
+            </span>
+
+
+            <span>
+
+            অভিভাবকের স্বাক্ষর:
+            __________________
+
+            </span>
+
+        </div>
+
+
+    </div>
+
+    `;
+
+
+    window.print();
 
 }
 
 
-/* =========================
+
+/* =========================================
    SEARCH
-========================= */
+========================================= */
 
 document
-.getElementById("search")
+.getElementById(
+    "search"
+)
 .addEventListener(
-"input",
-applyFilters
+    "input",
+    applyFilters
 );
 
 
+
+/* =========================================
+   SESSION FILTER
+========================================= */
+
 document
-.getElementById("filterSession")
+.getElementById(
+    "filterSession"
+)
 .addEventListener(
-"change",
-applyFilters
+    "change",
+    ()=>{
+
+        applyFilters();
+
+        const value =
+        document.getElementById(
+            "filterSession"
+        ).value;
+
+
+        if(value){
+
+            document.getElementById(
+                "currentSession"
+            ).textContent =
+            value;
+
+        }
+
+        else{
+
+            document.getElementById(
+                "currentSession"
+            ).textContent =
+            getCurrentSession();
+
+        }
+
+    }
 );
 
 
-/* =========================
+
+/* =========================================
    CANCEL
-========================= */
+========================================= */
 
 document
-.getElementById("cancelBtn")
-.onclick=resetForm;
+.getElementById(
+    "cancelBtn"
+)
+.onclick =
+resetForm;
 
 
-/* =========================
-   ESCAPE
-========================= */
+
+/* =========================================
+   ESCAPE HTML
+========================================= */
 
 function escapeHtml(value){
 
-return String(value??"")
-.replaceAll("&","&amp;")
-.replaceAll("<","&lt;")
-.replaceAll(">","&gt;")
-.replaceAll('"',"&quot;")
-.replaceAll("'","&#039;");
+    return String(
+        value ?? ""
+    )
+
+    .replaceAll(
+        "&",
+        "&amp;"
+    )
+
+    .replaceAll(
+        "<",
+        "&lt;"
+    )
+
+    .replaceAll(
+        ">",
+        "&gt;"
+    )
+
+    .replaceAll(
+        '"',
+        "&quot;"
+    )
+
+    .replaceAll(
+        "'",
+        "&#039;"
+    );
 
 }
 
 
-/* =========================
+
+/* =========================================
    MESSAGE
-========================= */
+========================================= */
 
-function showMessage(text,type=""){
+function showMessage(
+    text,
+    type=""
+){
 
-const msg=
-document.getElementById("msg");
+    const msg =
+    document.getElementById(
+        "msg"
+    );
 
-msg.className=
-"message "+type;
 
-msg.textContent=text;
+    msg.className =
+    "message " + type;
+
+
+    msg.textContent =
+    text;
 
 }
 
 
-/* =========================
+
+/* =========================================
    START
-========================= */
+========================================= */
 
 start();
 
 </script>
+
 
 </body>
 </html>
