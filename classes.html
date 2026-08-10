@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+
 <title>Classes | মাদরাসায়ে নূরুল কুরআন</title>
 
 <style>
-*{box-sizing:border-box}
+
+*{
+    box-sizing:border-box;
+}
 
 body{
     margin:0;
@@ -14,6 +19,10 @@ body{
     background:#f4f7fb;
     color:#1e293b;
 }
+
+/* ================================
+   TOP HEADER
+================================ */
 
 .top{
     background:linear-gradient(135deg,#0d47a1,#1976d2);
@@ -43,6 +52,14 @@ body{
     font-size:14px;
 }
 
+.top a:hover{
+    text-decoration:underline;
+}
+
+/* ================================
+   LANGUAGE
+================================ */
+
 .lang{
     display:flex;
     background:#ffffff22;
@@ -65,11 +82,19 @@ body{
     color:#0d47a1;
 }
 
+/* ================================
+   CONTAINER
+================================ */
+
 .container{
     max-width:1150px;
     margin:25px auto;
     padding:0 15px;
 }
+
+/* ================================
+   BOX
+================================ */
 
 .box{
     background:#fff;
@@ -85,6 +110,10 @@ h3{
     color:#0d47a1;
 }
 
+/* ================================
+   FILTERS
+================================ */
+
 .filters{
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -98,13 +127,15 @@ label{
     margin-bottom:6px;
 }
 
-select,input{
+select,
+input{
     width:100%;
     padding:12px;
     border:1px solid #d8dee9;
     border-radius:8px;
     font-size:14px;
     outline:none;
+    background:#fff;
 }
 
 select:focus,
@@ -112,6 +143,93 @@ input:focus{
     border-color:#1976d2;
     box-shadow:0 0 0 3px #1976d215;
 }
+
+/* ================================
+   ACTION ROW
+================================ */
+
+.action-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    margin-top:15px;
+    flex-wrap:wrap;
+}
+
+.refresh-btn{
+    border:0;
+    background:linear-gradient(135deg,#0d47a1,#1976d2);
+    color:#fff;
+    padding:10px 15px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:.2s;
+}
+
+.refresh-btn:hover{
+    transform:translateY(-1px);
+    box-shadow:0 5px 12px #0d47a125;
+}
+
+.refresh-btn:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+
+/* ================================
+   STATISTICS
+================================ */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+    margin-bottom:20px;
+}
+
+.stat{
+    background:#fff;
+    border:1px solid #e5eaf2;
+    border-radius:14px;
+    padding:18px;
+    box-shadow:0 3px 12px #0d47a110;
+    position:relative;
+    overflow:hidden;
+}
+
+.stat::after{
+    content:"";
+    position:absolute;
+    width:70px;
+    height:70px;
+    right:-20px;
+    top:-20px;
+    border-radius:50%;
+    background:#1976d212;
+}
+
+.stat-icon{
+    font-size:25px;
+    margin-bottom:5px;
+}
+
+.stat-label{
+    font-size:13px;
+    color:#64748b;
+    margin-bottom:5px;
+}
+
+.stat-number{
+    font-size:25px;
+    font-weight:bold;
+    color:#0d47a1;
+}
+
+/* ================================
+   CLASS GRID
+================================ */
 
 .class-grid{
     display:grid;
@@ -128,6 +246,8 @@ input:focus{
     cursor:pointer;
     transition:.2s;
     box-shadow:0 2px 8px #0000000a;
+    position:relative;
+    overflow:hidden;
 }
 
 .class-card:hover{
@@ -162,9 +282,33 @@ input:focus{
     opacity:1;
 }
 
+.class-count{
+    margin-top:10px;
+    display:inline-block;
+    background:#e3f2fd;
+    color:#0d47a1;
+    padding:5px 9px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.class-card.active .class-count{
+    background:#ffffff25;
+    color:#fff;
+}
+
+/* ================================
+   SEARCH
+================================ */
+
 .search{
     margin-bottom:15px;
 }
+
+/* ================================
+   TABLE
+================================ */
 
 .table-wrap{
     overflow-x:auto;
@@ -176,7 +320,8 @@ table{
     min-width:750px;
 }
 
-th,td{
+th,
+td{
     padding:11px 9px;
     border-bottom:1px solid #edf0f5;
     text-align:left;
@@ -192,12 +337,9 @@ tr:hover td{
     background:#f7faff;
 }
 
-.loading,
-.empty{
-    text-align:center;
-    padding:25px;
-    color:#64748b;
-}
+/* ================================
+   BADGE
+================================ */
 
 .badge{
     display:inline-block;
@@ -214,13 +356,57 @@ tr:hover td{
     font-weight:bold;
 }
 
+/* ================================
+   STATUS
+================================ */
+
+.loading,
+.empty{
+    text-align:center;
+    padding:25px;
+    color:#64748b;
+}
+
+.error{
+    color:#dc2626;
+    background:#fef2f2;
+    padding:12px;
+    border-radius:8px;
+}
+
+/* ================================
+   SELECTED CLASS INFO
+================================ */
+
+.selected-info{
+    margin-top:15px;
+    padding:12px 14px;
+    border-radius:9px;
+    background:#eaf4ff;
+    border:1px solid #d7eaff;
+    color:#0d47a1;
+    font-size:14px;
+    font-weight:bold;
+}
+
+/* ================================
+   MOBILE
+================================ */
+
 @media(max-width:800px){
+
     .class-grid{
         grid-template-columns:repeat(2,1fr);
     }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
 }
 
 @media(max-width:600px){
+
     .top{
         flex-direction:column;
         align-items:flex-start;
@@ -237,31 +423,77 @@ tr:hover td{
 
     .class-grid{
         grid-template-columns:repeat(2,1fr);
+        gap:10px;
     }
+
+    .class-card{
+        padding:16px 8px;
+    }
+
+    .class-icon{
+        font-size:24px;
+    }
+
+    .class-bn{
+        font-size:14px;
+    }
+
+    .class-en{
+        font-size:11px;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
 }
+
 </style>
+
 </head>
 
 <body>
 
+
+<!-- =================================
+     HEADER
+================================= -->
+
 <header class="top">
 
-<h2 id="pageTitle">📚 শ্রেণি ব্যবস্থাপনা</h2>
+<h2 id="pageTitle">
+📚 শ্রেণি ব্যবস্থাপনা
+</h2>
 
 <div class="top-right">
 
 <div class="lang">
-<button id="bnBtn" class="active" onclick="setLanguage('bn')">
+
+<button
+id="bnBtn"
+class="active"
+onclick="setLanguage('bn')">
+
 বাংলা
+
 </button>
 
-<button id="enBtn" onclick="setLanguage('en')">
+<button
+id="enBtn"
+onclick="setLanguage('en')">
+
 English
+
 </button>
+
 </div>
 
-<a href="dashboard.html" id="dashboardLink">
+<a
+href="dashboard.html"
+id="dashboardLink">
+
 ← Dashboard
+
 </a>
 
 </div>
@@ -272,58 +504,201 @@ English
 <div class="container">
 
 
-<!-- SESSION -->
+<!-- =================================
+     STATISTICS
+================================= -->
+
+<div class="stats">
+
+<div class="stat">
+
+<div class="stat-icon">
+🎓
+</div>
+
+<div
+class="stat-label"
+id="totalClassLabel">
+
+মোট শ্রেণি
+
+</div>
+
+<div
+class="stat-number"
+id="totalClasses">
+
+8
+
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-icon">
+👨‍🎓
+</div>
+
+<div
+class="stat-label"
+id="totalStudentLabel">
+
+মোট শিক্ষার্থী
+
+</div>
+
+<div
+class="stat-number"
+id="totalStudents">
+
+0
+
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-icon">
+📅
+</div>
+
+<div
+class="stat-label"
+id="selectedSessionLabel">
+
+Selected Session
+
+</div>
+
+<div
+class="stat-number"
+id="selectedSessionCount">
+
+0
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =================================
+     SESSION
+================================= -->
 
 <div class="box">
 
-<h3 id="sessionTitle">📅 Session নির্বাচন করুন</h3>
+<h3 id="sessionTitle">
+📅 Session নির্বাচন করুন
+</h3>
 
 <div class="filters">
 
 <div>
-<label id="sessionLabel">Session</label>
+
+<label id="sessionLabel">
+Session
+</label>
 
 <select id="sessionSelect">
-<option value="">Select Session</option>
+
+<option value="">
+Session নির্বাচন করুন
+</option>
+
 </select>
+
 </div>
 
+
 <div>
-<label id="searchLabel">Student Search</label>
+
+<label id="searchLabel">
+Student Search
+</label>
 
 <input
 id="search"
 placeholder="🔍 নাম / রোল / ID দিয়ে খুঁজুন..."
 >
-</div>
 
 </div>
 
 </div>
 
 
-<!-- CLASS -->
+<div class="action-row">
+
+<div
+id="selectedInfo"
+class="selected-info">
+
+📌 প্রথমে Session ও Class নির্বাচন করুন
+
+</div>
+
+<button
+class="refresh-btn"
+id="refreshBtn"
+onclick="refreshData()">
+
+🔄 Refresh
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- =================================
+     CLASS
+================================= -->
 
 <div class="box">
 
-<h3 id="classTitle">🎓 শ্রেণি নির্বাচন করুন</h3>
+<h3 id="classTitle">
+🎓 শ্রেণি নির্বাচন করুন
+</h3>
 
-<div class="class-grid" id="classGrid"></div>
+<div
+class="class-grid"
+id="classGrid">
+
+</div>
 
 </div>
 
 
-<!-- STUDENTS -->
+<!-- =================================
+     STUDENTS
+================================= -->
 
 <div class="box">
 
 <h3>
-<span id="studentTitle">👨‍🎓 শিক্ষার্থী তালিকা</span>
+
+<span id="studentTitle">
+👨‍🎓 শিক্ষার্থী তালিকা
+</span>
 
 <span class="count">
-(<span id="studentCount">0</span>)
+
+(
+<span id="studentCount">
+0
 </span>
+)
+
+</span>
+
 </h3>
+
 
 <div class="table-wrap">
 
@@ -332,21 +707,44 @@ placeholder="🔍 নাম / রোল / ID দিয়ে খুঁজুন..."
 <thead>
 
 <tr>
-<th id="thName">নাম</th>
-<th id="thRoll">রোল</th>
-<th id="thId">Student ID</th>
-<th id="thClass">Class</th>
-<th id="thSession">Session</th>
+
+<th id="thName">
+নাম
+</th>
+
+<th id="thRoll">
+রোল
+</th>
+
+<th id="thId">
+Student ID
+</th>
+
+<th id="thClass">
+Class
+</th>
+
+<th id="thSession">
+Session
+</th>
+
 </tr>
 
 </thead>
 
+
 <tbody id="studentList">
 
 <tr>
-<td colspan="5" class="loading">
+
+<td
+colspan="5"
+class="loading">
+
 Session এবং Class নির্বাচন করুন
+
 </td>
+
 </tr>
 
 </tbody>
@@ -357,10 +755,16 @@ Session এবং Class নির্বাচন করুন
 
 </div>
 
+
 </div>
 
 
+<!-- =================================
+     SUPABASE
+================================= -->
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 
 <script>
 
@@ -382,10 +786,12 @@ SUPABASE_KEY
 
 
 /* =====================================
-   DATA
+   VARIABLES
 ===================================== */
 
 let students = [];
+
+let allStudents = [];
 
 let currentLanguage = "bn";
 
@@ -395,7 +801,7 @@ let selectedSession = "";
 
 
 /* =====================================
-   8 CLASSES
+   CLASSES
 ===================================== */
 
 const classes = [
@@ -444,7 +850,7 @@ const classes = [
 
 
 /* =====================================
-   LANGUAGE
+   TEXT
 ===================================== */
 
 const text = {
@@ -452,6 +858,12 @@ const text = {
 bn:{
 
 pageTitle:"📚 শ্রেণি ব্যবস্থাপনা",
+
+totalClass:"মোট শ্রেণি",
+
+totalStudent:"মোট শিক্ষার্থী",
+
+selectedSession:"Selected Session",
 
 sessionTitle:"📅 Session নির্বাচন করুন",
 
@@ -477,21 +889,33 @@ session:"Session",
 
 selectSession:"Session নির্বাচন করুন",
 
-selectClass:"প্রথমে Class নির্বাচন করুন",
-
-selectBoth:"Session এবং Class নির্বাচন করুন",
-
-noStudent:"এই Session ও Class-এ কোনো শিক্ষার্থী নেই",
+selectBoth:"📌 প্রথমে Session ও Class নির্বাচন করুন",
 
 loading:"Loading...",
 
-dashboard:"← Dashboard"
+noStudent:"এই Session ও Class-এ কোনো শিক্ষার্থী নেই",
+
+dashboard:"← Dashboard",
+
+refresh:"🔄 Refresh",
+
+selected:"Selected",
+
+students:"শিক্ষার্থী",
+
+error:"তথ্য লোড করতে সমস্যা হয়েছে।"
 
 },
 
 en:{
 
 pageTitle:"📚 Class Management",
+
+totalClass:"Total Classes",
+
+totalStudent:"Total Students",
+
+selectedSession:"Selected Session",
 
 sessionTitle:"📅 Select Session",
 
@@ -517,15 +941,21 @@ session:"Session",
 
 selectSession:"Select Session",
 
-selectClass:"Select Class",
-
-selectBoth:"Select Session and Class",
-
-noStudent:"No students found for this Session and Class",
+selectBoth:"📌 Select Session and Class first",
 
 loading:"Loading...",
 
-dashboard:"← Dashboard"
+noStudent:"No students found for this Session and Class",
+
+dashboard:"← Dashboard",
+
+refresh:"🔄 Refresh",
+
+selected:"Selected",
+
+students:"Students",
+
+error:"Unable to load data."
 
 }
 
@@ -533,7 +963,7 @@ dashboard:"← Dashboard"
 
 
 /* =====================================
-   SET LANGUAGE
+   LANGUAGE
 ===================================== */
 
 function setLanguage(lang){
@@ -545,60 +975,85 @@ lang === "bn" ? "bn" : "en";
 
 const t = text[lang];
 
-document.getElementById("pageTitle").textContent =
-t.pageTitle;
 
-document.getElementById("sessionTitle").textContent =
-t.sessionTitle;
+document.getElementById("pageTitle")
+.textContent=t.pageTitle;
 
-document.getElementById("sessionLabel").textContent =
-t.sessionLabel;
+document.getElementById("totalClassLabel")
+.textContent=t.totalClass;
 
-document.getElementById("searchLabel").textContent =
-t.searchLabel;
+document.getElementById("totalStudentLabel")
+.textContent=t.totalStudent;
 
-document.getElementById("search").placeholder =
-t.searchPlaceholder;
+document.getElementById("selectedSessionLabel")
+.textContent=t.selectedSession;
 
-document.getElementById("classTitle").textContent =
-t.classTitle;
+document.getElementById("sessionTitle")
+.textContent=t.sessionTitle;
 
-document.getElementById("studentTitle").textContent =
-t.studentTitle;
+document.getElementById("sessionLabel")
+.textContent=t.sessionLabel;
 
-document.getElementById("thName").textContent =
-t.name;
+document.getElementById("searchLabel")
+.textContent=t.searchLabel;
 
-document.getElementById("thRoll").textContent =
-t.roll;
+document.getElementById("search")
+.placeholder=t.searchPlaceholder;
 
-document.getElementById("thId").textContent =
-t.id;
+document.getElementById("classTitle")
+.textContent=t.classTitle;
 
-document.getElementById("thClass").textContent =
-t.class;
+document.getElementById("studentTitle")
+.textContent=t.studentTitle;
 
-document.getElementById("thSession").textContent =
-t.session;
+document.getElementById("thName")
+.textContent=t.name;
 
-document.getElementById("dashboardLink").textContent =
-t.dashboard;
+document.getElementById("thRoll")
+.textContent=t.roll;
+
+document.getElementById("thId")
+.textContent=t.id;
+
+document.getElementById("thClass")
+.textContent=t.class;
+
+document.getElementById("thSession")
+.textContent=t.session;
+
+document.getElementById("dashboardLink")
+.textContent=t.dashboard;
+
+document.getElementById("refreshBtn")
+.textContent=t.refresh;
+
 
 document.getElementById("bnBtn")
-.classList.toggle("active",lang==="bn");
+.classList.toggle(
+"active",
+lang==="bn"
+);
 
 document.getElementById("enBtn")
-.classList.toggle("active",lang==="en");
+.classList.toggle(
+"active",
+lang==="en"
+);
+
+
+loadSessions();
 
 renderClasses();
 
 renderStudents();
 
+updateSelectedInfo();
+
 }
 
 
 /* =====================================
-   CLASS CARDS
+   RENDER CLASS CARDS
 ===================================== */
 
 function renderClasses(){
@@ -606,15 +1061,28 @@ function renderClasses(){
 const grid =
 document.getElementById("classGrid");
 
+
 grid.innerHTML =
-classes.map((c,index)=>`
+classes.map((c,index)=>{
+
+const count =
+getClassCount(c);
+
+
+const active =
+selectedClass===c.bn ||
+selectedClass===c.en;
+
+
+return `
 
 <div
-class="class-card
-${selectedClass===c.bn || selectedClass===c.en ? "active":""}"
+class="class-card ${active?"active":""}"
 onclick="selectClass(${index})">
 
-<div class="class-icon">🎓</div>
+<div class="class-icon">
+🎓
+</div>
 
 <div class="class-bn">
 ${c.bn}
@@ -624,9 +1092,34 @@ ${c.bn}
 ${c.en}
 </div>
 
+<div class="class-count">
+
+👨‍🎓 ${count}
+${text[currentLanguage].students}
+
 </div>
 
-`).join("");
+</div>
+
+`;
+
+}).join("");
+
+}
+
+
+/* =====================================
+   CLASS COUNT
+===================================== */
+
+function getClassCount(classObject){
+
+return allStudents.filter(s=>
+
+s.class===classObject.bn ||
+s.class===classObject.en
+
+).length;
 
 }
 
@@ -637,16 +1130,92 @@ ${c.en}
 
 function selectClass(index){
 
-const c = classes[index];
+const c =
+classes[index];
+
 
 selectedClass =
 currentLanguage==="bn"
-? c.bn
-: c.en;
+?c.bn
+:c.en;
+
 
 renderClasses();
 
+updateSelectedInfo();
+
 loadStudents();
+
+}
+
+
+/* =====================================
+   UPDATE SELECTED INFO
+===================================== */
+
+function updateSelectedInfo(){
+
+const info =
+document.getElementById("selectedInfo");
+
+
+const t =
+text[currentLanguage];
+
+
+if(!selectedSession &&
+!selectedClass){
+
+info.textContent=
+t.selectBoth;
+
+return;
+
+}
+
+
+let className =
+selectedClass;
+
+
+const found =
+classes.find(c=>
+c.bn===selectedClass ||
+c.en===selectedClass
+);
+
+
+if(found){
+
+className =
+currentLanguage==="bn"
+?found.bn
+:found.en;
+
+}
+
+
+if(selectedSession &&
+selectedClass){
+
+info.textContent=
+`📌 ${className} • ${selectedSession}`;
+
+}
+
+else if(selectedSession){
+
+info.textContent=
+`📅 ${selectedSession}`;
+
+}
+
+else{
+
+info.textContent=
+`🎓 ${className}`;
+
+}
 
 }
 
@@ -660,9 +1229,11 @@ async function start(){
 try{
 
 const {
+
 data:{session}
-} =
-await db.auth.getSession();
+
+}=await db.auth.getSession();
+
 
 if(!session){
 
@@ -672,9 +1243,14 @@ return;
 
 }
 
+
+await loadAllStudents();
+
 await loadSessions();
 
 renderClasses();
+
+updateStats();
 
 }catch(error){
 
@@ -686,30 +1262,25 @@ console.error(error);
 
 
 /* =====================================
-   LOAD SESSIONS
+   LOAD ALL STUDENTS
 ===================================== */
 
-async function loadSessions(){
+async function loadAllStudents(){
 
-const select =
-document.getElementById("sessionSelect");
+const {data,error}=
 
-select.innerHTML =
-`<option value="">
-${text[currentLanguage].selectSession}
-</option>`;
-
-
-/*
-  এখানে students table থেকে
-  unique session নেওয়া হচ্ছে।
-*/
-
-const {data,error} =
 await db
+
 .from("students")
-.select("session")
-.not("session","is",null);
+
+.select(`
+id,
+name,
+roll,
+student_id,
+class,
+session
+`);
 
 
 if(error){
@@ -721,13 +1292,54 @@ return;
 }
 
 
-const sessions =
-[
+allStudents =
+data || [];
+
+
+updateStats();
+
+renderClasses();
+
+}
+
+
+/* =====================================
+   LOAD SESSIONS
+===================================== */
+
+async function loadSessions(){
+
+const select =
+document.getElementById(
+"sessionSelect"
+);
+
+
+const t =
+text[currentLanguage];
+
+
+select.innerHTML=
+
+`
+<option value="">
+${t.selectSession}
+</option>
+`;
+
+
+const sessions=[
+
 ...new Set(
-(data||[])
+
+allStudents
+
 .map(x=>x.session)
+
 .filter(Boolean)
+
 )
+
 ];
 
 
@@ -739,13 +1351,23 @@ sessions.forEach(session=>{
 const option =
 document.createElement("option");
 
+
 option.value=session;
 
 option.textContent=session;
 
+
 select.appendChild(option);
 
 });
+
+
+if(selectedSession){
+
+select.value =
+selectedSession;
+
+}
 
 }
 
@@ -760,9 +1382,15 @@ document
 "change",
 function(){
 
-selectedSession=this.value;
+selectedSession =
+this.value;
+
+
+updateSelectedInfo();
 
 loadStudents();
+
+updateStats();
 
 });
 
@@ -774,65 +1402,100 @@ loadStudents();
 async function loadStudents(){
 
 const tbody =
-document.getElementById("studentList");
+document.getElementById(
+"studentList"
+);
+
 
 const t =
 text[currentLanguage];
 
 
-if(!selectedSession || !selectedClass){
+if(!selectedSession ||
+!selectedClass){
 
-tbody.innerHTML =
+students=[];
+
+
+tbody.innerHTML=
+
 `
 <tr>
-<td colspan="5" class="empty">
+
+<td
+colspan="5"
+class="empty">
+
 ${t.selectBoth}
+
 </td>
+
 </tr>
 `;
 
-document.getElementById("studentCount")
-.textContent="0";
+
+document.getElementById(
+"studentCount"
+).textContent="0";
+
+
+updateStats();
 
 return;
 
 }
 
 
-tbody.innerHTML =
+tbody.innerHTML=
+
 `
 <tr>
-<td colspan="5" class="loading">
+
+<td
+colspan="5"
+class="loading">
+
 ${t.loading}
+
 </td>
+
 </tr>
 `;
 
 
-/*
-   এখানে class-এর Bangla/English
-   দুই নামেই search করা হচ্ছে।
-*/
-
 const selected =
 classes.find(c=>
+
 c.bn===selectedClass ||
 c.en===selectedClass
+
 );
 
 
-if(!selected)return;
+if(!selected){
+
+students=[];
+
+return;
+
+}
 
 
 const classNames=[
+
 selected.bn,
+
 selected.en
+
 ];
 
 
-const {data,error} =
+const {data,error}=
+
 await db
+
 .from("students")
+
 .select(`
 id,
 name,
@@ -841,31 +1504,54 @@ student_id,
 class,
 session
 `)
-.eq("session",selectedSession)
-.in("class",classNames);
+
+.eq(
+"session",
+selectedSession
+)
+
+.in(
+"class",
+classNames
+);
 
 
 if(error){
 
 console.error(error);
 
-tbody.innerHTML =
+
+tbody.innerHTML=
+
 `
 <tr>
-<td colspan="5" class="empty">
-❌ ${escapeHtml(error.message)}
+
+<td
+colspan="5"
+class="empty error">
+
+❌ ${escapeHtml(
+error.message
+)}
+
 </td>
+
 </tr>
 `;
+
 
 return;
 
 }
 
 
-students=data||[];
+students =
+data || [];
+
 
 renderStudents();
+
+updateStats();
 
 }
 
@@ -877,10 +1563,14 @@ renderStudents();
 function renderStudents(){
 
 const tbody =
-document.getElementById("studentList");
+document.getElementById(
+"studentList"
+);
+
 
 const t =
 text[currentLanguage];
+
 
 const q =
 document
@@ -895,7 +1585,8 @@ students.filter(s=>{
 
 if(!q)return true;
 
-return (
+
+return(
 
 String(s.name||"")
 .toLowerCase()
@@ -918,18 +1609,26 @@ String(s.student_id||"")
 });
 
 
-document.getElementById("studentCount")
-.textContent=list.length;
+document.getElementById(
+"studentCount"
+).textContent=list.length;
 
 
 if(!list.length){
 
-tbody.innerHTML =
+tbody.innerHTML=
+
 `
 <tr>
-<td colspan="5" class="empty">
+
+<td
+colspan="5"
+class="empty">
+
 ${t.noStudent}
+
 </td>
+
 </tr>
 `;
 
@@ -938,33 +1637,62 @@ return;
 }
 
 
-tbody.innerHTML =
+tbody.innerHTML=
+
 list.map(s=>`
 
 <tr>
 
 <td>
+
 <strong>
-${escapeHtml(s.name||"-")}
+
+${escapeHtml(
+s.name||"-"
+)}
+
 </strong>
+
 </td>
 
+
 <td>
+
 <span class="badge">
-${escapeHtml(s.roll||"-")}
+
+${escapeHtml(
+s.roll||"-"
+)}
+
 </span>
+
 </td>
 
-<td>
-${escapeHtml(s.student_id||"-")}
-</td>
 
 <td>
-${escapeHtml(getClassName(s.class))}
+
+${escapeHtml(
+s.student_id||"-"
+)}
+
 </td>
 
+
 <td>
-${escapeHtml(s.session||"-")}
+
+${escapeHtml(
+getClassName(s.class)
+)}
+
+</td>
+
+
+<td>
+
+${escapeHtml(
+s.session||"-"
+)}
+
 </td>
 
 </tr>
@@ -982,15 +1710,23 @@ function getClassName(value){
 
 const c =
 classes.find(x=>
+
 x.bn===value ||
 x.en===value
+
 );
 
-if(!c)return value||"-";
+
+if(!c){
+
+return value||"-";
+
+}
+
 
 return currentLanguage==="bn"
-? c.bn
-: c.en;
+?c.bn
+:c.en;
 
 }
 
@@ -1008,22 +1744,123 @@ renderStudents
 
 
 /* =====================================
-   ESCAPE
+   UPDATE STATS
+===================================== */
+
+function updateStats(){
+
+document.getElementById(
+"totalClasses"
+).textContent =
+classes.length;
+
+
+document.getElementById(
+"totalStudents"
+).textContent =
+allStudents.length;
+
+
+let sessionCount=0;
+
+
+if(selectedSession){
+
+sessionCount =
+allStudents.filter(s=>
+
+s.session===selectedSession
+
+).length;
+
+}
+
+
+document.getElementById(
+"selectedSessionCount"
+).textContent =
+sessionCount;
+
+}
+
+
+/* =====================================
+   REFRESH
+===================================== */
+
+async function refreshData(){
+
+const btn =
+document.getElementById(
+"refreshBtn"
+);
+
+
+btn.disabled=true;
+
+
+try{
+
+await loadAllStudents();
+
+await loadSessions();
+
+if(selectedSession &&
+selectedClass){
+
+await loadStudents();
+
+}
+
+renderClasses();
+
+updateStats();
+
+}catch(error){
+
+console.error(error);
+
+}finally{
+
+btn.disabled=false;
+
+}
+
+}
+
+
+/* =====================================
+   ESCAPE HTML
 ===================================== */
 
 function escapeHtml(value){
 
 return String(value)
 
-.replaceAll("&","&amp;")
+.replaceAll(
+"&",
+"&amp;"
+)
 
-.replaceAll("<","&lt;")
+.replaceAll(
+"<",
+"&lt;"
+)
 
-.replaceAll(">","&gt;")
+.replaceAll(
+">",
+"&gt;"
+)
 
-.replaceAll('"',"&quot;")
+.replaceAll(
+'"',
+"&quot;"
+)
 
-.replaceAll("'","&#039;");
+.replaceAll(
+"'",
+"&#039;"
+);
 
 }
 
