@@ -1,107 +1,1534 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+
 <title>Employees | মাদরাসায়ে নূরুল কুরআন</title>
 
+<!-- Bornomala Font -->
+<link
+href="https://banglawebfonts.pages.dev/css/bornomala.css"
+rel="stylesheet"
+>
+
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f4f7f6;color:#222}
-.top{background:#075c43;color:#fff;padding:17px 22px;display:flex;justify-content:space-between;align-items:center}
-.top h2{margin:0;color:#fff;font-size:20px}
-.top a{color:#fff;text-decoration:none}
-.container{max-width:1100px;margin:25px auto;padding:0 15px}
-.box{background:#fff;padding:22px;border-radius:12px;box-shadow:0 2px 10px #0001;margin-bottom:20px}
-h3{color:#075c43;margin-bottom:18px}
-.form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.full{grid-column:1/-1}
-label{display:block;font-weight:bold;font-size:14px}
-input,textarea{width:100%;padding:11px;margin-top:6px;border:1px solid #ddd;border-radius:7px;font-size:14px}
-textarea{resize:vertical}
-button{border:0;border-radius:7px;padding:10px 16px;background:#087f5b;color:#fff;font-weight:bold;cursor:pointer}
-button:disabled{opacity:.6;cursor:not-allowed}
-.cancel{background:#777;margin-left:7px}
-.delete{background:#c62828}
-.search{margin-bottom:15px}
-table{width:100%;border-collapse:collapse}
-th,td{padding:11px 8px;border-bottom:1px solid #eee;text-align:left;font-size:14px}
-th{background:#075c43;color:#fff}
-.action{padding:7px 10px;font-size:12px;margin:2px}
-#msg{margin-top:10px;min-height:20px}
-.table-wrap{overflow-x:auto}
-.loading{text-align:center;padding:20px}
-@media(max-width:650px){
-.form{grid-template-columns:1fr}
-.full{grid-column:auto}
-table{min-width:700px}
+
+/* =========================================
+   GLOBAL
+========================================= */
+
+*{
+    box-sizing:border-box;
 }
+
+:root{
+
+    --primary:#0d47a1;
+    --primary2:#1976d2;
+    --dark:#083b82;
+
+    --light:#e3f2fd;
+    --light2:#f4f8fd;
+
+    --bg:#f4f7fb;
+    --white:#fff;
+
+    --text:#1e293b;
+    --muted:#64748b;
+
+    --border:#e2e8f0;
+
+    --danger:#dc2626;
+    --danger-light:#fee2e2;
+
+    --success:#15803d;
+    --success-light:#dcfce7;
+
+}
+
+
+/* =========================================
+   BODY
+========================================= */
+
+body{
+
+    margin:0;
+
+    font-family:
+    "Bornomala",
+    "Bornomala-Regular",
+    serif;
+
+    background:var(--bg);
+
+    color:var(--text);
+
+}
+
+
+/* =========================================
+   TOPBAR
+========================================= */
+
+.topbar{
+
+    background:
+    linear-gradient(
+        135deg,
+        #0d47a1,
+        #1976d2
+    );
+
+    color:#fff;
+
+    min-height:72px;
+
+    padding:
+    14px 28px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:20px;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:100;
+
+    box-shadow:
+    0 3px 15px #0002;
+
+}
+
+
+.brand-title{
+
+    font-size:21px;
+
+    font-weight:800;
+
+    margin-bottom:2px;
+
+}
+
+
+.brand-sub{
+
+    font-family:
+    Arial,
+    sans-serif;
+
+    font-size:10px;
+
+    letter-spacing:1px;
+
+    opacity:.8;
+
+}
+
+
+.top-right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+}
+
+
+.dashboard-link{
+
+    color:#fff;
+
+    background:#ffffff20;
+
+    border:1px solid #ffffff35;
+
+    padding:
+    9px 14px;
+
+    border-radius:8px;
+
+    text-decoration:none;
+
+    font-family:
+    "Bornomala",
+    serif;
+
+    font-weight:700;
+
+    transition:.2s;
+
+}
+
+
+.dashboard-link:hover{
+
+    background:#fff;
+
+    color:var(--primary);
+
+}
+
+
+/* =========================================
+   CONTAINER
+========================================= */
+
+.container{
+
+    max-width:1250px;
+
+    margin:
+    26px auto;
+
+    padding:
+    0 18px 50px;
+
+}
+
+
+/* =========================================
+   PAGE HEADING
+========================================= */
+
+.page-heading{
+
+    margin-bottom:22px;
+
+}
+
+
+.page-heading h1{
+
+    margin:
+    0 0 5px;
+
+    font-size:29px;
+
+    color:#0f172a;
+
+}
+
+
+.page-heading p{
+
+    margin:0;
+
+    color:var(--muted);
+
+    font-size:15px;
+
+}
+
+
+/* =========================================
+   STATS
+========================================= */
+
+.stats{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:16px;
+
+    margin-bottom:20px;
+
+}
+
+
+.stat-box{
+
+    background:#fff;
+
+    border:
+    1px solid var(--border);
+
+    border-radius:14px;
+
+    padding:20px;
+
+    box-shadow:
+    0 3px 15px #0d47a110;
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+
+.stat-box::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    top:0;
+
+    width:4px;
+
+    height:100%;
+
+    background:
+    linear-gradient(
+        #0d47a1,
+        #1976d2
+    );
+
+}
+
+
+.stat-label{
+
+    color:var(--muted);
+
+    font-size:13px;
+
+}
+
+
+.stat-number{
+
+    font-family:
+    Arial,
+    sans-serif;
+
+    font-size:27px;
+
+    font-weight:800;
+
+    color:var(--dark);
+
+    margin-top:6px;
+
+}
+
+
+/* =========================================
+   BOX
+========================================= */
+
+.box{
+
+    background:#fff;
+
+    border:
+    1px solid var(--border);
+
+    border-radius:15px;
+
+    padding:23px;
+
+    margin-bottom:20px;
+
+    box-shadow:
+    0 3px 15px #0d47a110;
+
+}
+
+
+.box-header{
+
+    margin-bottom:19px;
+
+}
+
+
+.box-title{
+
+    font-size:20px;
+
+    font-weight:800;
+
+    color:var(--primary);
+
+}
+
+
+.box-description{
+
+    font-size:13px;
+
+    color:var(--muted);
+
+    margin-top:4px;
+
+}
+
+
+/* =========================================
+   FORM
+========================================= */
+
+.form-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(2,1fr);
+
+    gap:16px;
+
+}
+
+
+.full{
+
+    grid-column:
+    1/-1;
+
+}
+
+
+.form-group{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+
+label{
+
+    font-size:14px;
+
+    font-weight:700;
+
+    margin-bottom:6px;
+
+}
+
+
+input,
+textarea{
+
+    width:100%;
+
+    border:
+    1px solid #d5dce6;
+
+    border-radius:9px;
+
+    padding:
+    11px 13px;
+
+    font-family:
+    "Bornomala",
+    serif;
+
+    font-size:14px;
+
+    outline:none;
+
+    background:#fff;
+
+    color:var(--text);
+
+    transition:.2s;
+
+}
+
+
+input:focus,
+textarea:focus{
+
+    border-color:
+    var(--primary2);
+
+    box-shadow:
+    0 0 0 3px #1976d215;
+
+}
+
+
+textarea{
+
+    resize:vertical;
+
+    min-height:90px;
+
+}
+
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.buttons{
+
+    display:flex;
+
+    gap:9px;
+
+    margin-top:5px;
+
+    flex-wrap:wrap;
+
+}
+
+
+button{
+
+    border:0;
+
+    border-radius:9px;
+
+    padding:
+    10px 17px;
+
+    font-family:
+    "Bornomala",
+    serif;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+
+button:hover{
+
+    transform:translateY(-1px);
+
+}
+
+
+.btn-primary{
+
+    background:
+    linear-gradient(
+        135deg,
+        #0d47a1,
+        #1976d2
+    );
+
+    color:#fff;
+
+}
+
+
+.btn-secondary{
+
+    background:#eef2f7;
+
+    color:#374151;
+
+}
+
+
+.btn-danger{
+
+    background:var(--danger-light);
+
+    color:#b91c1c;
+
+}
+
+
+.btn-edit{
+
+    background:#e3f2fd;
+
+    color:#0d47a1;
+
+}
+
+
+.btn-print{
+
+    background:#1976d2;
+
+    color:#fff;
+
+}
+
+
+.btn-print-all{
+
+    background:#0d47a1;
+
+    color:#fff;
+
+}
+
+
+button:disabled{
+
+    opacity:.6;
+
+    cursor:not-allowed;
+
+    transform:none;
+
+}
+
+
+/* =========================================
+   MESSAGE
+========================================= */
+
+.message{
+
+    min-height:22px;
+
+    margin-top:12px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+
+.success{
+
+    color:var(--success);
+
+}
+
+
+.error{
+
+    color:#c62828;
+
+}
+
+
+/* =========================================
+   SEARCH
+========================================= */
+
+.search-row{
+
+    display:grid;
+
+    grid-template-columns:
+    1fr auto auto;
+
+    gap:12px;
+
+    margin-bottom:16px;
+
+}
+
+
+.search{
+
+    width:100%;
+
+}
+
+
+/* =========================================
+   TABLE
+========================================= */
+
+.table-wrap{
+
+    overflow-x:auto;
+
+    border:
+    1px solid var(--border);
+
+    border-radius:11px;
+
+}
+
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    min-width:1000px;
+
+}
+
+
+th{
+
+    background:
+    linear-gradient(
+        135deg,
+        #0d47a1,
+        #1976d2
+    );
+
+    color:#fff;
+
+    padding:
+    13px 11px;
+
+    font-size:13px;
+
+    text-align:left;
+
+    white-space:nowrap;
+
+}
+
+
+td{
+
+    padding:
+    12px 11px;
+
+    border-bottom:
+    1px solid #edf0f5;
+
+    font-size:13px;
+
+    vertical-align:middle;
+
+}
+
+
+tbody tr{
+
+    transition:.15s;
+
+}
+
+
+tbody tr:hover td{
+
+    background:#f7faff;
+
+}
+
+
+.employee-id{
+
+    font-family:
+    Arial,
+    sans-serif;
+
+    font-weight:800;
+
+    color:var(--dark);
+
+}
+
+
+.badge{
+
+    display:inline-block;
+
+    background:#e3f2fd;
+
+    color:#0d47a1;
+
+    padding:
+    5px 9px;
+
+    border-radius:20px;
+
+    font-size:11px;
+
+    font-weight:700;
+
+}
+
+
+.action-buttons{
+
+    display:flex;
+
+    gap:6px;
+
+    flex-wrap:wrap;
+
+}
+
+
+.action-buttons button{
+
+    padding:
+    6px 9px;
+
+    font-size:11px;
+
+}
+
+
+/* =========================================
+   CENTER / LOADING
+========================================= */
+
+.center{
+
+    text-align:center;
+
+    padding:
+    30px!important;
+
+    color:var(--muted);
+
+}
+
+
+.loading{
+
+    height:3px;
+
+    background:#e3edf9;
+
+    overflow:hidden;
+
+    margin-bottom:15px;
+
+}
+
+
+.loading:after{
+
+    content:"";
+
+    display:block;
+
+    height:100%;
+
+    width:40%;
+
+    background:
+    linear-gradient(
+        90deg,
+        #0d47a1,
+        #1976d2
+    );
+
+    animation:
+    load 1s infinite;
+
+}
+
+
+@keyframes load{
+
+    from{
+        transform:translateX(-100%);
+    }
+
+    to{
+        transform:translateX(300%);
+    }
+
+}
+
+
+/* =========================================
+   EMPTY
+========================================= */
+
+.empty-icon{
+
+    font-size:30px;
+
+    margin-bottom:6px;
+
+}
+
+
+.empty-text{
+
+    font-size:14px;
+
+}
+
+
+/* =========================================
+   PRINT AREA
+========================================= */
+
+#printArea{
+
+    display:none;
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media(max-width:900px){
+
+    .stats{
+
+        grid-template-columns:
+        repeat(3,1fr);
+
+    }
+
+}
+
+
+@media(max-width:800px){
+
+    .topbar{
+
+        padding:
+        13px 16px;
+
+    }
+
+    .brand-title{
+
+        font-size:18px;
+
+    }
+
+    .container{
+
+        margin:
+        18px auto;
+
+        padding:
+        0 12px 40px;
+
+    }
+
+    .form-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .full{
+
+        grid-column:auto;
+
+    }
+
+    .box{
+
+        padding:17px;
+
+    }
+
+}
+
+
+@media(max-width:700px){
+
+    .stats{
+
+        grid-template-columns:
+        1fr 1fr;
+
+    }
+
+    .search-row{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+
+@media(max-width:600px){
+
+    .topbar{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+    .top-right{
+
+        width:100%;
+
+    }
+
+}
+
+
+@media(max-width:500px){
+
+    .stats{
+
+        grid-template-columns:
+        1fr 1fr;
+
+    }
+
+    .stat-box{
+
+        padding:15px;
+
+    }
+
+    .stat-number{
+
+        font-size:23px;
+
+    }
+
+}
+
+
+/* =========================================
+   PRINT STYLE
+========================================= */
+
+@media print{
+
+    body{
+
+        background:#fff;
+
+    }
+
+
+    body *{
+
+        visibility:hidden;
+
+    }
+
+
+    #printArea,
+    #printArea *{
+
+        visibility:visible;
+
+    }
+
+
+    #printArea{
+
+        display:block;
+
+        position:absolute;
+
+        left:0;
+
+        top:0;
+
+        width:100%;
+
+        background:#fff;
+
+        color:#000;
+
+        padding:10mm;
+
+    }
+
+
+    .print-header{
+
+        text-align:center;
+
+        border-bottom:
+        2px solid #000;
+
+        padding-bottom:10px;
+
+        margin-bottom:15px;
+
+    }
+
+
+    .print-header h1{
+
+        margin:0;
+
+        font-size:24px;
+
+    }
+
+
+    .print-header p{
+
+        margin:4px 0;
+
+        font-family:
+        Arial,
+        sans-serif;
+
+        font-size:12px;
+
+    }
+
+
+    .print-title{
+
+        text-align:center;
+
+        font-size:18px;
+
+        font-weight:800;
+
+        margin:15px 0;
+
+    }
+
+
+    .print-meta{
+
+        text-align:center;
+
+        font-family:
+        Arial,
+        sans-serif;
+
+        font-size:11px;
+
+        margin-bottom:12px;
+
+    }
+
+
+    .print-table{
+
+        width:100%;
+
+        border-collapse:collapse;
+
+        font-size:11px;
+
+    }
+
+
+    .print-table th,
+    .print-table td{
+
+        border:
+        1px solid #000;
+
+        padding:7px;
+
+        text-align:left;
+
+    }
+
+
+    .print-table th{
+
+        background:#eee!important;
+
+        color:#000!important;
+
+    }
+
+
+    .single-employee{
+
+        width:100%;
+
+        max-width:750px;
+
+        margin:auto;
+
+    }
+
+
+    .single-info{
+
+        width:100%;
+
+        border-collapse:collapse;
+
+        margin-top:15px;
+
+    }
+
+
+    .single-info td{
+
+        border:
+        1px solid #222;
+
+        padding:10px;
+
+        font-size:13px;
+
+    }
+
+
+    .single-info td:first-child{
+
+        width:32%;
+
+        font-weight:700;
+
+        background:#f2f2f2;
+
+    }
+
+
+    .print-footer{
+
+        margin-top:40px;
+
+        display:flex;
+
+        justify-content:space-between;
+
+        font-size:12px;
+
+    }
+
+
+    .signature{
+
+        margin-top:70px;
+
+        display:flex;
+
+        justify-content:space-between;
+
+        font-size:12px;
+
+    }
+
+
+    @page{
+
+        size:A4;
+
+        margin:10mm;
+
+    }
+
+}
+
 </style>
+
 </head>
+
 
 <body>
 
-<header class="top">
-<h2>👨‍💼 Employee Management</h2>
-<a href="dashboard.html">← Dashboard</a>
+
+<!-- =========================================
+     HEADER
+========================================= -->
+
+<header class="topbar">
+
+<div>
+
+<div class="brand-title">
+📚 মাদরাসায়ে নূরুল কুরআন
+</div>
+
+<div class="brand-sub">
+EMPLOYEE MANAGEMENT SYSTEM
+</div>
+
+</div>
+
+
+<div class="top-right">
+
+<a
+href="dashboard.html"
+class="dashboard-link"
+>
+← Dashboard
+</a>
+
+</div>
+
 </header>
 
-<div class="container">
 
-<div class="box">
 
-<h3 id="formTitle">➕ Add Employee</h3>
+<!-- =========================================
+     MAIN
+========================================= -->
+
+<main class="container">
+
+
+<!-- PAGE HEADING -->
+
+<div class="page-heading">
+
+<h1>
+👨‍💼 Employee Management
+</h1>
+
+<p>
+কর্মচারীদের তথ্য সংরক্ষণ, সম্পাদনা, অনুসন্ধান ও ব্যবস্থাপনা
+</p>
+
+</div>
+
+
+
+<!-- =========================================
+     STATS
+========================================= -->
+
+<div class="stats">
+
+
+<div class="stat-box">
+
+<div class="stat-label">
+মোট কর্মচারী
+</div>
+
+<div
+class="stat-number"
+id="totalEmployees"
+>
+0
+</div>
+
+</div>
+
+
+<div class="stat-box">
+
+<div class="stat-label">
+দৃশ্যমান কর্মচারী
+</div>
+
+<div
+class="stat-number"
+id="visibleEmployees"
+>
+0
+</div>
+
+</div>
+
+
+<div class="stat-box">
+
+<div class="stat-label">
+বর্তমান তালিকা
+</div>
+
+<div
+class="stat-number"
+id="listStatus"
+>
+All
+</div>
+
+</div>
+
+
+</div>
+
+
+
+<!-- =========================================
+     ADD / EDIT EMPLOYEE
+========================================= -->
+
+<section class="box">
+
+
+<div class="box-header">
+
+<div
+class="box-title"
+id="formTitle"
+>
+➕ Add Employee
+</div>
+
+<div class="box-description">
+কর্মচারীর তথ্য সংরক্ষণ করুন
+</div>
+
+</div>
+
 
 <form id="employeeForm">
 
-<input type="hidden" id="editId">
+<input
+type="hidden"
+id="editId"
+>
 
-<div>
-<label>Employee Name *</label>
-<input id="name" required placeholder="কর্মচারীর নাম">
+
+<div class="form-grid">
+
+
+<!-- EMPLOYEE ID -->
+
+<div class="form-group">
+
+<label>
+Employee ID
+</label>
+
+<input
+id="employeeId"
+placeholder="যেমন: EMP-001"
+>
+
 </div>
 
-<div>
-<label>Employee ID</label>
-<input id="employeeId" placeholder="যেমন: EMP-001">
+
+
+<!-- NAME -->
+
+<div class="form-group">
+
+<label>
+কর্মচারীর নাম *
+</label>
+
+<input
+id="name"
+required
+placeholder="কর্মচারীর পূর্ণ নাম"
+>
+
 </div>
 
-<div>
-<label>Mobile</label>
-<input id="phone" type="tel" placeholder="মোবাইল নম্বর">
+
+
+<!-- PHONE -->
+
+<div class="form-group">
+
+<label>
+মোবাইল
+</label>
+
+<input
+id="phone"
+type="tel"
+placeholder="মোবাইল নম্বর"
+>
+
 </div>
 
-<div>
-<label>Designation</label>
-<input id="designation" placeholder="পদবি">
+
+
+<!-- DESIGNATION -->
+
+<div class="form-group">
+
+<label>
+পদবি
+</label>
+
+<input
+id="designation"
+placeholder="যেমন: অফিস সহকারী"
+>
+
 </div>
 
-<div class="full">
-<label>Address</label>
-<textarea id="address" rows="2" placeholder="ঠিকানা"></textarea>
+
+
+<!-- ADDRESS -->
+
+<div class="form-group full">
+
+<label>
+ঠিকানা
+</label>
+
+<textarea
+id="address"
+placeholder="কর্মচারীর ঠিকানা"
+></textarea>
+
 </div>
 
-<div class="full">
 
-<button type="submit" id="saveBtn">
+
+<!-- BUTTONS -->
+
+<div class="form-group full">
+
+<div class="buttons">
+
+<button
+type="submit"
+class="btn-primary"
+id="saveBtn"
+>
 💾 Save Employee
 </button>
 
-<button type="button" class="cancel" id="cancelBtn" style="display:none">
-Cancel
+
+<button
+type="button"
+class="btn-secondary"
+id="cancelBtn"
+style="display:none"
+>
+✖ Cancel
 </button>
 
-<div id="msg"></div>
+</div>
+
+
+<div
+id="msg"
+class="message"
+></div>
+
+</div>
+
 
 </div>
 
 </form>
+
+</section>
+
+
+
+<!-- =========================================
+     EMPLOYEE LIST
+========================================= -->
+
+<section class="box">
+
+
+<div class="box-header">
+
+<div class="box-title">
+👨‍💼 Employee List
+</div>
+
+<div class="box-description">
+নাম, Employee ID অথবা মোবাইল দিয়ে কর্মচারী খুঁজুন
+</div>
+
 </div>
 
 
-<div class="box">
 
-<h3>👨‍💼 Employee List</h3>
+<div class="search-row">
+
 
 <input
 class="search"
@@ -109,27 +1536,81 @@ id="search"
 placeholder="🔍 নাম / ID / মোবাইল দিয়ে খুঁজুন..."
 >
 
+
+<button
+class="btn-print"
+id="printFilteredBtn"
+type="button"
+>
+🖨 Print List
+</button>
+
+
+<button
+class="btn-print-all"
+id="printAllBtn"
+type="button"
+>
+🖨 Print All
+</button>
+
+
+</div>
+
+
+
 <div class="table-wrap">
 
 <table>
 
 <thead>
+
 <tr>
-<th>Employee ID</th>
-<th>নাম</th>
-<th>মোবাইল</th>
-<th>পদবি</th>
-<th>ঠিকানা</th>
-<th>Action</th>
+
+<th>
+Employee ID
+</th>
+
+<th>
+নাম
+</th>
+
+<th>
+মোবাইল
+</th>
+
+<th>
+পদবি
+</th>
+
+<th>
+ঠিকানা
+</th>
+
+<th>
+Action
+</th>
+
 </tr>
+
 </thead>
+
 
 <tbody id="employeeList">
 
 <tr>
-<td colspan="6" class="loading">
+
+<td
+colspan="6"
+class="center"
+>
+
+<div class="loading"></div>
+
 Loading...
+
 </td>
+
 </tr>
 
 </tbody>
@@ -137,20 +1618,45 @@ Loading...
 </table>
 
 </div>
-</div>
 
-</div>
+</section>
 
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</main>
+
+
+
+<!-- =========================================
+     PRINT AREA
+========================================= -->
+
+<div id="printArea"></div>
+
+
+
+<!-- =========================================
+     SUPABASE
+========================================= -->
+
+<script
+src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
+
 
 <script>
+
+/* =========================================
+   SUPABASE
+========================================= */
 
 const SUPABASE_URL =
 "https://qavublwhqiqsgpcmfyft.supabase.co";
 
+
 const SUPABASE_KEY =
 "sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
+
 
 const db =
 window.supabase.createClient(
@@ -159,521 +1665,1423 @@ SUPABASE_KEY
 );
 
 
-let employees=[];
+
+/* =========================================
+   DATA
+========================================= */
+
+let employees = [];
+
+let currentUser = null;
 
 
-// ===============================
-// START
-// ===============================
+
+/* =========================================
+   START
+========================================= */
 
 async function start(){
 
-try{
+    try{
 
-const {data:{session}} =
-await db.auth.getSession();
+        const {
+            data:{session},
+            error
+        } =
+        await db.auth.getSession();
 
-if(!session){
 
-location.href="admin.html";
-return;
+        if(error)
+            throw error;
+
+
+        if(!session){
+
+            location.href =
+            "admin.html";
+
+            return;
+
+        }
+
+
+        currentUser =
+        session;
+
+
+        await loadEmployees();
+
+    }
+
+    catch(error){
+
+        document.getElementById(
+            "employeeList"
+        ).innerHTML = `
+
+            <tr>
+
+            <td
+            colspan="6"
+            class="center"
+            >
+
+            ❌
+            ${escapeHtml(
+                error.message
+            )}
+
+            </td>
+
+            </tr>
+
+        `;
+
+    }
 
 }
 
-await loadEmployees();
-
-}catch(error){
-
-document.getElementById("employeeList").innerHTML=
-`<tr>
-<td colspan="6">
-❌ ${escapeHtml(error.message)}
-</td>
-</tr>`;
-
-}
-
-}
 
 
-// ===============================
-// LOAD EMPLOYEES
-// ===============================
+/* =========================================
+   AUTH STATE
+========================================= */
+
+db.auth.onAuthStateChange(
+    (event,session)=>{
+
+        if(!session){
+
+            location.href =
+            "admin.html";
+
+        }
+
+    }
+);
+
+
+
+/* =========================================
+   LOAD EMPLOYEES
+========================================= */
 
 async function loadEmployees(){
 
-const tbody =
-document.getElementById("employeeList");
-
-tbody.innerHTML=
-`<tr>
-<td colspan="6" class="loading">
-Loading...
-</td>
-</tr>`;
+    const tbody =
+    document.getElementById(
+        "employeeList"
+    );
 
 
-const {data,error} =
-await db
-.from("employees")
-.select(`
-id,
-employee_id,
-name,
-phone,
-designation,
-address
-`)
-.order("created_at",{ascending:false});
+    tbody.innerHTML = `
+
+        <tr>
+
+        <td
+        colspan="6"
+        class="center"
+        >
+
+        <div class="loading"></div>
+
+        Loading...
+
+        </td>
+
+        </tr>
+
+    `;
 
 
-if(error){
+    const {
+        data,
+        error
+    } =
+    await db
+    .from("employees")
+    .select(`
+        id,
+        employee_id,
+        name,
+        phone,
+        designation,
+        address,
+        created_at
+    `)
+    .order(
+        "created_at",
+        {
+            ascending:false
+        }
+    );
 
-tbody.innerHTML=
-`<tr>
-<td colspan="6">
-❌ ${escapeHtml(error.message)}
-</td>
-</tr>`;
 
-return;
+    if(error){
+
+        tbody.innerHTML = `
+
+            <tr>
+
+            <td
+            colspan="6"
+            class="center"
+            >
+
+            ❌
+            ${escapeHtml(
+                error.message
+            )}
+
+            </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    employees =
+    data || [];
+
+
+    updateStats();
+
+    render(employees);
 
 }
 
 
-employees=data||[];
 
-render(employees);
+/* =========================================
+   STATS
+========================================= */
+
+function updateStats(){
+
+    document.getElementById(
+        "totalEmployees"
+    ).textContent =
+    employees.length;
 
 }
 
 
-// ===============================
-// RENDER
-// ===============================
+
+/* =========================================
+   RENDER
+========================================= */
 
 function render(list){
 
-const tbody =
-document.getElementById("employeeList");
+    const tbody =
+    document.getElementById(
+        "employeeList"
+    );
 
 
-if(!list.length){
+    document.getElementById(
+        "visibleEmployees"
+    ).textContent =
+    list.length;
 
-tbody.innerHTML=
-`<tr>
-<td colspan="6" style="text-align:center">
-কোনো Employee নেই
-</td>
-</tr>`;
 
-return;
+    document.getElementById(
+        "listStatus"
+    ).textContent =
+    list.length === employees.length
+    ? "All"
+    : "Filtered";
+
+
+    if(!list.length){
+
+        tbody.innerHTML = `
+
+            <tr>
+
+            <td
+            colspan="6"
+            class="center"
+            >
+
+            <div class="empty-icon">
+                👨‍💼
+            </div>
+
+            <div class="empty-text">
+                কোনো Employee পাওয়া যায়নি
+            </div>
+
+            </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    tbody.innerHTML =
+    list.map(
+        e=>{
+
+            return `
+
+            <tr>
+
+
+            <td>
+
+                <span
+                class="employee-id"
+                >
+
+                ${escapeHtml(
+                    e.employee_id || "-"
+                )}
+
+                </span>
+
+            </td>
+
+
+            <td>
+
+                <strong>
+
+                ${escapeHtml(
+                    e.name || "-"
+                )}
+
+                </strong>
+
+            </td>
+
+
+            <td>
+
+                ${escapeHtml(
+                    e.phone || "-"
+                )}
+
+            </td>
+
+
+            <td>
+
+                <span class="badge">
+
+                ${escapeHtml(
+                    e.designation || "-"
+                )}
+
+                </span>
+
+            </td>
+
+
+            <td>
+
+                ${escapeHtml(
+                    e.address || "-"
+                )}
+
+            </td>
+
+
+            <td>
+
+                <div
+                class="action-buttons"
+                >
+
+
+                <button
+                class="btn-edit"
+                onclick="
+                editEmployee('${escapeHtml(
+                    e.id
+                )}')
+                "
+                >
+
+                ✏ Edit
+
+                </button>
+
+
+                <button
+                class="btn-print"
+                onclick="
+                printSingleEmployee('${escapeHtml(
+                    e.id
+                )}')
+                "
+                >
+
+                🖨
+
+                </button>
+
+
+                <button
+                class="btn-danger"
+                onclick="
+                deleteEmployee('${escapeHtml(
+                    e.id
+                )}')
+                "
+                >
+
+                🗑
+
+                </button>
+
+
+                </div>
+
+            </td>
+
+
+            </tr>
+
+            `;
+
+        }
+    ).join("");
 
 }
 
 
-tbody.innerHTML =
-list.map(e=>`
 
-<tr>
-
-<td>
-${escapeHtml(e.employee_id||"-")}
-</td>
-
-<td>
-${escapeHtml(e.name||"-")}
-</td>
-
-<td>
-${escapeHtml(e.phone||"-")}
-</td>
-
-<td>
-${escapeHtml(e.designation||"-")}
-</td>
-
-<td>
-${escapeHtml(e.address||"-")}
-</td>
-
-<td>
-
-<button
-class="action"
-onclick="editEmployee('${e.id}')">
-Edit
-</button>
-
-<button
-class="action delete"
-onclick="deleteEmployee('${e.id}')">
-Delete
-</button>
-
-</td>
-
-</tr>
-
-`).join("");
-
-}
-
-
-// ===============================
-// ADD / UPDATE
-// ===============================
+/* =========================================
+   SAVE / UPDATE
+========================================= */
 
 document
-.getElementById("employeeForm")
+.getElementById(
+    "employeeForm"
+)
 .addEventListener(
-"submit",
-async function(e){
+    "submit",
+    async function(e){
 
-e.preventDefault();
-
-
-const editId =
-document.getElementById("editId").value;
+        e.preventDefault();
 
 
-const employee={
-
-employee_id:
-document.getElementById("employeeId")
-.value.trim() || null,
-
-name:
-document.getElementById("name")
-.value.trim(),
-
-phone:
-document.getElementById("phone")
-.value.trim(),
-
-designation:
-document.getElementById("designation")
-.value.trim(),
-
-address:
-document.getElementById("address")
-.value.trim()
-
-};
+        const editId =
+        document.getElementById(
+            "editId"
+        ).value;
 
 
-const msg =
-document.getElementById("msg");
-
-const saveBtn =
-document.getElementById("saveBtn");
-
-
-msg.textContent="Saving...";
-
-saveBtn.disabled=true;
+        const msg =
+        document.getElementById(
+            "msg"
+        );
 
 
-try{
-
-let result;
-
-
-if(editId){
-
-result =
-await db
-.from("employees")
-.update(employee)
-.eq("id",editId)
-.select(`
-id,
-employee_id,
-name,
-phone,
-designation,
-address
-`)
-.single();
-
-}else{
-
-result =
-await db
-.from("employees")
-.insert(employee)
-.select(`
-id,
-employee_id,
-name,
-phone,
-designation,
-address
-`)
-.single();
-
-}
+        const saveBtn =
+        document.getElementById(
+            "saveBtn"
+        );
 
 
-if(result.error){
+        const employee = {
 
-msg.textContent =
-"❌ "+result.error.message;
-
-return;
-
-}
+            employee_id:
+            document.getElementById(
+                "employeeId"
+            ).value.trim() || null,
 
 
-// ===============================
-// LOCAL UPDATE
-// পুরো table আবার load হবে না
-// ===============================
+            name:
+            document.getElementById(
+                "name"
+            ).value.trim(),
 
-if(editId){
 
-const index =
-employees.findIndex(
-x=>String(x.id)===String(editId)
+            phone:
+            document.getElementById(
+                "phone"
+            ).value.trim(),
+
+
+            designation:
+            document.getElementById(
+                "designation"
+            ).value.trim(),
+
+
+            address:
+            document.getElementById(
+                "address"
+            ).value.trim()
+
+        };
+
+
+        if(!employee.name){
+
+            msg.className =
+            "message error";
+
+            msg.textContent =
+            "কর্মচারীর নাম দিন।";
+
+            return;
+
+        }
+
+
+        msg.className =
+        "message";
+
+
+        msg.textContent =
+        "Saving...";
+
+
+        saveBtn.disabled =
+        true;
+
+
+        try{
+
+            let result;
+
+
+            /* =========================
+               UPDATE
+            ========================= */
+
+            if(editId){
+
+                result =
+                await db
+                .from("employees")
+                .update(employee)
+                .eq(
+                    "id",
+                    editId
+                )
+                .select(`
+                    id,
+                    employee_id,
+                    name,
+                    phone,
+                    designation,
+                    address,
+                    created_at
+                `)
+                .single();
+
+            }
+
+
+            /* =========================
+               ADD
+            ========================= */
+
+            else{
+
+                result =
+                await db
+                .from("employees")
+                .insert(employee)
+                .select(`
+                    id,
+                    employee_id,
+                    name,
+                    phone,
+                    designation,
+                    address,
+                    created_at
+                `)
+                .single();
+
+            }
+
+
+            if(result.error)
+                throw result.error;
+
+
+            /* =========================
+               LOCAL UPDATE
+            ========================= */
+
+            if(editId){
+
+                const index =
+                employees.findIndex(
+                    x =>
+                    String(x.id) ===
+                    String(editId)
+                );
+
+
+                if(index !== -1){
+
+                    employees[index] =
+                    result.data;
+
+                }
+
+            }
+
+
+            else{
+
+                employees.unshift(
+                    result.data
+                );
+
+            }
+
+
+            updateStats();
+
+            applySearch();
+
+
+            msg.className =
+            "message success";
+
+
+            msg.textContent =
+            editId
+            ? "Employee updated successfully."
+            : "Employee added successfully.";
+
+
+            setTimeout(
+                resetForm,
+                800
+            );
+
+        }
+
+        catch(error){
+
+            msg.className =
+            "message error";
+
+
+            msg.textContent =
+            error.message;
+
+        }
+
+        finally{
+
+            saveBtn.disabled =
+            false;
+
+        }
+
+    }
 );
 
 
-if(index!==-1){
 
-employees[index]=result.data;
-
-}
-
-}else{
-
-employees.unshift(result.data);
-
-}
-
-
-render(employees);
-
-
-msg.textContent =
-"✅ Saved successfully";
-
-
-resetForm();
-
-
-}catch(error){
-
-msg.textContent =
-"❌ "+error.message;
-
-}finally{
-
-saveBtn.disabled=false;
-
-}
-
-});
-
-
-// ===============================
-// EDIT
-// ===============================
+/* =========================================
+   EDIT
+========================================= */
 
 function editEmployee(id){
 
-const employee =
-employees.find(
-x=>String(x.id)===String(id)
-);
+    const employee =
+    employees.find(
+        x =>
+        String(x.id) ===
+        String(id)
+    );
 
 
-if(!employee)return;
+    if(!employee)
+        return;
 
 
-document.getElementById("editId").value =
-employee.id;
-
-document.getElementById("employeeId").value =
-employee.employee_id||"";
-
-document.getElementById("name").value =
-employee.name||"";
-
-document.getElementById("phone").value =
-employee.phone||"";
-
-document.getElementById("designation").value =
-employee.designation||"";
-
-document.getElementById("address").value =
-employee.address||"";
+    document.getElementById(
+        "editId"
+    ).value =
+    employee.id;
 
 
-document.getElementById("formTitle").textContent =
-"✏️ Edit Employee";
+    document.getElementById(
+        "employeeId"
+    ).value =
+    employee.employee_id || "";
 
 
-document.getElementById("saveBtn").textContent =
-"💾 Update Employee";
+    document.getElementById(
+        "name"
+    ).value =
+    employee.name || "";
 
 
-document.getElementById("cancelBtn").style.display =
-"inline-block";
+    document.getElementById(
+        "phone"
+    ).value =
+    employee.phone || "";
 
 
-window.scrollTo({
-top:0,
-behavior:"smooth"
-});
+    document.getElementById(
+        "designation"
+    ).value =
+    employee.designation || "";
+
+
+    document.getElementById(
+        "address"
+    ).value =
+    employee.address || "";
+
+
+    document.getElementById(
+        "formTitle"
+    ).textContent =
+    "✏ Edit Employee";
+
+
+    document.getElementById(
+        "saveBtn"
+    ).textContent =
+    "💾 Update Employee";
+
+
+    document.getElementById(
+        "cancelBtn"
+    ).style.display =
+    "inline-block";
+
+
+    window.scrollTo({
+
+        top:0,
+
+        behavior:"smooth"
+
+    });
 
 }
 
 
-// ===============================
-// DELETE
-// ===============================
+
+/* =========================================
+   DELETE
+========================================= */
 
 async function deleteEmployee(id){
 
-if(!confirm(
-"এই Employee-কে Delete করতে চান?"
-))return;
+    const employee =
+    employees.find(
+        x =>
+        String(x.id) ===
+        String(id)
+    );
 
 
-try{
-
-const {error} =
-await db
-.from("employees")
-.delete()
-.eq("id",id);
+    if(!employee)
+        return;
 
 
-if(error){
+    const ok =
+    confirm(
+        "“"+
+        (employee.name || "Employee")+
+        "” কে Delete করতে চান?"
+    );
 
-alert(error.message);
-return;
+
+    if(!ok)
+        return;
+
+
+    try{
+
+        const {
+            error
+        } =
+        await db
+        .from("employees")
+        .delete()
+        .eq(
+            "id",
+            id
+        );
+
+
+        if(error)
+            throw error;
+
+
+        employees =
+        employees.filter(
+            e =>
+            String(e.id) !==
+            String(id)
+        );
+
+
+        updateStats();
+
+        applySearch();
+
+
+        alert(
+            "Employee successfully deleted."
+        );
+
+    }
+
+    catch(error){
+
+        alert(
+            error.message
+        );
+
+    }
 
 }
 
 
-employees =
-employees.filter(
-e=>String(e.id)!==String(id)
-);
 
-
-render(employees);
-
-
-}catch(error){
-
-alert(error.message);
-
-}
-
-}
-
-
-// ===============================
-// RESET
-// ===============================
+/* =========================================
+   RESET
+========================================= */
 
 function resetForm(){
 
-document
-.getElementById("employeeForm")
-.reset();
+    document
+    .getElementById(
+        "employeeForm"
+    )
+    .reset();
 
 
-document.getElementById("editId").value =
-"";
+    document.getElementById(
+        "editId"
+    ).value =
+    "";
 
 
-document.getElementById("formTitle").textContent =
-"➕ Add Employee";
+    document.getElementById(
+        "formTitle"
+    ).textContent =
+    "➕ Add Employee";
 
 
-document.getElementById("saveBtn").textContent =
-"💾 Save Employee";
+    document.getElementById(
+        "saveBtn"
+    ).textContent =
+    "💾 Save Employee";
 
 
-document.getElementById("cancelBtn").style.display =
-"none";
+    document.getElementById(
+        "cancelBtn"
+    ).style.display =
+    "none";
+
+
+    document.getElementById(
+        "msg"
+    ).textContent =
+    "";
 
 }
 
 
-document
-.getElementById("cancelBtn")
-.onclick=resetForm;
-
-
-// ===============================
-// SEARCH
-// ===============================
 
 document
-.getElementById("search")
+.getElementById(
+    "cancelBtn"
+)
+.onclick =
+resetForm;
+
+
+
+/* =========================================
+   SEARCH
+========================================= */
+
+function applySearch(){
+
+    const q =
+    document.getElementById(
+        "search"
+    )
+    .value
+    .toLowerCase()
+    .trim();
+
+
+    const filtered =
+    employees.filter(
+        e=>{
+
+            return (
+
+                String(
+                    e.name || ""
+                )
+                .toLowerCase()
+                .includes(q)
+
+
+                ||
+
+                String(
+                    e.employee_id || ""
+                )
+                .toLowerCase()
+                .includes(q)
+
+
+                ||
+
+                String(
+                    e.phone || ""
+                )
+                .toLowerCase()
+                .includes(q)
+
+
+                ||
+
+                String(
+                    e.designation || ""
+                )
+                .toLowerCase()
+                .includes(q)
+
+            );
+
+        }
+    );
+
+
+    render(filtered);
+
+}
+
+
+
+document
+.getElementById(
+    "search"
+)
 .addEventListener(
-"input",
-function(){
-
-const q =
-this.value
-.toLowerCase()
-.trim();
-
-
-const filtered =
-employees.filter(e=>
-
-(e.name||"")
-.toLowerCase()
-.includes(q)
-
-||
-
-(e.employee_id||"")
-.toLowerCase()
-.includes(q)
-
-||
-
-(e.phone||"")
-.toLowerCase()
-.includes(q)
-
+    "input",
+    applySearch
 );
 
 
-render(filtered);
 
-});
+/* =========================================
+   PRINT EMPLOYEE LIST
+========================================= */
+
+function printEmployees(
+    list,
+    title
+){
+
+    if(!list.length){
+
+        alert(
+            "Print করার জন্য কোনো Employee পাওয়া যায়নি।"
+        );
+
+        return;
+
+    }
 
 
-// ===============================
-// ESCAPE HTML
-// ===============================
+    const rows =
+    list.map(
+        (e,index)=>{
 
-function escapeHtml(value){
+            return `
 
-return String(value)
+            <tr>
 
-.replaceAll("&","&amp;")
+                <td>
+                ${index + 1}
+                </td>
 
-.replaceAll("<","&lt;")
+                <td>
+                ${escapeHtml(
+                    e.employee_id || "-"
+                )}
+                </td>
 
-.replaceAll(">","&gt;")
+                <td>
+                ${escapeHtml(
+                    e.name || "-"
+                )}
+                </td>
 
-.replaceAll('"',"&quot;")
+                <td>
+                ${escapeHtml(
+                    e.phone || "-"
+                )}
+                </td>
 
-.replaceAll("'","&#039;");
+                <td>
+                ${escapeHtml(
+                    e.designation || "-"
+                )}
+                </td>
+
+                <td>
+                ${escapeHtml(
+                    e.address || "-"
+                )}
+                </td>
+
+            </tr>
+
+            `;
+
+        }
+    ).join("");
+
+
+    document.getElementById(
+        "printArea"
+    ).innerHTML = `
+
+    <div class="print-header">
+
+        <h1>
+        মাদরাসায়ে নূরুল কুরআন
+        </h1>
+
+        <p>
+        EMPLOYEE MANAGEMENT SYSTEM
+        </p>
+
+    </div>
+
+
+    <div class="print-title">
+
+        ${escapeHtml(title)}
+
+    </div>
+
+
+    <div class="print-meta">
+
+        Total Employee:
+        ${list.length}
+
+        &nbsp; | &nbsp;
+
+        Print Date:
+        ${new Date()
+        .toLocaleDateString(
+            "bn-BD"
+        )}
+
+    </div>
+
+
+    <table class="print-table">
+
+        <thead>
+
+            <tr>
+
+                <th>#</th>
+
+                <th>Employee ID</th>
+
+                <th>নাম</th>
+
+                <th>মোবাইল</th>
+
+                <th>পদবি</th>
+
+                <th>ঠিকানা</th>
+
+            </tr>
+
+        </thead>
+
+
+        <tbody>
+
+            ${rows}
+
+        </tbody>
+
+    </table>
+
+
+    <div class="print-footer">
+
+        <span>
+        মাদরাসায়ে নূরুল কুরআন
+        </span>
+
+        <span>
+        কর্তৃপক্ষ
+        </span>
+
+    </div>
+
+    `;
+
+
+    window.print();
 
 }
 
 
-// START
+
+/* =========================================
+   PRINT FILTERED
+========================================= */
+
+document
+.getElementById(
+    "printFilteredBtn"
+)
+.addEventListener(
+    "click",
+    ()=>{
+
+        const q =
+        document.getElementById(
+            "search"
+        ).value.trim();
+
+
+        printEmployees(
+
+            getCurrentFilteredList(),
+
+            q
+            ? "Filtered Employee List"
+            : "Employee List"
+
+        );
+
+    }
+);
+
+
+
+/* =========================================
+   PRINT ALL
+========================================= */
+
+document
+.getElementById(
+    "printAllBtn"
+)
+.addEventListener(
+    "click",
+    ()=>{
+
+        printEmployees(
+            employees,
+            "All Employee List"
+        );
+
+    }
+);
+
+
+
+/* =========================================
+   GET FILTERED LIST
+========================================= */
+
+function getCurrentFilteredList(){
+
+    const q =
+    document.getElementById(
+        "search"
+    )
+    .value
+    .toLowerCase()
+    .trim();
+
+
+    return employees.filter(
+        e=>{
+
+            return (
+
+                String(
+                    e.name || ""
+                )
+                .toLowerCase()
+                .includes(q)
+
+
+                ||
+
+                String(
+                    e.employee_id || ""
+                )
+                .toLowerCase()
+                .includes(q)
+
+
+                ||
+
+                String(
+                    e.phone || ""
+                )
+                .toLowerCase()
+                .includes(q)
+
+
+                ||
+
+                String(
+                    e.designation || ""
+                )
+                .toLowerCase()
+                .includes(q)
+
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =========================================
+   SINGLE EMPLOYEE PRINT
+========================================= */
+
+function printSingleEmployee(id){
+
+    const e =
+    employees.find(
+        x =>
+        String(x.id) ===
+        String(id)
+    );
+
+
+    if(!e)
+        return;
+
+
+    document.getElementById(
+        "printArea"
+    ).innerHTML = `
+
+    <div class="single-employee">
+
+
+        <div class="print-header">
+
+            <h1>
+            মাদরাসায়ে নূরুল কুরআন
+            </h1>
+
+            <p>
+            EMPLOYEE INFORMATION
+            </p>
+
+        </div>
+
+
+        <div class="print-title">
+
+            কর্মচারীর তথ্য
+
+        </div>
+
+
+        <table class="single-info">
+
+
+            <tr>
+
+                <td>
+                Employee ID
+                </td>
+
+                <td>
+                ${escapeHtml(
+                    e.employee_id || "-"
+                )}
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                কর্মচারীর নাম
+                </td>
+
+                <td>
+                ${escapeHtml(
+                    e.name || "-"
+                )}
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                মোবাইল
+                </td>
+
+                <td>
+                ${escapeHtml(
+                    e.phone || "-"
+                )}
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                পদবি
+                </td>
+
+                <td>
+                ${escapeHtml(
+                    e.designation || "-"
+                )}
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                ঠিকানা
+                </td>
+
+                <td>
+                ${escapeHtml(
+                    e.address || "-"
+                )}
+                </td>
+
+            </tr>
+
+
+        </table>
+
+
+        <div class="signature">
+
+            <span>
+            কর্মচারীর স্বাক্ষর:
+            __________________
+            </span>
+
+
+            <span>
+            কর্তৃপক্ষের স্বাক্ষর:
+            __________________
+            </span>
+
+        </div>
+
+
+        <div class="print-footer">
+
+            <span>
+
+            তারিখ:
+            ${new Date()
+            .toLocaleDateString(
+                "bn-BD"
+            )}
+
+            </span>
+
+
+            <span>
+            মাদরাসায়ে নূরুল কুরআন
+            </span>
+
+        </div>
+
+
+    </div>
+
+    `;
+
+
+    window.print();
+
+}
+
+
+
+/* =========================================
+   ESCAPE HTML
+========================================= */
+
+function escapeHtml(value){
+
+    return String(
+        value ?? ""
+    )
+
+    .replaceAll(
+        "&",
+        "&amp;"
+    )
+
+    .replaceAll(
+        "<",
+        "&lt;"
+    )
+
+    .replaceAll(
+        ">",
+        "&gt;"
+    )
+
+    .replaceAll(
+        '"',
+        "&quot;"
+    )
+
+    .replaceAll(
+        "'",
+        "&#039;"
+    );
+
+}
+
+
+
+/* =========================================
+   START
+========================================= */
+
 start();
 
 </script>
