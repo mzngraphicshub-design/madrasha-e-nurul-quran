@@ -1,1265 +1,1712 @@
 <!DOCTYPE html>
 <html lang="bn">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width,initial-scale=1.0">
-
-<title>Results Management</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ফলাফল ব্যবস্থাপনা</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-    font-family:Arial,"Noto Sans Bengali",sans-serif;
-}
-
+*{box-sizing:border-box}
 body{
+    margin:0;
+    font-family:"Noto Sans Bengali","SolaimanLipi",Arial,sans-serif;
     background:#eef5fb;
-    color:#17364f;
+    color:#17324d
 }
-
 .header{
-    background:linear-gradient(90deg,#063b70,#0875d1);
+    background:linear-gradient(90deg,#063b73,#0878d1);
     color:white;
     padding:15px 20px;
     display:flex;
     justify-content:space-between;
-    align-items:center;
+    align-items:center
 }
-
-.header h2{
-    font-size:18px;
-}
-
-.back{
-    color:white;
-    text-decoration:none;
-    background:#ffffff22;
-    padding:8px 13px;
-    border-radius:7px;
-}
-
-.container{
-    max-width:1400px;
-    margin:20px auto;
-    padding:0 14px;
-}
-
-.card{
-    background:white;
-    border-radius:15px;
-    padding:20px;
-    margin-bottom:20px;
-    box-shadow:0 3px 15px #0000000d;
-}
-
-.title{
-    font-size:20px;
-    font-weight:bold;
-    margin-bottom:18px;
-}
-
-.form-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:12px;
-}
-
-label{
-    font-size:13px;
-    font-weight:bold;
-    margin-bottom:6px;
-    display:block;
-}
-
-input,select{
-    width:100%;
-    height:42px;
-    border:1px solid #d6e1eb;
-    border-radius:7px;
-    padding:0 10px;
-    background:white;
-}
-
-button{
+.header h3{margin:0;font-size:18px}
+.btn{
     border:0;
     border-radius:7px;
-    padding:10px 15px;
+    padding:10px 16px;
     cursor:pointer;
+    font-weight:bold
 }
+.btn-primary{background:#0869b9;color:white}
+.btn-success{background:#198754;color:white}
+.btn-danger{background:#dc3545;color:white}
+.btn-dark{background:#17212b;color:white}
+.btn-light{background:#e9f4ff;color:#075c9f}
 
-.primary{
-    background:#0769bc;
-    color:white;
+.container{
+    max-width:1200px;
+    margin:20px auto;
+    padding:0 12px
 }
-
-.success{
-    background:#daf5e3;
-    color:#137a38;
+.card{
+    background:white;
+    border-radius:14px;
+    padding:20px;
+    margin-bottom:18px;
+    box-shadow:0 4px 18px rgba(0,0,0,.07)
 }
-
-.danger{
-    background:#ffe2e2;
-    color:#c62828;
-}
-
-.info{
-    background:#edf7ff;
-    border-left:4px solid #0875d1;
-    padding:12px;
-    line-height:1.7;
+.title{
+    font-size:18px;
+    font-weight:bold;
     margin-bottom:15px;
+    border-bottom:3px solid #e9c84a;
+    display:inline-block;
+    padding-bottom:5px
 }
-
-.message{
-    display:none;
+.notice{
+    background:#eef8ff;
+    border-left:4px solid #0878d1;
     padding:12px;
     border-radius:7px;
     margin-bottom:15px;
+    font-size:14px
+}
+.grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px
+}
+.field label{
+    display:block;
+    font-size:13px;
+    font-weight:bold;
+    margin-bottom:6px
+}
+input,select{
+    width:100%;
+    padding:11px;
+    border:1px solid #d6e1eb;
+    border-radius:7px;
+    background:white;
+    outline:none
+}
+input:focus,select:focus{
+    border-color:#0878d1;
+    box-shadow:0 0 0 2px rgba(8,120,209,.1)
 }
 
-.message.ok{
-    display:block;
-    background:#e5f8eb;
-    color:#147a35;
+.student-box{
+    margin-top:15px;
+    border:1px solid #dce8f2;
+    border-radius:10px;
+    padding:12px;
+    background:#f8fbfe
 }
-
-.message.err{
-    display:block;
-    background:#ffe7e7;
-    color:#c62828;
+.student-list{
+    max-height:260px;
+    overflow:auto;
+    margin-top:10px
 }
+.student-item{
+    background:white;
+    border:1px solid #e2e8ee;
+    border-radius:7px;
+    padding:10px;
+    margin-bottom:7px;
+    cursor:pointer
+}
+.student-item:hover{
+    background:#eaf6ff;
+    border-color:#0878d1
+}
+.student-item strong{color:#075c9f}
 
 .table-wrap{
-    width:100%;
-    overflow:auto;
+    overflow-x:auto
 }
-
 table{
+    width:100%;
     border-collapse:collapse;
-    width:max-content;
-    min-width:100%;
+    min-width:700px
 }
-
 th{
-    background:#0755a0;
+    background:#0759a2;
     color:white;
-    padding:10px;
-    font-size:12px;
-    white-space:nowrap;
-    text-align:center;
-}
-
-td{
-    border-bottom:1px solid #e3e9ef;
-    padding:7px;
-    font-size:12px;
-    text-align:center;
-    white-space:nowrap;
-}
-
-.student-info{
+    padding:11px;
     text-align:left;
-    min-width:180px;
+    font-size:13px
 }
+td{
+    padding:9px;
+    border-bottom:1px solid #e5edf4;
+    font-size:13px
+}
+td input{
+    max-width:120px
+}
+.pass{color:#198754;font-weight:bold}
+.fail{color:#dc3545;font-weight:bold}
 
-.mark-input{
-    width:75px;
-    height:35px;
+.result-box{
+    display:none
+}
+.loading{
     text-align:center;
-    border:1px solid #cbd9e5;
-    border-radius:5px;
+    padding:20px;
+    color:#777
+}
+.error{
+    background:#fff0f0;
+    color:#c62828;
+    padding:12px;
+    border-radius:7px;
+    margin-top:10px
+}
+.success{
+    background:#edfff4;
+    color:#147a3e;
+    padding:12px;
+    border-radius:7px;
+    margin-top:10px
 }
 
-.mark-head{
-    font-size:11px;
-    line-height:1.5;
+.search-public{
+    background:linear-gradient(135deg,#063b73,#0878d1);
+    color:white
+}
+.search-public input{
+    background:white
 }
 
-.pass{
-    background:#e9f9ef;
+.mark-summary{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin:12px 0
+}
+.summary{
+    background:#f4f9fd;
+    padding:10px 14px;
+    border-radius:8px
+}
+.summary b{display:block;font-size:17px}
+
+@media(max-width:800px){
+    .grid{grid-template-columns:1fr}
+    .header h3{font-size:14px}
+    .container{margin:10px auto}
+    .card{padding:14px}
 }
 
-.fail{
-    background:#ffe9e9;
+@media print{
+    .no-print,.header,.search-public,
+    #entryCard,#listCard{display:none!important}
+    body{background:white}
+    .container{max-width:none}
+    .card{box-shadow:none}
 }
-
-.total{
-    font-weight:bold;
-    background:#f1f7fc;
-}
-
-.result-pass{
-    color:#13823c;
-    font-weight:bold;
-}
-
-.result-fail{
-    color:#d21e1e;
-    font-weight:bold;
-}
-
-.save-row{
-    background:#f8fbfe;
-}
-
-.empty{
-    padding:25px;
-    text-align:center;
-    color:#777;
-}
-
-@media(max-width:700px){
-
-    .form-grid{
-        grid-template-columns:1fr;
-    }
-
-    .header h2{
-        font-size:14px;
-    }
-
-    .card{
-        padding:14px;
-    }
-
-    .title{
-        font-size:17px;
-    }
-
-}
-
 </style>
-
 </head>
 
 <body>
 
-<header class="header">
-
-<h2>📊 ফলাফল / Results Management</h2>
-
-<a class="back" href="dashboard.html">
-← Dashboard
-</a>
-
-</header>
-
+<div class="header">
+    <h3>📚 ফলাফল ব্যবস্থাপনা</h3>
+    <button class="btn btn-light no-print" onclick="location.href='dashboard.html'">
+        ← Dashboard
+    </button>
+</div>
 
 <div class="container">
 
+<!-- ================= PUBLIC SEARCH ================= -->
+<div class="card search-public">
+    <div class="title" style="color:white;border-color:#ffd84d">
+        🔎 শিক্ষার্থীর ফলাফল খুঁজুন
+    </div>
 
-<div class="card">
+    <div class="grid">
+        <div class="field">
+            <label>Student ID / Roll</label>
+            <input id="publicSearch"
+                   placeholder="Student ID অথবা Roll লিখুন">
+        </div>
 
-<div class="title">
-📊 ফলাফল যোগ করুন
-</div>
+        <div class="field">
+            <label>Session</label>
+            <select id="publicSession">
+                <option value="">সব Session</option>
+            </select>
+        </div>
 
-<div id="message"
-     class="message"></div>
+        <div class="field" style="display:flex;align-items:end">
+            <button class="btn btn-success"
+                    style="width:100%"
+                    onclick="publicSearchResult()">
+                🔍 ফলাফল দেখুন
+            </button>
+        </div>
+    </div>
 
-
-<div class="info">
-
-<b>ব্যবহার:</b><br>
-
-Session নির্বাচন করুন → Class নির্বাচন করুন →
-Exam Name লিখুন → Load Students চাপুন।
-
-তারপর ঐ Class-এর সকল শিক্ষার্থী এবং
-subjects.html-এ যোগ করা সকল Subject
-automatically দেখাবে।
-
-</div>
-
-
-<div class="form-grid">
-
-
-<div>
-
-<label>Session *</label>
-
-<select id="sessionSelect">
-
-<option value="">
-Session নির্বাচন করুন
-</option>
-
-</select>
-
+    <div id="publicMessage"></div>
 </div>
 
 
-<div>
+<!-- ================= RESULT ENTRY ================= -->
+<div class="card" id="entryCard">
 
-<label>Class *</label>
+    <div class="title">➕ ফলাফল যোগ / Edit</div>
 
-<select id="classSelect">
+    <div class="notice">
+        প্রথমে Session ও Class নির্বাচন করুন। এরপর Student নির্বাচন করুন।
+        নির্বাচিত Class-এর Subjects স্বয়ংক্রিয়ভাবে নিচে আসবে।
+        প্রতিটি Subject-এর শুধু প্রাপ্ত নম্বর লিখে Save Result করুন।
+    </div>
 
-<option value="">
-Class নির্বাচন করুন
-</option>
+    <div class="grid">
 
-<option value="নূরানী">নূরানী</option>
-<option value="১ম শ্রেণি">১ম শ্রেণি</option>
-<option value="২য় শ্রেণি">২য় শ্রেণি</option>
-<option value="৩য় শ্রেণি">৩য় শ্রেণি</option>
-<option value="৪র্থ শ্রেণি">৪র্থ শ্রেণি</option>
-<option value="৫ম শ্রেণি">৫ম শ্রেণি</option>
-<option value="নাজেরা">নাজেরা</option>
-<option value="হিফজ">হিফজ</option>
+        <div class="field">
+            <label>Session *</label>
+            <select id="sessionSelect">
+                <option value="">Session নির্বাচন করুন</option>
+            </select>
+        </div>
 
-</select>
+        <div class="field">
+            <label>Class *</label>
+            <select id="classSelect">
+                <option value="">Class নির্বাচন করুন</option>
+                <option value="নূরানী">নূরানী</option>
+                <option value="১ম শ্রেণি">১ম শ্রেণি</option>
+                <option value="২য় শ্রেণি">২য় শ্রেণি</option>
+                <option value="৩য় শ্রেণি">৩য় শ্রেণি</option>
+                <option value="৪র্থ শ্রেণি">৪র্থ শ্রেণি</option>
+                <option value="৫ম শ্রেণি">৫ম শ্রেণি</option>
+                <option value="নাজেরা">নাজেরা</option>
+                <option value="হিফজ">হিফজ</option>
+            </select>
+        </div>
+
+        <div class="field">
+            <label>Exam Name *</label>
+            <input id="examName"
+                   placeholder="যেমন: Half Yearly Exam 2026">
+        </div>
+
+    </div>
+
+    <div class="student-box">
+
+        <div class="grid">
+
+            <div class="field">
+                <label>Student ID / Roll দিয়ে খুঁজুন</label>
+                <input id="studentSearch"
+                       placeholder="ID অথবা Roll লিখুন">
+            </div>
+
+            <div class="field">
+                <label>Selected Student</label>
+                <input id="selectedStudentDisplay"
+                       readonly
+                       placeholder="Student নির্বাচন করুন">
+            </div>
+
+        </div>
+
+        <input type="hidden" id="selectedStudentId">
+
+        <div id="studentList" class="student-list"></div>
+
+    </div>
+
+
+    <!-- SUBJECT MARKS -->
+    <div id="subjectArea" style="margin-top:18px">
+        <div class="loading">
+            Student এবং Class নির্বাচন করুন।
+        </div>
+    </div>
+
+    <div id="saveMessage"></div>
 
 </div>
 
 
-<div>
+<!-- ================= SAVED RESULTS ================= -->
+<div class="card" id="listCard">
 
-<label>Exam Name *</label>
+    <div class="title">📋 সংরক্ষিত ফলাফল</div>
 
-<input
-id="examName"
-placeholder="যেমন: Half Yearly Examination"
->
+    <div class="grid no-print">
 
-</div>
+        <div class="field">
+            <label>Student ID / Roll</label>
+            <input id="savedSearch"
+                   placeholder="ID অথবা Roll">
+        </div>
 
+        <div class="field">
+            <label>Exam</label>
+            <input id="savedExam"
+                   placeholder="Exam Name">
+        </div>
 
-<div style="display:flex;align-items:end">
+        <div class="field" style="display:flex;align-items:end">
+            <button class="btn btn-primary"
+                    style="width:100%"
+                    onclick="loadSavedResults()">
+                🔄 Load Results
+            </button>
+        </div>
 
-<button
-class="primary"
-id="loadBtn"
-style="width:100%">
-🔎 Load Students
-</button>
+    </div>
 
-</div>
-
-
-</div>
-
-</div>
-
-
-
-<div class="card"
-     id="resultCard"
-     style="display:none">
-
-
-<div class="title">
-📝 শিক্ষার্থীদের নম্বর
-</div>
-
-
-<div class="table-wrap">
-
-<table>
-
-<thead id="tableHead"></thead>
-
-<tbody id="resultBody"></tbody>
-
-</table>
+    <div id="savedResults">
+        <div class="loading">কোনো ফলাফল লোড করা হয়নি।</div>
+    </div>
 
 </div>
-
-</div>
-
 
 </div>
 
 
 <script>
 
-
-/* =========================================
+/* =====================================================
    SUPABASE CONFIG
-========================================= */
+===================================================== */
 
 const SUPABASE_URL =
-"YOUR_SUPABASE_URL";
+"https://qavublwhqiqsgpcmfyft.supabase.co";
 
-const SUPABASE_ANON_KEY =
-"YOUR_SUPABASE_ANON_KEY";
+const SUPABASE_KEY =
+"sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
 
-
-const db =
-window.supabase.createClient(
+const db = window.supabase.createClient(
     SUPABASE_URL,
-    SUPABASE_ANON_KEY
+    SUPABASE_KEY
 );
 
 
+/* =====================================================
+   GLOBAL
+===================================================== */
 
-/* =========================================
-   VARIABLES
-========================================= */
-
+let sessions = [];
 let students = [];
 let subjects = [];
-let existingResults = [];
-
-let selectedSession = "";
-let selectedClass = "";
-let selectedExam = "";
+let selectedStudent = null;
 
 
+/* =====================================================
+   INIT
+===================================================== */
 
-const sessionSelect =
-document.getElementById("sessionSelect");
+document.addEventListener("DOMContentLoaded", async () => {
 
-const classSelect =
-document.getElementById("classSelect");
+    await loadSessions();
 
-const examName =
-document.getElementById("examName");
+    document.getElementById("sessionSelect")
+        .addEventListener("change", async () => {
+            selectedStudent = null;
+            document.getElementById("selectedStudentId").value = "";
+            document.getElementById("selectedStudentDisplay").value = "";
+            document.getElementById("studentList").innerHTML = "";
+            document.getElementById("subjectArea").innerHTML =
+                '<div class="loading">Student নির্বাচন করুন।</div>';
+        });
 
-const resultCard =
-document.getElementById("resultCard");
+    document.getElementById("classSelect")
+        .addEventListener("change", async () => {
 
-const tableHead =
-document.getElementById("tableHead");
+            selectedStudent = null;
 
-const resultBody =
-document.getElementById("resultBody");
+            document.getElementById("selectedStudentId").value = "";
+            document.getElementById("selectedStudentDisplay").value = "";
 
-const message =
-document.getElementById("message");
+            await loadStudents();
+            renderStudents();
 
+            document.getElementById("subjectArea").innerHTML =
+                '<div class="loading">Student নির্বাচন করুন।</div>';
+        });
 
+    document.getElementById("studentSearch")
+        .addEventListener("input", renderStudents);
 
-/* =========================================
-   MESSAGE
-========================================= */
-
-function showMessage(text,type){
-
-    message.textContent = text;
-
-    message.className =
-        "message " +
-        (type === "ok" ? "ok" : "err");
-
-}
+});
 
 
-
-/* =========================================
-   LOAD SESSION FROM STUDENTS
-========================================= */
+/* =====================================================
+   SESSION
+===================================================== */
 
 async function loadSessions(){
 
-    const {data,error} =
-        await db
-        .from("students")
-        .select("session");
+    const {data,error} = await db
+        .from("sessions")
+        .select("*")
+        .order("year",{ascending:false});
 
     if(error){
 
         console.error(error);
 
-        showMessage(
-            "Session load error: " + error.message,
-            "err"
-        );
+        /*
+          fallback:
+          যদি sessions table-এ year column না থাকে,
+          তাহলে id দিয়ে try করবে
+        */
 
+        const fallback = await db
+            .from("sessions")
+            .select("*")
+            .order("id",{ascending:false});
+
+        if(!fallback.error){
+            sessions = fallback.data || [];
+        }
+
+    }else{
+        sessions = data || [];
+    }
+
+    const adminSelect =
+        document.getElementById("sessionSelect");
+
+    const publicSelect =
+        document.getElementById("publicSession");
+
+    sessions.forEach(s => {
+
+        const value =
+            s.id ??
+            s.year ??
+            s.session ??
+            s.session_name;
+
+        const label =
+            s.year ??
+            s.session ??
+            s.session_name ??
+            s.name ??
+            value;
+
+        adminSelect.innerHTML +=
+            `<option value="${escapeHtml(value)}">
+                ${escapeHtml(label)}
+             </option>`;
+
+        publicSelect.innerHTML +=
+            `<option value="${escapeHtml(value)}">
+                ${escapeHtml(label)}
+             </option>`;
+    });
+}
+
+
+/* =====================================================
+   STUDENTS
+===================================================== */
+
+async function loadStudents(){
+
+    const className =
+        document.getElementById("classSelect").value;
+
+    const sessionValue =
+        document.getElementById("sessionSelect").value;
+
+    if(!className) return;
+
+    let query = db
+        .from("students")
+        .select("*");
+
+    /*
+      Class filter
+    */
+    query = query.eq("class_name",className);
+
+    const {data,error} = await query;
+
+    if(error){
+
+        console.error(error);
+
+        document.getElementById("studentList").innerHTML =
+            `<div class="error">
+                Student load error: ${escapeHtml(error.message)}
+             </div>`;
+
+        students = [];
         return;
     }
 
+    students = data || [];
 
-    const sessions =
-        [...new Set(
-            (data || [])
-            .map(x => x.session)
-            .filter(Boolean)
-        )]
-        .sort()
-        .reverse();
+    /*
+      Session filtering client side.
+      কারণ আপনার students table-এ session field-এর নাম
+      বিভিন্ন schema-তে আলাদা হতে পারে।
+    */
 
+    if(sessionValue){
 
-    sessionSelect.innerHTML =
-        `<option value="">
-        Session নির্বাচন করুন
-        </option>`;
+        students = students.filter(s => {
 
+            const sid =
+                String(
+                    s.session_id ??
+                    s.session ??
+                    s.session_name ??
+                    s.year ??
+                    ""
+                );
 
-    sessions.forEach(s=>{
+            const selectedSession =
+                String(sessionValue);
 
-        const option =
-            document.createElement("option");
+            const selectedSessionObj =
+                sessions.find(x =>
+                    String(x.id) === selectedSession
+                );
 
-        option.value = s;
-        option.textContent = s;
+            const sessionYear =
+                selectedSessionObj
+                ? String(
+                    selectedSessionObj.year ??
+                    selectedSessionObj.session ??
+                    selectedSessionObj.session_name ??
+                    ""
+                  )
+                : selectedSession;
 
-        sessionSelect.appendChild(option);
+            return sid === selectedSession ||
+                   sid === sessionYear;
+        });
 
-    });
+    }
 
 }
 
 
+/* =====================================================
+   RENDER STUDENTS
+===================================================== */
 
-/* =========================================
-   LOAD STUDENTS + SUBJECTS
-========================================= */
+function renderStudents(){
 
-document.getElementById("loadBtn")
-.addEventListener("click",loadData);
+    const box =
+        document.getElementById("studentList");
 
-
-async function loadData(){
-
-    selectedSession =
-        sessionSelect.value;
-
-    selectedClass =
-        classSelect.value;
-
-    selectedExam =
-        examName.value.trim();
-
-
-    if(
-        !selectedSession ||
-        !selectedClass ||
-        !selectedExam
-    ){
-
-        showMessage(
-            "Session, Class এবং Exam Name দিন।",
-            "err"
-        );
-
-        return;
-    }
-
-
-    showMessage(
-        "Loading...",
-        "ok"
-    );
-
-
-    /* =========================
-       STUDENTS
-    ========================= */
-
-    const studentResult =
-        await db
-        .from("students")
-        .select(`
-            id,
-            name,
-            roll,
-            student_id,
-            class,
-            session
-        `)
-        .eq("class",selectedClass)
-        .eq("session",selectedSession)
-        .order("roll");
-
-
-    if(studentResult.error){
-
-        console.error(studentResult.error);
-
-        showMessage(
-            "Student load error: " +
-            studentResult.error.message,
-            "err"
-        );
-
-        return;
-    }
-
-
-    students =
-        studentResult.data || [];
-
-
-    /* =========================
-       SUBJECTS
-    ========================= */
-
-    const subjectResult =
-        await db
-        .from("subjects")
-        .select(`
-            id,
-            class_name,
-            subject_name,
-            subject_code,
-            full_mark,
-            pass_mark
-        `)
-        .eq("class_name",selectedClass)
-        .order("subject_name");
-
-
-    if(subjectResult.error){
-
-        console.error(subjectResult.error);
-
-        showMessage(
-            "Subject load error: " +
-            subjectResult.error.message,
-            "err"
-        );
-
-        return;
-    }
-
-
-    subjects =
-        subjectResult.data || [];
-
-
-    if(!subjects.length){
-
-        resultCard.style.display =
-            "block";
-
-        tableHead.innerHTML = "";
-
-        resultBody.innerHTML = `
-
-        <tr>
-        <td class="empty">
-
-        ❌ এই Class-এর জন্য কোনো Subject নেই।<br><br>
-
-        আগে <b>subjects.html</b> থেকে
-        Subject যোগ করুন।
-
-        </td>
-        </tr>
-
-        `;
-
-        return;
-    }
-
+    const search =
+        document.getElementById("studentSearch")
+        .value
+        .trim()
+        .toLowerCase();
 
     if(!students.length){
 
-        resultCard.style.display =
-            "block";
-
-        tableHead.innerHTML = "";
-
-        resultBody.innerHTML = `
-
-        <tr>
-        <td class="empty">
-
-        ❌ এই Session এবং Class-এর
-        কোনো শিক্ষার্থী পাওয়া যায়নি।
-
-        </td>
-        </tr>
-
-        `;
+        box.innerHTML =
+            `<div class="loading">
+                কোনো Student পাওয়া যায়নি।
+             </div>`;
 
         return;
     }
 
+    const filtered =
+        students.filter(s => {
 
-    /* =========================
-       EXISTING RESULTS
-    ========================= */
+            const id =
+                String(
+                    s.student_id ??
+                    s.id ??
+                    ""
+                ).toLowerCase();
 
-    const resultQuery =
-        await db
-        .from("results")
-        .select(`
-            id,
-            student_id,
-            subject_id,
-            exam_name,
-            marks
-        `)
-        .eq("exam_name",selectedExam)
-        .in(
-            "student_id",
-            students.map(s=>s.student_id)
-        );
+            const roll =
+                String(
+                    s.roll_no ??
+                    s.roll ??
+                    ""
+                ).toLowerCase();
 
+            const name =
+                String(
+                    s.name ??
+                    s.student_name ??
+                    ""
+                ).toLowerCase();
 
-    if(resultQuery.error){
+            return !search ||
+                   id.includes(search) ||
+                   roll.includes(search) ||
+                   name.includes(search);
+        });
 
-        console.error(resultQuery.error);
+    if(!filtered.length){
 
-        showMessage(
-            "Existing result load error: " +
-            resultQuery.error.message,
-            "err"
-        );
+        box.innerHTML =
+            `<div class="loading">
+                Student পাওয়া যায়নি।
+             </div>`;
 
         return;
     }
 
-
-    existingResults =
-        resultQuery.data || [];
-
-
-    renderTable();
-
-
-    showMessage(
-        students.length +
-        " জন শিক্ষার্থী এবং " +
-        subjects.length +
-        " টি Subject পাওয়া গেছে।",
-        "ok"
-    );
-
-}
-
-
-
-/* =========================================
-   RENDER RESULT TABLE
-========================================= */
-
-function renderTable(){
-
-
-    /* =========================
-       HEADER
-    ========================= */
-
-    let head = `
-
-    <tr>
-
-    <th>
-    #
-    </th>
-
-    <th>
-    Student ID
-    </th>
-
-    <th>
-    Roll
-    </th>
-
-    <th class="student-info">
-    শিক্ষার্থীর নাম
-    </th>
-
-    `;
-
-
-    subjects.forEach(subject=>{
-
-        head += `
-
-        <th>
-
-        <div class="mark-head">
-
-        ${escapeHtml(subject.subject_name)}
-
-        <br>
-
-        Full:
-        ${subject.full_mark ?? 100}
-
-        |
-
-        Pass:
-        ${subject.pass_mark ?? 33}
-
-        </div>
-
-        </th>
-
-        `;
-
-    });
-
-
-    head += `
-
-    <th>
-    Total
-    </th>
-
-    <th>
-    Result
-    </th>
-
-    <th>
-    Save
-    </th>
-
-    </tr>
-
-    `;
-
-
-    tableHead.innerHTML = head;
-
-
-
-    /* =========================
-       BODY
-    ========================= */
-
-    resultBody.innerHTML =
-        students.map((student,index)=>{
-
-            let total = 0;
-
-            let allPass = true;
-
-
-            let cells = "";
-
-
-            subjects.forEach(subject=>{
-
-
-                const old =
-                    existingResults.find(r=>
-
-                        String(r.student_id)
-                        === String(student.student_id)
-
-                        &&
-
-                        String(r.subject_id)
-                        === String(subject.id)
-
-                    );
-
-
-                const marks =
-                    old?.marks ?? "";
-
-
-                if(
-                    marks !== "" &&
-                    !isNaN(Number(marks))
-                ){
-
-                    total +=
-                        Number(marks);
-
-                    if(
-                        Number(marks) <
-                        Number(subject.pass_mark ?? 33)
-                    ){
-
-                        allPass = false;
-
-                    }
-
-                }
-
-
-                cells += `
-
-                <td>
-
-                <input
-
-                class="mark-input"
-
-                type="number"
-
-                min="0"
-
-                max="${subject.full_mark ?? 100}"
-
-                value="${marks}"
-
-                data-student="${escapeAttr(student.student_id)}"
-
-                data-subject="${subject.id}"
-
-                data-full="${subject.full_mark ?? 100}"
-
-                data-pass="${subject.pass_mark ?? 33}"
-
-                oninput="calculateRow(this)"
-
-                >
-
-                </td>
-
-                `;
-
-            });
-
+    box.innerHTML =
+        filtered.map(s => {
+
+            const id =
+                s.student_id ??
+                s.id ??
+                "";
+
+            const roll =
+                s.roll_no ??
+                s.roll ??
+                "-";
+
+            const name =
+                s.name ??
+                s.student_name ??
+                "নাম নেই";
 
             return `
+            <div class="student-item"
+                 onclick='selectStudent(${JSON.stringify(s).replace(/'/g,"&#39;")})'>
 
-            <tr id="row-${index}">
+                <strong>${escapeHtml(name)}</strong><br>
 
-            <td>${index+1}</td>
+                Student ID:
+                ${escapeHtml(id)}
 
-            <td>
-            ${escapeHtml(student.student_id)}
-            </td>
+                &nbsp; | &nbsp;
 
-            <td>
-            ${escapeHtml(student.roll ?? "-")}
-            </td>
-
-            <td class="student-info">
-            <b>${escapeHtml(student.name)}</b>
-            </td>
-
-            ${cells}
-
-            <td
-            class="total"
-            id="total-${index}">
-            ${total}
-            </td>
-
-            <td
-            id="status-${index}"
-            class="${allPass
-                ? "result-pass"
-                : "result-fail"}">
-
-            ${allPass ? "PASS" : "FAIL"}
-
-            </td>
-
-            <td>
-
-            <button
-            class="primary"
-            onclick="saveStudentResult(${index})">
-
-            💾 Save
-
-            </button>
-
-            </td>
-
-            </tr>
-
+                Roll:
+                ${escapeHtml(roll)}
+            </div>
             `;
-
-        })
-        .join("");
-
-
-    resultCard.style.display =
-        "block";
+        }).join("");
+}
 
 
-    /* Calculate every row */
-    students.forEach((_,i)=>{
+/* =====================================================
+   SELECT STUDENT
+===================================================== */
 
-        const input =
-            document.querySelector(
-                `#row-${i} .mark-input`
-            );
+async function selectStudent(student){
 
-        if(input)
-            calculateRow(input);
+    selectedStudent = student;
 
-    });
+    const id =
+        student.student_id ??
+        student.id ??
+        "";
+
+    const roll =
+        student.roll_no ??
+        student.roll ??
+        "-";
+
+    const name =
+        student.name ??
+        student.student_name ??
+        "নাম নেই";
+
+    document.getElementById("selectedStudentId")
+        .value = id;
+
+    document.getElementById("selectedStudentDisplay")
+        .value =
+        `${name} | ID: ${id} | Roll: ${roll}`;
+
+    await loadSubjectsAndMarks();
 
 }
 
 
+/* =====================================================
+   SUBJECTS + EXISTING MARKS
+===================================================== */
 
-/* =========================================
-   CALCULATE ROW
-========================================= */
+async function loadSubjectsAndMarks(){
 
-window.calculateRow =
-function(input){
+    const className =
+        document.getElementById("classSelect").value;
 
-    const row =
-        input.closest("tr");
+    const examName =
+        document.getElementById("examName").value.trim();
 
-    if(!row) return;
+    if(!className){
 
+        document.getElementById("subjectArea").innerHTML =
+            '<div class="loading">Class নির্বাচন করুন।</div>';
 
-    const inputs =
-        row.querySelectorAll(
-            ".mark-input"
-        );
+        return;
+    }
 
+    const {data,error} =
+        await db
+        .from("subjects")
+        .select("*")
+        .eq("class_name",className)
+        .order("subject_name",{ascending:true});
 
-    let total = 0;
+    if(error){
 
-    let allPass = true;
+        document.getElementById("subjectArea").innerHTML =
+            `<div class="error">
+                Subject load error:
+                ${escapeHtml(error.message)}
+             </div>`;
 
-    let entered = 0;
+        return;
+    }
 
+    subjects = data || [];
 
-    inputs.forEach(i=>{
+    if(!subjects.length){
 
-        const value =
-            i.value.trim();
+        document.getElementById("subjectArea").innerHTML =
+            `<div class="error">
+                এই Class-এর কোনো Subject এখনো যোগ করা হয়নি।
+             </div>`;
 
-        if(value !== ""){
-
-            entered++;
-
-            const mark =
-                Number(value);
-
-            const full =
-                Number(i.dataset.full);
-
-            const pass =
-                Number(i.dataset.pass);
-
-
-            if(mark < 0 || mark > full){
-
-                i.style.border =
-                    "2px solid #e53935";
-
-            }else{
-
-                i.style.border =
-                    "1px solid #cbd9e5";
-
-            }
+        return;
+    }
 
 
-            total += mark;
+    /*
+      Existing marks load
+    */
 
+    let existing = [];
 
-            if(mark < pass){
+    if(selectedStudent){
 
-                allPass = false;
+        const studentId =
+            selectedStudent.student_id ??
+            selectedStudent.id;
 
-                i.classList.add("fail");
+        let q =
+            db
+            .from("results")
+            .select("*")
+            .eq("student_id",String(studentId));
 
-            }else{
-
-                i.classList.remove("fail");
-
-            }
-
+        if(examName){
+            q = q.eq("exam_name",examName);
         }
 
+        const result =
+            await q;
+
+        if(!result.error){
+            existing = result.data || [];
+        }
+    }
+
+
+    renderSubjectTable(existing);
+
+}
+
+
+/* =====================================================
+   SUBJECT TABLE
+===================================================== */
+
+function renderSubjectTable(existing){
+
+    let html = `
+
+    <div class="title">
+        📝 Subject-wise Mark Entry
+    </div>
+
+    <div class="table-wrap">
+
+    <table>
+
+    <thead>
+        <tr>
+            <th>Subject</th>
+            <th>Code</th>
+            <th>Full Mark</th>
+            <th>Pass Mark</th>
+            <th>Obtained Mark</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    `;
+
+
+    subjects.forEach(subject => {
+
+        const old =
+            existing.find(r =>
+                String(r.subject_id) ===
+                String(subject.id)
+            );
+
+        const full =
+            Number(subject.full_mark ?? 100);
+
+        const pass =
+            Number(subject.pass_mark ?? 33);
+
+        const marks =
+            old?.marks ?? "";
+
+        html += `
+
+        <tr>
+
+            <td>
+                <b>${escapeHtml(subject.subject_name)}</b>
+            </td>
+
+            <td>
+                ${escapeHtml(subject.subject_code ?? "-")}
+            </td>
+
+            <td>${full}</td>
+
+            <td>${pass}</td>
+
+            <td>
+
+                <input
+                    type="number"
+                    min="0"
+                    max="${full}"
+                    step="0.01"
+                    class="mark-input"
+                    data-subject-id="${subject.id}"
+                    data-full="${full}"
+                    data-pass="${pass}"
+                    value="${marks}"
+                    placeholder="প্রাপ্ত নম্বর">
+
+            </td>
+
+        </tr>
+        `;
     });
 
 
-    const totalCell =
-        row.querySelector(".total");
+    html += `
+    </tbody>
+    </table>
+    </div>
 
-    const statusCell =
-        row.querySelector(
-            "td:nth-last-child(2)"
+    <div style="margin-top:15px">
+
+        <button
+            class="btn btn-success"
+            onclick="saveResults()">
+
+            💾 Save Result
+
+        </button>
+
+        <button
+            class="btn btn-light"
+            onclick="loadSubjectsAndMarks()">
+
+            🔄 Refresh
+
+        </button>
+
+    </div>
+    `;
+
+    document.getElementById("subjectArea").innerHTML =
+        html;
+
+}
+
+
+/* =====================================================
+   SAVE RESULTS
+===================================================== */
+
+async function saveResults(){
+
+    if(!selectedStudent){
+
+        showSaveMessage(
+            "আগে একজন Student নির্বাচন করুন।",
+            "error"
         );
 
-
-    if(totalCell)
-        totalCell.textContent =
-            total;
-
-
-    if(statusCell){
-
-        statusCell.textContent =
-            entered === 0
-            ? "-"
-            : allPass
-                ? "PASS"
-                : "FAIL";
-
-        statusCell.className =
-            entered === 0
-            ? ""
-            : allPass
-                ? "result-pass"
-                : "result-fail";
-
+        return;
     }
 
-};
+    const examName =
+        document.getElementById("examName")
+        .value
+        .trim();
+
+    if(!examName){
+
+        showSaveMessage(
+            "Exam Name দিন।",
+            "error"
+        );
+
+        return;
+    }
 
 
-
-/* =========================================
-   SAVE ONE STUDENT
-========================================= */
-
-window.saveStudentResult =
-async function(index){
-
-    const student =
-        students[index];
-
-
-    const row =
-        document.getElementById(
-            "row-" + index
+    const studentId =
+        String(
+            selectedStudent.student_id ??
+            selectedStudent.id
         );
 
 
     const inputs =
-        row.querySelectorAll(
-            ".mark-input"
+        document.querySelectorAll(".mark-input");
+
+    if(!inputs.length){
+
+        showSaveMessage(
+            "কোনো Subject পাওয়া যায়নি।",
+            "error"
         );
+
+        return;
+    }
 
 
     const rows = [];
 
-
     for(const input of inputs){
 
-        const value =
-            input.value.trim();
-
-
-        if(value === "")
-            continue;
-
-
-        const marks =
-            Number(value);
-
+        const subjectId =
+            input.dataset.subjectId;
 
         const full =
             Number(input.dataset.full);
 
+        const value =
+            input.value.trim();
+
+        if(value === ""){
+            continue;
+        }
+
+        const marks =
+            Number(value);
 
         if(
-            isNaN(marks) ||
+            Number.isNaN(marks) ||
             marks < 0 ||
             marks > full
         ){
 
-            showMessage(
-                `${student.name}-এর নম্বর সঠিক নয়।`,
-                "err"
+            showSaveMessage(
+                `Full Mark ${full}-এর বেশি দেওয়া যাবে না।`,
+                "error"
             );
 
+            input.focus();
             return;
         }
 
-
         rows.push({
-
-            student_id:
-                student.student_id,
-
-            subject_id:
-                Number(input.dataset.subject),
-
-            exam_name:
-                selectedExam,
-
-            marks:
-                marks
-
+            student_id:studentId,
+            subject_id:Number(subjectId),
+            exam_name:examName,
+            marks:marks
         });
-
     }
 
 
     if(!rows.length){
 
-        showMessage(
-            student.name +
-            "-এর কোনো নম্বর দেওয়া হয়নি।",
-            "err"
+        showSaveMessage(
+            "কমপক্ষে একটি Subject-এর নম্বর দিন।",
+            "error"
         );
 
         return;
     }
 
 
-    /* =========================
-       DELETE OLD RESULTS
-    ========================= */
+    /*
+      Existing same student + same exam
+      delete করে নতুন marks insert করা হচ্ছে।
 
-    const deleteResult =
+      এতে Edit করা সহজ হয়।
+    */
+
+    const {error:deleteError} =
         await db
         .from("results")
         .delete()
-        .eq(
-            "student_id",
-            student.student_id
-        )
-        .eq(
-            "exam_name",
-            selectedExam
+        .eq("student_id",studentId)
+        .eq("exam_name",examName);
+
+
+    if(deleteError){
+
+        showSaveMessage(
+            "পুরোনো Result update করা যায়নি: "+
+            deleteError.message,
+            "error"
         );
 
-
-    if(deleteResult.error){
-
-        console.error(deleteResult.error);
-
-        showMessage(
-            "Old result delete error: " +
-            deleteResult.error.message,
-            "err"
-        );
-
+        console.error(deleteError);
         return;
     }
 
 
-    /* =========================
-       INSERT NEW RESULTS
-    ========================= */
-
-    const insertResult =
+    const {error:insertError} =
         await db
         .from("results")
         .insert(rows);
 
 
-    if(insertResult.error){
+    if(insertError){
 
-        console.error(insertResult.error);
-
-        showMessage(
-            "❌ Result save error: " +
-            insertResult.error.message,
-            "err"
+        showSaveMessage(
+            "Result Save হয়নি: "+
+            insertError.message,
+            "error"
         );
+
+        console.error(insertError);
+        return;
+    }
+
+
+    showSaveMessage(
+        "✅ Result সফলভাবে Save হয়েছে।",
+        "success"
+    );
+
+    await loadSubjectsAndMarks();
+
+}
+
+
+/* =====================================================
+   PUBLIC RESULT SEARCH
+===================================================== */
+
+async function publicSearchResult(){
+
+    const search =
+        document.getElementById("publicSearch")
+        .value
+        .trim();
+
+    const session =
+        document.getElementById("publicSession")
+        .value;
+
+    const msg =
+        document.getElementById("publicMessage");
+
+    if(!search){
+
+        msg.innerHTML =
+            `<div class="error">
+                Student ID অথবা Roll দিন।
+             </div>`;
 
         return;
     }
 
 
-    showMessage(
-        "✅ " +
-        student.name +
-        "-এর ফলাফল সফলভাবে Save হয়েছে।",
-        "ok"
-    );
-
-};
+    msg.innerHTML =
+        `<div style="margin-top:12px">
+            🔄 Result খোঁজা হচ্ছে...
+         </div>`;
 
 
+    /*
+      Student search
+    */
 
-/* =========================================
-   ESCAPE
-========================================= */
+    const {data:studentData,error:studentError} =
+        await db
+        .from("students")
+        .select("*")
+        .or(
+            `student_id.eq.${safeFilter(search)},roll_no.eq.${safeFilter(search)}`
+        );
+
+
+    if(studentError){
+
+        msg.innerHTML =
+            `<div class="error">
+                Student search error:
+                ${escapeHtml(studentError.message)}
+             </div>`;
+
+        return;
+    }
+
+
+    let matchedStudents = studentData || [];
+
+
+    /*
+      Session filter
+    */
+
+    if(session){
+
+        const selected =
+            sessions.find(
+                s => String(s.id) === String(session)
+            );
+
+        const year =
+            selected?.year ??
+            selected?.session ??
+            selected?.session_name ??
+            session;
+
+        matchedStudents =
+            matchedStudents.filter(s => {
+
+                const sv =
+                    String(
+                        s.session_id ??
+                        s.session ??
+                        s.session_name ??
+                        s.year ??
+                        ""
+                    );
+
+                return sv === String(session) ||
+                       sv === String(year);
+            });
+    }
+
+
+    if(!matchedStudents.length){
+
+        msg.innerHTML =
+            `<div class="error">
+                ❌ এই ID / Roll-এর কোনো Student পাওয়া যায়নি।
+             </div>`;
+
+        return;
+    }
+
+
+    const student =
+        matchedStudents[0];
+
+    const studentId =
+        String(
+            student.student_id ??
+            student.id
+        );
+
+
+    /*
+      Results
+    */
+
+    const {data:resultData,error:resultError} =
+        await db
+        .from("results")
+        .select("*")
+        .eq("student_id",studentId)
+        .order("exam_name");
+
+
+    if(resultError){
+
+        msg.innerHTML =
+            `<div class="error">
+                Result search error:
+                ${escapeHtml(resultError.message)}
+             </div>`;
+
+        return;
+    }
+
+
+    if(!resultData?.length){
+
+        msg.innerHTML =
+            `<div class="error">
+                এই Student-এর কোনো Result পাওয়া যায়নি।
+             </div>`;
+
+        return;
+    }
+
+
+    /*
+      Subject list
+    */
+
+    const subjectIds =
+        [...new Set(
+            resultData.map(r => r.subject_id)
+        )];
+
+
+    const {data:subjectData} =
+        await db
+        .from("subjects")
+        .select("*")
+        .in("id",subjectIds);
+
+
+    const subjectMap = {};
+
+    (subjectData || []).forEach(s => {
+        subjectMap[String(s.id)] = s;
+    });
+
+
+    /*
+      Exam-wise grouping
+    */
+
+    const exams = {};
+
+    resultData.forEach(r => {
+
+        const exam =
+            r.exam_name || "Exam";
+
+        if(!exams[exam]){
+            exams[exam] = [];
+        }
+
+        exams[exam].push(r);
+    });
+
+
+    let output = `
+
+    <div class="card" style="margin-top:15px">
+
+        <div class="title">
+            📄 শিক্ষার্থীর ফলাফল
+        </div>
+
+        <div class="mark-summary">
+
+            <div class="summary">
+                <small>নাম</small>
+                <b>${escapeHtml(
+                    student.name ??
+                    student.student_name ??
+                    "-"
+                )}</b>
+            </div>
+
+            <div class="summary">
+                <small>Student ID</small>
+                <b>${escapeHtml(studentId)}</b>
+            </div>
+
+            <div class="summary">
+                <small>Roll</small>
+                <b>${escapeHtml(
+                    student.roll_no ??
+                    student.roll ??
+                    "-"
+                )}</b>
+            </div>
+
+            <div class="summary">
+                <small>Class</small>
+                <b>${escapeHtml(
+                    student.class_name ??
+                    "-"
+                )}</b>
+            </div>
+
+        </div>
+    `;
+
+
+    Object.keys(exams).forEach(exam => {
+
+        const rows = exams[exam];
+
+        let totalObtained = 0;
+        let totalFull = 0;
+
+        rows.forEach(r => {
+
+            const s =
+                subjectMap[String(r.subject_id)];
+
+            totalObtained +=
+                Number(r.marks || 0);
+
+            totalFull +=
+                Number(s?.full_mark || 100);
+        });
+
+
+        const percentage =
+            totalFull
+            ? ((totalObtained / totalFull)*100)
+                .toFixed(2)
+            : "0";
+
+
+        output += `
+
+        <h3 style="margin-top:20px">
+            📝 ${escapeHtml(exam)}
+        </h3>
+
+        <div class="table-wrap">
+
+        <table>
+
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>Full Mark</th>
+                <th>Pass Mark</th>
+                <th>Obtained</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        `;
+
+
+        rows.forEach(r => {
+
+            const s =
+                subjectMap[String(r.subject_id)] || {};
+
+            const full =
+                Number(s.full_mark || 100);
+
+            const pass =
+                Number(s.pass_mark || 33);
+
+            const marks =
+                Number(r.marks || 0);
+
+            const passed =
+                marks >= pass;
+
+            output += `
+
+            <tr>
+
+                <td>
+                    ${escapeHtml(
+                        s.subject_name || "-"
+                    )}
+                </td>
+
+                <td>${full}</td>
+
+                <td>${pass}</td>
+
+                <td><b>${marks}</b></td>
+
+                <td class="${passed?'pass':'fail'}">
+                    ${passed?'PASS':'FAIL'}
+                </td>
+
+            </tr>
+            `;
+        });
+
+
+        output += `
+
+        </tbody>
+        </table>
+
+        </div>
+
+        <div class="mark-summary">
+
+            <div class="summary">
+                <small>Total</small>
+                <b>
+                    ${totalObtained} / ${totalFull}
+                </b>
+            </div>
+
+            <div class="summary">
+                <small>Percentage</small>
+                <b>${percentage}%</b>
+            </div>
+
+        </div>
+
+        `;
+    });
+
+
+    output += `
+
+        <button
+            class="btn btn-dark no-print"
+            onclick="window.print()">
+            🖨 Print Result
+        </button>
+
+    </div>
+    `;
+
+
+    msg.innerHTML = output;
+
+}
+
+
+/* =====================================================
+   SAVED RESULTS ADMIN
+===================================================== */
+
+async function loadSavedResults(){
+
+    const search =
+        document.getElementById("savedSearch")
+        .value.trim();
+
+    const exam =
+        document.getElementById("savedExam")
+        .value.trim();
+
+    if(!search){
+
+        document.getElementById("savedResults").innerHTML =
+            `<div class="error">
+                Student ID অথবা Roll দিন।
+             </div>`;
+
+        return;
+    }
+
+
+    const {data:studentsFound,error} =
+        await db
+        .from("students")
+        .select("*")
+        .or(
+            `student_id.eq.${safeFilter(search)},roll_no.eq.${safeFilter(search)}`
+        );
+
+
+    if(error){
+
+        document.getElementById("savedResults").innerHTML =
+            `<div class="error">
+                ${escapeHtml(error.message)}
+             </div>`;
+
+        return;
+    }
+
+
+    if(!studentsFound?.length){
+
+        document.getElementById("savedResults").innerHTML =
+            `<div class="error">
+                Student পাওয়া যায়নি।
+             </div>`;
+
+        return;
+    }
+
+
+    const student =
+        studentsFound[0];
+
+    const studentId =
+        String(
+            student.student_id ??
+            student.id
+        );
+
+
+    let q =
+        db
+        .from("results")
+        .select("*")
+        .eq("student_id",studentId)
+        .order("exam_name");
+
+
+    if(exam){
+        q = q.eq("exam_name",exam);
+    }
+
+
+    const {data:resultsData,error:resultError} =
+        await q;
+
+
+    if(resultError){
+
+        document.getElementById("savedResults").innerHTML =
+            `<div class="error">
+                ${escapeHtml(resultError.message)}
+             </div>`;
+
+        return;
+    }
+
+
+    if(!resultsData?.length){
+
+        document.getElementById("savedResults").innerHTML =
+            `<div class="error">
+                কোনো Result পাওয়া যায়নি।
+             </div>`;
+
+        return;
+    }
+
+
+    const ids =
+        [...new Set(
+            resultsData.map(x => x.subject_id)
+        )];
+
+
+    const {data:subs} =
+        await db
+        .from("subjects")
+        .select("*")
+        .in("id",ids);
+
+
+    const map = {};
+
+    (subs || []).forEach(s => {
+        map[String(s.id)] = s;
+    });
+
+
+    let html = `
+
+    <div style="margin-top:18px">
+
+    <h3>
+        ${escapeHtml(
+            student.name ??
+            student.student_name ??
+            "-"
+        )}
+    </h3>
+
+    <p>
+        ID: <b>${escapeHtml(studentId)}</b>
+        |
+        Roll:
+        <b>${escapeHtml(
+            student.roll_no ??
+            student.roll ??
+            "-"
+        )}</b>
+    </p>
+
+    <div class="table-wrap">
+
+    <table>
+
+    <thead>
+        <tr>
+            <th>Exam</th>
+            <th>Subject</th>
+            <th>Full</th>
+            <th>Pass</th>
+            <th>Marks</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    `;
+
+
+    resultsData.forEach(r => {
+
+        const s =
+            map[String(r.subject_id)] || {};
+
+        const marks =
+            Number(r.marks || 0);
+
+        const pass =
+            Number(s.pass_mark || 33);
+
+        const status =
+            marks >= pass;
+
+        html += `
+
+        <tr>
+
+            <td>${escapeHtml(
+                r.exam_name || "-"
+            )}</td>
+
+            <td>${escapeHtml(
+                s.subject_name || "-"
+            )}</td>
+
+            <td>${Number(
+                s.full_mark || 100
+            )}</td>
+
+            <td>${pass}</td>
+
+            <td><b>${marks}</b></td>
+
+            <td class="${status?'pass':'fail'}">
+                ${status?'PASS':'FAIL'}
+            </td>
+
+        </tr>
+
+        `;
+    });
+
+
+    html += `
+    </tbody>
+    </table>
+    </div>
+    </div>
+    `;
+
+
+    document.getElementById("savedResults").innerHTML =
+        html;
+
+}
+
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+function showSaveMessage(text,type){
+
+    document.getElementById("saveMessage").innerHTML =
+        `<div class="${type}">
+            ${escapeHtml(text)}
+         </div>`;
+}
+
 
 function escapeHtml(value){
 
@@ -1269,26 +1716,21 @@ function escapeHtml(value){
         .replace(/>/g,"&gt;")
         .replace(/"/g,"&quot;")
         .replace(/'/g,"&#039;");
-
 }
 
 
-function escapeAttr(value){
+/*
+  Supabase .or() value safe করার জন্য
+*/
+function safeFilter(value){
 
-    return escapeHtml(value);
-
+    return String(value)
+        .replace(/,/g,"")
+        .replace(/[()]/g,"")
+        .replace(/"/g,'');
 }
-
-
-
-/* =========================================
-   START
-========================================= */
-
-loadSessions();
 
 </script>
 
 </body>
-
 </html>
