@@ -1,108 +1,89 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
 <title>Results | মাদরাসায়ে নূরুল কুরআন</title>
 
 <style>
-*{box-sizing:border-box}
+
+*{
+    box-sizing:border-box;
+}
 
 body{
     margin:0;
-    font-family:Arial,"Noto Sans Bengali",sans-serif;
+    font-family:Arial,sans-serif;
     background:#f4f7fb;
     color:#1e293b;
 }
 
 .top{
     background:linear-gradient(135deg,#0d47a1,#1976d2);
-    color:white;
-    padding:15px 20px;
+    color:#fff;
+    padding:15px 22px;
     display:flex;
-    align-items:center;
     justify-content:space-between;
+    align-items:center;
     gap:15px;
     box-shadow:0 3px 15px #0002;
 }
 
-.top h2{margin:0;font-size:20px}
-
-.top-right{
-    display:flex;
-    align-items:center;
-    gap:10px;
+.top h2{
+    margin:0;
+    font-size:19px;
 }
 
 .top a{
-    color:white;
+    color:#fff;
     text-decoration:none;
-}
-
-.lang{
-    display:flex;
-    background:#ffffff22;
-    padding:3px;
-    border-radius:8px;
-}
-
-.lang button{
-    border:0;
-    background:transparent;
-    color:white;
-    padding:7px 10px;
-    border-radius:6px;
-    cursor:pointer;
-    font-weight:bold;
-}
-
-.lang button.active{
-    background:white;
-    color:#0d47a1;
+    background:#ffffff20;
+    padding:8px 12px;
+    border-radius:7px;
+    font-size:13px;
 }
 
 .container{
-    width:100%;
-    max-width:1250px;
+    max-width:1100px;
     margin:25px auto;
     padding:0 15px;
 }
 
 .box{
-    background:white;
+    background:#fff;
     padding:22px;
-    margin-bottom:20px;
     border-radius:14px;
-    border:1px solid #e3e8f0;
-    box-shadow:0 3px 15px #0000000c;
+    margin-bottom:20px;
+    box-shadow:0 3px 15px #0d47a115;
+    border:1px solid #e5eaf2;
 }
 
 h3{
-    color:#0d47a1;
     margin:0 0 18px;
+    color:#0d47a1;
 }
 
-.filters{
+.grid{
     display:grid;
-    grid-template-columns:repeat(4,1fr);
+    grid-template-columns:repeat(2,1fr);
     gap:15px;
 }
 
 label{
     display:block;
     font-weight:bold;
-    font-size:14px;
+    font-size:13px;
     margin-bottom:6px;
 }
 
 input,select{
     width:100%;
     padding:12px;
-    border:1px solid #d5dce7;
+    border:1px solid #d8dee9;
     border-radius:8px;
-    background:white;
-    font-size:14px;
+    background:#fff;
     outline:none;
 }
 
@@ -111,310 +92,289 @@ input:focus,select:focus{
     box-shadow:0 0 0 3px #1976d215;
 }
 
-.student-info{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:12px;
-}
-
 .info{
-    padding:14px;
-    background:#f5f9ff;
-    border:1px solid #dcecff;
-    border-radius:9px;
-}
-
-.info small{
-    display:block;
-    color:#64748b;
-    margin-bottom:5px;
-}
-
-.info strong{
-    color:#0d47a1;
-}
-
-.actions{
-    display:flex;
-    justify-content:flex-end;
-    gap:10px;
-    margin-top:18px;
-    flex-wrap:wrap;
-}
-
-button.action{
-    border:0;
-    padding:11px 18px;
+    background:#eaf4ff;
+    border-left:4px solid #1976d2;
+    padding:12px;
     border-radius:8px;
-    cursor:pointer;
-    font-weight:bold;
+    margin-bottom:18px;
+    font-size:13px;
+    line-height:1.6;
 }
 
-.load-btn{
-    background:#0d47a1;
-    color:white;
-}
-
-.save-btn{
-    background:#16a34a;
-    color:white;
-}
-
-.clear-btn{
-    background:#64748b;
-    color:white;
-}
-
-button:disabled{
-    opacity:.6;
-    cursor:not-allowed;
-}
-
-.table-wrap{
-    width:100%;
-    overflow-x:auto;
-}
-
-table{
-    width:100%;
-    min-width:700px;
-    border-collapse:collapse;
-}
-
-th,td{
-    padding:11px 10px;
-    border-bottom:1px solid #e9edf3;
-    text-align:left;
-}
-
-th{
-    background:#0d47a1;
-    color:white;
-}
-
-td input{
-    max-width:120px;
-}
-
-.subject-no{
-    font-weight:bold;
-    color:#64748b;
-}
-
-.total-box{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:15px;
-    margin-top:20px;
-}
-
-.total-item{
-    background:#f8fafc;
-    border:1px solid #e2e8f0;
-    border-radius:10px;
-    padding:15px;
-    text-align:center;
-}
-
-.total-item small{
-    display:block;
-    color:#64748b;
-    margin-bottom:6px;
-}
-
-.total-item strong{
-    font-size:22px;
-    color:#0d47a1;
-}
-
-.status{
+.message{
+    display:none;
     padding:12px;
     border-radius:8px;
     margin-bottom:15px;
-    display:none;
 }
 
 .success{
     display:block;
     background:#ecfdf5;
-    color:#166534;
-    border:1px solid #bbf7d0;
+    color:#047857;
 }
 
 .error{
     display:block;
     background:#fef2f2;
-    color:#991b1b;
-    border:1px solid #fecaca;
+    color:#dc2626;
 }
 
-.loading{
+.student-info{
+    margin-top:15px;
+    padding:14px;
+    border-radius:9px;
+    background:#f0f7ff;
+    border:1px solid #d7eaff;
+}
+
+.student-info strong{
+    color:#0d47a1;
+}
+
+.table-wrap{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:650px;
+}
+
+th,td{
+    padding:11px 9px;
+    border-bottom:1px solid #edf0f5;
+    font-size:13px;
+    text-align:left;
+}
+
+th{
+    background:#0d47a1;
+    color:#fff;
+}
+
+.mark-input{
+    width:100px;
+    padding:8px;
+}
+
+.pass{
+    color:#047857;
+    font-weight:bold;
+}
+
+.fail{
+    color:#dc2626;
+    font-weight:bold;
+}
+
+.save-btn{
+    background:linear-gradient(135deg,#0d47a1,#1976d2);
+    color:#fff;
+    padding:12px 18px;
+    margin-top:18px;
+}
+
+.clear-btn{
+    background:#64748b;
+    color:#fff;
+    padding:12px 18px;
+    margin-top:18px;
+    margin-left:7px;
+}
+
+.result-summary{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+    margin-top:20px;
+}
+
+.summary{
+    background:#f8fafc;
+    border:1px solid #e2e8f0;
+    border-radius:10px;
+    padding:14px;
+    text-align:center;
+}
+
+.summary small{
+    display:block;
+    color:#64748b;
+    margin-bottom:5px;
+}
+
+.summary strong{
+    font-size:20px;
+    color:#0d47a1;
+}
+
+.loading,.empty{
     text-align:center;
     padding:25px;
     color:#64748b;
 }
 
-.empty{
-    text-align:center;
-    padding:30px;
-    color:#64748b;
-}
-
-.grade{
+.subject-count{
+    color:#1976d2;
     font-weight:bold;
-    color:#0d47a1;
 }
 
-@media(max-width:900px){
-    .filters{
-        grid-template-columns:repeat(2,1fr);
+@media(max-width:700px){
+
+    .grid{
+        grid-template-columns:1fr;
     }
 
-    .student-info{
-        grid-template-columns:repeat(2,1fr);
+    .result-summary{
+        grid-template-columns:1fr 1fr;
     }
 
-    .total-box{
-        grid-template-columns:repeat(2,1fr);
-    }
-}
-
-@media(max-width:600px){
     .top{
         flex-direction:column;
         align-items:flex-start;
     }
 
-    .top-right{
-        width:100%;
-        justify-content:space-between;
-    }
-
-    .filters,
-    .student-info,
-    .total-box{
-        grid-template-columns:1fr;
-    }
-
-    .box{
-        padding:15px;
-    }
 }
+
 </style>
+
 </head>
 
 <body>
 
 <header class="top">
 
-<h2 id="pageTitle">📊 ফলাফল ব্যবস্থাপনা</h2>
+<h2>📊 ফলাফল / Result Management</h2>
 
-<div class="top-right">
-
-<div class="lang">
-<button id="bnBtn" class="active" onclick="setLanguage('bn')">বাংলা</button>
-<button id="enBtn" onclick="setLanguage('en')">English</button>
-</div>
-
-<a href="dashboard.html" id="dashboardLink">← Dashboard</a>
-
-</div>
+<a href="dashboard.html">
+← Dashboard
+</a>
 
 </header>
 
+
 <div class="container">
 
-<div id="status" class="status"></div>
 
-<!-- FILTER -->
+<!-- ===================================
+     SELECTION
+=================================== -->
 
 <div class="box">
 
-<h3 id="filterTitle">📌 ফলাফল নির্বাচন করুন</h3>
+<h3>
+📋 Result নির্বাচন
+</h3>
 
-<div class="filters">
+<div id="message" class="message"></div>
+
+<div class="info">
+
+<b>ধাপ:</b>
+Session → Class → Student → Exam নির্বাচন করুন।
+<br>
+Class নির্বাচন করার পর সেই Class-এর Subjects automatically আসবে।
+
+</div>
+
+
+<div class="grid">
 
 <div>
-<label id="sessionLabel">Session</label>
+
+<label>Session *</label>
+
 <select id="sessionSelect">
-<option value="">Session নির্বাচন করুন</option>
+
+<option value="">
+Session নির্বাচন করুন
+</option>
+
 </select>
+
 </div>
 
+
 <div>
-<label id="classLabel">Class</label>
+
+<label>Class *</label>
+
 <select id="classSelect">
-<option value="">Class নির্বাচন করুন</option>
+
+<option value="">
+Class নির্বাচন করুন
+</option>
+
+<option value="নূরানী">নূরানী</option>
+<option value="১ম শ্রেণি">১ম শ্রেণি</option>
+<option value="২য় শ্রেণি">২য় শ্রেণি</option>
+<option value="৩য় শ্রেণি">৩য় শ্রেণি</option>
+<option value="৪র্থ শ্রেণি">৪র্থ শ্রেণি</option>
+<option value="৫ম শ্রেণি">৫ম শ্রেণি</option>
+<option value="নাজেরা">নাজেরা</option>
+<option value="হিফজ">হিফজ</option>
+
 </select>
+
 </div>
 
-<div>
-<label id="examLabel">পরীক্ষার নাম</label>
-<input id="examName" placeholder="যেমন: বার্ষিক পরীক্ষা">
-</div>
 
 <div>
-<label id="studentLabel">Student</label>
+
+<label>Student *</label>
+
 <select id="studentSelect">
-<option value="">Student নির্বাচন করুন</option>
+
+<option value="">
+প্রথমে Session ও Class নির্বাচন করুন
+</option>
+
 </select>
-</div>
-
-</div>
-
-<div class="actions">
-
-<button class="action clear-btn" onclick="clearForm()">
-↻ Clear
-</button>
-
-<button class="action load-btn" onclick="loadSubjectsAndResults()">
-🔄 Load Result
-</button>
-
-</div>
 
 </div>
 
 
-<!-- STUDENT INFORMATION -->
+<div>
+
+<label>Exam Name *</label>
+
+<input
+id="examName"
+placeholder="যেমন: অর্ধবার্ষিক পরীক্ষা ২০২৬"
+>
+
+</div>
+
+</div>
+
+
+<div id="studentInfo"
+class="student-info"
+style="display:none">
+
+</div>
+
+</div>
+
+
+<!-- ===================================
+     SUBJECTS
+=================================== -->
 
 <div class="box">
 
-<h3>👨‍🎓 <span id="studentInfoTitle">Student Information</span></h3>
+<h3>
+📚 Subjects
+<span class="subject-count">
+(
+<span id="subjectCount">0</span>
+)
+</span>
+</h3>
 
-<div class="student-info">
-
-<div class="info">
-<small id="nameLabel">Name</small>
-<strong id="studentName">-</strong>
-</div>
-
-<div class="info">
-<small id="rollInfoLabel">Roll</small>
-<strong id="studentRoll">-</strong>
-</div>
-
-<div class="info">
-<small id="idInfoLabel">Student ID</small>
-<strong id="studentId">-</strong>
-</div>
-
-<div class="info">
-<small id="classInfoLabel">Class</small>
-<strong id="studentClass">-</strong>
-</div>
-
-</div>
-
-</div>
-
-
-<!-- SUBJECT MARKS -->
-
-<div class="box">
-
-<h3>📝 <span id="marksTitle">Subject-wise Marks</span></h3>
 
 <div class="table-wrap">
 
@@ -423,20 +383,36 @@ td input{
 <thead>
 
 <tr>
+
 <th>#</th>
-<th id="subjectHeader">Subject</th>
-<th id="marksHeader">Marks</th>
-<th id="gradeHeader">Grade</th>
+
+<th>Subject</th>
+
+<th>Code</th>
+
+<th>Pass Mark</th>
+
+<th>Marks</th>
+
+<th>Status</th>
+
 </tr>
 
 </thead>
 
+
 <tbody id="subjectList">
 
 <tr>
-<td colspan="4" class="empty">
-প্রথমে Session, Class এবং Student নির্বাচন করুন
+
+<td
+colspan="6"
+class="empty">
+
+Session, Class ও Student নির্বাচন করুন।
+
 </td>
+
 </tr>
 
 </tbody>
@@ -446,45 +422,79 @@ td input{
 </div>
 
 
-<div class="total-box">
+<div
+id="summaryBox"
+style="display:none">
 
-<div class="total-item">
-<small id="totalLabel">Total Marks</small>
-<strong id="totalMarks">0</strong>
-</div>
+<div class="result-summary">
 
-<div class="total-item">
-<small id="averageLabel">Average</small>
-<strong id="averageMarks">0</strong>
-</div>
+<div class="summary">
 
-<div class="total-item">
-<small id="gpaLabel">GPA</small>
-<strong id="gpa">0.00</strong>
-</div>
+<small>Total</small>
 
-<div class="total-item">
-<small id="resultLabel">Result</small>
-<strong id="finalResult">-</strong>
-</div>
+<strong id="totalMarks">
+0
+</strong>
 
 </div>
 
 
-<div class="actions">
+<div class="summary">
+
+<small>Average</small>
+
+<strong id="averageMarks">
+0
+</strong>
+
+</div>
+
+
+<div class="summary">
+
+<small>Grade</small>
+
+<strong id="grade">
+-
+</strong>
+
+</div>
+
+
+<div class="summary">
+
+<small>Result</small>
+
+<strong id="overallResult">
+-
+</strong>
+
+</div>
+
+</div>
+
+</div>
+
 
 <button
-class="action save-btn"
-id="saveBtn"
+class="save-btn"
 onclick="saveResults()">
 
 💾 Save Result
 
 </button>
 
-</div>
+
+<button
+class="clear-btn"
+onclick="clearMarks()">
+
+🗑 Clear Marks
+
+</button>
 
 </div>
+
 
 </div>
 
@@ -493,9 +503,9 @@ onclick="saveResults()">
 
 <script>
 
-/* =====================================================
+/* =====================================
    SUPABASE
-===================================================== */
+===================================== */
 
 const SUPABASE_URL =
 "https://qavublwhqiqsgpcmfyft.supabase.co";
@@ -510,149 +520,18 @@ SUPABASE_KEY
 );
 
 
-/* =====================================================
+/* =====================================
    VARIABLES
-===================================================== */
+===================================== */
 
-let currentLanguage = "bn";
-
-let allStudents = [];
-
-let subjects = [];
-
-let existingResults = [];
-
-let selectedStudent = null;
+let students=[];
+let subjects=[];
+let existingResults=[];
 
 
-/* =====================================================
-   CLASS LIST
-===================================================== */
-
-const classes = [
-"নূরানী",
-"১ম শ্রেণি",
-"২য় শ্রেণি",
-"৩য় শ্রেণি",
-"৪র্থ শ্রেণি",
-"৫ম শ্রেণি",
-"নাজেরা",
-"হিফজ"
-];
-
-
-/* =====================================================
-   TRANSLATION
-===================================================== */
-
-const text = {
-
-bn:{
-selectSession:"Session নির্বাচন করুন",
-selectClass:"Class নির্বাচন করুন",
-selectStudent:"Student নির্বাচন করুন",
-noSubject:"এই Class-এর কোনো Subject পাওয়া যায়নি",
-noStudent:"এই Session ও Class-এ কোনো Student নেই",
-load:"Load Result",
-save:"💾 Save Result",
-success:"ফলাফল সফলভাবে সংরক্ষণ হয়েছে",
-error:"সমস্যা হয়েছে",
-pass:"Pass",
-fail:"Fail"
-},
-
-en:{
-selectSession:"Select Session",
-selectClass:"Select Class",
-selectStudent:"Select Student",
-noSubject:"No subjects found for this Class",
-noStudent:"No students found",
-load:"Load Result",
-save:"💾 Save Result",
-success:"Result saved successfully",
-error:"Something went wrong",
-pass:"Pass",
-fail:"Fail"
-}
-
-};
-
-
-/* =====================================================
-   LANGUAGE
-===================================================== */
-
-function setLanguage(lang){
-
-currentLanguage = lang;
-
-const t = text[lang];
-
-document.documentElement.lang =
-lang==="bn" ? "bn" : "en";
-
-document.getElementById("bnBtn")
-.classList.toggle("active",lang==="bn");
-
-document.getElementById("enBtn")
-.classList.toggle("active",lang==="en");
-
-document.getElementById("sessionLabel")
-.textContent="Session";
-
-document.getElementById("classLabel")
-.textContent=lang==="bn"?"Class":"Class";
-
-document.getElementById("examLabel")
-.textContent=
-lang==="bn"?"পরীক্ষার নাম":"Exam Name";
-
-document.getElementById("studentLabel")
-.textContent=
-lang==="bn"?"Student":"Student";
-
-document.getElementById("marksTitle")
-.textContent=
-lang==="bn"?"বিষয়ভিত্তিক নম্বর":"Subject-wise Marks";
-
-document.getElementById("subjectHeader")
-.textContent=
-lang==="bn"?"বিষয়":"Subject";
-
-document.getElementById("marksHeader")
-.textContent=
-lang==="bn"?"নম্বর":"Marks";
-
-document.getElementById("gradeHeader")
-.textContent=
-lang==="bn"?"গ্রেড":"Grade";
-
-document.getElementById("totalLabel")
-.textContent=
-lang==="bn"?"মোট নম্বর":"Total Marks";
-
-document.getElementById("averageLabel")
-.textContent=
-lang==="bn"?"গড়":"Average";
-
-document.getElementById("gpaLabel")
-.textContent="GPA";
-
-document.getElementById("resultLabel")
-.textContent=
-lang==="bn"?"ফলাফল":"Result";
-
-document.getElementById("saveBtn")
-.textContent=t.save;
-
-loadSessions();
-
-}
-
-
-/* =====================================================
+/* =====================================
    AUTH
-===================================================== */
+===================================== */
 
 async function checkAuth(){
 
@@ -673,14 +552,174 @@ return true;
 }
 
 
-/* =====================================================
+/* =====================================
+   MESSAGE
+===================================== */
+
+function showMessage(message,type){
+
+const box=
+document.getElementById("message");
+
+box.textContent=message;
+
+box.className=
+"message "+type;
+
+setTimeout(()=>{
+
+box.className="message";
+
+},4000);
+
+}
+
+
+/* =====================================
+   LOAD SESSIONS
+===================================== */
+
+async function loadSessions(){
+
+const {data,error}=
+await db
+.from("students")
+.select("session")
+.not("session","is",null);
+
+
+if(error){
+
+showMessage(
+"❌ Session load error: "+error.message,
+"error"
+);
+
+return;
+
+}
+
+
+const sessions=[
+...new Set(
+(data||[])
+.map(x=>x.session)
+.filter(Boolean)
+)
+];
+
+sessions.sort().reverse();
+
+
+const select=
+document.getElementById("sessionSelect");
+
+
+select.innerHTML=
+`
+<option value="">
+Session নির্বাচন করুন
+</option>
+`;
+
+
+sessions.forEach(session=>{
+
+const option=
+document.createElement("option");
+
+option.value=session;
+option.textContent=session;
+
+select.appendChild(option);
+
+});
+
+}
+
+
+/* =====================================
+   SESSION CHANGE
+===================================== */
+
+document
+.getElementById("sessionSelect")
+.addEventListener(
+"change",
+async function(){
+
+document.getElementById(
+"classSelect"
+).value="";
+
+resetStudent();
+
+});
+
+
+/* =====================================
+   CLASS CHANGE
+===================================== */
+
+document
+.getElementById("classSelect")
+.addEventListener(
+"change",
+async function(){
+
+resetStudent();
+
+const session=
+document.getElementById(
+"sessionSelect"
+).value;
+
+const className=this.value;
+
+
+if(!session || !className){
+
+return;
+
+}
+
+
+await loadStudents(
+session,
+className
+);
+
+await loadSubjects(
+className
+);
+
+});
+
+
+/* =====================================
    LOAD STUDENTS
-===================================================== */
+===================================== */
 
-async function loadStudents(){
+async function loadStudents(
+session,
+className
+){
 
-const {data,error} =
+const select=
+document.getElementById(
+"studentSelect"
+);
 
+
+select.innerHTML=
+`
+<option value="">
+Student নির্বাচন করুন
+</option>
+`;
+
+
+const {data,error}=
 await db
 .from("students")
 .select(`
@@ -691,286 +730,33 @@ student_id,
 class,
 session
 `)
-.order("roll",{ascending:true});
+.eq("session",session)
+.eq("class",className)
+.order("roll");
+
 
 if(error){
 
-console.error(error);
-
-showStatus(error.message,"error");
-
-return;
-
-}
-
-allStudents=data || [];
-
-loadSessions();
-
-}
-
-
-/* =====================================================
-   LOAD SESSION
-===================================================== */
-
-function loadSessions(){
-
-const select =
-document.getElementById("sessionSelect");
-
-const old =
-select.value;
-
-select.innerHTML="";
-
-const first =
-document.createElement("option");
-
-first.value="";
-
-first.textContent=
-text[currentLanguage].selectSession;
-
-select.appendChild(first);
-
-
-const sessions=[
-...new Set(
-allStudents
-.map(s=>s.session)
-.filter(Boolean)
-)
-];
-
-sessions.sort().reverse();
-
-sessions.forEach(session=>{
-
-const option =
-document.createElement("option");
-
-option.value=session;
-option.textContent=session;
-
-select.appendChild(option);
-
-});
-
-if(old) select.value=old;
-
-}
-
-
-/* =====================================================
-   LOAD CLASS
-===================================================== */
-
-function loadClasses(){
-
-const select =
-document.getElementById("classSelect");
-
-select.innerHTML="";
-
-const first =
-document.createElement("option");
-
-first.value="";
-
-first.textContent=
-text[currentLanguage].selectClass;
-
-select.appendChild(first);
-
-classes.forEach(c=>{
-
-const option =
-document.createElement("option");
-
-option.value=c;
-
-option.textContent=c;
-
-select.appendChild(option);
-
-});
-
-}
-
-
-/* =====================================================
-   SESSION CHANGE
-===================================================== */
-
-document
-.getElementById("sessionSelect")
-.addEventListener("change",function(){
-
-loadStudentList();
-
-});
-
-
-/* =====================================================
-   CLASS CHANGE
-===================================================== */
-
-document
-.getElementById("classSelect")
-.addEventListener("change",function(){
-
-loadStudentList();
-
-});
-
-
-/* =====================================================
-   LOAD STUDENT LIST
-===================================================== */
-
-function loadStudentList(){
-
-const session =
-document.getElementById("sessionSelect").value;
-
-const cls =
-document.getElementById("classSelect").value;
-
-const select =
-document.getElementById("studentSelect");
-
-select.innerHTML="";
-
-const first =
-document.createElement("option");
-
-first.value="";
-
-first.textContent=
-text[currentLanguage].selectStudent;
-
-select.appendChild(first);
-
-if(!session || !cls){
-
-return;
-
-}
-
-
-/*
-   IMPORTANT:
-   এখানে কোনো LIMIT নেই।
-   একই Class-এ যতজন Student থাকবে
-   সবাই dropdown-এ আসবে।
-*/
-
-const list =
-allStudents.filter(s=>
-
-String(s.session)===String(session)
-&&
-String(s.class)===String(cls)
-
-);
-
-list.forEach(student=>{
-
-const option =
-document.createElement("option");
-
-option.value=student.id;
-
-option.textContent=
-`${student.name} — Roll: ${student.roll || "-"} — ID: ${student.student_id || "-"}`;
-
-select.appendChild(option);
-
-});
-
-if(!list.length){
-
-showStatus(
-text[currentLanguage].noStudent,
+showMessage(
+"❌ Student load error: "+error.message,
 "error"
 );
 
-}
+return;
 
 }
 
 
-/* =====================================================
-   STUDENT CHANGE
-===================================================== */
-
-document
-.getElementById("studentSelect")
-.addEventListener("change",function(){
-
-const id=this.value;
-
-selectedStudent =
-allStudents.find(s=>
-String(s.id)===String(id)
-);
-
-if(selectedStudent){
-
-document.getElementById("studentName")
-.textContent=
-selectedStudent.name || "-";
-
-document.getElementById("studentRoll")
-.textContent=
-selectedStudent.roll || "-";
-
-document.getElementById("studentId")
-.textContent=
-selectedStudent.student_id || "-";
-
-document.getElementById("studentClass")
-.textContent=
-selectedStudent.class || "-";
-
-}else{
-
-clearStudentInfo();
-
-}
-
-});
+students=data||[];
 
 
-/* =====================================================
-   LOAD SUBJECTS
-===================================================== */
+if(!students.length){
 
-async function loadSubjects(){
-
-const cls =
-document.getElementById("classSelect").value;
-
-const tbody =
-document.getElementById("subjectList");
-
-tbody.innerHTML=`
-<tr>
-<td colspan="4" class="loading">
-Loading subjects...
-</td>
-</tr>
-`;
-
-if(!cls){
-
-tbody.innerHTML=`
-<tr>
-<td colspan="4" class="empty">
-Select Class first
-</td>
-</tr>
+select.innerHTML=
+`
+<option value="">
+এই Class-এ কোনো Student নেই
+</option>
 `;
 
 return;
@@ -978,38 +764,124 @@ return;
 }
 
 
-/*
-   SUBJECTS TABLE
+students.forEach(student=>{
 
-   Expected:
-   subjects
-   id
-   class
-   subject_name
+const option=
+document.createElement("option");
 
-*/
+option.value=
+student.student_id;
+
+option.textContent=
+`${student.name} — Roll: ${student.roll||"-"} — ID: ${student.student_id}`;
+
+select.appendChild(option);
+
+});
+
+}
+
+
+/* =====================================
+   STUDENT CHANGE
+===================================== */
+
+document
+.getElementById("studentSelect")
+.addEventListener(
+"change",
+async function(){
+
+const studentId=this.value;
+
+if(!studentId){
+
+document.getElementById(
+"studentInfo"
+).style.display="none";
+
+return;
+
+}
+
+
+const student=
+students.find(
+s=>String(s.student_id)===String(studentId)
+);
+
+
+if(student){
+
+const info=
+document.getElementById(
+"studentInfo"
+);
+
+info.innerHTML=
+`
+👨‍🎓 <strong>${escapeHtml(student.name)}</strong>
+&nbsp; | &nbsp;
+Roll: <strong>${escapeHtml(student.roll||"-")}</strong>
+&nbsp; | &nbsp;
+ID: <strong>${escapeHtml(student.student_id)}</strong>
+&nbsp; | &nbsp;
+Class: <strong>${escapeHtml(student.class)}</strong>
+`;
+
+info.style.display="block";
+
+}
+
+
+await loadExistingResults();
+
+renderSubjects();
+
+});
+
+
+/* =====================================
+   LOAD SUBJECTS
+===================================== */
+
+async function loadSubjects(className){
+
+const tbody=
+document.getElementById("subjectList");
+
+
+tbody.innerHTML=
+`
+<tr>
+<td colspan="6" class="loading">
+📚 Subjects loading...
+</td>
+</tr>
+`;
+
 
 const {data,error}=
-
 await db
 .from("subjects")
 .select(`
 id,
-class,
-subject_name
+class_name,
+subject_name,
+subject_code,
+pass_mark
 `)
-.eq("class",cls)
-.order("id",{ascending:true});
+.eq("class_name",className)
+.order("subject_name");
 
 
 if(error){
 
-console.error(error);
-
-tbody.innerHTML=`
+tbody.innerHTML=
+`
 <tr>
-<td colspan="4" class="empty">
-${escapeHtml(error.message)}
+<td colspan="6" class="error">
+❌ ${escapeHtml(error.message)}
 </td>
 </tr>
 `;
@@ -1018,125 +890,108 @@ return;
 
 }
 
-subjects=data || [];
+
+subjects=data||[];
+
+existingResults=[];
+
+document.getElementById(
+"subjectCount"
+).textContent=subjects.length;
+
 
 renderSubjects();
 
 }
 
 
-/* =====================================================
-   LOAD EXISTING RESULTS
-===================================================== */
+/* =====================================
+   EXISTING RESULTS
+===================================== */
 
 async function loadExistingResults(){
 
+const studentId=
+document.getElementById(
+"studentSelect"
+).value;
+
+const examName=
+document.getElementById(
+"examName"
+).value.trim();
+
+
 existingResults=[];
 
-if(!selectedStudent){
+
+if(!studentId || !examName){
 
 return;
 
 }
 
-const session =
-document.getElementById("sessionSelect").value;
-
-const examName =
-document.getElementById("examName").value.trim();
-
-if(!session || !examName){
-
-return;
-
-}
-
-
-/*
-   Existing result query.
-*/
 
 const {data,error}=
-
 await db
 .from("results")
 .select(`
 id,
 student_id,
-session,
-exam_name,
 subject_id,
+exam_name,
 marks
 `)
-.eq("student_id",selectedStudent.id)
-.eq("session",session)
+.eq("student_id",studentId)
 .eq("exam_name",examName);
 
 
 if(error){
 
-/*
-   যদি result table এখনো ঠিকভাবে না থাকে,
-   subject render বন্ধ হবে না।
-*/
-
-console.warn(error);
-
-existingResults=[];
+console.error(error);
 
 return;
 
 }
 
-existingResults=data || [];
 
-renderSubjects();
-
-}
-
-
-/* =====================================================
-   LOAD EVERYTHING
-===================================================== */
-
-async function loadSubjectsAndResults(){
-
-if(!selectedStudent){
-
-showStatus(
-"প্রথমে Student নির্বাচন করুন",
-"error"
-);
-
-return;
-
-}
-
-await loadSubjects();
-
-await loadExistingResults();
+existingResults=data||[];
 
 }
 
 
-/* =====================================================
+/* =====================================
    RENDER SUBJECTS
-===================================================== */
+===================================== */
 
 function renderSubjects(){
 
-const tbody =
-document.getElementById("subjectList");
+const tbody=
+document.getElementById(
+"subjectList"
+);
+
 
 if(!subjects.length){
 
-tbody.innerHTML=`
+tbody.innerHTML=
+`
 <tr>
-<td colspan="4" class="empty">
-${text[currentLanguage].noSubject}
+<td colspan="6" class="empty">
+
+এই Class-এর কোনো Subject নেই।
+
+<br><br>
+
+প্রথমে subjects.html থেকে Subject যোগ করুন।
+
 </td>
 </tr>
 `;
+
+document.getElementById(
+"summaryBox"
+).style.display="none";
 
 return;
 
@@ -1144,56 +999,59 @@ return;
 
 
 tbody.innerHTML=
+subjects.map((s,i)=>{
 
-subjects.map((subject,index)=>{
-
-const old =
-existingResults.find(r=>
-String(r.subject_id)===String(subject.id)
+const old=
+existingResults.find(
+r=>Number(r.subject_id)===Number(s.id)
 );
 
-const marks =
+
+const marks=
 old ? old.marks : "";
+
 
 return `
 
 <tr>
 
-<td class="subject-no">
-${index+1}
-</td>
+<td>${i+1}</td>
 
 <td>
 <strong>
-${escapeHtml(subject.subject_name)}
+${escapeHtml(s.subject_name)}
 </strong>
+</td>
+
+<td>
+${escapeHtml(s.subject_code||"-")}
+</td>
+
+<td>
+${escapeHtml(s.pass_mark||33)}
 </td>
 
 <td>
 
 <input
+class="mark-input"
 type="number"
 min="0"
 max="100"
 step="0.01"
-class="mark-input"
-data-subject-id="${subject.id}"
+data-subject="${s.id}"
+data-pass="${s.pass_mark||33}"
 value="${marks}"
-placeholder="0-100"
 oninput="calculateResult()"
+placeholder="0-100"
 >
 
 </td>
 
-<td>
+<td
+id="status-${s.id}">
 
-<span
-class="grade"
-id="grade-${subject.id}">
-
-${marks!=="" ? getGrade(marks) : "-"}
-
-</span>
+-
 
 </td>
 
@@ -1203,182 +1061,160 @@ ${marks!=="" ? getGrade(marks) : "-"}
 
 }).join("");
 
+
+document.getElementById(
+"summaryBox"
+).style.display="block";
+
+
 calculateResult();
 
 }
 
 
-/* =====================================================
+/* =====================================
+   CALCULATE
+===================================== */
+
+function calculateResult(){
+
+const inputs=
+document.querySelectorAll(
+".mark-input"
+);
+
+
+let total=0;
+let count=0;
+let failed=false;
+
+
+inputs.forEach(input=>{
+
+const value=
+parseFloat(input.value);
+
+
+const status=
+document.getElementById(
+"status-"+input.dataset.subject
+);
+
+
+if(isNaN(value)){
+
+status.textContent="-";
+status.className="";
+
+return;
+
+}
+
+
+total+=value;
+
+count++;
+
+
+const pass=
+parseFloat(input.dataset.pass)||33;
+
+
+if(value>=pass){
+
+status.textContent="Pass";
+status.className="pass";
+
+}else{
+
+status.textContent="Fail";
+status.className="fail";
+
+failed=true;
+
+}
+
+});
+
+
+const average=
+count
+?total/count
+:0;
+
+
+document.getElementById(
+"totalMarks"
+).textContent=
+total.toFixed(2);
+
+
+document.getElementById(
+"averageMarks"
+).textContent=
+average.toFixed(2);
+
+
+document.getElementById(
+"grade"
+).textContent=
+getGrade(average,failed);
+
+
+document.getElementById(
+"overallResult"
+).textContent=
+count && !failed
+?"PASS"
+:"-";
+
+
+}
+
+
+/* =====================================
    GRADE
-===================================================== */
+===================================== */
 
-function getGrade(mark){
+function getGrade(avg,failed){
 
-mark=Number(mark);
+if(!avg)return "-";
 
-if(isNaN(mark)) return "-";
+if(failed)return "F";
 
-if(mark>=80) return "A+";
-
-if(mark>=70) return "A";
-
-if(mark>=60) return "A-";
-
-if(mark>=50) return "B";
-
-if(mark>=40) return "C";
-
-if(mark>=33) return "D";
+if(avg>=80)return "A+";
+if(avg>=70)return "A";
+if(avg>=60)return "A-";
+if(avg>=50)return "B";
+if(avg>=40)return "C";
+if(avg>=33)return "D";
 
 return "F";
 
 }
 
 
-/* =====================================================
-   GPA
-===================================================== */
-
-function getPoint(mark){
-
-mark=Number(mark);
-
-if(mark>=80) return 5.00;
-
-if(mark>=70) return 4.00;
-
-if(mark>=60) return 3.50;
-
-if(mark>=50) return 3.00;
-
-if(mark>=40) return 2.00;
-
-if(mark>=33) return 1.00;
-
-return 0.00;
-
-}
-
-
-/* =====================================================
-   CALCULATE
-===================================================== */
-
-function calculateResult(){
-
-const inputs =
-document.querySelectorAll(".mark-input");
-
-let total=0;
-
-let count=0;
-
-let fail=false;
-
-
-inputs.forEach(input=>{
-
-const value=input.value;
-
-const subjectId=
-input.dataset.subjectId;
-
-const gradeEl =
-document.getElementById(
-"grade-"+subjectId
-);
-
-if(value===""){
-
-gradeEl.textContent="-";
-
-return;
-
-}
-
-const mark=Number(value);
-
-if(mark<0 || mark>100){
-
-gradeEl.textContent="-";
-
-return;
-
-}
-
-total+=mark;
-
-count++;
-
-const grade=getGrade(mark);
-
-gradeEl.textContent=grade;
-
-if(grade==="F"){
-
-fail=true;
-
-}
-
-});
-
-
-let average=0;
-
-let gpa=0;
-
-if(count){
-
-average=total/count;
-
-let points=0;
-
-inputs.forEach(input=>{
-
-if(input.value!==""){
-
-points+=
-getPoint(input.value);
-
-}
-
-});
-
-gpa=points/count;
-
-}
-
-
-document.getElementById("totalMarks")
-.textContent=total.toFixed(2);
-
-document.getElementById("averageMarks")
-.textContent=average.toFixed(2);
-
-document.getElementById("gpa")
-.textContent=gpa.toFixed(2);
-
-document.getElementById("finalResult")
-.textContent=
-count===0
-?"-"
-:fail
-?text[currentLanguage].fail
-:text[currentLanguage].pass;
-
-}
-
-
-/* =====================================================
+/* =====================================
    SAVE RESULTS
-===================================================== */
+===================================== */
 
 async function saveResults(){
 
-if(!selectedStudent){
+const studentId=
+document.getElementById(
+"studentSelect"
+).value;
 
-showStatus(
-"Student নির্বাচন করুন",
+const examName=
+document.getElementById(
+"examName"
+).value.trim();
+
+
+if(!studentId){
+
+showMessage(
+"❌ Student নির্বাচন করুন।",
 "error"
 );
 
@@ -1386,30 +1222,23 @@ return;
 
 }
 
-const session =
-document.getElementById("sessionSelect").value;
 
-const cls =
-document.getElementById("classSelect").value;
+if(!examName){
 
-const examName =
-document.getElementById("examName").value.trim();
-
-if(!session || !cls || !examName){
-
-showStatus(
-"Session, Class এবং Exam Name দিন",
+showMessage(
+"❌ Exam Name দিন।",
 "error"
 );
 
 return;
 
 }
+
 
 if(!subjects.length){
 
-showStatus(
-"কোনো Subject পাওয়া যায়নি",
+showMessage(
+"❌ এই Class-এর কোনো Subject নেই।",
 "error"
 );
 
@@ -1418,185 +1247,134 @@ return;
 }
 
 
-const btn =
-document.getElementById("saveBtn");
+const inputs=
+document.querySelectorAll(
+".mark-input"
+);
 
-btn.disabled=true;
+
+const records=[];
 
 
-try{
+for(const input of inputs){
+
+if(input.value===""){
+
+continue;
+
+}
+
+
+const marks=
+parseFloat(input.value);
+
+
+if(
+isNaN(marks) ||
+marks<0 ||
+marks>100
+){
+
+showMessage(
+"❌ Marks 0 থেকে 100-এর মধ্যে দিন।",
+"error"
+);
+
+return;
+
+}
+
+
+records.push({
+
+student_id:studentId,
+
+subject_id:
+Number(input.dataset.subject),
+
+exam_name:examName,
+
+marks:marks
+
+});
+
+}
+
+
+if(!records.length){
+
+showMessage(
+"❌ অন্তত একটি Subject-এর Marks দিন।",
+"error"
+);
+
+return;
+
+}
+
 
 /*
-   আগে এই Student + Session + Exam-এর
-   পুরোনো result delete করা হবে।
-
-   তারপর নতুন marks insert হবে।
+   প্রথমে একই Student + Exam-এর
+   পুরোনো result delete করা হচ্ছে।
+   তারপর নতুন result insert হবে।
 */
 
 const {error:deleteError}=
-
 await db
 .from("results")
 .delete()
-.eq("student_id",selectedStudent.id)
-.eq("session",session)
+.eq("student_id",studentId)
 .eq("exam_name",examName);
 
 
 if(deleteError){
 
-throw deleteError;
-
-}
-
-
-const inputs =
-document.querySelectorAll(".mark-input");
-
-const rows=[];
-
-
-inputs.forEach(input=>{
-
-if(input.value==="") return;
-
-const mark=Number(input.value);
-
-if(isNaN(mark)) return;
-
-if(mark<0 || mark>100) return;
-
-rows.push({
-
-student_id:selectedStudent.id,
-
-session:session,
-
-exam_name:examName,
-
-subject_id:Number(input.dataset.subjectId),
-
-marks:mark
-
-});
-
-});
-
-
-if(!rows.length){
-
-throw new Error(
-"কমপক্ষে একটি Subject-এর Marks দিন"
+showMessage(
+"❌ পুরোনো Result remove করা যায়নি: "+
+deleteError.message,
+"error"
 );
+
+return;
 
 }
 
 
 const {error:insertError}=
-
 await db
 .from("results")
-.insert(rows);
+.insert(records);
 
 
 if(insertError){
 
-throw insertError;
+showMessage(
+"❌ Result save করা যায়নি: "+
+insertError.message,
+"error"
+);
+
+return;
 
 }
 
 
-showStatus(
-text[currentLanguage].success,
+showMessage(
+"✅ Result successfully saved!",
 "success"
 );
 
 
 await loadExistingResults();
 
-
-}catch(error){
-
-console.error(error);
-
-showStatus(
-error.message ||
-text[currentLanguage].error,
-"error"
-);
-
-}finally{
-
-btn.disabled=false;
-
-}
+renderSubjects();
 
 }
 
 
-/* =====================================================
-   CLEAR
-===================================================== */
-
-function clearForm(){
-
-document.getElementById("sessionSelect").value="";
-
-document.getElementById("classSelect").value="";
-
-document.getElementById("examName").value="";
-
-document.getElementById("studentSelect").innerHTML=`
-<option value="">
-${text[currentLanguage].selectStudent}
-</option>
-`;
-
-subjects=[];
-
-existingResults=[];
-
-selectedStudent=null;
-
-clearStudentInfo();
-
-document.getElementById("subjectList").innerHTML=`
-<tr>
-<td colspan="4" class="empty">
-Session, Class এবং Student নির্বাচন করুন
-</td>
-</tr>
-`;
-
-calculateResult();
-
-}
-
-
-/* =====================================================
-   CLEAR STUDENT INFO
-===================================================== */
-
-function clearStudentInfo(){
-
-document.getElementById("studentName")
-.textContent="-";
-
-document.getElementById("studentRoll")
-.textContent="-";
-
-document.getElementById("studentId")
-.textContent="-";
-
-document.getElementById("studentClass")
-.textContent="-";
-
-}
-
-
-/* =====================================================
+/* =====================================
    EXAM NAME CHANGE
-===================================================== */
+===================================== */
 
 document
 .getElementById("examName")
@@ -1604,45 +1382,89 @@ document
 "change",
 async function(){
 
-if(selectedStudent){
-
 await loadExistingResults();
 
-}
+renderSubjects();
 
 });
 
 
-/* =====================================================
-   STATUS
-===================================================== */
+/* =====================================
+   CLEAR
+===================================== */
 
-function showStatus(message,type){
+function clearMarks(){
 
-const box =
-document.getElementById("status");
+document
+.querySelectorAll(".mark-input")
+.forEach(input=>{
 
-box.textContent=message;
+input.value="";
 
-box.className=
-"status "+type;
+});
 
-setTimeout(()=>{
-
-box.className="status";
-
-},5000);
+calculateResult();
 
 }
 
 
-/* =====================================================
+/* =====================================
+   RESET STUDENT
+===================================== */
+
+function resetStudent(){
+
+students=[];
+subjects=[];
+existingResults=[];
+
+
+document.getElementById(
+"studentSelect"
+).innerHTML=
+`
+<option value="">
+প্রথমে Session ও Class নির্বাচন করুন
+</option>
+`;
+
+
+document.getElementById(
+"subjectList"
+).innerHTML=
+`
+<tr>
+<td colspan="6" class="empty">
+Session, Class ও Student নির্বাচন করুন।
+</td>
+</tr>
+`;
+
+
+document.getElementById(
+"studentInfo"
+).style.display="none";
+
+
+document.getElementById(
+"subjectCount"
+).textContent="0";
+
+
+document.getElementById(
+"summaryBox"
+).style.display="none";
+
+}
+
+
+/* =====================================
    ESCAPE
-===================================================== */
+===================================== */
 
 function escapeHtml(value){
 
-return String(value ?? "")
+return String(value)
 .replaceAll("&","&amp;")
 .replaceAll("<","&lt;")
 .replaceAll(">","&gt;")
@@ -1652,24 +1474,19 @@ return String(value ?? "")
 }
 
 
-/* =====================================================
+/* =====================================
    START
-===================================================== */
+===================================== */
 
-async function start(){
+(async function(){
 
-const authenticated =
-await checkAuth();
+const ok=await checkAuth();
 
-if(!authenticated)return;
+if(!ok)return;
 
-loadClasses();
+await loadSessions();
 
-await loadStudents();
-
-}
-
-start();
+})();
 
 </script>
 
