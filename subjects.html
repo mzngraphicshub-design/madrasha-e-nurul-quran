@@ -3,128 +3,328 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Subject Management | মাদরাসায়ে নূরুল কুরআন</title>
+
+<title>Subjects | মাদরাসায়ে নূরুল কুরআন</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+    box-sizing:border-box;
+}
+
 body{
     margin:0;
-    font-family:Arial,sans-serif;
+    font-family:Arial,"Noto Sans Bengali",sans-serif;
     background:#f4f7fb;
     color:#1e293b;
 }
-header{
+
+.top{
     background:linear-gradient(135deg,#0d47a1,#1976d2);
     color:white;
-    padding:18px 25px;
+    padding:16px 22px;
     display:flex;
     justify-content:space-between;
     align-items:center;
+    gap:15px;
+    box-shadow:0 3px 15px #0002;
 }
-header h2{margin:0}
-header a{
+
+.top h2{
+    margin:0;
+    font-size:20px;
+}
+
+.top-right{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.top a{
     color:white;
     text-decoration:none;
+    font-size:14px;
+}
+
+.lang{
+    display:flex;
     background:#ffffff22;
-    padding:9px 14px;
+    padding:3px;
     border-radius:8px;
 }
+
+.lang button{
+    border:0;
+    background:transparent;
+    color:white;
+    padding:7px 10px;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.lang button.active{
+    background:white;
+    color:#0d47a1;
+}
+
 .container{
-    max-width:1100px;
+    max-width:1150px;
     margin:25px auto;
     padding:0 15px;
 }
+
 .box{
     background:white;
     padding:22px;
     border-radius:14px;
     margin-bottom:20px;
-    box-shadow:0 3px 15px #0001;
+    border:1px solid #e5eaf2;
+    box-shadow:0 3px 15px #0d47a115;
 }
+
 h3{
+    margin:0 0 18px;
     color:#0d47a1;
-    margin-top:0;
 }
-.grid{
+
+.form-grid{
     display:grid;
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:1fr 1.4fr 1fr 1fr;
     gap:15px;
 }
+
 label{
     display:block;
     font-weight:bold;
+    font-size:14px;
     margin-bottom:6px;
 }
-input,select{
+
+input,
+select{
     width:100%;
     padding:12px;
-    border:1px solid #d6dce5;
+    border:1px solid #d8dee9;
     border-radius:8px;
-    font-size:15px;
+    font-size:14px;
+    outline:none;
+    background:white;
 }
+
+input:focus,
+select:focus{
+    border-color:#1976d2;
+    box-shadow:0 0 0 3px #1976d215;
+}
+
+.button-row{
+    display:flex;
+    gap:10px;
+    margin-top:18px;
+    flex-wrap:wrap;
+}
+
 button{
+    font-family:inherit;
+}
+
+.btn{
     border:0;
     padding:11px 17px;
     border-radius:8px;
     cursor:pointer;
     font-weight:bold;
 }
-.save{
-    background:#0d47a1;
+
+.btn-primary{
+    background:linear-gradient(135deg,#0d47a1,#1976d2);
     color:white;
 }
-.cancel{
-    background:#e5e7eb;
-    margin-left:8px;
+
+.btn-secondary{
+    background:#e8eef7;
+    color:#334155;
 }
+
+.btn-danger{
+    background:#dc2626;
+    color:white;
+}
+
+.btn-edit{
+    background:#f59e0b;
+    color:white;
+}
+
+.btn:hover{
+    opacity:.9;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+    margin-bottom:20px;
+}
+
+.stat{
+    background:white;
+    padding:18px;
+    border-radius:14px;
+    border:1px solid #e5eaf2;
+    box-shadow:0 3px 12px #0d47a110;
+}
+
+.stat-icon{
+    font-size:25px;
+}
+
+.stat-label{
+    color:#64748b;
+    font-size:13px;
+    margin-top:5px;
+}
+
+.stat-number{
+    color:#0d47a1;
+    font-size:25px;
+    font-weight:bold;
+    margin-top:4px;
+}
+
+.search-row{
+    display:grid;
+    grid-template-columns:1fr 220px;
+    gap:12px;
+    margin-bottom:15px;
+}
+
 .table-wrap{
+    width:100%;
     overflow-x:auto;
 }
+
 table{
     width:100%;
     border-collapse:collapse;
-    min-width:750px;
+    min-width:800px;
 }
-th,td{
-    padding:12px;
-    border-bottom:1px solid #e5e7eb;
+
+th,
+td{
+    padding:12px 10px;
+    border-bottom:1px solid #edf0f5;
     text-align:left;
+    font-size:14px;
 }
+
 th{
     background:#0d47a1;
     color:white;
 }
-.edit{
-    background:#f59e0b;
-    color:white;
+
+tr:hover td{
+    background:#f7faff;
 }
-.delete{
-    background:#dc2626;
-    color:white;
-    margin-left:5px;
+
+.badge{
+    display:inline-block;
+    padding:5px 9px;
+    background:#e3f2fd;
+    color:#0d47a1;
+    border-radius:20px;
+    font-weight:bold;
+    font-size:12px;
 }
+
+.mark{
+    font-weight:bold;
+    color:#0d47a1;
+}
+
+.action-buttons{
+    display:flex;
+    gap:6px;
+}
+
+.action-buttons button{
+    padding:7px 10px;
+    border:0;
+    border-radius:6px;
+    cursor:pointer;
+    color:white;
+    font-size:12px;
+}
+
+.loading,
+.empty{
+    text-align:center;
+    padding:25px;
+    color:#64748b;
+}
+
 .message{
-    margin:12px 0;
-    padding:12px;
-    border-radius:8px;
     display:none;
+    margin-bottom:15px;
+    padding:12px 14px;
+    border-radius:8px;
+    font-weight:bold;
 }
+
 .success{
     display:block;
-    background:#dcfce7;
-    color:#166534;
+    background:#ecfdf5;
+    color:#047857;
+    border:1px solid #a7f3d0;
 }
+
 .error{
     display:block;
-    background:#fee2e2;
-    color:#991b1b;
+    background:#fef2f2;
+    color:#b91c1c;
+    border:1px solid #fecaca;
 }
-@media(max-width:650px){
-    .grid{grid-template-columns:1fr}
-    header{
+
+.editing{
+    background:#fff8e1;
+    border:1px solid #f59e0b;
+}
+
+@media(max-width:850px){
+
+    .form-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+}
+
+@media(max-width:600px){
+
+    .top{
         flex-direction:column;
-        gap:12px;
         align-items:flex-start;
+    }
+
+    .top-right{
+        width:100%;
+        justify-content:space-between;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .search-row{
+        grid-template-columns:1fr;
+    }
+
+    .box{
+        padding:16px;
     }
 }
 </style>
@@ -132,91 +332,352 @@ th{
 
 <body>
 
-<header>
-    <h2>📚 Subject Management</h2>
-    <a href="dashboard.html">← Dashboard</a>
+<header class="top">
+
+    <h2 id="pageTitle">📚 বিষয় ব্যবস্থাপনা</h2>
+
+    <div class="top-right">
+
+        <div class="lang">
+
+            <button id="bnBtn"
+                    class="active"
+                    onclick="setLanguage('bn')">
+                বাংলা
+            </button>
+
+            <button id="enBtn"
+                    onclick="setLanguage('en')">
+                English
+            </button>
+
+        </div>
+
+        <a href="dashboard.html" id="dashboardLink">
+            ← Dashboard
+        </a>
+
+    </div>
+
 </header>
+
 
 <div class="container">
 
+
+<!-- STATISTICS -->
+
+<div class="stats">
+
+    <div class="stat">
+
+        <div class="stat-icon">🎓</div>
+
+        <div class="stat-label" id="classStatLabel">
+            মোট শ্রেণি
+        </div>
+
+        <div class="stat-number" id="classCount">
+            0
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-icon">📚</div>
+
+        <div class="stat-label" id="subjectStatLabel">
+            মোট বিষয়
+        </div>
+
+        <div class="stat-number" id="subjectCount">
+            0
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-icon">📝</div>
+
+        <div class="stat-label" id="markStatLabel">
+            Full Mark
+        </div>
+
+        <div class="stat-number" id="markCount">
+            0
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ADD SUBJECT -->
+
+<div class="box" id="formBox">
+
+    <h3 id="formTitle">
+        ➕ নতুন বিষয় যোগ করুন
+    </h3>
+
+    <div id="message" class="message"></div>
+
+
+    <div class="form-grid">
+
+        <!-- CLASS -->
+
+        <div>
+
+            <label id="classLabel">
+                শ্রেণি
+            </label>
+
+            <select id="classSelect">
+
+                <option value="">
+                    শ্রেণি নির্বাচন করুন
+                </option>
+
+                <option value="নূরানী">
+                    নূরানী
+                </option>
+
+                <option value="১ম শ্রেণি">
+                    ১ম শ্রেণি
+                </option>
+
+                <option value="২য় শ্রেণি">
+                    ২য় শ্রেণি
+                </option>
+
+                <option value="৩য় শ্রেণি">
+                    ৩য় শ্রেণি
+                </option>
+
+                <option value="৪র্থ শ্রেণি">
+                    ৪র্থ শ্রেণি
+                </option>
+
+                <option value="৫ম শ্রেণি">
+                    ৫ম শ্রেণি
+                </option>
+
+                <option value="নাজেরা">
+                    নাজেরা
+                </option>
+
+                <option value="হিফজ">
+                    হিফজ
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- SUBJECT -->
+
+        <div>
+
+            <label id="subjectLabel">
+                বিষয়
+            </label>
+
+            <input
+                id="subjectName"
+                type="text"
+                placeholder="যেমন: বাংলা"
+            >
+
+        </div>
+
+
+        <!-- FULL MARK -->
+
+        <div>
+
+            <label id="fullMarkLabel">
+                Full Mark
+            </label>
+
+            <input
+                id="fullMark"
+                type="number"
+                min="1"
+                placeholder="100"
+            >
+
+        </div>
+
+
+        <!-- PASS MARK -->
+
+        <div>
+
+            <label id="passMarkLabel">
+                Pass Mark
+            </label>
+
+            <input
+                id="passMark"
+                type="number"
+                min="0"
+                placeholder="33"
+            >
+
+        </div>
+
+    </div>
+
+
+    <div class="button-row">
+
+        <button
+            class="btn btn-primary"
+            id="saveBtn"
+            onclick="saveSubject()">
+
+            ➕ বিষয় যোগ করুন
+
+        </button>
+
+
+        <button
+            class="btn btn-secondary"
+            id="cancelBtn"
+            onclick="cancelEdit()"
+            style="display:none">
+
+            ✖ Cancel
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- SUBJECT LIST -->
+
 <div class="box">
-<h3 id="formTitle">➕ Subject Add করুন</h3>
 
-<div id="message" class="message"></div>
-
-<div class="grid">
-
-<div>
-<label>Class</label>
-<select id="classSelect">
-<option value="">Class নির্বাচন করুন</option>
-<option value="নূরানী">নূরানী</option>
-<option value="১ম শ্রেণি">১ম শ্রেণি</option>
-<option value="২য় শ্রেণি">২য় শ্রেণি</option>
-<option value="৩য় শ্রেণি">৩য় শ্রেণি</option>
-<option value="৪র্থ শ্রেণি">৪র্থ শ্রেণি</option>
-<option value="৫ম শ্রেণি">৫ম শ্রেণি</option>
-<option value="নাজেরা">নাজেরা</option>
-<option value="হিফজ">হিফজ</option>
-</select>
-</div>
-
-<div>
-<label>Subject Name</label>
-<input id="subjectName" placeholder="যেমন: বাংলা">
-</div>
-
-<div>
-<label>Subject Code</label>
-<input id="subjectCode" placeholder="যেমন: BAN">
-</div>
-
-<div>
-<label>Full Mark</label>
-<input id="fullMark" type="number" min="1" value="100">
-</div>
-
-<div>
-<label>Pass Mark</label>
-<input id="passMark" type="number" min="0" value="33">
-</div>
-
-</div>
-
-<br>
-
-<button class="save" onclick="saveSubject()">💾 Save Subject</button>
-<button class="cancel" onclick="resetForm()">Clear</button>
-
-</div>
+    <h3 id="listTitle">
+        📚 বিষয় তালিকা
+    </h3>
 
 
-<div class="box">
-<h3>📋 Subject List</h3>
+    <div class="search-row">
 
-<div class="table-wrap">
+        <input
+            id="search"
+            type="text"
+            placeholder="🔍 বিষয় খুঁজুন..."
+        >
 
-<table>
-<thead>
-<tr>
-<th>Class</th>
-<th>Subject</th>
-<th>Code</th>
-<th>Full Mark</th>
-<th>Pass Mark</th>
-<th>Action</th>
-</tr>
-</thead>
 
-<tbody id="subjectList">
-<tr>
-<td colspan="6">Loading...</td>
-</tr>
-</tbody>
+        <select id="filterClass">
 
-</table>
+            <option value="">
+                সব শ্রেণি
+            </option>
 
-</div>
+            <option value="নূরানী">
+                নূরানী
+            </option>
+
+            <option value="১ম শ্রেণি">
+                ১ম শ্রেণি
+            </option>
+
+            <option value="২য় শ্রেণি">
+                ২য় শ্রেণি
+            </option>
+
+            <option value="৩য় শ্রেণি">
+                ৩য় শ্রেণি
+            </option>
+
+            <option value="৪র্থ শ্রেণি">
+                ৪র্থ শ্রেণি
+            </option>
+
+            <option value="৫ম শ্রেণি">
+                ৫ম শ্রেণি
+            </option>
+
+            <option value="নাজেরা">
+                নাজেরা
+            </option>
+
+            <option value="হিফজ">
+                হিফজ
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <div class="table-wrap">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>#</th>
+
+                    <th id="thClass">
+                        শ্রেণি
+                    </th>
+
+                    <th id="thSubject">
+                        বিষয়
+                    </th>
+
+                    <th id="thFull">
+                        Full Mark
+                    </th>
+
+                    <th id="thPass">
+                        Pass Mark
+                    </th>
+
+                    <th id="thAction">
+                        Action
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody id="subjectList">
+
+                <tr>
+
+                    <td
+                        colspan="6"
+                        class="loading">
+
+                        Loading...
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
 </div>
 
 </div>
@@ -226,283 +687,965 @@ th{
 
 <script>
 
+/* ==========================================
+   SUPABASE
+========================================== */
+
 const SUPABASE_URL =
 "https://qavublwhqiqsgpcmfyft.supabase.co";
 
 const SUPABASE_KEY =
 "sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
 
-const db = window.supabase.createClient(
+const db =
+window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_KEY
 );
 
+
+/* ==========================================
+   VARIABLES
+========================================== */
+
+let subjects = [];
+
 let editingId = null;
 
+let currentLanguage = "bn";
 
-/* MESSAGE */
 
-function message(text,type){
+/* ==========================================
+   LANGUAGE TEXT
+========================================== */
 
-    const box=document.getElementById("message");
+const text = {
 
-    box.textContent=text;
+bn:{
 
-    box.className="message "+type;
+pageTitle:"📚 বিষয় ব্যবস্থাপনা",
 
-    setTimeout(()=>{
-        box.className="message";
-    },3000);
+classStat:"মোট শ্রেণি",
+
+subjectStat:"মোট বিষয়",
+
+markStat:"Full Mark",
+
+formTitle:"➕ নতুন বিষয় যোগ করুন",
+
+class:"শ্রেণি",
+
+subject:"বিষয়",
+
+full:"Full Mark",
+
+pass:"Pass Mark",
+
+subjectPlaceholder:"যেমন: বাংলা",
+
+classSelect:"শ্রেণি নির্বাচন করুন",
+
+save:"➕ বিষয় যোগ করুন",
+
+update:"💾 পরিবর্তন সংরক্ষণ",
+
+cancel:"✖ Cancel",
+
+listTitle:"📚 বিষয় তালিকা",
+
+search:"🔍 বিষয় খুঁজুন...",
+
+allClass:"সব শ্রেণি",
+
+action:"Action",
+
+edit:"Edit",
+
+delete:"Delete",
+
+loading:"Loading...",
+
+empty:"কোনো বিষয় পাওয়া যায়নি",
+
+successAdd:"বিষয় সফলভাবে যোগ হয়েছে।",
+
+successUpdate:"বিষয় সফলভাবে পরিবর্তন হয়েছে।",
+
+successDelete:"বিষয় মুছে ফেলা হয়েছে।",
+
+error:"কাজটি সম্পন্ন করা যায়নি।",
+
+confirmDelete:"আপনি কি এই বিষয়টি মুছে ফেলতে চান?",
+
+dashboard:"← Dashboard"
+
+},
+
+en:{
+
+pageTitle:"📚 Subject Management",
+
+classStat:"Total Classes",
+
+subjectStat:"Total Subjects",
+
+markStat:"Full Mark",
+
+formTitle:"➕ Add New Subject",
+
+class:"Class",
+
+subject:"Subject",
+
+full:"Full Mark",
+
+pass:"Pass Mark",
+
+subjectPlaceholder:"Example: Bangla",
+
+classSelect:"Select Class",
+
+save:"➕ Add Subject",
+
+update:"💾 Save Changes",
+
+cancel:"✖ Cancel",
+
+listTitle:"📚 Subject List",
+
+search:"🔍 Search subject...",
+
+allClass:"All Classes",
+
+action:"Action",
+
+edit:"Edit",
+
+delete:"Delete",
+
+loading:"Loading...",
+
+empty:"No subjects found",
+
+successAdd:"Subject added successfully.",
+
+successUpdate:"Subject updated successfully.",
+
+successDelete:"Subject deleted successfully.",
+
+error:"Unable to complete the operation.",
+
+confirmDelete:"Do you want to delete this subject?",
+
+dashboard:"← Dashboard"
+
+}
+
+};
+
+
+/* ==========================================
+   LANGUAGE CHANGE
+========================================== */
+
+function setLanguage(lang){
+
+    currentLanguage = lang;
+
+    const t = text[lang];
+
+    document.documentElement.lang =
+        lang === "bn" ? "bn" : "en";
+
+
+    document.getElementById("pageTitle")
+        .textContent = t.pageTitle;
+
+    document.getElementById("classStatLabel")
+        .textContent = t.classStat;
+
+    document.getElementById("subjectStatLabel")
+        .textContent = t.subjectStat;
+
+    document.getElementById("markStatLabel")
+        .textContent = t.markStat;
+
+    document.getElementById("formTitle")
+        .textContent = editingId
+        ? "✏️ " + (lang==="bn" ? "বিষয় পরিবর্তন করুন" : "Edit Subject")
+        : t.formTitle;
+
+    document.getElementById("classLabel")
+        .textContent = t.class;
+
+    document.getElementById("subjectLabel")
+        .textContent = t.subject;
+
+    document.getElementById("fullMarkLabel")
+        .textContent = t.full;
+
+    document.getElementById("passMarkLabel")
+        .textContent = t.pass;
+
+    document.getElementById("subjectName")
+        .placeholder = t.subjectPlaceholder;
+
+    document.getElementById("classSelect")
+        .options[0].textContent = t.classSelect;
+
+    document.getElementById("listTitle")
+        .textContent = t.listTitle;
+
+    document.getElementById("search")
+        .placeholder = t.search;
+
+    document.getElementById("filterClass")
+        .options[0].textContent = t.allClass;
+
+    document.getElementById("thClass")
+        .textContent = t.class;
+
+    document.getElementById("thSubject")
+        .textContent = t.subject;
+
+    document.getElementById("thFull")
+        .textContent = t.full;
+
+    document.getElementById("thPass")
+        .textContent = t.pass;
+
+    document.getElementById("thAction")
+        .textContent = t.action;
+
+    document.getElementById("dashboardLink")
+        .textContent = t.dashboard;
+
+    document.getElementById("bnBtn")
+        .classList.toggle("active",lang==="bn");
+
+    document.getElementById("enBtn")
+        .classList.toggle("active",lang==="en");
+
+
+    updateFormButtons();
+
+    renderSubjects();
+
 }
 
 
-/* LOAD */
+/* ==========================================
+   MESSAGE
+========================================== */
+
+function showMessage(message,type="success"){
+
+    const box =
+        document.getElementById("message");
+
+    box.textContent = message;
+
+    box.className =
+        "message " + type;
+
+    setTimeout(()=>{
+
+        box.className="message";
+
+    },3500);
+
+}
+
+
+/* ==========================================
+   AUTH
+========================================== */
+
+async function checkAuth(){
+
+    const {
+        data:{session},
+        error
+    } = await db.auth.getSession();
+
+
+    if(error){
+
+        console.error(error);
+
+    }
+
+
+    if(!session){
+
+        location.href="admin.html";
+
+        return false;
+
+    }
+
+
+    return true;
+
+}
+
+
+/* ==========================================
+   LOAD SUBJECTS
+========================================== */
 
 async function loadSubjects(){
 
-    const tbody=document.getElementById("subjectList");
+    const tbody =
+        document.getElementById("subjectList");
 
-    tbody.innerHTML=
-    `<tr><td colspan="6">Loading...</td></tr>`;
 
-    const {data,error}=await db
+    tbody.innerHTML = `
+
+        <tr>
+            <td colspan="6" class="loading">
+                ${text[currentLanguage].loading}
+            </td>
+        </tr>
+
+    `;
+
+
+    const {data,error} =
+
+        await db
         .from("subjects")
         .select("*")
         .order("class_name",{ascending:true})
         .order("subject_name",{ascending:true});
 
+
     if(error){
 
         console.error(error);
 
-        tbody.innerHTML=
-        `<tr><td colspan="6" class="error">
-        ${escapeHtml(error.message)}
-        </td></tr>`;
+        tbody.innerHTML = `
+
+            <tr>
+                <td colspan="6" class="empty error">
+                    ❌ ${escapeHtml(error.message)}
+                </td>
+            </tr>
+
+        `;
 
         return;
+
     }
 
-    if(!data || data.length===0){
 
-        tbody.innerHTML=
-        `<tr><td colspan="6">
-        এখনো কোনো Subject যোগ করা হয়নি।
-        </td></tr>`;
+    subjects = data || [];
+
+
+    updateStats();
+
+    renderSubjects();
+
+}
+
+
+/* ==========================================
+   RENDER
+========================================== */
+
+function renderSubjects(){
+
+    const tbody =
+        document.getElementById("subjectList");
+
+
+    const search =
+        document.getElementById("search")
+        .value
+        .toLowerCase()
+        .trim();
+
+
+    const filter =
+        document.getElementById("filterClass")
+        .value;
+
+
+    let list = subjects.filter(s=>{
+
+        const subjectName =
+            String(s.subject_name || "")
+            .toLowerCase();
+
+
+        const className =
+            String(s.class_name || "")
+            .toLowerCase();
+
+
+        const matchSearch =
+            !search ||
+            subjectName.includes(search) ||
+            className.includes(search);
+
+
+        const matchClass =
+            !filter ||
+            s.class_name === filter;
+
+
+        return matchSearch && matchClass;
+
+    });
+
+
+    if(!list.length){
+
+        tbody.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="6"
+                    class="empty">
+
+                    ${text[currentLanguage].empty}
+
+                </td>
+
+            </tr>
+
+        `;
 
         return;
+
     }
 
-    tbody.innerHTML=data.map(s=>`
+
+    tbody.innerHTML = list.map((s,index)=>`
 
         <tr>
 
-        <td>${escapeHtml(s.class_name||"-")}</td>
+            <td>
+                ${index+1}
+            </td>
 
-        <td><strong>${escapeHtml(s.subject_name||"-")}</strong></td>
 
-        <td>${escapeHtml(s.subject_code||"-")}</td>
+            <td>
 
-        <td>${escapeHtml(s.full_mark||"-")}</td>
+                <span class="badge">
 
-        <td>${escapeHtml(s.pass_mark||"-")}</td>
+                    ${escapeHtml(
+                        s.class_name || "-"
+                    )}
 
-        <td>
+                </span>
 
-        <button class="edit"
-        onclick='editSubject(${JSON.stringify(s)})'>
-        Edit
-        </button>
+            </td>
 
-        <button class="delete"
-        onclick="deleteSubject('${s.id}')">
-        Delete
-        </button>
 
-        </td>
+            <td>
+
+                <strong>
+
+                    ${escapeHtml(
+                        s.subject_name || "-"
+                    )}
+
+                </strong>
+
+            </td>
+
+
+            <td>
+
+                <span class="mark">
+
+                    ${escapeHtml(
+                        s.full_mark ?? "-"
+                    )}
+
+                </span>
+
+            </td>
+
+
+            <td>
+
+                <span class="mark">
+
+                    ${escapeHtml(
+                        s.pass_mark ?? "-"
+                    )}
+
+                </span>
+
+            </td>
+
+
+            <td>
+
+                <div class="action-buttons">
+
+                    <button
+                        class="btn-edit"
+                        onclick="editSubject('${escapeJs(s.id)}')">
+
+                        ✏️ ${text[currentLanguage].edit}
+
+                    </button>
+
+
+                    <button
+                        class="btn-danger"
+                        onclick="deleteSubject('${escapeJs(s.id)}')">
+
+                        🗑️ ${text[currentLanguage].delete}
+
+                    </button>
+
+                </div>
+
+            </td>
 
         </tr>
 
     `).join("");
+
 }
 
 
-/* SAVE */
+/* ==========================================
+   SAVE SUBJECT
+========================================== */
 
 async function saveSubject(){
 
-    const className=
-        document.getElementById("classSelect").value.trim();
+    const className =
+        document.getElementById("classSelect")
+        .value
+        .trim();
 
-    const subjectName=
-        document.getElementById("subjectName").value.trim();
 
-    const subjectCode=
-        document.getElementById("subjectCode").value.trim();
+    const subjectName =
+        document.getElementById("subjectName")
+        .value
+        .trim();
 
-    const fullMark=
-        Number(document.getElementById("fullMark").value);
 
-    const passMark=
-        Number(document.getElementById("passMark").value);
+    const fullMark =
+        Number(
+            document.getElementById("fullMark")
+            .value
+        );
 
-    if(!className || !subjectName){
 
-        message("Class এবং Subject Name দিতে হবে।","error");
+    const passMark =
+        Number(
+            document.getElementById("passMark")
+            .value
+        );
+
+
+    if(!className){
+
+        showMessage(
+            currentLanguage==="bn"
+            ? "শ্রেণি নির্বাচন করুন।"
+            : "Please select a class.",
+            "error"
+        );
+
         return;
+
     }
 
-    if(!fullMark || fullMark<=0){
 
-        message("Full Mark সঠিকভাবে দিন।","error");
+    if(!subjectName){
+
+        showMessage(
+            currentLanguage==="bn"
+            ? "বিষয়ের নাম লিখুন।"
+            : "Enter subject name.",
+            "error"
+        );
+
         return;
+
     }
 
-    if(passMark<0 || passMark>fullMark){
 
-        message("Pass Mark Full Mark-এর মধ্যে হতে হবে।","error");
+    if(!fullMark || fullMark <= 0){
+
+        showMessage(
+            currentLanguage==="bn"
+            ? "সঠিক Full Mark দিন।"
+            : "Enter a valid Full Mark.",
+            "error"
+        );
+
         return;
+
     }
 
-    const payload={
+
+    if(passMark < 0 || passMark > fullMark){
+
+        showMessage(
+            currentLanguage==="bn"
+            ? "Pass Mark অবশ্যই Full Mark-এর সমান বা কম হতে হবে।"
+            : "Pass Mark must be less than or equal to Full Mark.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const payload = {
+
         class_name:className,
+
         subject_name:subjectName,
-        subject_code:subjectCode || null,
+
         full_mark:fullMark,
+
         pass_mark:passMark
+
     };
 
-    let error;
+
+    let result;
+
 
     if(editingId){
 
-        const result=await db
+        result =
+            await db
             .from("subjects")
             .update(payload)
             .eq("id",editingId);
 
-        error=result.error;
-
     }else{
 
-        const result=await db
+        result =
+            await db
             .from("subjects")
-            .insert(payload);
+            .insert([payload]);
 
-        error=result.error;
     }
 
-    if(error){
 
-        console.error(error);
+    if(result.error){
 
-        message(error.message,"error");
+        console.error(result.error);
+
+        showMessage(
+            result.error.message,
+            "error"
+        );
+
         return;
+
     }
 
-    message(
+
+    showMessage(
         editingId
-        ? "Subject সফলভাবে Update হয়েছে।"
-        : "Subject সফলভাবে Added হয়েছে।",
-        "success"
+        ? text[currentLanguage].successUpdate
+        : text[currentLanguage].successAdd
     );
 
-    resetForm();
-    loadSubjects();
+
+    cancelEdit();
+
+    await loadSubjects();
+
 }
 
 
-/* EDIT */
+/* ==========================================
+   EDIT
+========================================== */
 
-function editSubject(s){
+function editSubject(id){
 
-    editingId=s.id;
+    const subject =
+        subjects.find(s=>
+            String(s.id) === String(id)
+        );
 
-    document.getElementById("classSelect").value=
-        s.class_name || "";
 
-    document.getElementById("subjectName").value=
-        s.subject_name || "";
+    if(!subject){
 
-    document.getElementById("subjectCode").value=
-        s.subject_code || "";
+        return;
 
-    document.getElementById("fullMark").value=
-        s.full_mark || 100;
+    }
 
-    document.getElementById("passMark").value=
-        s.pass_mark || 33;
 
-    document.getElementById("formTitle").textContent=
-        "✏️ Subject Edit করুন";
+    editingId = subject.id;
+
+
+    document.getElementById("classSelect")
+        .value = subject.class_name || "";
+
+
+    document.getElementById("subjectName")
+        .value = subject.subject_name || "";
+
+
+    document.getElementById("fullMark")
+        .value = subject.full_mark ?? "";
+
+
+    document.getElementById("passMark")
+        .value = subject.pass_mark ?? "";
+
+
+    document.getElementById("formBox")
+        .classList.add("editing");
+
+
+    document.getElementById("formTitle")
+        .textContent =
+        currentLanguage==="bn"
+        ? "✏️ বিষয় পরিবর্তন করুন"
+        : "✏️ Edit Subject";
+
+
+    updateFormButtons();
+
 
     window.scrollTo({
+
         top:0,
+
         behavior:"smooth"
+
     });
+
 }
 
 
-/* DELETE */
+/* ==========================================
+   CANCEL EDIT
+========================================== */
+
+function cancelEdit(){
+
+    editingId = null;
+
+
+    document.getElementById("classSelect")
+        .value = "";
+
+
+    document.getElementById("subjectName")
+        .value = "";
+
+
+    document.getElementById("fullMark")
+        .value = "";
+
+
+    document.getElementById("passMark")
+        .value = "";
+
+
+    document.getElementById("formBox")
+        .classList.remove("editing");
+
+
+    document.getElementById("formTitle")
+        .textContent =
+        text[currentLanguage].formTitle;
+
+
+    updateFormButtons();
+
+}
+
+
+/* ==========================================
+   BUTTONS
+========================================== */
+
+function updateFormButtons(){
+
+    const t =
+        text[currentLanguage];
+
+
+    document.getElementById("saveBtn")
+        .textContent =
+        editingId ? t.update : t.save;
+
+
+    document.getElementById("cancelBtn")
+        .style.display =
+        editingId ? "inline-block" : "none";
+
+}
+
+
+/* ==========================================
+   DELETE
+========================================== */
 
 async function deleteSubject(id){
 
-    if(!confirm(
-        "এই Subject delete করলে এর সাথে থাকা Result data-তেও সমস্যা হতে পারে। Delete করবেন?"
-    )) return;
+    const t =
+        text[currentLanguage];
 
-    const {error}=await db
+
+    if(!confirm(t.confirmDelete)){
+
+        return;
+
+    }
+
+
+    const {error} =
+
+        await db
         .from("subjects")
         .delete()
         .eq("id",id);
 
+
     if(error){
 
         console.error(error);
 
-        message(error.message,"error");
+        showMessage(
+            error.message,
+            "error"
+        );
+
         return;
+
     }
 
-    message("Subject deleted হয়েছে।","success");
 
-    loadSubjects();
+    showMessage(
+        t.successDelete
+    );
+
+
+    await loadSubjects();
+
 }
 
 
-/* RESET */
+/* ==========================================
+   STATISTICS
+========================================== */
 
-function resetForm(){
+function updateStats(){
 
-    editingId=null;
+    const uniqueClasses =
+        new Set(
+            subjects
+            .map(s=>s.class_name)
+            .filter(Boolean)
+        );
 
-    document.getElementById("classSelect").value="";
-    document.getElementById("subjectName").value="";
-    document.getElementById("subjectCode").value="";
-    document.getElementById("fullMark").value=100;
-    document.getElementById("passMark").value=33;
 
-    document.getElementById("formTitle").textContent=
-        "➕ Subject Add করুন";
+    document.getElementById("classCount")
+        .textContent =
+        uniqueClasses.size;
+
+
+    document.getElementById("subjectCount")
+        .textContent =
+        subjects.length;
+
+
+    const totalMarks =
+        subjects.reduce(
+
+            (sum,s)=>
+                sum + Number(s.full_mark || 0),
+
+            0
+
+        );
+
+
+    document.getElementById("markCount")
+        .textContent =
+        totalMarks;
+
 }
 
 
-/* ESCAPE */
+/* ==========================================
+   SEARCH
+========================================== */
+
+document
+.getElementById("search")
+.addEventListener(
+    "input",
+    renderSubjects
+);
+
+
+document
+.getElementById("filterClass")
+.addEventListener(
+    "change",
+    renderSubjects
+);
+
+
+/* ==========================================
+   ESCAPE
+========================================== */
 
 function escapeHtml(value){
 
     return String(value)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+
 }
 
 
-/* START */
+function escapeJs(value){
 
-loadSubjects();
+    return String(value)
+        .replaceAll("\\","\\\\")
+        .replaceAll("'","\\'");
+
+}
+
+
+/* ==========================================
+   START
+========================================== */
+
+(async function(){
+
+    const ok =
+        await checkAuth();
+
+
+    if(!ok){
+
+        return;
+
+    }
+
+
+    await loadSubjects();
+
+})();
 
 </script>
 
