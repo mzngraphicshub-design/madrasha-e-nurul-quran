@@ -2,9 +2,9 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Session / Year Management | মাদরাসায়ে নূরুল কুরআন</title>
+<title>Year / Session Management | মাদরাসায়ে নূরুল কুরআন</title>
 
 <style>
 *{
@@ -18,34 +18,34 @@ body{
     color:#1e293b;
 }
 
-.topbar{
-    background:linear-gradient(135deg,#082f66,#1976d2);
+.top{
+    background:linear-gradient(135deg,#062d63,#1976d2);
     color:#fff;
-    padding:14px 22px;
+    padding:15px 22px;
     display:flex;
-    align-items:center;
     justify-content:space-between;
+    align-items:center;
     gap:15px;
-    box-shadow:0 3px 12px #0002;
+    box-shadow:0 3px 15px #0002;
 }
 
-.topbar h2{
+.top h2{
     margin:0;
-    font-size:18px;
+    font-size:19px;
 }
 
 .dashboard-btn{
-    color:#fff;
     text-decoration:none;
-    border:1px solid #ffffff40;
-    background:#ffffff15;
+    color:#fff;
+    background:#ffffff18;
+    border:1px solid #ffffff35;
     padding:9px 14px;
     border-radius:8px;
     font-size:13px;
 }
 
 .container{
-    max-width:1100px;
+    max-width:1150px;
     margin:25px auto;
     padding:0 15px;
 }
@@ -53,29 +53,31 @@ body{
 .box{
     background:#fff;
     border-radius:15px;
-    padding:20px;
-    margin-bottom:18px;
+    padding:22px;
+    margin-bottom:20px;
     box-shadow:0 4px 18px #0d47a115;
     border:1px solid #e3eaf3;
 }
 
 h3{
     margin:0 0 15px;
-    color:#0d47a1;
+    color:#073b78;
     font-size:19px;
 }
 
-.line{
-    width:40px;
+.title-line{
+    width:45px;
     height:3px;
-    background:linear-gradient(90deg,#0d47a1,#ffd740);
-    margin-bottom:15px;
+    background:#f4c542;
+    margin-top:-8px;
+    margin-bottom:16px;
+    border-radius:5px;
 }
 
-.notice{
-    background:#edf7ff;
+.info{
+    background:#eef7ff;
     border-left:4px solid #1976d2;
-    padding:12px;
+    padding:12px 14px;
     border-radius:7px;
     font-size:13px;
     line-height:1.7;
@@ -92,26 +94,26 @@ label{
     display:block;
     font-size:13px;
     font-weight:bold;
-    margin-bottom:6px;
+    margin-bottom:7px;
 }
 
 input{
     width:100%;
     padding:12px;
-    border:1px solid #d7e0ea;
-    border-radius:8px;
-    outline:none;
+    border:1px solid #d7e0eb;
+    border-radius:9px;
     background:#fff;
+    outline:none;
     font-size:14px;
 }
 
 input:focus{
     border-color:#1976d2;
-    box-shadow:0 0 0 3px #1976d218;
+    box-shadow:0 0 0 3px #1976d215;
 }
 
-.action{
-    margin-top:18px;
+.btn-row{
+    margin-top:15px;
     display:flex;
     gap:10px;
     flex-wrap:wrap;
@@ -121,30 +123,29 @@ button{
     border:0;
     cursor:pointer;
     border-radius:8px;
-    padding:10px 15px;
+    padding:10px 16px;
     font-weight:bold;
 }
 
 .save-btn{
-    color:#fff;
     background:linear-gradient(135deg,#064b9b,#1976d2);
+    color:#fff;
 }
 
 .cancel-btn{
-    background:#e8eef5;
+    background:#e5e7eb;
     color:#334155;
     display:none;
 }
 
-.save-btn:disabled{
-    opacity:.6;
-    cursor:not-allowed;
+.print-btn{
+    background:#1e293b;
+    color:#fff;
 }
 
 .search-row{
     display:flex;
     gap:10px;
-    align-items:center;
     margin-bottom:15px;
 }
 
@@ -152,25 +153,18 @@ button{
     flex:1;
 }
 
-.print-btn{
-    background:#1e293b;
-    color:#fff;
-    white-space:nowrap;
-}
-
 .table-wrap{
-    width:100%;
     overflow-x:auto;
 }
 
 table{
     width:100%;
     border-collapse:collapse;
-    min-width:700px;
+    min-width:750px;
 }
 
 th{
-    background:linear-gradient(90deg,#0d47a1,#1976d2);
+    background:#0750a3;
     color:#fff;
     padding:11px 9px;
     text-align:left;
@@ -179,7 +173,7 @@ th{
 
 td{
     padding:11px 9px;
-    border-bottom:1px solid #e8edf3;
+    border-bottom:1px solid #edf1f5;
     font-size:13px;
 }
 
@@ -187,65 +181,85 @@ tr:hover td{
     background:#f8fbff;
 }
 
-.status{
+.badge{
     display:inline-block;
     padding:5px 9px;
     border-radius:20px;
-    background:#e8f5e9;
-    color:#16803c;
-    font-weight:bold;
     font-size:11px;
+    font-weight:bold;
 }
 
-.edit-btn{
-    background:#fff3cd;
-    color:#8a6200;
+.active{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.upcoming{
+    background:#dbeafe;
+    color:#1d4ed8;
+}
+
+.expired{
+    background:#fee2e2;
+    color:#991b1b;
+}
+
+.action-btn{
     padding:7px 10px;
+    font-size:12px;
     margin-right:4px;
 }
 
-.delete-btn{
-    background:#fee2e2;
-    color:#b91c1c;
-    padding:7px 10px;
+.edit{
+    background:#e0f2fe;
+    color:#0369a1;
 }
 
-.loading,
-.empty{
+.delete{
+    background:#fee2e2;
+    color:#b91c1c;
+}
+
+.empty,
+.loading{
     text-align:center;
     padding:25px;
     color:#64748b;
 }
 
 .error{
-    color:#dc2626;
-    background:#fef2f2;
+    background:#fff1f2;
+    color:#be123c;
     padding:12px;
     border-radius:8px;
+    margin-top:10px;
+    font-size:13px;
 }
 
 .success{
-    color:#15803d;
-    background:#f0fdf4;
+    background:#ecfdf5;
+    color:#047857;
     padding:12px;
     border-radius:8px;
+    margin-top:10px;
+    font-size:13px;
 }
 
-.message{
-    display:none;
-    margin-bottom:15px;
+.small{
+    color:#64748b;
+    font-size:11px;
 }
 
-@media(max-width:750px){
+@media(max-width:800px){
     .form-grid{
         grid-template-columns:1fr;
     }
 
-    .topbar{
+    .top{
         padding:12px 15px;
     }
 
-    .topbar h2{
+    .top h2{
         font-size:15px;
     }
 
@@ -257,169 +271,88 @@ tr:hover td{
     .box{
         padding:15px;
     }
-
-    .search-row{
-        flex-direction:column;
-        align-items:stretch;
-    }
-
-    .print-btn{
-        width:100%;
-    }
-}
-
-@media print{
-
-    .topbar,
-    .form-box,
-    .search-row,
-    .action,
-    .message,
-    .action-col{
-        display:none!important;
-    }
-
-    body{
-        background:#fff;
-    }
-
-    .container{
-        max-width:100%;
-        margin:0;
-    }
-
-    .box{
-        box-shadow:none;
-        border:0;
-    }
-
-    table{
-        min-width:100%;
-    }
 }
 </style>
 </head>
 
 <body>
 
-<!-- ==============================
-     HEADER
-============================== -->
-
-<header class="topbar">
-
+<header class="top">
     <h2>📅 Year / Session Management</h2>
 
     <a href="dashboard.html" class="dashboard-btn">
         ← Dashboard
     </a>
-
 </header>
-
 
 <div class="container">
 
-<!-- ==============================
-     ADD SESSION
-============================== -->
+<!-- ADD SESSION -->
+<div class="box">
 
-<div class="box form-box">
+    <h3 id="formTitle">➕ Add Year / Session</h3>
 
-    <h3 id="formTitle">
-        ➕ Add Year / Session
-    </h3>
+    <div class="title-line"></div>
 
-    <div class="line"></div>
+    <div class="info">
+        <b>নিয়ম:</b> Session শুধুমাত্র বছর অনুযায়ী হবে — যেমন
+        <b>2026, 2027, 2028</b>।<br>
 
-    <div id="message" class="message"></div>
-
-    <div class="notice">
-
-        <b>নিয়ম:</b>
-        Session শুরু হবে বছর অনুযায়ী হবে —
-        যেমন <b>2026, 2027, 2028</b>।
-
-        <br>
-
-        Students Page-এ Session নির্বাচন করলে
-        সেই বছরের শিক্ষার্থীদের আলাদা List দেখা যাবে।
-
+        Students Page-এ Session নির্বাচন করলে ঐ বছরের শিক্ষার্থীদের আলাদা List দেখা যাবে।
     </div>
-
 
     <div class="form-grid">
 
-        <!-- SESSION -->
-
         <div>
-
-            <label>
-                Year / Session *
-            </label>
+            <label>Year / Session *</label>
 
             <input
-                type="text"
-                id="sessionInput"
+                type="number"
+                id="yearInput"
                 placeholder="যেমন: 2026"
-                inputmode="numeric"
+                min="2000"
+                max="2100"
             >
-
         </div>
 
-
-        <!-- START DATE -->
-
         <div>
-
-            <label>
-                Start Date
-            </label>
+            <label>Start Date</label>
 
             <input
                 type="date"
                 id="startDate"
             >
-
         </div>
 
-
-        <!-- END DATE -->
-
         <div>
-
-            <label>
-                End Date
-            </label>
+            <label>End Date</label>
 
             <input
                 type="date"
                 id="endDate"
             >
-
         </div>
 
     </div>
 
+    <div id="message"></div>
 
-    <div class="action">
+    <div class="btn-row">
 
         <button
             class="save-btn"
             id="saveBtn"
-            onclick="saveSession()">
-
+            onclick="saveSession()"
+        >
             💾 Save Year
-
         </button>
-
 
         <button
             class="cancel-btn"
             id="cancelBtn"
-            onclick="cancelEdit()">
-
-            Cancel
-
+            onclick="cancelEdit()"
+        >
+            ✖ Cancel
         </button>
 
     </div>
@@ -427,18 +360,12 @@ tr:hover td{
 </div>
 
 
-<!-- ==============================
-     SESSION LIST
-============================== -->
-
+<!-- SESSION LIST -->
 <div class="box">
 
-    <h3>
-        📅 Year / Session List
-    </h3>
+    <h3>📅 Year / Session List</h3>
 
-    <div class="line"></div>
-
+    <div class="title-line"></div>
 
     <div class="search-row">
 
@@ -446,19 +373,17 @@ tr:hover td{
             type="text"
             id="searchInput"
             placeholder="🔍 Year / Session দিয়ে খুঁজুন..."
-            oninput="renderSessions()"
+            oninput="renderTable()"
         >
 
         <button
             class="print-btn"
-            onclick="window.print()">
-
+            onclick="printTable()"
+        >
             🖨 Print
-
         </button>
 
     </div>
-
 
     <div class="table-wrap">
 
@@ -467,44 +392,21 @@ tr:hover td{
             <thead>
 
                 <tr>
-
-                    <th>
-                        Year / Session
-                    </th>
-
-                    <th>
-                        Start Date
-                    </th>
-
-                    <th>
-                        End Date
-                    </th>
-
-                    <th>
-                        Status
-                    </th>
-
-                    <th class="action-col">
-                        Action
-                    </th>
-
+                    <th>Year / Session</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
                 </tr>
 
             </thead>
 
-
-            <tbody id="sessionList">
+            <tbody id="sessionTable">
 
                 <tr>
-
-                    <td
-                        colspan="5"
-                        class="loading">
-
+                    <td colspan="5" class="loading">
                         Loading...
-
                     </td>
-
                 </tr>
 
             </tbody>
@@ -518,18 +420,14 @@ tr:hover td{
 </div>
 
 
-<!-- ==============================
-     SUPABASE
-============================== -->
-
+<!-- SUPABASE -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 
 <script>
 
-/* =================================
+/* =====================================================
    SUPABASE
-================================= */
+===================================================== */
 
 const SUPABASE_URL =
 "https://qavublwhqiqsgpcmfyft.supabase.co";
@@ -544,92 +442,82 @@ window.supabase.createClient(
 );
 
 
-/* =================================
+/* =====================================================
    VARIABLES
-================================= */
+===================================================== */
 
 let sessions = [];
 
 let editingId = null;
 
 
-/* =================================
-   START
-================================= */
+/* =====================================================
+   AUTH
+===================================================== */
 
-async function start(){
+async function checkAuth(){
 
-    try{
+    const {
+        data:{session},
+        error
+    } = await db.auth.getSession();
 
-        const {
-            data:{
-                session
-            }
-        } = await db.auth.getSession();
-
-
-        if(!session){
-
-            location.href =
-            "admin.html";
-
-            return;
-
-        }
-
-
-        await loadSessions();
-
-    }
-    catch(error){
+    if(error){
 
         console.error(error);
 
         showMessage(
-            "❌ "+error.message,
+            "❌ Login check failed: " + error.message,
             "error"
         );
 
+        return false;
     }
 
+    if(!session){
+
+        window.location.href =
+        "admin.html";
+
+        return false;
+    }
+
+    return true;
 }
 
 
-/* =================================
-   LOAD SESSIONS
-================================= */
+/* =====================================================
+   LOAD SESSION DATA
+===================================================== */
 
 async function loadSessions(){
 
     const tbody =
-    document.getElementById(
-        "sessionList"
-    );
-
+    document.getElementById("sessionTable");
 
     tbody.innerHTML = `
-
         <tr>
-
-            <td
-                colspan="5"
-                class="loading">
-
+            <td colspan="5" class="loading">
                 ⏳ Loading...
-
             </td>
-
         </tr>
-
     `;
 
 
     /*
        IMPORTANT:
 
-       এখানে is_active ব্যবহার করা হয়নি।
-       কারণ তোমার sessions table-এ
-       is_active column নেই।
+       এখানে sessions.session ব্যবহার করা হয়নি।
+       sessions.is_active ব্যবহার করা হয়নি।
+
+       আপনার screenshot-এর error অনুযায়ী
+       table-এ এই দুই column নেই।
+
+       আমরা ব্যবহার করছি:
+       id
+       year
+       start_date
+       end_date
     */
 
 
@@ -638,51 +526,42 @@ async function loadSessions(){
         error
     } = await db
 
-        .from("sessions")
+    .from("sessions")
 
-        .select(`
-            id,
-            session,
-            start_date,
-            end_date
-        `)
+    .select(`
+        id,
+        year,
+        start_date,
+        end_date
+    `)
 
-        .order(
-            "session",
-            {
-                ascending:false
-            }
-        );
+    .order(
+        "year",
+        {
+            ascending:false
+        }
+    );
 
 
     if(error){
 
         console.error(
-            "Session Load Error:",
+            "SESSION LOAD ERROR:",
             error
         );
 
-
         tbody.innerHTML = `
-
             <tr>
-
                 <td
                     colspan="5"
-                    class="empty error">
-
-                    ❌ ${escapeHtml(
-                        error.message
-                    )}
-
+                    class="error"
+                >
+                    ❌ ${escapeHtml(error.message)}
                 </td>
-
             </tr>
-
         `;
 
         return;
-
     }
 
 
@@ -690,46 +569,42 @@ async function loadSessions(){
     data || [];
 
 
-    renderSessions();
+    renderTable();
 
 }
 
 
-/* =================================
-   RENDER
-================================= */
+/* =====================================================
+   RENDER TABLE
+===================================================== */
 
-function renderSessions(){
+function renderTable(){
 
     const tbody =
     document.getElementById(
-        "sessionList"
+        "sessionTable"
     );
 
-
-    const search =
+    const query =
     document
-        .getElementById(
-            "searchInput"
-        )
-        .value
-        .trim()
-        .toLowerCase();
+    .getElementById("searchInput")
+    .value
+    .toLowerCase()
+    .trim();
 
 
     let list =
     sessions.filter(item=>{
 
-        if(!search){
+        if(!query){
             return true;
         }
 
-
         return String(
-            item.session || ""
+            item.year || ""
         )
         .toLowerCase()
-        .includes(search);
+        .includes(query);
 
     });
 
@@ -737,105 +612,100 @@ function renderSessions(){
     if(!list.length){
 
         tbody.innerHTML = `
-
             <tr>
-
                 <td
                     colspan="5"
-                    class="empty">
-
-                    কোনো Year / Session পাওয়া যায়নি।
-
+                    class="empty"
+                >
+                    📭 কোনো Year / Session পাওয়া যায়নি
                 </td>
-
             </tr>
-
         `;
 
         return;
-
     }
 
 
     tbody.innerHTML =
 
-    list.map(item=>`
+    list.map(item=>{
+
+        const status =
+        getStatus(
+            item.start_date,
+            item.end_date
+        );
+
+
+        return `
 
         <tr>
 
             <td>
 
                 <strong>
-
                     ${escapeHtml(
-                        item.session || "-"
+                        item.year || "-"
                     )}
-
                 </strong>
 
             </td>
 
 
             <td>
-
                 ${formatDate(
                     item.start_date
                 )}
-
             </td>
 
 
             <td>
-
                 ${formatDate(
                     item.end_date
                 )}
-
             </td>
 
 
             <td>
 
-                <span class="status">
-
-                    Active
-
+                <span class="badge ${status.className}">
+                    ${status.text}
                 </span>
 
             </td>
 
 
-            <td class="action-col">
+            <td>
 
                 <button
-                    class="edit-btn"
-                    onclick="editSession('${item.id}')">
-
-                    ✏️ Edit
-
+                    class="action-btn edit"
+                    onclick="editSession('${item.id}')"
+                >
+                    ✏ Edit
                 </button>
 
 
                 <button
-                    class="delete-btn"
-                    onclick="deleteSession('${item.id}')">
-
+                    class="action-btn delete"
+                    onclick="deleteSession('${item.id}')"
+                >
                     🗑 Delete
-
                 </button>
 
             </td>
 
         </tr>
 
-    `).join("");
+        `;
+
+    }).join("");
 
 }
 
 
-/* =================================
-   SAVE
-================================= */
+/* =====================================================
+   SAVE / UPDATE SESSION
+===================================================== */
 
 async function saveSession(){
 
@@ -845,54 +715,46 @@ async function saveSession(){
     );
 
 
-    const sessionValue =
+    const year =
     document
-        .getElementById(
-            "sessionInput"
-        )
-        .value
-        .trim();
+    .getElementById("yearInput")
+    .value
+    .trim();
 
 
     const startDate =
     document
-        .getElementById(
-            "startDate"
-        )
-        .value;
+    .getElementById("startDate")
+    .value;
 
 
     const endDate =
     document
-        .getElementById(
-            "endDate"
-        )
-        .value;
+    .getElementById("endDate")
+    .value;
 
 
     /* VALIDATION */
 
-    if(!sessionValue){
+    if(!year){
 
         showMessage(
-            "❌ Year / Session লিখুন।",
+            "❌ Year / Session দিন।",
             "error"
         );
 
         return;
-
     }
 
 
-    if(!/^[0-9]{4}$/.test(sessionValue)){
+    if(!/^\d{4}$/.test(year)){
 
         showMessage(
-            "❌ Session অবশ্যই 4 digit year হতে হবে। যেমন: 2026",
+            "❌ Year অবশ্যই ৪ সংখ্যার হতে হবে। যেমন: 2026",
             "error"
         );
 
         return;
-
     }
 
 
@@ -906,19 +768,79 @@ async function saveSession(){
         );
 
         return;
-
     }
 
 
-    saveBtn.disabled=true;
+    saveBtn.disabled = true;
+
+    saveBtn.textContent =
+    "⏳ Saving...";
 
 
     try{
 
+        /* CHECK DUPLICATE */
 
-        /* ===========================
-           EDIT
-        =========================== */
+        let duplicateQuery =
+        db
+        .from("sessions")
+        .select("id,year")
+        .eq("year", Number(year));
+
+
+        if(editingId){
+
+            duplicateQuery =
+            duplicateQuery.neq(
+                "id",
+                editingId
+            );
+
+        }
+
+
+        const {
+            data:duplicate,
+            error:duplicateError
+        } =
+        await duplicateQuery;
+
+
+        if(duplicateError){
+
+            throw duplicateError;
+
+        }
+
+
+        if(
+            duplicate &&
+            duplicate.length > 0
+        ){
+
+            showMessage(
+                `❌ ${year} Session ইতিমধ্যে আছে।`,
+                "error"
+            );
+
+            return;
+        }
+
+
+        const payload = {
+
+            year:Number(year),
+
+            start_date:
+            startDate || null,
+
+            end_date:
+            endDate || null
+
+        };
+
+
+        /* UPDATE */
 
         if(editingId){
 
@@ -926,114 +848,55 @@ async function saveSession(){
                 error
             } = await db
 
-                .from("sessions")
+            .from("sessions")
 
-                .update({
+            .update(payload)
 
-                    session:
-                        sessionValue,
-
-                    start_date:
-                        startDate || null,
-
-                    end_date:
-                        endDate || null
-
-                })
-
-                .eq(
-                    "id",
-                    editingId
-                );
+            .eq(
+                "id",
+                editingId
+            );
 
 
             if(error){
+
                 throw error;
+
             }
 
 
             showMessage(
-                "✅ Session সফলভাবে আপডেট হয়েছে।",
+                "✅ Session সফলভাবে Update হয়েছে।",
                 "success"
             );
 
         }
 
 
-        /* ===========================
-           INSERT
-        =========================== */
+        /* INSERT */
 
         else{
-
-            /*
-               আগে একই session আছে কি না
-               check করা হচ্ছে।
-            */
-
-            const {
-                data:existing,
-                error:checkError
-            } = await db
-
-                .from("sessions")
-
-                .select("id")
-
-                .eq(
-                    "session",
-                    sessionValue
-                )
-                
-                .maybeSingle();
-
-
-            if(checkError){
-                throw checkError;
-            }
-
-
-            if(existing){
-
-                showMessage(
-                    "❌ "+sessionValue+
-                    " Session আগে থেকেই আছে।",
-                    "error"
-                );
-
-                return;
-
-            }
-
 
             const {
                 error
             } = await db
 
-                .from("sessions")
+            .from("sessions")
 
-                .insert({
-
-                    session:
-                        sessionValue,
-
-                    start_date:
-                        startDate || null,
-
-                    end_date:
-                        endDate || null
-
-                });
+            .insert([
+                payload
+            ]);
 
 
             if(error){
+
                 throw error;
+
             }
 
 
             showMessage(
-                "✅ "+sessionValue+
-                " Session সফলভাবে যোগ হয়েছে।",
+                "✅ নতুন Session সফলভাবে যোগ হয়েছে।",
                 "success"
             );
 
@@ -1044,41 +907,47 @@ async function saveSession(){
 
         await loadSessions();
 
-    }
-    catch(error){
+
+    }catch(error){
 
         console.error(
-            "Save Error:",
+            "SAVE SESSION ERROR:",
             error
         );
 
 
         showMessage(
-            "❌ "+error.message,
+            "❌ " +
+            escapeHtml(
+                error.message
+            ),
             "error"
         );
 
-    }
-    finally{
+    }finally{
 
-        saveBtn.disabled=false;
+        saveBtn.disabled =
+        false;
+
+        saveBtn.textContent =
+        editingId
+        ? "💾 Update Year"
+        : "💾 Save Year";
 
     }
 
 }
 
 
-/* =================================
-   EDIT
-================================= */
+/* =====================================================
+   EDIT SESSION
+===================================================== */
 
 function editSession(id){
 
     const item =
     sessions.find(
-        x =>
-        String(x.id) ===
-        String(id)
+        x => String(x.id) === String(id)
     );
 
 
@@ -1090,7 +959,6 @@ function editSession(id){
         );
 
         return;
-
     }
 
 
@@ -1099,51 +967,39 @@ function editSession(id){
 
 
     document
-        .getElementById(
-            "sessionInput"
-        )
-        .value =
-        item.session || "";
+    .getElementById("yearInput")
+    .value =
+    item.year || "";
 
 
     document
-        .getElementById(
-            "startDate"
-        )
-        .value =
-        item.start_date || "";
+    .getElementById("startDate")
+    .value =
+    item.start_date || "";
 
 
     document
-        .getElementById(
-            "endDate"
-        )
-        .value =
-        item.end_date || "";
+    .getElementById("endDate")
+    .value =
+    item.end_date || "";
 
 
     document
-        .getElementById(
-            "formTitle"
-        )
-        .textContent =
-        "✏️ Edit Year / Session";
+    .getElementById("formTitle")
+    .textContent =
+    "✏ Edit Year / Session";
 
 
     document
-        .getElementById(
-            "saveBtn"
-        )
-        .textContent =
-        "💾 Update Session";
+    .getElementById("saveBtn")
+    .textContent =
+    "💾 Update Year";
 
 
     document
-        .getElementById(
-            "cancelBtn"
-        )
-        .style.display =
-        "inline-block";
+    .getElementById("cancelBtn")
+    .style.display =
+    "inline-block";
 
 
     window.scrollTo({
@@ -1154,188 +1010,136 @@ function editSession(id){
 }
 
 
-/* =================================
+/* =====================================================
    CANCEL EDIT
-================================= */
+===================================================== */
 
 function cancelEdit(){
 
+    editingId = null;
+
     clearForm();
+
+    document
+    .getElementById("formTitle")
+    .textContent =
+    "➕ Add Year / Session";
+
+
+    document
+    .getElementById("saveBtn")
+    .textContent =
+    "💾 Save Year";
+
+
+    document
+    .getElementById("cancelBtn")
+    .style.display =
+    "none";
 
 }
 
 
-/* =================================
+/* =====================================================
    CLEAR FORM
-================================= */
+===================================================== */
 
 function clearForm(){
 
-    editingId=null;
+    document
+    .getElementById("yearInput")
+    .value = "";
 
 
     document
-        .getElementById(
-            "sessionInput"
-        )
-        .value="";
+    .getElementById("startDate")
+    .value = "";
 
 
     document
-        .getElementById(
-            "startDate"
-        )
-        .value="";
-
-
-    document
-        .getElementById(
-            "endDate"
-        )
-        .value="";
-
-
-    document
-        .getElementById(
-            "formTitle"
-        )
-        .textContent =
-        "➕ Add Year / Session";
-
-
-    document
-        .getElementById(
-            "saveBtn"
-        )
-        .textContent =
-        "💾 Save Year";
-
-
-    document
-        .getElementById(
-            "cancelBtn"
-        )
-        .style.display =
-        "none";
+    .getElementById("endDate")
+    .value = "";
 
 }
 
 
-/* =================================
+/* =====================================================
    DELETE
-================================= */
+===================================================== */
 
 async function deleteSession(id){
 
     const item =
     sessions.find(
-        x =>
-        String(x.id) ===
-        String(id)
+        x => String(x.id) === String(id)
     );
 
 
     if(!item){
+
         return;
+
     }
 
 
-    const ok =
+    const confirmed =
     confirm(
-        "আপনি কি "+item.session+
-        " Session মুছে ফেলতে চান?\n\n"+
-        "এই Session-এর সাথে Students যুক্ত থাকলে delete করতে সমস্যা হতে পারে।"
+        `আপনি কি ${item.year} Session delete করতে চান?\n\nএই Session-এর সাথে Students/Results যুক্ত থাকলে delete করা যাবে না।`
     );
 
 
-    if(!ok){
+    if(!confirmed){
+
         return;
+
     }
 
 
     try{
 
-        /*
-           আগে check করা হচ্ছে
-           এই session-এর students আছে কি না।
-        */
-
-        const {
-            data:studentData,
-            error:studentError
-        } = await db
-
-            .from("students")
-
-            .select("id")
-
-            .eq(
-                "session",
-                item.session
-            )
-            
-            .limit(1);
-
-
-        if(studentError){
-            throw studentError;
-        }
-
-
-        if(
-            studentData &&
-            studentData.length > 0
-        ){
-
-            showMessage(
-                "❌ এই Session-এর Students আছে। আগে Students অন্য Session-এ সরান বা মুছে দিন।",
-                "error"
-            );
-
-            return;
-
-        }
-
-
         const {
             error
         } = await db
 
-            .from("sessions")
+        .from("sessions")
 
-            .delete()
+        .delete()
 
-            .eq(
-                "id",
-                id
-            );
+        .eq(
+            "id",
+            id
+        );
 
 
         if(error){
+
             throw error;
+
         }
 
 
         showMessage(
-            "✅ "+item.session+
-            " Session মুছে ফেলা হয়েছে।",
+            "✅ Session সফলভাবে Delete হয়েছে।",
             "success"
         );
 
 
         await loadSessions();
 
-    }
-    catch(error){
+
+    }catch(error){
 
         console.error(
-            "Delete Error:",
+            "DELETE SESSION ERROR:",
             error
         );
 
 
         showMessage(
-            "❌ "+error.message,
+            "❌ Delete করা যায়নি: " +
+            escapeHtml(
+                error.message
+            ),
             "error"
         );
 
@@ -1344,38 +1148,130 @@ async function deleteSession(id){
 }
 
 
-/* =================================
+/* =====================================================
+   STATUS
+===================================================== */
+
+function getStatus(
+    startDate,
+    endDate
+){
+
+    const today =
+    new Date();
+
+
+    today.setHours(
+        0,0,0,0
+    );
+
+
+    if(startDate){
+
+        const start =
+        new Date(
+            startDate + "T00:00:00"
+        );
+
+
+        if(
+            today < start
+        ){
+
+            return {
+
+                text:"Upcoming",
+
+                className:"upcoming"
+
+            };
+
+        }
+
+    }
+
+
+    if(endDate){
+
+        const end =
+        new Date(
+            endDate + "T23:59:59"
+        );
+
+
+        if(
+            today > end
+        ){
+
+            return {
+
+                text:"Expired",
+
+                className:"expired"
+
+            };
+
+        }
+
+    }
+
+
+    return {
+
+        text:"Active",
+
+        className:"active"
+
+    };
+
+}
+
+
+/* =====================================================
    DATE FORMAT
-================================= */
+===================================================== */
 
 function formatDate(value){
 
     if(!value){
+
         return "-";
+
     }
 
 
     const d =
     new Date(
-        value+"T00:00:00"
+        value + "T00:00:00"
     );
 
 
-    if(isNaN(d.getTime())){
-        return escapeHtml(value);
+    if(
+        isNaN(
+            d.getTime()
+        )
+    ){
+
+        return value;
+
     }
 
 
     return d.toLocaleDateString(
-        "en-GB"
+        "en-GB",
+        {
+            day:"2-digit",
+            month:"2-digit",
+            year:"numeric"
+        }
     );
 
 }
 
 
-/* =================================
+/* =====================================================
    MESSAGE
-================================= */
+===================================================== */
 
 function showMessage(
     message,
@@ -1388,68 +1284,177 @@ function showMessage(
     );
 
 
-    box.style.display =
-    "block";
+    box.innerHTML = `
 
+        <div class="${type}">
+            ${message}
+        </div>
 
-    box.className =
-    "message "+
-    type;
-
-
-    box.textContent =
-    message;
+    `;
 
 
     setTimeout(()=>{
 
-        box.style.display =
-        "none";
+        box.innerHTML = "";
 
     },5000);
 
 }
 
 
-/* =================================
-   ESCAPE HTML
-================================= */
+/* =====================================================
+   ESCAPE
+===================================================== */
 
 function escapeHtml(value){
 
-    return String(value)
+    return String(value ?? "")
 
-        .replaceAll(
-            "&",
-            "&amp;"
-        )
+    .replaceAll(
+        "&",
+        "&amp;"
+    )
 
-        .replaceAll(
-            "<",
-            "&lt;"
-        )
+    .replaceAll(
+        "<",
+        "&lt;"
+    )
 
-        .replaceAll(
-            ">",
-            "&gt;"
-        )
+    .replaceAll(
+        ">",
+        "&gt;"
+    )
 
-        .replaceAll(
-            '"',
-            "&quot;"
-        )
+    .replaceAll(
+        '"',
+        "&quot;"
+    )
 
-        .replaceAll(
-            "'",
-            "&#039;"
-        );
+    .replaceAll(
+        "'",
+        "&#039;"
+    );
 
 }
 
 
-/* =================================
+/* =====================================================
+   PRINT
+===================================================== */
+
+function printTable(){
+
+    const table =
+    document
+    .querySelector("table")
+    .outerHTML;
+
+
+    const win =
+    window.open(
+        "",
+        "_blank"
+    );
+
+
+    win.document.write(`
+
+        <!DOCTYPE html>
+
+        <html>
+
+        <head>
+
+            <title>Year / Session List</title>
+
+            <style>
+
+                body{
+                    font-family:Arial,sans-serif;
+                    padding:25px;
+                }
+
+                h2{
+                    text-align:center;
+                }
+
+                table{
+                    width:100%;
+                    border-collapse:collapse;
+                }
+
+                th,td{
+                    border:1px solid #ccc;
+                    padding:10px;
+                    text-align:left;
+                }
+
+                th{
+                    background:#0750a3;
+                    color:#fff;
+                }
+
+            </style>
+
+        </head>
+
+        <body>
+
+            <h2>
+                মাদরাসায়ে নূরুল কুরআন
+            </h2>
+
+            <h3>
+                Year / Session List
+            </h3>
+
+            ${table}
+
+        </body>
+
+        </html>
+
+    `);
+
+
+    win.document.close();
+
+    win.focus();
+
+    setTimeout(()=>{
+
+        win.print();
+
+        win.close();
+
+    },500);
+
+}
+
+
+/* =====================================================
    START
-================================= */
+===================================================== */
+
+async function start(){
+
+    const loggedIn =
+    await checkAuth();
+
+
+    if(!loggedIn){
+
+        return;
+
+    }
+
+
+    await loadSessions();
+
+}
+
+
+/* RUN */
 
 start();
 
