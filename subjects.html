@@ -1,1 +1,2157 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
+<title>Subjects | মাদরাসায়ে নূরুল কুরআন</title>
+
+<style>
+*{box-sizing:border-box}
+
+html,body{
+    margin:0;
+    padding:0;
+    width:100%;
+    min-height:100%;
+}
+
+body{
+    font-family:Arial,"Noto Sans Bengali",sans-serif;
+    background:#f4f7fb;
+    color:#1e293b;
+}
+
+.top{
+    width:100%;
+    background:linear-gradient(135deg,#0d47a1,#1976d2);
+    color:#fff;
+    padding:16px 24px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    box-shadow:0 3px 15px #0002;
+}
+
+.top h2{
+    margin:0;
+    font-size:20px;
+}
+
+.top-right{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.top a{
+    color:#fff;
+    text-decoration:none;
+    font-size:14px;
+}
+
+.top a:hover{
+    text-decoration:underline;
+}
+
+.lang{
+    display:flex;
+    background:#ffffff22;
+    padding:3px;
+    border-radius:8px;
+}
+
+.lang button{
+    border:0;
+    background:transparent;
+    color:#fff;
+    padding:7px 10px;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.lang button.active{
+    background:#fff;
+    color:#0d47a1;
+}
+
+.container{
+    width:100%;
+    max-width:1400px;
+    margin:auto;
+    padding:25px;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+    margin-bottom:20px;
+}
+
+.stat{
+    background:#fff;
+    border:1px solid #e5eaf2;
+    border-radius:14px;
+    padding:18px;
+    box-shadow:0 3px 12px #0d47a110;
+}
+
+.stat-icon{
+    font-size:25px;
+}
+
+.stat-label{
+    font-size:13px;
+    color:#64748b;
+    margin:5px 0;
+}
+
+.stat-number{
+    font-size:26px;
+    font-weight:bold;
+    color:#0d47a1;
+}
+
+.box{
+    width:100%;
+    background:#fff;
+    padding:22px;
+    border-radius:14px;
+    box-shadow:0 3px 15px #0d47a115;
+    margin-bottom:20px;
+    border:1px solid #e5eaf2;
+}
+
+h3{
+    margin:0 0 18px;
+    color:#0d47a1;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+}
+
+.form-group label{
+    display:block;
+    font-size:14px;
+    font-weight:bold;
+    margin-bottom:6px;
+}
+
+input,
+select{
+    width:100%;
+    padding:12px;
+    border:1px solid #d8dee9;
+    border-radius:8px;
+    outline:none;
+    font-size:14px;
+    background:#fff;
+}
+
+input:focus,
+select:focus{
+    border-color:#1976d2;
+    box-shadow:0 0 0 3px #1976d215;
+}
+
+.full{
+    grid-column:1/-1;
+}
+
+.actions{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:18px;
+}
+
+button{
+    font-family:inherit;
+}
+
+.btn{
+    border:0;
+    padding:11px 17px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.btn-primary{
+    color:#fff;
+    background:linear-gradient(135deg,#0d47a1,#1976d2);
+}
+
+.btn-secondary{
+    background:#e2e8f0;
+    color:#334155;
+}
+
+.btn-danger{
+    background:#fee2e2;
+    color:#dc2626;
+}
+
+.btn-warning{
+    background:#fef3c7;
+    color:#92400e;
+}
+
+.btn-success{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.btn:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+
+.toolbar{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+    margin-bottom:18px;
+}
+
+.search-box{
+    position:relative;
+}
+
+.search-box input{
+    padding-left:38px;
+}
+
+.search-icon{
+    position:absolute;
+    left:13px;
+    top:12px;
+}
+
+.selected-info{
+    background:#eaf4ff;
+    border:1px solid #d7eaff;
+    color:#0d47a1;
+    padding:12px 14px;
+    border-radius:9px;
+    font-weight:bold;
+    margin-bottom:18px;
+}
+
+.table-wrap{
+    width:100%;
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:1050px;
+}
+
+th,
+td{
+    padding:12px 10px;
+    border-bottom:1px solid #edf0f5;
+    text-align:left;
+    font-size:14px;
+}
+
+th{
+    background:#0d47a1;
+    color:#fff;
+    white-space:nowrap;
+}
+
+tbody tr:hover td{
+    background:#f7faff;
+}
+
+.badge{
+    display:inline-block;
+    padding:5px 9px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.badge-active{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.badge-inactive{
+    background:#fee2e2;
+    color:#dc2626;
+}
+
+.class-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+    margin-bottom:20px;
+}
+
+.class-card{
+    border:1px solid #dce5f2;
+    background:#fff;
+    border-radius:11px;
+    padding:14px 10px;
+    text-align:center;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.class-card:hover{
+    border-color:#1976d2;
+    transform:translateY(-2px);
+}
+
+.class-card.active{
+    background:linear-gradient(135deg,#0d47a1,#1976d2);
+    color:#fff;
+    border-color:#0d47a1;
+}
+
+.class-card .bn{
+    font-weight:bold;
+}
+
+.class-card .en{
+    font-size:12px;
+    opacity:.7;
+    margin-top:4px;
+}
+
+.class-card.active .en{
+    opacity:1;
+}
+
+.loading,
+.empty{
+    text-align:center;
+    padding:30px;
+    color:#64748b;
+}
+
+.message{
+    padding:12px 14px;
+    border-radius:8px;
+    margin-bottom:15px;
+    display:none;
+}
+
+.message.success{
+    display:block;
+    background:#dcfce7;
+    color:#166534;
+}
+
+.message.error{
+    display:block;
+    background:#fee2e2;
+    color:#991b1b;
+}
+
+.editing{
+    border:2px solid #1976d2;
+}
+
+@media(max-width:900px){
+
+    .class-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+}
+
+@media(max-width:650px){
+
+    .top{
+        flex-direction:column;
+        align-items:flex-start;
+        padding:14px;
+    }
+
+    .top-right{
+        width:100%;
+        justify-content:space-between;
+    }
+
+    .container{
+        padding:12px;
+    }
+
+    .box{
+        padding:15px;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .form-grid,
+    .toolbar{
+        grid-template-columns:1fr;
+    }
+
+    .class-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .actions .btn{
+        width:100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="top">
+
+<h2 id="pageTitle">
+📚 বিষয় ব্যবস্থাপনা
+</h2>
+
+<div class="top-right">
+
+<div class="lang">
+
+<button
+id="bnBtn"
+class="active"
+onclick="setLanguage('bn')">
+বাংলা
+</button>
+
+<button
+id="enBtn"
+onclick="setLanguage('en')">
+English
+</button>
+
+</div>
+
+<a href="dashboard.html" id="dashboardLink">
+← Dashboard
+</a>
+
+</div>
+
+</header>
+
+
+<div class="container">
+
+
+<!-- =========================
+     STATS
+========================= -->
+
+<div class="stats">
+
+<div class="stat">
+<div class="stat-icon">🎓</div>
+<div class="stat-label" id="classStatLabel">
+মোট শ্রেণি
+</div>
+<div class="stat-number" id="classStat">
+8
+</div>
+</div>
+
+<div class="stat">
+<div class="stat-icon">📚</div>
+<div class="stat-label" id="subjectStatLabel">
+মোট বিষয়
+</div>
+<div class="stat-number" id="subjectStat">
+0
+</div>
+</div>
+
+<div class="stat">
+<div class="stat-icon">✅</div>
+<div class="stat-label" id="activeStatLabel">
+Active বিষয়
+</div>
+<div class="stat-number" id="activeStat">
+0
+</div>
+</div>
+
+</div>
+
+
+<!-- =========================
+     CLASS SELECT
+========================= -->
+
+<div class="box">
+
+<h3 id="classTitle">
+🎓 Class নির্বাচন করুন
+</h3>
+
+<div
+class="class-grid"
+id="classGrid">
+</div>
+
+<div
+id="selectedInfo"
+class="selected-info">
+
+📌 প্রথমে একটি Class নির্বাচন করুন
+
+</div>
+
+</div>
+
+
+<!-- =========================
+     ADD / EDIT SUBJECT
+========================= -->
+
+<div
+class="box"
+id="formBox">
+
+<h3 id="formTitle">
+➕ নতুন Subject যোগ করুন
+</h3>
+
+<div
+id="message"
+class="message">
+</div>
+
+<form id="subjectForm">
+
+<div class="form-grid">
+
+
+<div class="form-group">
+
+<label id="subjectBnLabel">
+Subject Name বাংলা *
+</label>
+
+<input
+id="subjectNameBn"
+type="text"
+required
+placeholder="যেমন: বাংলা">
+
+</div>
+
+
+<div class="form-group">
+
+<label id="subjectEnLabel">
+Subject Name English
+</label>
+
+<input
+id="subjectNameEn"
+type="text"
+placeholder="যেমন: Bangla">
+
+</div>
+
+
+<div class="form-group">
+
+<label id="subjectCodeLabel">
+Subject Code
+</label>
+
+<input
+id="subjectCode"
+type="text"
+placeholder="যেমন: BAN101">
+
+</div>
+
+
+<div class="form-group">
+
+<label id="serialLabel">
+Serial No *
+</label>
+
+<input
+id="serialNo"
+type="number"
+min="1"
+value="1"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label id="fullMarksLabel">
+Full Marks
+</label>
+
+<input
+id="fullMarks"
+type="number"
+min="0"
+value="100">
+
+</div>
+
+
+<div class="form-group">
+
+<label id="passMarksLabel">
+Pass Marks
+</label>
+
+<input
+id="passMarks"
+type="number"
+min="0"
+value="33">
+
+</div>
+
+
+<div class="form-group">
+
+<label id="statusLabel">
+Status
+</label>
+
+<select id="isActive">
+
+<option value="true">
+Active
+</option>
+
+<option value="false">
+Inactive
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<div class="actions">
+
+<button
+type="submit"
+class="btn btn-primary"
+id="saveBtn">
+
+💾 Save Subject
+
+</button>
+
+<button
+type="button"
+class="btn btn-secondary"
+id="cancelBtn"
+onclick="cancelEdit()"
+style="display:none">
+
+✖ Cancel Edit
+
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+
+<!-- =========================
+     SUBJECT LIST
+========================= -->
+
+<div class="box">
+
+<h3>
+
+<span id="listTitle">
+📋 Subject List
+</span>
+
+<span>
+(
+<span id="listCount">0</span>
+)
+
+</span>
+
+</h3>
+
+
+<div class="toolbar">
+
+<div>
+
+<select id="filterClass">
+
+<option value="">
+সব Class
+</option>
+
+</select>
+
+</div>
+
+
+<div class="search-box">
+
+<span class="search-icon">
+🔍
+</span>
+
+<input
+id="search"
+type="text"
+placeholder="Subject খুঁজুন...">
+
+</div>
+
+</div>
+
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th id="thSerial">
+Serial
+</th>
+
+<th id="thClass">
+Class
+</th>
+
+<th id="thNameBn">
+বাংলা নাম
+</th>
+
+<th id="thNameEn">
+English Name
+</th>
+
+<th id="thCode">
+Code
+</th>
+
+<th id="thFull">
+Full Marks
+</th>
+
+<th id="thPass">
+Pass Marks
+</th>
+
+<th id="thStatus">
+Status
+</th>
+
+<th id="thAction">
+Action
+</th>
+
+</tr>
+
+</thead>
+
+<tbody id="subjectList">
+
+<tr>
+
+<td
+colspan="9"
+class="empty">
+
+Loading...
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+/* ==========================================
+   SUPABASE
+========================================== */
+
+const SUPABASE_URL =
+"https://qavublwhqiqsgpcmfyft.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
+
+const db =
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
+
+/* ==========================================
+   CLASSES
+========================================== */
+
+const classes = [
+
+{
+    bn:"নূরানী",
+    en:"Nurani"
+},
+
+{
+    bn:"১ম শ্রেণি",
+    en:"Class 1"
+},
+
+{
+    bn:"২য় শ্রেণি",
+    en:"Class 2"
+},
+
+{
+    bn:"৩য় শ্রেণি",
+    en:"Class 3"
+},
+
+{
+    bn:"৪র্থ শ্রেণি",
+    en:"Class 4"
+},
+
+{
+    bn:"৫ম শ্রেণি",
+    en:"Class 5"
+},
+
+{
+    bn:"নাজেরা",
+    en:"Najera"
+},
+
+{
+    bn:"হিফজ",
+    en:"Hifaz"
+}
+
+];
+
+
+/* ==========================================
+   VARIABLES
+========================================== */
+
+let subjects = [];
+
+let selectedClass = "";
+
+let editingId = null;
+
+let currentLanguage = "bn";
+
+
+/* ==========================================
+   TEXT
+========================================== */
+
+const text = {
+
+bn:{
+
+pageTitle:"📚 বিষয় ব্যবস্থাপনা",
+
+classStat:"মোট শ্রেণি",
+
+subjectStat:"মোট বিষয়",
+
+activeStat:"Active বিষয়",
+
+classTitle:"🎓 Class নির্বাচন করুন",
+
+selectClass:"📌 প্রথমে একটি Class নির্বাচন করুন",
+
+formAdd:"➕ নতুন Subject যোগ করুন",
+
+formEdit:"✏️ Subject Edit করুন",
+
+subjectBn:"Subject Name বাংলা *",
+
+subjectEn:"Subject Name English",
+
+code:"Subject Code",
+
+serial:"Serial No *",
+
+full:"Full Marks",
+
+pass:"Pass Marks",
+
+status:"Status",
+
+save:"💾 Save Subject",
+
+update:"💾 Update Subject",
+
+cancel:"✖ Cancel Edit",
+
+list:"📋 Subject List",
+
+allClass:"সব Class",
+
+search:"Subject খুঁজুন...",
+
+serialTh:"Serial",
+
+classTh:"Class",
+
+nameBn:"বাংলা নাম",
+
+nameEn:"English Name",
+
+codeTh:"Code",
+
+fullTh:"Full Marks",
+
+passTh:"Pass Marks",
+
+statusTh:"Status",
+
+action:"Action",
+
+edit:"✏️ Edit",
+
+delete:"🗑️ Delete",
+
+active:"Active",
+
+inactive:"Inactive",
+
+noSubject:"কোনো Subject পাওয়া যায়নি",
+
+selectClassFirst:"📌 প্রথমে একটি Class নির্বাচন করুন",
+
+saveSuccess:"Subject সফলভাবে যোগ করা হয়েছে।",
+
+updateSuccess:"Subject সফলভাবে Update করা হয়েছে।",
+
+deleteSuccess:"Subject সফলভাবে Delete করা হয়েছে।",
+
+deleteConfirm:"এই Subject-টি Delete করতে চান?",
+
+error:"সমস্যা হয়েছে: "
+
+},
+
+en:{
+
+pageTitle:"📚 Subject Management",
+
+classStat:"Total Classes",
+
+subjectStat:"Total Subjects",
+
+activeStat:"Active Subjects",
+
+classTitle:"🎓 Select Class",
+
+selectClass:"📌 Select a Class first",
+
+formAdd:"➕ Add New Subject",
+
+formEdit:"✏️ Edit Subject",
+
+subjectBn:"Subject Name Bangla *",
+
+subjectEn:"Subject Name English",
+
+code:"Subject Code",
+
+serial:"Serial No *",
+
+full:"Full Marks",
+
+pass:"Pass Marks",
+
+status:"Status",
+
+save:"💾 Save Subject",
+
+update:"💾 Update Subject",
+
+cancel:"✖ Cancel Edit",
+
+list:"📋 Subject List",
+
+allClass:"All Classes",
+
+search:"Search subject...",
+
+serialTh:"Serial",
+
+classTh:"Class",
+
+nameBn:"Bangla Name",
+
+nameEn:"English Name",
+
+codeTh:"Code",
+
+fullTh:"Full Marks",
+
+passTh:"Pass Marks",
+
+statusTh:"Status",
+
+action:"Action",
+
+edit:"✏️ Edit",
+
+delete:"🗑️ Delete",
+
+active:"Active",
+
+inactive:"Inactive",
+
+noSubject:"No subjects found",
+
+selectClassFirst:"📌 Select a Class first",
+
+saveSuccess:"Subject added successfully.",
+
+updateSuccess:"Subject updated successfully.",
+
+deleteSuccess:"Subject deleted successfully.",
+
+deleteConfirm:"Do you want to delete this subject?",
+
+error:"Error: "
+
+}
+
+};
+
+
+/* ==========================================
+   AUTH
+========================================== */
+
+async function checkAuth(){
+
+const {
+data:{session},
+error
+} = await db.auth.getSession();
+
+if(error){
+
+console.error(error);
+
+return false;
+
+}
+
+if(!session){
+
+location.href="admin.html";
+
+return false;
+
+}
+
+return true;
+
+}
+
+
+/* ==========================================
+   LANGUAGE
+========================================== */
+
+function setLanguage(lang){
+
+currentLanguage=lang;
+
+const t=text[lang];
+
+document.documentElement.lang=
+lang==="bn"?"bn":"en";
+
+document.getElementById("pageTitle")
+.textContent=t.pageTitle;
+
+document.getElementById("classStatLabel")
+.textContent=t.classStat;
+
+document.getElementById("subjectStatLabel")
+.textContent=t.subjectStat;
+
+document.getElementById("activeStatLabel")
+.textContent=t.activeStat;
+
+document.getElementById("classTitle")
+.textContent=t.classTitle;
+
+document.getElementById("subjectBnLabel")
+.textContent=t.subjectBn;
+
+document.getElementById("subjectEnLabel")
+.textContent=t.subjectEn;
+
+document.getElementById("subjectCodeLabel")
+.textContent=t.code;
+
+document.getElementById("serialLabel")
+.textContent=t.serial;
+
+document.getElementById("fullMarksLabel")
+.textContent=t.full;
+
+document.getElementById("passMarksLabel")
+.textContent=t.pass;
+
+document.getElementById("statusLabel")
+.textContent=t.status;
+
+document.getElementById("listTitle")
+.textContent=t.list;
+
+document.getElementById("thSerial")
+.textContent=t.serialTh;
+
+document.getElementById("thClass")
+.textContent=t.classTh;
+
+document.getElementById("thNameBn")
+.textContent=t.nameBn;
+
+document.getElementById("thNameEn")
+.textContent=t.nameEn;
+
+document.getElementById("thCode")
+.textContent=t.codeTh;
+
+document.getElementById("thFull")
+.textContent=t.fullTh;
+
+document.getElementById("thPass")
+.textContent=t.passTh;
+
+document.getElementById("thStatus")
+.textContent=t.statusTh;
+
+document.getElementById("thAction")
+.textContent=t.action;
+
+document.getElementById("search")
+.placeholder=t.search;
+
+document.getElementById("filterClass")
+.options[0].textContent=t.allClass;
+
+document.getElementById("bnBtn")
+.classList.toggle("active",lang==="bn");
+
+document.getElementById("enBtn")
+.classList.toggle("active",lang==="en");
+
+updateFormText();
+
+renderClasses();
+
+renderSubjects();
+
+updateSelectedInfo();
+
+}
+
+
+/* ==========================================
+   FORM TEXT
+========================================== */
+
+function updateFormText(){
+
+const t=text[currentLanguage];
+
+document.getElementById("formTitle")
+.textContent=
+editingId
+?t.formEdit
+:t.formAdd;
+
+document.getElementById("saveBtn")
+.textContent=
+editingId
+?t.update
+:t.save;
+
+document.getElementById("cancelBtn")
+.textContent=t.cancel;
+
+}
+
+
+/* ==========================================
+   RENDER CLASS CARDS
+========================================== */
+
+function renderClasses(){
+
+const grid=
+document.getElementById("classGrid");
+
+grid.innerHTML=
+
+classes.map((c,index)=>{
+
+const count=
+subjects.filter(s=>
+
+s.class===c.bn ||
+s.class===c.en
+
+).length;
+
+const active=
+selectedClass===c.bn ||
+selectedClass===c.en;
+
+return `
+
+<div
+class="class-card ${active?"active":""}"
+onclick="selectClass(${index})">
+
+<div class="bn">
+🎓 ${c.bn}
+</div>
+
+<div class="en">
+${c.en} • ${count}
+</div>
+
+</div>
+
+`;
+
+}).join("");
+
+}
+
+
+/* ==========================================
+   SELECT CLASS
+========================================== */
+
+function selectClass(index){
+
+selectedClass=
+classes[index].bn;
+
+document.getElementById("filterClass")
+.value=selectedClass;
+
+updateSelectedInfo();
+
+renderClasses();
+
+renderSubjects();
+
+}
+
+
+/* ==========================================
+   SELECTED INFO
+========================================== */
+
+function updateSelectedInfo(){
+
+const info=
+document.getElementById("selectedInfo");
+
+const t=text[currentLanguage];
+
+if(!selectedClass){
+
+info.textContent=t.selectClass;
+
+return;
+
+}
+
+const c=
+classes.find(x=>
+
+x.bn===selectedClass ||
+x.en===selectedClass
+
+);
+
+if(c){
+
+info.textContent=
+`📌 ${
+currentLanguage==="bn"
+?c.bn
+:c.en
+}`;
+
+}
+
+}
+
+
+/* ==========================================
+   LOAD SUBJECTS
+========================================== */
+
+async function loadSubjects(){
+
+const {data,error}=
+
+await db
+
+.from("subjects")
+
+.select(`
+id,
+class,
+subject_name_bn,
+subject_name_en,
+subject_code,
+serial_no,
+full_marks,
+pass_marks,
+is_active,
+created_at
+`)
+
+.order(
+"serial_no",
+{
+ascending:true
+}
+);
+
+
+if(error){
+
+console.error(
+"Subjects load error:",
+error
+);
+
+showMessage(
+text[currentLanguage].error+
+error.message,
+"error"
+);
+
+return;
+
+}
+
+subjects=data || [];
+
+renderClasses();
+
+renderSubjects();
+
+updateStats();
+
+}
+
+
+/* ==========================================
+   RENDER SUBJECTS
+========================================== */
+
+function renderSubjects(){
+
+const tbody=
+document.getElementById("subjectList");
+
+const search=
+document
+.getElementById("search")
+.value
+.toLowerCase()
+.trim();
+
+const filter=
+document
+.getElementById("filterClass")
+.value;
+
+
+/*
+ প্রথমে Class filter
+*/
+
+let list=subjects.filter(subject=>{
+
+if(filter){
+
+if(
+subject.class!==filter
+){
+
+/*
+ BN/English দুটোই match করবে
+*/
+
+const c=
+classes.find(x=>
+
+x.bn===filter ||
+x.en===filter
+
+);
+
+if(
+!c ||
+(
+subject.class!==c.bn &&
+subject.class!==c.en
+)
+){
+
+return false;
+
+}
+
+}
+
+}
+
+return true;
+
+});
+
+
+/*
+ তারপর Search
+*/
+
+if(search){
+
+list=list.filter(subject=>
+
+String(
+subject.subject_name_bn || ""
+)
+.toLowerCase()
+.includes(search)
+
+||
+
+String(
+subject.subject_name_en || ""
+)
+.toLowerCase()
+.includes(search)
+
+||
+
+String(
+subject.subject_code || ""
+)
+.toLowerCase()
+.includes(search)
+
+);
+
+}
+
+
+document.getElementById(
+"listCount"
+).textContent=list.length;
+
+
+if(!list.length){
+
+tbody.innerHTML=
+
+`
+<tr>
+
+<td
+colspan="9"
+class="empty">
+
+${text[currentLanguage].noSubject}
+
+</td>
+
+</tr>
+`;
+
+return;
+
+}
+
+
+tbody.innerHTML=
+
+list.map(subject=>{
+
+const c=
+classes.find(x=>
+
+x.bn===subject.class ||
+x.en===subject.class
+
+);
+
+const className=
+c
+?
+(
+currentLanguage==="bn"
+?c.bn
+:c.en
+)
+:
+subject.class||"-";
+
+
+return `
+
+<tr>
+
+<td>
+<strong>
+${escapeHtml(subject.serial_no ?? "-")}
+</strong>
+</td>
+
+<td>
+${escapeHtml(className)}
+</td>
+
+<td>
+<strong>
+${escapeHtml(
+subject.subject_name_bn||"-"
+)}
+</strong>
+</td>
+
+<td>
+${escapeHtml(
+subject.subject_name_en||"-"
+)}
+</td>
+
+<td>
+${escapeHtml(
+subject.subject_code||"-"
+)}
+</td>
+
+<td>
+${escapeHtml(
+subject.full_marks??100
+)}
+</td>
+
+<td>
+${escapeHtml(
+subject.pass_marks??33
+)}
+</td>
+
+<td>
+
+<span class="badge ${
+subject.is_active
+?"badge-active"
+:"badge-inactive"
+}">
+
+${
+subject.is_active
+?text[currentLanguage].active
+:text[currentLanguage].inactive
+}
+
+</span>
+
+</td>
+
+<td>
+
+<button
+class="btn btn-warning"
+onclick="editSubject(${subject.id})">
+
+${text[currentLanguage].edit}
+
+</button>
+
+<button
+class="btn btn-danger"
+onclick="deleteSubject(${subject.id})">
+
+${text[currentLanguage].delete}
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+}).join("");
+
+}
+
+
+/* ==========================================
+   ADD / UPDATE
+========================================== */
+
+document
+.getElementById("subjectForm")
+.addEventListener(
+"submit",
+async function(event){
+
+event.preventDefault();
+
+if(!selectedClass){
+
+showMessage(
+text[currentLanguage].selectClassFirst,
+"error"
+);
+
+return;
+
+}
+
+
+const saveBtn=
+document.getElementById("saveBtn");
+
+saveBtn.disabled=true;
+
+
+const payload={
+
+class:selectedClass,
+
+subject_name_bn:
+document
+.getElementById("subjectNameBn")
+.value
+.trim(),
+
+subject_name_en:
+document
+.getElementById("subjectNameEn")
+.value
+.trim(),
+
+subject_code:
+document
+.getElementById("subjectCode")
+.value
+.trim() || null,
+
+serial_no:
+Number(
+document
+.getElementById("serialNo")
+.value
+),
+
+full_marks:
+Number(
+document
+.getElementById("fullMarks")
+.value
+)||100,
+
+pass_marks:
+Number(
+document
+.getElementById("passMarks")
+.value
+)||33,
+
+is_active:
+document
+.getElementById("isActive")
+.value==="true"
+
+};
+
+
+try{
+
+let error=null;
+
+
+if(editingId){
+
+const result=
+await db
+
+.from("subjects")
+
+.update(payload)
+
+.eq("id",editingId);
+
+error=result.error;
+
+}else{
+
+const result=
+await db
+
+.from("subjects")
+
+.insert(payload);
+
+error=result.error;
+
+}
+
+
+if(error){
+
+throw error;
+
+}
+
+
+showMessage(
+
+editingId
+?text[currentLanguage].updateSuccess
+:text[currentLanguage].saveSuccess,
+
+"success"
+
+);
+
+
+resetForm();
+
+await loadSubjects();
+
+
+}catch(error){
+
+console.error(error);
+
+showMessage(
+text[currentLanguage].error+
+error.message,
+"error"
+);
+
+
+}finally{
+
+saveBtn.disabled=false;
+
+}
+
+});
+
+
+/* ==========================================
+   EDIT SUBJECT
+========================================== */
+
+function editSubject(id){
+
+const subject=
+subjects.find(s=>
+Number(s.id)===Number(id)
+);
+
+if(!subject){
+
+return;
+
+}
+
+
+editingId=subject.id;
+
+selectedClass=subject.class;
+
+
+document.getElementById(
+"subjectNameBn"
+).value=
+subject.subject_name_bn||"";
+
+
+document.getElementById(
+"subjectNameEn"
+).value=
+subject.subject_name_en||"";
+
+
+document.getElementById(
+"subjectCode"
+).value=
+subject.subject_code||"";
+
+
+document.getElementById(
+"serialNo"
+).value=
+subject.serial_no||1;
+
+
+document.getElementById(
+"fullMarks"
+).value=
+subject.full_marks??100;
+
+
+document.getElementById(
+"passMarks"
+).value=
+subject.pass_marks??33;
+
+
+document.getElementById(
+"isActive"
+).value=
+subject.is_active
+?"true"
+:"false";
+
+
+document
+.getElementById("formBox")
+.classList.add("editing");
+
+document.getElementById(
+"cancelBtn"
+).style.display="inline-block";
+
+
+document.getElementById(
+"filterClass"
+).value=subject.class;
+
+
+updateFormText();
+
+updateSelectedInfo();
+
+renderClasses();
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+
+/* ==========================================
+   CANCEL EDIT
+========================================== */
+
+function cancelEdit(){
+
+resetForm();
+
+}
+
+
+/* ==========================================
+   RESET FORM
+========================================== */
+
+function resetForm(){
+
+editingId=null;
+
+document
+.getElementById("subjectForm")
+.reset();
+
+document.getElementById(
+"serialNo"
+).value=1;
+
+document.getElementById(
+"fullMarks"
+).value=100;
+
+document.getElementById(
+"passMarks"
+).value=33;
+
+document.getElementById(
+"isActive"
+).value="true";
+
+document
+.getElementById("formBox")
+.classList.remove("editing");
+
+document.getElementById(
+"cancelBtn"
+).style.display="none";
+
+updateFormText();
+
+}
+
+
+/* ==========================================
+   DELETE
+========================================== */
+
+async function deleteSubject(id){
+
+const subject=
+subjects.find(s=>
+Number(s.id)===Number(id)
+);
+
+if(!subject){
+
+return;
+
+}
+
+
+const confirmDelete=
+confirm(
+text[currentLanguage].deleteConfirm+
+"\n\n"+
+(subject.subject_name_bn||"")
+);
+
+
+if(!confirmDelete){
+
+return;
+
+}
+
+
+try{
+
+const {error}=
+
+await db
+
+.from("subjects")
+
+.delete()
+
+.eq("id",id);
+
+
+if(error){
+
+throw error;
+
+}
+
+
+showMessage(
+text[currentLanguage].deleteSuccess,
+"success"
+);
+
+await loadSubjects();
+
+
+}catch(error){
+
+console.error(error);
+
+showMessage(
+text[currentLanguage].error+
+error.message,
+"error"
+);
+
+}
+
+}
+
+
+/* ==========================================
+   FILTER
+========================================== */
+
+document
+.getElementById("filterClass")
+.addEventListener(
+"change",
+function(){
+
+renderSubjects();
+
+});
+
+
+/* ==========================================
+   SEARCH
+========================================== */
+
+document
+.getElementById("search")
+.addEventListener(
+"input",
+renderSubjects
+);
+
+
+/* ==========================================
+   STATS
+========================================== */
+
+function updateStats(){
+
+document.getElementById(
+"classStat"
+).textContent=
+classes.length;
+
+document.getElementById(
+"subjectStat"
+).textContent=
+subjects.length;
+
+document.getElementById(
+"activeStat"
+).textContent=
+
+subjects.filter(s=>
+s.is_active
+).length;
+
+}
+
+
+/* ==========================================
+   MESSAGE
+========================================== */
+
+function showMessage(message,type){
+
+const box=
+document.getElementById("message");
+
+box.textContent=message;
+
+box.className=
+"message "+type;
+
+setTimeout(()=>{
+
+box.className="message";
+
+},4000);
+
+}
+
+
+/* ==========================================
+   ESCAPE
+========================================== */
+
+function escapeHtml(value){
+
+return String(value)
+
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+
+}
+
+
+/* ==========================================
+   START
+========================================== */
+
+async function start(){
+
+const authenticated=
+await checkAuth();
+
+if(!authenticated){
+
+return;
+
+}
+
+renderClasses();
+
+updateStats();
+
+await loadSubjects();
+
+updateSelectedInfo();
+
+}
+
+start();
+
+</script>
+
+</body>
+</html>
