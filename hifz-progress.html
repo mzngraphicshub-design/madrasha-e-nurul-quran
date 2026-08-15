@@ -1,1 +1,1398 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>হিফজ প্রগ্রেস | মাদরাসায়ে নূরুল কুরআন</title>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+@font-face{
+font-family:"Bornomala";
+src:url("./fonts/Bornomala-Regular.ttf") format("truetype");
+font-display:swap;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+font-family:"Bornomala",sans-serif;
+background:#f3f8fd;
+color:#173452;
+}
+
+button,input,select,textarea{font-family:inherit}
+
+.container{
+width:min(1250px,94%);
+margin:auto;
+}
+
+.header{
+background:linear-gradient(135deg,#031a35,#0875df);
+color:#fff;
+padding:18px 0;
+box-shadow:0 8px 30px rgba(0,0,0,.15);
+}
+
+.header-inner{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:20px;
+}
+
+.brand{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.logo{
+width:65px;
+height:65px;
+object-fit:contain;
+background:#fff;
+border-radius:50%;
+}
+
+.brand h1{font-size:27px}
+
+.brand small{
+font-family:Arial,sans-serif;
+font-size:9px;
+letter-spacing:3px;
+color:#dcecff;
+}
+
+.home-btn{
+background:#ffd447;
+color:#08294c;
+text-decoration:none;
+padding:12px 20px;
+border-radius:11px;
+font-weight:bold;
+}
+
+.page{
+padding:50px 0 80px;
+}
+
+.page-title{
+text-align:center;
+margin-bottom:35px;
+}
+
+.page-title small{
+color:#0875df;
+font-family:Arial,sans-serif;
+}
+
+.page-title h2{
+color:#031a35;
+font-size:40px;
+margin-top:7px;
+}
+
+.page-title p{
+color:#718399;
+margin-top:8px;
+}
+
+.card{
+background:#fff;
+border-radius:25px;
+padding:30px;
+margin-bottom:25px;
+box-shadow:0 20px 60px rgba(0,25,60,.11);
+}
+
+.card-title{
+color:#031a35;
+font-size:24px;
+margin-bottom:20px;
+}
+
+.search-grid{
+display:grid;
+grid-template-columns:1fr 1fr auto;
+gap:13px;
+}
+
+input,select,textarea{
+width:100%;
+padding:13px 14px;
+border:1px solid #d8e4ef;
+border-radius:11px;
+outline:none;
+background:#fff;
+}
+
+input:focus,select:focus,textarea:focus{
+border-color:#0875df;
+box-shadow:0 0 0 3px rgba(8,117,223,.08);
+}
+
+.btn{
+border:0;
+border-radius:11px;
+padding:13px 22px;
+cursor:pointer;
+font-size:16px;
+font-weight:bold;
+}
+
+.btn-primary{background:#0875df;color:#fff}
+.btn-primary:hover{background:#0565c5}
+.btn-gold{background:#ffd447;color:#08294c}
+.btn-danger{background:#dc3545;color:#fff}
+.btn-secondary{background:#eaf3fb;color:#173452}
+
+.message{
+display:none;
+margin-top:15px;
+padding:13px;
+border-radius:10px;
+text-align:center;
+font-weight:bold;
+}
+
+.message.success{
+display:block;
+color:#137333;
+background:#e9f8ee;
+}
+
+.message.error{
+display:block;
+color:#b42318;
+background:#ffe9e7;
+}
+
+.message.info{
+display:block;
+color:#075b9f;
+background:#e8f4ff;
+}
+
+.student-card{display:none}
+
+.student-header{
+display:grid;
+grid-template-columns:100px 1fr;
+gap:20px;
+align-items:center;
+padding-bottom:20px;
+border-bottom:1px solid #e3ebf3;
+}
+
+.student-photo{
+width:100px;
+height:120px;
+object-fit:cover;
+border-radius:14px;
+background:#edf5fc;
+border:1px solid #dbe7f0;
+}
+
+.student-info h2{
+color:#031a35;
+margin-bottom:7px;
+}
+
+.student-info p{
+color:#718399;
+line-height:1.9;
+}
+
+.student-info strong{color:#173452}
+
+.form-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:15px;
+}
+
+.form-group label{
+display:block;
+color:#173452;
+font-weight:bold;
+margin-bottom:7px;
+}
+
+.full{grid-column:1/-1}
+
+.progress-box{
+background:#f5faff;
+border:1px solid #dce8f4;
+border-radius:18px;
+padding:22px;
+margin-top:20px;
+}
+
+.progress-head{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:10px;
+}
+
+.progress-head strong{
+color:#0875df;
+font-family:Arial,sans-serif;
+}
+
+.progress-bar{
+height:16px;
+border-radius:20px;
+overflow:hidden;
+background:#dce8f4;
+}
+
+.progress-fill{
+height:100%;
+width:0;
+background:linear-gradient(90deg,#0875df,#03a9f4);
+border-radius:20px;
+transition:.4s;
+}
+
+.hifz-stats{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:15px;
+margin-top:20px;
+}
+
+.stat{
+background:#f5faff;
+border:1px solid #dce8f4;
+border-radius:16px;
+padding:18px;
+text-align:center;
+}
+
+.stat strong{
+display:block;
+font-family:Arial,sans-serif;
+font-size:25px;
+color:#0875df;
+}
+
+.stat span{
+display:block;
+color:#718399;
+margin-top:5px;
+}
+
+.table-wrap{overflow-x:auto}
+
+table{
+width:100%;
+border-collapse:collapse;
+min-width:950px;
+}
+
+thead{
+background:#031a35;
+color:#fff;
+}
+
+th,td{
+padding:13px;
+text-align:center;
+border-bottom:1px solid #e3ebf2;
+}
+
+tbody tr:hover{background:#f7fbff}
+
+.actions{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin-top:25px;
+}
+
+.empty{
+text-align:center;
+padding:30px;
+color:#718399;
+}
+
+.footer{
+background:#02152c;
+color:#aebfd0;
+text-align:center;
+padding:25px;
+}
+
+@media print{
+body{background:#fff}
+.header,.search-card,.footer,.actions,.no-print{
+display:none!important;
+}
+.page{padding:0}
+.card{
+box-shadow:none;
+border:0;
+}
+}
+
+@media(max-width:900px){
+.search-grid{grid-template-columns:1fr 1fr}
+.search-grid button{grid-column:1/-1}
+.form-grid{grid-template-columns:1fr}
+.full{grid-column:auto}
+.hifz-stats{grid-template-columns:1fr 1fr}
+}
+
+@media(max-width:600px){
+.header-inner{
+flex-direction:column;
+text-align:center;
+}
+.brand h1{font-size:20px}
+.logo{width:55px;height:55px}
+.page-title h2{font-size:30px}
+.search-grid{grid-template-columns:1fr}
+.search-grid button{grid-column:auto}
+.student-header{
+grid-template-columns:1fr;
+text-align:center;
+}
+.student-photo{margin:auto}
+.card{padding:20px}
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+<div class="container header-inner">
+
+<div class="brand">
+<img src="img/logo.png" class="logo" alt="মাদরাসায়ে নূরুল কুরআন">
+<div>
+<h1>মাদরাসায়ে নূরুল কুরআন</h1>
+<small>MADRASHA-E NURUL QURAN</small>
+</div>
+</div>
+
+<a href="index.html" class="home-btn">🏠 হোম</a>
+
+</div>
+</header>
+
+
+<main class="page">
+
+<div class="container">
+
+<div class="page-title">
+<small>HIFZ DEPARTMENT</small>
+<h2>🌙 হিফজ প্রগ্রেস</h2>
+<p>হিফজ বিভাগের শিক্ষার্থীদের সবক, পারা, মুরাজাআ ও দৈনিক অগ্রগতি সংরক্ষণ করুন।</p>
+</div>
+
+
+<!-- SEARCH -->
+<div class="card search-card">
+
+<div class="card-title">🔎 শিক্ষার্থী খুঁজুন</div>
+
+<div class="search-grid">
+
+<input id="roll" type="text" placeholder="রোল নম্বর">
+
+<input id="studentId" type="text" placeholder="শিক্ষার্থী আইডি">
+
+<button class="btn btn-primary" onclick="findStudent()">
+🔍 খুঁজুন
+</button>
+
+</div>
+
+<div id="message" class="message"></div>
+
+</div>
+
+
+<!-- STUDENT -->
+<div id="studentCard" class="card student-card">
+
+<div class="student-header">
+
+<img
+id="studentPhoto"
+class="student-photo"
+src="img/student-placeholder.jpg"
+alt="Student Photo">
+
+<div class="student-info">
+
+<h2 id="studentName">শিক্ষার্থীর নাম</h2>
+
+<p>
+🪪 Student ID:
+<strong id="showStudentId">—</strong>
+<br>
+
+🔢 Roll:
+<strong id="showRoll">—</strong>
+<br>
+
+👨‍👦 পিতা:
+<strong id="showFather">—</strong>
+<br>
+
+📚 শ্রেণি:
+<strong id="showClass">—</strong>
+</p>
+
+</div>
+
+</div>
+
+
+<div class="hifz-stats">
+
+<div class="stat">
+<strong id="totalProgress">0%</strong>
+<span>সামগ্রিক অগ্রগতি</span>
+</div>
+
+<div class="stat">
+<strong id="currentPara">—</strong>
+<span>বর্তমান পারা</span>
+</div>
+
+<div class="stat">
+<strong id="currentSurah">—</strong>
+<span>বর্তমান সূরা</span>
+</div>
+
+<div class="stat">
+<strong id="lastProgress">—</strong>
+<span>সর্বশেষ Progress</span>
+</div>
+
+</div>
+
+
+<div class="card-title" style="margin-top:30px;">
+📝 হিফজ প্রগ্রেস এন্ট্রি
+</div>
+
+
+<div class="form-grid">
+
+<div class="form-group">
+<label>তারিখ</label>
+<input id="progressDate" type="date">
+</div>
+
+
+<div class="form-group">
+<label>অগ্রগতির ধরন</label>
+
+<select id="progressType">
+<option value="নতুন সবক">নতুন সবক</option>
+<option value="আমুখতা">আমুখতা</option>
+<option value="মুরাজাআ">মুরাজাআ</option>
+<option value="দাওর">দাওর</option>
+<option value="পরীক্ষা">হিফজ পরীক্ষা</option>
+</select>
+
+</div>
+
+
+<div class="form-group">
+<label>পারা</label>
+
+<select id="para">
+
+<option value="">পারা নির্বাচন</option>
+<option>১ম পারা</option>
+<option>২য় পারা</option>
+<option>৩য় পারা</option>
+<option>৪র্থ পারা</option>
+<option>৫ম পারা</option>
+<option>৬ষ্ঠ পারা</option>
+<option>৭ম পারা</option>
+<option>৮ম পারা</option>
+<option>৯ম পারা</option>
+<option>১০ম পারা</option>
+<option>১১তম পারা</option>
+<option>১২তম পারা</option>
+<option>১৩তম পারা</option>
+<option>১৪তম পারা</option>
+<option>১৫তম পারা</option>
+<option>১৬তম পারা</option>
+<option>১৭তম পারা</option>
+<option>১৮তম পারা</option>
+<option>১৯তম পারা</option>
+<option>২০তম পারা</option>
+<option>২১তম পারা</option>
+<option>২২তম পারা</option>
+<option>২৩তম পারা</option>
+<option>২৪তম পারা</option>
+<option>২৫তম পারা</option>
+<option>২৬তম পারা</option>
+<option>২৭তম পারা</option>
+<option>২৮তম পারা</option>
+<option>২৯তম পারা</option>
+<option>৩০তম পারা</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+<label>সূরা</label>
+<input id="surah" type="text" placeholder="যেমন: সূরা আল-বাকারা">
+</div>
+
+
+<div class="form-group">
+<label>আয়াত / সবক</label>
+<input id="ayat" type="text" placeholder="যেমন: আয়াত ১-২০">
+</div>
+
+
+<div class="form-group">
+<label>আজকের সবক</label>
+<input id="sabak" type="text" placeholder="যেমন: ১ পৃষ্ঠা / ১০ আয়াত">
+</div>
+
+
+<div class="form-group">
+<label>আমুখতা</label>
+<input id="amukhta" type="text" placeholder="যেমন: ২ পৃষ্ঠা">
+</div>
+
+
+<div class="form-group">
+<label>মুরাজাআ</label>
+<input id="muraja" type="text" placeholder="যেমন: ১ পারা">
+</div>
+
+
+<div class="form-group">
+<label>সামগ্রিক অগ্রগতি (%)</label>
+<input id="progress" type="number" min="0" max="100" value="0" oninput="updateProgress()">
+</div>
+
+
+<div class="form-group">
+<label>হিফজের মান</label>
+
+<select id="quality">
+<option value="চমৎকার">চমৎকার</option>
+<option value="খুব ভালো">খুব ভালো</option>
+<option value="ভালো">ভালো</option>
+<option value="মোটামুটি">মোটামুটি</option>
+<option value="উন্নতি প্রয়োজন">উন্নতি প্রয়োজন</option>
+</select>
+
+</div>
+
+
+<div class="form-group">
+<label>তাজবিদ</label>
+
+<select id="tajweed">
+<option value="চমৎকার">চমৎকার</option>
+<option value="খুব ভালো">খুব ভালো</option>
+<option value="ভালো">ভালো</option>
+<option value="মোটামুটি">মোটামুটি</option>
+<option value="উন্নতি প্রয়োজন">উন্নতি প্রয়োজন</option>
+</select>
+
+</div>
+
+
+<div class="form-group">
+<label>মাখরাজ</label>
+
+<select id="makhraj">
+<option value="চমৎকার">চমৎকার</option>
+<option value="খুব ভালো">খুব ভালো</option>
+<option value="ভালো">ভালো</option>
+<option value="মোটামুটি">মোটামুটি</option>
+<option value="উন্নতি প্রয়োজন">উন্নতি প্রয়োজন</option>
+</select>
+
+</div>
+
+
+<div class="form-group full">
+<label>হুজুর/শিক্ষকের মন্তব্য</label>
+
+<textarea
+id="teacherComment"
+rows="4"
+placeholder="শিক্ষার্থীর হিফজ অগ্রগতি সম্পর্কে মন্তব্য লিখুন..."></textarea>
+
+</div>
+
+</div>
+
+
+<div class="progress-box">
+
+<div class="progress-head">
+
+<span>সামগ্রিক হিফজ অগ্রগতি</span>
+
+<strong id="progressText">0%</strong>
+
+</div>
+
+<div class="progress-bar">
+<div id="progressFill" class="progress-fill"></div>
+</div>
+
+</div>
+
+
+<div class="actions">
+
+<button class="btn btn-primary" onclick="saveProgress()">
+💾 Progress Save
+</button>
+
+<button class="btn btn-secondary" onclick="clearForm()">
+🔄 Clear
+</button>
+
+<button class="btn btn-gold" onclick="window.print()">
+🖨️ Print
+</button>
+
+</div>
+
+</div>
+
+
+<!-- HISTORY -->
+<div id="historyCard" class="card" style="display:none;">
+
+<div class="card-title">
+📋 শিক্ষার্থীর হিফজ প্রগ্রেস ইতিহাস
+</div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+<tr>
+<th>তারিখ</th>
+<th>ধরন</th>
+<th>পারা</th>
+<th>সূরা</th>
+<th>সবক</th>
+<th>আমুখতা</th>
+<th>মুরাজাআ</th>
+<th>অগ্রগতি</th>
+<th>মান</th>
+<th>অ্যাকশন</th>
+</tr>
+</thead>
+
+<tbody id="historyBody"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</main>
+
+
+<footer class="footer">
+
+© <span id="year"></span>
+মাদরাসায়ে নূরুল কুরআন
+— সর্বস্বত্ব সংরক্ষিত।
+
+</footer>
+
+
+<script>
+
+/* =====================================================
+SUPABASE
+===================================================== */
+
+const SUPABASE_URL =
+"https://qavublwhqiqsgpcmfyft.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
+
+const supabaseClient =
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
+
+/* =====================================================
+GLOBAL
+===================================================== */
+
+let currentStudent = null;
+let editingId = null;
+
+document.getElementById("year").textContent =
+new Date().getFullYear();
+
+document.getElementById("progressDate").value =
+new Date().toISOString().split("T")[0];
+
+
+/* =====================================================
+MESSAGE
+===================================================== */
+
+function showMessage(text,type){
+
+const box =
+document.getElementById("message");
+
+box.className =
+"message " + type;
+
+box.textContent = text;
+
+}
+
+
+/* =====================================================
+FIND STUDENT
+===================================================== */
+
+async function findStudent(){
+
+const roll =
+document.getElementById("roll")
+.value.trim();
+
+const studentId =
+document.getElementById("studentId")
+.value.trim();
+
+if(!roll || !studentId){
+
+showMessage(
+"❌ রোল নম্বর এবং শিক্ষার্থী আইডি দিন।",
+"error"
+);
+
+return;
+}
+
+showMessage(
+"⏳ শিক্ষার্থীর তথ্য খোঁজা হচ্ছে...",
+"info"
+);
+
+try{
+
+const {
+data,
+error
+} =
+await supabaseClient
+.from("students")
+.select("*")
+.eq("roll",roll)
+.eq("student_id",studentId)
+.maybeSingle();
+
+if(error) throw error;
+
+if(!data){
+
+showMessage(
+"❌ এই Roll ও Student ID-এর কোনো শিক্ষার্থী পাওয়া যায়নি।",
+"error"
+);
+
+document.getElementById("studentCard")
+.style.display="none";
+
+return;
+}
+
+currentStudent = data;
+
+displayStudent(data);
+
+await loadHistory(data.id);
+
+showMessage(
+"✅ শিক্ষার্থীর তথ্য পাওয়া গেছে।",
+"success"
+);
+
+}catch(error){
+
+console.error(error);
+
+showMessage(
+"❌ Student Load Error: " +
+error.message,
+"error"
+);
+
+}
+
+}
+
+
+/* =====================================================
+DISPLAY STUDENT
+===================================================== */
+
+function displayStudent(student){
+
+const photo =
+student.photo_url ||
+student.photo ||
+"img/student-placeholder.jpg";
+
+document.getElementById("studentPhoto").src =
+photo;
+
+document.getElementById("studentName").textContent =
+student.name ||
+student.student_name ||
+"শিক্ষার্থীর নাম";
+
+document.getElementById("showStudentId").textContent =
+student.student_id ||
+student.id ||
+"—";
+
+document.getElementById("showRoll").textContent =
+student.roll ||
+"—";
+
+document.getElementById("showFather").textContent =
+student.father_name ||
+student.father ||
+student.guardian_name ||
+"—";
+
+document.getElementById("showClass").textContent =
+student.class_name ||
+student.class ||
+student.grade ||
+"—";
+
+document.getElementById("studentCard")
+.style.display="block";
+
+}
+
+
+/* =====================================================
+PROGRESS
+===================================================== */
+
+function updateProgress(){
+
+let value =
+Number(
+document.getElementById("progress").value
+);
+
+if(value < 0) value=0;
+if(value > 100) value=100;
+
+document.getElementById("progress").value=value;
+
+document.getElementById("progressText").textContent =
+value+"%";
+
+document.getElementById("progressFill").style.width =
+value+"%";
+
+}
+
+updateProgress();
+
+
+/* =====================================================
+SAVE
+===================================================== */
+
+async function saveProgress(){
+
+if(!currentStudent){
+
+showMessage(
+"❌ আগে একজন শিক্ষার্থী খুঁজুন।",
+"error"
+);
+
+return;
+}
+
+const payload = {
+
+student_id:currentStudent.id,
+
+progress_date:
+document.getElementById("progressDate").value,
+
+progress_type:
+document.getElementById("progressType").value,
+
+para:
+document.getElementById("para").value,
+
+surah:
+document.getElementById("surah").value.trim(),
+
+ayat:
+document.getElementById("ayat").value.trim(),
+
+sabak:
+document.getElementById("sabak").value.trim(),
+
+amukhta:
+document.getElementById("amukhta").value.trim(),
+
+muraja:
+document.getElementById("muraja").value.trim(),
+
+progress:
+Number(
+document.getElementById("progress").value || 0
+),
+
+quality:
+document.getElementById("quality").value,
+
+tajweed:
+document.getElementById("tajweed").value,
+
+makhraj:
+document.getElementById("makhraj").value,
+
+teacher_comment:
+document.getElementById("teacherComment").value.trim()
+
+};
+
+
+if(!payload.progress_date){
+
+showMessage(
+"❌ তারিখ নির্বাচন করুন।",
+"error"
+);
+
+return;
+}
+
+
+try{
+
+let response;
+
+if(editingId){
+
+response =
+await supabaseClient
+.from("hifz_progress")
+.update(payload)
+.eq("id",editingId);
+
+}else{
+
+response =
+await supabaseClient
+.from("hifz_progress")
+.insert([payload]);
+
+}
+
+if(response.error) throw response.error;
+
+showMessage(
+editingId
+?
+"✅ Hifz Progress সফলভাবে Update হয়েছে।"
+:
+"✅ Hifz Progress সফলভাবে Save হয়েছে।",
+"success"
+);
+
+editingId=null;
+
+clearForm(false);
+
+await loadHistory(currentStudent.id);
+
+}catch(error){
+
+console.error(error);
+
+showMessage(
+"❌ Hifz Progress Save Error: "+
+error.message,
+"error"
+);
+
+}
+
+}
+
+
+/* =====================================================
+LOAD HISTORY
+===================================================== */
+
+async function loadHistory(studentId){
+
+const {
+data,
+error
+} =
+await supabaseClient
+.from("hifz_progress")
+.select("*")
+.eq("student_id",studentId)
+.order(
+"progress_date",
+{ascending:false}
+);
+
+if(error){
+
+console.error(error);
+
+document.getElementById("historyCard")
+.style.display="none";
+
+return;
+}
+
+const rows=data || [];
+
+const body =
+document.getElementById("historyBody");
+
+
+if(!rows.length){
+
+body.innerHTML=`
+
+<tr>
+<td colspan="10" class="empty">
+এই শিক্ষার্থীর কোনো Hifz Progress এখনো Save করা হয়নি।
+</td>
+</tr>
+
+`;
+
+document.getElementById("historyCard")
+.style.display="block";
+
+return;
+
+}
+
+
+body.innerHTML =
+rows.map(row=>`
+
+<tr>
+
+<td>${formatDate(row.progress_date)}</td>
+
+<td>${escapeHTML(row.progress_type || "—")}</td>
+
+<td>${escapeHTML(row.para || "—")}</td>
+
+<td>${escapeHTML(row.surah || "—")}</td>
+
+<td>${escapeHTML(row.sabak || "—")}</td>
+
+<td>${escapeHTML(row.amukhta || "—")}</td>
+
+<td>${escapeHTML(row.muraja || "—")}</td>
+
+<td>
+<strong>
+${Number(row.progress || 0)}%
+</strong>
+</td>
+
+<td>${escapeHTML(row.quality || "—")}</td>
+
+<td>
+
+<button
+class="btn btn-secondary"
+style="padding:7px 10px;font-size:13px"
+onclick='editProgress(${JSON.stringify(row)})'>
+✏️
+</button>
+
+<button
+class="btn btn-danger"
+style="padding:7px 10px;font-size:13px"
+onclick="deleteProgress(${row.id})">
+🗑️
+</button>
+
+</td>
+
+</tr>
+
+`).join("");
+
+
+document.getElementById("historyCard")
+.style.display="block";
+
+
+/* UPDATE SUMMARY */
+
+if(rows.length){
+
+const latest=rows[0];
+
+document.getElementById("lastProgress").textContent =
+Number(latest.progress || 0)+"%";
+
+document.getElementById("currentPara").textContent =
+latest.para || "—";
+
+document.getElementById("currentSurah").textContent =
+latest.surah || "—";
+
+
+const total =
+Number(latest.progress || 0);
+
+document.getElementById("totalProgress").textContent =
+total+"%";
+
+}
+
+}
+
+
+/* =====================================================
+EDIT
+===================================================== */
+
+function editProgress(row){
+
+editingId=row.id;
+
+document.getElementById("progressDate").value =
+row.progress_date || "";
+
+document.getElementById("progressType").value =
+row.progress_type || "নতুন সবক";
+
+document.getElementById("para").value =
+row.para || "";
+
+document.getElementById("surah").value =
+row.surah || "";
+
+document.getElementById("ayat").value =
+row.ayat || "";
+
+document.getElementById("sabak").value =
+row.sabak || "";
+
+document.getElementById("amukhta").value =
+row.amukhta || "";
+
+document.getElementById("muraja").value =
+row.muraja || "";
+
+document.getElementById("progress").value =
+row.progress || 0;
+
+document.getElementById("quality").value =
+row.quality || "ভালো";
+
+document.getElementById("tajweed").value =
+row.tajweed || "ভালো";
+
+document.getElementById("makhraj").value =
+row.makhraj || "ভালো";
+
+document.getElementById("teacherComment").value =
+row.teacher_comment || "";
+
+updateProgress();
+
+window.scrollTo({
+top:document.getElementById("studentCard").offsetTop-20,
+behavior:"smooth"
+});
+
+showMessage(
+"✏️ Edit mode চালু হয়েছে। Save করলে record Update হবে।",
+"info"
+);
+
+}
+
+
+/* =====================================================
+DELETE
+===================================================== */
+
+async function deleteProgress(id){
+
+if(!confirm(
+"এই Hifz Progress record-টি Delete করতে চান?"
+)) return;
+
+try{
+
+const {error} =
+await supabaseClient
+.from("hifz_progress")
+.delete()
+.eq("id",id);
+
+if(error) throw error;
+
+showMessage(
+"✅ Hifz Progress Delete হয়েছে।",
+"success"
+);
+
+if(currentStudent){
+await loadHistory(currentStudent.id);
+}
+
+}catch(error){
+
+showMessage(
+"❌ Delete Error: "+
+error.message,
+"error"
+);
+
+}
+
+}
+
+
+/* =====================================================
+CLEAR
+===================================================== */
+
+function clearForm(show=true){
+
+editingId=null;
+
+document.getElementById("progressDate").value =
+new Date().toISOString().split("T")[0];
+
+document.getElementById("progressType").value =
+"নতুন সবক";
+
+document.getElementById("para").value="";
+document.getElementById("surah").value="";
+document.getElementById("ayat").value="";
+document.getElementById("sabak").value="";
+document.getElementById("amukhta").value="";
+document.getElementById("muraja").value="";
+document.getElementById("progress").value="0";
+
+document.getElementById("quality").value=
+"চমৎকার";
+
+document.getElementById("tajweed").value=
+"চমৎকার";
+
+document.getElementById("makhraj").value=
+"চমৎকার";
+
+document.getElementById("teacherComment").value="";
+
+updateProgress();
+
+}
+
+
+/* =====================================================
+DATE
+===================================================== */
+
+function formatDate(date){
+
+if(!date) return "—";
+
+return new Date(date)
+.toLocaleDateString(
+"bn-BD",
+{
+year:"numeric",
+month:"long",
+day:"numeric"
+}
+);
+
+}
+
+
+/* =====================================================
+ESCAPE
+===================================================== */
+
+function escapeHTML(value){
+
+return String(value ?? "")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+
+/* =====================================================
+ENTER SEARCH
+===================================================== */
+
+document.getElementById("roll")
+.addEventListener("keydown",function(e){
+
+if(e.key==="Enter") findStudent();
+
+});
+
+document.getElementById("studentId")
+.addEventListener("keydown",function(e){
+
+if(e.key==="Enter") findStudent();
+
+});
+
+</script>
+
+</body>
+</html>
