@@ -1,1 +1,1929 @@
+<!DOCTYPE html>
+<html lang="bn">
 
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>শিক্ষার্থী রিপোর্ট | মাদরাসায়ে নূরুল কুরআন</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<style>
+
+@font-face{
+    font-family:"Bornomala";
+    src:url("./fonts/Bornomala-Regular.ttf") format("truetype");
+    font-display:swap;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:"Bornomala",sans-serif;
+    background:#f3f8fd;
+    color:#173452;
+}
+
+.container{
+    width:min(1200px,94%);
+    margin:auto;
+}
+
+
+/* ================= HEADER ================= */
+
+.header{
+    background:linear-gradient(
+        135deg,
+        #031a35,
+        #0875df
+    );
+
+    color:white;
+
+    padding:20px 0;
+
+    box-shadow:
+    0 8px 30px rgba(0,0,0,.16);
+}
+
+.header-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    text-decoration:none;
+    color:white;
+}
+
+.logo{
+    width:68px;
+    height:68px;
+    object-fit:contain;
+    background:white;
+    border-radius:50%;
+}
+
+.brand h1{
+    font-size:27px;
+}
+
+.brand small{
+    font-family:Arial,sans-serif;
+    font-size:9px;
+    letter-spacing:3px;
+    color:#d8ebff;
+}
+
+.home-btn{
+    text-decoration:none;
+    color:#092b50;
+    background:#ffd447;
+    padding:12px 20px;
+    border-radius:12px;
+    font-weight:bold;
+}
+
+
+/* ================= PAGE ================= */
+
+.page{
+    padding:55px 0 80px;
+}
+
+.page-title{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.page-title small{
+    color:#0875df;
+    font-family:Arial,sans-serif;
+    letter-spacing:1px;
+}
+
+.page-title h2{
+    color:#031a35;
+    font-size:40px;
+    margin-top:7px;
+}
+
+.page-title p{
+    color:#718399;
+    margin-top:8px;
+}
+
+
+/* ================= SEARCH ================= */
+
+.search-card{
+    background:white;
+    border-radius:25px;
+    padding:30px;
+    box-shadow:
+    0 20px 60px rgba(0,25,60,.12);
+
+    margin-bottom:25px;
+}
+
+.search-title{
+    color:#031a35;
+    font-size:25px;
+    margin-bottom:20px;
+}
+
+.search-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:14px;
+}
+
+input,
+select{
+    width:100%;
+    border:1px solid #d8e4ee;
+    border-radius:11px;
+    padding:14px;
+    background:white;
+    outline:none;
+    font-family:inherit;
+}
+
+input:focus,
+select:focus{
+    border-color:#0875df;
+}
+
+.search-btn{
+    border:0;
+    border-radius:11px;
+    padding:14px;
+    background:#0875df;
+    color:white;
+    font-family:inherit;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.search-btn:hover{
+    background:#0567c8;
+}
+
+
+/* ================= MESSAGE ================= */
+
+.message{
+    display:none;
+    margin-top:15px;
+    padding:13px;
+    border-radius:10px;
+    text-align:center;
+    font-weight:bold;
+}
+
+.message.error{
+    display:block;
+    color:#b42318;
+    background:#ffe9e7;
+}
+
+.message.success{
+    display:block;
+    color:#137333;
+    background:#e8f7ed;
+}
+
+
+/* ================= REPORT ================= */
+
+.report-card{
+    display:none;
+    background:white;
+    border-radius:25px;
+    padding:32px;
+    box-shadow:
+    0 20px 60px rgba(0,25,60,.12);
+}
+
+.student-header{
+    display:grid;
+    grid-template-columns:125px 1fr;
+    gap:25px;
+    align-items:center;
+
+    padding-bottom:25px;
+
+    border-bottom:1px solid #e0eaf3;
+}
+
+.student-photo{
+    width:125px;
+    height:150px;
+    object-fit:cover;
+
+    border-radius:15px;
+
+    border:1px solid #dce6ef;
+
+    background:#edf5fc;
+}
+
+.student-info h2{
+    color:#031a35;
+    font-size:30px;
+    margin-bottom:8px;
+}
+
+.student-info p{
+    color:#718399;
+    line-height:2;
+}
+
+.student-info strong{
+    color:#173452;
+}
+
+
+/* ================= INFO ================= */
+
+.info-grid{
+    display:grid;
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:13px;
+
+    margin:25px 0;
+}
+
+.info-box{
+    padding:16px;
+
+    background:#f6faff;
+
+    border:1px solid #dce8f4;
+
+    border-radius:14px;
+}
+
+.info-box span{
+    display:block;
+    color:#718399;
+    font-size:13px;
+}
+
+.info-box strong{
+    display:block;
+    color:#031a35;
+    margin-top:5px;
+}
+
+
+/* ================= EXAM ================= */
+
+.exam-select{
+    margin:25px 0;
+    padding:20px;
+
+    background:#f6faff;
+
+    border:1px solid #dce8f4;
+
+    border-radius:16px;
+}
+
+.exam-select label{
+    display:block;
+    color:#031a35;
+    font-weight:bold;
+    margin-bottom:9px;
+}
+
+
+/* ================= TABLE ================= */
+
+.section-title{
+    color:#031a35;
+    font-size:25px;
+    margin:28px 0 15px;
+}
+
+.table-wrap{
+    overflow-x:auto;
+
+    border:1px solid #dce7f1;
+
+    border-radius:15px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:650px;
+}
+
+thead{
+    background:#031a35;
+    color:white;
+}
+
+th{
+    padding:14px;
+    text-align:center;
+}
+
+td{
+    padding:13px;
+    text-align:center;
+
+    border-bottom:
+    1px solid #e5edf4;
+}
+
+td:first-child{
+    text-align:left;
+}
+
+tr:last-child td{
+    border-bottom:0;
+}
+
+.total-row{
+    background:#edf7ff;
+    font-weight:bold;
+}
+
+.grade{
+    font-weight:bold;
+}
+
+
+/* ================= SUMMARY ================= */
+
+.summary{
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:15px;
+
+    margin-top:25px;
+}
+
+.summary-box{
+    padding:22px;
+
+    border-radius:17px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #031a35,
+        #0875df
+    );
+
+    color:white;
+
+    text-align:center;
+}
+
+.summary-box span{
+    font-size:14px;
+}
+
+.summary-box strong{
+    display:block;
+
+    color:#ffd447;
+
+    font-family:Arial,sans-serif;
+
+    font-size:30px;
+
+    margin-top:6px;
+}
+
+
+/* ================= ATTENDANCE ================= */
+
+.attendance-grid{
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:15px;
+}
+
+.attendance-box{
+    text-align:center;
+
+    padding:22px;
+
+    border-radius:16px;
+
+    background:#f7fbff;
+
+    border:1px solid #dce8f4;
+}
+
+.attendance-box span{
+    color:#718399;
+}
+
+.attendance-box strong{
+    display:block;
+
+    color:#0875df;
+
+    font-family:Arial,sans-serif;
+
+    font-size:29px;
+
+    margin-top:5px;
+}
+
+
+/* ================= BUTTON ================= */
+
+.print-btn{
+    margin-top:30px;
+
+    border:0;
+
+    padding:13px 25px;
+
+    border-radius:11px;
+
+    background:#ffd447;
+
+    color:#062b55;
+
+    font-family:inherit;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+
+/* ================= FOOTER ================= */
+
+.footer{
+    background:#02152c;
+    color:#aebfd0;
+
+    text-align:center;
+
+    padding:25px;
+}
+
+
+/* ================= MOBILE ================= */
+
+@media(max-width:900px){
+
+    .search-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .info-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .summary{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .attendance-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+}
+
+@media(max-width:600px){
+
+    .header-inner{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .brand{
+        justify-content:center;
+    }
+
+    .brand h1{
+        font-size:20px;
+    }
+
+    .logo{
+        width:55px;
+        height:55px;
+    }
+
+    .search-grid{
+        grid-template-columns:1fr;
+    }
+
+    .student-header{
+        grid-template-columns:1fr;
+        text-align:center;
+    }
+
+    .student-photo{
+        margin:auto;
+    }
+
+    .info-grid,
+    .summary,
+    .attendance-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .report-card,
+    .search-card{
+        padding:20px;
+    }
+
+    .page-title h2{
+        font-size:30px;
+    }
+
+}
+
+@media print{
+
+    body{
+        background:white;
+    }
+
+    .header,
+    .search-card,
+    .footer,
+    .exam-select,
+    .print-btn{
+        display:none !important;
+    }
+
+    .page{
+        padding:0;
+    }
+
+    .report-card{
+        display:block !important;
+        box-shadow:none;
+        padding:0;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header class="header">
+
+<div class="container header-inner">
+
+<a href="index.html" class="brand">
+
+<img
+src="img/logo.png"
+class="logo"
+alt="মাদরাসায়ে নূরুল কুরআন">
+
+<div>
+
+<h1>
+মাদরাসায়ে নূরুল কুরআন
+</h1>
+
+<small>
+MADRASHA-E NURUL QURAN
+</small>
+
+</div>
+
+</a>
+
+
+<a
+href="index.html"
+class="home-btn">
+
+🏠 হোম পেজ
+
+</a>
+
+</div>
+
+</header>
+
+
+
+<main class="page">
+
+<div class="container">
+
+
+<!-- ================= TITLE ================= -->
+
+<div class="page-title">
+
+<small>
+STUDENT REPORT PORTAL
+</small>
+
+<h2>
+📊 শিক্ষার্থী রিপোর্ট
+</h2>
+
+<p>
+রোল নম্বর ও শিক্ষার্থী আইডি দিয়ে শিক্ষার্থীর রিপোর্ট দেখুন।
+</p>
+
+</div>
+
+
+
+<!-- ================= SEARCH ================= -->
+
+<div class="search-card">
+
+<div class="search-title">
+🔎 শিক্ষার্থী অনুসন্ধান
+</div>
+
+
+<div class="search-grid">
+
+<input
+type="text"
+id="roll"
+placeholder="রোল নম্বর">
+
+<input
+type="text"
+id="studentId"
+placeholder="শিক্ষার্থী আইডি">
+
+<button
+class="search-btn"
+onclick="findStudent()">
+
+📊 রিপোর্ট দেখুন
+
+</button>
+
+</div>
+
+
+<div
+id="message"
+class="message">
+</div>
+
+</div>
+
+
+
+<!-- ================= REPORT ================= -->
+
+<div
+id="reportCard"
+class="report-card">
+
+<div id="reportContent"></div>
+
+</div>
+
+
+</div>
+
+</main>
+
+
+
+<footer class="footer">
+
+©
+<span id="year"></span>
+মাদরাসায়ে নূরুল কুরআন
+— সর্বস্বত্ব সংরক্ষিত।
+
+</footer>
+
+
+
+<script>
+
+
+/* =========================================================
+SUPABASE
+========================================================= */
+
+const SUPABASE_URL =
+"https://qavublwhqiqsgpcmfyft.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
+
+
+const supabaseClient =
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
+
+document.getElementById("year")
+.textContent =
+new Date().getFullYear();
+
+
+
+/* =========================================================
+MESSAGE
+========================================================= */
+
+function showMessage(
+text,
+type
+){
+
+const box =
+document.getElementById("message");
+
+box.className =
+"message " + type;
+
+box.textContent =
+text;
+
+}
+
+
+
+/* =========================================================
+FIND STUDENT
+========================================================= */
+
+async function findStudent(){
+
+const roll =
+document
+.getElementById("roll")
+.value
+.trim();
+
+
+const studentId =
+document
+.getElementById("studentId")
+.value
+.trim();
+
+
+document
+.getElementById("reportCard")
+.style.display="none";
+
+
+if(!roll || !studentId){
+
+showMessage(
+"❌ রোল নম্বর এবং শিক্ষার্থী আইডি লিখুন।",
+"error"
+);
+
+return;
+
+}
+
+
+showMessage(
+"⏳ শিক্ষার্থীর তথ্য খোঁজা হচ্ছে...",
+"success"
+);
+
+
+try{
+
+
+/* =====================================================
+STUDENT
+===================================================== */
+
+const {
+data:student,
+error:studentError
+} =
+await supabaseClient
+
+.from("students")
+
+.select("*")
+
+.eq("roll",roll)
+
+.eq("student_id",studentId)
+
+.maybeSingle();
+
+
+if(studentError){
+
+throw studentError;
+
+}
+
+
+if(!student){
+
+showMessage(
+"❌ এই রোল ও শিক্ষার্থী আইডির কোনো তথ্য পাওয়া যায়নি।",
+"error"
+);
+
+return;
+
+}
+
+
+/* =====================================================
+EXAMS
+===================================================== */
+
+const {
+data:exams,
+error:examError
+} =
+await supabaseClient
+
+.from("report_exams")
+
+.select("*")
+
+.eq("status","published")
+
+.order(
+"created_at",
+{
+ascending:false
+}
+);
+
+
+if(examError){
+
+throw examError;
+
+}
+
+
+/* =====================================================
+REPORT
+===================================================== */
+
+renderStudent(
+student,
+exams || []
+);
+
+
+showMessage(
+"✅ শিক্ষার্থীর রিপোর্ট পাওয়া গেছে।",
+"success"
+);
+
+
+document
+.getElementById("reportCard")
+.style.display="block";
+
+
+setTimeout(()=>{
+
+document
+.getElementById("reportCard")
+.scrollIntoView({
+behavior:"smooth",
+block:"start"
+});
+
+},200);
+
+
+}catch(error){
+
+console.error(error);
+
+showMessage(
+"❌ রিপোর্ট লোড করতে সমস্যা হয়েছে: "+
+error.message,
+"error"
+);
+
+}
+
+}
+
+
+
+/* =========================================================
+RENDER STUDENT
+========================================================= */
+
+function renderStudent(
+student,
+exams
+){
+
+
+const photo =
+student.photo_url ||
+student.photo ||
+"img/student-placeholder.jpg";
+
+
+const studentName =
+student.name ||
+student.student_name ||
+"শিক্ষার্থী";
+
+
+const studentRoll =
+student.roll || "";
+
+
+const studentId =
+student.student_id ||
+student.id ||
+"";
+
+
+const father =
+student.father_name ||
+student.father ||
+student.guardian_name ||
+"—";
+
+
+const className =
+student.class_name ||
+student.class ||
+student.grade ||
+"—";
+
+
+const division =
+student.department ||
+student.division ||
+"—";
+
+
+const session =
+student.session ||
+student.academic_year ||
+"২০২৬";
+
+
+let examOptions="";
+
+
+if(exams.length){
+
+examOptions =
+exams.map(exam=>`
+
+<option value="${exam.id}">
+
+${escapeHTML(
+exam.exam_name
+)}
+
+${
+exam.class_name
+?
+" — "+escapeHTML(
+exam.class_name
+)
+:""
+}
+
+${
+exam.exam_year
+?
+" ("+
+escapeHTML(
+exam.exam_year
+)+
+")"
+:""
+}
+
+</option>
+
+`).join("");
+
+}else{
+
+examOptions=`
+
+<option value="">
+কোনো প্রকাশিত পরীক্ষা পাওয়া যায়নি
+</option>
+
+`;
+
+}
+
+
+document
+.getElementById("reportContent")
+.innerHTML=`
+
+
+<!-- STUDENT HEADER -->
+
+<div class="student-header">
+
+<img
+src="${escapeAttribute(photo)}"
+class="student-photo"
+alt="শিক্ষার্থীর ছবি"
+onerror="this.src='img/student-placeholder.jpg'">
+
+
+<div class="student-info">
+
+<h2>
+${escapeHTML(studentName)}
+</h2>
+
+
+<p>
+
+📚 শিক্ষার্থী আইডি:
+<strong>
+${escapeHTML(
+String(studentId)
+)}
+</strong>
+
+<br>
+
+🔢 রোল:
+<strong>
+${escapeHTML(
+String(studentRoll)
+)}
+</strong>
+
+</p>
+
+</div>
+
+</div>
+
+
+
+<!-- STUDENT INFO -->
+
+<div class="info-grid">
+
+
+<div class="info-box">
+
+<span>
+পিতার নাম
+</span>
+
+<strong>
+${escapeHTML(father)}
+</strong>
+
+</div>
+
+
+<div class="info-box">
+
+<span>
+শ্রেণি
+</span>
+
+<strong>
+${escapeHTML(
+String(className)
+)}
+</strong>
+
+</div>
+
+
+<div class="info-box">
+
+<span>
+বিভাগ
+</span>
+
+<strong>
+${escapeHTML(
+String(division)
+)}
+</strong>
+
+</div>
+
+
+<div class="info-box">
+
+<span>
+শিক্ষাবর্ষ
+</span>
+
+<strong>
+${escapeHTML(
+String(session)
+)}
+</strong>
+
+</div>
+
+
+</div>
+
+
+
+<!-- EXAM SELECT -->
+
+<div class="exam-select">
+
+<label>
+📚 পরীক্ষা নির্বাচন করুন
+</label>
+
+<select
+id="examSelect"
+onchange="loadReport(this.value,${student.id})">
+
+${examOptions}
+
+</select>
+
+</div>
+
+
+
+<!-- DYNAMIC REPORT -->
+
+<div id="dynamicReport">
+
+<div class="loading">
+⏳ পরীক্ষা নির্বাচন করুন...
+</div>
+
+</div>
+
+`;
+
+
+
+if(exams.length){
+
+loadReport(
+exams[0].id,
+student.id
+);
+
+}
+
+}
+
+
+
+/* =========================================================
+LOAD REPORT
+========================================================= */
+
+async function loadReport(
+examId,
+studentDbId
+){
+
+if(!examId){
+
+return;
+
+}
+
+
+const target =
+document.getElementById(
+"dynamicReport"
+);
+
+
+target.innerHTML=`
+
+<div class="loading">
+⏳ ফলাফল লোড হচ্ছে...
+</div>
+
+`;
+
+
+try{
+
+
+/* =====================================================
+RESULTS
+===================================================== */
+
+const {
+data:results,
+error:resultError
+} =
+await supabaseClient
+
+.from("report_results")
+
+.select("*")
+
+.eq("student_id",studentDbId)
+
+.eq("exam_id",examId)
+
+.order(
+"id",
+{
+ascending:true
+}
+);
+
+
+if(resultError){
+
+throw resultError;
+
+}
+
+
+const resultRows =
+results || [];
+
+
+let totalMarks=0;
+
+let obtainedMarks=0;
+
+
+resultRows.forEach(row=>{
+
+totalMarks +=
+Number(
+row.full_marks || 0
+);
+
+obtainedMarks +=
+Number(
+row.obtained_marks || 0
+);
+
+});
+
+
+const percentage =
+totalMarks > 0
+?
+(
+obtainedMarks /
+totalMarks *
+100
+).toFixed(2)
+:
+"0.00";
+
+
+const grade =
+calculateGrade(
+Number(percentage)
+);
+
+
+/* =====================================================
+RESULT ROWS
+===================================================== */
+
+let rows="";
+
+
+if(resultRows.length){
+
+rows =
+resultRows.map(
+(row,index)=>{
+
+const full =
+Number(
+row.full_marks || 0
+);
+
+
+const obtained =
+Number(
+row.obtained_marks || 0
+);
+
+
+const subjectPercent =
+full > 0
+?
+obtained /
+full *
+100
+:
+0;
+
+
+return `
+
+<tr>
+
+<td>
+${index+1}
+</td>
+
+<td>
+${escapeHTML(
+row.subject_name
+)}
+</td>
+
+<td>
+${full}
+</td>
+
+<td>
+${obtained}
+</td>
+
+<td class="grade">
+
+${calculateGrade(
+subjectPercent
+)}
+
+</td>
+
+</tr>
+
+`;
+
+}).join("");
+
+
+}else{
+
+rows=`
+
+<tr>
+
+<td colspan="5">
+
+এই পরীক্ষার কোনো ফলাফল প্রকাশ করা হয়নি।
+
+</td>
+
+</tr>
+
+`;
+
+}
+
+
+/* =====================================================
+ATTENDANCE
+===================================================== */
+
+const {
+data:attendance
+} =
+await supabaseClient
+
+.from("report_attendance")
+
+.select("*")
+
+.eq("student_id",studentDbId);
+
+
+const attendanceData =
+attendance || [];
+
+
+const totalDays =
+attendanceData.length;
+
+
+const present =
+attendanceData.filter(
+item =>
+String(
+item.status
+).toLowerCase()
+===
+"present"
+||
+String(
+item.status
+).toLowerCase()
+===
+"presented"
+||
+String(
+item.status
+).includes("উপস্থিত")
+).length;
+
+
+const absent =
+attendanceData.filter(
+item =>
+String(
+item.status
+).toLowerCase()
+===
+"absent"
+||
+String(
+item.status
+).includes("অনুপস্থিত")
+).length;
+
+
+const attendancePercent =
+totalDays > 0
+?
+(
+present /
+totalDays *
+100
+).toFixed(1)
+:
+"0.0";
+
+
+
+/* =====================================================
+SHOW
+===================================================== */
+
+target.innerHTML=`
+
+
+<h3 class="section-title">
+
+📚 ${escapeHTML(
+getSelectedExamName()
+)}
+
+</h3>
+
+
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>
+ক্রম
+</th>
+
+<th>
+বিষয়
+</th>
+
+<th>
+পূর্ণমান
+</th>
+
+<th>
+প্রাপ্ত নম্বর
+</th>
+
+<th>
+গ্রেড
+</th>
+
+</tr>
+
+</thead>
+
+
+<tbody>
+
+${rows}
+
+
+${
+resultRows.length
+?
+`
+
+<tr class="total-row">
+
+<td colspan="2">
+মোট
+</td>
+
+<td>
+${totalMarks}
+</td>
+
+<td>
+${obtainedMarks}
+</td>
+
+<td>
+${grade}
+</td>
+
+</tr>
+
+`
+:
+""
+}
+
+</tbody>
+
+</table>
+
+</div>
+
+
+
+<!-- SUMMARY -->
+
+<div class="summary">
+
+
+<div class="summary-box">
+
+<span>
+বিষয় সংখ্যা
+</span>
+
+<strong>
+${resultRows.length}
+</strong>
+
+</div>
+
+
+<div class="summary-box">
+
+<span>
+মোট নম্বর
+</span>
+
+<strong>
+${totalMarks}
+</strong>
+
+</div>
+
+
+<div class="summary-box">
+
+<span>
+প্রাপ্ত নম্বর
+</span>
+
+<strong>
+${obtainedMarks}
+</strong>
+
+</div>
+
+
+<div class="summary-box">
+
+<span>
+Percentage
+</span>
+
+<strong>
+${percentage}%
+</strong>
+
+</div>
+
+
+</div>
+
+
+
+<h3 class="section-title">
+
+📅 হাজিরা
+
+</h3>
+
+
+
+<div class="attendance-grid">
+
+
+<div class="attendance-box">
+
+<span>
+মোট দিন
+</span>
+
+<strong>
+${totalDays}
+</strong>
+
+</div>
+
+
+<div class="attendance-box">
+
+<span>
+উপস্থিত
+</span>
+
+<strong>
+${present}
+</strong>
+
+</div>
+
+
+<div class="attendance-box">
+
+<span>
+অনুপস্থিত
+</span>
+
+<strong>
+${absent}
+</strong>
+
+</div>
+
+
+<div class="attendance-box">
+
+<span>
+উপস্থিতির হার
+</span>
+
+<strong>
+${attendancePercent}%
+</strong>
+
+</div>
+
+
+</div>
+
+
+
+<button
+class="print-btn"
+onclick="window.print()">
+
+🖨️ রিপোর্ট প্রিন্ট করুন
+
+</button>
+
+`;
+
+
+
+}catch(error){
+
+console.error(error);
+
+target.innerHTML=`
+
+<div class="message error">
+
+❌ ফলাফল লোড করতে সমস্যা হয়েছে:
+
+${escapeHTML(
+error.message
+)}
+
+</div>
+
+`;
+
+}
+
+}
+
+
+
+/* =========================================================
+SELECTED EXAM NAME
+========================================================= */
+
+function getSelectedExamName(){
+
+const select =
+document.getElementById(
+"examSelect"
+);
+
+if(!select){
+
+return "পরীক্ষার ফলাফল";
+
+}
+
+const option =
+select.options[
+select.selectedIndex
+];
+
+return option
+?
+option.textContent.trim()
+:
+"পরীক্ষার ফলাফল";
+
+}
+
+
+
+/* =========================================================
+GRADE
+========================================================= */
+
+function calculateGrade(
+percentage
+){
+
+if(percentage >= 80){
+
+return "A+";
+
+}
+
+if(percentage >= 70){
+
+return "A";
+
+}
+
+if(percentage >= 60){
+
+return "A-";
+
+}
+
+if(percentage >= 50){
+
+return "B";
+
+}
+
+if(percentage >= 40){
+
+return "C";
+
+}
+
+if(percentage >= 33){
+
+return "D";
+
+}
+
+return "F";
+
+}
+
+
+
+/* =========================================================
+ESCAPE HTML
+========================================================= */
+
+function escapeHTML(value){
+
+return String(value ?? "")
+
+.replace(
+/&/g,
+"&amp;"
+)
+
+.replace(
+/</g,
+"&lt;"
+)
+
+.replace(
+/>/g,
+"&gt;"
+)
+
+.replace(
+/"/g,
+"&quot;"
+)
+
+.replace(
+/'/g,
+"&#039;"
+);
+
+}
+
+
+function escapeAttribute(value){
+
+return escapeHTML(value);
+
+}
+
+
+
+/* =========================================================
+ENTER KEY
+========================================================= */
+
+document
+.getElementById("roll")
+.addEventListener(
+"keydown",
+function(e){
+
+if(e.key === "Enter"){
+
+findStudent();
+
+}
+
+}
+);
+
+
+document
+.getElementById("studentId")
+.addEventListener(
+"keydown",
+function(e){
+
+if(e.key === "Enter"){
+
+findStudent();
+
+}
+
+}
+);
+
+</script>
+
+</body>
+
+</html>
