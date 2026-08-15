@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Notice Management | মাদরাসায়ে নূরুল কুরআন</title>
+<title>নোটিশ ম্যানেজমেন্ট — মাদরাসায়ে নূরুল কুরআন</title>
 
 <style>
 @font-face{
@@ -20,283 +20,443 @@
 }
 
 body{
-    font-family:"Bornomala",Arial,sans-serif;
-    background:#f2f8fd;
+    font-family:"Bornomala",sans-serif;
+    background:#f3f7fb;
     color:#173452;
 }
 
-a{
-    text-decoration:none;
-    color:inherit;
+button,
+input,
+textarea{
+    font-family:inherit;
 }
 
-.top{
+.container{
+    width:min(1150px,94%);
+    margin:auto;
+}
+
+/* HEADER */
+.header{
     background:linear-gradient(135deg,#031a35,#0875df);
     color:#fff;
-    padding:15px 5%;
+    padding:24px 0;
+    box-shadow:0 8px 30px rgba(0,0,0,.15);
+}
+
+.header-inner{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    gap:15px;
+    gap:20px;
 }
 
 .brand{
     display:flex;
     align-items:center;
-    gap:12px;
+    gap:15px;
 }
 
-.brand img{
-    width:55px;
-    height:55px;
+.logo{
+    width:65px;
+    height:65px;
+    border-radius:50%;
     object-fit:contain;
     background:#fff;
-    border-radius:50%;
 }
 
-.brand h2{
-    font-size:21px;
+.brand h1{
+    font-size:27px;
 }
 
 .brand small{
-    font-family:Arial;
-    font-size:8px;
+    display:block;
+    font-family:Arial,sans-serif;
+    font-size:9px;
     letter-spacing:2px;
     opacity:.8;
 }
 
 .home-btn{
     background:#ffd447;
-    color:#092440;
-    padding:10px 18px;
+    color:#092441;
+    padding:11px 18px;
     border-radius:10px;
+    text-decoration:none;
     font-weight:bold;
 }
 
-.container{
-    width:min(1200px,94%);
-    margin:35px auto;
+/* PAGE */
+.page{
+    padding:45px 0 80px;
 }
 
 .page-title{
-    margin-bottom:25px;
+    text-align:center;
+    margin-bottom:35px;
 }
 
-.page-title h1{
-    color:#062b55;
-    font-size:34px;
+.page-title small{
+    color:#0875df;
+}
+
+.page-title h2{
+    color:#031a35;
+    font-size:38px;
+    margin-top:5px;
 }
 
 .page-title p{
     color:#718399;
-    margin-top:5px;
+    margin-top:8px;
 }
 
-.grid{
-    display:grid;
-    grid-template-columns:380px 1fr;
-    gap:25px;
-    align-items:start;
-}
-
+/* FORM CARD */
 .card{
     background:#fff;
-    border-radius:22px;
-    padding:25px;
-    box-shadow:0 15px 50px rgba(0,40,80,.10);
-    border:1px solid #e0eaf3;
+    border-radius:25px;
+    padding:30px;
+    box-shadow:0 20px 60px rgba(0,30,70,.10);
+    border:1px solid #e1eaf2;
+    margin-bottom:30px;
 }
 
-.card h2{
-    color:#062b55;
-    font-size:23px;
+.card-title{
+    color:#031a35;
+    font-size:25px;
     margin-bottom:20px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.form-group{
+    margin-bottom:15px;
+}
+
+.form-group.full{
+    grid-column:1/-1;
 }
 
 label{
     display:block;
+    margin-bottom:7px;
+    color:#294866;
     font-weight:bold;
-    margin:12px 0 6px;
 }
 
 input,
 textarea{
     width:100%;
-    border:1px solid #d6e2ec;
-    border-radius:10px;
-    padding:13px;
+    border:1px solid #d7e3ee;
+    border-radius:11px;
+    padding:13px 14px;
     outline:none;
-    font-family:inherit;
-    background:#fff;
+    background:#fbfdff;
+    font-size:15px;
 }
 
 input:focus,
 textarea:focus{
     border-color:#0875df;
+    box-shadow:0 0 0 3px rgba(8,117,223,.08);
 }
 
 textarea{
-    min-height:120px;
     resize:vertical;
+    min-height:120px;
 }
 
+/* PDF */
 .file-box{
-    border:2px dashed #cbddeb;
-    border-radius:12px;
-    padding:15px;
+    border:2px dashed #bcd4e9;
+    border-radius:15px;
+    padding:20px;
     background:#f8fbff;
 }
 
-.file-box small{
-    color:#718399;
-    display:block;
-    margin-top:7px;
+.file-box input{
+    border:0;
+    padding:0;
+    background:transparent;
 }
 
-.publish-btn{
-    width:100%;
+.file-info{
+    color:#718399;
+    font-size:13px;
+    margin-top:8px;
+}
+
+/* BUTTONS */
+.actions{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:10px;
+}
+
+.btn{
     border:0;
-    padding:14px;
-    margin-top:18px;
-    border-radius:10px;
-    background:linear-gradient(135deg,#031a35,#0875df);
-    color:#fff;
+    border-radius:11px;
+    padding:13px 22px;
     cursor:pointer;
     font-size:16px;
-    font-family:inherit;
-}
-
-.publish-btn:disabled{
-    opacity:.6;
-    cursor:not-allowed;
-}
-
-.message{
-    display:none;
-    padding:12px;
-    border-radius:10px;
-    margin-top:15px;
     font-weight:bold;
 }
 
-.success{
-    display:block;
-    background:#e7f8ed;
-    color:#13733b;
+.btn-primary{
+    background:linear-gradient(135deg,#031a35,#0875df);
+    color:#fff;
 }
 
-.error{
-    display:block;
-    background:#ffe9e9;
+.btn-gold{
+    background:#ffd447;
+    color:#142b45;
+}
+
+.btn-danger{
+    background:#ffe7e7;
     color:#c62828;
 }
 
-.notice-list{
-    display:grid;
+.btn-secondary{
+    background:#eaf2f9;
+    color:#173452;
+}
+
+.btn:hover{
+    opacity:.9;
+}
+
+/* MESSAGE */
+.message{
+    padding:13px 15px;
+    border-radius:10px;
+    margin-top:15px;
+    display:none;
+    line-height:1.7;
+}
+
+.message.success{
+    display:block;
+    background:#e8f8ee;
+    color:#15733a;
+}
+
+.message.error{
+    display:block;
+    background:#ffebeb;
+    color:#b42323;
+}
+
+.message.loading{
+    display:block;
+    background:#eaf4ff;
+    color:#075aa9;
+}
+
+/* NOTICE LIST */
+.notice-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
     gap:15px;
+    margin-bottom:20px;
+}
+
+.notice-header h3{
+    color:#031a35;
+    font-size:25px;
+}
+
+.refresh-btn{
+    border:0;
+    background:#eaf4ff;
+    color:#0875df;
+    padding:9px 15px;
+    border-radius:9px;
+    cursor:pointer;
+    font-family:inherit;
 }
 
 .notice-item{
-    border:1px solid #e1eaf2;
-    border-radius:17px;
+    border:1px solid #dfe8f1;
+    border-radius:18px;
     padding:20px;
-    background:#fff;
+    margin-bottom:15px;
+    background:#fbfdff;
 }
 
 .notice-top{
     display:flex;
     justify-content:space-between;
-    gap:15px;
     align-items:flex-start;
+    gap:15px;
 }
 
 .notice-title{
-    color:#062b55;
+    color:#031a35;
     font-size:21px;
-}
-
-.notice-date{
-    color:#0875df;
-    font-size:14px;
-    white-space:nowrap;
-}
-
-.notice-description{
-    color:#718399;
-    line-height:1.8;
-    margin-top:10px;
-    white-space:pre-line;
-}
-
-.pdf-btn{
-    display:inline-block;
-    margin-top:15px;
-    background:#eaf4ff;
-    color:#0875df;
-    padding:9px 15px;
-    border-radius:9px;
     font-weight:bold;
 }
 
-.delete-btn{
-    border:0;
-    background:#ffe9e9;
-    color:#c62828;
-    padding:9px 13px;
+.notice-date{
+    color:#718399;
+    font-size:13px;
+    margin-top:5px;
+}
+
+.notice-description{
+    color:#61758a;
+    line-height:1.8;
+    margin-top:12px;
+    white-space:pre-wrap;
+}
+
+.notice-pdf{
+    margin-top:15px;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.pdf-btn{
+    text-decoration:none;
+    padding:9px 14px;
     border-radius:9px;
+    background:#eaf4ff;
+    color:#0875df;
+    display:inline-block;
+}
+
+.notice-actions{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-top:15px;
+}
+
+.small-btn{
+    border:0;
+    padding:8px 13px;
+    border-radius:8px;
     cursor:pointer;
     font-family:inherit;
-    margin-left:7px;
 }
 
+.edit-btn{
+    background:#fff4d2;
+    color:#8a6500;
+}
+
+.delete-btn{
+    background:#ffe6e6;
+    color:#c62828;
+}
+
+/* EMPTY */
 .empty{
     text-align:center;
-    padding:45px 15px;
-    background:#f7fbff;
-    border-radius:15px;
-    color:#8b9aab;
-}
-
-.footer{
-    text-align:center;
+    padding:45px 20px;
     color:#718399;
-    padding:35px 10px;
+    background:#f8fbff;
+    border-radius:15px;
 }
 
-@media(max-width:850px){
-    .grid{
-        grid-template-columns:1fr;
+/* FOOTER */
+.footer{
+    background:#02152c;
+    color:#9db2c8;
+    text-align:center;
+    padding:25px 15px;
+}
+
+.footer strong{
+    color:#ffd447;
+}
+
+/* EDIT MODE */
+.editing{
+    border:2px solid #ffd447;
+    background:#fffdf4;
+}
+
+.edit-badge{
+    display:none;
+    background:#fff1b8;
+    color:#765800;
+    padding:6px 10px;
+    border-radius:8px;
+    font-size:13px;
+    margin-bottom:15px;
+}
+
+.editing .edit-badge{
+    display:inline-block;
+}
+
+/* RESPONSIVE */
+@media(max-width:700px){
+
+    .header-inner{
+        align-items:flex-start;
     }
 
-    .top{
-        padding:12px 4%;
+    .brand h1{
+        font-size:19px;
     }
 
-    .brand h2{
-        font-size:17px;
+    .brand small{
+        font-size:7px;
+    }
+
+    .logo{
+        width:52px;
+        height:52px;
     }
 
     .home-btn{
+        padding:8px 11px;
         font-size:13px;
-        padding:8px 12px;
     }
 
-    .page-title h1{
-        font-size:28px;
+    .page{
+        padding:30px 0 60px;
     }
-}
 
-@media(max-width:500px){
+    .page-title h2{
+        font-size:29px;
+    }
+
+    .card{
+        padding:20px 16px;
+        border-radius:18px;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .form-group.full{
+        grid-column:auto;
+    }
+
     .notice-top{
         flex-direction:column;
     }
 
-    .container{
-        margin-top:25px;
+    .notice-title{
+        font-size:18px;
     }
 
-    .card{
-        padding:18px;
+    .actions .btn{
+        width:100%;
     }
 }
 </style>
@@ -304,138 +464,212 @@ textarea{
 
 <body>
 
-<header class="top">
+<header class="header">
+    <div class="container header-inner">
 
-    <div class="brand">
-        <img src="img/logo.png" alt="Logo">
-        <div>
-            <h2>নোটিশ ম্যানেজমেন্ট</h2>
-            <small>MADRASHA-E NURUL QURAN</small>
+        <div class="brand">
+            <img src="img/logo.png"
+                 class="logo"
+                 alt="মাদরাসায়ে নূরুল কুরআন">
+
+            <div>
+                <h1>মাদরাসায়ে নূরুল কুরআন</h1>
+                <small>MADRASHA-E NURUL QURAN</small>
+            </div>
         </div>
+
+        <a href="index.html" class="home-btn">
+            🏠 ওয়েবসাইটে যান
+        </a>
+
     </div>
-
-    <a href="index.html#notices" class="home-btn">
-        ← Home Notice
-    </a>
-
 </header>
 
 
-<main class="container">
+<main class="page">
+
+<div class="container">
 
     <div class="page-title">
-        <h1>📢 Notice Management</h1>
-        <p>নতুন নোটিশ লিখুন, PDF আপলোড করুন এবং প্রকাশিত নোটিশ পরিচালনা করুন।</p>
+        <small>NOTICE BOARD</small>
+        <h2>📢 নোটিশ ম্যানেজমেন্ট</h2>
+        <p>
+            এখানে প্রকাশিত নোটিশ স্বয়ংক্রিয়ভাবে ওয়েবসাইটের Notice Board-এ দেখা যাবে।
+        </p>
     </div>
 
 
-    <div class="grid">
+    <!-- ADD NOTICE -->
+    <div class="card" id="noticeFormCard">
 
-        <!-- ADD NOTICE -->
+        <span class="edit-badge">
+            ✏️ নোটিশ এডিট করা হচ্ছে
+        </span>
 
-        <div class="card">
+        <div class="card-title">
+            📢 নতুন নোটিশ প্রকাশ করুন
+        </div>
 
-            <h2>➕ নতুন নোটিশ যোগ করুন</h2>
+        <form id="noticeForm">
 
-            <label for="noticeTitle">
-                নোটিশের শিরোনাম *
-            </label>
+            <div class="form-grid">
 
-            <input
-                type="text"
-                id="noticeTitle"
-                placeholder="যেমন: পরীক্ষার রুটিন প্রকাশ করা হয়েছে"
-            >
+                <div class="form-group full">
+                    <label for="noticeTitle">
+                        নোটিশের শিরোনাম *
+                    </label>
 
-
-            <label for="noticeDate">
-                নোটিশের তারিখ *
-            </label>
-
-            <input
-                type="date"
-                id="noticeDate"
-            >
-
-
-            <label for="noticeDescription">
-                নোটিশের বিস্তারিত
-            </label>
-
-            <textarea
-                id="noticeDescription"
-                placeholder="নোটিশের বিস্তারিত এখানে লিখুন..."
-            ></textarea>
+                    <input
+                        type="text"
+                        id="noticeTitle"
+                        required
+                        placeholder="যেমন: অর্ধবার্ষিক পরীক্ষার সময়সূচি"
+                    >
+                </div>
 
 
-            <label for="noticePdf">
-                PDF ফাইল
-            </label>
+                <div class="form-group">
+                    <label for="noticeDate">
+                        নোটিশের তারিখ *
+                    </label>
 
-            <div class="file-box">
+                    <input
+                        type="date"
+                        id="noticeDate"
+                        required
+                    >
+                </div>
 
-                <input
-                    type="file"
-                    id="noticePdf"
-                    accept="application/pdf,.pdf"
-                >
 
-                <small>
-                    শুধু PDF ফাইল নির্বাচন করুন।
-                    সর্বোচ্চ 10MB।
-                </small>
+                <div class="form-group">
+                    <label for="noticeCategory">
+                        বিভাগ / ক্যাটাগরি
+                    </label>
+
+                    <input
+                        type="text"
+                        id="noticeCategory"
+                        placeholder="যেমন: পরীক্ষা / ভর্তি / সাধারণ"
+                    >
+                </div>
+
+
+                <div class="form-group full">
+                    <label for="noticeDescription">
+                        নোটিশের বিস্তারিত
+                    </label>
+
+                    <textarea
+                        id="noticeDescription"
+                        placeholder="এখানে নোটিশের বিস্তারিত লিখুন..."
+                    ></textarea>
+                </div>
+
+
+                <div class="form-group full">
+
+                    <label>
+                        📄 PDF ফাইল
+                    </label>
+
+                    <div class="file-box">
+
+                        <input
+                            type="file"
+                            id="noticePdf"
+                            accept="application/pdf,.pdf"
+                        >
+
+                        <div class="file-info">
+                            সর্বোচ্চ 10MB PDF ফাইল আপলোড করুন।
+                            PDF না দিলেও শুধু লেখা Notice প্রকাশ করা যাবে।
+                        </div>
+
+                    </div>
+
+                </div>
 
             </div>
 
+
+            <div class="actions">
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                    id="saveBtn"
+                >
+                    📢 নোটিশ প্রকাশ করুন
+                </button>
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    id="cancelEditBtn"
+                    style="display:none"
+                    onclick="cancelEdit()"
+                >
+                    বাতিল
+                </button>
+
+            </div>
+
+            <div id="formMessage" class="message"></div>
+
+        </form>
+
+    </div>
+
+
+    <!-- NOTICE LIST -->
+    <div class="card">
+
+        <div class="notice-header">
+
+            <h3>
+                📋 প্রকাশিত নোটিশ
+            </h3>
 
             <button
-                class="publish-btn"
-                id="publishBtn"
-                onclick="publishNotice()"
+                class="refresh-btn"
+                onclick="loadNotices()"
             >
-                📢 নোটিশ প্রকাশ করুন
+                🔄 Refresh
             </button>
-
-            <div id="message" class="message"></div>
 
         </div>
 
 
-        <!-- PUBLISHED NOTICE -->
+        <div id="noticeList">
 
-        <div class="card">
-
-            <h2>📋 প্রকাশিত নোটিশ</h2>
-
-            <div
-                id="noticeList"
-                class="notice-list"
-            >
-                <div class="empty">
-                    নোটিশ লোড হচ্ছে...
-                </div>
+            <div class="empty">
+                ⏳ নোটিশ লোড হচ্ছে...
             </div>
 
         </div>
 
     </div>
+
+</div>
 
 </main>
 
 
 <footer class="footer">
     © <span id="year"></span>
-    মাদরাসায়ে নূরুল কুরআন — সর্বস্বত্ব সংরক্ষিত।
+    <strong>মাদরাসায়ে নূরুল কুরআন</strong>
+    — সর্বস্বত্ব সংরক্ষিত।
 </footer>
 
 
+<!-- SUPABASE -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 
-/* ==========================================
+/* =========================================================
    SUPABASE CONFIG
-========================================== */
+========================================================= */
 
 const SUPABASE_URL =
     "https://qavublwhqiqsgpcmfyft.supabase.co";
@@ -450,277 +684,480 @@ const supabaseClient =
     );
 
 
-/* ==========================================
+/* =========================================================
    SETTINGS
-========================================== */
+========================================================= */
 
-const BUCKET_NAME = "notice-pdfs";
+const STORAGE_BUCKET = "notice-pdfs";
+
+let editingNoticeId = null;
+let editingOldPdfPath = null;
 
 
-/* ==========================================
+/* =========================================================
    YEAR
-========================================== */
+========================================================= */
 
 document.getElementById("year").textContent =
     new Date().getFullYear();
 
 
-/* ==========================================
+/* =========================================================
    DEFAULT DATE
-========================================== */
+========================================================= */
 
 document.getElementById("noticeDate").value =
     new Date().toISOString().split("T")[0];
 
 
-/* ==========================================
+/* =========================================================
    MESSAGE
-========================================== */
+========================================================= */
 
-function showMessage(text,type){
+function showMessage(text, type){
 
     const box =
-        document.getElementById("message");
+        document.getElementById("formMessage");
 
     box.className =
         "message " + type;
 
-    box.textContent = text;
+    box.innerHTML = text;
 
 }
 
 
-/* ==========================================
+/* =========================================================
    FILE NAME
-========================================== */
+========================================================= */
 
-function safeFileName(name){
+function createFileName(file){
 
-    return name
-        .replace(/[^\w.\-]+/g,"_")
-        .replace(/_+/g,"_");
+    const cleanName =
+        file.name
+        .replace(/[^\w.\-]/g, "_")
+        .toLowerCase();
+
+    const time =
+        Date.now();
+
+    return time + "_" + cleanName;
+}
+
+
+/* =========================================================
+   UPLOAD PDF
+========================================================= */
+
+async function uploadPDF(file){
+
+    if(!file){
+        return {
+            path:null,
+            url:null
+        };
+    }
+
+
+    if(
+        file.type !== "application/pdf" &&
+        !file.name.toLowerCase().endsWith(".pdf")
+    ){
+
+        throw new Error(
+            "শুধুমাত্র PDF ফাইল আপলোড করা যাবে।"
+        );
+
+    }
+
+
+    if(file.size > 10 * 1024 * 1024){
+
+        throw new Error(
+            "PDF ফাইলের সর্বোচ্চ সাইজ 10MB হতে হবে।"
+        );
+
+    }
+
+
+    const fileName =
+        createFileName(file);
+
+
+    const filePath =
+        fileName;
+
+
+    const { error } =
+        await supabaseClient
+        .storage
+        .from(STORAGE_BUCKET)
+        .upload(
+            filePath,
+            file,
+            {
+                cacheControl:"3600",
+                upsert:false,
+                contentType:"application/pdf"
+            }
+        );
+
+
+    if(error){
+        throw error;
+    }
+
+
+    const { data } =
+        supabaseClient
+        .storage
+        .from(STORAGE_BUCKET)
+        .getPublicUrl(filePath);
+
+
+    return {
+        path:filePath,
+        url:data.publicUrl
+    };
 
 }
 
 
-/* ==========================================
-   PUBLISH NOTICE
-========================================== */
+/* =========================================================
+   DELETE OLD PDF
+========================================================= */
 
-async function publishNotice(){
+async function deletePDF(path){
 
-    const button =
-        document.getElementById("publishBtn");
+    if(!path){
+        return;
+    }
+
+    const { error } =
+        await supabaseClient
+        .storage
+        .from(STORAGE_BUCKET)
+        .remove([path]);
+
+    if(error){
+
+        console.warn(
+            "Old PDF delete error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   SAVE NOTICE
+========================================================= */
+
+document
+.getElementById("noticeForm")
+.addEventListener("submit", async function(e){
+
+    e.preventDefault();
+
+
+    const saveBtn =
+        document.getElementById("saveBtn");
+
 
     const title =
-        document.getElementById("noticeTitle")
-        .value.trim();
+        document
+        .getElementById("noticeTitle")
+        .value
+        .trim();
 
-    const date =
-        document.getElementById("noticeDate")
+
+    const noticeDate =
+        document
+        .getElementById("noticeDate")
         .value;
 
-    const description =
-        document.getElementById("noticeDescription")
-        .value.trim();
 
-    const pdf =
-        document.getElementById("noticePdf")
+    const category =
+        document
+        .getElementById("noticeCategory")
+        .value
+        .trim();
+
+
+    const description =
+        document
+        .getElementById("noticeDescription")
+        .value
+        .trim();
+
+
+    const pdfFile =
+        document
+        .getElementById("noticePdf")
         .files[0];
 
 
     if(!title){
 
         showMessage(
-            "নোটিশের শিরোনাম লিখুন।",
+            "❌ নোটিশের শিরোনাম লিখুন।",
             "error"
         );
 
         return;
+
     }
 
 
-    if(!date){
+    if(!noticeDate){
 
         showMessage(
-            "নোটিশের তারিখ নির্বাচন করুন।",
+            "❌ নোটিশের তারিখ নির্বাচন করুন।",
             "error"
         );
 
         return;
-    }
-
-
-    if(pdf){
-
-        if(pdf.type !== "application/pdf"){
-
-            showMessage(
-                "শুধু PDF ফাইল আপলোড করা যাবে।",
-                "error"
-            );
-
-            return;
-        }
-
-
-        if(pdf.size > 10 * 1024 * 1024){
-
-            showMessage(
-                "PDF ফাইল সর্বোচ্চ 10MB হতে পারবে।",
-                "error"
-            );
-
-            return;
-        }
 
     }
-
-
-    button.disabled = true;
-
-    button.textContent =
-        "⏳ প্রকাশ করা হচ্ছে...";
 
 
     try{
 
-        let pdfUrl = null;
+        saveBtn.disabled = true;
+
+        saveBtn.textContent =
+            "⏳ সংরক্ষণ হচ্ছে...";
 
 
-        /* ==================================
+        showMessage(
+            "⏳ নোটিশ সংরক্ষণ করা হচ্ছে...",
+            "loading"
+        );
+
+
+        /* -----------------------------------------
            PDF UPLOAD
-        ================================== */
+        ----------------------------------------- */
 
-        if(pdf){
-
-            const uniqueName =
-                Date.now() +
-                "_" +
-                safeFileName(pdf.name);
-
-            const filePath =
-                "notices/" + uniqueName;
+        let pdfData = {
+            path:null,
+            url:null
+        };
 
 
-            const uploadResult =
+        if(pdfFile){
+
+            pdfData =
+                await uploadPDF(pdfFile);
+
+        }
+
+
+        /* -----------------------------------------
+           EDIT NOTICE
+        ----------------------------------------- */
+
+        if(editingNoticeId){
+
+            const updateData = {
+
+                title:title,
+
+                notice_date:noticeDate,
+
+                category:
+                    category || null,
+
+                description:
+                    description || null,
+
+                status:"published",
+
+                updated_at:
+                    new Date().toISOString()
+
+            };
+
+
+            if(pdfData.path){
+
+                updateData.pdf_url =
+                    pdfData.url;
+
+                updateData.pdf_path =
+                    pdfData.path;
+
+            }
+
+
+            const { error } =
                 await supabaseClient
-                .storage
-                .from(BUCKET_NAME)
-                .upload(
-                    filePath,
-                    pdf,
-                    {
-                        cacheControl:"3600",
-                        upsert:false,
-                        contentType:"application/pdf"
-                    }
+                .from("notices")
+                .update(updateData)
+                .eq(
+                    "id",
+                    editingNoticeId
                 );
 
 
-            if(uploadResult.error){
+            if(error){
 
-                throw new Error(
-                    "PDF Upload Error: " +
-                    uploadResult.error.message
+                if(pdfData.path){
+
+                    await deletePDF(
+                        pdfData.path
+                    );
+
+                }
+
+                throw error;
+
+            }
+
+
+            /* Old PDF delete */
+
+            if(
+                pdfData.path &&
+                editingOldPdfPath
+            ){
+
+                await deletePDF(
+                    editingOldPdfPath
                 );
 
             }
 
 
-            const publicResult =
-                supabaseClient
-                .storage
-                .from(BUCKET_NAME)
-                .getPublicUrl(filePath);
-
-
-            pdfUrl =
-                publicResult.data.publicUrl;
-
-        }
-
-
-        /* ==================================
-           INSERT NOTICE
-        ================================== */
-
-        const {error} =
-            await supabaseClient
-            .from("notices")
-            .insert({
-
-                title:title,
-
-                notice_date:date,
-
-                description:description || null,
-
-                pdf_url:pdfUrl
-
-            });
-
-
-        if(error){
-
-            throw new Error(
-                "Notice Save Error: " +
-                error.message
+            showMessage(
+                "✅ নোটিশ সফলভাবে আপডেট হয়েছে।",
+                "success"
             );
 
         }
 
 
-        showMessage(
-            "✅ নোটিশ সফলভাবে প্রকাশ হয়েছে।",
-            "success"
-        );
+        /* -----------------------------------------
+           NEW NOTICE
+        ----------------------------------------- */
+
+        else{
+
+            const insertData = {
+
+                title:title,
+
+                notice_date:noticeDate,
+
+                category:
+                    category || null,
+
+                description:
+                    description || null,
+
+                pdf_url:
+                    pdfData.url,
+
+                pdf_path:
+                    pdfData.path,
+
+                /*
+                 * IMPORTANT
+                 * তোমার আগের error-এর কারণ ছিল
+                 * status NULL যাচ্ছিল।
+                 *
+                 * তাই এখানে সরাসরি published
+                 * পাঠানো হচ্ছে।
+                 */
+
+                status:"published"
+
+            };
 
 
-        document.getElementById(
-            "noticeTitle"
-        ).value = "";
+            const { error } =
+                await supabaseClient
+                .from("notices")
+                .insert([insertData]);
 
-        document.getElementById(
-            "noticeDescription"
-        ).value = "";
 
-        document.getElementById(
-            "noticePdf"
-        ).value = "";
+            if(error){
 
-        document.getElementById(
-            "noticeDate"
-        ).value =
-            new Date().toISOString().split("T")[0];
+                if(pdfData.path){
 
+                    await deletePDF(
+                        pdfData.path
+                    );
+
+                }
+
+                throw error;
+
+            }
+
+
+            showMessage(
+                "✅ নোটিশ সফলভাবে প্রকাশ হয়েছে। এখন এটি index.html-এর Notice Board-এও দেখা যাবে।",
+                "success"
+            );
+
+        }
+
+
+        /* RESET */
+
+        resetForm();
 
         await loadNotices();
 
 
-    }catch(error){
+    }
+    catch(error){
 
-        console.error(error);
+        console.error(
+            "Notice Save Error:",
+            error
+        );
+
+
+        let errorText =
+            error?.message ||
+            "অজানা সমস্যা হয়েছে।";
+
 
         showMessage(
-            "❌ সমস্যা: " + error.message,
+            "❌ Notice Save Error: " +
+            errorText,
             "error"
         );
 
     }
+    finally{
+
+        saveBtn.disabled = false;
+
+        if(editingNoticeId){
+
+            saveBtn.textContent =
+                "💾 নোটিশ আপডেট করুন";
+
+        }else{
+
+            saveBtn.textContent =
+                "📢 নোটিশ প্রকাশ করুন";
+
+        }
+
+    }
+
+});
 
 
-    button.disabled = false;
-
-    button.textContent =
-        "📢 নোটিশ প্রকাশ করুন";
-
-}
-
-
-/* ==========================================
+/* =========================================================
    LOAD NOTICES
-========================================== */
+========================================================= */
 
 async function loadNotices(){
 
@@ -728,26 +1165,49 @@ async function loadNotices(){
         document.getElementById("noticeList");
 
 
-    const {data,error} =
+    list.innerHTML = `
+        <div class="empty">
+            ⏳ নোটিশ লোড হচ্ছে...
+        </div>
+    `;
+
+
+    const { data, error } =
         await supabaseClient
         .from("notices")
         .select("*")
-        .order("notice_date",{ascending:false})
-        .order("created_at",{ascending:false});
+        .eq("status","published")
+        .order(
+            "notice_date",
+            {
+                ascending:false
+            }
+        )
+        .order(
+            "created_at",
+            {
+                ascending:false
+            }
+        );
 
 
     if(error){
 
-        console.error(error);
+        console.error(
+            "Notice Load Error:",
+            error
+        );
+
 
         list.innerHTML = `
-            <div class="empty">
-                ❌ নোটিশ লোড করা যাচ্ছে না।<br>
+            <div class="empty" style="color:#c62828">
+                ❌ নোটিশ লোড করা যাচ্ছে না।<br><br>
                 ${escapeHtml(error.message)}
             </div>
         `;
 
         return;
+
     }
 
 
@@ -755,107 +1215,291 @@ async function loadNotices(){
 
         list.innerHTML = `
             <div class="empty">
-                এখনো কোনো নোটিশ প্রকাশ করা হয়নি।
+                📭 এখনো কোনো নোটিশ প্রকাশ করা হয়নি।
             </div>
         `;
 
         return;
+
     }
 
 
     list.innerHTML =
-        data.map(notice => {
-
-            const date =
-                formatBanglaDate(
-                    notice.notice_date
-                );
-
-
-            let pdfButton = "";
-
-            if(notice.pdf_url){
-
-                pdfButton = `
-                    <a
-                        class="pdf-btn"
-                        href="${escapeAttr(notice.pdf_url)}"
-                        target="_blank"
-                        rel="noopener"
-                    >
-                        📄 PDF দেখুন
-                    </a>
-                `;
-
-            }
-
-
-            return `
-
-                <div class="notice-item">
-
-                    <div class="notice-top">
-
-                        <h3 class="notice-title">
-                            ${escapeHtml(notice.title || "")}
-                        </h3>
-
-                        <div class="notice-date">
-                            📅 ${date}
-                        </div>
-
-                    </div>
-
-
-                    ${
-                        notice.description
-                        ?
-                        `<div class="notice-description">
-                            ${escapeHtml(notice.description)}
-                        </div>`
-                        :
-                        ""
-                    }
-
-
-                    <div>
-
-                        ${pdfButton}
-
-                        <button
-                            class="delete-btn"
-                            onclick="deleteNotice('${escapeAttr(notice.id)}','${escapeAttr(notice.pdf_url || "")}')"
-                        >
-                            🗑️ মুছুন
-                        </button>
-
-                    </div>
-
-                </div>
-
-            `;
-
-        }).join("");
+        data.map(
+            notice => createNoticeHTML(notice)
+        ).join("");
 
 }
 
 
-/* ==========================================
+/* =========================================================
+   NOTICE HTML
+========================================================= */
+
+function createNoticeHTML(notice){
+
+    const date =
+        formatBanglaDate(
+            notice.notice_date
+        );
+
+
+    let pdfHTML = "";
+
+
+    if(notice.pdf_url){
+
+        pdfHTML = `
+            <div class="notice-pdf">
+
+                <a
+                    href="${escapeAttribute(notice.pdf_url)}"
+                    target="_blank"
+                    rel="noopener"
+                    class="pdf-btn"
+                >
+                    📄 PDF দেখুন
+                </a>
+
+                <a
+                    href="${escapeAttribute(notice.pdf_url)}"
+                    target="_blank"
+                    rel="noopener"
+                    class="pdf-btn"
+                    download
+                >
+                    ⬇️ PDF
+                </a>
+
+            </div>
+        `;
+
+    }
+
+
+    return `
+
+        <div
+            class="notice-item"
+            data-id="${escapeAttribute(notice.id)}"
+        >
+
+            <div class="notice-top">
+
+                <div>
+
+                    <div class="notice-title">
+                        ${escapeHtml(notice.title || "নোটিশ")}
+                    </div>
+
+                    <div class="notice-date">
+                        📅 ${date}
+                        ${
+                            notice.category
+                            ? " • " +
+                              escapeHtml(notice.category)
+                            : ""
+                        }
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            ${
+                notice.description
+                ?
+                `
+                <div class="notice-description">
+                    ${escapeHtml(notice.description)}
+                </div>
+                `
+                :
+                ""
+            }
+
+
+            ${pdfHTML}
+
+
+            <div class="notice-actions">
+
+                <button
+                    class="small-btn edit-btn"
+                    onclick='editNotice(${JSON.stringify(notice).replace(/'/g,"&#39;")})'
+                >
+                    ✏️ Edit
+                </button>
+
+                <button
+                    class="small-btn delete-btn"
+                    onclick="deleteNotice('${escapeAttribute(notice.id)}','${escapeAttribute(notice.pdf_path || "")}')"
+                >
+                    🗑️ Delete
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   EDIT NOTICE
+========================================================= */
+
+function editNotice(notice){
+
+    editingNoticeId =
+        notice.id;
+
+    editingOldPdfPath =
+        notice.pdf_path || null;
+
+
+    document
+    .getElementById("noticeTitle")
+    .value =
+        notice.title || "";
+
+
+    document
+    .getElementById("noticeDate")
+    .value =
+        notice.notice_date || "";
+
+
+    document
+    .getElementById("noticeCategory")
+    .value =
+        notice.category || "";
+
+
+    document
+    .getElementById("noticeDescription")
+    .value =
+        notice.description || "";
+
+
+    document
+    .getElementById("noticePdf")
+    .value = "";
+
+
+    document
+    .getElementById("saveBtn")
+    .textContent =
+        "💾 নোটিশ আপডেট করুন";
+
+
+    document
+    .getElementById("cancelEditBtn")
+    .style.display =
+        "inline-block";
+
+
+    document
+    .getElementById("noticeFormCard")
+    .classList.add("editing");
+
+
+    showMessage(
+        "✏️ নোটিশ Edit Mode চালু হয়েছে। নতুন PDF দিলে আগের PDF পরিবর্তন হবে।",
+        "loading"
+    );
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+/* =========================================================
+   CANCEL EDIT
+========================================================= */
+
+function cancelEdit(){
+
+    resetForm();
+
+    document
+    .getElementById("formMessage")
+    .className =
+        "message";
+
+}
+
+
+/* =========================================================
+   RESET FORM
+========================================================= */
+
+function resetForm(){
+
+    document
+    .getElementById("noticeForm")
+    .reset();
+
+
+    document
+    .getElementById("noticeDate")
+    .value =
+        new Date()
+        .toISOString()
+        .split("T")[0];
+
+
+    editingNoticeId = null;
+
+    editingOldPdfPath = null;
+
+
+    document
+    .getElementById("saveBtn")
+    .textContent =
+        "📢 নোটিশ প্রকাশ করুন";
+
+
+    document
+    .getElementById("cancelEditBtn")
+    .style.display =
+        "none";
+
+
+    document
+    .getElementById("noticeFormCard")
+    .classList.remove("editing");
+
+}
+
+
+/* =========================================================
    DELETE NOTICE
-========================================== */
+========================================================= */
 
-async function deleteNotice(id,pdfUrl){
+async function deleteNotice(id,pdfPath){
 
-    if(!confirm(
-        "এই নোটিশটি মুছে ফেলতে চান?"
-    )){
+    const confirmDelete =
+        confirm(
+            "এই নোটিশটি কি সত্যিই Delete করতে চান?"
+        );
+
+
+    if(!confirmDelete){
         return;
     }
 
 
     try{
 
-        const {error} =
+        const { error } =
             await supabaseClient
             .from("notices")
             .delete()
@@ -863,70 +1507,38 @@ async function deleteNotice(id,pdfUrl){
 
 
         if(error){
-
             throw error;
+        }
+
+
+        if(pdfPath){
+
+            await deletePDF(
+                pdfPath
+            );
 
         }
 
 
-        /* PDF Storage থেকে delete */
-
-        if(pdfUrl){
-
-            try{
-
-                const marker =
-                    "/storage/v1/object/public/" +
-                    BUCKET_NAME + "/";
-
-                const position =
-                    pdfUrl.indexOf(marker);
-
-
-                if(position !== -1){
-
-                    const path =
-                        decodeURIComponent(
-                            pdfUrl.substring(
-                                position + marker.length
-                            )
-                        );
-
-
-                    await supabaseClient
-                    .storage
-                    .from(BUCKET_NAME)
-                    .remove([path]);
-
-                }
-
-            }catch(storageError){
-
-                console.log(
-                    "Storage delete warning:",
-                    storageError
-                );
-
-            }
-
-        }
-
-
-        showMessage(
-            "নোটিশ মুছে ফেলা হয়েছে।",
-            "success"
+        alert(
+            "✅ নোটিশ সফলভাবে Delete হয়েছে।"
         );
 
 
-        loadNotices();
+        await loadNotices();
+
+    }
+    catch(error){
+
+        console.error(
+            "Delete Error:",
+            error
+        );
 
 
-    }catch(error){
-
-        showMessage(
-            "মুছতে সমস্যা: " +
-            error.message,
-            "error"
+        alert(
+            "❌ Delete Error: " +
+            (error.message || error)
         );
 
     }
@@ -934,39 +1546,47 @@ async function deleteNotice(id,pdfUrl){
 }
 
 
-/* ==========================================
+/* =========================================================
    BANGLA DATE
-========================================== */
+========================================================= */
 
 function formatBanglaDate(dateString){
 
-    if(!dateString) return "";
+    if(!dateString){
+        return "";
+    }
 
-    const d =
+
+    const date =
         new Date(
             dateString + "T00:00:00"
         );
 
 
-    return d.toLocaleDateString(
+    return date.toLocaleDateString(
         "bn-BD",
         {
-            day:"numeric",
+            weekday:"long",
+            year:"numeric",
             month:"long",
-            year:"numeric"
+            day:"numeric"
         }
     );
 
 }
 
 
-/* ==========================================
-   SECURITY HELPERS
-========================================== */
+/* =========================================================
+   SECURITY / HTML ESCAPE
+========================================================= */
 
 function escapeHtml(value){
 
-    return String(value ?? "")
+    if(value === null || value === undefined){
+        return "";
+    }
+
+    return String(value)
         .replace(/&/g,"&amp;")
         .replace(/</g,"&lt;")
         .replace(/>/g,"&gt;")
@@ -976,19 +1596,25 @@ function escapeHtml(value){
 }
 
 
-function escapeAttr(value){
+function escapeAttribute(value){
 
-    return String(value ?? "")
-        .replace(/\\/g,"\\\\")
-        .replace(/'/g,"\\'")
-        .replace(/"/g,"&quot;");
+    if(value === null || value === undefined){
+        return "";
+    }
+
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;");
 
 }
 
 
-/* ==========================================
+/* =========================================================
    START
-========================================== */
+========================================================= */
 
 loadNotices();
 
