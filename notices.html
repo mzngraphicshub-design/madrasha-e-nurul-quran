@@ -1,225 +1,1038 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Notice Management</title>
+<title>Notice | মাদরাসায়ে নূরুল কুরআন</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;500;600;700;800&display=swap');
+
+*{
+    box-sizing:border-box;
+}
 
 body{
-font-family:Arial;
-background:#f5f6fa;
-padding:20px;
+    margin:0;
+    background:#f4f8f7;
+    color:#173f37;
+    font-family:'Noto Serif Bengali',serif;
 }
 
-.box{
-max-width:900px;
-margin:auto;
-background:#fff;
-padding:20px;
-border-radius:12px;
+/* =========================
+   HEADER
+========================= */
+
+.topbar{
+    min-height:60px;
+    background:linear-gradient(135deg,#00695c,#00897b);
+    color:#fff;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 20px;
+
+    box-shadow:0 3px 12px rgba(0,0,0,.15);
 }
 
-input,textarea{
-width:100%;
-padding:10px;
-margin:10px 0;
+.brand{
+    font-size:18px;
+    font-weight:800;
 }
 
-button{
-padding:10px 20px;
-background:#087f5b;
-color:#fff;
-border:none;
-border-radius:6px;
-cursor:pointer;
+.dashboard{
+    color:#fff;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:600;
 }
 
-.card{
-padding:15px;
-border:1px solid #ddd;
-margin-top:15px;
-border-radius:10px;
+.dashboard:hover{
+    text-decoration:underline;
 }
 
+
+/* =========================
+   CONTAINER
+========================= */
+
+.container{
+    width:94%;
+    max-width:1050px;
+    margin:22px auto 50px;
+}
+
+
+/* =========================
+   PAGE TITLE
+========================= */
+
+.page-title{
+    background:#fff;
+    border:1px solid #e0ece9;
+    border-radius:14px;
+
+    padding:20px;
+
+    margin-bottom:18px;
+
+    box-shadow:0 3px 15px rgba(0,80,70,.07);
+
+    text-align:center;
+}
+
+.page-title h1{
+    margin:0;
+
+    color:#00695c;
+
+    font-size:24px;
+    font-weight:800;
+}
+
+.page-title p{
+    margin:7px 0 0;
+
+    color:#78908b;
+    font-size:13px;
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-box{
+    background:#fff;
+
+    border:1px solid #e0ece9;
+    border-radius:14px;
+
+    padding:15px;
+
+    margin-bottom:18px;
+
+    box-shadow:0 3px 15px rgba(0,80,70,.06);
+}
+
+.search{
+    width:100%;
+    height:45px;
+
+    border:1px solid #cbded9;
+    border-radius:9px;
+
+    padding:0 13px;
+
+    font-family:inherit;
+    font-size:14px;
+
+    outline:none;
+
+    background:#fbfefd;
+}
+
+.search:focus{
+    border-color:#00897b;
+
+    box-shadow:
+    0 0 0 2px rgba(0,137,123,.10);
+}
+
+
+/* =========================
+   NOTICE CARD
+========================= */
+
+.notice-list{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+}
+
+.notice-card{
+    background:#fff;
+
+    border:1px solid #e0ece9;
+    border-radius:14px;
+
+    padding:18px;
+
+    box-shadow:0 3px 15px rgba(0,80,70,.07);
+
+    transition:.2s;
+}
+
+.notice-card:hover{
+    transform:translateY(-2px);
+
+    box-shadow:
+    0 6px 20px rgba(0,80,70,.11);
+}
+
+.notice-top{
+    display:flex;
+
+    align-items:flex-start;
+    justify-content:space-between;
+
+    gap:12px;
+
+    margin-bottom:9px;
+}
+
+.notice-title{
+    margin:0;
+
+    color:#00695c;
+
+    font-size:18px;
+    font-weight:800;
+
+    line-height:1.5;
+}
+
+.notice-date{
+    flex-shrink:0;
+
+    background:#edf7f5;
+
+    color:#087f6e;
+
+    border-radius:7px;
+
+    padding:5px 9px;
+
+    font-size:11px;
+    font-weight:600;
+}
+
+.notice-content{
+    color:#3e5b55;
+
+    font-size:14px;
+
+    line-height:1.9;
+
+    white-space:pre-wrap;
+
+    word-break:break-word;
+}
+
+.notice-footer{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+    margin-top:13px;
+
+    padding-top:10px;
+
+    border-top:1px solid #edf2f1;
+
+    font-size:11px;
+
+    color:#819691;
+}
+
+.pinned{
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:4px;
+
+    color:#d97706;
+
+    font-weight:700;
+}
+
+
+/* =========================
+   LOADING
+========================= */
+
+.loading{
+    background:#fff;
+
+    border:1px solid #e0ece9;
+
+    border-radius:14px;
+
+    padding:35px 20px;
+
+    text-align:center;
+
+    color:#78908b;
+
+    box-shadow:0 3px 15px rgba(0,80,70,.06);
+}
+
+
+/* =========================
+   EMPTY
+========================= */
+
+.empty{
+    background:#fff;
+
+    border:1px solid #e0ece9;
+
+    border-radius:14px;
+
+    padding:35px 20px;
+
+    text-align:center;
+
+    color:#78908b;
+
+    box-shadow:0 3px 15px rgba(0,80,70,.06);
+}
+
+.empty-icon{
+    font-size:35px;
+    margin-bottom:8px;
+}
+
+
+/* =========================
+   ERROR
+========================= */
+
+.error{
+    background:#fff2f2;
+
+    color:#c62828;
+
+    border:1px solid #ffcaca;
+
+    padding:13px;
+
+    border-radius:9px;
+
+    font-size:13px;
+
+    line-height:1.7;
+}
+
+
+/* =========================
+   REFRESH BUTTON
+========================= */
+
+.refresh-area{
+    display:flex;
+
+    justify-content:flex-end;
+
+    margin-bottom:12px;
+}
+
+.refresh{
+    border:0;
+
+    background:#00796b;
+
+    color:#fff;
+
+    border-radius:8px;
+
+    padding:8px 13px;
+
+    font-family:inherit;
+
+    font-size:12px;
+
+    font-weight:600;
+
+    cursor:pointer;
+}
+
+.refresh:hover{
+    background:#00695c;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:700px){
+
+    .topbar{
+        min-height:56px;
+        padding:0 12px;
+    }
+
+    .brand{
+        font-size:15px;
+    }
+
+    .dashboard{
+        font-size:12px;
+    }
+
+    .container{
+        width:94%;
+        margin-top:15px;
+    }
+
+    .page-title{
+        padding:16px 12px;
+    }
+
+    .page-title h1{
+        font-size:20px;
+    }
+
+    .notice-card{
+        padding:14px;
+    }
+
+    .notice-top{
+        flex-direction:column;
+        gap:7px;
+    }
+
+    .notice-title{
+        font-size:16px;
+    }
+
+    .notice-date{
+        align-self:flex-start;
+    }
+
+    .notice-content{
+        font-size:13px;
+        line-height:1.85;
+    }
+
+}
+
+
+/* =========================
+   VERY SMALL SCREEN
+========================= */
+
+@media(max-width:400px){
+
+    .brand{
+        font-size:14px;
+    }
+
+    .page-title h1{
+        font-size:18px;
+    }
+
+    .notice-title{
+        font-size:15px;
+    }
+
+}
 </style>
-
 </head>
+
 
 <body>
 
-<div class="box">
 
-<h2>Notice Management</h2>
+<!-- =========================
+     HEADER
+========================= -->
 
-<input
-id="title"
-placeholder="Notice Title">
+<header class="topbar">
 
-<textarea
-id="description"
-rows="5"
-placeholder="Notice Description"></textarea>
+    <div class="brand">
+        📢 Notice Board
+    </div>
 
-<input
-type="file"
-id="pdf"
-accept=".pdf">
+    <a
+        href="index.html"
+        class="dashboard"
+    >
+        ← Home
+    </a>
 
-<button onclick="saveNotice()">
+</header>
 
-Save Notice
 
-</button>
 
-<hr>
+<main class="container">
 
-<div id="list">
 
-Loading...
+<!-- =========================
+     PAGE TITLE
+========================= -->
+
+<section class="page-title">
+
+    <h1>
+        📢 নোটিশ বোর্ড
+    </h1>
+
+    <p>
+        মাদরাসায়ে নূরুল কুরআনের সকল গুরুত্বপূর্ণ নোটিশ
+    </p>
+
+</section>
+
+
+
+<!-- =========================
+     SEARCH
+========================= -->
+
+<section class="search-box">
+
+    <input
+        type="search"
+        id="searchBox"
+        class="search"
+        placeholder="🔍 নোটিশের শিরোনাম বা বিষয় দিয়ে খুঁজুন..."
+        autocomplete="off"
+    >
+
+</section>
+
+
+
+<!-- =========================
+     REFRESH
+========================= -->
+
+<div class="refresh-area">
+
+    <button
+        class="refresh"
+        id="refreshBtn"
+    >
+        🔄 Refresh
+    </button>
 
 </div>
 
-</div>
+
+
+<!-- =========================
+     NOTICE LIST
+========================= -->
+
+<section id="noticeList" class="notice-list">
+
+    <div class="loading">
+        ⏳ নোটিশ লোড হচ্ছে...
+    </div>
+
+</section>
+
+
+</main>
+
+
 
 <script>
 
-const db=window.supabase.createClient(
+/* =========================================================
+   SUPABASE
+========================================================= */
 
-"https://qavublwhqiqsgpcmfyft.supabase.co",
+const SUPABASE_URL =
+"https://qavublwhqiqsgpcmfyft.supabase.co";
 
-"sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ"
+const SUPABASE_KEY =
+"sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
 
+
+const db =
+window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
 );
-async function load(){
 
-const {data,error}=await db
-.from("notices")
-.select("*")
-.order("created_at",{ascending:false});
 
-if(error){
 
-alert(error.message);
+/* =========================================================
+   GLOBAL
+========================================================= */
 
-return;
+let notices = [];
 
-}
 
-document.getElementById("list").innerHTML=
 
-data.map(n=>`
+/* =========================================================
+   ELEMENTS
+========================================================= */
 
-<div class="card">
+const noticeList =
+document.getElementById("noticeList");
 
-<h3>${n.title}</h3>
+const searchBox =
+document.getElementById("searchBox");
 
-<p>${n.description}</p>
+const refreshBtn =
+document.getElementById("refreshBtn");
 
-${n.pdf_url?`
 
-<a href="${n.pdf_url}" target="_blank">
 
-<button>📄 Download PDF</button>
+/* =========================================================
+   LOAD NOTICES
+========================================================= */
 
-</a>
+async function loadNotices(){
 
-`:""}
+    noticeList.innerHTML = `
+        <div class="loading">
+            ⏳ নোটিশ লোড হচ্ছে...
+        </div>
+    `;
 
-<button onclick="del('${n.id}')">
 
-🗑 Delete
+    try{
 
-</button>
+        /*
+         * Dashboard এবং Website একই notices table ব্যবহার করবে।
+         *
+         * এখানে select("*") ব্যবহার করা হয়েছে যাতে
+         * Dashboard থেকে যেসব notice data save হবে
+         * সেগুলো সরাসরি এখানে পাওয়া যায়।
+         */
 
-</div>
+        const {
+            data,
+            error
+        } = await db
 
-`).join("");
+        .from("notices")
 
-}
-async function saveNotice(){
+        .select("*")
 
-const file=document.getElementById("pdf").files[0];
+        .order(
+            "created_at",
+            {
+                ascending:false
+            }
+        );
 
-let pdf_url="";
 
-if(file){
+        if(error){
 
-const fileName=Date.now()+"_"+file.name;
+            console.error(
+                "Notice Load Error:",
+                error
+            );
 
-const {error}=await db.storage
-.from("notice-pdf")
-.upload(fileName,file,{upsert:true});
+            noticeList.innerHTML = `
+                <div class="error">
+                    ❌ Notice load করা যাচ্ছে না।<br><br>
+                    ${escapeHtml(error.message)}
+                </div>
+            `;
 
-if(error){
+            return;
+        }
 
-alert(error.message);
 
-return;
+        notices =
+            Array.isArray(data)
+            ? data
+            : [];
 
-}
 
-pdf_url=db.storage
-.from("notice-pdf")
-.getPublicUrl(fileName)
-.data.publicUrl;
+        renderNotices(notices);
 
-}
 
-const {error}=await db
-.from("notices")
-.insert({
+    }catch(error){
 
-title:document.getElementById("title").value,
+        console.error(error);
 
-description:document.getElementById("description").value,
+        noticeList.innerHTML = `
+            <div class="error">
+                ❌ Notice load করতে সমস্যা হয়েছে।<br><br>
+                ${escapeHtml(error.message)}
+            </div>
+        `;
 
-pdf_url:pdf_url
-
-});
-
-if(error){
-
-alert(error.message);
-
-return;
-
-}
-
-document.getElementById("title").value="";
-document.getElementById("description").value="";
-document.getElementById("pdf").value="";
-
-load();
-
-}
-async function del(id){
-
-if(!confirm("Delete Notice?")) return;
-
-const {error}=await db
-.from("notices")
-.delete()
-.eq("id",id);
-
-if(error){
-
-alert(error.message);
-
-return;
+    }
 
 }
 
-load();
+
+
+/* =========================================================
+   RENDER
+========================================================= */
+
+function renderNotices(list){
+
+    if(!list || list.length === 0){
+
+        noticeList.innerHTML = `
+            <div class="empty">
+
+                <div class="empty-icon">
+                    📭
+                </div>
+
+                <div>
+                    বর্তমানে কোনো নোটিশ নেই।
+                </div>
+
+            </div>
+        `;
+
+        return;
+    }
+
+
+    noticeList.innerHTML =
+        list.map(
+            (notice,index) =>
+                createNoticeHTML(
+                    notice,
+                    index
+                )
+        ).join("");
 
 }
 
-load();
+
+
+/* =========================================================
+   CREATE NOTICE HTML
+========================================================= */
+
+function createNoticeHTML(notice,index){
+
+    /*
+     * Dashboard-এর column নামের সামান্য পার্থক্য হলেও
+     * page যেন কাজ করে এজন্য একাধিক সম্ভাব্য নাম রাখা হয়েছে।
+     */
+
+    const title =
+        firstValue(
+            notice.title,
+            notice.notice_title,
+            notice.subject,
+            notice.name,
+            "গুরুত্বপূর্ণ নোটিশ"
+        );
+
+
+    const content =
+        firstValue(
+            notice.content,
+            notice.notice,
+            notice.description,
+            notice.message,
+            notice.details,
+            ""
+        );
+
+
+    const date =
+        firstValue(
+            notice.notice_date,
+            notice.date,
+            notice.publish_date,
+            notice.created_at,
+            ""
+        );
+
+
+    const isPinned =
+        notice.is_pinned === true ||
+        notice.pinned === true ||
+        notice.is_important === true;
+
+
+    const isPublished =
+        notice.is_published === false
+        ? false
+        : true;
+
+
+    /*
+     * যদি Dashboard থেকে unpublished notice থাকে,
+     * public website-এ দেখানো হবে না।
+     */
+
+    if(!isPublished){
+
+        return "";
+    }
+
+
+    return `
+
+        <article class="notice-card">
+
+            <div class="notice-top">
+
+                <h2 class="notice-title">
+                    ${escapeHtml(title)}
+                </h2>
+
+
+                <div class="notice-date">
+                    📅 ${escapeHtml(
+                        formatDate(date)
+                    )}
+                </div>
+
+            </div>
+
+
+            <div class="notice-content">
+                ${escapeHtml(content)}
+            </div>
+
+
+            <div class="notice-footer">
+
+                <span>
+                    মাদরাসায়ে নূরুল কুরআন
+                </span>
+
+
+                ${
+                    isPinned
+                    ?
+                    `
+                    <span class="pinned">
+                        📌 গুরুত্বপূর্ণ
+                    </span>
+                    `
+                    :
+                    `
+                    <span>
+                        Notice #${index + 1}
+                    </span>
+                    `
+                }
+
+            </div>
+
+        </article>
+
+    `;
+
+}
+
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+searchBox.addEventListener(
+    "input",
+    function(){
+
+        const query =
+            this.value
+            .toLowerCase()
+            .trim();
+
+
+        if(!query){
+
+            renderNotices(notices);
+
+            return;
+        }
+
+
+        const filtered =
+            notices.filter(
+                notice => {
+
+                    const title =
+                        firstValue(
+                            notice.title,
+                            notice.notice_title,
+                            notice.subject,
+                            notice.name,
+                            ""
+                        );
+
+
+                    const content =
+                        firstValue(
+                            notice.content,
+                            notice.notice,
+                            notice.description,
+                            notice.message,
+                            notice.details,
+                            ""
+                        );
+
+
+                    return (
+
+                        String(title)
+                        .toLowerCase()
+                        .includes(query)
+
+                        ||
+
+                        String(content)
+                        .toLowerCase()
+                        .includes(query)
+
+                    );
+
+                }
+            );
+
+
+        renderNotices(filtered);
+
+    }
+);
+
+
+
+/* =========================================================
+   REFRESH
+========================================================= */
+
+refreshBtn.addEventListener(
+    "click",
+    async function(){
+
+        this.disabled = true;
+
+        this.textContent =
+            "⏳ Loading...";
+
+
+        await loadNotices();
+
+
+        this.disabled = false;
+
+        this.textContent =
+            "🔄 Refresh";
+
+    }
+);
+
+
+
+/* =========================================================
+   FIRST VALUE
+========================================================= */
+
+function firstValue(...values){
+
+    for(const value of values){
+
+        if(
+            value !== null &&
+            value !== undefined &&
+            String(value).trim() !== ""
+        ){
+
+            return value;
+
+        }
+
+    }
+
+    return "";
+
+}
+
+
+
+/* =========================================================
+   DATE FORMAT
+========================================================= */
+
+function formatDate(value){
+
+    if(!value){
+
+        return "তারিখ নেই";
+
+    }
+
+
+    const date =
+        new Date(value);
+
+
+    if(Number.isNaN(date.getTime())){
+
+        return String(value);
+
+    }
+
+
+    return date.toLocaleDateString(
+        "bn-BD",
+        {
+            day:"numeric",
+            month:"long",
+            year:"numeric"
+        }
+    );
+
+}
+
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHtml(value){
+
+    return String(value ?? "")
+
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+
+}
+
+
+
+/* =========================================================
+   START
+========================================================= */
+
+loadNotices();
 
 </script>
 
