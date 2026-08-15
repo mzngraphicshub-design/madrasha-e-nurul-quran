@@ -1,1 +1,1186 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>আচরণ ও শৃঙ্খলা রেকর্ড | মাদরাসায়ে নূরুল কুরআন</title>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+@font-face{
+  font-family:"Bornomala";
+  src:url("./fonts/Bornomala-Regular.ttf") format("truetype");
+  font-display:swap;
+}
+
+:root{
+  --navy:#031a35;
+  --blue:#0875df;
+  --gold:#ffd447;
+  --green:#079455;
+  --red:#dc3545;
+  --orange:#f59e0b;
+  --bg:#f3f8fd;
+  --white:#fff;
+  --text:#173452;
+  --muted:#718399;
+  --border:#dce7f1;
+  --shadow:0 15px 45px rgba(0,25,60,.12);
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:"Bornomala",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+button,input,select,textarea{
+  font-family:inherit;
+}
+
+.container{
+  width:min(1200px,94%);
+  margin:auto;
+}
+
+/* HEADER */
+.header{
+  background:linear-gradient(135deg,#031a35,#075eb5);
+  color:#fff;
+  padding:18px 0;
+  box-shadow:0 8px 25px rgba(0,0,0,.15);
+}
+
+.header-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.logo{
+  width:60px;
+  height:60px;
+  object-fit:contain;
+  border-radius:50%;
+  background:#fff;
+}
+
+.brand h1{
+  font-size:25px;
+}
+
+.brand small{
+  font-family:Arial,sans-serif;
+  font-size:9px;
+  letter-spacing:2px;
+  opacity:.8;
+}
+
+.back-btn{
+  text-decoration:none;
+  color:#132b45;
+  background:var(--gold);
+  padding:11px 18px;
+  border-radius:10px;
+  font-weight:bold;
+}
+
+/* PAGE */
+.page{
+  padding:45px 0 70px;
+}
+
+.page-title{
+  text-align:center;
+  margin-bottom:35px;
+}
+
+.page-title small{
+  color:var(--blue);
+  font-family:Arial,sans-serif;
+  font-weight:bold;
+}
+
+.page-title h2{
+  color:var(--navy);
+  font-size:38px;
+  margin:5px 0;
+}
+
+.page-title p{
+  color:var(--muted);
+}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:.8fr 1.2fr;
+  gap:25px;
+}
+
+/* CARD */
+.card{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:28px;
+  box-shadow:var(--shadow);
+}
+
+.card h3{
+  color:var(--navy);
+  margin-bottom:20px;
+  font-size:24px;
+}
+
+.form-group{
+  margin-bottom:15px;
+}
+
+label{
+  display:block;
+  margin-bottom:7px;
+  color:#294866;
+  font-weight:bold;
+}
+
+input,
+select,
+textarea{
+  width:100%;
+  padding:13px 14px;
+  border:1px solid #d7e3ed;
+  border-radius:10px;
+  outline:none;
+  background:#fff;
+  color:var(--text);
+  font-size:15px;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+  border-color:var(--blue);
+  box-shadow:0 0 0 3px rgba(8,117,223,.1);
+}
+
+textarea{
+  resize:vertical;
+  min-height:120px;
+}
+
+.btn{
+  width:100%;
+  border:0;
+  border-radius:11px;
+  padding:13px;
+  cursor:pointer;
+  font-size:16px;
+  font-weight:bold;
+}
+
+.btn-save{
+  background:var(--blue);
+  color:#fff;
+}
+
+.btn-save:hover{
+  background:#0563bd;
+}
+
+.message{
+  margin-top:12px;
+  text-align:center;
+  font-weight:bold;
+}
+
+/* SEARCH */
+.search-box{
+  margin-bottom:15px;
+}
+
+/* RECORDS */
+.records{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.record{
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:17px;
+  background:#f9fcff;
+}
+
+.record-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:15px;
+}
+
+.record-title{
+  color:var(--navy);
+  font-size:19px;
+  font-weight:bold;
+}
+
+.badge{
+  display:inline-block;
+  padding:5px 11px;
+  border-radius:20px;
+  font-size:12px;
+  white-space:nowrap;
+  font-weight:bold;
+}
+
+.good{
+  background:#dff7eb;
+  color:#087443;
+}
+
+.warning{
+  background:#fff2cc;
+  color:#8a6500;
+}
+
+.bad{
+  background:#ffe2e5;
+  color:#b42331;
+}
+
+.neutral{
+  background:#e7f2ff;
+  color:#0865bd;
+}
+
+.record-meta{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:7px;
+}
+
+.record-content{
+  margin-top:12px;
+  line-height:1.9;
+  color:#38536d;
+  white-space:pre-line;
+}
+
+.actions{
+  display:flex;
+  gap:8px;
+  margin-top:14px;
+}
+
+.action-btn{
+  border:0;
+  padding:7px 13px;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+.edit{
+  background:#fff0c2;
+  color:#765600;
+}
+
+.delete{
+  background:#ffe1e4;
+  color:#b42331;
+}
+
+.empty{
+  text-align:center;
+  padding:35px 15px;
+  color:var(--muted);
+}
+
+.loader{
+  text-align:center;
+  padding:30px;
+  color:var(--blue);
+}
+
+/* INFO */
+.info-box{
+  margin-top:25px;
+  background:linear-gradient(135deg,#031a35,#0875df);
+  color:#fff;
+  border-radius:22px;
+  padding:25px;
+}
+
+.info-box h3{
+  color:var(--gold);
+  margin-bottom:10px;
+}
+
+.info-box p{
+  line-height:1.9;
+  color:#e1efff;
+}
+
+/* MOBILE */
+@media(max-width:850px){
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .page-title h2{
+    font-size:30px;
+  }
+}
+
+@media(max-width:600px){
+  .header-inner{
+    align-items:flex-start;
+  }
+
+  .brand h1{
+    font-size:18px;
+  }
+
+  .logo{
+    width:50px;
+    height:50px;
+  }
+
+  .brand small{
+    display:none;
+  }
+
+  .back-btn{
+    padding:9px 12px;
+    font-size:13px;
+  }
+
+  .page{
+    padding:30px 0 50px;
+  }
+
+  .card{
+    padding:20px;
+  }
+
+  .record-top{
+    flex-direction:column;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+  <div class="container header-inner">
+
+    <div class="brand">
+      <img
+        src="img/logo.png"
+        class="logo"
+        alt="মাদরাসায়ে নূরুল কুরআন">
+
+      <div>
+        <h1>মাদরাসায়ে নূরুল কুরআন</h1>
+        <small>MADRASHA-E NURUL QURAN</small>
+      </div>
+    </div>
+
+    <a href="index.html" class="back-btn">← হোমে ফিরুন</a>
+
+  </div>
+</header>
+
+
+<main class="page">
+
+<div class="container">
+
+  <div class="page-title">
+    <small>STUDENT BEHAVIOR & DISCIPLINE</small>
+    <h2>📝 আচরণ ও শৃঙ্খলা রেকর্ড</h2>
+    <p>শিক্ষার্থীদের আচরণ, শৃঙ্খলা ও গুরুত্বপূর্ণ পর্যবেক্ষণ সংরক্ষণ করুন</p>
+  </div>
+
+
+  <div class="grid">
+
+    <!-- ADD RECORD -->
+    <div class="card">
+
+      <h3>➕ নতুন রেকর্ড যোগ করুন</h3>
+
+      <div class="form-group">
+        <label>শিক্ষার্থীর Roll</label>
+        <input
+          type="text"
+          id="studentRoll"
+          placeholder="যেমন: 101">
+      </div>
+
+      <div class="form-group">
+        <label>শিক্ষার্থী ID</label>
+        <input
+          type="text"
+          id="studentId"
+          placeholder="শিক্ষার্থী ID">
+      </div>
+
+      <div class="form-group">
+        <label>রেকর্ডের ধরন</label>
+
+        <select id="recordType">
+          <option value="আচরণ">আচরণ</option>
+          <option value="শৃঙ্খলা">শৃঙ্খলা</option>
+          <option value="উপস্থিতি">উপস্থিতি</option>
+          <option value="সাফল্য">সাফল্য</option>
+          <option value="অন্যান্য">অন্যান্য</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>বিষয় / শিরোনাম</label>
+
+        <input
+          type="text"
+          id="title"
+          placeholder="যেমন: সময়মতো ক্লাসে উপস্থিত">
+      </div>
+
+      <div class="form-group">
+        <label>বিস্তারিত বিবরণ</label>
+
+        <textarea
+          id="description"
+          placeholder="শিক্ষার্থীর আচরণ বা ঘটনার বিস্তারিত লিখুন"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>মূল্যায়ন</label>
+
+        <select id="evaluation">
+
+          <option value="ভালো">
+            ভালো
+          </option>
+
+          <option value="চমৎকার">
+            চমৎকার
+          </option>
+
+          <option value="সতর্কতা প্রয়োজন">
+            সতর্কতা প্রয়োজন
+          </option>
+
+          <option value="গুরুতর">
+            গুরুতর
+          </option>
+
+          <option value="তথ্য হিসেবে">
+            তথ্য হিসেবে
+          </option>
+
+        </select>
+
+      </div>
+
+      <div class="form-group">
+        <label>তারিখ</label>
+
+        <input
+          type="date"
+          id="recordDate">
+      </div>
+
+      <button
+        class="btn btn-save"
+        id="saveBtn"
+        onclick="saveRecord()">
+        💾 রেকর্ড সংরক্ষণ
+      </button>
+
+      <div
+        class="message"
+        id="formMessage">
+      </div>
+
+    </div>
+
+
+    <!-- RECORD LIST -->
+    <div class="card">
+
+      <h3>📋 আচরণ ও শৃঙ্খলা রেকর্ড</h3>
+
+      <div class="search-box">
+
+        <input
+          type="text"
+          id="search"
+          placeholder="Roll, Student ID বা বিষয় দিয়ে খুঁজুন..."
+          oninput="filterRecords()">
+
+      </div>
+
+      <div id="records" class="records">
+
+        <div class="loader">
+          রেকর্ড লোড হচ্ছে...
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="info-box">
+
+    <h3>📌 এই পেজে কী করা যাবে?</h3>
+
+    <p>
+      এখানে শিক্ষার্থীর Roll ও ID ব্যবহার করে তার আচরণ,
+      শৃঙ্খলা, উপস্থিতি, সাফল্য এবং অন্যান্য গুরুত্বপূর্ণ
+      পর্যবেক্ষণ সংরক্ষণ করা যাবে। রেকর্ড পরে Edit, Delete
+      এবং Search করা যাবে।
+    </p>
+
+  </div>
+
+</div>
+
+</main>
+
+
+<script>
+
+/* =========================================================
+   SUPABASE CONFIG
+========================================================= */
+
+const SUPABASE_URL =
+"https://qavublwhqiqsgpcmfyft.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
+
+const { createClient } = supabase;
+
+const db =
+createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+/*
+  Supabase table:
+
+  behavior_discipline
+
+  Expected columns:
+
+  id
+  student_roll
+  student_id
+  record_type
+  title
+  description
+  evaluation
+  record_date
+  created_at
+*/
+
+
+let allRecords = [];
+
+let editingId = null;
+
+
+/* =========================================================
+   DEFAULT DATE
+========================================================= */
+
+document.getElementById("recordDate").value =
+new Date().toISOString().split("T")[0];
+
+
+/* =========================================================
+   LOAD
+========================================================= */
+
+async function loadRecords(){
+
+  const box =
+    document.getElementById("records");
+
+  box.innerHTML =
+    '<div class="loader">রেকর্ড লোড হচ্ছে...</div>';
+
+
+  const { data, error } =
+    await db
+      .from("behavior_discipline")
+      .select("*")
+      .order("record_date", {
+        ascending:false
+      })
+      .order("created_at", {
+        ascending:false
+      });
+
+
+  if(error){
+
+    box.innerHTML = `
+      <div class="empty">
+        ❌ রেকর্ড লোড করা যায়নি।<br><br>
+        ${escapeHtml(error.message)}
+      </div>
+    `;
+
+    return;
+  }
+
+
+  allRecords = data || [];
+
+  displayRecords(allRecords);
+}
+
+
+/* =========================================================
+   DISPLAY
+========================================================= */
+
+function displayRecords(records){
+
+  const box =
+    document.getElementById("records");
+
+
+  if(!records.length){
+
+    box.innerHTML = `
+      <div class="empty">
+        📭 এখনো কোনো আচরণ/শৃঙ্খলা রেকর্ড নেই।
+      </div>
+    `;
+
+    return;
+  }
+
+
+  box.innerHTML =
+    records.map(record => {
+
+      const date =
+        record.record_date
+        ? new Date(record.record_date)
+            .toLocaleDateString("bn-BD")
+        : "";
+
+
+      return `
+
+      <div class="record">
+
+        <div class="record-top">
+
+          <div>
+
+            <div class="record-title">
+              ${escapeHtml(record.title || "বিষয় উল্লেখ নেই")}
+            </div>
+
+            <div class="record-meta">
+              Roll:
+              <b>
+                ${escapeHtml(record.student_roll || "-")}
+              </b>
+
+              &nbsp; | &nbsp;
+
+              ID:
+              <b>
+                ${escapeHtml(record.student_id || "-")}
+              </b>
+            </div>
+
+          </div>
+
+
+          <span class="badge ${getBadgeClass(record.evaluation)}">
+            ${escapeHtml(record.evaluation || "-")}
+          </span>
+
+        </div>
+
+
+        <div class="record-meta">
+
+          ধরন:
+          <b>
+            ${escapeHtml(record.record_type || "-")}
+          </b>
+
+          &nbsp; | &nbsp;
+
+          তারিখ:
+          <b>
+            ${date}
+          </b>
+
+        </div>
+
+
+        <div class="record-content">
+          ${escapeHtml(record.description || "")}
+        </div>
+
+
+        <div class="actions">
+
+          <button
+            class="action-btn edit"
+            onclick="editRecord('${record.id}')">
+            ✏️ Edit
+          </button>
+
+          <button
+            class="action-btn delete"
+            onclick="deleteRecord('${record.id}')">
+            🗑️ Delete
+          </button>
+
+        </div>
+
+      </div>
+
+      `;
+
+    }).join("");
+}
+
+
+/* =========================================================
+   BADGE
+========================================================= */
+
+function getBadgeClass(value){
+
+  if(value === "চমৎকার")
+    return "good";
+
+  if(value === "ভালো")
+    return "neutral";
+
+  if(value === "সতর্কতা প্রয়োজন")
+    return "warning";
+
+  if(value === "গুরুতর")
+    return "bad";
+
+  return "neutral";
+}
+
+
+/* =========================================================
+   SAVE
+========================================================= */
+
+async function saveRecord(){
+
+  const roll =
+    document.getElementById("studentRoll")
+      .value.trim();
+
+
+  const studentId =
+    document.getElementById("studentId")
+      .value.trim();
+
+
+  const recordType =
+    document.getElementById("recordType")
+      .value;
+
+
+  const title =
+    document.getElementById("title")
+      .value.trim();
+
+
+  const description =
+    document.getElementById("description")
+      .value.trim();
+
+
+  const evaluation =
+    document.getElementById("evaluation")
+      .value;
+
+
+  const recordDate =
+    document.getElementById("recordDate")
+      .value;
+
+
+  const message =
+    document.getElementById("formMessage");
+
+
+  if(!roll || !studentId || !title){
+
+    message.style.color =
+      "#dc3545";
+
+    message.textContent =
+      "Roll, Student ID এবং বিষয়/শিরোনাম অবশ্যই দিতে হবে।";
+
+    return;
+  }
+
+
+  message.style.color =
+    "#0875df";
+
+  message.textContent =
+    "সংরক্ষণ করা হচ্ছে...";
+
+
+  const payload = {
+
+    student_roll: roll,
+
+    student_id: studentId,
+
+    record_type: recordType,
+
+    title: title,
+
+    description: description,
+
+    evaluation: evaluation,
+
+    record_date: recordDate || null
+
+  };
+
+
+  let result;
+
+
+  if(editingId){
+
+    result =
+      await db
+        .from("behavior_discipline")
+        .update(payload)
+        .eq("id", editingId);
+
+  }else{
+
+    result =
+      await db
+        .from("behavior_discipline")
+        .insert(payload);
+
+  }
+
+
+  if(result.error){
+
+    message.style.color =
+      "#dc3545";
+
+    message.innerHTML =
+      "❌ Save Error: " +
+      escapeHtml(result.error.message);
+
+    return;
+  }
+
+
+  message.style.color =
+    "#079455";
+
+  message.textContent =
+    editingId
+      ? "✅ রেকর্ড আপডেট হয়েছে।"
+      : "✅ রেকর্ড সংরক্ষণ হয়েছে।";
+
+
+  clearForm();
+
+  editingId = null;
+
+
+  document.getElementById("saveBtn")
+    .textContent =
+    "💾 রেকর্ড সংরক্ষণ";
+
+
+  await loadRecords();
+
+}
+
+
+/* =========================================================
+   EDIT
+========================================================= */
+
+function editRecord(id){
+
+  const record =
+    allRecords.find(
+      item =>
+        String(item.id) === String(id)
+    );
+
+
+  if(!record) return;
+
+
+  document.getElementById("studentRoll")
+    .value =
+    record.student_roll || "";
+
+
+  document.getElementById("studentId")
+    .value =
+    record.student_id || "";
+
+
+  document.getElementById("recordType")
+    .value =
+    record.record_type || "আচরণ";
+
+
+  document.getElementById("title")
+    .value =
+    record.title || "";
+
+
+  document.getElementById("description")
+    .value =
+    record.description || "";
+
+
+  document.getElementById("evaluation")
+    .value =
+    record.evaluation || "ভালো";
+
+
+  document.getElementById("recordDate")
+    .value =
+    record.record_date || "";
+
+
+  editingId = id;
+
+
+  document.getElementById("saveBtn")
+    .textContent =
+    "💾 পরিবর্তন সংরক্ষণ";
+
+
+  document.getElementById("formMessage")
+    .textContent =
+    "✏️ Edit mode চালু হয়েছে।";
+
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+/* =========================================================
+   DELETE
+========================================================= */
+
+async function deleteRecord(id){
+
+  if(!confirm(
+    "আপনি কি এই রেকর্ডটি মুছে ফেলতে চান?"
+  )) return;
+
+
+  const { error } =
+    await db
+      .from("behavior_discipline")
+      .delete()
+      .eq("id", id);
+
+
+  if(error){
+
+    alert(
+      "❌ Delete Error: " +
+      error.message
+    );
+
+    return;
+  }
+
+
+  loadRecords();
+
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+function filterRecords(){
+
+  const search =
+    document.getElementById("search")
+      .value
+      .trim()
+      .toLowerCase();
+
+
+  if(!search){
+
+    displayRecords(allRecords);
+
+    return;
+  }
+
+
+  const filtered =
+    allRecords.filter(record => {
+
+      return (
+
+        String(
+          record.student_roll || ""
+        )
+        .toLowerCase()
+        .includes(search)
+
+        ||
+
+        String(
+          record.student_id || ""
+        )
+        .toLowerCase()
+        .includes(search)
+
+        ||
+
+        String(
+          record.title || ""
+        )
+        .toLowerCase()
+        .includes(search)
+
+        ||
+
+        String(
+          record.record_type || ""
+        )
+        .toLowerCase()
+        .includes(search)
+
+        ||
+
+        String(
+          record.evaluation || ""
+        )
+        .toLowerCase()
+        .includes(search)
+
+      );
+
+    });
+
+
+  displayRecords(filtered);
+
+}
+
+
+/* =========================================================
+   CLEAR
+========================================================= */
+
+function clearForm(){
+
+  document.getElementById("studentRoll")
+    .value = "";
+
+  document.getElementById("studentId")
+    .value = "";
+
+  document.getElementById("recordType")
+    .value = "আচরণ";
+
+  document.getElementById("title")
+    .value = "";
+
+  document.getElementById("description")
+    .value = "";
+
+  document.getElementById("evaluation")
+    .value = "ভালো";
+
+  document.getElementById("recordDate")
+    .value =
+    new Date().toISOString().split("T")[0];
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHtml(value){
+
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+loadRecords();
+
+</script>
+
+</body>
+</html>
