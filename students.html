@@ -320,7 +320,7 @@ border-radius:11px;
 table{
 width:100%;
 border-collapse:collapse;
-min-width:1100px;
+min-width:1200px;
 }
 
 th{
@@ -349,6 +349,12 @@ font-weight:800;
 color:var(--dark);
 }
 
+.roll{
+font-family:Arial,sans-serif;
+font-weight:800;
+color:#1976d2;
+}
+
 .badge{
 display:inline-block;
 background:#e3f2fd;
@@ -357,6 +363,17 @@ padding:5px 9px;
 border-radius:20px;
 font-size:11px;
 font-weight:700;
+}
+
+.roll-badge{
+display:inline-block;
+background:#eef2ff;
+color:#3730a3;
+padding:5px 10px;
+border-radius:20px;
+font-family:Arial,sans-serif;
+font-size:12px;
+font-weight:800;
 }
 
 .photo{
@@ -419,6 +436,7 @@ display:none;
 }
 
 @media(max-width:900px){
+
 .stats{
 grid-template-columns:repeat(2,1fr);
 }
@@ -426,9 +444,11 @@ grid-template-columns:repeat(2,1fr);
 .search-row{
 grid-template-columns:1fr 1fr;
 }
+
 }
 
 @media(max-width:800px){
+
 .topbar{
 padding:13px 16px;
 }
@@ -453,9 +473,11 @@ grid-column:auto;
 .box{
 padding:17px;
 }
+
 }
 
 @media(max-width:600px){
+
 .topbar{
 flex-direction:column;
 align-items:flex-start;
@@ -468,9 +490,11 @@ width:100%;
 .search-row{
 grid-template-columns:1fr;
 }
+
 }
 
 @media(max-width:500px){
+
 .stats{
 grid-template-columns:1fr 1fr;
 }
@@ -482,6 +506,7 @@ padding:15px;
 .stat-number{
 font-size:23px;
 }
+
 }
 
 @media print{
@@ -603,7 +628,9 @@ font-size:12px;
 size:A4;
 margin:10mm;
 }
+
 }
+
 </style>
 </head>
 
@@ -612,6 +639,7 @@ margin:10mm;
 <header class="topbar">
 
 <div>
+
 <div class="brand-title">
 📚 মাদরাসায়ে নূরুল কুরআন
 </div>
@@ -619,12 +647,15 @@ margin:10mm;
 <div class="brand-sub">
 STUDENT MANAGEMENT SYSTEM
 </div>
+
 </div>
 
 <div class="top-right">
+
 <a href="dashboard.html" class="dashboard-link">
 ← Dashboard
 </a>
+
 </div>
 
 </header>
@@ -633,35 +664,75 @@ STUDENT MANAGEMENT SYSTEM
 <main class="container">
 
 <div class="page-heading">
+
 <h1>👨‍🎓 Student Management</h1>
-<p>শিক্ষার্থীদের তথ্য সংরক্ষণ, সম্পাদনা ও ব্যবস্থাপনা</p>
+
+<p>
+শিক্ষার্থীদের তথ্য সংরক্ষণ, সম্পাদনা ও ব্যবস্থাপনা
+</p>
+
 </div>
 
 
 <div class="stats">
 
 <div class="stat-box">
-<div class="stat-label">মোট শিক্ষার্থী</div>
-<div class="stat-number" id="totalStudents">0</div>
+
+<div class="stat-label">
+মোট শিক্ষার্থী
 </div>
+
+<div class="stat-number" id="totalStudents">
+0
+</div>
+
+</div>
+
 
 <div class="stat-box">
-<div class="stat-label">দৃশ্যমান শিক্ষার্থী</div>
-<div class="stat-number" id="visibleStudents">0</div>
+
+<div class="stat-label">
+দৃশ্যমান শিক্ষার্থী
 </div>
+
+<div class="stat-number" id="visibleStudents">
+0
+</div>
+
+</div>
+
 
 <div class="stat-box">
-<div class="stat-label">বর্তমান Year</div>
-<div class="stat-number" id="currentSession">-</div>
+
+<div class="stat-label">
+বর্তমান Year
 </div>
+
+<div class="stat-number" id="currentSession">
+-
+</div>
+
+</div>
+
 
 <div class="stat-box">
-<div class="stat-label">Pending Admission</div>
-<div class="stat-number" id="onlineAdmissionCount">0</div>
+
+<div class="stat-label">
+Pending Admission
+</div>
+
+<div class="stat-number" id="onlineAdmissionCount">
+0
 </div>
 
 </div>
 
+</div>
+
+
+<!-- =========================
+     ADD / EDIT STUDENT
+========================= -->
 
 <section class="box">
 
@@ -697,9 +768,13 @@ Loading...
 <div class="form-grid">
 
 
+<!-- STUDENT ID -->
+
 <div class="form-group">
 
-<label>Student ID</label>
+<label>
+Student ID
+</label>
 
 <input
 id="studentId"
@@ -710,9 +785,33 @@ placeholder="Auto generated"
 </div>
 
 
+<!-- ROLL -->
+
 <div class="form-group">
 
-<label>শিক্ষার্থীর নাম *</label>
+<label>
+Roll *
+</label>
+
+<input
+id="roll"
+required
+type="text"
+inputmode="numeric"
+placeholder="যেমন: 01"
+maxlength="10"
+>
+
+</div>
+
+
+<!-- NAME -->
+
+<div class="form-group">
+
+<label>
+শিক্ষার্থীর নাম *
+</label>
 
 <input
 id="name"
@@ -723,9 +822,13 @@ placeholder="শিক্ষার্থীর পূর্ণ নাম"
 </div>
 
 
+<!-- FATHER -->
+
 <div class="form-group">
 
-<label>পিতার নাম</label>
+<label>
+পিতার নাম
+</label>
 
 <input
 id="father"
@@ -735,9 +838,13 @@ placeholder="পিতার নাম"
 </div>
 
 
+<!-- MOTHER -->
+
 <div class="form-group">
 
-<label>মাতার নাম</label>
+<label>
+মাতার নাম
+</label>
 
 <input
 id="mother"
@@ -747,9 +854,13 @@ placeholder="মাতার নাম"
 </div>
 
 
+<!-- PHONE -->
+
 <div class="form-group">
 
-<label>মোবাইল</label>
+<label>
+মোবাইল
+</label>
 
 <input
 id="phone"
@@ -760,9 +871,13 @@ placeholder="মোবাইল নম্বর"
 </div>
 
 
+<!-- YEAR -->
+
 <div class="form-group">
 
-<label>Year *</label>
+<label>
+Year *
+</label>
 
 <select id="session" required>
 
@@ -775,9 +890,13 @@ Year নির্বাচন করুন
 </div>
 
 
+<!-- CLASS -->
+
 <div class="form-group">
 
-<label>Class *</label>
+<label>
+Class *
+</label>
 
 <select id="classId" required>
 
@@ -790,9 +909,13 @@ Year নির্বাচন করুন
 </div>
 
 
+<!-- ADMISSION DATE -->
+
 <div class="form-group">
 
-<label>ভর্তি তারিখ</label>
+<label>
+ভর্তি তারিখ
+</label>
 
 <input
 id="admissionDate"
@@ -802,9 +925,13 @@ type="date"
 </div>
 
 
+<!-- PHOTO -->
+
 <div class="form-group">
 
-<label>শিক্ষার্থীর ছবি</label>
+<label>
+শিক্ষার্থীর ছবি
+</label>
 
 <input
 id="photo"
@@ -815,9 +942,13 @@ accept="image/*"
 </div>
 
 
+<!-- ADDRESS -->
+
 <div class="form-group full">
 
-<label>ঠিকানা</label>
+<label>
+ঠিকানা
+</label>
 
 <textarea
 id="address"
@@ -826,6 +957,8 @@ placeholder="শিক্ষার্থীর ঠিকানা"
 
 </div>
 
+
+<!-- BUTTON -->
 
 <div class="form-group full">
 
@@ -854,12 +987,17 @@ style="display:none"
 
 </div>
 
+
 </div>
 
 </form>
 
 </section>
 
+
+<!-- =========================
+     STUDENT LIST
+========================= -->
 
 <section class="box">
 
@@ -880,7 +1018,7 @@ Year ও Search অনুযায়ী শিক্ষার্থীদের �
 
 <input
 id="search"
-placeholder="🔍 Student ID, নাম অথবা মোবাইল দিয়ে খুঁজুন..."
+placeholder="🔍 Student ID, Roll, নাম অথবা মোবাইল দিয়ে খুঁজুন..."
 >
 
 <select id="filterSession">
@@ -920,6 +1058,7 @@ type="button"
 
 <th>Photo</th>
 <th>Student ID</th>
+<th>Roll</th>
 <th>নাম</th>
 <th>পিতা</th>
 <th>মোবাইল</th>
@@ -932,13 +1071,19 @@ type="button"
 
 </thead>
 
+
 <tbody id="studentList">
 
 <tr>
-<td colspan="9" class="center">
+
+<td colspan="10" class="center">
+
 <div class="loading"></div>
+
 Loading...
+
 </td>
+
 </tr>
 
 </tbody>
@@ -1004,8 +1149,10 @@ data:{session},
 error
 }=await db.auth.getSession();
 
+
 if(error)
 throw error;
+
 
 if(!session){
 
@@ -1014,14 +1161,9 @@ return;
 
 }
 
+
 currentUser=session;
 
-
-/*
-Load one after another.
-এতে session/class load হওয়ার আগে
-student list render হবে না।
-*/
 
 await loadClasses();
 
@@ -1063,9 +1205,11 @@ document.getElementById(
 "currentSession"
 ).textContent=current;
 
+
 document.getElementById(
 "sessionText"
 ).textContent=current;
+
 
 applyFilters();
 
@@ -1162,7 +1306,7 @@ select.appendChild(option);
 
 
 /* =========================
-   LOAD YEARS FROM SESSIONS
+   LOAD YEARS
 ========================= */
 
 async function loadYears(){
@@ -1190,11 +1334,6 @@ console.error(
 error
 );
 
-/*
-যদি sessions table-এ কোনো সমস্যা থাকে,
-students table থেকে fallback year নেওয়া হবে।
-*/
-
 await loadYearsFromStudents();
 
 return;
@@ -1205,15 +1344,14 @@ return;
 years=data||[];
 
 
-/*
-Duplicate year remove
-*/
-
 const uniqueYears=[];
+
 
 years.forEach(x=>{
 
-const y=String(x.year||"").trim();
+const y=
+String(x.year||"").trim();
+
 
 if(
 y &&
@@ -1328,6 +1466,7 @@ Year নির্বাচন করুন
 
 `;
 
+
 filterSession.innerHTML=`
 
 <option value="">
@@ -1382,24 +1521,19 @@ document.getElementById(
 tbody.innerHTML=`
 
 <tr>
-<td colspan="9" class="center">
+
+<td colspan="10" class="center">
 
 <div class="loading"></div>
 
 Loading...
 
 </td>
+
 </tr>
 
 `;
 
-
-/*
-IMPORTANT:
-এখানে classes(name) relationship ব্যবহার করছি না।
-তাই Supabase foreign-key relationship সমস্যা হলেও
-Students page চলবে।
-*/
 
 const {
 data,
@@ -1409,6 +1543,7 @@ error
 .select(`
 id,
 student_id,
+roll,
 name,
 father_name,
 mother_name,
@@ -1431,11 +1566,13 @@ if(error){
 tbody.innerHTML=`
 
 <tr>
-<td colspan="9" class="center">
+
+<td colspan="10" class="center">
 
 ❌ ${escapeHtml(error.message)}
 
 </td>
+
 </tr>
 
 `;
@@ -1555,6 +1692,14 @@ s.student_id||""
 ||
 
 String(
+s.roll||""
+)
+.toLowerCase()
+.includes(q)
+
+||
+
+String(
 s.name||""
 )
 .toLowerCase()
@@ -1638,7 +1783,7 @@ tbody.innerHTML=`
 
 <tr>
 
-<td colspan="9" class="center">
+<td colspan="10" class="center">
 
 <div class="empty-icon">
 🎓
@@ -1689,43 +1834,70 @@ return `
 ${photo}
 </td>
 
+
 <td>
+
 <span class="student-id">
 ${escapeHtml(s.student_id||"-")}
 </span>
+
 </td>
 
+
 <td>
+
+<span class="roll-badge">
+${escapeHtml(s.roll||"-")}
+</span>
+
+</td>
+
+
+<td>
+
 <strong>
 ${escapeHtml(s.name||"-")}
 </strong>
+
 </td>
+
 
 <td>
 ${escapeHtml(s.father_name||"-")}
 </td>
 
+
 <td>
 ${escapeHtml(s.phone||"-")}
 </td>
 
+
 <td>
+
 <span class="badge">
 ${escapeHtml(s.session||"-")}
 </span>
+
 </td>
 
+
 <td>
+
 <span class="badge">
 ${escapeHtml(getClassName(s))}
 </span>
+
 </td>
 
+
 <td>
+
 ${escapeHtml(
 formatDate(s.admission_date)
 )}
+
 </td>
+
 
 <td>
 
@@ -1739,6 +1911,7 @@ onclick="editStudent('${String(s.id)}')"
 ✏ Edit
 </button>
 
+
 <button
 type="button"
 class="btn-print"
@@ -1746,6 +1919,7 @@ onclick="printSingleStudent('${String(s.id)}')"
 >
 🖨
 </button>
+
 
 <button
 type="button"
@@ -1777,10 +1951,12 @@ function formatDate(date){
 if(!date)
 return "-";
 
+
 try{
 
 const d=
 new Date(date+"T00:00:00");
+
 
 return d.toLocaleDateString(
 "bn-BD"
@@ -1943,7 +2119,9 @@ document.getElementById(
 
 saveBtn.disabled=true;
 
+
 msg.className="message";
+
 
 msg.textContent=
 editId
@@ -1969,7 +2147,16 @@ await uploadStudentPhoto();
 }
 
 
+const rollValue=
+document.getElementById(
+"roll"
+).value.trim();
+
+
 const student={
+
+roll:
+rollValue,
 
 name:
 document.getElementById(
@@ -2014,6 +2201,12 @@ document.getElementById(
 };
 
 
+if(!student.roll)
+throw new Error(
+"Roll দিন।"
+);
+
+
 if(!student.name)
 throw new Error(
 "শিক্ষার্থীর নাম দিন।"
@@ -2038,11 +2231,6 @@ throw new Error(
 
 if(editId){
 
-/*
-Student ID কখনো update হবে না।
-Photo না দিলে পুরোনো photo থাকবে।
-*/
-
 if(photoUrl){
 
 student.photo_url=
@@ -2050,14 +2238,6 @@ photoUrl;
 
 }
 
-
-/*
-IMPORTANT:
-এখানে .select().single()
-ব্যবহার করছি না।
-তাই RLS / return সমস্যা হলেও
-update সফল হবে।
-*/
 
 const {
 error
@@ -2070,10 +2250,6 @@ error
 if(error)
 throw error;
 
-
-/*
-Local data update
-*/
 
 const index=
 students.findIndex(
@@ -2096,8 +2272,10 @@ students[index]={
 msg.className=
 "message success";
 
+
 msg.textContent=
 "✅ Student successfully updated.";
+
 
 updateStats();
 
@@ -2142,6 +2320,7 @@ error
 .select(`
 id,
 student_id,
+roll,
 name,
 father_name,
 mother_name,
@@ -2166,9 +2345,12 @@ students.unshift(data);
 msg.className=
 "message success";
 
+
 msg.textContent=
 "✅ Student added successfully. ID: "+
-data.student_id;
+data.student_id+
+" | Roll: "+
+data.roll;
 
 
 updateStats();
@@ -2191,8 +2373,10 @@ catch(error){
 
 console.error(error);
 
+
 msg.className=
 "message error";
+
 
 msg.textContent=
 "❌ "+error.message;
@@ -2234,19 +2418,11 @@ return;
 }
 
 
-/*
-Edit ID
-*/
-
 document.getElementById(
 "editId"
 ).value=
 student.id;
 
-
-/*
-Student ID
-*/
 
 document.getElementById(
 "studentId"
@@ -2254,9 +2430,13 @@ document.getElementById(
 student.student_id||"";
 
 
-/*
-Name
-*/
+/* ROLL */
+
+document.getElementById(
+"roll"
+).value=
+student.roll||"";
+
 
 document.getElementById(
 "name"
@@ -2264,19 +2444,11 @@ document.getElementById(
 student.name||"";
 
 
-/*
-Father
-*/
-
 document.getElementById(
 "father"
 ).value=
 student.father_name||"";
 
-
-/*
-Mother
-*/
 
 document.getElementById(
 "mother"
@@ -2284,19 +2456,11 @@ document.getElementById(
 student.mother_name||"";
 
 
-/*
-Phone
-*/
-
 document.getElementById(
 "phone"
 ).value=
 student.phone||"";
 
-
-/*
-Year
-*/
 
 document.getElementById(
 "session"
@@ -2304,19 +2468,11 @@ document.getElementById(
 student.session||"";
 
 
-/*
-Class
-*/
-
 document.getElementById(
 "classId"
 ).value=
 student.class_id||"";
 
-
-/*
-Admission date
-*/
 
 document.getElementById(
 "admissionDate"
@@ -2324,30 +2480,16 @@ document.getElementById(
 student.admission_date||"";
 
 
-/*
-Address
-*/
-
 document.getElementById(
 "address"
 ).value=
 student.address||"";
 
 
-/*
-Photo input intentionally blank.
-পুরোনো photo থাকবে।
-নতুন photo select করলে replace হবে।
-*/
-
 document.getElementById(
 "photo"
 ).value="";
 
-
-/*
-Change UI
-*/
 
 document.getElementById(
 "formTitle"
@@ -2369,8 +2511,7 @@ document.getElementById(
 
 document.getElementById(
 "msg"
-).textContent=
-"";
+).textContent="";
 
 
 window.scrollTo({
@@ -2476,6 +2617,11 @@ document.getElementById(
 
 document.getElementById(
 "studentId"
+).value="";
+
+
+document.getElementById(
+"roll"
 ).value="";
 
 
@@ -2585,6 +2731,10 @@ ${escapeHtml(s.student_id||"-")}
 </td>
 
 <td>
+${escapeHtml(s.roll||"-")}
+</td>
+
+<td>
 ${escapeHtml(s.name||"-")}
 </td>
 
@@ -2663,6 +2813,7 @@ ${list.length}
 <th>#</th>
 <th>Photo</th>
 <th>Student ID</th>
+<th>Roll</th>
 <th>নাম</th>
 <th>পিতা</th>
 <th>মোবাইল</th>
@@ -2808,68 +2959,116 @@ ${photo}
 
 <table class="single-info">
 
+
 <tr>
+
 <td>Student ID</td>
+
 <td>
 ${escapeHtml(s.student_id||"-")}
 </td>
+
 </tr>
 
+
 <tr>
+
+<td>Roll</td>
+
+<td>
+${escapeHtml(s.roll||"-")}
+</td>
+
+</tr>
+
+
+<tr>
+
 <td>Student Name</td>
+
 <td>
 ${escapeHtml(s.name||"-")}
 </td>
+
 </tr>
 
+
 <tr>
+
 <td>Father's Name</td>
+
 <td>
 ${escapeHtml(s.father_name||"-")}
 </td>
+
 </tr>
 
+
 <tr>
+
 <td>Mother's Name</td>
+
 <td>
 ${escapeHtml(s.mother_name||"-")}
 </td>
+
 </tr>
 
+
 <tr>
+
 <td>Mobile</td>
+
 <td>
 ${escapeHtml(s.phone||"-")}
 </td>
+
 </tr>
 
+
 <tr>
+
 <td>Year</td>
+
 <td>
 ${escapeHtml(s.session||"-")}
 </td>
+
 </tr>
 
+
 <tr>
+
 <td>Class</td>
+
 <td>
 ${escapeHtml(getClassName(s))}
 </td>
+
 </tr>
 
+
 <tr>
+
 <td>Admission Date</td>
+
 <td>
 ${escapeHtml(formatDate(s.admission_date))}
 </td>
+
 </tr>
 
+
 <tr>
+
 <td>Address</td>
+
 <td>
 ${escapeHtml(s.address||"-")}
 </td>
+
 </tr>
+
 
 </table>
 
@@ -2966,8 +3165,10 @@ function showMessage(text,type=""){
 const msg=
 document.getElementById("msg");
 
+
 msg.className=
 "message "+type;
+
 
 msg.textContent=text;
 
