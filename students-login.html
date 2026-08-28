@@ -1,1205 +1,586 @@
 <!DOCTYPE html><html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Student Dashboard | মাদরাসায়ে নূরুল কুরআন</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet"
+<meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Student Login | মাদরাসায়ে নূরুল কুরআন</title><link href="https://banglawebfonts.pages.dev/css/bornomala.css" rel="stylesheet"><link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><style>
 *{
     box-sizing:border-box;
     margin:0;
     padding:0;
+    font-family:"Bornomala",sans-serif;
 }
 
 :root{
     --primary:#0d47a1;
     --primary2:#1976d2;
+    --primary3:#e3f2fd;
     --dark:#071a35;
     --bg:#f4f7fb;
-    --white:#fff;
+    --white:#ffffff;
     --text:#172033;
-    --muted:#6b7280;
-    --border:#e5e7eb;
-    --success:#16803c;
-    --warning:#d97706;
+    --muted:#64748b;
+    --border:#e2e8f0;
     --danger:#dc2626;
-    --shadow:0 10px 30px rgba(15,23,42,.08);
+    --success:#16803c;
+    --shadow:0 15px 40px rgba(13,71,161,.12);
 }
 
 body{
-    font-family:"Noto Sans Bengali","Inter",sans-serif;
-    background:var(--bg);
+    min-height:100vh;
+    background:
+        radial-gradient(circle at top left,rgba(25,118,210,.10),transparent 35%),
+        linear-gradient(135deg,#f5f9ff,#eef4fb);
     color:var(--text);
+    overflow-x:hidden;
 }
 
-button,
-a,
-input{
-    font-family:inherit;
-}
+/* BACKGROUND */
 
-a{
-    text-decoration:none;
-    color:inherit;
-}
-
-/* SIDEBAR */
-
-.sidebar{
+.bg-circle{
     position:fixed;
-    left:0;
-    top:0;
-    width:270px;
-    height:100vh;
-    background:linear-gradient(180deg,#082f6b,#071a35);
-    color:#fff;
-    z-index:1000;
-    overflow-y:auto;
-    transition:.3s;
+    border-radius:50%;
+    pointer-events:none;
+    z-index:-1;
 }
 
-.logo{
-    padding:25px 20px;
-    border-bottom:1px solid rgba(255,255,255,.12);
+.circle-one{
+    width:350px;
+    height:350px;
+    background:rgba(13,71,161,.07);
+    top:-150px;
+    left:-120px;
 }
 
-.logo h2{
-    font-size:19px;
-    font-weight:800;
+.circle-two{
+    width:420px;
+    height:420px;
+    background:rgba(25,118,210,.06);
+    right:-180px;
+    bottom:-180px;
 }
 
-.logo p{
-    font-size:11px;
-    opacity:.65;
-    margin-top:4px;
-    letter-spacing:1px;
+/* HEADER */
+
+.header{
+    height:72px;
+    background:#fff;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 35px;
+    box-shadow:0 3px 15px rgba(15,23,42,.04);
 }
 
-.profile-mini{
-    padding:20px;
+.brand{
     display:flex;
     align-items:center;
     gap:12px;
-    border-bottom:1px solid rgba(255,255,255,.1);
 }
 
-.avatar{
-    width:48px;
-    height:48px;
-    border-radius:50%;
-    background:#fff;
-    color:var(--primary);
+.brand-icon{
+    width:43px;
+    height:43px;
+    border-radius:11px;
+    background:linear-gradient(135deg,var(--primary),var(--primary2));
+    color:#fff;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:20px;
-    font-weight:800;
+    font-size:19px;
+    box-shadow:0 7px 18px rgba(13,71,161,.22);
 }
 
-.profile-mini strong{
-    display:block;
-    font-size:14px;
+.brand h1{
+    font-size:18px;
+    color:var(--dark);
+    font-weight:700;
 }
 
-.profile-mini span{
-    display:block;
-    font-size:11px;
-    opacity:.7;
-    margin-top:3px;
+.brand p{
+    color:var(--muted);
+    font-family:Arial,sans-serif;
+    font-size:9px;
+    letter-spacing:1px;
+    margin-top:2px;
 }
 
-.menu{
-    padding:15px 10px;
-}
-
-.menu-title{
-    padding:10px 12px;
-    font-size:10px;
-    text-transform:uppercase;
-    letter-spacing:1.2px;
-    opacity:.5;
-}
-
-.nav-item{
+.home-btn{
     display:flex;
     align-items:center;
-    gap:12px;
-    padding:12px 14px;
-    margin:3px 0;
+    gap:7px;
+    padding:9px 15px;
+    border:1px solid var(--border);
+    background:#fff;
+    color:var(--primary);
     border-radius:9px;
-    color:rgba(255,255,255,.82);
-    cursor:pointer;
+    font-size:12px;
+    text-decoration:none;
+    transition:.2s;
+}
+
+.home-btn:hover{
+    background:var(--primary3);
+    border-color:#bbd7f5;
+}
+
+/* LOGIN AREA */
+
+.login-area{
+    min-height:calc(100vh - 72px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:35px 18px;
+}
+
+.login-wrapper{
+    width:100%;
+    max-width:440px;
+}
+
+/* CARD */
+
+.login-card{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:20px;
+    box-shadow:var(--shadow);
+    overflow:hidden;
+}
+
+/* CARD TOP */
+
+.card-top{
+    background:linear-gradient(135deg,var(--primary),var(--primary2));
+    padding:30px 25px 27px;
+    color:#fff;
+    text-align:center;
+}
+
+.logo-circle{
+    width:65px;
+    height:65px;
+    margin:0 auto 13px;
+    border-radius:50%;
+    background:rgba(255,255,255,.15);
+    border:1px solid rgba(255,255,255,.25);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:27px;
+}
+
+.card-top h2{
+    font-size:24px;
+    font-weight:700;
+}
+
+.card-top p{
+    font-size:12px;
+    opacity:.88;
+    margin-top:4px;
+}
+
+/* FORM */
+
+.form-area{
+    padding:27px;
+}
+
+.form-title{
+    margin-bottom:20px;
+}
+
+.form-title h3{
+    font-size:18px;
+    color:var(--dark);
+}
+
+.form-title p{
+    font-size:11px;
+    color:var(--muted);
+    margin-top:4px;
+}
+
+.input-group{
+    margin-bottom:17px;
+}
+
+.input-group label{
+    display:block;
+    font-size:12px;
+    font-weight:700;
+    color:#334155;
+    margin-bottom:7px;
+}
+
+.input-box{
+    position:relative;
+}
+
+.input-box i{
+    position:absolute;
+    left:14px;
+    top:50%;
+    transform:translateY(-50%);
+    color:#7892ae;
+    font-size:14px;
+    pointer-events:none;
+}
+
+.input-box input{
+    width:100%;
+    height:48px;
+    border:1px solid #d7e0eb;
+    border-radius:10px;
+    padding:0 42px;
+    outline:none;
+    color:var(--text);
+    background:#fff;
     font-size:13px;
     transition:.2s;
 }
 
-.nav-item i{
-    width:20px;
-    text-align:center;
+.input-box input:focus{
+    border-color:var(--primary2);
+    box-shadow:0 0 0 3px rgba(25,118,210,.10);
 }
 
-.nav-item:hover,
-.nav-item.active{
-    background:rgba(255,255,255,.12);
-    color:#fff;
+.input-box input::placeholder{
+    color:#a0aec0;
 }
 
-.logout{
-    margin-top:15px;
-    color:#ffb4b4;
-}
-
-/* MAIN */
-
-.main{
-    margin-left:270px;
-    min-height:100vh;
-}
-
-.topbar{
-    height:70px;
-    background:#fff;
-    border-bottom:1px solid var(--border);
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 30px;
-    position:sticky;
-    top:0;
-    z-index:500;
-}
-
-.topbar h1{
-    font-size:20px;
-    font-weight:800;
-}
-
-.topbar p{
-    font-size:11px;
-    color:var(--muted);
-}
-
-.top-actions{
-    display:flex;
-    align-items:center;
-    gap:8px;
-}
-
-.top-btn{
+.toggle-password{
+    position:absolute;
+    right:13px;
+    top:50%;
+    transform:translateY(-50%);
     border:0;
-    background:#f1f5f9;
-    width:40px;
-    height:40px;
+    background:transparent;
+    color:#7892ae;
+    cursor:pointer;
+    font-size:14px;
+}
+
+/* BUTTON */
+
+.login-btn{
+    width:100%;
+    height:49px;
+    border:0;
     border-radius:10px;
-    cursor:pointer;
-    color:#334155;
-}
-
-.menu-btn{
-    display:none;
-}
-
-.content{
-    padding:30px;
-    max-width:1500px;
-    margin:auto;
-}
-
-/* WELCOME */
-
-.welcome{
-    background:linear-gradient(135deg,#0d47a1,#1976d2);
+    background:linear-gradient(135deg,var(--primary),var(--primary2));
     color:#fff;
-    padding:28px;
-    border-radius:18px;
-    box-shadow:var(--shadow);
-    margin-bottom:22px;
-}
-
-.welcome h2{
-    font-size:23px;
-    margin-bottom:6px;
-}
-
-.welcome p{
-    opacity:.85;
-    font-size:13px;
-}
-
-/* SUMMARY */
-
-.summary{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:16px;
-    margin-bottom:25px;
-}
-
-.card{
-    background:#fff;
-    border:1px solid var(--border);
-    border-radius:15px;
-    padding:20px;
-    box-shadow:var(--shadow);
-}
-
-.summary-card{
-    display:flex;
-    align-items:center;
-    gap:14px;
-}
-
-.summary-icon{
-    width:50px;
-    height:50px;
-    border-radius:12px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:#eaf2ff;
-    color:var(--primary);
-    font-size:20px;
-}
-
-.summary-label{
-    color:var(--muted);
-    font-size:11px;
-}
-
-.summary-value{
-    font-size:20px;
-    font-weight:800;
-    margin-top:2px;
-}
-
-/* PROFILE */
-
-.profile-card{
-    display:grid;
-    grid-template-columns:120px 1fr;
-    gap:25px;
-    margin-bottom:25px;
-}
-
-.profile-photo{
-    width:110px;
-    height:130px;
-    border-radius:12px;
-    background:#edf2f7;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    overflow:hidden;
-    color:#94a3b8;
-    font-size:35px;
-}
-
-.profile-photo img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-}
-
-.profile-info h2{
-    font-size:22px;
-    margin-bottom:12px;
-}
-
-.info-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:10px;
-}
-
-.info-item{
-    background:#f8fafc;
-    border:1px solid var(--border);
-    border-radius:9px;
-    padding:10px;
-}
-
-.info-item small{
-    display:block;
-    color:var(--muted);
-    font-size:10px;
-}
-
-.info-item strong{
-    display:block;
-    margin-top:3px;
-    font-size:13px;
-}
-
-/* SECTIONS */
-
-.section{
-    background:#fff;
-    border:1px solid var(--border);
-    border-radius:16px;
-    padding:22px;
-    margin-bottom:22px;
-    box-shadow:var(--shadow);
-    scroll-margin-top:90px;
-}
-
-.section-title{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:18px;
-}
-
-.section-title-left{
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
-
-.section-title-left i{
-    color:var(--primary);
-}
-
-.section-title h2{
-    font-size:17px;
-}
-
-.refresh-btn{
-    border:0;
-    background:#eef5ff;
-    color:var(--primary);
-    padding:8px 12px;
-    border-radius:8px;
+    font-size:14px;
+    font-weight:700;
     cursor:pointer;
+    box-shadow:0 8px 18px rgba(13,71,161,.20);
+    transition:.2s;
 }
 
-/* TABLE */
-
-.table-wrap{
-    width:100%;
-    overflow-x:auto;
+.login-btn:hover{
+    transform:translateY(-1px);
+    box-shadow:0 11px 23px rgba(13,71,161,.25);
 }
 
-.student-data-table{
-    width:100%;
-    border-collapse:collapse;
-    min-width:650px;
-}
-
-.student-data-table th{
-    background:#f1f5f9;
-    color:#334155;
-    font-size:11px;
-    font-weight:700;
-    padding:12px;
-    text-align:left;
-    border-bottom:1px solid var(--border);
-}
-
-.student-data-table td{
-    padding:12px;
-    font-size:12px;
-    border-bottom:1px solid #eef2f7;
-    vertical-align:top;
-}
-
-.student-data-table tbody tr:hover{
-    background:#fafcff;
-}
-
-.student-empty{
-    text-align:center;
-    padding:30px;
-    color:var(--muted);
-    font-size:13px;
-}
-
-.student-empty i{
-    font-size:25px;
-    margin-bottom:8px;
-    color:#94a3b8;
-}
-
-.loading{
-    text-align:center;
-    padding:25px;
-    color:var(--muted);
-}
-
-/* STATUS */
-
-.badge{
-    display:inline-flex;
-    align-items:center;
-    padding:4px 9px;
-    border-radius:20px;
-    font-size:10px;
-    font-weight:700;
-}
-
-.badge-success{
-    background:#dcfce7;
-    color:#166534;
-}
-
-.badge-warning{
-    background:#fef3c7;
-    color:#92400e;
-}
-
-.badge-danger{
-    background:#fee2e2;
-    color:#991b1b;
-}
-
-/* ACADEMIC */
-
-.academic-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:14px;
-}
-
-.academic-box{
-    background:#f8fafc;
-    border:1px solid var(--border);
-    border-radius:12px;
-    padding:18px;
-}
-
-.academic-box i{
-    color:var(--primary);
-    font-size:20px;
-    margin-bottom:8px;
-}
-
-.academic-box small{
-    display:block;
-    color:var(--muted);
-    font-size:11px;
-}
-
-.academic-box strong{
-    display:block;
-    margin-top:4px;
-    font-size:15px;
+.login-btn:disabled{
+    opacity:.7;
+    cursor:not-allowed;
+    transform:none;
 }
 
 /* ERROR */
 
 .error-box{
+    display:none;
     background:#fff1f2;
     border:1px solid #fecdd3;
     color:#9f1239;
-    border-radius:12px;
-    padding:15px;
-    margin-bottom:20px;
-    display:none;
+    border-radius:9px;
+    padding:11px 13px;
+    margin-bottom:15px;
+    font-size:11px;
+    line-height:1.5;
+}
+
+.error-box.show{
+    display:block;
+}
+
+/* INFO */
+
+.info-box{
+    margin-top:17px;
+    padding:13px;
+    border-radius:10px;
+    background:#f0f7ff;
+    border:1px solid #d8eafd;
+    color:#315b84;
+    font-size:11px;
+    line-height:1.6;
+}
+
+.info-box i{
+    color:var(--primary2);
+    margin-right:4px;
 }
 
 /* FOOTER */
 
+.card-footer{
+    text-align:center;
+    padding:15px 20px;
+    border-top:1px solid var(--border);
+    background:#fafcff;
+    color:#8793a5;
+    font-size:10px;
+}
+
 .footer{
     text-align:center;
-    padding:25px;
-    color:var(--muted);
-    font-size:11px;
+    margin-top:18px;
+    color:#7b8798;
+    font-size:10px;
 }
 
-/* OVERLAY */
+/* LOADING */
 
-.overlay{
-    display:none;
+.loading-spinner{
+    display:inline-block;
+    width:15px;
+    height:15px;
+    border:2px solid rgba(255,255,255,.4);
+    border-top-color:#fff;
+    border-radius:50%;
+    animation:spin .7s linear infinite;
+    vertical-align:middle;
+    margin-right:6px;
 }
 
-/* RESPONSIVE */
-
-@media(max-width:1000px){
-
-    .summary{
-        grid-template-columns:repeat(2,1fr);
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
     }
-
-    .info-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .academic-grid{
-        grid-template-columns:1fr;
-    }
-
 }
 
-@media(max-width:800px){
+/* MOBILE */
 
-    .sidebar{
-        transform:translateX(-100%);
+@media(max-width:600px){
+
+    .header{
+        height:64px;
+        padding:0 15px;
     }
 
-    .sidebar.open{
-        transform:translateX(0);
+    .brand-icon{
+        width:38px;
+        height:38px;
     }
 
-    .main{
-        margin-left:0;
+    .brand h1{
+        font-size:15px;
     }
 
-    .menu-btn{
-        display:flex;
-        align-items:center;
-        justify-content:center;
+    .brand p{
+        display:none;
     }
 
-    .overlay{
-        position:fixed;
-        inset:0;
-        background:rgba(0,0,0,.45);
-        z-index:900;
+    .home-btn{
+        padding:8px 10px;
     }
 
-    .overlay.show{
-        display:block;
+    .home-btn span{
+        display:none;
     }
 
-    .content{
-        padding:18px;
+    .login-area{
+        min-height:calc(100vh - 64px);
+        padding:22px 14px;
     }
 
-    .topbar{
-        padding:0 18px;
+    .card-top{
+        padding:25px 20px;
     }
 
-    .profile-card{
-        grid-template-columns:1fr;
+    .card-top h2{
+        font-size:21px;
     }
 
-}
-
-@media(max-width:550px){
-
-    .summary{
-        grid-template-columns:1fr 1fr;
-        gap:10px;
-    }
-
-    .summary-card{
-        padding:14px;
-    }
-
-    .summary-icon{
-        width:40px;
-        height:40px;
-        font-size:16px;
-    }
-
-    .summary-value{
-        font-size:16px;
-    }
-
-    .welcome{
-        padding:20px;
-    }
-
-    .welcome h2{
-        font-size:19px;
-    }
-
-    .info-grid{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .section{
-        padding:15px;
+    .form-area{
+        padding:22px 18px;
     }
 
 }
-</style></head><body><div class="overlay" id="overlay"></div><!-- SIDEBAR --><aside class="sidebar" id="sidebar"><div class="logo">
-    <h2>📚 মাদরাসায়ে নূরুল কুরআন</h2>
-    <p>STUDENT PORTAL</p>
-</div>
 
-<div class="profile-mini">
+/* SMALL */
 
-    <div class="avatar" id="miniAvatar">
-        <i class="fa-solid fa-user"></i>
+@media(max-width:380px){
+
+    .login-card{
+        border-radius:15px;
+    }
+
+    .form-area{
+        padding:20px 15px;
+    }
+
+    .card-top{
+        padding:23px 15px;
+    }
+
+}
+</style></head><body><div class="bg-circle circle-one"></div>
+<div class="bg-circle circle-two"></div><header class="header"><div class="brand">
+
+    <div class="brand-icon">
+        <i class="fa-solid fa-mosque"></i>
     </div>
 
     <div>
-        <strong id="studentName">Student</strong>
-        <span id="studentId">Student ID</span>
+        <h1>মাদরাসায়ে নূরুল কুরআন</h1>
+        <p>MADRASA-E NURUL QURAN</p>
     </div>
 
 </div>
 
-<div class="menu">
 
-    <div class="menu-title">Dashboard</div>
+<a href="index.html" class="home-btn">
+    <i class="fa-solid fa-house"></i>
+    <span>মূল ওয়েবসাইট</span>
+</a>
 
-    <div class="nav-item active" data-page="home">
-        <i class="fa-solid fa-house"></i>
-        <span>ড্যাশবোর্ড</span>
-    </div>
+</header><main class="login-area"><div class="login-wrapper">
 
-    <div class="nav-item" data-page="profile">
-        <i class="fa-solid fa-user"></i>
-        <span>আমার প্রোফাইল</span>
-    </div>
+    <div class="login-card">
 
-    <div class="nav-item" data-page="academic">
-        <i class="fa-solid fa-graduation-cap"></i>
-        <span>একাডেমিক তথ্য</span>
-    </div>
+        <div class="card-top">
 
-    <div class="menu-title">Academic</div>
-
-    <div class="nav-item" data-page="results">
-        <i class="fa-solid fa-square-poll-vertical"></i>
-        <span>আমার ফলাফল</span>
-    </div>
-
-    <div class="nav-item" data-page="subjects">
-        <i class="fa-solid fa-book"></i>
-        <span>বিষয়সমূহ</span>
-    </div>
-
-    <div class="nav-item" data-page="exams">
-        <i class="fa-solid fa-file-pen"></i>
-        <span>পরীক্ষার তথ্য</span>
-    </div>
-
-    <div class="nav-item" data-page="attendance">
-        <i class="fa-solid fa-user-check"></i>
-        <span>আমার উপস্থিতি</span>
-    </div>
-
-    <div class="nav-item" data-page="progress">
-        <i class="fa-solid fa-chart-line"></i>
-        <span>অগ্রগতি</span>
-    </div>
-
-    <div class="menu-title">Finance</div>
-
-    <div class="nav-item" data-page="fees">
-        <i class="fa-solid fa-money-bill-wave"></i>
-        <span>ফি / পেমেন্ট</span>
-    </div>
-
-    <div class="menu-title">Quran & Islamic Studies</div>
-
-    <div class="nav-item" data-page="nazera">
-        <i class="fa-solid fa-book-quran"></i>
-        <span>নাজেরা অগ্রগতি</span>
-    </div>
-
-    <div class="nav-item" data-page="hifz">
-        <i class="fa-solid fa-quran"></i>
-        <span>হিফজ অগ্রগতি</span>
-    </div>
-
-    <div class="nav-item" data-page="quran">
-        <i class="fa-solid fa-book-open"></i>
-        <span>কুরআন / আমপারা</span>
-    </div>
-
-    <div class="nav-item" data-page="dua">
-        <i class="fa-solid fa-book-bookmark"></i>
-        <span>দোয়া ও হাদিস</span>
-    </div>
-
-    <div class="menu-title">Other</div>
-
-    <div class="nav-item" data-page="behavior">
-        <i class="fa-solid fa-user-shield"></i>
-        <span>আচরণ ও শৃঙ্খলা</span>
-    </div>
-
-    <div class="nav-item" data-page="notices">
-        <i class="fa-solid fa-bullhorn"></i>
-        <span>নোটিশ</span>
-    </div>
-
-    <div class="nav-item" data-page="reports">
-        <i class="fa-solid fa-file-lines"></i>
-        <span>রিপোর্ট</span>
-    </div>
-
-    <div class="nav-item" id="homeBtn">
-        <i class="fa-solid fa-globe"></i>
-        <span>মূল ওয়েবসাইট</span>
-    </div>
-
-    <div class="nav-item logout" id="logoutBtn">
-        <i class="fa-solid fa-right-from-bracket"></i>
-        <span>Logout</span>
-    </div>
-
-</div>
-
-</aside><!-- MAIN --><main class="main"><header class="topbar">
-
-    <div style="display:flex;align-items:center;gap:12px">
-
-        <button class="top-btn menu-btn" id="menuBtn">
-            <i class="fa-solid fa-bars"></i>
-        </button>
-
-        <div>
-            <h1>Student Dashboard</h1>
-            <p>মাদরাসায়ে নূরুল কুরআন</p>
-        </div>
-
-    </div>
-
-    <div class="top-actions">
-
-        <button
-            class="top-btn"
-            id="refreshBtn"
-            title="Refresh">
-            <i class="fa-solid fa-rotate"></i>
-        </button>
-
-    </div>
-
-</header>
-
-
-<div class="content">
-
-    <div class="error-box" id="errorBox"></div>
-
-
-    <!-- WELCOME -->
-
-    <section class="welcome">
-
-        <h2 id="welcomeName">
-            আসসালামু আলাইকুম
-        </h2>
-
-        <p>
-            আপনার Student Dashboard-এ স্বাগতম।
-            Admin Dashboard থেকে আপনার জন্য যোগ করা তথ্য এখানে দেখা যাবে।
-        </p>
-
-    </section>
-
-
-    <!-- SUMMARY -->
-
-    <section class="summary">
-
-        <div class="card summary-card">
-
-            <div class="summary-icon">
-                <i class="fa-solid fa-square-poll-vertical"></i>
+            <div class="logo-circle">
+                <i class="fa-solid fa-user-graduate"></i>
             </div>
 
-            <div>
-                <div class="summary-label">সর্বশেষ ফলাফল</div>
-                <div class="summary-value" id="summaryResult">-</div>
-            </div>
+            <h2>Student Portal</h2>
+
+            <p>
+                শিক্ষার্থীদের ব্যক্তিগত তথ্য ও একাডেমিক ড্যাশবোর্ড
+            </p>
 
         </div>
 
 
-        <div class="card summary-card">
+        <div class="form-area">
 
-            <div class="summary-icon">
-                <i class="fa-solid fa-user-check"></i>
+            <div class="form-title">
+
+                <h3>শিক্ষার্থী লগইন</h3>
+
+                <p>
+                    Student ID এবং Roll Number দিয়ে লগইন করুন
+                </p>
+
             </div>
 
-            <div>
-                <div class="summary-label">উপস্থিতি</div>
-                <div class="summary-value" id="summaryAttendance">-</div>
+
+            <div
+                class="error-box"
+                id="errorBox">
             </div>
 
-        </div>
 
+            <form id="studentLoginForm">
 
-        <div class="card summary-card">
+                <div class="input-group">
 
-            <div class="summary-icon">
-                <i class="fa-solid fa-money-bill-wave"></i>
-            </div>
+                    <label>
+                        Student ID
+                    </label>
 
-            <div>
-                <div class="summary-label">পরিশোধিত ফি</div>
-                <div class="summary-value" id="summaryPaid">৳ 0</div>
-            </div>
+                    <div class="input-box">
 
-        </div>
+                        <i class="fa-solid fa-id-card"></i>
 
+                        <input
+                            type="text"
+                            id="studentId"
+                            placeholder="আপনার Student ID লিখুন"
+                            autocomplete="off"
+                            required>
 
-        <div class="card summary-card">
+                    </div>
 
-            <div class="summary-icon">
-                <i class="fa-solid fa-chart-line"></i>
-            </div>
-
-            <div>
-                <div class="summary-label">অগ্রগতি</div>
-                <div class="summary-value" id="summaryProgress">-</div>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- PROFILE -->
-
-    <section class="card profile-card" id="profile">
-
-        <div class="profile-photo" id="profilePhoto">
-            <i class="fa-solid fa-user"></i>
-        </div>
-
-        <div class="profile-info">
-
-            <h2 id="profileName">
-                শিক্ষার্থী
-            </h2>
-
-            <div class="info-grid">
-
-                <div class="info-item">
-                    <small>Student ID</small>
-                    <strong id="profileStudentId">-</strong>
                 </div>
 
-                <div class="info-item">
-                    <small>Roll Number</small>
-                    <strong id="profileRoll">-</strong>
+
+                <div class="input-group">
+
+                    <label>
+                        Roll Number
+                    </label>
+
+                    <div class="input-box">
+
+                        <i class="fa-solid fa-hashtag"></i>
+
+                        <input
+                            type="text"
+                            id="rollNumber"
+                            placeholder="আপনার Roll Number লিখুন"
+                            autocomplete="off"
+                            required>
+
+                    </div>
+
                 </div>
 
-                <div class="info-item">
-                    <small>Class</small>
-                    <strong id="profileClass">-</strong>
-                </div>
 
-                <div class="info-item">
-                    <small>Session / Year</small>
-                    <strong id="profileSession">-</strong>
-                </div>
+                <button
+                    type="submit"
+                    class="login-btn"
+                    id="loginBtn">
 
-                <div class="info-item">
-                    <small>Father's Name</small>
-                    <strong id="profileFather">-</strong>
-                </div>
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                    Student Login
 
-                <div class="info-item">
-                    <small>Mother's Name</small>
-                    <strong id="profileMother">-</strong>
-                </div>
+                </button>
 
-                <div class="info-item">
-                    <small>Mobile</small>
-                    <strong id="profilePhone">-</strong>
-                </div>
+            </form>
 
-                <div class="info-item">
-                    <small>Status</small>
-                    <strong id="profileStatus">-</strong>
-                </div>
+
+            <div class="info-box">
+
+                <i class="fa-solid fa-circle-info"></i>
+
+                আপনার Student ID ও Roll Number Admin
+                Dashboard-এ সংরক্ষিত তথ্যের সঙ্গে মিললে
+                আপনার ব্যক্তিগত Student Dashboard খুলবে।
 
             </div>
 
         </div>
 
-    </section>
 
+        <div class="card-footer">
 
-    <!-- ACADEMIC -->
-
-    <section class="section" id="academic">
-
-        <div class="section-title">
-
-            <div class="section-title-left">
-                <i class="fa-solid fa-graduation-cap"></i>
-                <h2>একাডেমিক তথ্য</h2>
-            </div>
+            <i class="fa-solid fa-shield-halved"></i>
+            আপনার শিক্ষার্থী তথ্য নিরাপদভাবে সংরক্ষিত।
 
         </div>
 
-        <div class="academic-grid">
+    </div>
 
-            <div class="academic-box">
-                <i class="fa-solid fa-layer-group"></i>
-                <small>শ্রেণি</small>
-                <strong id="academicClass">-</strong>
-            </div>
 
-            <div class="academic-box">
-                <i class="fa-solid fa-calendar"></i>
-                <small>শিক্ষাবর্ষ</small>
-                <strong id="academicSession">-</strong>
-            </div>
-
-            <div class="academic-box">
-                <i class="fa-solid fa-id-card"></i>
-                <small>Roll / Student ID</small>
-                <strong id="academicRoll">-</strong>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- RESULTS -->
-
-    <section class="section" id="results">
-
-        <div class="section-title">
-
-            <div class="section-title-left">
-                <i class="fa-solid fa-square-poll-vertical"></i>
-                <h2>আমার ফলাফল</h2>
-            </div>
-
-            <button class="refresh-btn" onclick="loadAll()">
-                <i class="fa-solid fa-rotate"></i>
-            </button>
-
-        </div>
-
-        <div id="studentResults" class="loading">
-            ফলাফল লোড হচ্ছে...
-        </div>
-
-    </section>
-
-
-    <!-- SUBJECTS -->
-
-    <section class="section" id="subjects">
-
-        <div class="section-title">
-
-            <div class="section-title-left">
-                <i class="fa-solid fa-book"></i>
-                <h2>আমার বিষয়সমূহ</h2>
-            </div>
-
-        </div>
-
-        <div id="studentSubjects" class="loading">
-            বিষয় লোড হচ্ছে...
-        </div>
-
-    </section>
-
-
-    <!-- EXAMS -->
-
-    <section class="section" id="exams">
-
-        <div class="section-title">
-
-            <div class="section-title-left">
-                <i class="fa-solid fa-file-pen"></i>
-                <h2>পরীক্ষার তথ্য</h2>
-            </div>
-
-        </div>
-
-        <div id="studentExams" class="loading">
-            পরীক্ষার তথ্য লোড হচ্ছে...
-        </div>
-
-    </section>
-
-
-    <!-- ATTENDANCE -->
-
-    <section class="section" id="attendance">
-
-        <div class="section-title">
-
-            <div class="section-title-left">
-                <i class="fa-solid fa-user-check"></i>
-                <h2>আমার উপস্থিতি</h2>
-            </div>
-
-        </div>
-
-        <div id="studentAttendance" class="loading">
-            উপস্থিতির তথ্য লোড হচ্ছে...
-        </div>
-
-    </section>
-
-
-    <!-- FEES -->
-
-    <section class="section" id="fees">
-
-        <div class="section-title">
-
-            <div class="section-title-left">
-                <i class="fa-solid fa-money-bill-wave"></i>
-                <h2>ফি / পেমেন্ট</h2>
-            </div>
-
-        </div>
-
-        <div id="studentFees" class="loading">
-            ফি তথ্য লোড হচ্ছে...
-        </div>
-
-    </section>
-
-
-    <!-- NAZERA -->
-
-    <section class="section" id="nazera">
-
-        <div class="section-title">
-
-            <div class="section-title-left">
-                <i class="fa-solid fa-book-quran"></i>
-                <h2>নাজেরা অগ্রগতি</h2>
-            </div>
-
-        </div>
-
-        <div id="studentNazera" class="loading">
-            নাজেরা তথ্য লোড হচ্ছে...
-        </div>
-
-    </section>
-
-
-    <!-- HIFZ -->
-
-    <section class="section" id="hifz">
-
-        <div class="section-title">
-
-            <div class="section-title-left">
-                <i class="fa-solid fa-quran"></i>
-                <h2>হিফজ অগ্রগতি</h2>
-            </div>
-
-        </div>
-
-        <div id="studentHifz" class="loading">
-            হিফজ তথ্য লোড হচ্ছে...
-        </div>
-
-    </section>
-
-
-    <!-- QURAN -->
-
-    <section class="section" id="quran">
-
-        <div class="section-title">
-
-            <div class="section-title-left">
-                <i class="fa-solid fa-book-open"></i>
-                <h2>কুরআন / আমপারা</h2>
-            </div>
-
-        </div>
-
-        <div id="studentQuran" class="loading">
-            কুরআন / আমপারা তথ্য লোড হচ্ছে...
-        </div>
-
-    </section>
-
-
-    <!-- DUA -->
-
-    <section class="section" id="dua">
-
-        <div class="section-title">
-
-            <div class="section-title-left">
-                <i class="fa-solid fa-book-bookmark"></i>
-                <h2>দোয়া ও হাদিস</h2>
-            </div>
-
-        </div>
-
-        <div id="studentDua" class="loading">
-            দোয়া ও হাদিস তথ্য লোড হচ্ছে...
-        </div>
-
-    </section>
-
-
-    <!-- BEHAVIOR -->
-
-    <section class="section" id="behavior">
-
-        <div class="section-title">
-
-            <div class="section-title-left">
-                <i class="fa-solid fa-user-shield"></i>
-                <h2>আচরণ ও শৃঙ্খলা</h2>
-            </div>
-
-        </div>
-
-        <div id="studentBehavior" class="loading">
-            আচরণ ও শৃঙ্খলার তথ্য লোড হচ্ছে...
-        </div>
-
-    </section>
-
-
-    <!-- NOTICES -->
-
-    <section class="section" id="notices">
-
-        <div class="section-title">
-
-            <div class="section-title-left">
-                <i class="fa-solid fa-bullhorn"></i>
-                <h2>নোটিশ</h2>
-            </div>
-
-        </div>
-
-        <div id="studentNotices" class="loading">
-            নোটিশ লোড হচ্ছে...
-        </div>
-
-    </section>
-
-
-    <!-- REPORTS -->
-
-    <section class="section" id="reports">
-
-        <div class="section-title">
-
-            <div class="section-title-left">
-                <i class="fa-solid fa-file-lines"></i>
-                <h2>রিপোর্ট ও সার্টিফিকেট</h2>
-            </div>
-
-        </div>
-
-        <div id="studentReports" class="loading">
-            রিপোর্ট লোড হচ্ছে...
-        </div>
-
-    </section>
-
-
-    <footer class="footer">
-        <strong>মাদরাসায়ে নূরুল কুরআন</strong><br>
-        Student Management System
-    </footer>
+    <div class="footer">
+        © <span id="year"></span>
+        মাদরাসায়ে নূরুল কুরআন — Student Portal
+    </div>
 
 </div>
 
 </main><script>
 
 /* =====================================================
-   SUPABASE
+   SUPABASE CONFIG
 ===================================================== */
 
 const SUPABASE_URL =
@@ -1208,7 +589,7 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
 
-const db =
+const supabaseClient =
 window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_KEY
@@ -1216,135 +597,42 @@ window.supabase.createClient(
 
 
 /* =====================================================
-   GLOBAL
+   YEAR
 ===================================================== */
 
-let currentStudent = null;
+document.getElementById("year")
+.textContent =
+new Date().getFullYear();
 
 
 /* =====================================================
-   HELPERS
+   ELEMENTS
 ===================================================== */
 
-function esc(value){
+const form =
+document.getElementById(
+    "studentLoginForm"
+);
 
-    return String(value ?? "-")
-        .replace(/[&<>"']/g,function(c){
+const studentIdInput =
+document.getElementById(
+    "studentId"
+);
 
-            return {
-                "&":"&amp;",
-                "<":"&lt;",
-                ">":"&gt;",
-                '"':"&quot;",
-                "'":"&#039;"
-            }[c];
+const rollInput =
+document.getElementById(
+    "rollNumber"
+);
 
-        });
+const loginBtn =
+document.getElementById(
+    "loginBtn"
+);
 
-}
-
-
-function money(value){
-
-    const n =
-        Number(
-            String(value ?? 0)
-                .replace(/,/g,"")
-                .replace(/[৳$]/g,"")
-        ) || 0;
-
-    return "৳ " +
-        n.toLocaleString("en-US");
-
-}
-
-
-function valueOf(obj,keys,fallback="-"){
-
-    if(!obj) return fallback;
-
-    for(const key of keys){
-
-        if(
-            obj[key] !== undefined &&
-            obj[key] !== null &&
-            String(obj[key]).trim() !== ""
-        ){
-
-            return obj[key];
-
-        }
-
-    }
-
-    return fallback;
-
-}
-
-
-function studentId(){
-
-    return valueOf(
-        currentStudent,
-        ["student_id","studentId"],
-        "-"
-    );
-
-}
-
-
-function dbStudentId(){
-
-    return currentStudent?.id || null;
-
-}
-
-
-function rollNumber(){
-
-    return valueOf(
-        currentStudent,
-        ["roll_number","roll_no","roll"],
-        "-"
-    );
-
-}
-
-
-function studentName(){
-
-    return valueOf(
-        currentStudent,
-        ["name","student_name","full_name"],
-        "শিক্ষার্থী"
-    );
-
-}
-
-
-function className(){
-
-    return (
-        currentStudent?.classes?.name ||
-        valueOf(
-            currentStudent,
-            ["class_name","class"],
-            "-"
-        )
-    );
-
-}
-
-
-function sessionName(){
-
-    return valueOf(
-        currentStudent,
-        ["session","academic_session","year"],
-        "-"
-    );
-
-}
+const errorBox =
+document.getElementById(
+    "errorBox"
+);
 
 
 /* =====================================================
@@ -1353,1795 +641,213 @@ function sessionName(){
 
 function showError(message){
 
-    const box =
-        document.getElementById(
-            "errorBox"
-        );
+    errorBox.innerHTML =
+        `<i class="fa-solid fa-circle-exclamation"></i>
+        ${message}`;
 
-    box.style.display="block";
-
-    box.innerHTML =
-        `<strong>সমস্যা:</strong> ${esc(message)}`;
+    errorBox.classList.add("show");
 
 }
 
 
 function hideError(){
 
-    document.getElementById(
-        "errorBox"
-    ).style.display="none";
+    errorBox.classList.remove(
+        "show"
+    );
+
+    errorBox.innerHTML="";
 
 }
 
 
 /* =====================================================
-   RENDER TABLE
+   LOGIN
 ===================================================== */
 
-function renderTable(
-    elementId,
-    rows,
-    columns
-){
+form.addEventListener(
+    "submit",
+    async function(e){
 
-    const box =
-        document.getElementById(
-            elementId
-        );
+        e.preventDefault();
 
-    if(!box) return;
+        hideError();
 
 
-    if(!rows || !rows.length){
+        const sid =
+            studentIdInput.value
+            .trim();
 
-        box.innerHTML = `
-            <div class="student-empty">
-                <i class="fa-regular fa-folder-open"></i>
-                <br>
-                Admin এখনো কোনো তথ্য যোগ করেনি।
-            </div>
-        `;
-
-        return;
-
-    }
+        const roll =
+            rollInput.value
+            .trim();
 
 
-    box.innerHTML = `
+        if(!sid){
 
-        <div class="table-wrap">
-
-            <table class="student-data-table">
-
-                <thead>
-                    <tr>
-
-                        ${columns.map(c=>`
-                            <th>${esc(c.label)}</th>
-                        `).join("")}
-
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                    ${rows.map(row=>`
-
-                        <tr>
-
-                            ${columns.map(c=>`
-                                <td>
-                                    ${esc(
-                                        typeof c.value === "function"
-                                        ? c.value(row)
-                                        : row[c.value]
-                                    )}
-                                </td>
-                            `).join("")}
-
-                        </tr>
-
-                    `).join("")}
-
-                </tbody>
-
-            </table>
-
-        </div>
-    `;
-
-}
-
-
-/* =====================================================
-   LOGIN SESSION
-===================================================== */
-
-async function verifyStudent(){
-
-    const raw =
-        sessionStorage.getItem(
-            "madrasa_student_login"
-        );
-
-
-    if(!raw){
-
-        location.href="index.html";
-
-        return false;
-
-    }
-
-
-    try{
-
-        const login =
-            JSON.parse(raw);
-
-
-        if(
-            !login.id ||
-            !login.student_id
-        ){
-
-            throw new Error(
-                "Invalid student session"
+            showError(
+                "Student ID লিখুন।"
             );
 
-        }
-
-
-        const result =
-            await db
-            .from("students")
-            .select(`
-                *,
-                classes(name)
-            `)
-            .eq(
-                "id",
-                login.id
-            )
-            .maybeSingle();
-
-
-        if(
-            result.error ||
-            !result.data
-        ){
-
-            sessionStorage.removeItem(
-                "madrasa_student_login"
-            );
-
-            location.href="index.html";
-
-            return false;
-
-        }
-
-
-        currentStudent =
-            result.data;
-
-
-        return true;
-
-
-    }catch(error){
-
-        console.error(error);
-
-        sessionStorage.removeItem(
-            "madrasa_student_login"
-        );
-
-        location.href="index.html";
-
-        return false;
-
-    }
-
-}
-
-
-/* =====================================================
-   PROFILE
-===================================================== */
-
-function loadProfile(){
-
-    const name =
-        studentName();
-
-    const sid =
-        studentId();
-
-    const roll =
-        rollNumber();
-
-    const cls =
-        className();
-
-    const session =
-        sessionName();
-
-
-    document.getElementById(
-        "studentName"
-    ).textContent=name;
-
-
-    document.getElementById(
-        "studentId"
-    ).textContent=sid;
-
-
-    document.getElementById(
-        "welcomeName"
-    ).textContent =
-        "আসসালামু আলাইকুম, "+name;
-
-
-    document.getElementById(
-        "profileName"
-    ).textContent=name;
-
-
-    document.getElementById(
-        "profileStudentId"
-    ).textContent=sid;
-
-
-    document.getElementById(
-        "profileRoll"
-    ).textContent=roll;
-
-
-    document.getElementById(
-        "profileClass"
-    ).textContent=cls;
-
-
-    document.getElementById(
-        "profileSession"
-    ).textContent=session;
-
-
-    document.getElementById(
-        "profileFather"
-    ).textContent =
-        valueOf(
-            currentStudent,
-            ["father_name","father"],
-            "-"
-        );
-
-
-    document.getElementById(
-        "profileMother"
-    ).textContent =
-        valueOf(
-            currentStudent,
-            ["mother_name","mother"],
-            "-"
-        );
-
-
-    document.getElementById(
-        "profilePhone"
-    ).textContent =
-        valueOf(
-            currentStudent,
-            ["phone","mobile"],
-            "-"
-        );
-
-
-    document.getElementById(
-        "profileStatus"
-    ).textContent =
-        valueOf(
-            currentStudent,
-            ["status","student_status"],
-            "Active"
-        );
-
-
-    document.getElementById(
-        "academicClass"
-    ).textContent=cls;
-
-
-    document.getElementById(
-        "academicSession"
-    ).textContent=session;
-
-
-    document.getElementById(
-        "academicRoll"
-    ).textContent =
-        roll+" / "+sid;
-
-
-    const photo =
-        currentStudent.photo_url;
-
-
-    if(photo){
-
-        document.getElementById(
-            "profilePhoto"
-        ).innerHTML =
-            `<img src="${esc(photo)}" alt="Student Photo">`;
-
-    }
-
-}
-
-
-/* =====================================================
-   RESULTS
-   Admin results.html uses student_id as text
-===================================================== */
-
-async function loadResults(){
-
-    const box =
-        document.getElementById(
-            "studentResults"
-        );
-
-    box.innerHTML =
-        `<div class="loading">ফলাফল লোড হচ্ছে...</div>`;
-
-
-    const response =
-        await db
-        .from("results")
-        .select("*")
-        .eq(
-            "student_id",
-            String(studentId())
-        )
-        .order(
-            "id",
-            {ascending:false}
-        );
-
-
-    if(response.error){
-
-        box.innerHTML =
-            `<div class="student-empty">
-                ফলাফল এখনো পাওয়া যায়নি।
-            </div>`;
-
-        return;
-
-    }
-
-
-    const rows =
-        response.data || [];
-
-
-    renderTable(
-        "studentResults",
-        rows,
-        [
-
-            {
-                label:"পরীক্ষা",
-                value:r=>
-                    r.exam_name ||
-                    r.exam ||
-                    "-"
-            },
-
-            {
-                label:"বিষয়",
-                value:r=>
-                    r.subject_name ||
-                    r.subject ||
-                    "-"
-            },
-
-            {
-                label:"প্রাপ্ত নম্বর",
-                value:r=>
-                    r.marks ??
-                    "-"
-            },
-
-            {
-                label:"গ্রেড",
-                value:r=>
-                    r.grade ||
-                    "-"
-            },
-
-            {
-                label:"GPA",
-                value:r=>
-                    r.gpa ??
-                    "-"
-            },
-
-            {
-                label:"সেশন",
-                value:r=>
-                    r.session ||
-                    "-"
-            }
-
-        ]
-    );
-
-
-    if(rows.length){
-
-        const latest =
-            rows[0];
-
-        document.getElementById(
-            "summaryResult"
-        ).textContent =
-            latest.grade ||
-            latest.gpa ||
-            latest.marks ||
-            "-";
-
-    }
-
-}
-
-
-/* =====================================================
-   SUBJECTS
-===================================================== */
-
-async function loadSubjects(){
-
-    const response =
-        await db
-        .from("subjects")
-        .select("*");
-
-
-    if(response.error){
-
-        document.getElementById(
-            "studentSubjects"
-        ).innerHTML =
-            `<div class="student-empty">
-                বিষয় তথ্য পাওয়া যায়নি।
-            </div>`;
-
-        return;
-
-    }
-
-
-    let rows =
-        response.data || [];
-
-
-    if(
-        currentStudent.class_id
-    ){
-
-        const filtered =
-            rows.filter(
-                r=>
-                    String(r.class_id) ===
-                    String(currentStudent.class_id)
-            );
-
-
-        if(filtered.length){
-
-            rows=filtered;
-
-        }
-
-    }
-
-
-    renderTable(
-        "studentSubjects",
-        rows,
-        [
-
-            {
-                label:"বিষয়ের নাম",
-                value:r=>
-                    r.subject_name ||
-                    r.name ||
-                    "-"
-            },
-
-            {
-                label:"কোড",
-                value:r=>
-                    r.subject_code ||
-                    r.code ||
-                    "-"
-            },
-
-            {
-                label:"পূর্ণমান",
-                value:r=>
-                    r.full_mark ??
-                    r.total_marks ??
-                    "-"
-            },
-
-            {
-                label:"পাস নম্বর",
-                value:r=>
-                    r.pass_mark ??
-                    "-"
-            }
-
-        ]
-    );
-
-}
-
-
-/* =====================================================
-   EXAMS
-===================================================== */
-
-async function loadExams(){
-
-    const response =
-        await db
-        .from("exams")
-        .select("*")
-        .order(
-            "id",
-            {ascending:false}
-        );
-
-
-    if(response.error){
-
-        document.getElementById(
-            "studentExams"
-        ).innerHTML =
-            `<div class="student-empty">
-                পরীক্ষার তথ্য পাওয়া যায়নি।
-            </div>`;
-
-        return;
-
-    }
-
-
-    renderTable(
-        "studentExams",
-        response.data || [],
-        [
-
-            {
-                label:"পরীক্ষার নাম",
-                value:r=>
-                    r.name ||
-                    r.exam_name ||
-                    "-"
-            },
-
-            {
-                label:"তারিখ",
-                value:r=>
-                    r.exam_date ||
-                    r.date ||
-                    "-"
-            },
-
-            {
-                label:"সেশন",
-                value:r=>
-                    r.session ||
-                    r.academic_session ||
-                    "-"
-            },
-
-            {
-                label:"বিবরণ",
-                value:r=>
-                    r.description ||
-                    "-"
-            }
-
-        ]
-    );
-
-}
-
-
-/* =====================================================
-   FEES
-===================================================== */
-
-async function loadFees(){
-
-    const response =
-        await db
-        .from("fees")
-        .select("*")
-        .eq(
-            "student_id",
-            String(studentId())
-        )
-        .order(
-            "id",
-            {ascending:false}
-        );
-
-
-    if(response.error){
-
-        document.getElementById(
-            "studentFees"
-        ).innerHTML =
-            `<div class="student-empty">
-                ফি তথ্য এখনো পাওয়া যায়নি।
-            </div>`;
-
-        return;
-
-    }
-
-
-    const rows =
-        response.data || [];
-
-
-    let paid=0;
-
-
-    rows.forEach(
-        r=>{
-
-            paid +=
-                Number(
-                    r.paid_amount ||
-                    r.paid ||
-                    0
-                ) || 0;
-
-        }
-    );
-
-
-    document.getElementById(
-        "summaryPaid"
-    ).textContent =
-        money(paid);
-
-
-    renderTable(
-        "studentFees",
-        rows,
-        [
-
-            {
-                label:"মাস",
-                value:r=>
-                    r.fee_month ||
-                    r.month ||
-                    "-"
-            },
-
-            {
-                label:"ফি",
-                value:r=>
-                    money(
-                        r.amount ||
-                        r.fee_amount ||
-                        0
-                    )
-            },
-
-            {
-                label:"পরিশোধ",
-                value:r=>
-                    money(
-                        r.paid_amount ||
-                        r.paid ||
-                        0
-                    )
-            },
-
-            {
-                label:"বকেয়া",
-                value:r=>
-                    money(
-                        r.due_amount ||
-                        r.due ||
-                        0
-                    )
-            },
-
-            {
-                label:"তারিখ",
-                value:r=>
-                    r.payment_date ||
-                    r.date ||
-                    "-"
-            },
-
-            {
-                label:"পদ্ধতি",
-                value:r=>
-                    r.payment_method ||
-                    r.method ||
-                    "-"
-            }
-
-        ]
-    );
-
-}
-
-
-/* =====================================================
-   ATTENDANCE
-===================================================== */
-
-async function loadAttendance(){
-
-    const response =
-        await db
-        .from("student_attendance")
-        .select("*")
-        .eq(
-            "student_id",
-            dbStudentId()
-        )
-        .order(
-            "id",
-            {ascending:false}
-        );
-
-
-    if(response.error){
-
-        document.getElementById(
-            "studentAttendance"
-        ).innerHTML =
-            `<div class="student-empty">
-                উপস্থিতির তথ্য এখনো পাওয়া যায়নি।
-            </div>`;
-
-        return;
-
-    }
-
-
-    const rows =
-        response.data || [];
-
-
-    let present=0;
-
-
-    rows.forEach(
-        r=>{
-
-            const s =
-                String(
-                    r.status ||
-                    r.attendance_status ||
-                    ""
-                ).toLowerCase();
-
-
-            if(
-                s==="present" ||
-                s==="p" ||
-                s==="উপস্থিত"
-            ){
-
-                present++;
-
-            }
-
-        }
-    );
-
-
-    const percentage =
-        rows.length
-        ?
-        Math.round(
-            present /
-            rows.length *
-            100
-        )
-        :
-        0;
-
-
-    document.getElementById(
-        "summaryAttendance"
-    ).textContent =
-        rows.length
-        ?
-        percentage+"%"
-        :
-        "-";
-
-
-    renderTable(
-        "studentAttendance",
-        rows,
-        [
-
-            {
-                label:"তারিখ",
-                value:r=>
-                    r.attendance_date ||
-                    r.date ||
-                    "-"
-            },
-
-            {
-                label:"স্ট্যাটাস",
-                value:r=>
-                    r.status ||
-                    r.attendance_status ||
-                    "-"
-            },
-
-            {
-                label:"মন্তব্য",
-                value:r=>
-                    r.remarks ||
-                    r.note ||
-                    "-"
-            }
-
-        ]
-    );
-
-}
-
-
-/* =====================================================
-   NAZERA
-===================================================== */
-
-async function loadNazera(){
-
-    const response =
-        await db
-        .from("nazera_progress")
-        .select("*")
-        .eq(
-            "student_id",
-            dbStudentId()
-        )
-        .order(
-            "id",
-            {ascending:false}
-        );
-
-
-    if(response.error){
-
-        document.getElementById(
-            "studentNazera"
-        ).innerHTML =
-            `<div class="student-empty">
-                নাজেরা অগ্রগতির তথ্য এখনো পাওয়া যায়নি।
-            </div>`;
-
-        return;
-
-    }
-
-
-    renderTable(
-        "studentNazera",
-        response.data || [],
-        [
-
-            {
-                label:"তারিখ",
-                value:r=>
-                    r.date ||
-                    r.progress_date ||
-                    "-"
-            },
-
-            {
-                label:"সূরা",
-                value:r=>
-                    r.surah ||
-                    r.surah_name ||
-                    "-"
-            },
-
-            {
-                label:"পারা",
-                value:r=>
-                    r.para ||
-                    r.juz ||
-                    "-"
-            },
-
-            {
-                label:"পাঠ / পৃষ্ঠা",
-                value:r=>
-                    r.lesson ||
-                    r.page ||
-                    "-"
-            },
-
-            {
-                label:"স্ট্যাটাস",
-                value:r=>
-                    r.status ||
-                    "-"
-            },
-
-            {
-                label:"মন্তব্য",
-                value:r=>
-                    r.remarks ||
-                    "-"
-            }
-
-        ]
-    );
-
-}
-
-
-/* =====================================================
-   HIFZ
-===================================================== */
-
-async function loadHifz(){
-
-    const response =
-        await db
-        .from("hifz_progress")
-        .select("*")
-        .eq(
-            "student_id",
-            dbStudentId()
-        )
-        .order(
-            "id",
-            {ascending:false}
-        );
-
-
-    if(response.error){
-
-        document.getElementById(
-            "studentHifz"
-        ).innerHTML =
-            `<div class="student-empty">
-                হিফজ অগ্রগতির তথ্য এখনো পাওয়া যায়নি।
-            </div>`;
-
-        return;
-
-    }
-
-
-    renderTable(
-        "studentHifz",
-        response.data || [],
-        [
-
-            {
-                label:"তারিখ",
-                value:r=>
-                    r.date ||
-                    r.progress_date ||
-                    "-"
-            },
-
-            {
-                label:"সূরা",
-                value:r=>
-                    r.surah ||
-                    r.surah_name ||
-                    "-"
-            },
-
-            {
-                label:"পারা",
-                value:r=>
-                    r.para ||
-                    r.juz ||
-                    "-"
-            },
-
-            {
-                label:"পাঠ / পৃষ্ঠা",
-                value:r=>
-                    r.lesson ||
-                    r.page ||
-                    "-"
-            },
-
-            {
-                label:"স্ট্যাটাস",
-                value:r=>
-                    r.status ||
-                    "-"
-            },
-
-            {
-                label:"মন্তব্য",
-                value:r=>
-                    r.remarks ||
-                    "-"
-            }
-
-        ]
-    );
-
-}
-
-
-/* =====================================================
-   QURAN / AMPARA
-===================================================== */
-
-async function loadQuran(){
-
-    const response =
-        await db
-        .from("quran_ampara_tracking")
-        .select("*")
-        .eq(
-            "student_id",
-            dbStudentId()
-        )
-        .order(
-            "id",
-            {ascending:false}
-        );
-
-
-    if(response.error){
-
-        document.getElementById(
-            "studentQuran"
-        ).innerHTML =
-            `<div class="student-empty">
-                কুরআন / আমপারা তথ্য এখনো পাওয়া যায়নি।
-            </div>`;
-
-        return;
-
-    }
-
-
-    renderTable(
-        "studentQuran",
-        response.data || [],
-        [
-
-            {
-                label:"তারিখ",
-                value:r=>
-                    r.date ||
-                    r.tracking_date ||
-                    "-"
-            },
-
-            {
-                label:"আমপারা / পারা",
-                value:r=>
-                    r.ampara ||
-                    r.para ||
-                    r.juz ||
-                    "-"
-            },
-
-            {
-                label:"সূরা",
-                value:r=>
-                    r.surah ||
-                    r.surah_name ||
-                    "-"
-            },
-
-            {
-                label:"অগ্রগতি",
-                value:r=>
-                    r.progress ||
-                    r.progress_percent ||
-                    "-"
-            },
-
-            {
-                label:"স্ট্যাটাস",
-                value:r=>
-                    r.status ||
-                    "-"
-            },
-
-            {
-                label:"মন্তব্য",
-                value:r=>
-                    r.remarks ||
-                    "-"
-            }
-
-        ]
-    );
-
-}
-
-
-/* =====================================================
-   DUA / HADITH
-===================================================== */
-
-async function loadDua(){
-
-    const response =
-        await db
-        .from("dua_hadith_records")
-        .select("*")
-        .eq(
-            "student_id",
-            studentId()
-        )
-        .order(
-            "id",
-            {ascending:false}
-        );
-
-
-    if(response.error){
-
-        document.getElementById(
-            "studentDua"
-        ).innerHTML =
-            `<div class="student-empty">
-                দোয়া ও হাদিসের তথ্য এখনো পাওয়া যায়নি।
-            </div>`;
-
-        return;
-
-    }
-
-
-    renderTable(
-        "studentDua",
-        response.data || [],
-        [
-
-            {
-                label:"তারিখ",
-                value:r=>
-                    r.date ||
-                    r.record_date ||
-                    "-"
-            },
-
-            {
-                label:"ক্যাটাগরি",
-                value:r=>
-                    r.category ||
-                    "-"
-            },
-
-            {
-                label:"বিষয়",
-                value:r=>
-                    r.title ||
-                    r.name ||
-                    r.dua_name ||
-                    r.hadith_name ||
-                    "-"
-            },
-
-            {
-                label:"স্ট্যাটাস",
-                value:r=>
-                    r.status ||
-                    r.memorized ||
-                    "-"
-            },
-
-            {
-                label:"মন্তব্য",
-                value:r=>
-                    r.remarks ||
-                    "-"
-            }
-
-        ]
-    );
-
-}
-
-
-/* =====================================================
-   BEHAVIOR
-===================================================== */
-
-async function loadBehavior(){
-
-    const response =
-        await db
-        .from("behavior_discipline")
-        .select("*")
-        .eq(
-            "student_id",
-            studentId()
-        )
-        .order(
-            "id",
-            {ascending:false}
-        );
-
-
-    if(response.error){
-
-        document.getElementById(
-            "studentBehavior"
-        ).innerHTML =
-            `<div class="student-empty">
-                আচরণ ও শৃঙ্খলার তথ্য এখনো পাওয়া যায়নি।
-            </div>`;
-
-        return;
-
-    }
-
-
-    renderTable(
-        "studentBehavior",
-        response.data || [],
-        [
-
-            {
-                label:"তারিখ",
-                value:r=>
-                    r.date ||
-                    r.record_date ||
-                    "-"
-            },
-
-            {
-                label:"বিষয়",
-                value:r=>
-                    r.category ||
-                    r.behavior ||
-                    "-"
-            },
-
-            {
-                label:"রেটিং",
-                value:r=>
-                    r.rating ||
-                    "-"
-            },
-
-            {
-                label:"স্ট্যাটাস",
-                value:r=>
-                    r.status ||
-                    "-"
-            },
-
-            {
-                label:"মন্তব্য",
-                value:r=>
-                    r.remarks ||
-                    "-"
-            }
-
-        ]
-    );
-
-}
-
-
-/* =====================================================
-   NOTICES
-===================================================== */
-
-async function loadNotices(){
-
-    const response =
-        await db
-        .from("notices")
-        .select("*")
-        .order(
-            "created_at",
-            {ascending:false}
-        );
-
-
-    if(response.error){
-
-        document.getElementById(
-            "studentNotices"
-        ).innerHTML =
-            `<div class="student-empty">
-                কোনো নোটিশ পাওয়া যায়নি।
-            </div>`;
-
-        return;
-
-    }
-
-
-    renderTable(
-        "studentNotices",
-        response.data || [],
-        [
-
-            {
-                label:"নোটিশ",
-                value:r=>
-                    r.title ||
-                    r.notice_title ||
-                    r.name ||
-                    "-"
-            },
-
-            {
-                label:"তারিখ",
-                value:r=>
-                    r.date ||
-                    r.published_at ||
-                    r.created_at ||
-                    "-"
-            },
-
-            {
-                label:"বিবরণ",
-                value:r=>
-                    r.description ||
-                    r.content ||
-                    r.details ||
-                    "-"
-            }
-
-        ]
-    );
-
-}
-
-
-/* =====================================================
-   REPORTS
-===================================================== */
-
-async function loadReports(){
-
-    const response =
-        await db
-        .from("reports")
-        .select("*")
-        .eq(
-            "student_id",
-            String(studentId())
-        )
-        .order(
-            "id",
-            {ascending:false}
-        );
-
-
-    if(response.error){
-
-        document.getElementById(
-            "studentReports"
-        ).innerHTML =
-            `<div class="student-empty">
-                কোনো রিপোর্ট পাওয়া যায়নি।
-            </div>`;
-
-        return;
-
-    }
-
-
-    renderTable(
-        "studentReports",
-        response.data || [],
-        [
-
-            {
-                label:"রিপোর্ট",
-                value:r=>
-                    r.title ||
-                    r.report_name ||
-                    r.name ||
-                    "-"
-            },
-
-            {
-                label:"তারিখ",
-                value:r=>
-                    r.date ||
-                    r.created_at ||
-                    "-"
-            },
-
-            {
-                label:"স্ট্যাটাস",
-                value:r=>
-                    r.status ||
-                    "-"
-            },
-
-            {
-                label:"বিবরণ",
-                value:r=>
-                    r.description ||
-                    r.details ||
-                    "-"
-            }
-
-        ]
-    );
-
-}
-
-
-/* =====================================================
-   PROGRESS SUMMARY
-===================================================== */
-
-async function loadProgressSummary(){
-
-    const [
-        nazera,
-        hifz
-    ] = await Promise.all([
-
-        db
-        .from("nazera_progress")
-        .select("status")
-        .eq(
-            "student_id",
-            dbStudentId()
-        ),
-
-        db
-        .from("hifz_progress")
-        .select("status")
-        .eq(
-            "student_id",
-            dbStudentId()
-        )
-
-    ]);
-
-
-    const rows=[
-        ...(nazera.data || []),
-        ...(hifz.data || [])
-    ];
-
-
-    if(!rows.length){
-
-        document.getElementById(
-            "summaryProgress"
-        ).textContent="-";
-
-        return;
-
-    }
-
-
-    const completed =
-        rows.filter(
-            r=>{
-
-                const s =
-                    String(
-                        r.status || ""
-                    ).toLowerCase();
-
-                return [
-                    "completed",
-                    "complete",
-                    "done",
-                    "finished",
-                    "সম্পন্ন"
-                ].includes(s);
-
-            }
-        ).length;
-
-
-    document.getElementById(
-        "summaryProgress"
-    ).textContent =
-        Math.round(
-            completed /
-            rows.length *
-            100
-        )+"%";
-
-}
-
-
-/* =====================================================
-   LOAD ALL
-===================================================== */
-
-async function loadAll(){
-
-    if(!currentStudent) return;
-
-    hideError();
-
-
-    await Promise.allSettled([
-
-        loadResults(),
-
-        loadSubjects(),
-
-        loadExams(),
-
-        loadAttendance(),
-
-        loadFees(),
-
-        loadNazera(),
-
-        loadHifz(),
-
-        loadQuran(),
-
-        loadDua(),
-
-        loadBehavior(),
-
-        loadNotices(),
-
-        loadReports(),
-
-        loadProgressSummary()
-
-    ]);
-
-}
-
-
-/* =====================================================
-   NAVIGATION
-===================================================== */
-
-document
-.querySelectorAll(".nav-item[data-page]")
-.forEach(item=>{
-
-    item.addEventListener(
-        "click",
-        function(){
-
-            const page =
-                this.dataset.page;
-
-
-            const target =
-                document.getElementById(
-                    page
-                );
-
-
-            if(target){
-
-                target.scrollIntoView({
-                    behavior:"smooth",
-                    block:"start"
-                });
-
-            }
-
-
-            document
-            .querySelectorAll(
-                ".nav-item[data-page]"
-            )
-            .forEach(
-                x=>
-                    x.classList.remove(
-                        "active"
-                    )
-            );
-
-
-            this.classList.add(
-                "active"
-            );
-
-
-            if(
-                window.innerWidth <= 800
-            ){
-
-                document
-                .getElementById(
-                    "sidebar"
-                )
-                .classList.remove(
-                    "open"
-                );
-
-                document
-                .getElementById(
-                    "overlay"
-                )
-                .classList.remove(
-                    "show"
-                );
-
-            }
-
-        }
-    );
-
-});
-
-
-/* =====================================================
-   MOBILE MENU
-===================================================== */
-
-document
-.getElementById("menuBtn")
-.addEventListener(
-    "click",
-    ()=>{
-
-        document
-        .getElementById("sidebar")
-        .classList.toggle("open");
-
-
-        document
-        .getElementById("overlay")
-        .classList.toggle("show");
-
-    }
-);
-
-
-document
-.getElementById("overlay")
-.addEventListener(
-    "click",
-    ()=>{
-
-        document
-        .getElementById("sidebar")
-        .classList.remove("open");
-
-
-        document
-        .getElementById("overlay")
-        .classList.remove("show");
-
-    }
-);
-
-
-/* =====================================================
-   REFRESH
-===================================================== */
-
-document
-.getElementById("refreshBtn")
-.addEventListener(
-    "click",
-    async function(){
-
-        this.innerHTML =
-            `<i class="fa-solid fa-spinner fa-spin"></i>`;
-
-        await loadAll();
-
-        this.innerHTML =
-            `<i class="fa-solid fa-rotate"></i>`;
-
-    }
-);
-
-
-/* =====================================================
-   HOME
-===================================================== */
-
-document
-.getElementById("homeBtn")
-.addEventListener(
-    "click",
-    ()=>{
-        location.href="index.html";
-    }
-);
-
-
-/* =====================================================
-   LOGOUT
-===================================================== */
-
-document
-.getElementById("logoutBtn")
-.addEventListener(
-    "click",
-    ()=>{
-
-        sessionStorage.removeItem(
-            "madrasa_student_login"
-        );
-
-        currentStudent=null;
-
-        location.href="index.html";
-
-    }
-);
-
-
-/* =====================================================
-   START
-===================================================== */
-
-async function start(){
-
-    try{
-
-        const verified =
-            await verifyStudent();
-
-
-        if(!verified){
+            studentIdInput.focus();
 
             return;
 
         }
 
 
-        loadProfile();
+        if(!roll){
+
+            showError(
+                "Roll Number লিখুন।"
+            );
+
+            rollInput.focus();
+
+            return;
+
+        }
 
 
-        await loadAll();
+        loginBtn.disabled=true;
 
-    }catch(error){
+        loginBtn.innerHTML =
+            `<span class="loading-spinner"></span>
+            যাচাই করা হচ্ছে...`;
 
-        console.error(
-            "Student Dashboard Error:",
-            error
-        );
 
-        showError(
-            error.message ||
-            "Dashboard load করতে সমস্যা হয়েছে।"
-        );
+        try{
+
+            /*
+             * Student ID + Roll দিয়ে
+             * students table থেকে student খোঁজা হচ্ছে।
+             */
+
+            const result =
+                await supabaseClient
+                .from("students")
+                .select("*")
+                .eq(
+                    "student_id",
+                    sid
+                )
+                .eq(
+                    "roll_number",
+                    roll
+                )
+                .maybeSingle();
+
+
+            if(result.error){
+
+                console.error(
+                    "Supabase:",
+                    result.error
+                );
+
+                throw new Error(
+                    "Student তথ্য যাচাই করতে সমস্যা হয়েছে।"
+                );
+
+            }
+
+
+            if(!result.data){
+
+                showError(
+                    "Student ID অথবা Roll Number সঠিক নয়।"
+                );
+
+                return;
+
+            }
+
+
+            /*
+             * Student session save
+             */
+
+            sessionStorage.setItem(
+                "madrasa_student_login",
+                JSON.stringify({
+
+                    id:
+                        result.data.id,
+
+                    student_id:
+                        result.data.student_id,
+
+                    roll_number:
+                        result.data.roll_number,
+
+                    name:
+                        result.data.name ||
+                        result.data.student_name ||
+                        ""
+
+                })
+            );
+
+
+            /*
+             * Student Dashboard
+             */
+
+            window.location.href =
+                "student-dashboard.html";
+
+
+        }catch(error){
+
+            console.error(error);
+
+            showError(
+                error.message ||
+                "Login করতে সমস্যা হয়েছে।"
+            );
+
+        }finally{
+
+            loginBtn.disabled=false;
+
+            loginBtn.innerHTML =
+                `<i class="fa-solid fa-right-to-bracket"></i>
+                Student Login`;
+
+        }
 
     }
+);
 
-}
+
+/* =====================================================
+   ENTER / INPUT CLEANUP
+===================================================== */
+
+studentIdInput.addEventListener(
+    "input",
+    function(){
+
+        this.value =
+            this.value.trim();
+
+        hideError();
+
+    }
+);
 
 
-start();
+rollInput.addEventListener(
+    "input",
+    function(){
+
+        this.value =
+            this.value.trim();
+
+        hideError();
+
+    }
+);
 
 </script></body>
 </html>
