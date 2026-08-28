@@ -1,1 +1,2132 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
 
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1">
+
+<title>
+Student Dashboard | মাদরাসায়ে নূরুল কুরআন
+</title>
+
+<link
+href="https://banglawebfonts.pages.dev/css/bornomala.css"
+rel="stylesheet">
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<script
+src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+</script>
+
+<style>
+
+*{
+ box-sizing:border-box;
+ margin:0;
+ padding:0;
+
+ font-family:"Bornomala",sans-serif;
+}
+
+:root{
+ --blue:#0d47a1;
+ --blue2:#1976d2;
+ --dark:#06264d;
+
+ --bg:#f3f8fd;
+ --white:#fff;
+
+ --border:#dfe8f2;
+ --text:#172033;
+ --muted:#6b7a90;
+
+ --gold:#ffd54f;
+
+ --green:#138a4b;
+ --red:#d62828;
+}
+
+body{
+ background:
+ radial-gradient(
+  circle at 0% 0%,
+  #dcecff 0,
+  transparent 22%
+ ),
+ radial-gradient(
+  circle at 100% 100%,
+  #dcecff 0,
+  transparent 23%
+ ),
+ var(--bg);
+
+ color:var(--text);
+
+ min-height:100vh;
+}
+
+
+/* HEADER */
+
+.header{
+ height:70px;
+
+ background:
+ linear-gradient(
+  120deg,
+  #062b59,
+  #0d4e96,
+  #1976d2
+ );
+
+ color:#fff;
+
+ display:flex;
+ align-items:center;
+
+ padding:10px 25px;
+
+ position:sticky;
+ top:0;
+
+ z-index:100;
+
+ box-shadow:
+ 0 5px 20px rgba(0,0,0,.15);
+}
+
+.brand{
+ display:flex;
+ align-items:center;
+ gap:12px;
+
+ margin-right:auto;
+}
+
+.logo{
+ width:45px;
+ height:45px;
+
+ display:flex;
+ align-items:center;
+ justify-content:center;
+
+ border-radius:12px;
+
+ background:
+ rgba(255,255,255,.13);
+
+ border:
+ 1px solid rgba(255,255,255,.25);
+
+ font-size:21px;
+}
+
+.brand-name{
+ font-size:18px;
+ font-weight:bold;
+}
+
+.brand-sub{
+ font-family:Arial,sans-serif;
+
+ font-size:8px;
+
+ opacity:.75;
+
+ letter-spacing:1px;
+}
+
+.logout{
+ border:1px solid
+ rgba(255,255,255,.35);
+
+ background:
+ rgba(255,255,255,.10);
+
+ color:#fff;
+
+ padding:9px 14px;
+
+ border-radius:9px;
+
+ cursor:pointer;
+
+ font-size:12px;
+}
+
+.logout:hover{
+ background:
+ rgba(255,255,255,.20);
+}
+
+
+/* CONTAINER */
+
+.container{
+ width:min(1200px,94%);
+
+ margin:auto;
+
+ padding:25px 0 45px;
+}
+
+
+/* WELCOME */
+
+.welcome{
+ background:
+ linear-gradient(
+  120deg,
+  #062b59,
+  #0d4e96,
+  #1976d2
+ );
+
+ color:#fff;
+
+ border-radius:20px;
+
+ padding:28px;
+
+ margin-bottom:20px;
+
+ box-shadow:
+ 0 12px 30px
+ rgba(13,71,161,.17);
+
+ position:relative;
+
+ overflow:hidden;
+}
+
+.welcome:after{
+ content:"";
+
+ position:absolute;
+
+ width:230px;
+ height:230px;
+
+ border-radius:50%;
+
+ right:-90px;
+ top:-100px;
+
+ background:
+ rgba(255,255,255,.07);
+}
+
+.welcome-small{
+ font-family:Arial,sans-serif;
+
+ font-size:11px;
+
+ letter-spacing:1px;
+
+ opacity:.75;
+}
+
+.welcome h1{
+ font-size:28px;
+
+ margin-top:4px;
+}
+
+.welcome p{
+ font-size:13px;
+
+ opacity:.85;
+
+ margin-top:5px;
+}
+
+
+/* PROFILE */
+
+.profile{
+ display:grid;
+
+ grid-template-columns:
+ 100px 1fr auto;
+
+ align-items:center;
+
+ gap:18px;
+
+ background:#fff;
+
+ border:1px solid var(--border);
+
+ border-radius:18px;
+
+ padding:18px;
+
+ margin-bottom:20px;
+
+ box-shadow:
+ 0 6px 20px rgba(15,23,42,.06);
+}
+
+.photo{
+ width:90px;
+ height:105px;
+
+ border-radius:12px;
+
+ overflow:hidden;
+
+ background:#e9f3ff;
+
+ color:var(--blue);
+
+ display:flex;
+
+ align-items:center;
+ justify-content:center;
+
+ font-size:30px;
+}
+
+.photo img{
+ width:100%;
+ height:100%;
+
+ object-fit:cover;
+}
+
+.profile h2{
+ font-size:22px;
+
+ color:var(--dark);
+}
+
+.profile-info{
+ display:flex;
+
+ flex-wrap:wrap;
+
+ gap:5px 18px;
+
+ margin-top:6px;
+
+ color:var(--muted);
+
+ font-size:11px;
+}
+
+.profile-info b{
+ color:#334155;
+}
+
+.badge{
+ background:#eaf3ff;
+
+ color:var(--blue);
+
+ padding:8px 11px;
+
+ border-radius:8px;
+
+ font-size:10px;
+}
+
+
+/* TITLE */
+
+.section-title{
+ display:flex;
+
+ align-items:center;
+
+ gap:9px;
+
+ font-size:18px;
+
+ color:var(--dark);
+
+ margin:24px 0 12px;
+}
+
+.section-title i{
+ color:var(--blue2);
+}
+
+
+/* SUMMARY */
+
+.summary{
+ display:grid;
+
+ grid-template-columns:
+ repeat(4,1fr);
+
+ gap:13px;
+}
+
+.summary-card{
+ background:#fff;
+
+ border:
+ 1px solid var(--border);
+
+ border-radius:15px;
+
+ padding:18px;
+
+ box-shadow:
+ 0 5px 18px
+ rgba(15,23,42,.05);
+}
+
+.summary-icon{
+ width:43px;
+ height:43px;
+
+ border-radius:11px;
+
+ background:#e8f2ff;
+
+ color:var(--blue);
+
+ display:flex;
+
+ align-items:center;
+ justify-content:center;
+
+ margin-bottom:9px;
+}
+
+.summary-value{
+ font-family:Arial,sans-serif;
+
+ font-size:20px;
+
+ font-weight:bold;
+
+ color:var(--dark);
+}
+
+.summary-label{
+ color:var(--muted);
+
+ font-size:10px;
+
+ margin-top:3px;
+}
+
+
+/* PANEL */
+
+.panel{
+ background:#fff;
+
+ border:1px solid var(--border);
+
+ border-radius:17px;
+
+ padding:18px;
+
+ margin-bottom:18px;
+
+ box-shadow:
+ 0 5px 20px
+ rgba(15,23,42,.05);
+}
+
+.panel-head{
+ display:flex;
+
+ align-items:center;
+
+ justify-content:space-between;
+
+ padding-bottom:11px;
+
+ margin-bottom:12px;
+
+ border-bottom:
+ 1px solid var(--border);
+}
+
+.panel-head h3{
+ font-size:16px;
+
+ color:var(--dark);
+}
+
+.refresh{
+ border:0;
+
+ background:#eaf3ff;
+
+ color:var(--blue);
+
+ width:35px;
+ height:32px;
+
+ border-radius:8px;
+
+ cursor:pointer;
+}
+
+.refresh:hover{
+ background:#dcecff;
+}
+
+
+/* TABLE */
+
+.table-wrap{
+ overflow-x:auto;
+}
+
+table{
+ width:100%;
+
+ min-width:600px;
+
+ border-collapse:collapse;
+}
+
+th,
+td{
+ padding:10px 8px;
+
+ border-bottom:
+ 1px solid var(--border);
+
+ text-align:left;
+
+ font-size:10px;
+}
+
+th{
+ background:
+ #edf5fd;
+
+ color:var(--dark);
+
+ white-space:nowrap;
+}
+
+td{
+ color:#526174;
+}
+
+tbody tr:hover{
+ background:#f8fbff;
+}
+
+
+/* NOTICE */
+
+.notice{
+ display:flex;
+
+ gap:11px;
+
+ padding:12px 3px;
+
+ border-bottom:
+ 1px solid var(--border);
+}
+
+.notice:last-child{
+ border-bottom:0;
+}
+
+.notice-icon{
+ width:38px;
+ height:38px;
+
+ flex:none;
+
+ border-radius:9px;
+
+ background:#e8f2ff;
+
+ color:var(--blue);
+
+ display:flex;
+
+ align-items:center;
+ justify-content:center;
+}
+
+.notice h4{
+ font-size:12px;
+
+ color:var(--dark);
+}
+
+.notice p{
+ color:var(--muted);
+
+ font-size:10px;
+
+ margin-top:3px;
+}
+
+
+/* STATUS */
+
+.present{
+ color:var(--green);
+
+ font-weight:bold;
+}
+
+.absent{
+ color:var(--red);
+
+ font-weight:bold;
+}
+
+
+/* EMPTY */
+
+.empty{
+ text-align:center;
+
+ padding:20px;
+
+ color:#94a3b8;
+
+ font-size:11px;
+}
+
+.loading{
+ text-align:center;
+
+ padding:20px;
+
+ color:#7b8797;
+
+ font-size:11px;
+}
+
+.spinner{
+ display:inline-block;
+
+ width:17px;
+ height:17px;
+
+ border:
+ 2px solid #dce8f5;
+
+ border-top-color:
+ var(--blue);
+
+ border-radius:50%;
+
+ animation:
+ spin .7s linear infinite;
+
+ vertical-align:middle;
+
+ margin-right:6px;
+}
+
+@keyframes spin{
+ to{
+  transform:rotate(360deg);
+ }
+}
+
+
+/* FOOTER */
+
+footer{
+ text-align:center;
+
+ color:#8a96a7;
+
+ font-size:9px;
+
+ padding:15px;
+}
+
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+ .summary{
+  grid-template-columns:
+  repeat(2,1fr);
+ }
+
+}
+
+@media(max-width:600px){
+
+ .header{
+  height:62px;
+
+  padding:8px 12px;
+ }
+
+ .brand-name{
+  font-size:14px;
+ }
+
+ .brand-sub{
+  display:none;
+ }
+
+ .logout{
+  padding:8px 10px;
+ }
+
+ .logout span{
+  display:none;
+ }
+
+ .container{
+  width:94%;
+
+  padding-top:17px;
+ }
+
+ .welcome{
+  padding:21px;
+
+  border-radius:17px;
+ }
+
+ .welcome h1{
+  font-size:21px;
+ }
+
+ .welcome p{
+  font-size:11px;
+ }
+
+ .profile{
+  grid-template-columns:
+  70px 1fr;
+
+  gap:12px;
+
+  padding:14px;
+ }
+
+ .photo{
+  width:65px;
+  height:78px;
+ }
+
+ .profile h2{
+  font-size:17px;
+ }
+
+ .profile-info{
+  display:block;
+
+  line-height:1.8;
+ }
+
+ .badge{
+  grid-column:1/-1;
+
+  width:max-content;
+ }
+
+ .summary{
+  grid-template-columns:
+  repeat(2,1fr);
+
+  gap:9px;
+ }
+
+ .summary-card{
+  padding:13px;
+ }
+
+ .summary-value{
+  font-size:16px;
+ }
+
+ .panel{
+  padding:13px;
+ }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+ <div class="brand">
+
+  <div class="logo">
+   <i class="fa-solid fa-graduation-cap"></i>
+  </div>
+
+  <div>
+
+   <div class="brand-name">
+    মাদরাসায়ে নূরুল কুরআন
+   </div>
+
+   <div class="brand-sub">
+    STUDENT PORTAL
+   </div>
+
+  </div>
+
+ </div>
+
+
+ <button
+ class="logout"
+ onclick="logout()">
+
+  <i class="fa-solid fa-right-from-bracket"></i>
+
+  <span> Logout</span>
+
+ </button>
+
+</header>
+
+
+
+<main class="container">
+
+
+<section class="welcome">
+
+ <div class="welcome-small">
+  STUDENT DASHBOARD
+ </div>
+
+ <h1>
+  আসসালামু আলাইকুম,
+  <span id="welcomeName">
+   শিক্ষার্থী
+  </span>
+ </h1>
+
+ <p>
+  আপনার শিক্ষাগত ও প্রশাসনিক তথ্যের
+  ব্যক্তিগত Dashboard
+ </p>
+
+</section>
+
+
+
+<section class="profile">
+
+ <div
+ class="photo"
+ id="studentPhoto">
+
+  <i class="fa-solid fa-user-graduate"></i>
+
+ </div>
+
+
+ <div>
+
+  <h2 id="studentName">
+   Loading...
+  </h2>
+
+  <div class="profile-info">
+
+   <span>
+    <b>Student ID:</b>
+    <span id="studentId">-</span>
+   </span>
+
+   <span>
+    <b>Roll:</b>
+    <span id="rollNumber">-</span>
+   </span>
+
+   <span>
+    <b>Class:</b>
+    <span id="className">-</span>
+   </span>
+
+   <span>
+    <b>Year:</b>
+    <span id="session">-</span>
+   </span>
+
+  </div>
+
+ </div>
+
+
+ <div class="badge">
+
+  <i class="fa-solid fa-shield-halved"></i>
+  Student Portal
+
+ </div>
+
+</section>
+
+
+
+<div class="section-title">
+
+ <i class="fa-solid fa-chart-simple"></i>
+
+ একাডেমিক সংক্ষিপ্ত তথ্য
+
+</div>
+
+
+
+<section class="summary">
+
+
+<div class="summary-card">
+
+ <div class="summary-icon">
+  <i class="fa-solid fa-graduation-cap"></i>
+ </div>
+
+ <div
+ class="summary-value"
+ id="resultCount">
+  0
+ </div>
+
+ <div class="summary-label">
+  প্রকাশিত ফলাফল
+ </div>
+
+</div>
+
+
+<div class="summary-card">
+
+ <div class="summary-icon">
+  <i class="fa-solid fa-money-bill-wave"></i>
+ </div>
+
+ <div
+ class="summary-value"
+ id="paidAmount">
+  ৳ 0
+ </div>
+
+ <div class="summary-label">
+  পরিশোধিত ফি
+ </div>
+
+</div>
+
+
+<div class="summary-card">
+
+ <div class="summary-icon">
+  <i class="fa-solid fa-file-invoice-dollar"></i>
+ </div>
+
+ <div
+ class="summary-value"
+ id="dueAmount">
+  ৳ 0
+ </div>
+
+ <div class="summary-label">
+  বকেয়া ফি
+ </div>
+
+</div>
+
+
+<div class="summary-card">
+
+ <div class="summary-icon">
+  <i class="fa-solid fa-calendar-check"></i>
+ </div>
+
+ <div
+ class="summary-value"
+ id="attendanceCount">
+  0
+ </div>
+
+ <div class="summary-label">
+  উপস্থিতির রেকর্ড
+ </div>
+
+</div>
+
+
+</section>
+
+
+
+<div class="section-title">
+
+ <i class="fa-solid fa-graduation-cap"></i>
+
+ পরীক্ষার ফলাফল
+
+</div>
+
+
+
+<section class="panel">
+
+ <div class="panel-head">
+
+  <h3>
+   <i class="fa-solid fa-chart-line"></i>
+   Result
+  </h3>
+
+  <button
+   class="refresh"
+   onclick="loadResults()">
+
+   <i class="fa-solid fa-rotate"></i>
+
+  </button>
+
+ </div>
+
+
+ <div class="table-wrap">
+
+  <table>
+
+   <thead>
+
+    <tr>
+
+     <th>Exam</th>
+
+     <th>Subject</th>
+
+     <th>Marks</th>
+
+     <th>Grade</th>
+
+     <th>Session</th>
+
+    </tr>
+
+   </thead>
+
+   <tbody id="resultRows">
+
+    <tr>
+
+     <td
+      colspan="5"
+      class="loading">
+
+      <span class="spinner"></span>
+      Loading...
+
+     </td>
+
+    </tr>
+
+   </tbody>
+
+  </table>
+
+ </div>
+
+</section>
+
+
+
+<div class="section-title">
+
+ <i class="fa-solid fa-money-bill-wave"></i>
+
+ ফি ও বকেয়া
+
+</div>
+
+
+
+<section class="panel">
+
+ <div class="panel-head">
+
+  <h3>
+   <i class="fa-solid fa-receipt"></i>
+   Fee Information
+  </h3>
+
+  <button
+   class="refresh"
+   onclick="loadFees()">
+
+   <i class="fa-solid fa-rotate"></i>
+
+  </button>
+
+ </div>
+
+
+ <div class="table-wrap">
+
+  <table>
+
+   <thead>
+
+    <tr>
+
+     <th>Month</th>
+     <th>Fee</th>
+     <th>Paid</th>
+     <th>Due</th>
+     <th>Date</th>
+     <th>Method</th>
+
+    </tr>
+
+   </thead>
+
+   <tbody id="feeRows">
+
+    <tr>
+
+     <td
+      colspan="6"
+      class="loading">
+
+      <span class="spinner"></span>
+      Loading...
+
+     </td>
+
+    </tr>
+
+   </tbody>
+
+  </table>
+
+ </div>
+
+</section>
+
+
+
+<div class="section-title">
+
+ <i class="fa-solid fa-user-check"></i>
+
+ শিক্ষার্থীদের উপস্থিতি
+
+</div>
+
+
+
+<section class="panel">
+
+ <div class="panel-head">
+
+  <h3>
+   <i class="fa-solid fa-calendar-check"></i>
+   Attendance
+  </h3>
+
+  <button
+   class="refresh"
+   onclick="loadAttendance()">
+
+   <i class="fa-solid fa-rotate"></i>
+
+  </button>
+
+ </div>
+
+
+ <div class="table-wrap">
+
+  <table>
+
+   <thead>
+
+    <tr>
+
+     <th>Date</th>
+     <th>Status</th>
+     <th>Note</th>
+
+    </tr>
+
+   </thead>
+
+   <tbody id="attendanceRows">
+
+    <tr>
+
+     <td
+      colspan="3"
+      class="loading">
+
+      <span class="spinner"></span>
+      Loading...
+
+     </td>
+
+    </tr>
+
+   </tbody>
+
+  </table>
+
+ </div>
+
+</section>
+
+
+
+<div class="section-title">
+
+ <i class="fa-solid fa-bullhorn"></i>
+
+ গুরুত্বপূর্ণ নোটিশ
+
+</div>
+
+
+
+<section class="panel">
+
+ <div id="noticeList">
+
+  <div class="loading">
+
+   <span class="spinner"></span>
+   Loading...
+
+  </div>
+
+ </div>
+
+</section>
+
+
+</main>
+
+
+
+<footer>
+
+ © 2026 মাদরাসায়ে নূরুল কুরআন —
+ Student Portal
+
+</footer>
+
+
+
+<script>
+
+/* ============================
+   SUPABASE
+============================ */
+
+const SUPABASE_URL =
+"https://qavublwhqiqsgpcmfyft.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
+
+const db =
+window.supabase.createClient(
+ SUPABASE_URL,
+ SUPABASE_KEY
+);
+
+
+/* ============================
+   STUDENT
+============================ */
+
+let student=null;
+
+
+function getStudent(){
+
+ const raw =
+  sessionStorage.getItem(
+   "madrasa_student_login"
+  );
+
+
+ if(!raw){
+
+  window.location.href =
+   "students-login.html";
+
+  return null;
+ }
+
+
+ try{
+
+  return JSON.parse(raw);
+
+ }catch(error){
+
+  sessionStorage.removeItem(
+   "madrasa_student_login"
+  );
+
+  window.location.href =
+   "students-login.html";
+
+  return null;
+
+ }
+
+}
+
+
+/* ============================
+   ESCAPE
+============================ */
+
+function esc(value){
+
+ return String(value ?? "")
+  .replaceAll("&","&amp;")
+  .replaceAll("<","&lt;")
+  .replaceAll(">","&gt;")
+  .replaceAll('"',"&quot;")
+  .replaceAll("'","&#039;");
+
+}
+
+
+/* ============================
+   MONEY
+============================ */
+
+function money(value){
+
+ return "৳ "+
+ Number(value || 0)
+ .toLocaleString(
+  "en-US",
+  {
+   maximumFractionDigits:2
+  }
+ );
+
+}
+
+
+/* ============================
+   VALUE
+============================ */
+
+function val(row,keys){
+
+ for(const key of keys){
+
+  if(
+   row &&
+   row[key] !== undefined &&
+   row[key] !== null &&
+   row[key] !== ""
+  ){
+
+   return row[key];
+
+  }
+
+ }
+
+ return "";
+
+}
+
+
+/* ============================
+   PROFILE
+============================ */
+
+function renderStudent(s){
+
+ const name =
+  val(s,[
+   "name",
+   "student_name"
+  ]) ||
+  "শিক্ষার্থী";
+
+
+ const sid =
+  val(s,[
+   "student_id",
+   "studentId"
+  ]) ||
+  "-";
+
+
+ const roll =
+  val(s,[
+   "roll_number",
+   "roll_no",
+   "roll"
+  ]) ||
+  "-";
+
+
+ const cls =
+  val(s,[
+   "class_name",
+   "class",
+   "className"
+  ]) ||
+  "-";
+
+
+ const session =
+  val(s,[
+   "session",
+   "year_session",
+   "year"
+  ]) ||
+  "-";
+
+
+ document.getElementById(
+  "welcomeName"
+ ).textContent=name;
+
+
+ document.getElementById(
+  "studentName"
+ ).textContent=name;
+
+
+ document.getElementById(
+  "studentId"
+ ).textContent=sid;
+
+
+ document.getElementById(
+  "rollNumber"
+ ).textContent=roll;
+
+
+ document.getElementById(
+  "className"
+ ).textContent=cls;
+
+
+ document.getElementById(
+  "session"
+ ).textContent=session;
+
+
+ const photo =
+  val(s,[
+   "photo_url",
+   "photo",
+   "image_url"
+  ]);
+
+
+ if(photo){
+
+  document.getElementById(
+   "studentPhoto"
+  ).innerHTML=
+   `<img
+    src="${esc(photo)}"
+    alt="Student Photo">`;
+
+ }
+
+}
+
+
+/* ============================
+   RESULTS
+============================ */
+
+async function loadResults(){
+
+ const tbody =
+  document.getElementById(
+   "resultRows"
+  );
+
+
+ const sid =
+  String(
+   student?.id || ""
+  );
+
+
+ tbody.innerHTML=
+ `<tr>
+   <td
+    colspan="5"
+    class="loading">
+    <span class="spinner"></span>
+    Loading...
+   </td>
+  </tr>`;
+
+
+ const {data,error} =
+  await db
+  .from("results")
+  .select("*")
+  .eq(
+   "student_id",
+   sid
+  )
+  .order(
+   "id",
+   {
+    ascending:false
+   }
+  );
+
+
+ if(error){
+
+  console.error(error);
+
+  tbody.innerHTML=
+   `<tr>
+    <td
+     colspan="5"
+     class="empty">
+     এখনো কোনো ফলাফল পাওয়া যায়নি।
+    </td>
+   </tr>`;
+
+  return;
+
+ }
+
+
+ const rows=data || [];
+
+
+ document.getElementById(
+  "resultCount"
+ ).textContent=rows.length;
+
+
+ if(!rows.length){
+
+  tbody.innerHTML=
+   `<tr>
+    <td
+     colspan="5"
+     class="empty">
+     এখনো কোনো ফলাফল প্রকাশিত হয়নি।
+    </td>
+   </tr>`;
+
+  return;
+
+ }
+
+
+ tbody.innerHTML =
+  rows.map(r=>{
+
+   const exam =
+    val(r,[
+     "exam_name",
+     "exam",
+     "title"
+    ]) || "-";
+
+
+   const subject =
+    val(r,[
+     "subject_name",
+     "subject"
+    ]) || "-";
+
+
+   const marks =
+    val(r,[
+     "marks",
+     "mark",
+     "obtained_marks"
+    ]) || "-";
+
+
+   const grade =
+    val(r,[
+     "grade",
+     "letter_grade"
+    ]) || "-";
+
+
+   const session =
+    val(r,[
+     "session",
+     "year_session",
+     "year"
+    ]) || "-";
+
+
+   return `
+    <tr>
+
+     <td>${esc(exam)}</td>
+
+     <td>${esc(subject)}</td>
+
+     <td>
+      <b>${esc(marks)}</b>
+     </td>
+
+     <td>
+      ${esc(grade)}
+     </td>
+
+     <td>
+      ${esc(session)}
+     </td>
+
+    </tr>
+   `;
+
+  }).join("");
+
+}
+
+
+/* ============================
+   FEES
+============================ */
+
+async function loadFees(){
+
+ const tbody =
+  document.getElementById(
+   "feeRows"
+  );
+
+
+ const sid =
+  String(
+   student?.id || ""
+  );
+
+
+ tbody.innerHTML=
+ `<tr>
+  <td
+   colspan="6"
+   class="loading">
+
+   <span class="spinner"></span>
+   Loading...
+
+  </td>
+ </tr>`;
+
+
+ const {data,error} =
+  await db
+  .from("fees")
+  .select("*")
+  .eq(
+   "student_id",
+   sid
+  )
+  .order(
+   "payment_date",
+   {
+    ascending:false
+   }
+  );
+
+
+ if(error){
+
+  console.error(error);
+
+  tbody.innerHTML=
+   `<tr>
+    <td
+     colspan="6"
+     class="empty">
+
+     কোনো Fee record পাওয়া যায়নি।
+
+    </td>
+   </tr>`;
+
+  return;
+
+ }
+
+
+ const rows=data || [];
+
+
+ let paidTotal=0;
+ let dueTotal=0;
+
+
+ rows.forEach(f=>{
+
+  const amount =
+   Number(f.amount || 0);
+
+  const paid =
+   Number(f.paid_amount || 0);
+
+  paidTotal += paid;
+
+  dueTotal +=
+   Math.max(
+    0,
+    amount-paid
+   );
+
+ });
+
+
+ document.getElementById(
+  "paidAmount"
+ ).textContent=
+  money(paidTotal);
+
+
+ document.getElementById(
+  "dueAmount"
+ ).textContent=
+  money(dueTotal);
+
+
+ if(!rows.length){
+
+  tbody.innerHTML=
+   `<tr>
+    <td
+     colspan="6"
+     class="empty">
+
+     কোনো Fee record নেই।
+
+    </td>
+   </tr>`;
+
+  return;
+
+ }
+
+
+ tbody.innerHTML =
+  rows.map(f=>{
+
+   const amount =
+    Number(f.amount || 0);
+
+   const paid =
+    Number(f.paid_amount || 0);
+
+   const due =
+    Math.max(
+     0,
+     amount-paid
+    );
+
+
+   return `
+    <tr>
+
+     <td>
+      ${esc(f.fee_month || "-")}
+     </td>
+
+     <td>
+      ${money(amount)}
+     </td>
+
+     <td>
+      ${money(paid)}
+     </td>
+
+     <td>
+      ${money(due)}
+     </td>
+
+     <td>
+      ${esc(
+       String(
+        f.payment_date || "-"
+       ).slice(0,10)
+      )}
+     </td>
+
+     <td>
+      ${esc(
+       f.payment_method || "-"
+      )}
+     </td>
+
+    </tr>
+   `;
+
+  }).join("");
+
+}
+
+
+/* ============================
+   ATTENDANCE
+============================ */
+
+async function loadAttendance(){
+
+ const tbody =
+  document.getElementById(
+   "attendanceRows"
+  );
+
+
+ const sid =
+  String(
+   student?.id || ""
+  );
+
+
+ tbody.innerHTML=
+ `<tr>
+  <td
+   colspan="3"
+   class="loading">
+
+   <span class="spinner"></span>
+   Loading...
+
+  </td>
+ </tr>`;
+
+
+ const {data,error} =
+  await db
+  .from("student_attendance")
+  .select("*")
+  .eq(
+   "student_id",
+   sid
+  )
+  .order(
+   "date",
+   {
+    ascending:false
+   }
+  );
+
+
+ if(error){
+
+  console.error(error);
+
+  tbody.innerHTML=
+   `<tr>
+    <td
+     colspan="3"
+     class="empty">
+
+     এখনো কোনো উপস্থিতির রেকর্ড পাওয়া যায়নি।
+
+    </td>
+   </tr>`;
+
+  return;
+
+ }
+
+
+ const rows=data || [];
+
+
+ document.getElementById(
+  "attendanceCount"
+ ).textContent=
+  rows.length;
+
+
+ if(!rows.length){
+
+  tbody.innerHTML=
+   `<tr>
+    <td
+     colspan="3"
+     class="empty">
+
+     কোনো Attendance record নেই।
+
+    </td>
+   </tr>`;
+
+  return;
+
+ }
+
+
+ tbody.innerHTML =
+  rows.map(r=>{
+
+   const date =
+    val(r,[
+     "attendance_date",
+     "date",
+     "created_at"
+    ]) || "-";
+
+
+   const status =
+    val(r,[
+     "status",
+     "attendance_status"
+    ]) || "-";
+
+
+   const note =
+    val(r,[
+     "note",
+     "remarks",
+     "remark"
+    ]) || "-";
+
+
+   const lower =
+    String(status)
+    .toLowerCase();
+
+
+   const statusClass =
+    (
+     lower.includes("present") ||
+     lower.includes("উপস্থিত")
+    )
+    ? "present"
+    :
+    (
+     lower.includes("absent") ||
+     lower.includes("অনুপস্থিত")
+    )
+    ? "absent"
+    : "";
+
+
+   return `
+    <tr>
+
+     <td>
+      ${esc(
+       String(date)
+       .slice(0,10)
+      )}
+     </td>
+
+     <td
+      class="${statusClass}">
+
+      ${esc(status)}
+
+     </td>
+
+     <td>
+      ${esc(note)}
+     </td>
+
+    </tr>
+   `;
+
+  }).join("");
+
+}
+
+
+/* ============================
+   NOTICES
+============================ */
+
+async function loadNotices(){
+
+ const box =
+  document.getElementById(
+   "noticeList"
+  );
+
+
+ const {data,error} =
+  await db
+  .from("notices")
+  .select("*")
+  .order(
+   "id",
+   {
+    ascending:false
+   }
+  )
+  .limit(10);
+
+
+ if(error){
+
+  console.error(error);
+
+  box.innerHTML=
+   `<div class="empty">
+     কোনো নতুন নোটিশ নেই।
+    </div>`;
+
+  return;
+
+ }
+
+
+ const rows=data || [];
+
+
+ if(!rows.length){
+
+  box.innerHTML=
+   `<div class="empty">
+     কোনো নোটিশ প্রকাশিত হয়নি।
+    </div>`;
+
+  return;
+
+ }
+
+
+ box.innerHTML =
+  rows.map(r=>{
+
+   const title =
+    val(r,[
+     "title",
+     "notice_title",
+     "name"
+    ]) ||
+    "নোটিশ";
+
+
+   const content =
+    val(r,[
+     "description",
+     "content",
+     "details",
+     "message"
+    ]) ||
+    "";
+
+
+   return `
+    <div class="notice">
+
+     <div class="notice-icon">
+
+      <i class="fa-solid fa-bullhorn"></i>
+
+     </div>
+
+     <div>
+
+      <h4>
+       ${esc(title)}
+      </h4>
+
+      <p>
+       ${esc(content)}
+      </p>
+
+     </div>
+
+    </div>
+   `;
+
+  }).join("");
+
+}
+
+
+/* ============================
+   LOGOUT
+============================ */
+
+function logout(){
+
+ sessionStorage.removeItem(
+  "madrasa_student_login"
+ );
+
+ window.location.href =
+  "students-login.html";
+
+}
+
+
+/* ============================
+   START
+============================ */
+
+async function start(){
+
+ student=getStudent();
+
+ if(!student)
+  return;
+
+
+ renderStudent(student);
+
+
+ /*
+  * Admin Dashboard থেকে
+  * যে Student তৈরি করা হয়েছে
+  * তার database ID ব্যবহার করে
+  * নিজের data load হবে।
+  */
+
+ await Promise.allSettled([
+
+  loadResults(),
+
+  loadFees(),
+
+  loadAttendance(),
+
+  loadNotices()
+
+ ]);
+
+}
+
+
+start();
+
+</script>
+
+</body>
+</html>
