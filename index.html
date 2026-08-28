@@ -2647,176 +2647,174 @@ closeResult();
 ============================== */  
   async function studentLogin(){
 
-const roll=
-document
-.getElementById(
-    "studentLoginRoll"
-)
-.value
-.trim();
+    const roll =
+        document
+        .getElementById(
+            "studentLoginRoll"
+        )
+        .value
+        .trim();
 
 
-const studentId=
-document
-.getElementById(
-    "studentLoginId"
-)
-.value
-.trim();
+    const studentId =
+        document
+        .getElementById(
+            "studentLoginId"
+        )
+        .value
+        .trim();
 
 
-const message=
-document
-.getElementById(
-    "studentLoginMessage"
-);
+    const message =
+        document
+        .getElementById(
+            "studentLoginMessage"
+        );
 
 
-if(
-    !roll ||
-    !studentId
-){
-
-    message.innerHTML=
-        "<p style='color:#ffd447'>রোল নম্বর ও Student ID দিন।</p>";
-
-    return;
-
-}
-
-
-message.innerHTML=
-    "<p style='color:#fff'>Student Portal যাচাই করা হচ্ছে...</p>";
-
-
-try{
-
-    let student=null;
-
-
-    const attempts=[
-
-        [
-            "roll_number",
-            "student_id"
-        ],
-
-        [
-            "roll",
-            "student_id"
-        ]
-
-    ];
-
-
-    for(
-        const [
-            rollColumn,
-            idColumn
-        ]
-        of attempts
+    if(
+        !roll ||
+        !studentId
     ){
 
-        try{
-
-            const {
-                data,
-                error
-            }=
-                await supabaseClient
-                .from("students")
-                .select(
-                    "id,student_id,roll_number,roll,name"
-                )
-                .eq(
-                    rollColumn,
-                    roll
-                )
-                .eq(
-                    idColumn,
-                    studentId
-                )
-                .maybeSingle();
-
-
-            if(
-                !error &&
-                data
-            ){
-
-                student=data;
-
-                break;
-
-            }
-
-        }catch(error){
-
-            console.warn(error);
-
-        }
-
-    }
-
-
-    if(!student){
-
-        message.innerHTML=
-            "<p style='color:#ffd447'>ভুল Roll Number অথবা Student ID।</p>";
+        message.innerHTML =
+            "<p style='color:#ffd447'>Roll Number ও Student ID দিন।</p>";
 
         return;
 
     }
 
 
-    sessionStorage.setItem(
-        "madrasa_student_login",
-        JSON.stringify({
-
-            id:
-                student.id,
-
-            student_id:
-                student.student_id ||
-                studentId,
-
-            roll_number:
-                student.roll_number ||
-                student.roll ||
-                roll,
-
-            at:
-                Date.now()
-
-        })
-    );
+    message.innerHTML =
+        "<p style='color:#fff'>Student তথ্য যাচাই করা হচ্ছে...</p>";
 
 
-    message.innerHTML=
-        "<p style='color:#b8ffca'>Login সফল হয়েছে। Student Portal খোলা হচ্ছে...</p>";
+    try{
+
+        let student=null;
 
 
-    setTimeout(
-        ()=>{
-            window.location.href=
-                "students-login.html";
-        },
-        250
-    );
+        const attempts=[
+
+            ["roll","student_id"],
+
+            ["roll_no","student_id"],
+
+            ["roll_number","student_id"]
+
+        ];
 
 
-}catch(error){
+        for(
+            const [
+                rollColumn,
+                idColumn
+            ]
+            of attempts
+        ){
 
-    console.error(
-        "Student Login Error:",
-        error
-    );
+            try{
+
+                const response =
+                    await supabaseClient
+                    .from("students")
+                    .select("id,student_id,roll,roll_no,roll_number")
+                    .eq(
+                        rollColumn,
+                        roll
+                    )
+                    .eq(
+                        idColumn,
+                        studentId
+                    )
+                    .maybeSingle();
 
 
-    message.innerHTML=
-        "<p style='color:#ffd447'>Login করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।</p>";
+                if(
+                    !response.error &&
+                    response.data
+                ){
 
-}
+                    student =
+                        response.data;
+
+                    break;
+
+                }
+
+            }catch(error){
+
+                console.warn(error);
+
+            }
+
+        }
+
+
+        if(!student){
+
+            message.innerHTML =
+                "<p style='color:#ffd447'>ভুল Roll Number অথবা Student ID।</p>";
+
+            return;
+
+        }
+
+
+        const studentRoll =
+            student.roll ??
+            student.roll_no ??
+            student.roll_number ??
+            roll;
+
+
+        sessionStorage.setItem(
+            "madrasa_student_login",
+            JSON.stringify({
+
+                id:
+                    student.id,
+
+                student_id:
+                    student.student_id,
+
+                roll_number:
+                    String(
+                        studentRoll
+                    ),
+
+                at:
+                    Date.now()
+
+            })
+        );
+
+
+        message.innerHTML =
+            "<p style='color:#b8ffca'>Login সফল হয়েছে। Student Dashboard খোলা হচ্ছে...</p>";
+
+
+        setTimeout(
+            ()=>{
+                window.location.href =
+                    "students-login.html";
+            },
+            300
+        );
+
+
+    }catch(error){
+
+        console.error(
+            "Student Login:",
+            error
+        );
+
+
+        message.innerHTML =
+            "<p style='color:#ffd447'>Login করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।</p>";
+
+    }
 
 }
 
