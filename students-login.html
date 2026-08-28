@@ -1,587 +1,515 @@
-<!DOCTYPE html><html lang="bn">
+<!DOCTYPE html>
+<html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Student Login | মাদরাসায়ে নূরুল কুরআন</title><link href="https://banglawebfonts.pages.dev/css/bornomala.css" rel="stylesheet"><link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><style>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Student Login | মাদরাসায়ে নূরুল কুরআন</title>
+
+<link href="https://banglawebfonts.pages.dev/css/bornomala.css" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
 *{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-    font-family:"Bornomala",sans-serif;
+ box-sizing:border-box;
+ margin:0;
+ padding:0;
+ font-family:"Bornomala",sans-serif;
 }
 
 :root{
-    --primary:#0d47a1;
-    --primary2:#1976d2;
-    --primary3:#e3f2fd;
-    --dark:#071a35;
-    --bg:#f4f7fb;
-    --white:#ffffff;
-    --text:#172033;
-    --muted:#64748b;
-    --border:#e2e8f0;
-    --danger:#dc2626;
-    --success:#16803c;
-    --shadow:0 15px 40px rgba(13,71,161,.12);
+ --primary:#0d47a1;
+ --primary2:#1976d2;
+ --dark:#06264d;
+ --gold:#ffd54f;
+ --bg:#f3f8fe;
+ --white:#fff;
 }
 
 body{
-    min-height:100vh;
-    background:
-        radial-gradient(circle at top left,rgba(25,118,210,.10),transparent 35%),
-        linear-gradient(135deg,#f5f9ff,#eef4fb);
-    color:var(--text);
-    overflow-x:hidden;
+ min-height:100vh;
+ background:
+ radial-gradient(circle at 10% 10%,#dcecff 0,transparent 25%),
+ radial-gradient(circle at 90% 90%,#dcecff 0,transparent 25%),
+ var(--bg);
+ color:#172033;
 }
 
-/* BACKGROUND */
+/* TOP */
 
-.bg-circle{
-    position:fixed;
-    border-radius:50%;
-    pointer-events:none;
-    z-index:-1;
+.top{
+ text-align:center;
+ padding:24px 15px 20px;
 }
 
-.circle-one{
-    width:350px;
-    height:350px;
-    background:rgba(13,71,161,.07);
-    top:-150px;
-    left:-120px;
+.top-small{
+ font-family:Georgia,serif;
+ color:#1976d2;
+ font-size:21px;
+ letter-spacing:.5px;
 }
 
-.circle-two{
-    width:420px;
-    height:420px;
-    background:rgba(25,118,210,.06);
-    right:-180px;
-    bottom:-180px;
+.top-title{
+ font-size:48px;
+ color:#071b35;
+ font-weight:bold;
+ line-height:1.15;
+ margin-top:2px;
 }
 
-/* HEADER */
-
-.header{
-    height:72px;
-    background:#fff;
-    border-bottom:1px solid var(--border);
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 35px;
-    box-shadow:0 3px 15px rgba(15,23,42,.04);
+.top-text{
+ color:#738196;
+ font-size:17px;
+ margin-top:12px;
 }
 
-.brand{
-    display:flex;
-    align-items:center;
-    gap:12px;
+/* MAIN LOGIN */
+
+.login-wrap{
+ width:min(1450px,94%);
+ margin:55px auto 35px;
+
+ background:
+ linear-gradient(
+  120deg,
+  #062b59,
+  #0d4e96 50%,
+  #0874d1
+ );
+
+ border-radius:42px;
+
+ padding:55px 65px;
+
+ min-height:510px;
+
+ display:grid;
+ grid-template-columns:1.2fr .8fr;
+ align-items:center;
+ gap:50px;
+
+ box-shadow:
+ 0 25px 60px rgba(7,45,90,.22);
 }
 
-.brand-icon{
-    width:43px;
-    height:43px;
-    border-radius:11px;
-    background:linear-gradient(135deg,var(--primary),var(--primary2));
-    color:#fff;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:19px;
-    box-shadow:0 7px 18px rgba(13,71,161,.22);
+/* LEFT */
+
+.left{
+ color:#fff;
+ padding:15px 10px;
 }
 
-.brand h1{
-    font-size:18px;
-    color:var(--dark);
-    font-weight:700;
+.portal-label{
+ font-family:Georgia,serif;
+ color:#a9c9ed;
+ font-size:20px;
+ letter-spacing:.5px;
 }
 
-.brand p{
-    color:var(--muted);
-    font-family:Arial,sans-serif;
-    font-size:9px;
-    letter-spacing:1px;
-    margin-top:2px;
+.left h1{
+ font-family:Georgia,serif;
+ color:var(--gold);
+ font-size:56px;
+ margin:10px 0 24px;
 }
 
-.home-btn{
-    display:flex;
-    align-items:center;
-    gap:7px;
-    padding:9px 15px;
-    border:1px solid var(--border);
-    background:#fff;
-    color:var(--primary);
-    border-radius:9px;
-    font-size:12px;
-    text-decoration:none;
-    transition:.2s;
+.left p{
+ color:#e5effa;
+ font-size:21px;
+ line-height:1.9;
+ max-width:650px;
 }
 
-.home-btn:hover{
-    background:var(--primary3);
-    border-color:#bbd7f5;
+.secure{
+ margin-top:30px;
+ font-size:20px;
+ color:#f2f7ff;
 }
 
-/* LOGIN AREA */
-
-.login-area{
-    min-height:calc(100vh - 72px);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:35px 18px;
-}
-
-.login-wrapper{
-    width:100%;
-    max-width:440px;
-}
-
-/* CARD */
-
-.login-card{
-    background:#fff;
-    border:1px solid var(--border);
-    border-radius:20px;
-    box-shadow:var(--shadow);
-    overflow:hidden;
-}
-
-/* CARD TOP */
-
-.card-top{
-    background:linear-gradient(135deg,var(--primary),var(--primary2));
-    padding:30px 25px 27px;
-    color:#fff;
-    text-align:center;
-}
-
-.logo-circle{
-    width:65px;
-    height:65px;
-    margin:0 auto 13px;
-    border-radius:50%;
-    background:rgba(255,255,255,.15);
-    border:1px solid rgba(255,255,255,.25);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:27px;
-}
-
-.card-top h2{
-    font-size:24px;
-    font-weight:700;
-}
-
-.card-top p{
-    font-size:12px;
-    opacity:.88;
-    margin-top:4px;
+.secure i{
+ color:var(--gold);
+ margin-right:8px;
 }
 
 /* FORM */
 
-.form-area{
-    padding:27px;
+.form-box{
+ background:rgba(255,255,255,.10);
+
+ border:1px solid rgba(255,255,255,.18);
+
+ border-radius:28px;
+
+ padding:40px;
+
+ backdrop-filter:blur(12px);
+
+ box-shadow:
+ inset 0 1px 0 rgba(255,255,255,.12);
 }
 
 .form-title{
-    margin-bottom:20px;
-}
-
-.form-title h3{
-    font-size:18px;
-    color:var(--dark);
-}
-
-.form-title p{
-    font-size:11px;
-    color:var(--muted);
-    margin-top:4px;
-}
-
-.input-group{
-    margin-bottom:17px;
-}
-
-.input-group label{
-    display:block;
-    font-size:12px;
-    font-weight:700;
-    color:#334155;
-    margin-bottom:7px;
+ color:#fff;
+ text-align:center;
+ font-size:25px;
+ margin-bottom:24px;
 }
 
 .input-box{
-    position:relative;
+ margin-bottom:17px;
 }
 
-.input-box i{
-    position:absolute;
-    left:14px;
-    top:50%;
-    transform:translateY(-50%);
-    color:#7892ae;
-    font-size:14px;
-    pointer-events:none;
+.input-box label{
+ display:block;
+ color:#eaf3ff;
+ font-size:14px;
+ margin-bottom:7px;
 }
 
-.input-box input{
-    width:100%;
-    height:48px;
-    border:1px solid #d7e0eb;
-    border-radius:10px;
-    padding:0 42px;
-    outline:none;
-    color:var(--text);
-    background:#fff;
-    font-size:13px;
-    transition:.2s;
+.input-wrap{
+ position:relative;
 }
 
-.input-box input:focus{
-    border-color:var(--primary2);
-    box-shadow:0 0 0 3px rgba(25,118,210,.10);
+.input-wrap i{
+ position:absolute;
+ left:16px;
+ top:50%;
+ transform:translateY(-50%);
+ color:#6c7d91;
 }
 
-.input-box input::placeholder{
-    color:#a0aec0;
+.input-wrap input{
+ width:100%;
+ height:58px;
+
+ border:0;
+ outline:0;
+
+ border-radius:13px;
+
+ background:#fff;
+
+ padding:0 15px 0 48px;
+
+ font-family:"Bornomala",sans-serif;
+ font-size:17px;
+
+ color:#172033;
 }
 
-.toggle-password{
-    position:absolute;
-    right:13px;
-    top:50%;
-    transform:translateY(-50%);
-    border:0;
-    background:transparent;
-    color:#7892ae;
-    cursor:pointer;
-    font-size:14px;
+.input-wrap input:focus{
+ box-shadow:
+ 0 0 0 3px rgba(255,213,79,.35);
 }
-
-/* BUTTON */
 
 .login-btn{
-    width:100%;
-    height:49px;
-    border:0;
-    border-radius:10px;
-    background:linear-gradient(135deg,var(--primary),var(--primary2));
-    color:#fff;
-    font-size:14px;
-    font-weight:700;
-    cursor:pointer;
-    box-shadow:0 8px 18px rgba(13,71,161,.20);
-    transition:.2s;
+ width:100%;
+ height:58px;
+
+ border:0;
+ border-radius:13px;
+
+ background:var(--gold);
+
+ color:#182536;
+
+ font-size:19px;
+ font-weight:bold;
+
+ cursor:pointer;
+
+ transition:.2s;
+
+ margin-top:4px;
 }
 
 .login-btn:hover{
-    transform:translateY(-1px);
-    box-shadow:0 11px 23px rgba(13,71,161,.25);
+ transform:translateY(-2px);
+
+ box-shadow:
+ 0 8px 20px rgba(0,0,0,.18);
 }
 
 .login-btn:disabled{
-    opacity:.7;
-    cursor:not-allowed;
-    transform:none;
+ opacity:.7;
+ cursor:not-allowed;
 }
 
-/* ERROR */
+.message{
+ min-height:28px;
+ text-align:center;
 
-.error-box{
-    display:none;
-    background:#fff1f2;
-    border:1px solid #fecdd3;
-    color:#9f1239;
-    border-radius:9px;
-    padding:11px 13px;
-    margin-bottom:15px;
-    font-size:11px;
-    line-height:1.5;
+ margin-top:14px;
+
+ font-size:13px;
 }
 
-.error-box.show{
-    display:block;
+.error{
+ color:#ffb4b4;
 }
 
-/* INFO */
-
-.info-box{
-    margin-top:17px;
-    padding:13px;
-    border-radius:10px;
-    background:#f0f7ff;
-    border:1px solid #d8eafd;
-    color:#315b84;
-    font-size:11px;
-    line-height:1.6;
+.success{
+ color:#baffd0;
 }
 
-.info-box i{
-    color:var(--primary2);
-    margin-right:4px;
+.help{
+ color:#d8e8f8;
+ background:rgba(255,255,255,.08);
+
+ border-radius:11px;
+
+ padding:10px;
+
+ margin-top:13px;
+
+ font-size:11px;
+
+ text-align:center;
 }
 
 /* FOOTER */
 
-.card-footer{
-    text-align:center;
-    padding:15px 20px;
-    border-top:1px solid var(--border);
-    background:#fafcff;
-    color:#8793a5;
-    font-size:10px;
-}
-
-.footer{
-    text-align:center;
-    margin-top:18px;
-    color:#7b8798;
-    font-size:10px;
-}
-
-/* LOADING */
-
-.loading-spinner{
-    display:inline-block;
-    width:15px;
-    height:15px;
-    border:2px solid rgba(255,255,255,.4);
-    border-top-color:#fff;
-    border-radius:50%;
-    animation:spin .7s linear infinite;
-    vertical-align:middle;
-    margin-right:6px;
-}
-
-@keyframes spin{
-    to{
-        transform:rotate(360deg);
-    }
+footer{
+ text-align:center;
+ color:#8a96a7;
+ font-size:11px;
+ padding:15px;
 }
 
 /* MOBILE */
 
-@media(max-width:600px){
+@media(max-width:850px){
 
-    .header{
-        height:64px;
-        padding:0 15px;
-    }
+ .top{
+  padding-top:20px;
+ }
 
-    .brand-icon{
-        width:38px;
-        height:38px;
-    }
+ .top-small{
+  font-size:17px;
+ }
 
-    .brand h1{
-        font-size:15px;
-    }
+ .top-title{
+  font-size:36px;
+ }
 
-    .brand p{
-        display:none;
-    }
+ .top-text{
+  font-size:13px;
+ }
 
-    .home-btn{
-        padding:8px 10px;
-    }
+ .login-wrap{
+  margin-top:25px;
 
-    .home-btn span{
-        display:none;
-    }
+  grid-template-columns:1fr;
 
-    .login-area{
-        min-height:calc(100vh - 64px);
-        padding:22px 14px;
-    }
+  padding:25px 18px 30px;
 
-    .card-top{
-        padding:25px 20px;
-    }
+  border-radius:25px;
 
-    .card-top h2{
-        font-size:21px;
-    }
+  gap:15px;
+ }
 
-    .form-area{
-        padding:22px 18px;
-    }
+ .left{
+  padding:5px;
+  text-align:center;
+ }
+
+ .portal-label{
+  font-size:15px;
+ }
+
+ .left h1{
+  font-size:38px;
+  margin:6px 0 15px;
+ }
+
+ .left p{
+  font-size:15px;
+  line-height:1.7;
+ }
+
+ .secure{
+  font-size:15px;
+  margin-top:18px;
+ }
+
+ .form-box{
+  padding:23px 18px;
+  border-radius:20px;
+ }
+
+ .form-title{
+  font-size:21px;
+ }
 
 }
 
-/* SMALL */
+@media(max-width:420px){
 
-@media(max-width:380px){
+ .top-title{
+  font-size:31px;
+ }
 
-    .login-card{
-        border-radius:15px;
-    }
+ .login-wrap{
+  width:94%;
+ }
 
-    .form-area{
-        padding:20px 15px;
-    }
-
-    .card-top{
-        padding:23px 15px;
-    }
+ .left h1{
+  font-size:34px;
+ }
 
 }
-</style></head><body><div class="bg-circle circle-one"></div>
-<div class="bg-circle circle-two"></div><header class="header"><div class="brand">
+</style>
+</head>
 
-    <div class="brand-icon">
-        <i class="fa-solid fa-mosque"></i>
-    </div>
+<body>
 
-    <div>
-        <h1>মাদরাসায়ে নূরুল কুরআন</h1>
-        <p>MADRASA-E NURUL QURAN</p>
-    </div>
+<div class="top">
+
+ <div class="top-small">
+  STUDENT PORTAL
+ </div>
+
+ <div class="top-title">
+  শিক্ষার্থী লগইন
+ </div>
+
+ <div class="top-text">
+  Admin Portal-এর মতো নিরাপদ পোর্টাল থেকে শিক্ষার্থীরা
+  নিজের তথ্য দেখতে পারবে।
+ </div>
 
 </div>
 
 
-<a href="index.html" class="home-btn">
-    <i class="fa-solid fa-house"></i>
-    <span>মূল ওয়েবসাইট</span>
-</a>
+<div class="login-wrap">
 
-</header><main class="login-area"><div class="login-wrapper">
+ <div class="left">
 
-    <div class="login-card">
+  <div class="portal-label">
+   STUDENT LOGIN PORTAL
+  </div>
 
-        <div class="card-top">
+  <h1>
+   👨‍🎓 Student Login
+  </h1>
 
-            <div class="logo-circle">
-                <i class="fa-solid fa-user-graduate"></i>
-            </div>
+  <p>
+   আপনার <b>Student ID</b> এবং
+   <b>Roll Number</b> দিয়ে লগইন করুন।
+   লগইন করার পর আপনার ব্যক্তিগত
+   Student Dashboard থেকে ফলাফল,
+   ফি, বকেয়া, উপস্থিতি এবং অন্যান্য
+   প্রকাশিত তথ্য দেখতে পারবেন।
+  </p>
 
-            <h2>Student Portal</h2>
+  <div class="secure">
+   🔐 নিরাপদ শিক্ষার্থী পোর্টাল
+  </div>
 
-            <p>
-                শিক্ষার্থীদের ব্যক্তিগত তথ্য ও একাডেমিক ড্যাশবোর্ড
-            </p>
-
-        </div>
-
-
-        <div class="form-area">
-
-            <div class="form-title">
-
-                <h3>শিক্ষার্থী লগইন</h3>
-
-                <p>
-                    Student ID এবং Roll Number দিয়ে লগইন করুন
-                </p>
-
-            </div>
+ </div>
 
 
-            <div
-                class="error-box"
-                id="errorBox">
-            </div>
+ <div class="form-box">
+
+  <div class="form-title">
+   <i class="fa-solid fa-right-to-bracket"></i>
+   শিক্ষার্থী লগইন
+  </div>
 
 
-            <form id="studentLoginForm">
+  <form id="loginForm">
 
-                <div class="input-group">
+   <div class="input-box">
 
-                    <label>
-                        Student ID
-                    </label>
+    <label>
+     Student ID
+    </label>
 
-                    <div class="input-box">
+    <div class="input-wrap">
 
-                        <i class="fa-solid fa-id-card"></i>
+     <i class="fa-solid fa-id-card"></i>
 
-                        <input
-                            type="text"
-                            id="studentId"
-                            placeholder="আপনার Student ID লিখুন"
-                            autocomplete="off"
-                            required>
-
-                    </div>
-
-                </div>
-
-
-                <div class="input-group">
-
-                    <label>
-                        Roll Number
-                    </label>
-
-                    <div class="input-box">
-
-                        <i class="fa-solid fa-hashtag"></i>
-
-                        <input
-                            type="text"
-                            id="rollNumber"
-                            placeholder="আপনার Roll Number লিখুন"
-                            autocomplete="off"
-                            required>
-
-                    </div>
-
-                </div>
-
-
-                <button
-                    type="submit"
-                    class="login-btn"
-                    id="loginBtn">
-
-                    <i class="fa-solid fa-right-to-bracket"></i>
-                    Student Login
-
-                </button>
-
-            </form>
-
-
-            <div class="info-box">
-
-                <i class="fa-solid fa-circle-info"></i>
-
-                আপনার Student ID ও Roll Number Admin
-                Dashboard-এ সংরক্ষিত তথ্যের সঙ্গে মিললে
-                আপনার ব্যক্তিগত Student Dashboard খুলবে।
-
-            </div>
-
-        </div>
-
-
-        <div class="card-footer">
-
-            <i class="fa-solid fa-shield-halved"></i>
-            আপনার শিক্ষার্থী তথ্য নিরাপদভাবে সংরক্ষিত।
-
-        </div>
+     <input
+      type="text"
+      id="studentId"
+      placeholder="যেমন: NQ-006"
+      autocomplete="off"
+      required
+     >
 
     </div>
 
+   </div>
 
-    <div class="footer">
-        © <span id="year"></span>
-        মাদরাসায়ে নূরুল কুরআন — Student Portal
+
+   <div class="input-box">
+
+    <label>
+     Roll Number
+    </label>
+
+    <div class="input-wrap">
+
+     <i class="fa-solid fa-hashtag"></i>
+
+     <input
+      type="text"
+      id="rollNumber"
+      placeholder="যেমন: 01"
+      autocomplete="off"
+      required
+     >
+
     </div>
+
+   </div>
+
+
+   <button
+    type="submit"
+    class="login-btn"
+    id="loginBtn">
+
+    <i class="fa-solid fa-lock-open"></i>
+    Login
+
+   </button>
+
+
+   <div
+    id="message"
+    class="message">
+   </div>
+
+
+   <div class="help">
+
+    আপনার Student ID ও Roll Number
+    Admin Dashboard থেকে দেওয়া তথ্য অনুযায়ী
+    লিখুন।
+
+   </div>
+
+  </form>
+
+ </div>
 
 </div>
 
-</main><script>
 
-/* =====================================================
-   SUPABASE CONFIG
-===================================================== */
+<footer>
+
+ © 2026 মাদরাসায়ে নূরুল কুরআন —
+ Student Portal
+
+</footer>
+
+
+<script>
 
 const SUPABASE_URL =
 "https://qavublwhqiqsgpcmfyft.supabase.co";
@@ -589,265 +517,173 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
 
-const supabaseClient =
+const db =
 window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
+ SUPABASE_URL,
+ SUPABASE_KEY
 );
 
-
-/* =====================================================
-   YEAR
-===================================================== */
-
-document.getElementById("year")
-.textContent =
-new Date().getFullYear();
-
-
-/* =====================================================
-   ELEMENTS
-===================================================== */
 
 const form =
-document.getElementById(
-    "studentLoginForm"
-);
+document.getElementById("loginForm");
 
-const studentIdInput =
-document.getElementById(
-    "studentId"
-);
+const btn =
+document.getElementById("loginBtn");
 
-const rollInput =
-document.getElementById(
-    "rollNumber"
-);
-
-const loginBtn =
-document.getElementById(
-    "loginBtn"
-);
-
-const errorBox =
-document.getElementById(
-    "errorBox"
-);
+const message =
+document.getElementById("message");
 
 
-/* =====================================================
-   ERROR
-===================================================== */
+function showMessage(text,type){
 
-function showError(message){
+ message.textContent=text;
 
-    errorBox.innerHTML =
-        `<i class="fa-solid fa-circle-exclamation"></i>
-        ${message}`;
-
-    errorBox.classList.add("show");
+ message.className=
+ "message "+type;
 
 }
 
-
-function hideError(){
-
-    errorBox.classList.remove(
-        "show"
-    );
-
-    errorBox.innerHTML="";
-
-}
-
-
-/* =====================================================
-   LOGIN
-===================================================== */
 
 form.addEventListener(
-    "submit",
-    async function(e){
+ "submit",
+ async function(e){
 
-        e.preventDefault();
-
-        hideError();
+  e.preventDefault();
 
 
-        const sid =
-            studentIdInput.value
-            .trim();
-
-        const roll =
-            rollInput.value
-            .trim();
+  const studentId =
+   document.getElementById(
+    "studentId"
+   ).value.trim();
 
 
-        if(!sid){
-
-            showError(
-                "Student ID লিখুন।"
-            );
-
-            studentIdInput.focus();
-
-            return;
-
-        }
+  const rollNumber =
+   document.getElementById(
+    "rollNumber"
+   ).value.trim();
 
 
-        if(!roll){
+  if(!studentId){
 
-            showError(
-                "Roll Number লিখুন।"
-            );
+   showMessage(
+    "Student ID দিন।",
+    "error"
+   );
 
-            rollInput.focus();
-
-            return;
-
-        }
+   return;
+  }
 
 
-        loginBtn.disabled=true;
+  if(!rollNumber){
 
-        loginBtn.innerHTML =
-            `<span class="loading-spinner"></span>
-            যাচাই করা হচ্ছে...`;
+   showMessage(
+    "Roll Number দিন।",
+    "error"
+   );
 
-
-        try{
-
-            /*
-             * Student ID + Roll দিয়ে
-             * students table থেকে student খোঁজা হচ্ছে।
-             */
-
-            const result =
-                await supabaseClient
-                .from("students")
-                .select("*")
-                .eq(
-                    "student_id",
-                    sid
-                )
-                .eq(
-                    "roll_number",
-                    roll
-                )
-                .maybeSingle();
+   return;
+  }
 
 
-            if(result.error){
+  btn.disabled=true;
 
-                console.error(
-                    "Supabase:",
-                    result.error
-                );
-
-                throw new Error(
-                    "Student তথ্য যাচাই করতে সমস্যা হয়েছে।"
-                );
-
-            }
+  btn.innerHTML =
+   '<i class="fa-solid fa-spinner fa-spin"></i> Checking...';
 
 
-            if(!result.data){
-
-                showError(
-                    "Student ID অথবা Roll Number সঠিক নয়।"
-                );
-
-                return;
-
-            }
+  showMessage(
+   "তথ্য যাচাই করা হচ্ছে...",
+   ""
+  );
 
 
-            /*
-             * Student session save
-             */
+  try{
 
-            sessionStorage.setItem(
-                "madrasa_student_login",
-                JSON.stringify({
-
-                    id:
-                        result.data.id,
-
-                    student_id:
-                        result.data.student_id,
-
-                    roll_number:
-                        result.data.roll_number,
-
-                    name:
-                        result.data.name ||
-                        result.data.student_name ||
-                        ""
-
-                })
-            );
+   const result =
+    await db
+    .from("students")
+    .select("*")
+    .eq(
+     "student_id",
+     studentId
+    )
+    .eq(
+     "roll_number",
+     rollNumber
+    )
+    .maybeSingle();
 
 
-            /*
-             * Student Dashboard
-             */
+   if(result.error){
 
-            window.location.href =
-                "student-dashboard.html";
+    throw result.error;
 
-
-        }catch(error){
-
-            console.error(error);
-
-            showError(
-                error.message ||
-                "Login করতে সমস্যা হয়েছে।"
-            );
-
-        }finally{
-
-            loginBtn.disabled=false;
-
-            loginBtn.innerHTML =
-                `<i class="fa-solid fa-right-to-bracket"></i>
-                Student Login`;
-
-        }
-
-    }
-);
+   }
 
 
-/* =====================================================
-   ENTER / INPUT CLEANUP
-===================================================== */
+   if(!result.data){
 
-studentIdInput.addEventListener(
-    "input",
+    showMessage(
+     "❌ Student ID অথবা Roll Number সঠিক নয়।",
+     "error"
+    );
+
+    return;
+
+   }
+
+
+   /*
+    * Student information session-এ রাখা হচ্ছে।
+    * Dashboard এই information ব্যবহার করবে।
+    */
+
+   sessionStorage.setItem(
+    "madrasa_student_login",
+    JSON.stringify(result.data)
+   );
+
+
+   showMessage(
+    "✅ Login successful. Dashboard খোলা হচ্ছে...",
+    "success"
+   );
+
+
+   setTimeout(
     function(){
 
-        this.value =
-            this.value.trim();
+     window.location.href =
+      "student-dashboard.html";
 
-        hideError();
+    },
+    500
+   );
 
-    }
-);
+
+  }catch(error){
+
+   console.error(error);
+
+   showMessage(
+    "❌ Login failed: "+
+    (error.message || "Unknown error"),
+    "error"
+   );
 
 
-rollInput.addEventListener(
-    "input",
-    function(){
+  }finally{
 
-        this.value =
-            this.value.trim();
+   btn.disabled=false;
 
-        hideError();
+   btn.innerHTML =
+    '<i class="fa-solid fa-lock-open"></i> Login';
 
-    }
-);
+  }
 
-</script></body>
+ });
+
+</script>
+
+</body>
 </html>
