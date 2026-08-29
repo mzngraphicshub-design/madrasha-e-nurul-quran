@@ -24,7 +24,6 @@
 --danger:#dc2626;
 --danger-light:#fee2e2;
 --success:#15803d;
---success-light:#dcfce7;
 }
 
 body{
@@ -69,7 +68,10 @@ text-decoration:none;
 font-weight:700;
 }
 
-.dashboard-link:hover{background:#fff;color:var(--primary)}
+.dashboard-link:hover{
+background:#fff;
+color:var(--primary);
+}
 
 .container{
 max-width:1300px;
@@ -164,7 +166,11 @@ gap:16px;
 }
 
 .full{grid-column:1/-1}
-.form-group{display:flex;flex-direction:column}
+
+.form-group{
+display:flex;
+flex-direction:column;
+}
 
 label{
 font-size:14px;
@@ -190,9 +196,15 @@ border-color:var(--primary2);
 box-shadow:0 0 0 3px #1976d215;
 }
 
-input[readonly]{background:#f1f5f9;color:#64748b}
+input[readonly]{
+background:#f1f5f9;
+color:#64748b;
+}
 
-textarea{resize:vertical;min-height:90px}
+textarea{
+resize:vertical;
+min-height:90px;
+}
 
 .buttons{
 display:flex;
@@ -217,6 +229,7 @@ button:hover{transform:translateY(-1px)}
 background:linear-gradient(135deg,#0d47a1,#1976d2);
 color:#fff;
 }
+
 .btn-secondary{background:#eef2f7;color:#374151}
 .btn-danger{background:var(--danger-light);color:#b91c1c}
 .btn-edit{background:#e3f2fd;color:#0d47a1}
@@ -235,6 +248,7 @@ margin-top:12px;
 font-size:13px;
 font-weight:600;
 }
+
 .success{color:var(--success)}
 .error{color:#c62828}
 
@@ -303,8 +317,8 @@ background:#fef3c7;
 color:#92400e;
 padding:5px 9px;
 border-radius:20px;
-font-family:Arial,sans-serif;
 font-size:11px;
+font-family:Arial,sans-serif;
 font-weight:800;
 }
 
@@ -357,381 +371,364 @@ to{transform:translateX(300%)}
 .empty-icon{font-size:30px;margin-bottom:6px}
 .empty-text{font-size:14px}
 
-#printArea{display:none}
+/* =====================================================
+   PRINT AREA
+===================================================== */
 
+#printArea{
+display:none;
+}
 
 /* =====================================================
-   IMPROVED PRINT SYSTEM
-   আগের সব UI একই থাকবে।
-   শুধু Print Output নতুনভাবে সাজানো হয়েছে।
+   PRINT DESIGN
 ===================================================== */
 
 @media print{
 
 @page{
-size:A4;
+size:A4 portrait;
 margin:8mm;
 }
 
 html,body{
-background:#fff!important;
 margin:0!important;
 padding:0!important;
+background:#fff!important;
+width:100%!important;
+font-family:"Bornomala","Bornomala-Regular",serif!important;
 }
 
-body *{
-visibility:hidden!important;
-}
-
-#printArea,
-#printArea *{
-visibility:visible!important;
+body > *:not(#printArea){
+display:none!important;
 }
 
 #printArea{
 display:block!important;
-position:absolute!important;
-left:0!important;
-top:0!important;
 width:100%!important;
-min-height:100vh;
+max-width:none!important;
+margin:0!important;
+padding:0!important;
 background:#fff!important;
 color:#111!important;
-font-family:"Bornomala","Bornomala-Regular",serif!important;
 }
 
-/* ---------- COMMON HEADER ---------- */
+.print-page{
+width:100%;
+min-height:0;
+margin:0;
+padding:0;
+}
 
 .print-header{
-position:relative;
+width:100%;
 text-align:center;
-padding:7px 0 10px;
-margin-bottom:12px;
-border-bottom:2px solid #0d47a1;
+border-bottom:2px solid #174a7c;
+padding:0 0 7px;
+margin:0 0 9px;
 }
 
-.print-header h1{
-margin:0;
-font-size:23px;
-font-weight:900;
+.print-logo-title{
+font-family:"Bornomala","Bornomala-Regular",serif;
+font-size:20px;
+font-weight:800;
 color:#0d47a1;
+line-height:1.3;
+margin:0;
 }
 
-.print-header p{
-margin:3px 0 0;
+.print-subtitle{
 font-family:Arial,sans-serif;
-font-size:9px;
-letter-spacing:1.4px;
-color:#555;
+font-size:8px;
+letter-spacing:1.5px;
+color:#64748b;
+margin-top:2px;
 }
-
-.print-header:after{
-content:"";
-display:block;
-width:65px;
-height:3px;
-margin:7px auto 0;
-background:#1976d2;
-border-radius:5px;
-}
-
-/* ---------- PRINT TITLE ---------- */
 
 .print-title{
 text-align:center;
-font-size:17px;
-font-weight:900;
-margin:9px 0 5px;
-color:#111;
+font-family:"Bornomala","Bornomala-Regular",serif;
+font-size:15px;
+font-weight:800;
+color:#111827;
+margin:7px 0 4px;
 }
 
-.print-summary{
+.print-meta{
 display:flex;
 justify-content:center;
-gap:8px;
-flex-wrap:wrap;
-margin:6px 0 13px;
+align-items:center;
+gap:12px;
+font-family:"Bornomala","Bornomala-Regular",serif;
+font-size:9px;
+margin:3px 0 8px;
 }
 
-.print-chip{
-display:inline-block;
-border:1px solid #aaa;
-padding:4px 9px;
-border-radius:15px;
-font-family:"Bornomala",serif;
-font-size:10px;
-font-weight:700;
+.print-meta span{
+border:1px solid #cbd5e1;
+padding:2px 7px;
+border-radius:20px;
+background:#f8fafc;
 }
-
-/* ---------- LIST TABLE ---------- */
 
 .print-table{
-width:100%;
-border-collapse:collapse;
-table-layout:auto;
+width:100%!important;
+min-width:0!important;
+table-layout:fixed!important;
+border-collapse:collapse!important;
 font-family:"Bornomala","Bornomala-Regular",serif!important;
-font-size:9.5px!important;
-}
-
-.print-table th{
-background:#eaf2fb!important;
-color:#0d47a1!important;
-border:1px solid #8fa5bd!important;
-padding:6px 5px!important;
-font-size:9.5px!important;
-font-weight:900!important;
-text-align:center!important;
-white-space:nowrap;
-}
-
-.print-table td{
-border:1px solid #b9c4d0!important;
-padding:5px 5px!important;
-font-size:9.5px!important;
-vertical-align:middle!important;
-line-height:1.35;
-}
-
-.print-table tbody tr:nth-child(even) td{
-background:#f8fafc!important;
-}
-
-.print-table td:first-child{
-text-align:center;
-font-family:Arial,sans-serif!important;
-font-weight:700;
-width:25px;
-}
-
-.print-table th:nth-child(2),
-.print-table td:nth-child(2){
-width:45px;
-text-align:center;
-}
-
-.print-table th:nth-child(3),
-.print-table td:nth-child(3){
-width:42px;
-text-align:center;
-}
-
-.print-table th:nth-child(4),
-.print-table td:nth-child(4){
-width:75px;
-font-family:Arial,sans-serif!important;
-}
-
-.print-table th:nth-child(7),
-.print-table td:nth-child(7){
-width:75px;
-}
-
-.print-table th:nth-child(8),
-.print-table td:nth-child(8){
-width:45px;
-text-align:center;
-}
-
-.print-photo{
-display:block;
-width:36px!important;
-height:43px!important;
-object-fit:cover;
-margin:auto;
-border:1px solid #777;
-border-radius:2px;
-}
-
-.print-no-photo{
-width:36px;
-height:43px;
-display:flex;
-align-items:center;
-justify-content:center;
-margin:auto;
-border:1px dashed #aaa;
-font-size:7px;
-color:#777;
-}
-
-/* Keep rows together where possible */
-.print-table tr{
-page-break-inside:avoid;
-}
-
-/* ---------- FOOTER ---------- */
-
-.print-footer{
-margin-top:18px;
-padding-top:7px;
-border-top:1px solid #aaa;
-display:flex;
-justify-content:space-between;
-align-items:flex-end;
-font-size:9px;
-color:#444;
-}
-
-.print-footer .signature{
-text-align:center;
-min-width:145px;
-}
-
-.print-footer .signature-line{
-border-top:1px solid #333;
-margin-top:25px;
-padding-top:3px;
-}
-
-/* ---------- SINGLE STUDENT PRINT ---------- */
-
-.single-student{
-width:100%;
-max-width:720px;
-margin:0 auto;
-padding:0 5px;
-}
-
-.single-card{
-border:1.5px solid #0d47a1;
-border-radius:8px;
-padding:15px;
-position:relative;
-}
-
-.single-card:before{
-content:"STUDENT INFORMATION";
-position:absolute;
-top:-8px;
-left:20px;
-background:#fff;
-padding:0 8px;
-font-family:Arial,sans-serif;
-font-size:8px;
-font-weight:800;
-color:#0d47a1;
-letter-spacing:1px;
-}
-
-.single-profile{
-display:flex;
-gap:18px;
-align-items:flex-start;
-margin:10px 0 15px;
-padding-bottom:12px;
-border-bottom:1px solid #cbd5e1;
-}
-
-.student-print-photo{
-width:105px!important;
-height:125px!important;
-object-fit:cover;
-border:2px solid #0d47a1;
-border-radius:5px;
-display:block;
+font-size:8.5px!important;
 margin:0!important;
 }
-
-.single-profile-info{
-flex:1;
-padding-top:4px;
-}
-
-.single-profile-name{
-font-size:21px;
-font-weight:900;
-color:#0d47a1;
-margin-bottom:7px;
-}
-
-.single-profile-meta{
-font-family:Arial,sans-serif;
-font-size:10px;
-color:#555;
-line-height:1.7;
-}
-
-.single-info{
-width:100%;
-border-collapse:collapse;
-margin-top:8px;
-}
-
-.single-info td{
-border:1px solid #9aa9b8!important;
-padding:8px 9px!important;
-font-size:11px!important;
-line-height:1.4;
-}
-
-.single-info td:first-child{
-width:31%;
-font-weight:800;
-background:#edf4fb!important;
-color:#173b63;
-}
-
-.single-info td:nth-child(2){
-font-weight:600;
-}
-
-.single-print-note{
-margin-top:12px;
-padding:8px 10px;
-border-left:3px solid #1976d2;
-background:#f4f8fc;
-font-size:9px;
-color:#555;
-}
-
-.single-student .print-footer{
-margin-top:45px;
-}
-
-/* ---------- PRINT DATE ---------- */
-
-.print-generated{
-text-align:right;
-font-family:Arial,sans-serif;
-font-size:8px;
-color:#777;
-margin-top:6px;
-}
-
-/* ---------- MULTI PAGE ---------- */
 
 .print-table thead{
 display:table-header-group;
 }
 
-.print-table tfoot{
-display:table-footer-group;
+.print-table tr{
+page-break-inside:avoid;
+break-inside:avoid;
+}
+
+.print-table th,
+.print-table td{
+border:1px solid #94a3b8!important;
+padding:4px 3px!important;
+line-height:1.25!important;
+vertical-align:middle!important;
+overflow:hidden;
+word-break:break-word;
+}
+
+.print-table th{
+background:#eaf2f8!important;
+color:#123b63!important;
+font-weight:800!important;
+text-align:center!important;
+}
+
+.print-table td{
+background:#fff!important;
+color:#111!important;
+}
+
+.print-table th:nth-child(1),
+.print-table td:nth-child(1){width:4%}
+
+.print-table th:nth-child(2),
+.print-table td:nth-child(2){width:8%}
+
+.print-table th:nth-child(3),
+.print-table td:nth-child(3){width:7%}
+
+.print-table th:nth-child(4),
+.print-table td:nth-child(4){width:10%}
+
+.print-table th:nth-child(5),
+.print-table td:nth-child(5){width:16%}
+
+.print-table th:nth-child(6),
+.print-table td:nth-child(6){width:14%}
+
+.print-table th:nth-child(7),
+.print-table td:nth-child(7){width:13%}
+
+.print-table th:nth-child(8),
+.print-table td:nth-child(8){width:8%}
+
+.print-table th:nth-child(9),
+.print-table td:nth-child(9){width:9%}
+
+.print-table th:nth-child(10),
+.print-table td:nth-child(10){width:11%}
+
+.print-photo{
+width:30px!important;
+height:36px!important;
+object-fit:cover!important;
+display:block;
+margin:auto;
+border:1px solid #64748b;
+}
+
+.no-photo{
+font-size:7px;
+color:#64748b;
+text-align:center;
+}
+
+.print-footer{
+display:flex;
+justify-content:space-between;
+align-items:flex-end;
+border-top:1px solid #cbd5e1;
+margin-top:10px;
+padding-top:6px;
+font-size:8px;
+color:#475569;
+}
+
+.print-signature{
+width:150px;
+text-align:center;
+border-top:1px solid #475569;
+padding-top:3px;
+}
+
+/* SINGLE STUDENT */
+
+.single-student{
+width:100%;
+max-width:100%;
+margin:0 auto;
+}
+
+.single-card{
+border:1.5px solid #174a7c;
+border-radius:7px;
+overflow:hidden;
+page-break-inside:avoid;
+break-inside:avoid;
+}
+
+.single-card-top{
+display:flex;
+gap:16px;
+padding:13px;
+border-bottom:1px solid #94a3b8;
+align-items:center;
+}
+
+.student-photo-box{
+width:105px;
+height:125px;
+flex:none;
+border:1px solid #64748b;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#f8fafc;
+overflow:hidden;
+}
+
+.student-photo-box img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.no-photo-large{
+font-size:10px;
+color:#64748b;
+text-align:center;
+}
+
+.student-main{
+flex:1;
+}
+
+.student-main h2{
+margin:0 0 6px;
+font-family:"Bornomala","Bornomala-Regular",serif;
+font-size:22px;
+font-weight:800;
+color:#0d47a1;
+}
+
+.student-main .student-id-line{
+font-family:Arial,sans-serif;
+font-size:10px;
+color:#475569;
+margin-bottom:7px;
+}
+
+.student-tags{
+display:flex;
+gap:6px;
+flex-wrap:wrap;
+}
+
+.student-tag{
+border:1px solid #bfd3e7;
+background:#edf5fb;
+padding:4px 8px;
+border-radius:12px;
+font-size:9px;
+color:#174a7c;
+}
+
+.single-info{
+width:100%;
+border-collapse:collapse;
+margin:0;
+table-layout:fixed;
+}
+
+.single-info td{
+border-bottom:1px solid #cbd5e1;
+padding:7px 9px;
+font-size:10.5px;
+line-height:1.35;
+vertical-align:top;
+}
+
+.single-info tr:last-child td{
+border-bottom:0;
+}
+
+.single-info td:first-child{
+width:30%;
+font-weight:800;
+background:#f1f5f9;
+color:#334155;
+}
+
+.single-info td:nth-child(2){
+width:70%;
+color:#111827;
+}
+
+.address-cell{
+min-height:35px;
+}
+
+.single-footer{
+display:flex;
+justify-content:space-between;
+align-items:flex-end;
+margin-top:35px;
+font-size:9px;
+}
+
+.signature-box{
+width:155px;
+text-align:center;
+padding-top:5px;
+border-top:1px solid #475569;
+}
+
+.print-note{
+font-size:8px;
+color:#64748b;
+margin-top:8px;
+text-align:center;
+}
+
+/* prevent accidental extra pages */
+.print-page,
+.single-student{
+page-break-after:auto;
 }
 
 }
-
-/* =====================================================
-   RESPONSIVE
-===================================================== */
 
 @media(max-width:900px){
-
-.stats{
-grid-template-columns:repeat(2,1fr);
-}
-
-.search-row{
-grid-template-columns:1fr 1fr;
-}
-
+.stats{grid-template-columns:repeat(2,1fr)}
+.search-row{grid-template-columns:1fr 1fr}
 }
 
 @media(max-width:800px){
 
-.topbar{
-padding:13px 16px;
-}
-
+.topbar{padding:13px 16px}
 .brand-title{font-size:18px}
 
 .container{
@@ -739,12 +736,8 @@ margin:18px auto;
 padding:0 12px 40px;
 }
 
-.form-grid{
-grid-template-columns:1fr;
-}
-
+.form-grid{grid-template-columns:1fr}
 .full{grid-column:auto}
-
 .box{padding:17px}
 
 }
@@ -757,21 +750,14 @@ align-items:flex-start;
 }
 
 .top-right{width:100%}
-
-.search-row{
-grid-template-columns:1fr;
-}
+.search-row{grid-template-columns:1fr}
 
 }
 
 @media(max-width:500px){
 
-.stats{
-grid-template-columns:1fr 1fr;
-}
-
+.stats{grid-template-columns:1fr 1fr}
 .stat-box{padding:15px}
-
 .stat-number{font-size:23px}
 
 }
@@ -793,14 +779,12 @@ grid-template-columns:1fr 1fr;
 
 </header>
 
-
 <main class="container">
 
 <div class="page-heading">
 <h1>👨‍🎓 Student Management</h1>
 <p>শিক্ষার্থীদের তথ্য সংরক্ষণ, সম্পাদনা ও ব্যবস্থাপনা</p>
 </div>
-
 
 <div class="stats">
 
@@ -826,7 +810,6 @@ grid-template-columns:1fr 1fr;
 
 </div>
 
-
 <section class="box">
 
 <div class="box-header">
@@ -840,7 +823,6 @@ Year, Roll Number ও শিক্ষার্থীর তথ্য সংর�
 <strong>📅 Current Year:</strong>
 <span id="sessionText">Loading...</span>
 </div>
-
 
 <form id="studentForm">
 
@@ -928,29 +910,21 @@ Year, Roll Number ও শিক্ষার্থীর তথ্য সংর�
 </div>
 
 </form>
-
 </section>
-
 
 <section class="box">
 
 <div class="box-header">
-
 <div class="box-title">👨‍🎓 Student List</div>
-
 <div class="box-description">
 Roll Number, Student ID, Year ও Search অনুযায়ী শিক্ষার্থীদের তালিকা
 </div>
-
 </div>
-
 
 <div class="search-row">
 
-<input
-id="search"
-placeholder="🔍 Roll Number, Student ID, নাম অথবা মোবাইল দিয়ে খুঁজুন..."
->
+<input id="search"
+placeholder="🔍 Roll Number, Student ID, নাম অথবা মোবাইল দিয়ে খুঁজুন...">
 
 <select id="filterSession">
 <option value="">All Years</option>
@@ -965,7 +939,6 @@ placeholder="🔍 Roll Number, Student ID, নাম অথবা মোবা�
 </button>
 
 </div>
-
 
 <div class="table-wrap">
 
@@ -1005,13 +978,15 @@ Loading...
 
 </main>
 
-
 <div id="printArea"></div>
-
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
+
+/* =====================================================
+   SUPABASE
+===================================================== */
 
 const SUPABASE_URL =
 "https://qavublwhqiqsgpcmfyft.supabase.co";
@@ -1031,10 +1006,18 @@ let years=[];
 let currentUser=null;
 
 
+/* =====================================================
+   CURRENT YEAR
+===================================================== */
+
 function getCurrentYear(){
 return String(new Date().getFullYear());
 }
 
+
+/* =====================================================
+   AUTH
+===================================================== */
 
 async function start(){
 
@@ -1064,7 +1047,9 @@ const current=getCurrentYear();
 document.getElementById("currentSession").textContent=current;
 document.getElementById("sessionText").textContent=current;
 
-if(years.some(x=>String(x.year)===current)){
+if(
+years.some(x=>String(x.year)===current)
+){
 
 document.getElementById("session").value=current;
 document.getElementById("filterSession").value=current;
@@ -1077,11 +1062,9 @@ document.getElementById("session").value=current;
 
 applyFilters();
 
-}
-catch(error){
+}catch(error){
 
 console.error(error);
-
 showMessage(error.message,"error");
 
 }
@@ -1089,7 +1072,12 @@ showMessage(error.message,"error");
 }
 
 
-db.auth.onAuthStateChange((event,session)=>{
+/* =====================================================
+   AUTH STATE
+===================================================== */
+
+db.auth.onAuthStateChange(
+(event,session)=>{
 
 if(!session){
 location.href="admin.html";
@@ -1098,11 +1086,18 @@ location.href="admin.html";
 });
 
 
+/* =====================================================
+   LOAD CLASSES
+===================================================== */
+
 async function loadClasses(){
 
 const select=document.getElementById("classId");
 
-const {data,error}=await db
+const {
+data,
+error
+}=await db
 .from("classes")
 .select("id,name")
 .order("id");
@@ -1115,14 +1110,12 @@ showMessage(
 );
 
 return;
-
 }
 
 classes=data||[];
 
-select.innerHTML=`
-<option value="">শ্রেণি নির্বাচন করুন</option>
-`;
+select.innerHTML=
+`<option value="">শ্রেণি নির্বাচন করুন</option>`;
 
 classes.forEach(c=>{
 
@@ -1138,9 +1131,16 @@ select.appendChild(option);
 }
 
 
+/* =====================================================
+   LOAD YEARS
+===================================================== */
+
 async function loadYears(){
 
-const {data,error}=await db
+const {
+data,
+error
+}=await db
 .from("sessions")
 .select("id,year")
 .order("year",{ascending:false});
@@ -1153,7 +1153,6 @@ error.message
 );
 
 await loadYearsFromStudents();
-
 return;
 
 }
@@ -1189,9 +1188,16 @@ renderYearOptions();
 }
 
 
+/* =====================================================
+   FALLBACK YEARS
+===================================================== */
+
 async function loadYearsFromStudents(){
 
-const {data,error}=await db
+const {
+data,
+error
+}=await db
 .from("students")
 .select("session")
 .not("session","is",null);
@@ -1206,9 +1212,7 @@ return;
 const unique=[
 ...new Set(
 (data||[])
-.map(
-x=>String(x.session||"").trim()
-)
+.map(x=>String(x.session||"").trim())
 .filter(Boolean)
 )
 ];
@@ -1217,7 +1221,9 @@ unique.sort(
 (a,b)=>Number(b)-Number(a)
 );
 
-years=unique.map(y=>({year:y}));
+years=unique.map(
+y=>({year:y})
+);
 
 const current=getCurrentYear();
 
@@ -1227,7 +1233,9 @@ x=>String(x.year)===current
 )
 ){
 
-years.push({year:current});
+years.push({
+year:current
+});
 
 }
 
@@ -1235,6 +1243,10 @@ renderYearOptions();
 
 }
 
+
+/* =====================================================
+   YEAR OPTIONS
+===================================================== */
 
 function renderYearOptions(){
 
@@ -1244,13 +1256,11 @@ document.getElementById("session");
 const filterSession=
 document.getElementById("filterSession");
 
-formSession.innerHTML=`
-<option value="">Year নির্বাচন করুন</option>
-`;
+formSession.innerHTML=
+`<option value="">Year নির্বাচন করুন</option>`;
 
-filterSession.innerHTML=`
-<option value="">All Years</option>
-`;
+filterSession.innerHTML=
+`<option value="">All Years</option>`;
 
 years.forEach(item=>{
 
@@ -1275,18 +1285,24 @@ filterSession.appendChild(o2);
 }
 
 
+/* =====================================================
+   LOAD STUDENTS
+===================================================== */
+
 async function loadStudents(){
 
 const tbody=
 document.getElementById("studentList");
 
 tbody.innerHTML=`
+
 <tr>
 <td colspan="10" class="center">
 <div class="loading"></div>
 Loading...
 </td>
 </tr>
+
 `;
 
 const {
@@ -1316,11 +1332,13 @@ if(error){
 console.error(error);
 
 tbody.innerHTML=`
+
 <tr>
 <td colspan="10" class="center">
 ❌ ${escapeHtml(error.message)}
 </td>
 </tr>
+
 `;
 
 return;
@@ -1335,6 +1353,10 @@ applyFilters();
 }
 
 
+/* =====================================================
+   ONLINE ADMISSION
+===================================================== */
+
 async function loadOnlineAdmissionCount(){
 
 try{
@@ -1344,13 +1366,7 @@ count,
 error
 }=await db
 .from("admission_applications")
-.select(
-"id",
-{
-count:"exact",
-head:true
-}
-)
+.select("id",{count:"exact",head:true})
 .eq("status","pending");
 
 if(!error){
@@ -1361,8 +1377,7 @@ document.getElementById(
 
 }
 
-}
-catch(error){
+}catch(error){
 
 console.log(
 "Admission table unavailable"
@@ -1372,6 +1387,10 @@ console.log(
 
 }
 
+
+/* =====================================================
+   STATS
+===================================================== */
 
 function updateStats(){
 
@@ -1383,6 +1402,10 @@ students.length;
 }
 
 
+/* =====================================================
+   FILTER
+===================================================== */
+
 function getFilteredStudents(){
 
 const q=
@@ -1392,7 +1415,8 @@ document.getElementById("search")
 .trim();
 
 const selectedYear=
-document.getElementById("filterSession").value;
+document.getElementById("filterSession")
+.value;
 
 return students.filter(s=>{
 
@@ -1438,11 +1462,16 @@ return yearMatch && searchMatch;
 
 }
 
-
 function applyFilters(){
+
 render(getFilteredStudents());
+
 }
 
+
+/* =====================================================
+   CLASS NAME
+===================================================== */
 
 function getClassName(student){
 
@@ -1457,6 +1486,10 @@ return c?c.name:"-";
 }
 
 
+/* =====================================================
+   RENDER
+===================================================== */
+
 function render(list){
 
 const tbody=
@@ -1469,6 +1502,7 @@ document.getElementById(
 if(!list.length){
 
 tbody.innerHTML=`
+
 <tr>
 <td colspan="10" class="center">
 
@@ -1480,6 +1514,7 @@ tbody.innerHTML=`
 
 </td>
 </tr>
+
 `;
 
 return;
@@ -1490,17 +1525,22 @@ tbody.innerHTML=
 list.map(s=>{
 
 const photo=s.photo_url
+
 ?
+
 `<img
 src="${escapeHtml(s.photo_url)}"
 class="photo"
 alt="Student Photo"
 onerror="this.style.display='none'"
 >`
+
 :
+
 `<span class="badge">No Photo</span>`;
 
 return `
+
 <tr>
 
 <td>${photo}</td>
@@ -1548,24 +1588,21 @@ ${escapeHtml(formatDate(s.admission_date))}
 <button
 type="button"
 class="btn-edit"
-onclick="editStudent('${String(s.id)}')"
->
+onclick="editStudent('${String(s.id)}')">
 ✏ Edit
 </button>
 
 <button
 type="button"
 class="btn-print"
-onclick="printSingleStudent('${String(s.id)}')"
->
+onclick="printSingleStudent('${String(s.id)}')">
 🖨
 </button>
 
 <button
 type="button"
 class="btn-danger"
-onclick="deleteStudent('${String(s.id)}')"
->
+onclick="deleteStudent('${String(s.id)}')">
 🗑
 </button>
 
@@ -1574,6 +1611,7 @@ onclick="deleteStudent('${String(s.id)}')"
 </td>
 
 </tr>
+
 `;
 
 }).join("");
@@ -1581,9 +1619,13 @@ onclick="deleteStudent('${String(s.id)}')"
 }
 
 
+/* =====================================================
+   DATE
+===================================================== */
+
 function formatDate(date){
 
-if(!date) return "-";
+if(!date)return "-";
 
 try{
 
@@ -1591,8 +1633,7 @@ const d=new Date(date+"T00:00:00");
 
 return d.toLocaleDateString("bn-BD");
 
-}
-catch(e){
+}catch(e){
 
 return date;
 
@@ -1601,13 +1642,16 @@ return date;
 }
 
 
+/* =====================================================
+   PHOTO UPLOAD
+===================================================== */
+
 async function uploadStudentPhoto(){
 
 const file=
-document.getElementById("photo")
-.files[0];
+document.getElementById("photo").files[0];
 
-if(!file) return null;
+if(!file)return null;
 
 if(!file.type.startsWith("image/")){
 
@@ -1650,8 +1694,7 @@ file,
 if(error){
 
 throw new Error(
-"Photo upload failed: "+
-error.message
+"Photo upload failed: "+error.message
 );
 
 }
@@ -1665,11 +1708,16 @@ return data.publicUrl;
 }
 
 
+/* =====================================================
+   GENERATE STUDENT ID
+===================================================== */
+
 async function generateStudentId(){
 
-const {data,error}=await db.rpc(
-"next_student_id"
-);
+const {
+data,
+error
+}=await db.rpc("next_student_id");
 
 if(error){
 
@@ -1684,6 +1732,10 @@ return data;
 
 }
 
+
+/* =====================================================
+   SAVE / UPDATE
+===================================================== */
 
 document
 .getElementById("studentForm")
@@ -1707,9 +1759,7 @@ saveBtn.disabled=true;
 msg.className="message";
 
 msg.textContent=
-editId
-?"Updating..."
-:"Saving...";
+editId?"Updating...":"Saving...";
 
 try{
 
@@ -1755,50 +1805,36 @@ document.getElementById("address").value.trim()
 
 };
 
-if(!student.roll_number){
-
+if(!student.roll_number)
 throw new Error("Roll Number দিন।");
 
-}
-
-if(!student.name){
-
+if(!student.name)
 throw new Error("শিক্ষার্থীর নাম দিন।");
 
-}
-
-if(!student.session){
-
+if(!student.session)
 throw new Error("Year নির্বাচন করুন।");
 
-}
-
-if(!student.class_id){
-
+if(!student.class_id)
 throw new Error("Class নির্বাচন করুন।");
 
-}
 
+/* UPDATE */
 
 if(editId){
 
-if(photoUrl){
-
+if(photoUrl)
 student.photo_url=photoUrl;
-
-}
 
 const {error}=await db
 .from("students")
 .update(student)
 .eq("id",editId);
 
-if(error) throw error;
+if(error)throw error;
 
 const index=
 students.findIndex(
-x=>String(x.id)===
-String(editId)
+x=>String(x.id)===String(editId)
 );
 
 if(index!==-1){
@@ -1823,16 +1859,17 @@ await loadYears();
 setTimeout(resetForm,700);
 
 }
+
+
+/* ADD */
+
 else{
 
 student.student_id=
 await generateStudentId();
 
-if(photoUrl){
-
+if(photoUrl)
 student.photo_url=photoUrl;
-
-}
 
 const {
 data,
@@ -1857,7 +1894,7 @@ created_at
 `)
 .single();
 
-if(error) throw error;
+if(error)throw error;
 
 students.unshift(data);
 
@@ -1878,17 +1915,14 @@ setTimeout(resetForm,1200);
 
 }
 
-}
-catch(error){
+}catch(error){
 
 console.error(error);
 
 msg.className="message error";
-
 msg.textContent="❌ "+error.message;
 
-}
-finally{
+}finally{
 
 saveBtn.disabled=false;
 
@@ -1898,12 +1932,15 @@ saveBtn.disabled=false;
 );
 
 
+/* =====================================================
+   EDIT
+===================================================== */
+
 function editStudent(id){
 
 const student=
 students.find(
-x=>String(x.id)===
-String(id)
+x=>String(x.id)===String(id)
 );
 
 if(!student){
@@ -1948,22 +1985,26 @@ behavior:"smooth"
 }
 
 
+/* =====================================================
+   DELETE
+===================================================== */
+
 async function deleteStudent(id){
 
 const student=
 students.find(
-x=>String(x.id)===
-String(id)
+x=>String(x.id)===String(id)
 );
 
-if(!student) return;
+if(!student)return;
 
-const ok=confirm(
+const ok=
+confirm(
 "“"+(student.name||"Student")+
 "” কে Delete করতে চান?"
 );
 
-if(!ok) return;
+if(!ok)return;
 
 try{
 
@@ -1972,12 +2013,11 @@ const {error}=await db
 .delete()
 .eq("id",id);
 
-if(error) throw error;
+if(error)throw error;
 
 students=
 students.filter(
-s=>String(s.id)!==
-String(id)
+s=>String(s.id)!==String(id)
 );
 
 updateStats();
@@ -1989,8 +2029,7 @@ alert(
 "✅ Student successfully deleted."
 );
 
-}
-catch(error){
+}catch(error){
 
 alert("❌ "+error.message);
 
@@ -1998,6 +2037,10 @@ alert("❌ "+error.message);
 
 }
 
+
+/* =====================================================
+   RESET
+===================================================== */
 
 function resetForm(){
 
@@ -2027,17 +2070,53 @@ document.getElementById("msg").textContent="";
 }
 
 
+/* =====================================================
+   CANCEL
+===================================================== */
+
 document
 .getElementById("cancelBtn")
 .onclick=resetForm;
 
 
 /* =====================================================
-   NEW PRINT LIST
-   UI / Database / Search / Edit / Delete untouched
+   WAIT FOR PRINT IMAGES
 ===================================================== */
 
-function printStudents(list,title){
+function waitForPrintImages(){
+
+const images=
+Array.from(
+document.querySelectorAll("#printArea img")
+);
+
+if(!images.length)
+return Promise.resolve();
+
+return Promise.all(
+images.map(img=>{
+
+if(img.complete)
+return Promise.resolve();
+
+return new Promise(resolve=>{
+
+img.onload=resolve;
+img.onerror=resolve;
+
+});
+
+})
+);
+
+}
+
+
+/* =====================================================
+   PRINT LIST
+===================================================== */
+
+async function printStudents(list,title){
 
 if(!list.length){
 
@@ -2052,29 +2131,37 @@ return;
 let year=
 document.getElementById("filterSession").value;
 
-if(!year) year="All Years";
-
+if(!year)
+year="All Years";
 
 const rows=
 list.map((s,index)=>{
 
-const photo=s.photo_url
+const photo=
+s.photo_url
+
 ?
+
 `<img
 src="${escapeHtml(s.photo_url)}"
 class="print-photo"
->`
+alt="Photo">`
+
 :
-`<div class="print-no-photo">NO PHOTO</div>`;
+
+`<div class="no-photo">No Photo</div>`;
 
 return `
+
 <tr>
 
-<td>${index+1}</td>
+<td style="text-align:center">
+${index+1}
+</td>
 
 <td>${photo}</td>
 
-<td>
+<td style="text-align:center">
 ${escapeHtml(s.roll_number||"-")}
 </td>
 
@@ -2083,9 +2170,7 @@ ${escapeHtml(s.student_id||"-")}
 </td>
 
 <td>
-<strong>
 ${escapeHtml(s.name||"-")}
-</strong>
 </td>
 
 <td>
@@ -2096,11 +2181,11 @@ ${escapeHtml(s.father_name||"-")}
 ${escapeHtml(s.phone||"-")}
 </td>
 
-<td>
+<td style="text-align:center">
 ${escapeHtml(s.session||"-")}
 </td>
 
-<td>
+<td style="text-align:center">
 ${escapeHtml(getClassName(s))}
 </td>
 
@@ -2109,39 +2194,42 @@ ${escapeHtml(formatDate(s.admission_date))}
 </td>
 
 </tr>
+
 `;
 
 }).join("");
 
-
 document.getElementById("printArea").innerHTML=`
+
+<div class="print-page">
 
 <div class="print-header">
 
-<h1>মাদরাসায়ে নূরুল কুরআন</h1>
-
-<p>STUDENT MANAGEMENT SYSTEM</p>
-
+<div class="print-logo-title">
+মাদরাসায়ে নূরুল কুরআন
 </div>
 
+<div class="print-subtitle">
+STUDENT MANAGEMENT SYSTEM
+</div>
+
+</div>
 
 <div class="print-title">
 ${escapeHtml(title)}
 </div>
 
+<div class="print-meta">
 
-<div class="print-summary">
-
-<span class="print-chip">
+<span>
 Year: ${escapeHtml(year)}
 </span>
 
-<span class="print-chip">
+<span>
 Total Student: ${list.length}
 </span>
 
 </div>
-
 
 <table class="print-table">
 
@@ -2170,32 +2258,35 @@ ${rows}
 
 </table>
 
-
-<div class="print-generated">
-Printed: ${new Date().toLocaleDateString("bn-BD")}
-</div>
-
-
 <div class="print-footer">
 
 <span>
-মাদরাসায়ে নূরুল কুরআন
+প্রিন্ট তারিখ:
+${new Date().toLocaleDateString("bn-BD")}
 </span>
 
-<div class="signature">
-<div class="signature-line">
-অফিস / কর্তৃপক্ষ
-</div>
+<span class="print-signature">
+অনুমোদিত স্বাক্ষর
+</span>
+
 </div>
 
 </div>
 
 `;
 
+await waitForPrintImages();
+
+setTimeout(()=>{
 window.print();
+},100);
 
 }
 
+
+/* =====================================================
+   PRINT FILTERED
+===================================================== */
 
 document
 .getElementById("printFilteredBtn")
@@ -2211,6 +2302,10 @@ getFilteredStudents(),
 }
 );
 
+
+/* =====================================================
+   PRINT ALL
+===================================================== */
 
 document
 .getElementById("printAllBtn")
@@ -2228,42 +2323,32 @@ students,
 
 
 /* =====================================================
-   NEW SINGLE STUDENT PRINT
+   SINGLE STUDENT PRINT
 ===================================================== */
 
-function printSingleStudent(id){
+async function printSingleStudent(id){
 
 const s=
 students.find(
-x=>String(x.id)===
-String(id)
+x=>String(x.id)===String(id)
 );
 
-if(!s) return;
+if(!s)return;
 
+const photo=
+s.photo_url
 
-const photo=s.photo_url
 ?
+
 `<img
 src="${escapeHtml(s.photo_url)}"
-class="student-print-photo"
->`
+alt="Student Photo">`
+
 :
-`<div
-style="
-width:105px;
-height:125px;
-border:1px dashed #999;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:9px;
-color:#777;
-"
->
+
+`<div class="no-photo-large">
 NO PHOTO
 </div>`;
-
 
 document.getElementById("printArea").innerHTML=`
 
@@ -2271,67 +2356,59 @@ document.getElementById("printArea").innerHTML=`
 
 <div class="print-header">
 
-<h1>
+<div class="print-logo-title">
 মাদরাসায়ে নূরুল কুরআন
-</h1>
-
-<p>
-STUDENT INFORMATION
-</p>
-
 </div>
 
+<div class="print-subtitle">
+STUDENT INFORMATION PROFILE
+</div>
+
+</div>
 
 <div class="single-card">
 
+<div class="single-card-top">
 
-<div class="single-profile">
-
-<div>
+<div class="student-photo-box">
 ${photo}
 </div>
 
+<div class="student-main">
 
-<div class="single-profile-info">
-
-<div class="single-profile-name">
+<h2>
 ${escapeHtml(s.name||"-")}
-</div>
+</h2>
 
-<div class="single-profile-meta">
-
+<div class="student-id-line">
 Student ID:
 <strong>
 ${escapeHtml(s.student_id||"-")}
 </strong>
+</div>
 
-<br>
+<div class="student-tags">
 
+<span class="student-tag">
 Roll:
-<strong>
 ${escapeHtml(s.roll_number||"-")}
-</strong>
+</span>
 
-<br>
-
+<span class="student-tag">
 Year:
-<strong>
 ${escapeHtml(s.session||"-")}
-</strong>
+</span>
 
-&nbsp;&nbsp; | &nbsp;&nbsp;
-
+<span class="student-tag">
 Class:
-<strong>
 ${escapeHtml(getClassName(s))}
-</strong>
+</span>
 
 </div>
 
 </div>
 
 </div>
-
 
 <table class="single-info">
 
@@ -2382,53 +2459,52 @@ ${escapeHtml(getClassName(s))}
 
 <tr>
 <td>Address</td>
-<td>${escapeHtml(s.address||"-")}</td>
+<td class="address-cell">
+${escapeHtml(s.address||"-")}
+</td>
 </tr>
 
 </table>
 
-
-<div class="single-print-note">
-এই তথ্যপত্রটি মাদরাসায়ে নূরুল কুরআনের Student Management System থেকে তৈরি করা হয়েছে।
 </div>
 
+<div class="single-footer">
 
-<div class="print-footer">
-
-<span>
+<div>
 তারিখ:
 ${new Date().toLocaleDateString("bn-BD")}
-</span>
+</div>
 
-<div class="signature">
-
-<div class="signature-line">
+<div class="signature-box">
 অভিভাবকের স্বাক্ষর
 </div>
 
-</div>
-
-<div class="signature">
-
-<div class="signature-line">
+<div class="signature-box">
 কর্তৃপক্ষের স্বাক্ষর
 </div>
 
 </div>
 
-</div>
-
-
+<div class="print-note">
+এই তথ্যপত্রটি মাদরাসায়ে নূরুল কুরআনের Student Management System থেকে তৈরি করা হয়েছে।
 </div>
 
 </div>
 
 `;
 
+await waitForPrintImages();
+
+setTimeout(()=>{
 window.print();
+},100);
 
 }
 
+
+/* =====================================================
+   SEARCH
+===================================================== */
 
 document
 .getElementById("search")
@@ -2437,6 +2513,10 @@ document
 applyFilters
 );
 
+
+/* =====================================================
+   YEAR FILTER
+===================================================== */
 
 document
 .getElementById("filterSession")
@@ -2458,9 +2538,14 @@ value||getCurrentYear();
 );
 
 
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
 function escapeHtml(value){
 
 return String(value??"")
+
 .replaceAll("&","&amp;")
 .replaceAll("<","&lt;")
 .replaceAll(">","&gt;")
@@ -2470,16 +2555,26 @@ return String(value??"")
 }
 
 
+/* =====================================================
+   MESSAGE
+===================================================== */
+
 function showMessage(text,type=""){
 
 const msg=
 document.getElementById("msg");
 
-msg.className="message "+type;
+msg.className=
+"message "+type;
+
 msg.textContent=text;
 
 }
 
+
+/* =====================================================
+   START
+===================================================== */
 
 start();
 
