@@ -1,689 +1,1476 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1">
 
 <title>Student Login | মাদরাসায়ে নূরুল কুরআন</title>
 
-<link href="https://banglawebfonts.pages.dev/css/bornomala.css" rel="stylesheet">
+<link
+href="https://banglawebfonts.pages.dev/css/bornomala.css"
+rel="stylesheet">
 
-<link rel="stylesheet"
+<link
+rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script
+src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+</script>
+
 
 <style>
+
 *{
- box-sizing:border-box;
- margin:0;
- padding:0;
- font-family:"Bornomala",sans-serif;
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
 :root{
- --primary:#0d47a1;
- --primary2:#1976d2;
- --dark:#06264d;
- --gold:#ffd54f;
- --bg:#f3f8fe;
- --white:#fff;
+
+    --primary:#0d47a1;
+    --primary2:#1976d2;
+    --dark:#06264d;
+    --dark2:#031a36;
+
+    --gold:#ffd54f;
+
+    --white:#ffffff;
+
+    --text:#172033;
+    --muted:#718096;
+
+    --danger:#ffb4b4;
+    --success:#baffd0;
 }
+
 
 body{
- min-height:100vh;
- background:
- radial-gradient(circle at 10% 10%,#dcecff 0,transparent 25%),
- radial-gradient(circle at 90% 90%,#dcecff 0,transparent 25%),
- var(--bg);
- color:#172033;
+
+    min-height:100vh;
+
+    font-family:"Bornomala",sans-serif;
+
+    background:
+
+    radial-gradient(
+        circle at 15% 15%,
+        rgba(25,118,210,.16),
+        transparent 28%
+    ),
+
+    radial-gradient(
+        circle at 85% 85%,
+        rgba(13,71,161,.16),
+        transparent 30%
+    ),
+
+    linear-gradient(
+        135deg,
+        #eef6ff,
+        #f8fbff
+    );
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:25px;
+
+    color:var(--text);
 }
 
-/* TOP */
 
-.top{
- text-align:center;
- padding:24px 15px 20px;
+/* ================================
+   MAIN
+================================ */
+
+.login-page{
+
+    width:100%;
+
+    max-width:1100px;
+
+    min-height:650px;
+
+    background:#fff;
+
+    border-radius:30px;
+
+    overflow:hidden;
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    box-shadow:
+    0 25px 70px rgba(6,38,77,.18);
+
 }
 
-.top-small{
- font-family:Georgia,serif;
- color:#1976d2;
- font-size:21px;
- letter-spacing:.5px;
+
+/* ================================
+   LEFT SIDE
+================================ */
+
+.brand-panel{
+
+    position:relative;
+
+    padding:55px;
+
+    color:#fff;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    overflow:hidden;
+
+    background:
+
+    linear-gradient(
+        145deg,
+        #031a36,
+        #073d78 55%,
+        #0d70c9
+    );
 }
 
-.top-title{
- font-size:48px;
- color:#071b35;
- font-weight:bold;
- line-height:1.15;
- margin-top:2px;
+
+.brand-panel::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:350px;
+
+    height:350px;
+
+    border-radius:50%;
+
+    background:rgba(255,213,79,.08);
+
+    top:-150px;
+
+    right:-150px;
 }
 
-.top-text{
- color:#738196;
- font-size:17px;
- margin-top:12px;
+
+.brand-panel::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:250px;
+
+    height:250px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.05);
+
+    bottom:-120px;
+
+    left:-100px;
 }
 
-/* MAIN LOGIN */
 
-.login-wrap{
- width:min(1450px,94%);
- margin:55px auto 35px;
+.brand-content{
 
- background:
- linear-gradient(
-  120deg,
-  #062b59,
-  #0d4e96 50%,
-  #0874d1
- );
+    position:relative;
 
- border-radius:42px;
-
- padding:55px 65px;
-
- min-height:510px;
-
- display:grid;
- grid-template-columns:1.2fr .8fr;
- align-items:center;
- gap:50px;
-
- box-shadow:
- 0 25px 60px rgba(7,45,90,.22);
+    z-index:2;
 }
 
-/* LEFT */
 
-.left{
- color:#fff;
- padding:15px 10px;
+.logo{
+
+    width:76px;
+
+    height:76px;
+
+    border-radius:22px;
+
+    background:rgba(255,255,255,.12);
+
+    border:1px solid rgba(255,255,255,.2);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:34px;
+
+    color:var(--gold);
+
+    margin-bottom:28px;
+
+    box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.15);
 }
 
-.portal-label{
- font-family:Georgia,serif;
- color:#a9c9ed;
- font-size:20px;
- letter-spacing:.5px;
+
+.brand-small{
+
+    font-family:Georgia,serif;
+
+    font-size:15px;
+
+    letter-spacing:1px;
+
+    color:#a9c9ed;
+
+    margin-bottom:8px;
 }
 
-.left h1{
- font-family:Georgia,serif;
- color:var(--gold);
- font-size:56px;
- margin:10px 0 24px;
+
+.brand-title{
+
+    font-size:42px;
+
+    line-height:1.25;
+
+    color:#fff;
+
+    font-weight:bold;
+
+    margin-bottom:15px;
 }
 
-.left p{
- color:#e5effa;
- font-size:21px;
- line-height:1.9;
- max-width:650px;
+
+.brand-title span{
+
+    color:var(--gold);
 }
 
-.secure{
- margin-top:30px;
- font-size:20px;
- color:#f2f7ff;
+
+.brand-description{
+
+    color:#dcecff;
+
+    font-size:17px;
+
+    line-height:1.9;
+
+    max-width:460px;
 }
 
-.secure i{
- color:var(--gold);
- margin-right:8px;
+
+.features{
+
+    margin-top:32px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:13px;
 }
 
-/* FORM */
 
-.form-box{
- background:rgba(255,255,255,.10);
+.feature{
 
- border:1px solid rgba(255,255,255,.18);
+    display:flex;
 
- border-radius:28px;
+    align-items:center;
 
- padding:40px;
+    gap:12px;
 
- backdrop-filter:blur(12px);
+    color:#eef7ff;
 
- box-shadow:
- inset 0 1px 0 rgba(255,255,255,.12);
+    font-size:14px;
 }
 
-.form-title{
- color:#fff;
- text-align:center;
- font-size:25px;
- margin-bottom:24px;
+
+.feature i{
+
+    width:27px;
+
+    height:27px;
+
+    border-radius:50%;
+
+    background:rgba(255,213,79,.13);
+
+    color:var(--gold);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:12px;
 }
 
-.input-box{
- margin-bottom:17px;
+
+/* ================================
+   LOGIN SIDE
+================================ */
+
+.login-panel{
+
+    padding:55px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:#fff;
 }
 
-.input-box label{
- display:block;
- color:#eaf3ff;
- font-size:14px;
- margin-bottom:7px;
+
+.login-box{
+
+    width:100%;
+
+    max-width:410px;
 }
 
-.input-wrap{
- position:relative;
+
+.login-heading{
+
+    text-align:center;
+
+    margin-bottom:32px;
 }
 
-.input-wrap i{
- position:absolute;
- left:16px;
- top:50%;
- transform:translateY(-50%);
- color:#6c7d91;
+
+.login-icon{
+
+    width:66px;
+
+    height:66px;
+
+    margin:0 auto 16px;
+
+    border-radius:18px;
+
+    background:#eaf3ff;
+
+    color:var(--primary);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:27px;
 }
 
-.input-wrap input{
- width:100%;
- height:58px;
 
- border:0;
- outline:0;
+.login-heading h1{
 
- border-radius:13px;
+    font-size:30px;
 
- background:#fff;
+    color:#0a2545;
 
- padding:0 15px 0 48px;
-
- font-family:"Bornomala",sans-serif;
- font-size:17px;
-
- color:#172033;
+    margin-bottom:5px;
 }
 
-.input-wrap input:focus{
- box-shadow:
- 0 0 0 3px rgba(255,213,79,.35);
+
+.login-heading p{
+
+    color:var(--muted);
+
+    font-size:14px;
 }
+
+
+/* ================================
+   INPUT
+================================ */
+
+.input-group{
+
+    margin-bottom:20px;
+}
+
+
+.input-group label{
+
+    display:block;
+
+    color:#34445a;
+
+    font-size:14px;
+
+    font-weight:bold;
+
+    margin-bottom:8px;
+}
+
+
+.input-wrapper{
+
+    position:relative;
+}
+
+
+.input-wrapper > i{
+
+    position:absolute;
+
+    left:17px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    color:#7b8ba0;
+
+    font-size:16px;
+
+    pointer-events:none;
+}
+
+
+.input-wrapper input{
+
+    width:100%;
+
+    height:56px;
+
+    border:1px solid #dce5ef;
+
+    border-radius:13px;
+
+    outline:none;
+
+    padding:
+    0 16px 0 48px;
+
+    background:#f9fbfd;
+
+    color:#172033;
+
+    font-family:"Bornomala",sans-serif;
+
+    font-size:16px;
+
+    transition:.2s;
+}
+
+
+.input-wrapper input:focus{
+
+    background:#fff;
+
+    border-color:#1976d2;
+
+    box-shadow:
+    0 0 0 4px rgba(25,118,210,.10);
+}
+
+
+.input-wrapper input::placeholder{
+
+    color:#9ba8b8;
+}
+
+
+/* ================================
+   LOGIN BUTTON
+================================ */
 
 .login-btn{
- width:100%;
- height:58px;
 
- border:0;
- border-radius:13px;
+    width:100%;
 
- background:var(--gold);
+    height:57px;
 
- color:#182536;
+    border:none;
 
- font-size:19px;
- font-weight:bold;
+    border-radius:13px;
 
- cursor:pointer;
+    background:
 
- transition:.2s;
+    linear-gradient(
+        135deg,
+        #0d47a1,
+        #1976d2
+    );
 
- margin-top:4px;
+    color:#fff;
+
+    font-family:"Bornomala",sans-serif;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+    box-shadow:
+    0 8px 20px rgba(13,71,161,.18);
 }
+
 
 .login-btn:hover{
- transform:translateY(-2px);
 
- box-shadow:
- 0 8px 20px rgba(0,0,0,.18);
+    transform:translateY(-2px);
+
+    box-shadow:
+    0 12px 25px rgba(13,71,161,.25);
 }
+
+
+.login-btn:active{
+
+    transform:translateY(0);
+}
+
 
 .login-btn:disabled{
- opacity:.7;
- cursor:not-allowed;
+
+    opacity:.7;
+
+    cursor:not-allowed;
+
+    transform:none;
 }
+
+
+/* ================================
+   MESSAGE
+================================ */
 
 .message{
- min-height:28px;
- text-align:center;
 
- margin-top:14px;
+    min-height:25px;
 
- font-size:13px;
+    margin-top:15px;
+
+    text-align:center;
+
+    font-size:13px;
+
+    line-height:1.6;
 }
 
-.error{
- color:#ffb4b4;
+
+.message.error{
+
+    color:#d93636;
 }
 
-.success{
- color:#baffd0;
+
+.message.success{
+
+    color:#16834b;
 }
 
-.help{
- color:#d8e8f8;
- background:rgba(255,255,255,.08);
 
- border-radius:11px;
+/* ================================
+   INFO
+================================ */
 
- padding:10px;
+.login-info{
 
- margin-top:13px;
+    margin-top:20px;
 
- font-size:11px;
+    padding:13px;
 
- text-align:center;
+    border-radius:12px;
+
+    background:#f3f7fb;
+
+    border:1px solid #e3ebf4;
+
+    color:#718096;
+
+    font-size:11px;
+
+    text-align:center;
+
+    line-height:1.7;
 }
 
-/* FOOTER */
 
-footer{
- text-align:center;
- color:#8a96a7;
- font-size:11px;
- padding:15px;
+.login-info i{
+
+    color:#1976d2;
+
+    margin-right:4px;
 }
 
-/* MOBILE */
+
+/* ================================
+   BACK
+================================ */
+
+.back-home{
+
+    text-align:center;
+
+    margin-top:22px;
+}
+
+
+.back-home a{
+
+    color:#1976d2;
+
+    text-decoration:none;
+
+    font-size:13px;
+
+    transition:.2s;
+}
+
+
+.back-home a:hover{
+
+    color:#0d47a1;
+
+    text-decoration:underline;
+}
+
+
+/* ================================
+   FOOTER
+================================ */
+
+.footer{
+
+    text-align:center;
+
+    margin-top:25px;
+
+    color:#9aa6b5;
+
+    font-size:10px;
+}
+
+
+/* ================================
+   MOBILE
+================================ */
 
 @media(max-width:850px){
 
- .top{
-  padding-top:20px;
- }
+    body{
 
- .top-small{
-  font-size:17px;
- }
+        padding:15px;
 
- .top-title{
-  font-size:36px;
- }
+        align-items:flex-start;
+    }
 
- .top-text{
-  font-size:13px;
- }
 
- .login-wrap{
-  margin-top:25px;
+    .login-page{
 
-  grid-template-columns:1fr;
+        margin-top:10px;
 
-  padding:25px 18px 30px;
+        grid-template-columns:1fr;
 
-  border-radius:25px;
+        min-height:auto;
 
-  gap:15px;
- }
+        border-radius:24px;
+    }
 
- .left{
-  padding:5px;
-  text-align:center;
- }
 
- .portal-label{
-  font-size:15px;
- }
+    .brand-panel{
 
- .left h1{
-  font-size:38px;
-  margin:6px 0 15px;
- }
+        padding:35px 25px;
 
- .left p{
-  font-size:15px;
-  line-height:1.7;
- }
+        text-align:center;
 
- .secure{
-  font-size:15px;
-  margin-top:18px;
- }
+        min-height:310px;
 
- .form-box{
-  padding:23px 18px;
-  border-radius:20px;
- }
+        align-items:center;
+    }
 
- .form-title{
-  font-size:21px;
- }
+
+    .brand-content{
+
+        display:flex;
+
+        flex-direction:column;
+
+        align-items:center;
+    }
+
+
+    .logo{
+
+        width:62px;
+
+        height:62px;
+
+        font-size:27px;
+
+        margin-bottom:18px;
+
+        border-radius:17px;
+    }
+
+
+    .brand-small{
+
+        font-size:12px;
+    }
+
+
+    .brand-title{
+
+        font-size:31px;
+
+        margin-bottom:10px;
+    }
+
+
+    .brand-description{
+
+        font-size:14px;
+
+        line-height:1.7;
+    }
+
+
+    .features{
+
+        margin-top:20px;
+
+        display:grid;
+
+        grid-template-columns:1fr 1fr;
+
+        gap:8px;
+
+        text-align:left;
+    }
+
+
+    .feature{
+
+        font-size:11px;
+    }
+
+
+    .feature i{
+
+        min-width:24px;
+
+        width:24px;
+
+        height:24px;
+    }
+
+
+    .login-panel{
+
+        padding:35px 22px 30px;
+    }
+
+
+    .login-heading{
+
+        margin-bottom:25px;
+    }
+
+
+    .login-heading h1{
+
+        font-size:26px;
+    }
 
 }
 
-@media(max-width:420px){
 
- .top-title{
-  font-size:31px;
- }
+@media(max-width:430px){
 
- .login-wrap{
-  width:94%;
- }
+    .brand-panel{
 
- .left h1{
-  font-size:34px;
- }
+        padding:30px 18px;
+    }
+
+
+    .brand-title{
+
+        font-size:27px;
+    }
+
+
+    .features{
+
+        grid-template-columns:1fr;
+    }
+
+
+    .login-panel{
+
+        padding:
+        30px 18px 25px;
+    }
+
+
+    .input-wrapper input{
+
+        height:53px;
+    }
+
+
+    .login-btn{
+
+        height:54px;
+    }
 
 }
+
 </style>
+
 </head>
+
 
 <body>
 
-<div class="top">
 
- <div class="top-small">
-  STUDENT PORTAL
- </div>
+<div class="login-page">
 
- <div class="top-title">
-  শিক্ষার্থী লগইন
- </div>
 
- <div class="top-text">
-  Admin Portal-এর মতো নিরাপদ পোর্টাল থেকে শিক্ষার্থীরা
-  নিজের তথ্য দেখতে পারবে।
- </div>
+    <!-- =========================
+         BRAND PANEL
+    ========================== -->
+
+    <section class="brand-panel">
+
+        <div class="brand-content">
+
+
+            <div class="logo">
+
+                <i class="fa-solid fa-user-graduate"></i>
+
+            </div>
+
+
+            <div class="brand-small">
+
+                MADRASHA-E NURUL QURAN
+
+            </div>
+
+
+            <div class="brand-title">
+
+                Student
+                <span>Portal</span>
+
+            </div>
+
+
+            <div class="brand-description">
+
+                শিক্ষার্থীদের জন্য নিরাপদ ও
+                সহজ Student Portal।
+                Student ID এবং Roll Number
+                ব্যবহার করে আপনার নিজস্ব
+                তথ্য দেখুন।
+
+            </div>
+
+
+            <div class="features">
+
+
+                <div class="feature">
+
+                    <i class="fa-solid fa-check"></i>
+
+                    <span>
+                        পরীক্ষার ফলাফল
+                    </span>
+
+                </div>
+
+
+                <div class="feature">
+
+                    <i class="fa-solid fa-check"></i>
+
+                    <span>
+                        বেতন ও ফি তথ্য
+                    </span>
+
+                </div>
+
+
+                <div class="feature">
+
+                    <i class="fa-solid fa-check"></i>
+
+                    <span>
+                        উপস্থিতির তথ্য
+                    </span>
+
+                </div>
+
+
+                <div class="feature">
+
+                    <i class="fa-solid fa-check"></i>
+
+                    <span>
+                        ব্যক্তিগত Dashboard
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         LOGIN PANEL
+    ========================== -->
+
+    <section class="login-panel">
+
+
+        <div class="login-box">
+
+
+            <div class="login-heading">
+
+
+                <div class="login-icon">
+
+                    <i class="fa-solid fa-right-to-bracket"></i>
+
+                </div>
+
+
+                <h1>
+
+                    শিক্ষার্থী লগইন
+
+                </h1>
+
+
+                <p>
+
+                    Student Portal-এ প্রবেশ করুন
+
+                </p>
+
+
+            </div>
+
+
+
+            <form id="loginForm">
+
+
+                <!-- STUDENT ID -->
+
+                <div class="input-group">
+
+
+                    <label for="studentId">
+
+                        Student ID
+
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+
+                        <i class="fa-solid fa-id-card"></i>
+
+
+                        <input
+
+                            type="text"
+
+                            id="studentId"
+
+                            placeholder="যেমন: NQ-006"
+
+                            autocomplete="off"
+
+                            required
+
+                        >
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- ROLL -->
+
+                <div class="input-group">
+
+
+                    <label for="rollNumber">
+
+                        Roll Number
+
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+
+                        <i class="fa-solid fa-hashtag"></i>
+
+
+                        <input
+
+                            type="text"
+
+                            id="rollNumber"
+
+                            placeholder="যেমন: 01"
+
+                            autocomplete="off"
+
+                            required
+
+                        >
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- BUTTON -->
+
+                <button
+
+                    type="submit"
+
+                    class="login-btn"
+
+                    id="loginBtn">
+
+                    <i class="fa-solid fa-lock-open"></i>
+
+                    Login
+
+                </button>
+
+
+
+                <!-- MESSAGE -->
+
+                <div
+
+                    id="message"
+
+                    class="message">
+
+                </div>
+
+
+
+                <!-- INFO -->
+
+                <div class="login-info">
+
+                    <i class="fa-solid fa-circle-info"></i>
+
+                    আপনার Student ID ও Roll Number
+                    Admin Dashboard-এ সংরক্ষিত তথ্যের
+                    সঙ্গে মিলতে হবে।
+
+                </div>
+
+
+
+            </form>
+
+
+
+            <div class="back-home">
+
+                <a href="index.html">
+
+                    <i class="fa-solid fa-arrow-left"></i>
+
+                    Home Page-এ ফিরে যান
+
+                </a>
+
+            </div>
+
+
+
+            <div class="footer">
+
+                © 2026 মাদরাসায়ে নূরুল কুরআন
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
 
 </div>
 
-
-<div class="login-wrap">
-
- <div class="left">
-
-  <div class="portal-label">
-   STUDENT LOGIN PORTAL
-  </div>
-
-  <h1>
-   👨‍🎓 Student Login
-  </h1>
-
-  <p>
-   আপনার <b>Student ID</b> এবং
-   <b>Roll Number</b> দিয়ে লগইন করুন।
-   লগইন করার পর আপনার ব্যক্তিগত
-   Student Dashboard থেকে ফলাফল,
-   ফি, বকেয়া, উপস্থিতি এবং অন্যান্য
-   প্রকাশিত তথ্য দেখতে পারবেন।
-  </p>
-
-  <div class="secure">
-   🔐 নিরাপদ শিক্ষার্থী পোর্টাল
-  </div>
-
- </div>
-
-
- <div class="form-box">
-
-  <div class="form-title">
-   <i class="fa-solid fa-right-to-bracket"></i>
-   শিক্ষার্থী লগইন
-  </div>
-
-
-  <form id="loginForm">
-
-   <div class="input-box">
-
-    <label>
-     Student ID
-    </label>
-
-    <div class="input-wrap">
-
-     <i class="fa-solid fa-id-card"></i>
-
-     <input
-      type="text"
-      id="studentId"
-      placeholder="যেমন: NQ-006"
-      autocomplete="off"
-      required
-     >
-
-    </div>
-
-   </div>
-
-
-   <div class="input-box">
-
-    <label>
-     Roll Number
-    </label>
-
-    <div class="input-wrap">
-
-     <i class="fa-solid fa-hashtag"></i>
-
-     <input
-      type="text"
-      id="rollNumber"
-      placeholder="যেমন: 01"
-      autocomplete="off"
-      required
-     >
-
-    </div>
-
-   </div>
-
-
-   <button
-    type="submit"
-    class="login-btn"
-    id="loginBtn">
-
-    <i class="fa-solid fa-lock-open"></i>
-    Login
-
-   </button>
-
-
-   <div
-    id="message"
-    class="message">
-   </div>
-
-
-   <div class="help">
-
-    আপনার Student ID ও Roll Number
-    Admin Dashboard থেকে দেওয়া তথ্য অনুযায়ী
-    লিখুন।
-
-   </div>
-
-  </form>
-
- </div>
-
-</div>
-
-
-<footer>
-
- © 2026 মাদরাসায়ে নূরুল কুরআন —
- Student Portal
-
-</footer>
 
 
 <script>
 
+/* =========================================
+   SUPABASE CONFIG
+========================================= */
+
 const SUPABASE_URL =
 "https://qavublwhqiqsgpcmfyft.supabase.co";
+
 
 const SUPABASE_KEY =
 "sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
 
+
 const db =
 window.supabase.createClient(
- SUPABASE_URL,
- SUPABASE_KEY
+    SUPABASE_URL,
+    SUPABASE_KEY
 );
 
+
+
+/* =========================================
+   ELEMENTS
+========================================= */
 
 const form =
 document.getElementById("loginForm");
 
-const btn =
+
+const studentIdInput =
+document.getElementById("studentId");
+
+
+const rollInput =
+document.getElementById("rollNumber");
+
+
+const loginBtn =
 document.getElementById("loginBtn");
+
 
 const message =
 document.getElementById("message");
 
 
-function showMessage(text,type){
 
- message.textContent=text;
+/* =========================================
+   MESSAGE
+========================================= */
 
- message.className=
- "message "+type;
+function showMessage(text,type=""){
+
+    message.textContent = text;
+
+    message.className =
+    "message " + type;
 
 }
 
 
+
+/* =========================================
+   LOGIN
+========================================= */
+
 form.addEventListener(
- "submit",
- async function(e){
+    "submit",
+    async function(event){
 
-  e.preventDefault();
-
-
-  const studentId =
-   document.getElementById(
-    "studentId"
-   ).value.trim();
+        event.preventDefault();
 
 
-  const rollNumber =
-   document.getElementById(
-    "rollNumber"
-   ).value.trim();
+        const studentId =
+        studentIdInput.value.trim();
 
 
-  if(!studentId){
-
-   showMessage(
-    "Student ID দিন।",
-    "error"
-   );
-
-   return;
-  }
+        const rollNumber =
+        rollInput.value.trim();
 
 
-  if(!rollNumber){
 
-   showMessage(
-    "Roll Number দিন।",
-    "error"
-   );
+        /* VALIDATION */
 
-   return;
-  }
+        if(!studentId){
 
+            showMessage(
+                "Student ID দিন।",
+                "error"
+            );
 
-  btn.disabled=true;
+            studentIdInput.focus();
 
-  btn.innerHTML =
-   '<i class="fa-solid fa-spinner fa-spin"></i> Checking...';
-
-
-  showMessage(
-   "তথ্য যাচাই করা হচ্ছে...",
-   ""
-  );
+            return;
+        }
 
 
-  try{
+        if(!rollNumber){
 
-   const result =
-    await db
-    .from("students")
-    .select("*")
-    .eq(
-     "student_id",
-     studentId
-    )
-    .eq(
-     "roll_number",
-     rollNumber
-    )
-    .maybeSingle();
+            showMessage(
+                "Roll Number দিন।",
+                "error"
+            );
+
+            rollInput.focus();
+
+            return;
+        }
 
 
-   if(result.error){
 
-    throw result.error;
+        /* LOADING */
 
-   }
+        loginBtn.disabled = true;
 
-
-   if(!result.data){
-
-    showMessage(
-     "❌ Student ID অথবা Roll Number সঠিক নয়।",
-     "error"
-    );
-
-    return;
-
-   }
+        loginBtn.innerHTML =
+        '<i class="fa-solid fa-spinner fa-spin"></i> যাচাই করা হচ্ছে...';
 
 
-   /*
-    * Student information session-এ রাখা হচ্ছে।
-    * Dashboard এই information ব্যবহার করবে।
-    */
-
-   sessionStorage.setItem(
-    "madrasa_student_login",
-    JSON.stringify(result.data)
-   );
+        showMessage(
+            "Student তথ্য যাচাই করা হচ্ছে..."
+        );
 
 
-   showMessage(
-    "✅ Login successful. Dashboard খোলা হচ্ছে...",
-    "success"
-   );
+
+        try{
 
 
-   setTimeout(
-    function(){
-
-     window.location.href =
-      "student-dashboard.html";
-
-    },
-    500
-   );
-
-
-  }catch(error){
-
-   console.error(error);
-
-   showMessage(
-    "❌ Login failed: "+
-    (error.message || "Unknown error"),
-    "error"
-   );
+            /*
+             * IMPORTANT
+             *
+             * students table:
+             *
+             * student_id
+             * roll_number
+             */
 
 
-  }finally{
+            const response =
 
-   btn.disabled=false;
+            await db
 
-   btn.innerHTML =
-    '<i class="fa-solid fa-lock-open"></i> Login';
+            .from("students")
 
-  }
+            .select("*")
 
- });
+            .eq(
+                "student_id",
+                studentId
+            )
+
+            .eq(
+                "roll_number",
+                rollNumber
+            )
+
+            .maybeSingle();
+
+
+
+            /* SUPABASE ERROR */
+
+            if(response.error){
+
+                console.error(
+                    "Supabase Error:",
+                    response.error
+                );
+
+                throw response.error;
+            }
+
+
+
+            /* STUDENT NOT FOUND */
+
+            if(!response.data){
+
+                showMessage(
+                    "❌ Student ID অথবা Roll Number সঠিক নয়।",
+                    "error"
+                );
+
+                return;
+            }
+
+
+
+            /*
+             * LOGIN DATA
+             *
+             * পুরো database row না রেখে
+             * প্রয়োজনীয় information রাখা হচ্ছে।
+             */
+
+            const student =
+            response.data;
+
+
+            const loginData = {
+
+                id:
+                student.id,
+
+                student_id:
+                student.student_id,
+
+                roll_number:
+                String(
+                    student.roll_number
+                ),
+
+                name:
+                student.name || "",
+
+                class_name:
+                student.class_name || "",
+
+                department:
+                student.department || "",
+
+                login_time:
+                Date.now()
+
+            };
+
+
+
+            /* SESSION */
+
+            sessionStorage.setItem(
+
+                "madrasa_student_login",
+
+                JSON.stringify(loginData)
+
+            );
+
+
+
+            /* SUCCESS */
+
+            showMessage(
+
+                "✅ Login সফল হয়েছে। Dashboard খোলা হচ্ছে...",
+
+                "success"
+
+            );
+
+
+            loginBtn.innerHTML =
+            '<i class="fa-solid fa-circle-check"></i> Login Successful';
+
+
+
+            /* REDIRECT */
+
+            setTimeout(
+
+                function(){
+
+                    window.location.href =
+                    "student-dashboard.html";
+
+                },
+
+                700
+
+            );
+
+
+        }
+
+
+        catch(error){
+
+
+            console.error(
+                "Student Login Error:",
+                error
+            );
+
+
+            showMessage(
+
+                "❌ Login করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।",
+
+                "error"
+
+            );
+
+        }
+
+
+        finally{
+
+
+            /*
+             * যদি redirect না হয়,
+             * button আবার active হবে।
+             */
+
+            setTimeout(
+
+                function(){
+
+                    loginBtn.disabled = false;
+
+                    loginBtn.innerHTML =
+                    '<i class="fa-solid fa-lock-open"></i> Login';
+
+                },
+
+                900
+
+            );
+
+        }
+
+    }
+
+);
 
 </script>
 
+
 </body>
+
 </html>
