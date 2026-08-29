@@ -1,299 +1,449 @@
 <!doctype html>
 <html lang="bn">
 <head>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
 <title>ফলাফল ব্যবস্থাপনা | মাদরাসায়ে নূরুল কুরআন</title>
 
 <style>
-*{box-sizing:border-box}
+
+*{
+    box-sizing:border-box;
+}
 
 body{
-margin:0;
-background:#eef6ff;
-font-family:Arial,"Noto Sans Bengali",sans-serif;
-color:#123;
+    margin:0;
+    background:#eef6ff;
+    font-family:Arial,"Noto Sans Bengali",sans-serif;
+    color:#123;
 }
 
 header{
-background:linear-gradient(90deg,#064b87,#0877d1);
-color:#fff;
-padding:14px 18px;
-font-weight:bold;
-display:flex;
-justify-content:space-between;
-align-items:center;
+    background:linear-gradient(90deg,#064b87,#0877d1);
+    color:#fff;
+    padding:15px 18px;
+    font-weight:bold;
+    box-shadow:0 2px 8px #0002;
 }
 
-header small{
-display:block;
-font-size:10px;
-opacity:.8;
-margin-top:3px;
+.header-inner{
+    max-width:1200px;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 }
 
-.dashboardBtn{
-background:#ffffff20;
-border:1px solid #ffffff30;
-color:#fff;
-padding:8px 14px;
-border-radius:8px;
-cursor:pointer;
+.brand{
+    font-size:16px;
+}
+
+.brand small{
+    display:block;
+    font-size:9px;
+    opacity:.85;
+    margin-top:2px;
+}
+
+.dashboard-btn{
+    color:#fff;
+    text-decoration:none;
+    background:#ffffff18;
+    border:1px solid #ffffff30;
+    padding:8px 13px;
+    border-radius:8px;
+    font-size:12px;
 }
 
 main{
-max-width:1200px;
-margin:18px auto;
-padding:0 10px;
+    max-width:1200px;
+    margin:18px auto;
+    padding:0 10px;
 }
 
-.pageTitle{
-margin-bottom:16px;
+.page-title{
+    margin-bottom:12px;
 }
 
-.pageTitle h1{
-margin:0;
-font-size:25px;
-color:#075ca6;
+.page-title h1{
+    margin:0;
+    font-size:24px;
+    color:#075ca6;
 }
 
-.pageTitle p{
-margin:5px 0;
-font-size:13px;
-color:#667;
+.page-title p{
+    margin:5px 0 0;
+    color:#718096;
+    font-size:12px;
 }
+
+/* ================= STATS ================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:10px;
+    margin-bottom:16px;
+}
+
+.stat{
+    background:#fff;
+    padding:12px;
+    border-radius:10px;
+    box-shadow:0 2px 10px #0001;
+    border-left:3px solid #0877d1;
+    min-height:65px;
+    font-size:12px;
+}
+
+.stat b{
+    display:block;
+    font-size:22px;
+    margin-top:5px;
+    color:#075ca6;
+}
+
+/* ================= CARD ================= */
 
 .card{
-background:#fff;
-padding:16px;
-border-radius:14px;
-margin-bottom:16px;
-box-shadow:0 3px 15px #0001;
+    background:#fff;
+    padding:16px;
+    border-radius:14px;
+    margin-bottom:16px;
+    box-shadow:0 3px 15px #0001;
 }
 
 .card h2{
-margin:0 0 10px;
-font-size:18px;
-color:#075ca6;
+    margin:0 0 8px;
+    color:#075ca6;
+    font-size:17px;
 }
 
+.card p{
+    font-size:12px;
+    color:#718096;
+    line-height:1.6;
+}
+
+/* ================= GRID ================= */
+
 .grid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:10px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
 }
 
 label{
-font-size:13px;
-font-weight:bold;
+    font-size:12px;
+    font-weight:bold;
+    color:#344054;
 }
 
 select,
 input{
-width:100%;
-padding:10px;
-margin-top:5px;
-border:1px solid #ccd8e5;
-border-radius:8px;
-box-sizing:border-box;
-background:#fff;
-font-size:14px;
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    border:1px solid #ccd8e5;
+    border-radius:8px;
+    box-sizing:border-box;
+    background:#fff;
+    outline:none;
+    font-size:13px;
 }
 
+select:focus,
+input:focus{
+    border-color:#0877d1;
+    box-shadow:0 0 0 2px #0877d120;
+}
+
+/* ================= BUTTON ================= */
+
 button{
-padding:10px 14px;
-margin-top:12px;
-border:0;
-border-radius:8px;
-background:#0668b9;
-color:#fff;
-font-weight:bold;
-cursor:pointer;
+    padding:10px 14px;
+    margin-top:12px;
+    border:0;
+    border-radius:8px;
+    background:#0668b9;
+    color:#fff;
+    font-weight:bold;
+    cursor:pointer;
+    font-size:12px;
 }
 
 button:hover{
-opacity:.9;
+    opacity:.9;
 }
 
 .secondary{
-background:#64748b;
+    background:#64748b;
 }
 
 .danger{
-background:#d9534f;
+    background:#d9534f;
 }
 
-.wrap{
-overflow:auto;
+.success{
+    background:#159447;
 }
 
-table{
-width:100%;
-border-collapse:collapse;
-min-width:900px;
-}
-
-th{
-background:#075ca6;
-color:#fff;
-padding:9px;
-text-align:left;
-font-size:13px;
-}
-
-td{
-padding:8px;
-border-bottom:1px solid #e5edf5;
-font-size:13px;
-}
-
-#studentsCard,
-#entryCard{
-display:none;
-}
+/* ================= MESSAGE ================= */
 
 #msg,
 #entryMsg{
-display:none;
-padding:10px;
-margin-top:10px;
-border-radius:8px;
-font-size:13px;
+    display:none;
+    padding:10px;
+    margin-top:10px;
+    border-radius:8px;
+    font-size:12px;
 }
 
-.stats{
-display:grid;
-grid-template-columns:repeat(5,1fr);
-gap:10px;
-margin-bottom:16px;
+/* ================= TABLE ================= */
+
+.wrap{
+    overflow:auto;
+    width:100%;
 }
 
-.stat{
-background:#fff;
-padding:12px;
-border-radius:10px;
-box-shadow:0 2px 10px #0001;
-border-left:3px solid #0877d1;
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:900px;
 }
 
-.stat b{
-display:block;
-font-size:22px;
-margin-top:5px;
-color:#075ca6;
+th{
+    background:#075ca6;
+    color:#fff;
+    padding:9px;
+    text-align:left;
+    font-size:12px;
+}
+
+td{
+    padding:8px;
+    border-bottom:1px solid #e5edf5;
+    font-size:12px;
+}
+
+tbody tr:hover{
+    background:#f5faff;
+}
+
+td button{
+    margin-top:0;
+    padding:7px 10px;
+}
+
+/* ================= BOX ================= */
+
+.box{
+    background:#f5faff;
+    border:1px solid #d8e8f5;
+    border-radius:9px;
+    padding:10px;
+    margin:10px 0;
+    font-size:12px;
+}
+
+/* ================= ENTRY ================= */
+
+#studentsCard,
+#entryCard{
+    display:none;
 }
 
 .markBox{
-background:#fff;
-border:1px solid #d7e5f0;
-padding:12px;
-border-radius:10px;
-margin-bottom:10px;
+    background:#fff;
+    border:1px solid #d7e5f0;
+    padding:12px;
+    border-radius:10px;
+    margin-bottom:10px;
 }
 
 .markTitle{
-font-weight:bold;
-color:#075ca6;
-margin-bottom:5px;
-font-size:15px;
+    font-weight:bold;
+    color:#075ca6;
+    margin-bottom:7px;
+    font-size:14px;
 }
 
+.markInfo{
+    font-size:11px;
+    color:#667085;
+    margin-bottom:5px;
+}
+
+.mark{
+    max-width:300px;
+}
+
+/* ================= RESULT HEADER ================= */
+
 .resultHead{
-background:#075ca6;
-color:#fff;
-padding:12px;
-border-radius:8px;
-margin-bottom:10px;
-line-height:1.8;
+    background:#075ca6;
+    color:#fff;
+    padding:12px;
+    border-radius:8px;
+    margin-bottom:10px;
+    line-height:1.8;
+    font-size:12px;
 }
 
 .pass{
-color:#159447;
-font-weight:bold;
+    color:#159447;
+    font-weight:bold;
 }
 
 .fail{
-color:#d93636;
-font-weight:bold;
+    color:#d93636;
+    font-weight:bold;
 }
 
-.box{
-background:#f5faff;
-border:1px solid #d8e8f5;
-border-radius:9px;
-padding:10px;
-margin:10px 0;
+.pending{
+    color:#d97706;
+    font-weight:bold;
 }
+
+/* ================= RESULT ================= */
+
+.result-card{
+    background:#fff;
+    border:1px solid #d8e8f5;
+    border-radius:10px;
+    padding:12px;
+}
+
+.result-title{
+    color:#075ca6;
+    font-size:16px;
+    font-weight:bold;
+}
+
+/* ================= INFO ================= */
 
 .info{
-background:#fff8df;
-border:1px solid #f1df9d;
-color:#725b10;
-padding:10px;
-border-radius:8px;
-font-size:12px;
-margin-bottom:12px;
+    background:#fff9df;
+    border:1px solid #f3e5a4;
+    color:#765f12;
+    padding:10px;
+    border-radius:8px;
+    font-size:11px;
+    line-height:1.7;
+    margin-bottom:10px;
 }
 
-.examGroup{
-font-weight:bold;
+/* ================= LOADING ================= */
+
+.loading{
+    text-align:center;
+    padding:20px;
+    color:#075ca6;
+    font-weight:bold;
 }
 
-@media(max-width:800px){
+/* ================= MOBILE ================= */
 
-.grid,
-.stats{
-grid-template-columns:1fr 1fr;
-}
+@media(max-width:900px){
 
-}
-
-@media(max-width:500px){
-
-.grid,
-.stats{
-grid-template-columns:1fr;
-}
-
-header{
-padding:12px;
-}
-
-.pageTitle h1{
-font-size:21px;
-}
-
-.card{
-padding:12px;
-}
+    .stats{
+        grid-template-columns:repeat(3,1fr);
+    }
 
 }
+
+@media(max-width:700px){
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .page-title h1{
+        font-size:20px;
+    }
+
+}
+
+@media(max-width:450px){
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .stat{
+        padding:10px;
+    }
+
+    .stat b{
+        font-size:19px;
+    }
+
+    header{
+        padding:12px;
+    }
+
+    main{
+        padding:0 7px;
+    }
+
+}
+
 </style>
+
 </head>
 
 <body>
 
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
 <header>
 
-<div>
+<div class="header-inner">
+
+<div class="brand">
+
 📚 মাদরাসায়ে নূরুল কুরআন
-<small>RESULT MANAGEMENT SYSTEM</small>
+
+<small>
+MADRASHA-E NURUL QURAN
+</small>
+
 </div>
 
-<button
-class="dashboardBtn"
-onclick="location.href='dashboard.html'">
+<a
+href="dashboard.html"
+class="dashboard-btn">
+
 ← Dashboard
-</button>
+
+</a>
+
+</div>
 
 </header>
 
+
 <main>
 
-<div class="pageTitle">
 
-<h1>📊 ফলাফল ব্যবস্থাপনা</h1>
+<!-- =========================================================
+     PAGE TITLE
+========================================================= -->
+
+<div class="page-title">
+
+<h1>
+📊 ফলাফল ব্যবস্থাপনা
+</h1>
 
 <p>
 Session, Class ও Exam নির্বাচন করে শিক্ষার্থীদের Result তৈরি ও সংরক্ষণ করুন।
@@ -302,7 +452,9 @@ Session, Class ও Exam নির্বাচন করে শিক্ষার
 </div>
 
 
-<!-- ================= STATS ================= -->
+<!-- =========================================================
+     STATS
+========================================================= -->
 
 <div class="stats">
 
@@ -334,19 +486,26 @@ Subjects
 </div>
 
 
-<!-- ================= RESULT SETUP ================= -->
+<!-- =========================================================
+     RESULT SETUP
+========================================================= -->
 
 <div class="card">
 
-<h2>📅 Result Setup</h2>
+<h2>
+📅 Result Setup
+</h2>
 
-<p style="font-size:12px;color:#667;">
-Session + Class + Exam নির্বাচন করুন। তারপর ওই Class-এর শিক্ষার্থীদের Result Add করতে পারবেন।
+<p>
+Session + Class + Exam নির্বাচন করুন। এরপর ওই Class-এর শিক্ষার্থীদের তালিকা আসবে এবং প্রত্যেক শিক্ষার্থীর জন্য Result Add করা যাবে।
 </p>
+
 
 <div class="grid">
 
+
 <label>
+
 Session
 
 <select id="session">
@@ -361,6 +520,7 @@ Session নির্বাচন করুন
 
 
 <label>
+
 Class
 
 <select id="className">
@@ -375,6 +535,7 @@ Class নির্বাচন করুন
 
 
 <label>
+
 Exam
 
 <select id="exam">
@@ -387,6 +548,7 @@ Exam নির্বাচন করুন
 
 </label>
 
+
 </div>
 
 
@@ -394,19 +556,24 @@ Exam নির্বাচন করুন
 👨‍🎓 Students দেখুন
 </button>
 
+
 <button
 class="secondary"
-onclick="location.reload()">
+id="refreshBtn">
+
 ↻ Refresh
+
 </button>
+
 
 <div id="msg"></div>
 
 </div>
 
 
-
-<!-- ================= STUDENT LIST ================= -->
+<!-- =========================================================
+     STUDENT LIST
+========================================================= -->
 
 <div
 class="card"
@@ -416,12 +583,10 @@ id="studentsCard">
 👨‍🎓 শিক্ষার্থী তালিকা
 </h2>
 
-<div class="info">
+<p>
+নির্বাচিত Class ও Session-এর শিক্ষার্থীরা এখানে দেখা যাবে। প্রত্যেক শিক্ষার্থীর পাশে <b>Result Add</b> বাটনে ক্লিক করে নম্বর দিতে পারবেন।
+</p>
 
-Class + Session নির্বাচন করলে ওই Class-এর শিক্ষার্থীরা এখানে আসবে।
-প্রত্যেক শিক্ষার্থীর পাশে <b>Result Add</b> চাপ দিয়ে Subject অনুযায়ী নম্বর দেওয়া যাবে।
-
-</div>
 
 <div class="wrap">
 
@@ -444,7 +609,10 @@ Class + Session নির্বাচন করলে ওই Class-এর শি
 
 </thead>
 
-<tbody id="studentRows"></tbody>
+
+<tbody id="studentRows">
+
+</tbody>
 
 </table>
 
@@ -453,8 +621,9 @@ Class + Session নির্বাচন করলে ওই Class-এর শি
 </div>
 
 
-
-<!-- ================= RESULT ENTRY ================= -->
+<!-- =========================================================
+     RESULT ENTRY
+========================================================= -->
 
 <div
 class="card"
@@ -464,27 +633,39 @@ id="entryCard">
 ✏️ Result Add
 </h2>
 
+
 <div id="einfo"></div>
+
 
 <div id="subs"></div>
 
-<button id="save">
+
+<button
+id="save"
+class="success">
+
 💾 Save Result
+
 </button>
+
 
 <button
 class="secondary"
 id="close">
+
 Close
+
 </button>
+
 
 <div id="entryMsg"></div>
 
 </div>
 
 
-
-<!-- ================= RESULT SEARCH ================= -->
+<!-- =========================================================
+     RESULT SEARCH
+========================================================= -->
 
 <div class="card">
 
@@ -494,13 +675,17 @@ Close
 
 <div class="info">
 
-Student ID অথবা Roll দিয়ে Result Search করা যাবে।
-Student Dashboard-এ authenticated student access ব্যবহার করলে প্রত্যেক শিক্ষার্থী শুধু নিজের Result দেখতে পারবে।
+শিক্ষার্থীর Result দেখার জন্য Session, Exam এবং Student ID অথবা Roll ব্যবহার করুন।
+
+<br>
+
+Production system-এ Student Dashboard থেকে authenticated student access ব্যবহার করাই নিরাপদ।
 
 </div>
 
 
 <div class="grid">
+
 
 <label>
 
@@ -542,6 +727,7 @@ placeholder="Student ID অথবা Roll">
 
 </label>
 
+
 </div>
 
 
@@ -554,11 +740,16 @@ placeholder="Student ID অথবা Roll">
 
 </div>
 
+
 </main>
 
 
+<!-- =========================================================
+     SUPABASE
+========================================================= -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 
 <script>
 
@@ -572,120 +763,93 @@ const db = supabase.createClient(
 
 
 /* =========================================================
-   CLASS LIST
+   GLOBALS
 ========================================================= */
 
 const CLASS_LIST = [
 
-"নূরানী",
-"১ম শ্রেণি",
-"২য় শ্রেণি",
-"৩য় শ্রেণি",
-"৪র্থ শ্রেণি",
-"৫ম শ্রেণি",
-"নাজেরা",
-"হিফাজ"
+    "নূরানী",
+
+    "১ম শ্রেণি",
+
+    "২য় শ্রেণি",
+
+    "৩য় শ্রেণি",
+
+    "৪র্থ শ্রেণি",
+
+    "৫ম শ্রেণি",
+
+    "নাজেরা",
+
+    "হিফাজ"
 
 ];
 
 
-/* =========================================================
-   EXAM LIST
-   ৪টি প্রধান Exam
-   মাসিক মূল্যায়ন = ১২ মাস
-========================================================= */
+const MONTHS = [
 
-const EXAM_LIST = [
-
-{
-group:"মূল পরীক্ষা",
-items:[
-"১ম সাময়িক",
-"২য় সাময়িক",
-"বার্ষিক পরীক্ষা"
-]
-},
-
-{
-group:"মাসিক মূল্যায়ন পরীক্ষা",
-items:[
-"মাসিক মূল্যায়ন পরীক্ষা — জানুয়ারি",
-"মাসিক মূল্যায়ন পরীক্ষা — ফেব্রুয়ারি",
-"মাসিক মূল্যায়ন পরীক্ষা — মার্চ",
-"মাসিক মূল্যায়ন পরীক্ষা — এপ্রিল",
-"মাসিক মূল্যায়ন পরীক্ষা — মে",
-"মাসিক মূল্যায়ন পরীক্ষা — জুন",
-"মাসিক মূল্যায়ন পরীক্ষা — জুলাই",
-"মাসিক মূল্যায়ন পরীক্ষা — আগস্ট",
-"মাসিক মূল্যায়ন পরীক্ষা — সেপ্টেম্বর",
-"মাসিক মূল্যায়ন পরীক্ষা — অক্টোবর",
-"মাসিক মূল্যায়ন পরীক্ষা — নভেম্বর",
-"মাসিক মূল্যায়ন পরীক্ষা — ডিসেম্বর"
-]
-}
+    "জানুয়ারি",
+    "ফেব্রুয়ারি",
+    "মার্চ",
+    "এপ্রিল",
+    "মে",
+    "জুন",
+    "জুলাই",
+    "আগস্ট",
+    "সেপ্টেম্বর",
+    "অক্টোবর",
+    "নভেম্বর",
+    "ডিসেম্বর"
 
 ];
 
 
-let students=[];
-let subjects=[];
-let currentStudent=null;
+const REGULAR_EXAMS = [
+
+    "১ম সাময়িক পরীক্ষা",
+    "২য় সাময়িক পরীক্ষা",
+    "বার্ষিক পরীক্ষা"
+
+];
 
 
+let students = [];
 
-/* =========================================================
-   CLASS DROPDOWN
-========================================================= */
+let subjects = [];
 
-CLASS_LIST.forEach(cls=>{
-
-className.add(
-new Option(cls,cls)
-);
-
-});
-
+let currentStudent = null;
 
 
 /* =========================================================
-   EXAM DROPDOWNS
+   ELEMENTS
 ========================================================= */
 
-function loadExamDropdown(selectElement){
-
-EXAM_LIST.forEach(group=>{
-
-const optgroup=
-document.createElement("optgroup");
-
-optgroup.label=
-group.group;
+const $ = id =>
+    document.getElementById(id);
 
 
-group.items.forEach(item=>{
+/* =========================================================
+   NORMALIZE
+========================================================= */
 
-const option=
-document.createElement("option");
+function normalize(value){
 
-option.value=item;
+    if(
+        value === null ||
+        value === undefined
+    ){
 
-option.textContent=item;
+        return "";
 
-optgroup.appendChild(option);
+    }
 
-});
-
-
-selectElement.appendChild(optgroup);
-
-});
+    return String(value)
+        .trim()
+        .replace(/\s+/g," ")
+        .toLowerCase();
 
 }
-
-
-loadExamDropdown(exam);
-loadExamDropdown(se);
-
 
 
 /* =========================================================
@@ -693,86 +857,394 @@ loadExamDropdown(se);
 ========================================================= */
 
 function notice(
-text,
-success=false,
-box=msg
+    text,
+    success=false,
+    box=null
 ){
 
-box.textContent=text;
+    box =
+        box ||
+        $("msg");
 
-box.style.display="block";
 
-box.style.background=
-success
-?
-"#e8fff0"
-:
-"#ffe8e8";
+    box.textContent =
+        text;
 
-box.style.color=
-success
-?
-"#14733c"
-:
-"#9b2226";
 
-setTimeout(()=>{
+    box.style.display =
+        "block";
 
-box.style.display="none";
 
-},3500);
+    box.style.background =
+        success
+        ?
+        "#e8fff0"
+        :
+        "#ffe8e8";
+
+
+    box.style.color =
+        success
+        ?
+        "#126b38"
+        :
+        "#a52323";
+
+
+    clearTimeout(
+        box._timer
+    );
+
+
+    box._timer =
+        setTimeout(()=>{
+
+            box.style.display =
+                "none";
+
+        },4000);
 
 }
-
 
 
 /* =========================================================
-   LOAD SESSION
+   CLASS LIST
 ========================================================= */
 
-async function init(){
+function loadClasses(){
 
-const s=
-await db
-.from("sessions")
-.select("*");
+    const select =
+        $("className");
 
 
-if(s.error){
+    select.innerHTML = `
 
-return notice(
-"Session error: "+
-s.error.message
-);
+        <option value="">
+            Class নির্বাচন করুন
+        </option>
+
+    `;
+
+
+    CLASS_LIST.forEach(cls => {
+
+        select.add(
+            new Option(
+                cls,
+                cls
+            )
+        );
+
+    });
+
+}
+
+
+/* =========================================================
+   EXAM LIST
+========================================================= */
+
+function loadExams(){
+
+    const examSelect =
+        $("exam");
+
+    const searchExam =
+        $("se");
+
+
+    examSelect.innerHTML = `
+
+        <option value="">
+            Exam নির্বাচন করুন
+        </option>
+
+    `;
+
+
+    searchExam.innerHTML = `
+
+        <option value="">
+            Exam নির্বাচন করুন
+        </option>
+
+    `;
+
+
+    /* Regular Exams */
+
+    REGULAR_EXAMS.forEach(name => {
+
+        examSelect.add(
+            new Option(
+                name,
+                name
+            )
+        );
+
+
+        searchExam.add(
+            new Option(
+                name,
+                name
+            )
+        );
+
+    });
+
+
+    /* Monthly Evaluation */
+
+    MONTHS.forEach(month => {
+
+        const value =
+            "মাসিক মূল্যায়ন পরীক্ষা — "
+            +
+            month;
+
+
+        examSelect.add(
+            new Option(
+                value,
+                value
+            )
+        );
+
+
+        searchExam.add(
+            new Option(
+                value,
+                value
+            )
+        );
+
+    });
 
 }
 
 
-(s.data||[]).forEach(row=>{
+/* =========================================================
+   LOAD SESSIONS
+========================================================= */
 
-const value=
-row.year_session ??
-row.session ??
-row.year ??
-row.name;
+async function loadSessions(){
+
+    const result =
+        await db
+        .from("sessions")
+        .select("*");
 
 
-if(value!=null){
+    if(result.error){
 
-session.add(
-new Option(value,value)
-);
+        notice(
+            "Session error: "
+            +
+            result.error.message
+        );
 
-ss.add(
-new Option(value,value)
-);
+        return;
+
+    }
+
+
+    $("session").innerHTML = `
+
+        <option value="">
+            Session নির্বাচন করুন
+        </option>
+
+    `;
+
+
+    $("ss").innerHTML = `
+
+        <option value="">
+            Session নির্বাচন করুন
+        </option>
+
+    `;
+
+
+    const seen =
+        new Set();
+
+
+    (result.data || [])
+    .forEach(row => {
+
+
+        const value =
+
+            row.year_session
+            ??
+            row.session
+            ??
+            row.year
+            ??
+            row.name;
+
+
+        if(
+            value === null ||
+            value === undefined ||
+            value === ""
+        ){
+
+            return;
+
+        }
+
+
+        const key =
+            String(value);
+
+
+        if(
+            seen.has(key)
+        ){
+
+            return;
+
+        }
+
+
+        seen.add(key);
+
+
+        $("session").add(
+
+            new Option(
+                key,
+                key
+            )
+
+        );
+
+
+        $("ss").add(
+
+            new Option(
+                key,
+                key
+            )
+
+        );
+
+    });
 
 }
 
-});
+
+/* =========================================================
+   GET STUDENT CLASS
+========================================================= */
+
+function studentClass(student){
+
+    return (
+
+        student.class_name
+        ??
+        student.class
+        ??
+        student.className
+        ??
+        student.student_class
+        ??
+        student.studentClass
+        ??
+        ""
+
+    );
 
 }
 
+
+/* =========================================================
+   GET STUDENT SESSION
+========================================================= */
+
+function studentSession(student){
+
+    return (
+
+        student.session
+        ??
+        student.year_session
+        ??
+        student.year
+        ??
+        student.session_year
+        ??
+        ""
+
+    );
+
+}
+
+
+/* =========================================================
+   GET STUDENT ID
+========================================================= */
+
+function getStudentId(student){
+
+    return String(
+
+        student.student_id
+        ??
+        student.studentId
+        ??
+        student.id
+        ??
+        ""
+
+    );
+
+}
+
+
+/* =========================================================
+   GET STUDENT NAME
+========================================================= */
+
+function getStudentName(student){
+
+    return (
+
+        student.student_name
+        ??
+        student.name
+        ??
+        student.full_name
+        ??
+        ""
+
+    );
+
+}
+
+
+/* =========================================================
+   GET ROLL
+========================================================= */
+
+function getRoll(student){
+
+    return (
+
+        student.roll_no
+        ??
+        student.roll
+        ??
+        student.roll_number
+        ??
+        ""
+
+    );
+
+}
 
 
 /* =========================================================
@@ -781,222 +1253,516 @@ new Option(value,value)
 
 async function getStudents(){
 
-const cls=
-className.value;
-
-const ses=
-session.value;
-
-const ex=
-exam.value;
+    const cls =
+        $("className").value.trim();
 
 
-if(!cls||!ses||!ex){
+    const ses =
+        $("session").value.trim();
 
-return notice(
-"Session, Class ও Exam নির্বাচন করুন"
-);
+
+    const ex =
+        $("exam").value.trim();
+
+
+    if(
+        !cls ||
+        !ses ||
+        !ex
+    ){
+
+        notice(
+            "Session, Class ও Exam নির্বাচন করুন"
+        );
+
+        return;
+
+    }
+
+
+    $("studentsCard").style.display =
+        "block";
+
+
+    $("studentRows").innerHTML = `
+
+        <tr>
+
+            <td
+                colspan="8"
+                class="loading">
+
+                ⏳ শিক্ষার্থীদের তথ্য লোড হচ্ছে...
+
+            </td>
+
+        </tr>
+
+    `;
+
+
+    try{
+
+
+        /*
+        প্রথমে students table থেকে সব Student আনা হচ্ছে।
+        */
+
+        const result =
+            await db
+            .from("students")
+            .select("*")
+            .order("id");
+
+
+        if(result.error){
+
+            console.error(
+                result.error
+            );
+
+
+            notice(
+                result.error.message
+            );
+
+
+            return;
+
+        }
+
+
+        const allStudents =
+            result.data || [];
+
+
+        console.log(
+            "ALL STUDENTS:",
+            allStudents
+        );
+
+
+        /*
+        Class filter
+        */
+
+        let classStudents =
+            allStudents.filter(
+                student => {
+
+                    const value =
+                        normalize(
+                            studentClass(
+                                student
+                            )
+                        );
+
+
+                    return (
+                        value ===
+                        normalize(cls)
+                    );
+
+                }
+            );
+
+
+        /*
+        Session filter.
+
+        Student table-এ Session থাকলে
+        Session অনুযায়ী filter হবে।
+
+        কিন্তু Session column না থাকলে
+        Student বাদ যাবে না।
+        */
+
+        students =
+            classStudents.filter(
+                student => {
+
+                    const value =
+                        normalize(
+                            studentSession(
+                                student
+                            )
+                        );
+
+
+                    if(!value){
+
+                        return true;
+
+                    }
+
+
+                    return (
+                        value ===
+                        normalize(ses)
+                    );
+
+                }
+            );
+
+
+        /*
+        Stats
+        */
+
+        $("cnt").textContent =
+            students.length;
+
+
+        $("sc").textContent =
+            cls;
+
+
+        /*
+        Student table
+        */
+
+        if(!students.length){
+
+            $("studentRows").innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="8"
+                        style="
+                        text-align:center;
+                        padding:25px;
+                        ">
+
+                        ❌ এই Class ও Session-এর
+                        কোনো শিক্ষার্থী পাওয়া যায়নি।
+
+                        <br><br>
+
+                        <small>
+
+                        Class:
+                        <b>${cls}</b>
+
+                        <br>
+
+                        Session:
+                        <b>${ses}</b>
+
+                        </small>
+
+                    </td>
+
+                </tr>
+
+            `;
+
+
+            $("added").textContent =
+                "0";
+
+
+            $("pending").textContent =
+                "0";
+
+
+        }else{
+
+
+            $("studentRows").innerHTML =
+
+                students.map(
+                    (student,index)=>{
+
+
+                        const id =
+                            getStudentId(
+                                student
+                            );
+
+
+                        const name =
+                            getStudentName(
+                                student
+                            );
+
+
+                        const roll =
+                            getRoll(
+                                student
+                            );
+
+
+                        const stClass =
+                            studentClass(
+                                student
+                            )
+                            ||
+                            cls;
+
+
+                        const stSession =
+                            studentSession(
+                                student
+                            )
+                            ||
+                            ses;
+
+
+                        /*
+                        Student object safely store
+                        */
+
+                        const encoded =
+                            encodeURIComponent(
+                                JSON.stringify(
+                                    student
+                                )
+                            );
+
+
+                        return `
+
+                        <tr>
+
+                            <td>
+                                ${index+1}
+                            </td>
+
+                            <td>
+                                ${escapeHTML(name)}
+                            </td>
+
+                            <td>
+                                ${escapeHTML(id)}
+                            </td>
+
+                            <td>
+                                ${escapeHTML(roll)}
+                            </td>
+
+                            <td>
+                                ${escapeHTML(stClass)}
+                            </td>
+
+                            <td>
+                                ${escapeHTML(stSession)}
+                            </td>
+
+                            <td id="st-${student.id}">
+
+                                <span
+                                class="pending">
+
+                                ⏳ Checking...
+
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <button
+                                onclick="openResultEncoded('${encoded}')">
+
+                                ✏️ Result Add
+
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                        `;
+
+                    }
+                ).join("");
+
+
+        }
+
+
+        /*
+        Class অনুযায়ী Subjects
+        */
+
+        await loadSubjects(cls);
+
+
+        /*
+        Result Status
+        */
+
+        await updateStatus();
+
+
+    }catch(error){
+
+        console.error(error);
+
+        notice(
+            "Error: " +
+            error.message
+        );
+
+    }
 
 }
-
-
-const r=
-await db
-.from("students")
-.select("*")
-.eq(
-"class_name",
-cls
-);
-
-
-if(r.error){
-
-return notice(
-r.error.message
-);
-
-}
-
-
-students=
-r.data||[];
-
-
-/* Session filter */
-
-if(
-
-students[0]
-&&
-(
-"session" in students[0]
-||
-"year_session" in students[0]
-||
-"year" in students[0]
-)
-
-){
-
-students=
-students.filter(s=>
-
-String(
-s.session ??
-s.year_session ??
-s.year
-)
-===
-String(ses)
-
-);
-
-}
-
-
-cnt.textContent=
-students.length;
-
-sc.textContent=
-cls;
-
-
-/* Student table */
-
-studentRows.innerHTML=
-
-students.length
-
-?
-
-students.map((s,i)=>{
-
-const studentId=
-s.student_id ??
-s.studentId ??
-s.id ??
-"";
-
-const roll=
-s.roll_no ??
-s.roll ??
-"";
-
-const name=
-s.student_name ??
-s.name ??
-"";
-
-
-return `
-
-<tr>
-
-<td>${i+1}</td>
-
-<td>${name}</td>
-
-<td>${studentId}</td>
-
-<td>${roll}</td>
-
-<td>${s.class_name||cls}</td>
-
-<td>
-${s.session ??
-s.year_session ??
-s.year ??
-ses}
-</td>
-
-<td id="st-${s.id}">
-<span class="fail">Pending</span>
-</td>
-
-<td>
-
-<button
-onclick='openResult(${JSON.stringify(s).replace(/'/g,"&#39;")})'>
-
-✏️ Result Add
-
-</button>
-
-</td>
-
-</tr>
-
-`;
-
-}).join("")
-
-:
-
-`
-
-<tr>
-
-<td colspan="8">
-
-এই Class-এর কোনো শিক্ষার্থী পাওয়া যায়নি।
-
-</td>
-
-</tr>
-
-`;
-
-
-studentsCard.style.display=
-"block";
 
 
 /* =========================================================
-   CLASS অনুযায়ী SUBJECT
+   ESCAPE HTML
 ========================================================= */
 
-const z=
-await db
-.from("subjects")
-.select("*")
-.eq(
-"class_name",
-cls
-)
-.order("id");
+function escapeHTML(value){
 
-
-if(z.error){
-
-return notice(
-"Subject error: "+
-z.error.message
-);
+    return String(
+        value ?? ""
+    )
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 
 }
 
 
-subjects=
-z.data||[];
+/* =========================================================
+   OPEN ENCODED RESULT
+========================================================= */
 
-subcnt.textContent=
-subjects.length;
+window.openResultEncoded =
+function(encoded){
+
+    try{
+
+        const student =
+            JSON.parse(
+                decodeURIComponent(
+                    encoded
+                )
+            );
 
 
-if(!subjects.length){
+        openResult(
+            student
+        );
 
-notice(
-"এই Class-এর জন্য আগে subjects.html থেকে Subject যোগ করুন"
-);
+    }catch(error){
+
+        console.error(error);
+
+        notice(
+            "Student data load করা যায়নি।"
+        );
+
+    }
+
+};
+
+
+/* =========================================================
+   LOAD SUBJECTS
+========================================================= */
+
+async function loadSubjects(cls){
+
+    const result =
+        await db
+        .from("subjects")
+        .select("*")
+        .order("id");
+
+
+    if(result.error){
+
+        console.error(
+            result.error
+        );
+
+
+        notice(
+            "Subject error: " +
+            result.error.message
+        );
+
+
+        subjects = [];
+
+        $("subcnt").textContent =
+            "0";
+
+
+        return;
+
+    }
+
+
+    const allSubjects =
+        result.data || [];
+
+
+    /*
+    Class অনুযায়ী Subject
+    */
+
+    subjects =
+        allSubjects.filter(
+            subject => {
+
+                const subjectClass =
+
+                    subject.class_name
+                    ??
+                    subject.class
+                    ??
+                    subject.className
+                    ??
+                    subject.student_class
+                    ??
+                    subject.studentClass
+                    ??
+                    "";
+
+
+                return (
+
+                    normalize(
+                        subjectClass
+                    )
+                    ===
+                    normalize(
+                        cls
+                    )
+
+                );
+
+            }
+        );
+
+
+    $("subcnt").textContent =
+        subjects.length;
+
+
+    console.log(
+        "CLASS:",
+        cls,
+        "SUBJECTS:",
+        subjects
+    );
+
+
+    if(!subjects.length){
+
+        notice(
+            "এই Class-এর জন্য subjects.html থেকে Subject পাওয়া যায়নি।"
+        );
+
+    }
 
 }
-
-
-await updateStatus();
-
-}
-
 
 
 /* =========================================================
@@ -1005,912 +1771,1351 @@ await updateStatus();
 
 async function updateStatus(){
 
-let totalAdded=0;
+    let totalAdded =
+        0;
 
 
-for(
-const s of students
-){
+    for(
+        const student of students
+    ){
 
-const id=
-String(
-s.student_id ??
-s.studentId ??
-s.id
-);
+        const studentId =
+            getStudentId(
+                student
+            );
 
 
-const r=
-await db
-.from("results")
-.select("id")
-.eq(
-"student_id",
-id
-)
-.eq(
-"exam_name",
-exam.value
-)
-.eq(
-"session",
-session.value
-);
+        const result =
+            await db
+            .from("results")
+            .select("id")
+            .eq(
+                "student_id",
+                studentId
+            )
+            .eq(
+                "exam_name",
+                $("exam").value
+            )
+            .eq(
+                "session",
+                $("session").value
+            );
 
 
-const count=
-(r.data||[]).length;
+        const count =
+            (result.data || []).length;
 
 
-if(count){
+        const cell =
+            document.getElementById(
+                "st-" +
+                student.id
+            );
 
-totalAdded++;
+
+        if(count){
+
+            totalAdded++;
+
+
+            if(cell){
+
+                cell.innerHTML = `
+
+                    <span class="pass">
+                        ✅ Added
+                    </span>
+
+                `;
+
+            }
+
+        }else{
+
+            if(cell){
+
+                cell.innerHTML = `
+
+                    <span class="pending">
+                        ⏳ Pending
+                    </span>
+
+                `;
+
+            }
+
+        }
+
+    }
+
+
+    $("added").textContent =
+        totalAdded;
+
+
+    $("pending").textContent =
+        students.length -
+        totalAdded;
 
 }
-
-
-const cell=
-document.getElementById(
-"st-"+s.id
-);
-
-
-if(cell){
-
-cell.innerHTML=
-count
-
-?
-
-'<span class="pass">✅ Added</span>'
-
-:
-
-'<span class="fail">Pending</span>';
-
-}
-
-}
-
-
-added.textContent=
-totalAdded;
-
-pending.textContent=
-students.length-totalAdded;
-
-}
-
 
 
 /* =========================================================
    OPEN RESULT
 ========================================================= */
 
-window.openResult=
-async function(s){
+window.openResult =
+async function(student){
 
-currentStudent=s;
+    currentStudent =
+        student;
 
 
-const id=
-String(
-s.student_id ??
-s.studentId ??
-s.id
-);
+    const id =
+        getStudentId(
+            student
+        );
 
 
-const name=
-s.student_name ??
-s.name ??
-"";
+    const name =
+        getStudentName(
+            student
+        );
 
 
-const roll=
-s.roll_no ??
-s.roll ??
-"";
+    const roll =
+        getRoll(
+            student
+        );
 
 
-etitle.textContent=
-"✏️ Result — "+name;
+    const cls =
+        studentClass(
+            student
+        )
+        ||
+        $("className").value;
 
 
-einfo.innerHTML=`
+    const ses =
+        $("session").value;
 
-<div class="resultHead">
 
-<b>Student Name:</b>
-${name}
+    const ex =
+        $("exam").value;
 
-<br>
 
-<b>Student ID:</b>
-${id}
+    $("etitle").textContent =
+        "✏️ Result — " +
+        name;
 
-&nbsp;&nbsp;
 
-<b>Roll:</b>
-${roll}
+    $("einfo").innerHTML = `
 
-<br>
+        <div class="resultHead">
 
-<b>Class:</b>
-${s.class_name}
+            <b>Student Name:</b>
+            ${escapeHTML(name)}
 
-&nbsp;&nbsp;
+            <br>
 
-<b>Session:</b>
-${session.value}
+            <b>Student ID:</b>
+            ${escapeHTML(id)}
 
-<br>
+            &nbsp;&nbsp;
 
-<b>Exam:</b>
-${exam.value}
+            <b>Roll:</b>
+            ${escapeHTML(roll)}
 
-</div>
+            <br>
 
-`;
+            <b>Class:</b>
+            ${escapeHTML(cls)}
 
+            &nbsp;&nbsp;
 
-/* OLD RESULT */
+            <b>Session:</b>
+            ${escapeHTML(ses)}
 
-const old=
-await db
-.from("results")
-.select("*")
-.eq(
-"student_id",
-id
-)
-.eq(
-"exam_name",
-exam.value
-)
-.eq(
-"session",
-session.value
-);
+            <br>
 
+            <b>Exam:</b>
+            ${escapeHTML(ex)}
 
-if(old.error){
+        </div>
 
-return notice(
-old.error.message,
-false,
-entryMsg
-);
+    `;
 
-}
 
+    /*
+    Old result load
+    */
 
-let oldMap={};
+    const old =
+        await db
+        .from("results")
+        .select("*")
+        .eq(
+            "student_id",
+            id
+        )
+        .eq(
+            "exam_name",
+            ex
+        )
+        .eq(
+            "session",
+            ses
+        );
 
 
-(old.data||[]).forEach(r=>{
+    if(old.error){
 
-oldMap[
-r.subject_id
-]=r;
+        notice(
+            old.error.message,
+            false,
+            $("entryMsg")
+        );
 
-});
+        return;
 
+    }
 
-/* SUBJECT INPUT */
 
-subs.innerHTML=
+    const oldMap = {};
 
-subjects.length
 
-?
+    (old.data || [])
+    .forEach(result => {
 
-subjects.map(subject=>{
+        oldMap[
+            String(
+                result.subject_id
+            )
+        ] =
+            result;
 
-const oldResult=
-oldMap[
-subject.id
-];
+    });
 
 
-const mark=
-oldResult
-?
-oldResult.marks
-:
-"";
+    /*
+    Subject Inputs
+    */
 
+    if(!subjects.length){
 
-return `
+        $("subs").innerHTML = `
 
-<div class="markBox">
+            <div class="box">
 
-<div class="markTitle">
+                ❌ এই Class-এর কোনো Subject নেই।
 
-${subject.subject_name}
+                <br><br>
 
-</div>
+                আগে
+                <b>subjects.html</b>
+                থেকে এই Class-এর Subject যোগ করুন।
 
-<div style="font-size:12px;margin-bottom:7px;">
+            </div>
 
-Full Mark:
-<strong>
-${subject.full_mark}
-</strong>
+        `;
 
-&nbsp;&nbsp;
+    }else{
 
-Pass Mark:
-<strong>
-${subject.pass_mark}
-</strong>
 
-</div>
+        $("subs").innerHTML =
 
+            subjects.map(
+                subject => {
 
-<input
 
-class="mark"
+                    const subjectId =
+                        String(
+                            subject.id
+                        );
 
-data-id="${subject.id}"
 
-data-full="${subject.full_mark}"
+                    const oldResult =
+                        oldMap[
+                            subjectId
+                        ];
 
-data-pass="${subject.pass_mark}"
 
-type="number"
+                    const mark =
+                        oldResult
+                        ?
+                        oldResult.marks
+                        :
+                        "";
 
-min="0"
 
-max="${subject.full_mark}"
+                    const full =
+                        Number(
+                            subject.full_mark
+                            ??
+                            subject.fullMark
+                            ??
+                            100
+                        );
 
-value="${mark}"
 
-placeholder="প্রাপ্ত নম্বর দিন">
+                    const pass =
+                        Number(
+                            subject.pass_mark
+                            ??
+                            subject.passMark
+                            ??
+                            33
+                        );
 
-</div>
 
-`;
+                    const subjectName =
+                        subject.subject_name
+                        ??
+                        subject.name
+                        ??
+                        subject.title
+                        ??
+                        "";
 
-}).join("")
 
-:
+                    return `
 
-`
+                    <div class="markBox">
 
-<div class="box">
+                        <div class="markTitle">
 
-এই Class-এর কোনো Subject নেই।
+                            ${escapeHTML(
+                                subjectName
+                            )}
 
-<br>
+                        </div>
 
-আগে subjects.html থেকে Subject যোগ করুন।
 
-</div>
+                        <div class="markInfo">
 
-`;
+                            Full Mark:
+                            <strong>
+                                ${full}
+                            </strong>
 
+                            &nbsp;&nbsp;
 
-entryCard.style.display=
-"block";
+                            Pass Mark:
+                            <strong>
+                                ${pass}
+                            </strong>
 
+                        </div>
 
-entryCard.scrollIntoView({
-behavior:"smooth"
-});
+
+                        <input
+
+                            class="mark"
+
+                            data-id="${subjectId}"
+
+                            data-full="${full}"
+
+                            data-pass="${pass}"
+
+                            type="number"
+
+                            min="0"
+
+                            max="${full}"
+
+                            value="${mark}"
+
+                            placeholder="প্রাপ্ত নম্বর"
+
+                        >
+
+                    </div>
+
+                    `;
+
+                }
+            ).join("");
+
+    }
+
+
+    $("entryCard").style.display =
+        "block";
+
+
+    $("entryCard").scrollIntoView({
+        behavior:"smooth"
+    });
 
 };
-
 
 
 /* =========================================================
    SAVE RESULT
 ========================================================= */
 
-save.onclick=
+$("save").onclick =
 async function(){
 
-if(!currentStudent){
+    if(!currentStudent){
 
-return notice(
-"Student নির্বাচন করুন",
-false,
-entryMsg
-);
+        notice(
+            "Student নির্বাচন করুন",
+            false,
+            $("entryMsg")
+        );
 
-}
+        return;
 
-
-if(!session.value){
-
-return notice(
-"Session নির্বাচন করুন",
-false,
-entryMsg
-);
-
-}
+    }
 
 
-if(!exam.value){
-
-return notice(
-"Exam নির্বাচন করুন",
-false,
-entryMsg
-);
-
-}
+    const ses =
+        $("session").value;
 
 
-const studentId=
-String(
-currentStudent.student_id ??
-currentStudent.studentId ??
-currentStudent.id
-);
+    const ex =
+        $("exam").value;
 
 
-const inputs=
-[
-...
-document.querySelectorAll(".mark")
-];
+    if(!ses){
+
+        notice(
+            "Session নির্বাচন করুন",
+            false,
+            $("entryMsg")
+        );
+
+        return;
+
+    }
 
 
-const data=[];
+    if(!ex){
+
+        notice(
+            "Exam নির্বাচন করুন",
+            false,
+            $("entryMsg")
+        );
+
+        return;
+
+    }
 
 
-for(
-const input of inputs
-){
-
-if(input.value===""){
-
-continue;
-
-}
+    const studentId =
+        getStudentId(
+            currentStudent
+        );
 
 
-const mark=
-Number(input.value);
-
-const full=
-Number(input.dataset.full);
-
-const pass=
-Number(input.dataset.pass);
-
-
-if(
-mark<0 ||
-mark>full
-){
-
-return notice(
-
-`প্রাপ্ত নম্বর ${full}-এর বেশি হতে পারবে না।`,
-
-false,
-
-entryMsg
-
-);
-
-}
+    const inputs =
+        [
+            ...
+            document.querySelectorAll(
+                ".mark"
+            )
+        ];
 
 
-data.push({
+    if(!inputs.length){
 
-student_id:
-studentId,
+        notice(
+            "কোনো Subject পাওয়া যায়নি।",
+            false,
+            $("entryMsg")
+        );
 
-subject_id:
-Number(input.dataset.id),
+        return;
 
-exam_name:
-exam.value,
-
-marks:
-mark,
-
-session:
-session.value
-
-});
-
-}
+    }
 
 
-if(!data.length){
-
-return notice(
-"কমপক্ষে একটি Subject-এর নম্বর দিন",
-false,
-entryMsg
-);
-
-}
+    const data = [];
 
 
-/* Save */
+    for(
+        const input of inputs
+    ){
 
-const r=
-await db
-.from("results")
-.upsert(
-data,
-{
-onConflict:
-"student_id,subject_id,exam_name,session"
-}
-);
+        if(
+            input.value === ""
+        ){
 
+            continue;
 
-if(r.error){
-
-return notice(
-"Save error: "+
-r.error.message,
-false,
-entryMsg
-);
-
-}
+        }
 
 
-notice(
-"✅ Result সফলভাবে Save হয়েছে",
-true,
-entryMsg
-);
+        const mark =
+            Number(
+                input.value
+            );
 
 
-entryCard.style.display=
-"none";
+        const full =
+            Number(
+                input.dataset.full
+            );
 
 
-await updateStatus();
+        const pass =
+            Number(
+                input.dataset.pass
+            );
+
+
+        if(
+            !Number.isFinite(mark)
+        ){
+
+            notice(
+                "সঠিক নম্বর দিন।",
+                false,
+                $("entryMsg")
+            );
+
+            return;
+
+        }
+
+
+        if(
+            mark < 0 ||
+            mark > full
+        ){
+
+            notice(
+                `প্রাপ্ত নম্বর ${full}-এর বেশি হতে পারবে না।`,
+                false,
+                $("entryMsg")
+            );
+
+            return;
+
+        }
+
+
+        data.push({
+
+            student_id:
+                studentId,
+
+            subject_id:
+                Number(
+                    input.dataset.id
+                ),
+
+            exam_name:
+                ex,
+
+            marks:
+                mark,
+
+            session:
+                ses
+
+        });
+
+    }
+
+
+    if(!data.length){
+
+        notice(
+            "কমপক্ষে একটি Subject-এর নম্বর দিন।",
+            false,
+            $("entryMsg")
+        );
+
+        return;
+
+    }
+
+
+    /*
+    Save button loading
+    */
+
+    $("save").disabled =
+        true;
+
+
+    $("save").textContent =
+        "⏳ Saving...";
+
+
+    try{
+
+
+        /*
+        প্রতিটি Result আলাদাভাবে
+        Update / Insert করা হচ্ছে।
+
+        এতে database-এ unique constraint
+        না থাকলেও upsert-এর conflict error হবে না।
+        */
+
+
+        for(
+            const item of data
+        ){
+
+
+            const old =
+                await db
+                .from("results")
+                .select("id")
+                .eq(
+                    "student_id",
+                    item.student_id
+                )
+                .eq(
+                    "subject_id",
+                    item.subject_id
+                )
+                .eq(
+                    "exam_name",
+                    item.exam_name
+                )
+                .eq(
+                    "session",
+                    item.session
+                )
+                .limit(1);
+
+
+            if(old.error){
+
+                throw old.error;
+
+            }
+
+
+            if(
+                old.data &&
+                old.data.length
+            ){
+
+                const update =
+                    await db
+                    .from("results")
+                    .update({
+
+                        marks:
+                            item.marks
+
+                    })
+                    .eq(
+                        "id",
+                        old.data[0].id
+                    );
+
+
+                if(update.error){
+
+                    throw update.error;
+
+                }
+
+            }else{
+
+
+                const insert =
+                    await db
+                    .from("results")
+                    .insert(
+                        item
+                    );
+
+
+                if(insert.error){
+
+                    throw insert.error;
+
+                }
+
+            }
+
+        }
+
+
+        notice(
+            "✅ Result সফলভাবে Save হয়েছে।",
+            true,
+            $("entryMsg")
+        );
+
+
+        /*
+        ছোট delay দিয়ে close
+        */
+
+        setTimeout(()=>{
+
+            $("entryCard").style.display =
+                "none";
+
+
+            updateStatus();
+
+        },700);
+
+
+    }catch(error){
+
+        console.error(
+            "SAVE RESULT ERROR:",
+            error
+        );
+
+
+        notice(
+            "Save error: " +
+            error.message,
+            false,
+            $("entryMsg")
+        );
+
+    }finally{
+
+        $("save").disabled =
+            false;
+
+
+        $("save").textContent =
+            "💾 Save Result";
+
+    }
 
 };
-
 
 
 /* =========================================================
    CLOSE
 ========================================================= */
 
-close.onclick=
+$("close").onclick =
 function(){
 
-entryCard.style.display=
-"none";
+    $("entryCard").style.display =
+        "none";
+
+
+    currentStudent =
+        null;
 
 };
-
 
 
 /* =========================================================
    SHOW STUDENTS
 ========================================================= */
 
-show.onclick=
-getStudents;
+$("show").onclick =
+function(){
 
+    getStudents();
+
+};
+
+
+/* =========================================================
+   REFRESH
+========================================================= */
+
+$("refreshBtn").onclick =
+function(){
+
+    location.reload();
+
+};
 
 
 /* =========================================================
    RESULT SEARCH
 ========================================================= */
 
-search.onclick=
+$("search").onclick =
 async function(){
 
-const ses=
-ss.value;
+    const ses =
+        $("ss").value;
 
-const ex=
-se.value;
 
-const searchKey=
-key.value.trim();
+    const ex =
+        $("se").value;
 
 
-if(
-!ses ||
-!ex ||
-!searchKey
-){
+    const searchKey =
+        $("key").value.trim();
 
-return notice(
-"Session, Exam এবং Student ID/Roll দিন"
-);
 
-}
+    if(
+        !ses ||
+        !ex ||
+        !searchKey
+    ){
 
+        notice(
+            "Session, Exam এবং Student ID/Roll দিন"
+        );
 
-/* STUDENTS */
+        return;
 
-const r=
-await db
-.from("students")
-.select("*");
+    }
 
 
-if(r.error){
+    $("out").innerHTML = `
 
-return notice(
-r.error.message
-);
+        <div class="box">
 
-}
+            ⏳ Result খোঁজা হচ্ছে...
 
+        </div>
 
-const found=
-(r.data||[]).find(s=>{
+    `;
 
-const sid=
-String(
-s.student_id ??
-s.studentId ??
-s.id
-);
 
-const roll=
-String(
-s.roll_no ??
-s.roll ??
-""
-);
+    try{
 
 
-return(
+        /*
+        Student
+        */
 
-sid.toLowerCase()
-===
-searchKey.toLowerCase()
+        const studentResult =
+            await db
+            .from("students")
+            .select("*");
 
-||
 
-roll.toLowerCase()
-===
-searchKey.toLowerCase()
+        if(studentResult.error){
 
-);
+            throw studentResult.error;
 
-});
+        }
 
 
-if(!found){
+        const searchNormalized =
+            normalize(
+                searchKey
+            );
 
-out.innerHTML=`
 
-<div class="box">
+        const found =
+            (studentResult.data || [])
+            .find(
+                student => {
 
-❌ Student পাওয়া যায়নি।
 
-</div>
+                    const sid =
+                        normalize(
+                            getStudentId(
+                                student
+                            )
+                        );
 
-`;
 
-return;
+                    const roll =
+                        normalize(
+                            getRoll(
+                                student
+                            )
+                        );
 
-}
 
+                    return (
 
-const studentId=
-String(
-found.student_id ??
-found.studentId ??
-found.id
-);
+                        sid ===
+                        searchNormalized
 
+                        ||
 
-/* RESULT */
+                        roll ===
+                        searchNormalized
 
-const rr=
-await db
-.from("results")
-.select("*")
-.eq(
-"student_id",
-studentId
-)
-.eq(
-"exam_name",
-ex
-)
-.eq(
-"session",
-ses
-);
+                    );
 
+                }
+            );
 
-if(rr.error){
 
-out.innerHTML=`
+        if(!found){
 
-<div class="box">
+            $("out").innerHTML = `
 
-${rr.error.message}
+                <div class="box">
 
-</div>
+                    ❌ Student পাওয়া যায়নি।
 
-`;
+                </div>
 
-return;
+            `;
 
-}
+            return;
 
+        }
 
-if(!(rr.data||[]).length){
 
-out.innerHTML=`
+        /*
+        Student ID
+        */
 
-<div class="box">
+        const studentId =
+            getStudentId(
+                found
+            );
 
-এই Exam-এর Result এখনো দেওয়া হয়নি।
 
-</div>
+        /*
+        Result
+        */
 
-`;
+        const result =
+            await db
+            .from("results")
+            .select("*")
+            .eq(
+                "student_id",
+                studentId
+            )
+            .eq(
+                "exam_name",
+                ex
+            )
+            .eq(
+                "session",
+                ses
+            )
+            .order("subject_id");
 
-return;
 
-}
+        if(result.error){
 
+            throw result.error;
 
-/* SUBJECTS */
+        }
 
-const subjectIds=
-(rr.data||[])
-.map(
-r=>r.subject_id
-);
 
+        const resultData =
+            result.data || [];
 
-const sr=
-await db
-.from("subjects")
-.select("*")
-.in(
-"id",
-subjectIds
-);
 
+        if(!resultData.length){
 
-if(sr.error){
+            $("out").innerHTML = `
 
-out.innerHTML=`
+                <div class="box">
 
-<div class="box">
+                    এই Exam-এর Result এখনো
+                    দেওয়া হয়নি।
 
-${sr.error.message}
+                </div>
 
-</div>
+            `;
 
-`;
+            return;
 
-return;
+        }
 
-}
 
+        /*
+        Subject IDs
+        */
 
-const subjectMap={};
+        const subjectIds =
+            resultData
+            .map(
+                r =>
+                    r.subject_id
+            );
 
 
-(sr.data||[]).forEach(s=>{
+        const subjectResult =
+            await db
+            .from("subjects")
+            .select("*")
+            .in(
+                "id",
+                subjectIds
+            );
 
-subjectMap[
-s.id
-]=s;
 
-});
+        if(subjectResult.error){
 
+            throw subjectResult.error;
 
-/* TOTAL */
+        }
 
-let total=0;
 
-let fullTotal=0;
+        const subjectMap = {};
 
-let overallPass=true;
 
+        (subjectResult.data || [])
+        .forEach(
+            subject => {
 
-const rows=
+                subjectMap[
+                    String(
+                        subject.id
+                    )
+                ] =
+                    subject;
 
-(rr.data||[])
-.map(result=>{
+            }
+        );
 
-const subject=
-subjectMap[
-result.subject_id
-];
 
+        /*
+        Total
+        */
 
-if(!subject){
+        let total = 0;
 
-return "";
+        let fullTotal = 0;
 
-}
+        let overallPass =
+            true;
 
 
-const marks=
-Number(result.marks);
+        const rows =
+            resultData
+            .map(
+                result => {
 
-const full=
-Number(subject.full_mark);
 
-const pass=
-Number(subject.pass_mark);
+                    const subject =
+                        subjectMap[
+                            String(
+                                result.subject_id
+                            )
+                        ];
 
 
-total+=marks;
+                    if(!subject){
 
-fullTotal+=full;
+                        return "";
 
+                    }
 
-if(marks<pass){
 
-overallPass=false;
+                    const marks =
+                        Number(
+                            result.marks
+                        );
 
-}
 
+                    const full =
+                        Number(
+                            subject.full_mark
+                            ??
+                            subject.fullMark
+                            ??
+                            100
+                        );
 
-return `
 
-<tr>
+                    const pass =
+                        Number(
+                            subject.pass_mark
+                            ??
+                            subject.passMark
+                            ??
+                            33
+                        );
 
-<td>
-${subject.subject_name}
-</td>
 
-<td>
-${full}
-</td>
+                    const subjectName =
+                        subject.subject_name
+                        ??
+                        subject.name
+                        ??
+                        subject.title
+                        ??
+                        "";
 
-<td>
-${pass}
-</td>
 
-<td>
-<strong>${marks}</strong>
-</td>
+                    total +=
+                        marks;
 
-<td>
 
-${
-marks>=pass
+                    fullTotal +=
+                        full;
 
-?
 
-'<span class="pass">Pass</span>'
+                    if(
+                        marks < pass
+                    ){
 
-:
+                        overallPass =
+                            false;
 
-'<span class="fail">Fail</span>'
+                    }
 
-}
 
-</td>
+                    return `
 
-</tr>
+                        <tr>
 
-`;
+                            <td>
+                                ${escapeHTML(
+                                    subjectName
+                                )}
+                            </td>
 
-}).join("");
+                            <td>
+                                ${full}
+                            </td>
 
+                            <td>
+                                ${pass}
+                            </td>
 
-/* SEARCH RESULT */
+                            <td>
+                                <strong>
+                                    ${marks}
+                                </strong>
+                            </td>
 
-out.innerHTML=`
+                            <td>
 
-<div class="box">
+                                ${
+                                    marks >= pass
 
-<h3>
+                                    ?
 
-📄 ${found.student_name ?? found.name ?? ""}
+                                    '<span class="pass">Pass</span>'
 
-</h3>
+                                    :
 
-<b>Student ID:</b>
-${studentId}
+                                    '<span class="fail">Fail</span>'
+                                }
 
-&nbsp;&nbsp;
+                            </td>
 
-<b>Roll:</b>
-${found.roll_no ?? found.roll ?? ""}
+                        </tr>
 
-<br><br>
+                    `;
 
-<b>Class:</b>
-${found.class_name}
+                }
+            )
+            .join("");
 
-<br>
 
-<b>Session:</b>
-${ses}
+        /*
+        Output
+        */
 
-<br>
+        $("out").innerHTML = `
 
-<b>Exam:</b>
-${ex}
+            <div class="result-card">
 
-<br><br>
+                <div class="result-title">
 
+                    📄 Result
 
-<div class="wrap">
+                </div>
 
-<table>
+                <br>
 
-<thead>
 
-<tr>
+                <b>
+                    Student Name:
+                </b>
 
-<th>Subject</th>
-<th>Full Mark</th>
-<th>Pass Mark</th>
-<th>Obtained</th>
-<th>Status</th>
+                ${escapeHTML(
+                    getStudentName(found)
+                )}
 
-</tr>
+                <br>
 
-</thead>
 
-<tbody>
+                <b>
+                    Student ID:
+                </b>
 
-${rows}
+                ${escapeHTML(
+                    studentId
+                )}
 
-<tr>
+                &nbsp;&nbsp;
 
-<th>Total</th>
 
-<th>
-${fullTotal}
-</th>
+                <b>
+                    Roll:
+                </b>
 
-<th>—</th>
+                ${escapeHTML(
+                    getRoll(found)
+                )}
 
-<th>
-${total}
-</th>
+                <br><br>
 
-<th>
 
-${
-overallPass
+                <b>
+                    Class:
+                </b>
 
-?
+                ${escapeHTML(
+                    studentClass(found)
+                )}
 
-'<span class="pass">PASS</span>'
+                <br>
 
-:
 
-'<span class="fail">FAIL</span>'
+                <b>
+                    Session:
+                </b>
 
-}
+                ${escapeHTML(
+                    ses
+                )}
 
-</th>
+                <br>
 
-</tr>
 
-</tbody>
+                <b>
+                    Exam:
+                </b>
 
-</table>
+                ${escapeHTML(
+                    ex
+                )}
 
-</div>
 
-</div>
+                <br><br>
 
-`;
+
+                <div class="wrap">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Subject
+                                </th>
+
+                                <th>
+                                    Full Mark
+                                </th>
+
+                                <th>
+                                    Pass Mark
+                                </th>
+
+                                <th>
+                                    Obtained
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            ${rows}
+
+
+                            <tr>
+
+                                <th>
+                                    Total
+                                </th>
+
+                                <th>
+                                    ${fullTotal}
+                                </th>
+
+                                <th>
+                                    —
+                                </th>
+
+                                <th>
+                                    ${total}
+                                </th>
+
+                                <th>
+
+                                    ${
+                                        overallPass
+
+                                        ?
+
+                                        '<span class="pass">PASS</span>'
+
+                                        :
+
+                                        '<span class="fail">FAIL</span>'
+                                    }
+
+                                </th>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        `;
+
+
+    }catch(error){
+
+        console.error(
+            "SEARCH ERROR:",
+            error
+        );
+
+
+        $("out").innerHTML = `
+
+            <div class="box">
+
+                ❌
+                ${escapeHTML(
+                    error.message
+                )}
+
+            </div>
+
+        `;
+
+    }
 
 };
-
 
 
 /* =========================================================
    INIT
 ========================================================= */
+
+async function init(){
+
+    loadClasses();
+
+    loadExams();
+
+    await loadSessions();
+
+}
+
 
 init();
 
