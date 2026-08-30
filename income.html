@@ -8,6 +8,7 @@
 <title>Income Management | মাদরাসায়ে নূরুল কুরআন</title>
 
 <style>
+
 *{
     box-sizing:border-box;
 }
@@ -100,6 +101,10 @@ button{
     cursor:pointer;
 }
 
+button:hover{
+    opacity:.9;
+}
+
 button:disabled{
     opacity:.6;
     cursor:not-allowed;
@@ -118,6 +123,10 @@ button:disabled{
     background:#c62828;
 }
 
+.print{
+    background:#6a1b9a;
+}
+
 #msg{
     margin-top:12px;
     min-height:20px;
@@ -133,17 +142,24 @@ button:disabled{
 }
 
 .summary{
-    display:flex;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
     gap:12px;
-    flex-wrap:wrap;
     margin-bottom:18px;
 }
 
 .card{
     background:#eee;
-    padding:12px 18px;
+    padding:16px 18px;
     border-radius:8px;
     font-weight:bold;
+}
+
+.card span{
+    display:block;
+    font-size:20px;
+    margin-top:7px;
+    color:#075c43;
 }
 
 .search{
@@ -197,6 +213,28 @@ th{
     display:none;
 }
 
+.empty{
+    text-align:center;
+    padding:25px;
+    color:#777;
+}
+
+.status{
+    display:inline-block;
+    padding:4px 8px;
+    border-radius:5px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+@media(max-width:800px){
+
+    .summary{
+        grid-template-columns:1fr;
+    }
+
+}
+
 @media(max-width:650px){
 
     .form{
@@ -208,21 +246,36 @@ th{
     }
 
     table{
-        min-width:950px;
+        min-width:1000px;
     }
+
+    .top{
+        padding:15px;
+    }
+
+    .top h2{
+        font-size:17px;
+    }
+
 }
+
 </style>
 
 </head>
 
+
 <body>
 
 
-<!-- ================= TOP ================= -->
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
 <header class="top">
 
-<h2>💵 Income Management</h2>
+<h2>
+💵 Income Management
+</h2>
 
 <a href="dashboard.html">
 ← Dashboard
@@ -234,7 +287,9 @@ th{
 <div class="container">
 
 
-<!-- ================= INCOME FORM ================= -->
+<!-- =====================================================
+     ADD INCOME
+===================================================== -->
 
 <div class="box">
 
@@ -252,13 +307,20 @@ value=""
 >
 
 
+<!-- INCOME TYPE -->
+
+<div class="form">
+
+
 <div>
 
 <label>
 Income Type *
 </label>
 
-<select id="incomeType" required>
+<select
+id="incomeType"
+required>
 
 <option value="">
 Income Type নির্বাচন করুন
@@ -293,12 +355,14 @@ Income Type নির্বাচন করুন
 </div>
 
 
+<!-- CUSTOM TYPE -->
+
 <div
 id="customBox"
 class="custom-box">
 
 <label>
-Custom Income Type
+Custom Income Type *
 </label>
 
 <input
@@ -309,6 +373,8 @@ placeholder="যেমন: জমি ভাড়া, বই বিক্রি..."
 
 </div>
 
+
+<!-- AMOUNT -->
 
 <div>
 
@@ -328,6 +394,8 @@ placeholder="যেমন: 15000"
 </div>
 
 
+<!-- DATE -->
+
 <div>
 
 <label>
@@ -342,6 +410,8 @@ required
 
 </div>
 
+
+<!-- PAYMENT METHOD -->
 
 <div>
 
@@ -376,6 +446,8 @@ Other
 </div>
 
 
+<!-- RECEIVED FROM -->
+
 <div>
 
 <label>
@@ -390,6 +462,8 @@ placeholder="যার কাছ থেকে টাকা পাওয়া গ�
 
 </div>
 
+
+<!-- TITLE -->
 
 <div class="full">
 
@@ -407,6 +481,8 @@ placeholder="যেমন: রমজান মাসের অনুদান"
 </div>
 
 
+<!-- DESCRIPTION -->
+
 <div class="full">
 
 <label>
@@ -419,6 +495,8 @@ placeholder="Income সম্পর্কে বিস্তারিত লি�
 
 </div>
 
+
+<!-- BUTTON -->
 
 <div class="full">
 
@@ -446,12 +524,17 @@ Cancel
 
 </div>
 
+
+</div>
+
 </form>
 
 </div>
 
 
-<!-- ================= DONATION QUICK BOX ================= -->
+<!-- =====================================================
+     DONATION INFORMATION
+===================================================== -->
 
 <div class="box donation">
 
@@ -460,14 +543,17 @@ Cancel
 </h3>
 
 <p>
-অনুদান গ্রহণ করলে উপরের <b>Income Type → অনুদান / Donation</b>
+অনুদান গ্রহণ করলে উপরের
+<b>Income Type → অনুদান / Donation</b>
 নির্বাচন করে তথ্য সংরক্ষণ করুন।
 </p>
 
 </div>
 
 
-<!-- ================= INCOME LIST ================= -->
+<!-- =====================================================
+     INCOME LIST
+===================================================== -->
 
 <div class="box">
 
@@ -476,38 +562,57 @@ Cancel
 </h3>
 
 
+<!-- SUMMARY -->
+
 <div class="summary">
 
+
 <div class="card">
-Total Income:
+
+Total Income
+
 <span id="totalIncome">
-0.00
+৳ 0.00
 </span>
+
 </div>
 
+
 <div class="card">
-Donation:
+
+Donation
+
 <span id="totalDonation">
-0.00
+৳ 0.00
 </span>
+
 </div>
+
 
 <div class="card">
-Today:
+
+Today
+
 <span id="todayIncome">
-0.00
+৳ 0.00
 </span>
-</div>
 
 </div>
 
+
+</div>
+
+
+<!-- SEARCH -->
 
 <input
 class="search"
 id="search"
-placeholder="🔍 Title / Type / নাম / Mobile দিয়ে খুঁজুন..."
+placeholder="🔍 Title / Type / নাম / Mobile / Date দিয়ে খুঁজুন..."
 >
 
+
+<!-- TABLE -->
 
 <div class="table-wrap">
 
@@ -517,14 +622,37 @@ placeholder="🔍 Title / Type / নাম / Mobile দিয়ে খুঁজু
 
 <tr>
 
-<th>Title</th>
-<th>Type</th>
-<th>Amount</th>
-<th>Date</th>
-<th>Method</th>
-<th>Received From</th>
-<th>Description</th>
-<th>Action</th>
+<th>
+Title
+</th>
+
+<th>
+Type
+</th>
+
+<th>
+Amount
+</th>
+
+<th>
+Date
+</th>
+
+<th>
+Method
+</th>
+
+<th>
+Received From
+</th>
+
+<th>
+Description
+</th>
+
+<th>
+Action
+</th>
 
 </tr>
 
@@ -557,7 +685,9 @@ Loading...
 </div>
 
 
-<!-- ================= SUPABASE ================= -->
+<!-- =====================================================
+     SUPABASE
+===================================================== -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -570,6 +700,7 @@ Loading...
 
 const SUPABASE_URL =
 "https://qavublwhqiqsgpcmfyft.supabase.co";
+
 
 const SUPABASE_KEY =
 "sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
@@ -595,9 +726,22 @@ let incomes = [];
 
 function today(){
 
-    return new Date()
-    .toISOString()
-    .split("T")[0];
+    const d = new Date();
+
+    const year =
+        d.getFullYear();
+
+    const month =
+        String(
+            d.getMonth()+1
+        ).padStart(2,"0");
+
+    const day =
+        String(
+            d.getDate()
+        ).padStart(2,"0");
+
+    return `${year}-${month}-${day}`;
 
 }
 
@@ -606,13 +750,21 @@ function today(){
    MESSAGE
 ===================================================== */
 
-function showMessage(text,type=""){
+function showMessage(
+    text,
+    type=""
+){
 
     const msg =
-    document.getElementById("msg");
+        document.getElementById(
+            "msg"
+        );
 
-    msg.textContent = text;
-    msg.className = type;
+    msg.textContent =
+        text;
+
+    msg.className =
+        type;
 
 }
 
@@ -628,13 +780,15 @@ async function start(){
         const {
             data,
             error
-        } = await db.auth.getSession();
+        } =
+        await db.auth.getSession();
 
 
         if(error){
 
             showMessage(
-                "❌ Session error: "+error.message,
+                "❌ Session error: " +
+                error.message,
                 "error"
             );
 
@@ -645,7 +799,8 @@ async function start(){
 
         if(!data.session){
 
-            location.href="admin.html";
+            location.href =
+                "admin.html";
 
             return;
 
@@ -654,7 +809,8 @@ async function start(){
 
         document.getElementById(
             "incomeDate"
-        ).value=today();
+        ).value =
+            today();
 
 
         await loadIncome();
@@ -664,7 +820,8 @@ async function start(){
     catch(error){
 
         showMessage(
-            "❌ Start error: "+error.message,
+            "❌ Start error: " +
+            error.message,
             "error"
         );
 
@@ -680,15 +837,23 @@ async function start(){
 async function loadIncome(){
 
     const tbody =
-    document.getElementById("incomeList");
+        document.getElementById(
+            "incomeList"
+        );
 
 
-    tbody.innerHTML=`
+    tbody.innerHTML = `
 
         <tr>
-            <td colspan="8" class="loading">
+
+            <td
+                colspan="8"
+                class="loading">
+
                 Loading...
+
             </td>
+
         </tr>
 
     `;
@@ -697,22 +862,42 @@ async function loadIncome(){
     const {
         data,
         error
-    } = await db
-    .from("incomes")
-    .select("*")
-    .order("id",{ascending:false});
+    } =
+    await db
+
+        .from("incomes")
+
+        .select("*")
+
+        .order(
+            "id",
+            {
+                ascending:false
+            }
+        );
 
 
     if(error){
 
-        incomes=[];
+        incomes = [];
 
-        tbody.innerHTML=`
+
+        tbody.innerHTML = `
 
             <tr>
-                <td colspan="8" class="error">
-                    ❌ ${escapeHtml(error.message)}
+
+                <td
+                    colspan="8"
+                    class="error">
+
+                    ❌ ${
+                        escapeHtml(
+                            error.message
+                        )
+                    }
+
                 </td>
+
             </tr>
 
         `;
@@ -722,7 +907,8 @@ async function loadIncome(){
     }
 
 
-    incomes=data || [];
+    incomes =
+        data || [];
 
 
     renderIncome();
@@ -734,82 +920,113 @@ async function loadIncome(){
    RENDER INCOME
 ===================================================== */
 
-function renderIncome(list=incomes){
+function renderIncome(
+    list = incomes
+){
 
-    let total=0;
-    let donation=0;
-    let todayTotal=0;
+    let total = 0;
 
+    let donation = 0;
 
-    const currentDate=today();
-
-
-    list.forEach(item=>{
-
-        const amount =
-        Number(item.amount)||0;
+    let todayTotal = 0;
 
 
-        total += amount;
+    const currentDate =
+        today();
 
 
-        if(
-            String(item.income_type||"")
-            .toLowerCase()
-            .includes("donation") ||
+    list.forEach(
+        function(item){
 
-            String(item.income_type||"")
-            .includes("অনুদান")
-        ){
+            const amount =
+                Number(
+                    item.amount
+                ) || 0;
 
-            donation += amount;
+
+            total +=
+                amount;
+
+
+            const type =
+                String(
+                    item.income_type || ""
+                ).toLowerCase();
+
+
+            if(
+
+                type.includes(
+                    "donation"
+                )
+
+                ||
+
+                type.includes(
+                    "অনুদান"
+                )
+
+            ){
+
+                donation +=
+                    amount;
+
+            }
+
+
+            if(
+
+                String(
+                    item.income_date || ""
+                ) === currentDate
+
+            ){
+
+                todayTotal +=
+                    amount;
+
+            }
 
         }
-
-
-        if(
-            String(item.income_date||"")===
-            currentDate
-        ){
-
-            todayTotal += amount;
-
-        }
-
-    });
+    );
 
 
     document.getElementById(
         "totalIncome"
     ).textContent =
-    total.toFixed(2);
+        "৳ " +
+        total.toFixed(2);
 
 
     document.getElementById(
         "totalDonation"
     ).textContent =
-    donation.toFixed(2);
+        "৳ " +
+        donation.toFixed(2);
 
 
     document.getElementById(
         "todayIncome"
     ).textContent =
-    todayTotal.toFixed(2);
+        "৳ " +
+        todayTotal.toFixed(2);
 
 
     const tbody =
-    document.getElementById("incomeList");
+        document.getElementById(
+            "incomeList"
+        );
 
 
     if(!list.length){
 
-        tbody.innerHTML=`
+        tbody.innerHTML = `
 
             <tr>
 
                 <td
-                colspan="8"
-                style="text-align:center">
+                    colspan="8"
+                    class="empty">
 
                     কোনো Income record নেই
 
@@ -825,81 +1042,162 @@ function renderIncome(list=incomes){
 
 
     tbody.innerHTML =
-    list.map(item=>{
 
-        const amount =
-        Number(item.amount)||0;
+        list.map(
+            function(item){
 
-
-        return `
-
-        <tr>
-
-            <td>
-                ${escapeHtml(item.title || "-")}
-            </td>
+                const amount =
+                    Number(
+                        item.amount
+                    ) || 0;
 
 
-            <td>
-                ${escapeHtml(item.income_type || "-")}
-            </td>
+                return `
+
+                <tr>
 
 
-            <td>
-                ${amount.toFixed(2)}
-            </td>
+                    <td>
+
+                        ${
+                            escapeHtml(
+                                item.title ||
+                                "-"
+                            )
+                        }
+
+                    </td>
 
 
-            <td>
-                ${escapeHtml(item.income_date || "-")}
-            </td>
+                    <td>
+
+                        ${
+                            escapeHtml(
+                                item.income_type ||
+                                "-"
+                            )
+                        }
+
+                    </td>
 
 
-            <td>
-                ${escapeHtml(item.payment_method || "-")}
-            </td>
+                    <td>
+
+                        <b>
+                            ৳ ${amount.toFixed(2)}
+                        </b>
+
+                    </td>
 
 
-            <td>
-                ${escapeHtml(item.received_from || "-")}
-            </td>
+                    <td>
+
+                        ${
+                            escapeHtml(
+                                item.income_date ||
+                                "-"
+                            )
+                        }
+
+                    </td>
 
 
-            <td>
-                ${escapeHtml(item.description || "-")}
-            </td>
+                    <td>
+
+                        ${
+                            escapeHtml(
+                                item.payment_method ||
+                                "-"
+                            )
+                        }
+
+                    </td>
 
 
-            <td class="action">
+                    <td>
 
-                <button
-                type="button"
-                class="edit"
-                data-income-id="${escapeHtml(String(item.id))}"
-                onclick="editIncomeFromButton(this)">
+                        ${
+                            escapeHtml(
+                                item.received_from ||
+                                "-"
+                            )
+                        }
 
-                    Edit
-
-                </button>
+                    </td>
 
 
-                <button
-                type="button"
-                class="delete"
-                data-income-id="${escapeHtml(String(item.id))}"
-                onclick="deleteIncomeFromButton(this)">
+                    <td>
 
-                    Delete
+                        ${
+                            escapeHtml(
+                                item.description ||
+                                "-"
+                            )
+                        }
 
-                </button>
+                    </td>
 
-            </td>
 
-        </tr>
+                    <td class="action">
 
-        `;
 
-    }).join("");
+                        <button
+
+                            type="button"
+
+                            class="edit"
+
+                            data-income-id="${
+                                escapeHtml(
+                                    String(
+                                        item.id
+                                    )
+                                )
+                            }"
+
+                            onclick="
+                                editIncomeFromButton(this)
+                            ">
+
+                            Edit
+
+                        </button>
+
+
+                        <button
+
+                            type="button"
+
+                            class="delete"
+
+                            data-income-id="${
+                                escapeHtml(
+                                    String(
+                                        item.id
+                                    )
+                                )
+                            }"
+
+                            onclick="
+                                deleteIncomeFromButton(this)
+                            ">
+
+                            Delete
+
+                        </button>
+
+
+                    </td>
+
+
+                </tr>
+
+                `;
+
+            }
+        )
+
+        .join("");
 
 }
 
@@ -908,20 +1206,30 @@ function renderIncome(list=incomes){
    BUTTON HANDLERS
 ===================================================== */
 
-function editIncomeFromButton(button){
+function editIncomeFromButton(
+    button
+){
 
     const id =
-    button.getAttribute("data-income-id");
+        button.getAttribute(
+            "data-income-id"
+        );
+
 
     editIncome(id);
 
 }
 
 
-function deleteIncomeFromButton(button){
+function deleteIncomeFromButton(
+    button
+){
 
     const id =
-    button.getAttribute("data-income-id");
+        button.getAttribute(
+            "data-income-id"
+        );
+
 
     deleteIncome(id);
 
@@ -939,26 +1247,43 @@ document.getElementById(
     function(){
 
         const customBox =
-        document.getElementById("customBox");
+            document.getElementById(
+                "customBox"
+            );
 
 
-        if(this.value==="Custom"){
-
-            customBox.style.display="block";
-
+        const customType =
             document.getElementById(
                 "customType"
-            ).required=true;
+            );
+
+
+        if(
+            this.value ===
+            "Custom"
+        ){
+
+            customBox.style.display =
+                "block";
+
+
+            customType.required =
+                true;
 
         }
 
         else{
 
-            customBox.style.display="none";
+            customBox.style.display =
+                "none";
 
-            document.getElementById(
-                "customType"
-            ).required=false;
+
+            customType.required =
+                false;
+
+
+            customType.value =
+                "";
 
         }
 
@@ -980,24 +1305,27 @@ document.getElementById(
 
 
         const editId =
-        document.getElementById(
-            "editId"
-        ).value.trim();
+            document.getElementById(
+                "editId"
+            ).value.trim();
 
 
         let incomeType =
-        document.getElementById(
-            "incomeType"
-        ).value;
+            document.getElementById(
+                "incomeType"
+            ).value;
 
 
         const customType =
-        document.getElementById(
-            "customType"
-        ).value.trim();
+            document.getElementById(
+                "customType"
+            ).value.trim();
 
 
-        if(incomeType==="Custom"){
+        if(
+            incomeType ===
+            "Custom"
+        ){
 
             if(!customType){
 
@@ -1010,7 +1338,9 @@ document.getElementById(
 
             }
 
-            incomeType=customType;
+
+            incomeType =
+                customType;
 
         }
 
@@ -1028,23 +1358,23 @@ document.getElementById(
 
 
         const title =
-        document.getElementById(
-            "title"
-        ).value.trim();
+            document.getElementById(
+                "title"
+            ).value.trim();
 
 
         const amount =
-        Number(
-            document.getElementById(
-                "amount"
-            ).value
-        );
+            Number(
+                document.getElementById(
+                    "amount"
+                ).value
+            );
 
 
         const incomeDate =
-        document.getElementById(
-            "incomeDate"
-        ).value;
+            document.getElementById(
+                "incomeDate"
+            ).value;
 
 
         if(!title){
@@ -1060,8 +1390,15 @@ document.getElementById(
 
 
         if(
-            !Number.isFinite(amount) ||
-            amount<=0
+
+            !Number.isFinite(
+                amount
+            )
+
+            ||
+
+            amount <= 0
+
         ){
 
             showMessage(
@@ -1086,41 +1423,57 @@ document.getElementById(
         }
 
 
-        const record={
+        const record = {
 
-            title:title,
+            title:
+                title,
 
-            income_type:incomeType,
+            income_type:
+                incomeType,
 
-            amount:amount,
+            amount:
+                amount,
 
-            income_date:incomeDate,
+            income_date:
+                incomeDate,
 
             payment_method:
-            document.getElementById(
-                "method"
-            ).value,
+                document.getElementById(
+                    "method"
+                ).value,
 
             received_from:
-            document.getElementById(
-                "receivedFrom"
-            ).value.trim() || null,
+                document.getElementById(
+                    "receivedFrom"
+                ).value.trim()
+                || null,
 
             description:
-            document.getElementById(
-                "description"
-            ).value.trim() || null
+                document.getElementById(
+                    "description"
+                ).value.trim()
+                || null
 
         };
 
 
         const saveBtn =
-        document.getElementById(
-            "saveBtn"
+            document.getElementById(
+                "saveBtn"
+            );
+
+
+        saveBtn.disabled =
+            true;
+
+
+        showMessage(
+            editId
+            ?
+            "Updating..."
+            :
+            "Saving..."
         );
-
-
-        saveBtn.disabled=true;
 
 
         try{
@@ -1131,21 +1484,31 @@ document.getElementById(
             if(editId){
 
                 result =
-                await db
-                .from("incomes")
-                .update(record)
-                .eq("id",editId)
-                .select();
+                    await db
+
+                    .from("incomes")
+
+                    .update(record)
+
+                    .eq(
+                        "id",
+                        editId
+                    )
+
+                    .select();
 
             }
 
             else{
 
                 result =
-                await db
-                .from("incomes")
-                .insert(record)
-                .select();
+                    await db
+
+                    .from("incomes")
+
+                    .insert(record)
+
+                    .select();
 
             }
 
@@ -1153,7 +1516,8 @@ document.getElementById(
             if(result.error){
 
                 showMessage(
-                    "❌ "+result.error.message,
+                    "❌ " +
+                    result.error.message,
                     "error"
                 );
 
@@ -1163,10 +1527,19 @@ document.getElementById(
 
 
             showMessage(
+
                 editId
-                ? "✅ Income Updated Successfully"
-                : "✅ Income Saved Successfully",
+
+                ?
+
+                "✅ Income Updated Successfully"
+
+                :
+
+                "✅ Income Saved Successfully",
+
                 "success"
+
             );
 
 
@@ -1180,7 +1553,8 @@ document.getElementById(
         catch(error){
 
             showMessage(
-                "❌ "+error.message,
+                "❌ " +
+                error.message,
                 "error"
             );
 
@@ -1188,7 +1562,8 @@ document.getElementById(
 
         finally{
 
-            saveBtn.disabled=false;
+            saveBtn.disabled =
+                false;
 
         }
 
@@ -1203,11 +1578,16 @@ document.getElementById(
 function editIncome(id){
 
     const income =
-    incomes.find(
-        item =>
-        String(item.id)===
-        String(id)
-    );
+        incomes.find(
+            function(item){
+
+                return String(
+                    item.id
+                ) ===
+                String(id);
+
+            }
+        );
 
 
     if(!income){
@@ -1224,52 +1604,88 @@ function editIncome(id){
     document.getElementById(
         "editId"
     ).value =
-    String(income.id);
+        String(
+            income.id
+        );
 
 
     const type =
-    income.income_type || "";
+        income.income_type ||
+        "";
 
 
     const select =
-    document.getElementById(
-        "incomeType"
-    );
+        document.getElementById(
+            "incomeType"
+        );
 
 
-    const standardTypes=[
+    const standardTypes = [
 
         "Student Fees",
+
         "Donation",
+
         "Admission Fee",
+
         "Monthly Fee",
+
         "Other"
 
     ];
 
 
-    if(standardTypes.includes(type)){
+    if(
+        standardTypes.includes(
+            type
+        )
+    ){
 
-        select.value=type;
+        select.value =
+            type;
+
 
         document.getElementById(
             "customBox"
-        ).style.display="none";
+        ).style.display =
+            "none";
+
+
+        document.getElementById(
+            "customType"
+        ).required =
+            false;
+
+
+        document.getElementById(
+            "customType"
+        ).value =
+            "";
 
     }
 
     else{
 
-        select.value="Custom";
+        select.value =
+            "Custom";
+
 
         document.getElementById(
             "customBox"
-        ).style.display="block";
+        ).style.display =
+            "block";
 
 
         document.getElementById(
             "customType"
-        ).value=type;
+        ).required =
+            true;
+
+
+        document.getElementById(
+            "customType"
+        ).value =
+            type;
 
     }
 
@@ -1277,54 +1693,61 @@ function editIncome(id){
     document.getElementById(
         "title"
     ).value =
-    income.title || "";
+        income.title ||
+        "";
 
 
     document.getElementById(
         "amount"
     ).value =
-    income.amount ?? "";
+        income.amount ??
+        "";
 
 
     document.getElementById(
         "incomeDate"
     ).value =
-    income.income_date || "";
+        income.income_date ||
+        "";
 
 
     document.getElementById(
         "method"
     ).value =
-    income.payment_method || "Cash";
+        income.payment_method ||
+        "Cash";
 
 
     document.getElementById(
         "receivedFrom"
     ).value =
-    income.received_from || "";
+        income.received_from ||
+        "";
 
 
     document.getElementById(
         "description"
     ).value =
-    income.description || "";
+        income.description ||
+        "";
 
 
     document.getElementById(
         "saveBtn"
     ).textContent =
-    "💾 Update Income";
+        "💾 Update Income";
 
 
     document.getElementById(
         "cancelBtn"
     ).style.display =
-    "inline-block";
+        "inline-block";
 
 
     window.scrollTo({
 
         top:0,
+
         behavior:"smooth"
 
     });
@@ -1338,7 +1761,19 @@ function editIncome(id){
 
 async function deleteIncome(id){
 
-    if(!id){
+    if(
+
+        id === null
+
+        ||
+
+        id === undefined
+
+        ||
+
+        String(id).trim() === ""
+
+    ){
 
         alert(
             "❌ Invalid Income ID"
@@ -1349,9 +1784,13 @@ async function deleteIncome(id){
     }
 
 
-    if(!confirm(
-        "এই Income record Delete করতে চান?"
-    )){
+    if(
+
+        !confirm(
+            "এই Income record Delete করতে চান?"
+        )
+
+    ){
 
         return;
 
@@ -1363,16 +1802,23 @@ async function deleteIncome(id){
         error
     } =
     await db
-    .from("incomes")
-    .delete()
-    .eq("id",id)
-    .select("id");
+
+        .from("incomes")
+
+        .delete()
+
+        .eq(
+            "id",
+            id
+        )
+
+        .select("id");
 
 
     if(error){
 
         alert(
-            "❌ Delete failed:\n"+
+            "❌ Delete failed:\n" +
             error.message
         );
 
@@ -1381,7 +1827,15 @@ async function deleteIncome(id){
     }
 
 
-    if(!data || !data.length){
+    if(
+
+        !data
+
+        ||
+
+        !data.length
+
+    ){
 
         alert(
             "❌ Record পাওয়া যায়নি অথবা Delete permission নেই।"
@@ -1413,9 +1867,9 @@ document.getElementById(
     function(){
 
         const q =
-        this.value
-        .toLowerCase()
-        .trim();
+            this.value
+            .toLowerCase()
+            .trim();
 
 
         if(!q){
@@ -1428,71 +1882,102 @@ document.getElementById(
 
 
         const filtered =
-        incomes.filter(item=>{
+            incomes.filter(
+                function(item){
 
-            const title =
-            String(
-                item.title||""
-            ).toLowerCase();
-
-
-            const type =
-            String(
-                item.income_type||""
-            ).toLowerCase();
+                    const title =
+                        String(
+                            item.title ||
+                            ""
+                        ).toLowerCase();
 
 
-            const from =
-            String(
-                item.received_from||""
-            ).toLowerCase();
+                    const type =
+                        String(
+                            item.income_type ||
+                            ""
+                        ).toLowerCase();
 
 
-            const method =
-            String(
-                item.payment_method||""
-            ).toLowerCase();
+                    const from =
+                        String(
+                            item.received_from ||
+                            ""
+                        ).toLowerCase();
 
 
-            const description =
-            String(
-                item.description||""
-            ).toLowerCase();
+                    const method =
+                        String(
+                            item.payment_method ||
+                            ""
+                        ).toLowerCase();
 
 
-            const date =
-            String(
-                item.income_date||""
-            ).toLowerCase();
+                    const description =
+                        String(
+                            item.description ||
+                            ""
+                        ).toLowerCase();
 
 
-            return (
+                    const date =
+                        String(
+                            item.income_date ||
+                            ""
+                        ).toLowerCase();
 
-                title.includes(q) ||
 
-                type.includes(q) ||
+                    const amount =
+                        String(
+                            item.amount ||
+                            ""
+                        ).toLowerCase();
 
-                from.includes(q) ||
 
-                method.includes(q) ||
+                    return (
 
-                description.includes(q) ||
+                        title.includes(q)
 
-                date.includes(q)
+                        ||
 
+                        type.includes(q)
+
+                        ||
+
+                        from.includes(q)
+
+                        ||
+
+                        method.includes(q)
+
+                        ||
+
+                        description.includes(q)
+
+                        ||
+
+                        date.includes(q)
+
+                        ||
+
+                        amount.includes(q)
+
+                    );
+
+                }
             );
 
-        });
 
-
-        renderIncome(filtered);
+        renderIncome(
+            filtered
+        );
 
     }
 );
 
 
 /* =====================================================
-   RESET
+   RESET FORM
 ===================================================== */
 
 function resetForm(){
@@ -1504,45 +1989,56 @@ function resetForm(){
 
     document.getElementById(
         "editId"
-    ).value="";
+    ).value =
+        "";
 
 
     document.getElementById(
         "incomeDate"
-    ).value=today();
+    ).value =
+        today();
+
+
+    document.getElementById(
+        "method"
+    ).value =
+        "Cash";
 
 
     document.getElementById(
         "saveBtn"
     ).textContent =
-    "💾 Save Income";
+        "💾 Save Income";
 
 
     document.getElementById(
         "cancelBtn"
     ).style.display =
-    "none";
+        "none";
 
 
     document.getElementById(
         "customBox"
     ).style.display =
-    "none";
+        "none";
 
 
     document.getElementById(
         "customType"
-    ).required=false;
+    ).required =
+        false;
 
 
     document.getElementById(
         "msg"
-    ).textContent="";
+    ).textContent =
+        "";
 
 
     document.getElementById(
         "msg"
-    ).className="";
+    ).className =
+        "";
 
 }
 
@@ -1553,7 +2049,8 @@ function resetForm(){
 
 document.getElementById(
     "cancelBtn"
-).onclick=function(){
+).onclick =
+function(){
 
     resetForm();
 
@@ -1568,11 +2065,30 @@ function escapeHtml(value){
 
     return String(value)
 
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
 
 }
 
@@ -1586,4 +2102,5 @@ start();
 </script>
 
 </body>
+
 </html>
