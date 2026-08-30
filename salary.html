@@ -1,56 +1,80 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
 <title>Salary Management | মাদরাসায়ে নূরুল কুরআন</title>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;500;600;700;800&display=swap');
 
 *{
     box-sizing:border-box;
 }
 
-body{
+html,body{
     margin:0;
-    background:#f4f8f7;
-    color:#173f37;
-    font-family:'Noto Serif Bengali',serif;
+    padding:0;
+}
+
+body{
+    font-family:
+        "Noto Serif Bengali",
+        "SolaimanLipi",
+        Arial,
+        sans-serif;
+    background:#f1f7f5;
+    color:#24423c;
+    font-size:14px;
 }
 
 /* =========================
-   TOPBAR
+   TOP BAR
 ========================= */
 
-.topbar{
-    min-height:58px;
-    background:linear-gradient(135deg,#00695c,#00897b);
+.top{
+    background:linear-gradient(90deg,#007d68,#008f78);
     color:#fff;
+    padding:8px 14px;
+    min-height:40px;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:0 18px;
-    box-shadow:0 3px 12px rgba(0,0,0,.15);
+    box-shadow:0 2px 7px #0003;
 }
 
-.brand{
-    font-size:18px;
-    font-weight:800;
+.top-left{
+    display:flex;
+    align-items:center;
+    gap:7px;
+}
+
+.top-icon{
+    font-size:16px;
+}
+
+.top h2{
+    margin:0;
+    color:#fff;
+    font-size:15px;
+    line-height:1.2;
+}
+
+.top-sub{
+    font-size:8px;
+    opacity:.85;
+    margin-top:2px;
 }
 
 .dashboard{
     color:#fff;
     text-decoration:none;
-    font-size:14px;
-    font-weight:600;
-}
-
-.dashboard:hover{
-    opacity:.85;
+    background:#ffffff18;
+    padding:7px 10px;
+    border-radius:6px;
+    font-size:11px;
 }
 
 /* =========================
@@ -58,29 +82,29 @@ body{
 ========================= */
 
 .container{
-    width:96%;
-    max-width:1200px;
-    margin:18px auto 45px;
+    width:100%;
+    max-width:1100px;
+    margin:12px auto;
+    padding:0 12px;
 }
 
 /* =========================
    BOX
 ========================= */
 
-.card{
+.box{
     background:#fff;
-    border-radius:14px;
-    padding:18px;
-    margin-bottom:18px;
-    border:1px solid #e1eeeb;
-    box-shadow:0 3px 15px rgba(0,80,70,.08);
+    border-radius:10px;
+    padding:14px;
+    margin-bottom:12px;
+    box-shadow:0 2px 10px #0000000d;
+    border:1px solid #e6efec;
 }
 
-.title{
-    margin:0 0 16px;
-    color:#00695c;
-    font-size:18px;
-    font-weight:800;
+h3{
+    color:#075f50;
+    font-size:15px;
+    margin:0 0 12px;
 }
 
 /* =========================
@@ -89,45 +113,37 @@ body{
 
 .tabs{
     display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-    margin-bottom:18px;
+    gap:7px;
+    margin-bottom:14px;
 }
 
 .tab{
     border:0;
-    border-radius:9px;
-    padding:11px 17px;
-    background:#edf2f1;
-    color:#31544e;
-    cursor:pointer;
-    font-family:inherit;
-    font-weight:700;
-    transition:.2s;
-}
-
-.tab:hover{
-    background:#dfeae7;
+    background:#edf2f0;
+    color:#36534d;
+    padding:8px 13px;
+    border-radius:6px;
+    font-size:11px;
+    font-weight:bold;
 }
 
 .tab.active{
+    background:#07816b;
     color:#fff;
-    background:#00796b;
-    box-shadow:0 3px 9px rgba(0,121,107,.22);
 }
 
 /* =========================
    FORM
 ========================= */
 
-.grid{
+.form-grid{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:13px;
+    gap:12px;
 }
 
-.form-group{
-    margin-bottom:4px;
+.field{
+    min-width:0;
 }
 
 .full{
@@ -136,127 +152,137 @@ body{
 
 label{
     display:block;
-    margin-bottom:6px;
-    color:#24584f;
-    font-size:14px;
-    font-weight:700;
+    font-weight:bold;
+    color:#34534c;
+    font-size:11px;
+    margin-bottom:5px;
 }
 
 input,
 select{
     width:100%;
-    height:44px;
-    padding:0 12px;
-    border:1px solid #cbded9;
-    border-radius:8px;
-    background:#fbfefd;
-    color:#173f37;
+    height:34px;
+    border:1px solid #d9e5e2;
+    border-radius:6px;
+    padding:7px 9px;
+    background:#fff;
+    color:#38514c;
     font-family:inherit;
-    font-size:14px;
+    font-size:11px;
     outline:none;
 }
 
 input:focus,
 select:focus{
-    border-color:#00897b;
-    box-shadow:0 0 0 2px rgba(0,137,123,.10);
+    border-color:#078f79;
+    box-shadow:0 0 0 2px #078f7915;
 }
 
-.hint{
+select:disabled{
+    background:#f1f5f4;
+    color:#9aa7a4;
+}
+
+.help{
+    display:block;
+    font-size:8px;
+    color:#9aa5a2;
     margin-top:4px;
-    color:#78908b;
-    font-size:11px;
 }
 
 /* =========================
    BUTTON
 ========================= */
 
-.btn{
+button{
     border:0;
-    border-radius:8px;
-    padding:10px 16px;
-    color:#fff;
-    background:#00796b;
     cursor:pointer;
     font-family:inherit;
-    font-weight:700;
 }
 
-.btn:hover{
-    background:#00695c;
+.save-btn{
+    background:#07816b;
+    color:#fff;
+    padding:8px 13px;
+    border-radius:6px;
+    font-size:11px;
+    font-weight:bold;
 }
 
-.btn:disabled{
-    opacity:.6;
-    cursor:not-allowed;
+.save-btn:hover{
+    background:#056b59;
 }
 
 .cancel-btn{
-    background:#757575;
-    margin-left:6px;
+    background:#777;
+    color:#fff;
+    padding:8px 13px;
+    border-radius:6px;
+    font-size:11px;
+    margin-left:5px;
 }
 
-.cancel-btn:hover{
-    background:#616161;
+.refresh-btn{
+    background:#344b54;
+    color:#fff;
+    padding:8px 13px;
+    border-radius:6px;
+    font-size:10px;
 }
 
 .edit-btn{
     background:#1565c0;
-}
-
-.edit-btn:hover{
-    background:#0d47a1;
+    color:#fff;
 }
 
 .delete-btn{
     background:#c62828;
-}
-
-.delete-btn:hover{
-    background:#b71c1c;
+    color:#fff;
 }
 
 .print-btn{
     background:#6a1b9a;
-}
-
-.print-btn:hover{
-    background:#4a148c;
+    color:#fff;
 }
 
 .small-btn{
-    padding:6px 9px;
-    font-size:11px;
-    margin:2px;
+    border:0;
+    padding:5px 7px;
+    border-radius:4px;
+    font-size:9px;
+    margin:1px;
 }
 
 /* =========================
    MESSAGE
 ========================= */
 
-.message{
-    margin-top:11px;
-    padding:10px;
-    border-radius:8px;
-    font-size:13px;
-    font-weight:600;
+#msg{
+    margin-top:9px;
+    min-height:20px;
+    padding:0;
+    font-size:10px;
+    font-weight:bold;
 }
 
-.message:empty{
-    display:none;
+.message-box{
+    padding:8px 10px !important;
+    border-radius:5px;
 }
 
 .success{
-    color:#087f23;
-    background:#effaf1;
-    border:1px solid #bde8c5;
+    color:#087f5b;
+    background:#eaf8f3;
 }
 
 .error{
     color:#c62828;
-    background:#fff2f2;
-    border:1px solid #ffcaca;
+    background:#fff0f0;
+}
+
+.info{
+    color:#1769aa;
+    background:#eef7ff;
 }
 
 /* =========================
@@ -264,39 +290,59 @@ select:focus{
 ========================= */
 
 .summary{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-    margin-bottom:15px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+    margin-bottom:12px;
 }
 
-.summary-box{
-    min-width:150px;
-    background:#edf7f5;
-    border:1px solid #dcece8;
-    border-radius:9px;
-    padding:11px 15px;
-    color:#12665b;
-    font-size:13px;
-    font-weight:700;
+.summary-card{
+    padding:10px;
+    border-radius:7px;
+    background:#edf8f5;
+    border:1px solid #e0efeb;
 }
 
-.summary-box strong{
-    display:block;
-    margin-top:2px;
-    font-size:17px;
+.summary-card:nth-child(2){
+    background:#eef5ff;
+}
+
+.summary-card:nth-child(3){
+    background:#fff7e7;
+}
+
+.summary-title{
+    font-size:9px;
+    color:#668079;
+    margin-bottom:4px;
+}
+
+.summary-value{
+    font-size:14px;
+    font-weight:bold;
+    color:#075f50;
 }
 
 /* =========================
-   SEARCH
+   SEARCH BAR
 ========================= */
 
-.search{
-    margin-bottom:13px;
+.search-row{
+    display:flex;
+    gap:7px;
+    margin-bottom:10px;
 }
 
-.search::placeholder{
-    color:#8aa09c;
+.search{
+    flex:1;
+}
+
+.clear-search{
+    background:#e8eeee;
+    color:#45615b;
+    padding:0 11px;
+    border-radius:6px;
+    font-size:10px;
 }
 
 /* =========================
@@ -306,80 +352,217 @@ select:focus{
 .table-wrap{
     width:100%;
     overflow-x:auto;
-    border-radius:9px;
+    border-radius:6px;
 }
 
 table{
     width:100%;
-    min-width:1050px;
     border-collapse:collapse;
-    font-size:13px;
+    min-width:850px;
 }
 
 th{
-    padding:11px 8px;
-    background:#00695c;
+    background:#006e5c;
     color:#fff;
+    padding:8px 7px;
+    font-size:9px;
     text-align:left;
     white-space:nowrap;
 }
 
 td{
-    padding:10px 8px;
-    border-bottom:1px solid #e4eeec;
-    white-space:nowrap;
+    padding:8px 7px;
+    border-bottom:1px solid #e7eeec;
+    font-size:9px;
+    color:#415b55;
     vertical-align:middle;
 }
 
-tbody tr:hover td{
-    background:#f2f9f7;
+tr:hover td{
+    background:#f7fbfa;
 }
 
-.person-name{
-    font-weight:700;
-    color:#174d44;
+.name-cell{
+    font-weight:bold;
+    color:#245b51;
 }
 
-.person-sub{
+.phone{
+    font-size:8px;
+    color:#9aaaa6;
     margin-top:2px;
-    color:#819691;
-    font-size:10px;
 }
 
-.due-positive{
-    color:#c62828;
-    font-weight:800;
-}
-
-.due-zero{
-    color:#087f23;
-    font-weight:800;
-}
-
-.action{
+.action-cell{
     white-space:nowrap;
 }
 
-.empty,
-.loading{
+.empty{
     text-align:center;
-    padding:27px !important;
-    color:#819691;
+    padding:22px !important;
+    color:#98a5a2;
 }
 
-.table-error{
-    color:#c62828;
+.loading{
     text-align:center;
     padding:20px !important;
+    color:#607873;
+}
+
+/* =========================
+   INFO BOX
+========================= */
+
+.notice{
+    background:#eff8f6;
+    border-left:3px solid #07816b;
+    padding:8px 10px;
+    border-radius:4px;
+    font-size:9px;
+    color:#59726c;
+    margin-bottom:12px;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:#0008;
+    z-index:9999;
+    align-items:center;
+    justify-content:center;
+    padding:15px;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:100%;
+    max-width:390px;
+    background:#fff;
+    border-radius:10px;
+    padding:18px;
+    box-shadow:0 8px 30px #0005;
+}
+
+.modal-title{
+    font-weight:bold;
+    color:#075f50;
+    font-size:15px;
+    margin-bottom:10px;
+}
+
+.modal-text{
+    font-size:11px;
+    line-height:1.7;
+    color:#526660;
+}
+
+.modal-actions{
+    margin-top:15px;
+    display:flex;
+    justify-content:flex-end;
+    gap:6px;
 }
 
 /* =========================
    MOBILE
 ========================= */
 
-@media(max-width:700px){
+@media(max-width:650px){
 
-    .grid{
+    body{
+        font-size:12px;
+    }
+
+    .container{
+        padding:0 8px;
+        margin-top:10px;
+    }
+
+    .box{
+        padding:11px;
+        border-radius:9px;
+    }
+
+    .top{
+        padding:7px 9px;
+    }
+
+    .top h2{
+        font-size:13px;
+    }
+
+    .dashboard{
+        font-size:9px;
+        padding:6px 8px;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr 1fr;
+        gap:8px;
+    }
+
+    label{
+        font-size:9px;
+    }
+
+    input,
+    select{
+        height:33px;
+        font-size:10px;
+        padding:6px;
+    }
+
+    h3{
+        font-size:13px;
+    }
+
+    .summary{
+        grid-template-columns:repeat(3,1fr);
+        gap:5px;
+    }
+
+    .summary-card{
+        padding:8px 6px;
+    }
+
+    .summary-title{
+        font-size:7px;
+    }
+
+    .summary-value{
+        font-size:11px;
+    }
+
+    .tabs{
+        gap:5px;
+    }
+
+    .tab{
+        padding:7px 9px;
+        font-size:9px;
+    }
+
+    .search-row{
+        gap:4px;
+    }
+
+    .clear-search{
+        padding:0 8px;
+    }
+
+}
+
+@media(max-width:400px){
+
+    .form-grid{
         grid-template-columns:1fr;
     }
 
@@ -387,48 +570,54 @@ tbody tr:hover td{
         grid-column:auto;
     }
 
-    .container{
-        width:94%;
-    }
-
-    .card{
-        padding:14px;
-    }
-
-    .topbar{
-        padding:0 12px;
-    }
-
-    .brand{
-        font-size:15px;
-    }
-
-    .dashboard{
-        font-size:12px;
-    }
-
-    .summary-box{
-        flex:1;
-        min-width:135px;
-    }
-
-    .tab{
-        flex:1;
-        min-width:145px;
-    }
 }
+
+/* =========================
+   PRINT
+========================= */
+
+@media print{
+
+    body{
+        background:#fff;
+    }
+
+}
+
 </style>
+
 </head>
+
 
 <body>
 
-<header class="topbar">
 
-    <div class="brand">
-        💰 Salary Management
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="top">
+
+    <div class="top-left">
+
+        <span class="top-icon">💰</span>
+
+        <div>
+
+            <h2>Salary Management</h2>
+
+            <div class="top-sub">
+                মাদরাসায়ে নূরুল কুরআন
+            </div>
+
+        </div>
+
     </div>
 
-    <a href="dashboard.html" class="dashboard">
+    <a
+        href="dashboard.html"
+        class="dashboard"
+    >
         ← Dashboard
     </a>
 
@@ -437,34 +626,45 @@ tbody tr:hover td{
 
 <div class="container">
 
+
 <!-- =========================
      SALARY FORM
 ========================= -->
 
-<div class="card">
+<div class="box">
 
     <div class="tabs">
 
         <button
             type="button"
             class="tab active"
-            id="teacherTab">
+            id="teacherTab"
+        >
             👨‍🏫 Teacher Salary
         </button>
 
         <button
             type="button"
             class="tab"
-            id="employeeTab">
+            id="employeeTab"
+        >
             👨‍💼 Employee Salary
         </button>
 
     </div>
 
 
-    <h2 class="title" id="formTitle">
+    <h3 id="formTitle">
         ➕ Add Teacher Salary
-    </h2>
+    </h3>
+
+
+    <div class="notice">
+
+        Session active থাকলে Teacher/Employee নির্বাচন করে
+        Salary Amount ও Paid Amount দিন। Due Amount automatically হিসাব হবে।
+
+    </div>
 
 
     <form id="salaryForm">
@@ -472,21 +672,24 @@ tbody tr:hover td{
         <input
             type="hidden"
             id="editId"
-            value=""
         >
 
 
-        <div class="grid">
+        <div class="form-grid">
+
 
             <!-- PERSON -->
 
-            <div class="form-group">
+            <div class="field">
 
                 <label id="personLabel">
                     Teacher *
                 </label>
 
-                <select id="personId" required>
+                <select
+                    id="personId"
+                    required
+                >
 
                     <option value="">
                         Teacher নির্বাচন করুন
@@ -494,16 +697,19 @@ tbody tr:hover td{
 
                 </select>
 
-                <div class="hint">
-                    যাকে Salary দেওয়া হচ্ছে তাকে নির্বাচন করুন।
-                </div>
+                <span
+                    class="help"
+                    id="personHelp"
+                >
+                    Teacher list থেকে নির্বাচন করুন
+                </span>
 
             </div>
 
 
             <!-- MONTH -->
 
-            <div class="form-group">
+            <div class="field">
 
                 <label>
                     Salary Month *
@@ -520,7 +726,7 @@ tbody tr:hover td{
 
             <!-- SALARY -->
 
-            <div class="form-group">
+            <div class="field">
 
                 <label>
                     Salary Amount *
@@ -531,8 +737,8 @@ tbody tr:hover td{
                     id="amount"
                     min="0"
                     step="0.01"
-                    required
                     placeholder="যেমন: 15000"
+                    required
                 >
 
             </div>
@@ -540,7 +746,7 @@ tbody tr:hover td{
 
             <!-- PAID -->
 
-            <div class="form-group">
+            <div class="field">
 
                 <label>
                     Paid Amount *
@@ -551,8 +757,8 @@ tbody tr:hover td{
                     id="paidAmount"
                     min="0"
                     step="0.01"
-                    required
                     placeholder="যেমন: 15000"
+                    required
                 >
 
             </div>
@@ -560,7 +766,7 @@ tbody tr:hover td{
 
             <!-- DATE -->
 
-            <div class="form-group">
+            <div class="field">
 
                 <label>
                     Payment Date
@@ -576,7 +782,7 @@ tbody tr:hover td{
 
             <!-- METHOD -->
 
-            <div class="form-group">
+            <div class="field">
 
                 <label>
                     Payment Method
@@ -600,40 +806,40 @@ tbody tr:hover td{
                         Bank
                     </option>
 
+                    <option value="Other">
+                        Other
+                    </option>
+
                 </select>
 
             </div>
 
 
+            <!-- BUTTON -->
+
             <div class="full">
 
                 <button
                     type="submit"
-                    class="btn"
-                    id="saveBtn">
-
+                    class="save-btn"
+                    id="saveBtn"
+                >
                     💾 Save Salary
-
                 </button>
-
 
                 <button
                     type="button"
-                    class="btn cancel-btn"
+                    class="cancel-btn"
                     id="cancelBtn"
-                    style="display:none">
-
+                    style="display:none"
+                >
                     Cancel
-
                 </button>
 
-
-                <div
-                    id="msg"
-                    class="message">
-                </div>
+                <div id="msg"></div>
 
             </div>
+
 
         </div>
 
@@ -646,46 +852,52 @@ tbody tr:hover td{
      SALARY LIST
 ========================= -->
 
-<div class="card">
+<div class="box">
 
-    <h2 class="title" id="listTitle">
+    <h3 id="listTitle">
         👨‍🏫 Teacher Salary List
-    </h2>
+    </h3>
 
 
     <!-- SUMMARY -->
 
     <div class="summary">
 
-        <div class="summary-box">
+        <div class="summary-card">
 
-            Total Salary
+            <div class="summary-title">
+                Total Salary
+            </div>
 
-            <strong id="totalSalary">
-                0.00
-            </strong>
-
-        </div>
-
-
-        <div class="summary-box">
-
-            Paid
-
-            <strong id="totalPaid">
-                0.00
-            </strong>
+            <div class="summary-value">
+                ৳ <span id="totalSalary">0.00</span>
+            </div>
 
         </div>
 
 
-        <div class="summary-box">
+        <div class="summary-card">
 
-            Due
+            <div class="summary-title">
+                Paid
+            </div>
 
-            <strong id="totalDue">
-                0.00
-            </strong>
+            <div class="summary-value">
+                ৳ <span id="totalPaid">0.00</span>
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-title">
+                Due
+            </div>
+
+            <div class="summary-value">
+                ৳ <span id="totalDue">0.00</span>
+            </div>
 
         </div>
 
@@ -694,12 +906,24 @@ tbody tr:hover td{
 
     <!-- SEARCH -->
 
-    <input
-        class="search"
-        id="search"
-        type="text"
-        placeholder="🔍 নাম / ID / মোবাইল দিয়ে খুঁজুন..."
-    >
+    <div class="search-row">
+
+        <input
+            class="search"
+            id="search"
+            type="search"
+            placeholder="🔍 নাম / ID / মোবাইল দিয়ে খুঁজুন..."
+        >
+
+        <button
+            type="button"
+            class="clear-search"
+            id="clearSearch"
+        >
+            Clear
+        </button>
+
+    </div>
 
 
     <!-- TABLE -->
@@ -712,41 +936,23 @@ tbody tr:hover td{
 
                 <tr>
 
-                    <th>
-                        Name
-                    </th>
+                    <th>Name</th>
 
-                    <th>
-                        ID
-                    </th>
+                    <th>ID</th>
 
-                    <th>
-                        Month
-                    </th>
+                    <th>Month</th>
 
-                    <th>
-                        Salary
-                    </th>
+                    <th>Salary</th>
 
-                    <th>
-                        Paid
-                    </th>
+                    <th>Paid</th>
 
-                    <th>
-                        Due
-                    </th>
+                    <th>Due</th>
 
-                    <th>
-                        Date
-                    </th>
+                    <th>Date</th>
 
-                    <th>
-                        Method
-                    </th>
+                    <th>Method</th>
 
-                    <th>
-                        Action
-                    </th>
+                    <th>Action</th>
 
                 </tr>
 
@@ -759,10 +965,9 @@ tbody tr:hover td{
 
                     <td
                         colspan="9"
-                        class="loading">
-
+                        class="loading"
+                    >
                         Loading...
-
                     </td>
 
                 </tr>
@@ -775,31 +980,89 @@ tbody tr:hover td{
 
 </div>
 
+
 </div>
+
+
+<!-- =========================
+     DELETE MODAL
+========================= -->
+
+<div
+    class="modal"
+    id="deleteModal"
+>
+
+    <div class="modal-box">
+
+        <div class="modal-title">
+            ⚠️ Delete Salary
+        </div>
+
+        <div class="modal-text">
+
+            আপনি কি এই Salary record টি Delete করতে চান?
+
+            <br><br>
+
+            Delete করার পরে record আর ফেরত পাওয়া যাবে না।
+
+        </div>
+
+        <div class="modal-actions">
+
+            <button
+                type="button"
+                class="cancel-btn"
+                id="deleteCancel"
+            >
+                Cancel
+            </button>
+
+            <button
+                type="button"
+                class="delete-btn small-btn"
+                id="deleteConfirm"
+            >
+                Delete
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     SUPABASE
+========================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 
 <script>
 
-/* =========================================================
-   SUPABASE
-========================================================= */
+/* =====================================================
+   SUPABASE CONFIG
+===================================================== */
 
 const SUPABASE_URL =
-"https://qavublwhqiqsgpcmfyft.supabase.co";
+    "https://qavublwhqiqsgpcmfyft.supabase.co";
 
 const SUPABASE_KEY =
-"sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPQ";
+    "sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
 
 const db =
-window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-);
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
 
 
-/* =========================================================
-   GLOBAL
-========================================================= */
+/* =====================================================
+   GLOBAL VARIABLES
+===================================================== */
 
 let mode = "teacher";
 
@@ -811,115 +1074,145 @@ let teacherSalaries = [];
 
 let employeeSalaries = [];
 
+let pendingDeleteId = null;
 
-/* =========================================================
+
+/* =====================================================
    ELEMENTS
-========================================================= */
+===================================================== */
 
 const teacherTab =
-document.getElementById("teacherTab");
+    document.getElementById("teacherTab");
 
 const employeeTab =
-document.getElementById("employeeTab");
+    document.getElementById("employeeTab");
 
 const personId =
-document.getElementById("personId");
+    document.getElementById("personId");
 
-const personLabel =
-document.getElementById("personLabel");
+const salaryMonth =
+    document.getElementById("salaryMonth");
 
-const formTitle =
-document.getElementById("formTitle");
+const amount =
+    document.getElementById("amount");
 
-const listTitle =
-document.getElementById("listTitle");
+const paidAmount =
+    document.getElementById("paidAmount");
+
+const paymentDate =
+    document.getElementById("paymentDate");
+
+const method =
+    document.getElementById("method");
+
+const salaryForm =
+    document.getElementById("salaryForm");
 
 const salaryList =
-document.getElementById("salaryList");
-
-const saveBtn =
-document.getElementById("saveBtn");
-
-const cancelBtn =
-document.getElementById("cancelBtn");
-
-const msg =
-document.getElementById("msg");
+    document.getElementById("salaryList");
 
 
-/* =========================================================
+/* =====================================================
    TODAY
-========================================================= */
+===================================================== */
 
 function today(){
 
     const d = new Date();
 
-    const y =
+    const year =
         d.getFullYear();
 
-    const m =
-        String(d.getMonth()+1)
-        .padStart(2,"0");
+    const month =
+        String(
+            d.getMonth()+1
+        ).padStart(2,"0");
 
     const day =
-        String(d.getDate())
-        .padStart(2,"0");
+        String(
+            d.getDate()
+        ).padStart(2,"0");
 
-    return `${y}-${m}-${day}`;
+    return `${year}-${month}-${day}`;
 
 }
 
 
-/* =========================================================
+/* =====================================================
+   CURRENT MONTH
+===================================================== */
+
+function currentMonth(){
+
+    const d = new Date();
+
+    const year =
+        d.getFullYear();
+
+    const month =
+        String(
+            d.getMonth()+1
+        ).padStart(2,"0");
+
+    return `${year}-${month}`;
+
+}
+
+
+/* =====================================================
    MESSAGE
-========================================================= */
+===================================================== */
 
 function showMessage(
     text,
-    type=""
+    type="info"
 ){
 
-    msg.textContent =
-        text;
+    const msg =
+        document.getElementById("msg");
+
+    msg.textContent = text;
 
     msg.className =
-        "message " + type;
+        "message-box " + type;
 
 }
 
+
+/* =====================================================
+   CLEAR MESSAGE
+===================================================== */
 
 function clearMessage(){
 
-    msg.textContent =
-        "";
+    const msg =
+        document.getElementById("msg");
 
-    msg.className =
-        "message";
+    msg.textContent = "";
+
+    msg.className = "";
 
 }
 
 
-/* =========================================================
+/* =====================================================
    START
-========================================================= */
+===================================================== */
 
 async function start(){
 
     try{
 
-        const {
-            data,
-            error
-        } =
-        await db.auth.getSession();
+        const sessionResult =
+            await db.auth.getSession();
 
-
-        if(error){
+        if(
+            sessionResult.error
+        ){
 
             showMessage(
-                "❌ Session Error: " +
-                error.message,
+                "❌ Session error: " +
+                sessionResult.error.message,
                 "error"
             );
 
@@ -928,7 +1221,9 @@ async function start(){
         }
 
 
-        if(!data.session){
+        if(
+            !sessionResult.data.session
+        ){
 
             location.href =
                 "admin.html";
@@ -938,17 +1233,20 @@ async function start(){
         }
 
 
-        document.getElementById(
-            "paymentDate"
-        ).value =
+        paymentDate.value =
             today();
+
+        salaryMonth.value =
+            currentMonth();
 
 
         await loadTeachers();
 
         await loadEmployees();
 
+
         loadPersonDropdown();
+
 
         await loadCurrentSalary();
 
@@ -957,7 +1255,7 @@ async function start(){
     catch(error){
 
         showMessage(
-            "❌ Page Error: " +
+            "❌ Start Error: " +
             error.message,
             "error"
         );
@@ -967,31 +1265,31 @@ async function start(){
 }
 
 
-/* =========================================================
+/* =====================================================
    LOAD TEACHERS
-========================================================= */
+===================================================== */
 
 async function loadTeachers(){
 
-    const {
-        data,
-        error
-    } =
-    await db
+    const result =
+        await db
         .from("teachers")
         .select("id,name,phone")
-        .order("name",{
-            ascending:true
-        });
+        .order(
+            "name",
+            {
+                ascending:true
+            }
+        );
 
 
-    if(error){
+    if(result.error){
 
         teachers = [];
 
         showMessage(
             "❌ Teacher Load Error: " +
-            error.message,
+            result.error.message,
             "error"
         );
 
@@ -1001,39 +1299,43 @@ async function loadTeachers(){
 
 
     teachers =
-        data || [];
+        result.data || [];
 
 }
 
 
-/* =========================================================
+/* =====================================================
    LOAD EMPLOYEES
-========================================================= */
+===================================================== */
 
 async function loadEmployees(){
 
-    const {
-        data,
-        error
-    } =
-    await db
+    const result =
+        await db
         .from("employees")
         .select(
             "id,employee_id,name,phone"
         )
-        .order("name",{
-            ascending:true
-        });
+        .order(
+            "name",
+            {
+                ascending:true
+            }
+        );
 
 
-    if(error){
+    if(result.error){
 
         employees = [];
 
-        showMessage(
-            "❌ Employee Load Error: " +
-            error.message,
-            "error"
+        /*
+         * Employee table error teacher page
+         * বন্ধ করবে না।
+         */
+
+        console.warn(
+            "Employee Load Error:",
+            result.error.message
         );
 
         return;
@@ -1042,26 +1344,26 @@ async function loadEmployees(){
 
 
     employees =
-        data || [];
+        result.data || [];
 
 }
 
 
-/* =========================================================
-   PERSON DROPDOWN
-========================================================= */
+/* =====================================================
+   LOAD PERSON DROPDOWN
+===================================================== */
 
-function loadPersonDropdown(){
+function loadPersonDropdown(
+    selectedValue=""
+){
 
-    personId.innerHTML =
-        "";
+    personId.innerHTML = "";
 
 
     const first =
         document.createElement("option");
 
-    first.value =
-        "";
+    first.value = "";
 
     first.textContent =
         mode === "teacher"
@@ -1070,121 +1372,94 @@ function loadPersonDropdown(){
         :
         "Employee নির্বাচন করুন";
 
-    personId.appendChild(
-        first
-    );
+    personId.appendChild(first);
 
 
-    if(mode === "teacher"){
-
-        teachers.forEach(
-            teacher=>{
-
-                if(
-                    teacher.id === null ||
-                    teacher.id === undefined
-                ){
-
-                    return;
-
-                }
+    const list =
+        mode === "teacher"
+        ?
+        teachers
+        :
+        employees;
 
 
-                const option =
-                    document.createElement(
-                        "option"
-                    );
+    list.forEach(
+        person => {
+
+            if(
+                person.id === null ||
+                person.id === undefined
+            ){
+                return;
+            }
 
 
-                option.value =
-                    String(
-                        teacher.id
-                    );
+            const option =
+                document.createElement(
+                    "option"
+                );
 
+
+            option.value =
+                String(person.id);
+
+
+            if(mode === "teacher"){
 
                 option.textContent =
-                    `${teacher.name || "Unknown"}${
-                        teacher.phone
+                    `${person.name || "Unknown"}${
+                        person.phone
                         ?
-                        " - " +
-                        teacher.phone
+                        " - " + person.phone
                         :
                         ""
                     }`;
 
-
-                personId.appendChild(
-                    option
-                );
-
             }
-        );
 
-    }
-
-    else{
-
-        employees.forEach(
-            employee=>{
-
-                if(
-                    employee.id === null ||
-                    employee.id === undefined
-                ){
-
-                    return;
-
-                }
-
-
-                const option =
-                    document.createElement(
-                        "option"
-                    );
-
-
-                option.value =
-                    String(
-                        employee.id
-                    );
-
+            else{
 
                 option.textContent =
                     `${
-                        employee.employee_id
+                        person.employee_id
                         ?
-                        employee.employee_id +
-                        " - "
+                        person.employee_id + " - "
                         :
                         ""
                     }${
-                        employee.name ||
-                        "Unknown"
+                        person.name || "Unknown"
                     }${
-                        employee.phone
+                        person.phone
                         ?
-                        " - " +
-                        employee.phone
+                        " - " + person.phone
                         :
                         ""
                     }`;
 
-
-                personId.appendChild(
-                    option
-                );
-
             }
-        );
+
+
+            personId.appendChild(
+                option
+            );
+
+        }
+    );
+
+
+    if(selectedValue){
+
+        personId.value =
+            String(selectedValue);
 
     }
 
 }
 
 
-/* =========================================================
-   LOAD CURRENT
-========================================================= */
+/* =====================================================
+   LOAD CURRENT SALARY
+===================================================== */
 
 async function loadCurrentSalary(){
 
@@ -1203,9 +1478,9 @@ async function loadCurrentSalary(){
 }
 
 
-/* =========================================================
+/* =====================================================
    LOAD TEACHER SALARY
-========================================================= */
+===================================================== */
 
 async function loadTeacherSalary(){
 
@@ -1218,26 +1493,28 @@ async function loadTeacherSalary(){
     `;
 
 
-    const {
-        data,
-        error
-    } =
-    await db
+    const result =
+        await db
         .from("teacher_salaries")
         .select("*")
-        .order("id",{
-            ascending:false
-        });
+        .order(
+            "id",
+            {
+                ascending:false
+            }
+        );
 
 
-    if(error){
+    if(result.error){
 
         teacherSalaries = [];
 
         salaryList.innerHTML = `
             <tr>
-                <td colspan="9" class="table-error">
-                    ❌ ${escapeHtml(error.message)}
+                <td colspan="9" class="empty">
+                    ❌ ${escapeHtml(
+                        result.error.message
+                    )}
                 </td>
             </tr>
         `;
@@ -1253,17 +1530,17 @@ async function loadTeacherSalary(){
 
 
     teacherSalaries =
-        data || [];
+        result.data || [];
 
 
-    renderTeacherSalary();
+    renderSalary();
 
 }
 
 
-/* =========================================================
+/* =====================================================
    LOAD EMPLOYEE SALARY
-========================================================= */
+===================================================== */
 
 async function loadEmployeeSalary(){
 
@@ -1276,26 +1553,28 @@ async function loadEmployeeSalary(){
     `;
 
 
-    const {
-        data,
-        error
-    } =
-    await db
+    const result =
+        await db
         .from("employee_salaries")
         .select("*")
-        .order("id",{
-            ascending:false
-        });
+        .order(
+            "id",
+            {
+                ascending:false
+            }
+        );
 
 
-    if(error){
+    if(result.error){
 
         employeeSalaries = [];
 
         salaryList.innerHTML = `
             <tr>
-                <td colspan="9" class="table-error">
-                    ❌ ${escapeHtml(error.message)}
+                <td colspan="9" class="empty">
+                    ❌ ${escapeHtml(
+                        result.error.message
+                    )}
                 </td>
             </tr>
         `;
@@ -1311,36 +1590,140 @@ async function loadEmployeeSalary(){
 
 
     employeeSalaries =
-        data || [];
+        result.data || [];
 
 
-    renderEmployeeSalary();
+    renderSalary();
 
 }
 
 
-/* =========================================================
-   TEACHER RENDER
-========================================================= */
+/* =====================================================
+   GET PERSON
+===================================================== */
 
-function renderTeacherSalary(
-    list = teacherSalaries
+function getPerson(
+    salary
 ){
 
-    let salaryTotal = 0;
+    if(mode === "teacher"){
 
-    let paidTotal = 0;
+        return teachers.find(
+            t =>
+                String(t.id) ===
+                String(salary.teacher_id)
+        );
+
+    }
+
+    return employees.find(
+        e =>
+            String(e.id) ===
+            String(salary.employee_id)
+    );
+
+}
 
 
-    list.forEach(
-        salary=>{
+/* =====================================================
+   PERSON NAME
+===================================================== */
 
-            salaryTotal +=
+function getPersonName(
+    salary
+){
+
+    const person =
+        getPerson(salary);
+
+    return (
+        person?.name ||
+        "Unknown"
+    );
+
+}
+
+
+/* =====================================================
+   PERSON DISPLAY ID
+===================================================== */
+
+function getPersonDisplayId(
+    salary
+){
+
+    const person =
+        getPerson(salary);
+
+    if(!person){
+        return "—";
+    }
+
+
+    if(mode === "teacher"){
+
+        return person.id ??
+            "—";
+
+    }
+
+
+    return person.employee_id ||
+        person.id ||
+        "—";
+
+}
+
+
+/* =====================================================
+   PERSON PHONE
+===================================================== */
+
+function getPersonPhone(
+    salary
+){
+
+    const person =
+        getPerson(salary);
+
+    return person?.phone || "";
+
+}
+
+
+/* =====================================================
+   RENDER SALARY
+===================================================== */
+
+function renderSalary(
+    list=null
+){
+
+    const records =
+        list ||
+        (
+            mode === "teacher"
+            ?
+            teacherSalaries
+            :
+            employeeSalaries
+        );
+
+
+    let totalSalary = 0;
+
+    let totalPaid = 0;
+
+
+    records.forEach(
+        salary => {
+
+            totalSalary +=
                 Number(
                     salary.amount
                 ) || 0;
 
-            paidTotal +=
+            totalPaid +=
                 Number(
                     salary.paid_amount
                 ) || 0;
@@ -1350,17 +1733,17 @@ function renderTeacherSalary(
 
 
     updateSummary(
-        salaryTotal,
-        paidTotal
+        totalSalary,
+        totalPaid
     );
 
 
-    if(!list.length){
+    if(!records.length){
 
         salaryList.innerHTML = `
             <tr>
                 <td colspan="9" class="empty">
-                    কোনো Teacher Salary record নেই।
+                    কোনো Salary record পাওয়া যায়নি।
                 </td>
             </tr>
         `;
@@ -1371,365 +1754,142 @@ function renderTeacherSalary(
 
 
     salaryList.innerHTML =
-        list.map(
-            salary=>{
-
-                const teacher =
-                    teachers.find(
-                        t =>
-                        String(t.id) ===
-                        String(
-                            salary.teacher_id
-                        )
-                    );
-
+        records.map(
+            salary => {
 
                 const name =
-                    teacher?.name ||
-                    "Unknown";
-
-
-                const phone =
-                    teacher?.phone ||
-                    "";
-
+                    getPersonName(
+                        salary
+                    );
 
                 const id =
-                    teacher?.id ??
-                    "—";
+                    getPersonDisplayId(
+                        salary
+                    );
 
-
-                const amount =
-                    Number(
-                        salary.amount
-                    ) || 0;
-
-
-                const paid =
-                    Number(
-                        salary.paid_amount
-                    ) || 0;
-
-
-                const due =
-                    amount - paid;
-
-
-                return `
-                    <tr>
-
-                        <td>
-
-                            <div class="person-name">
-                                ${escapeHtml(name)}
-                            </div>
-
-                            ${
-                                phone
-                                ?
-                                `<div class="person-sub">
-                                    📱 ${escapeHtml(phone)}
-                                </div>`
-                                :
-                                ""
-                            }
-
-                        </td>
-
-
-                        <td>
-                            ${escapeHtml(
-                                String(id)
-                            )}
-                        </td>
-
-
-                        <td>
-                            ${escapeHtml(
-                                salary.salary_month || "-"
-                            )}
-                        </td>
-
-
-                        <td>
-                            ৳ ${amount.toFixed(2)}
-                        </td>
-
-
-                        <td>
-                            ৳ ${paid.toFixed(2)}
-                        </td>
-
-
-                        <td class="${
-                            due > 0
-                            ?
-                            "due-positive"
-                            :
-                            "due-zero"
-                        }">
-                            ৳ ${due.toFixed(2)}
-                        </td>
-
-
-                        <td>
-                            ${escapeHtml(
-                                salary.payment_date || "-"
-                            )}
-                        </td>
-
-
-                        <td>
-                            ${escapeHtml(
-                                salary.payment_method || "-"
-                            )}
-                        </td>
-
-
-                        <td class="action">
-
-                            <button
-                                class="btn edit-btn small-btn"
-                                data-id="${escapeHtml(
-                                    String(salary.id)
-                                )}"
-                                onclick="editSalaryFromButton(this)">
-                                Edit
-                            </button>
-
-
-                            <button
-                                class="btn delete-btn small-btn"
-                                data-id="${escapeHtml(
-                                    String(salary.id)
-                                )}"
-                                onclick="deleteSalaryFromButton(this)">
-                                Delete
-                            </button>
-
-
-                            <button
-                                class="btn print-btn small-btn"
-                                data-id="${escapeHtml(
-                                    String(salary.id)
-                                )}"
-                                onclick="printSalaryFromButton(this)">
-                                🖨️ Print
-                            </button>
-
-                        </td>
-
-                    </tr>
-                `;
-
-            }
-        )
-        .join("");
-
-}
-
-
-/* =========================================================
-   EMPLOYEE RENDER
-========================================================= */
-
-function renderEmployeeSalary(
-    list = employeeSalaries
-){
-
-    let salaryTotal = 0;
-
-    let paidTotal = 0;
-
-
-    list.forEach(
-        salary=>{
-
-            salaryTotal +=
-                Number(
-                    salary.amount
-                ) || 0;
-
-            paidTotal +=
-                Number(
-                    salary.paid_amount
-                ) || 0;
-
-        }
-    );
-
-
-    updateSummary(
-        salaryTotal,
-        paidTotal
-    );
-
-
-    if(!list.length){
-
-        salaryList.innerHTML = `
-            <tr>
-                <td colspan="9" class="empty">
-                    কোনো Employee Salary record নেই।
-                </td>
-            </tr>
-        `;
-
-        return;
-
-    }
-
-
-    salaryList.innerHTML =
-        list.map(
-            salary=>{
-
-                const employee =
-                    employees.find(
-                        e =>
-                        String(e.id) ===
-                        String(
-                            salary.employee_id
-                        )
+                const phone =
+                    getPersonPhone(
+                        salary
                     );
 
 
-                const name =
-                    employee?.name ||
-                    "Unknown";
-
-
-                const employeeId =
-                    employee?.employee_id ||
-                    "—";
-
-
-                const phone =
-                    employee?.phone ||
-                    "";
-
-
-                const amount =
+                const salaryAmount =
                     Number(
                         salary.amount
                     ) || 0;
-
 
                 const paid =
                     Number(
                         salary.paid_amount
                     ) || 0;
 
-
                 const due =
-                    amount - paid;
+                    salaryAmount - paid;
 
 
                 return `
-                    <tr>
 
-                        <td>
+                <tr>
 
-                            <div class="person-name">
-                                ${escapeHtml(name)}
-                            </div>
+                    <td class="name-cell">
 
-                            ${
-                                phone
-                                ?
-                                `<div class="person-sub">
-                                    📱 ${escapeHtml(phone)}
-                                </div>`
-                                :
-                                ""
-                            }
+                        ${escapeHtml(name)}
 
-                        </td>
-
-
-                        <td>
-                            ${escapeHtml(
-                                String(employeeId)
-                            )}
-                        </td>
-
-
-                        <td>
-                            ${escapeHtml(
-                                salary.salary_month || "-"
-                            )}
-                        </td>
-
-
-                        <td>
-                            ৳ ${amount.toFixed(2)}
-                        </td>
-
-
-                        <td>
-                            ৳ ${paid.toFixed(2)}
-                        </td>
-
-
-                        <td class="${
-                            due > 0
+                        ${
+                            phone
                             ?
-                            "due-positive"
+                            `<div class="phone">
+                                ${escapeHtml(phone)}
+                            </div>`
                             :
-                            "due-zero"
-                        }">
-                            ৳ ${due.toFixed(2)}
-                        </td>
+                            ""
+                        }
+
+                    </td>
 
 
-                        <td>
-                            ${escapeHtml(
-                                salary.payment_date || "-"
-                            )}
-                        </td>
+                    <td>
+                        ${escapeHtml(
+                            String(id)
+                        )}
+                    </td>
 
 
-                        <td>
-                            ${escapeHtml(
-                                salary.payment_method || "-"
-                            )}
-                        </td>
+                    <td>
+                        ${escapeHtml(
+                            salary.salary_month ||
+                            "-"
+                        )}
+                    </td>
 
 
-                        <td class="action">
-
-                            <button
-                                class="btn edit-btn small-btn"
-                                data-id="${escapeHtml(
-                                    String(salary.id)
-                                )}"
-                                onclick="editSalaryFromButton(this)">
-                                Edit
-                            </button>
+                    <td>
+                        ৳ ${salaryAmount.toFixed(2)}
+                    </td>
 
 
-                            <button
-                                class="btn delete-btn small-btn"
-                                data-id="${escapeHtml(
-                                    String(salary.id)
-                                )}"
-                                onclick="deleteSalaryFromButton(this)">
-                                Delete
-                            </button>
+                    <td>
+                        ৳ ${paid.toFixed(2)}
+                    </td>
 
 
-                            <button
-                                class="btn print-btn small-btn"
-                                data-id="${escapeHtml(
-                                    String(salary.id)
-                                )}"
-                                onclick="printSalaryFromButton(this)">
-                                🖨️ Print
-                            </button>
+                    <td>
+                        ৳ ${due.toFixed(2)}
+                    </td>
 
-                        </td>
 
-                    </tr>
+                    <td>
+                        ${escapeHtml(
+                            salary.payment_date ||
+                            "-"
+                        )}
+                    </td>
+
+
+                    <td>
+                        ${escapeHtml(
+                            salary.payment_method ||
+                            "-"
+                        )}
+                    </td>
+
+
+                    <td class="action-cell">
+
+                        <button
+                            type="button"
+                            class="small-btn edit-btn"
+                            onclick="editSalary('${escapeHtml(
+                                String(salary.id)
+                            )}')"
+                        >
+                            ✏️ Edit
+                        </button>
+
+                        <button
+                            type="button"
+                            class="small-btn delete-btn"
+                            onclick="openDelete('${escapeHtml(
+                                String(salary.id)
+                            )}')"
+                        >
+                            🗑️ Delete
+                        </button>
+
+                        <button
+                            type="button"
+                            class="small-btn print-btn"
+                            onclick="printSalary('${escapeHtml(
+                                String(salary.id)
+                            )}')"
+                        >
+                            🖨️ Print
+                        </button>
+
+                    </td>
+
+                </tr>
+
                 `;
 
             }
@@ -1739,54 +1899,49 @@ function renderEmployeeSalary(
 }
 
 
-/* =========================================================
+/* =====================================================
    SUMMARY
-========================================================= */
+===================================================== */
 
 function updateSummary(
-    salary,
-    paid
+    totalSalary,
+    totalPaid
 ){
 
-    salary =
-        Number(salary) || 0;
-
-    paid =
-        Number(paid) || 0;
+    const due =
+        totalSalary -
+        totalPaid;
 
 
     document.getElementById(
         "totalSalary"
     ).textContent =
-        "৳ " + salary.toFixed(2);
+        totalSalary.toFixed(2);
 
 
     document.getElementById(
         "totalPaid"
     ).textContent =
-        "৳ " + paid.toFixed(2);
+        totalPaid.toFixed(2);
 
 
     document.getElementById(
         "totalDue"
     ).textContent =
-        "৳ " +
-        (salary-paid).toFixed(2);
+        due.toFixed(2);
 
 }
 
 
-/* =========================================================
-   SAVE SALARY
-========================================================= */
+/* =====================================================
+   SAVE / UPDATE
+===================================================== */
 
-document.getElementById(
-    "salaryForm"
-).addEventListener(
+salaryForm.addEventListener(
     "submit",
-    async function(e){
+    async function(event){
 
-        e.preventDefault();
+        event.preventDefault();
 
 
         clearMessage();
@@ -1799,54 +1954,29 @@ document.getElementById(
 
 
         const selectedPerson =
-            personId.value;
+            personId.value.trim();
 
 
-        const salaryMonth =
-            document.getElementById(
-                "salaryMonth"
-            ).value;
+        const month =
+            salaryMonth.value;
 
 
-        const amount =
+        const salaryAmount =
             Number(
-                document.getElementById(
-                    "amount"
-                ).value
+                amount.value
             );
 
 
         const paid =
             Number(
-                document.getElementById(
-                    "paidAmount"
-                ).value
+                paidAmount.value
             );
 
-
-        const paymentDate =
-            document.getElementById(
-                "paymentDate"
-            ).value ||
-            null;
-
-
-        const paymentMethod =
-            document.getElementById(
-                "method"
-            ).value;
-
-
-        /* VALIDATION */
 
         if(!selectedPerson){
 
             showMessage(
-                mode === "teacher"
-                ?
-                "❌ Teacher নির্বাচন করুন।"
-                :
-                "❌ Employee নির্বাচন করুন।",
+                "❌ Teacher/Employee নির্বাচন করুন।",
                 "error"
             );
 
@@ -1855,7 +1985,7 @@ document.getElementById(
         }
 
 
-        if(!salaryMonth){
+        if(!month){
 
             showMessage(
                 "❌ Salary Month নির্বাচন করুন।",
@@ -1868,12 +1998,14 @@ document.getElementById(
 
 
         if(
-            !Number.isFinite(amount) ||
-            amount < 0
+            !Number.isFinite(
+                salaryAmount
+            ) ||
+            salaryAmount < 0
         ){
 
             showMessage(
-                "❌ সঠিক Salary Amount দিন।",
+                "❌ Salary Amount সঠিকভাবে দিন।",
                 "error"
             );
 
@@ -1888,7 +2020,7 @@ document.getElementById(
         ){
 
             showMessage(
-                "❌ সঠিক Paid Amount দিন।",
+                "❌ Paid Amount সঠিকভাবে দিন।",
                 "error"
             );
 
@@ -1897,10 +2029,10 @@ document.getElementById(
         }
 
 
-        if(paid > amount){
+        if(paid > salaryAmount){
 
             showMessage(
-                "❌ Paid Amount Salary Amount-এর বেশি হতে পারবে না।",
+                "❌ Paid Amount Salary Amount-এর চেয়ে বেশি হতে পারবে না।",
                 "error"
             );
 
@@ -1912,19 +2044,21 @@ document.getElementById(
         const record = {
 
             salary_month:
-                salaryMonth,
+                month,
 
             amount:
-                amount,
+                salaryAmount,
 
             paid_amount:
                 paid,
 
             payment_date:
-                paymentDate,
+                paymentDate.value ||
+                null,
 
             payment_method:
-                paymentMethod
+                method.value ||
+                "Cash"
 
         };
 
@@ -1932,28 +2066,37 @@ document.getElementById(
         if(mode === "teacher"){
 
             record.teacher_id =
-                Number(selectedPerson);
+                Number(
+                    selectedPerson
+                );
 
         }
 
         else{
 
             record.employee_id =
-                Number(selectedPerson);
+                Number(
+                    selectedPerson
+                );
 
         }
 
 
-        saveBtn.disabled =
-            true;
+        const saveBtn =
+            document.getElementById(
+                "saveBtn"
+            );
+
+
+        saveBtn.disabled = true;
 
 
         saveBtn.textContent =
             editId
             ?
-            "Updating..."
+            "⏳ Updating..."
             :
-            "Saving...";
+            "⏳ Saving...";
 
 
         try{
@@ -1961,35 +2104,67 @@ document.getElementById(
             let result;
 
 
-            const table =
-                mode === "teacher"
-                ?
-                "teacher_salaries"
-                :
-                "employee_salaries";
+            if(mode === "teacher"){
 
+                if(editId){
 
-            if(editId){
-
-                result =
-                    await db
-                        .from(table)
+                    result =
+                        await db
+                        .from(
+                            "teacher_salaries"
+                        )
                         .update(record)
                         .eq(
                             "id",
-                            Number(editId)
+                            editId
                         )
                         .select();
+
+                }
+
+                else{
+
+                    result =
+                        await db
+                        .from(
+                            "teacher_salaries"
+                        )
+                        .insert(record)
+                        .select();
+
+                }
 
             }
 
             else{
 
-                result =
-                    await db
-                        .from(table)
+                if(editId){
+
+                    result =
+                        await db
+                        .from(
+                            "employee_salaries"
+                        )
+                        .update(record)
+                        .eq(
+                            "id",
+                            editId
+                        )
+                        .select();
+
+                }
+
+                else{
+
+                    result =
+                        await db
+                        .from(
+                            "employee_salaries"
+                        )
                         .insert(record)
                         .select();
+
+                }
 
             }
 
@@ -1997,7 +2172,7 @@ document.getElementById(
             if(result.error){
 
                 showMessage(
-                    "❌ Save Error: " +
+                    "❌ " +
                     result.error.message,
                     "error"
                 );
@@ -2010,9 +2185,9 @@ document.getElementById(
             showMessage(
                 editId
                 ?
-                "✅ Salary সফলভাবে Update হয়েছে।"
+                "✅ Salary successfully updated."
                 :
-                "✅ Salary সফলভাবে Save হয়েছে।",
+                "✅ Salary successfully saved.",
                 "success"
             );
 
@@ -2048,9 +2223,9 @@ document.getElementById(
 );
 
 
-/* =========================================================
+/* =====================================================
    EDIT
-========================================================= */
+===================================================== */
 
 function editSalary(id){
 
@@ -2064,9 +2239,9 @@ function editSalary(id){
 
     const salary =
         list.find(
-            s =>
-            String(s.id) ===
-            String(id)
+            item =>
+                String(item.id) ===
+                String(id)
         );
 
 
@@ -2084,10 +2259,9 @@ function editSalary(id){
     document.getElementById(
         "editId"
     ).value =
-        String(salary.id);
-
-
-    loadPersonDropdown();
+        String(
+            salary.id
+        );
 
 
     const selectedPerson =
@@ -2098,43 +2272,39 @@ function editSalary(id){
         salary.employee_id;
 
 
-    personId.value =
-        String(selectedPerson);
+    loadPersonDropdown(
+        selectedPerson
+    );
 
 
-    document.getElementById(
-        "salaryMonth"
-    ).value =
-        salary.salary_month || "";
+    salaryMonth.value =
+        salary.salary_month ||
+        "";
 
 
-    document.getElementById(
-        "amount"
-    ).value =
-        salary.amount ?? "";
+    amount.value =
+        salary.amount ??
+        "";
 
 
-    document.getElementById(
-        "paidAmount"
-    ).value =
-        salary.paid_amount ?? "";
+    paidAmount.value =
+        salary.paid_amount ??
+        "";
 
 
-    document.getElementById(
-        "paymentDate"
-    ).value =
+    paymentDate.value =
         salary.payment_date ||
         today();
 
 
-    document.getElementById(
-        "method"
-    ).value =
+    method.value =
         salary.payment_method ||
         "Cash";
 
 
-    formTitle.textContent =
+    document.getElementById(
+        "formTitle"
+    ).textContent =
         mode === "teacher"
         ?
         "✏️ Edit Teacher Salary"
@@ -2142,11 +2312,15 @@ function editSalary(id){
         "✏️ Edit Employee Salary";
 
 
-    saveBtn.textContent =
+    document.getElementById(
+        "saveBtn"
+    ).textContent =
         "💾 Update Salary";
 
 
-    cancelBtn.style.display =
+    document.getElementById(
+        "cancelBtn"
+    ).style.display =
         "inline-block";
 
 
@@ -2158,32 +2332,65 @@ function editSalary(id){
 }
 
 
-function editSalaryFromButton(button){
+/* =====================================================
+   OPEN DELETE
+===================================================== */
 
-    editSalary(
-        button.getAttribute(
-            "data-id"
-        )
+function openDelete(id){
+
+    pendingDeleteId =
+        id;
+
+    document.getElementById(
+        "deleteModal"
+    ).classList.add(
+        "show"
     );
 
 }
 
 
-/* =========================================================
-   DELETE
-========================================================= */
+/* =====================================================
+   CLOSE DELETE
+===================================================== */
 
-async function deleteSalary(id){
+function closeDelete(){
 
-    if(
-        !confirm(
-            "এই Salary record Delete করতে চান?"
-        )
-    ){
+    pendingDeleteId =
+        null;
+
+    document.getElementById(
+        "deleteModal"
+    ).classList.remove(
+        "show"
+    );
+
+}
+
+
+/* =====================================================
+   CONFIRM DELETE
+===================================================== */
+
+document.getElementById(
+    "deleteConfirm"
+).onclick =
+async function(){
+
+    if(!pendingDeleteId){
+
+        closeDelete();
 
         return;
 
     }
+
+
+    const id =
+        pendingDeleteId;
+
+
+    closeDelete();
 
 
     const table =
@@ -2194,565 +2401,83 @@ async function deleteSalary(id){
         "employee_salaries";
 
 
-    const {
-        data,
-        error
-    } =
-    await db
-        .from(table)
-        .delete()
-        .eq(
-            "id",
-            Number(id)
-        )
-        .select("id");
+    try{
+
+        const result =
+            await db
+            .from(table)
+            .delete()
+            .eq(
+                "id",
+                id
+            )
+            .select("id");
 
 
-    if(error){
+        if(result.error){
+
+            alert(
+                "❌ Delete failed:\n" +
+                result.error.message
+            );
+
+            return;
+
+        }
+
+
+        if(
+            !result.data ||
+            result.data.length === 0
+        ){
+
+            alert(
+                "❌ Record পাওয়া যায়নি অথবা Delete permission নেই।"
+            );
+
+            return;
+
+        }
+
 
         alert(
-            "❌ Delete Error:\n" +
+            "✅ Salary successfully deleted."
+        );
+
+
+        await loadCurrentSalary();
+
+    }
+
+    catch(error){
+
+        alert(
+            "❌ " +
             error.message
         );
 
-        return;
-
     }
 
+};
 
-    if(!data || !data.length){
 
-        alert(
-            "❌ Record পাওয়া যায়নি অথবা Delete permission নেই।"
-        );
+/* =====================================================
+   DELETE CANCEL
+===================================================== */
 
-        return;
+document.getElementById(
+    "deleteCancel"
+).onclick =
+function(){
 
-    }
+    closeDelete();
 
+};
 
-    await loadCurrentSalary();
 
-
-    showMessage(
-        "✅ Salary record deleted successfully.",
-        "success"
-    );
-
-}
-
-
-function deleteSalaryFromButton(button){
-
-    deleteSalary(
-        button.getAttribute(
-            "data-id"
-        )
-    );
-
-}
-
-
-/* =========================================================
-   PRINT
-========================================================= */
-
-function printSalary(id){
-
-    const list =
-        mode === "teacher"
-        ?
-        teacherSalaries
-        :
-        employeeSalaries;
-
-
-    const salary =
-        list.find(
-            s =>
-            String(s.id) ===
-            String(id)
-        );
-
-
-    if(!salary){
-
-        alert(
-            "❌ Salary record পাওয়া যায়নি।"
-        );
-
-        return;
-
-    }
-
-
-    let personName =
-        "Unknown";
-
-    let personIdText =
-        "—";
-
-    let phone =
-        "-";
-
-
-    if(mode === "teacher"){
-
-        const teacher =
-            teachers.find(
-                t =>
-                String(t.id) ===
-                String(salary.teacher_id)
-            );
-
-
-        if(teacher){
-
-            personName =
-                teacher.name ||
-                "Unknown";
-
-            personIdText =
-                teacher.id ??
-                "—";
-
-            phone =
-                teacher.phone ||
-                "-";
-
-        }
-
-    }
-
-    else{
-
-        const employee =
-            employees.find(
-                e =>
-                String(e.id) ===
-                String(salary.employee_id)
-            );
-
-
-        if(employee){
-
-            personName =
-                employee.name ||
-                "Unknown";
-
-            personIdText =
-                employee.employee_id ||
-                "—";
-
-            phone =
-                employee.phone ||
-                "-";
-
-        }
-
-    }
-
-
-    const amount =
-        Number(
-            salary.amount
-        ) || 0;
-
-
-    const paid =
-        Number(
-            salary.paid_amount
-        ) || 0;
-
-
-    const due =
-        amount - paid;
-
-
-    const personType =
-        mode === "teacher"
-        ?
-        "Teacher"
-        :
-        "Employee";
-
-
-    const win =
-        window.open(
-            "",
-            "_blank",
-            "width=850,height=900"
-        );
-
-
-    if(!win){
-
-        alert(
-            "❌ Print window blocked। Browser popup allow করুন।"
-        );
-
-        return;
-
-    }
-
-
-    win.document.write(`
-
-<!DOCTYPE html>
-
-<html lang="bn">
-
-<head>
-
-<meta charset="UTF-8">
-
-<title>
-Salary Receipt
-</title>
-
-<style>
-
-*{
-    box-sizing:border-box;
-}
-
-body{
-    margin:0;
-    padding:25px;
-    font-family:
-        Arial,
-        "Noto Serif Bengali",
-        sans-serif;
-    color:#222;
-    background:#fff;
-}
-
-.receipt{
-    max-width:720px;
-    margin:auto;
-    border:2px solid #075c43;
-    padding:28px;
-}
-
-.header{
-    text-align:center;
-    border-bottom:2px solid #075c43;
-    padding-bottom:16px;
-    margin-bottom:18px;
-}
-
-.header h1{
-    margin:0;
-    color:#075c43;
-    font-size:25px;
-}
-
-.header h2{
-    margin:5px 0;
-    font-size:16px;
-    font-weight:600;
-}
-
-.header p{
-    margin:4px 0;
-    font-size:13px;
-}
-
-.receipt-title{
-    text-align:center;
-    margin:18px 0;
-}
-
-.receipt-title h2{
-    margin:0;
-    font-size:20px;
-}
-
-.info{
-    width:100%;
-    border-collapse:collapse;
-}
-
-.info td{
-    border:1px solid #ccc;
-    padding:10px;
-}
-
-.info td:first-child{
-    width:38%;
-    background:#f3f6f5;
-    font-weight:bold;
-}
-
-.amount-box{
-    margin-top:22px;
-    border:2px solid #075c43;
-}
-
-.amount-row{
-    display:flex;
-    justify-content:space-between;
-    padding:12px 14px;
-    border-bottom:1px solid #ddd;
-}
-
-.amount-row:last-child{
-    border-bottom:0;
-}
-
-.due-row{
-    font-size:17px;
-    font-weight:bold;
-}
-
-.footer{
-    margin-top:60px;
-    display:flex;
-    justify-content:space-between;
-    gap:30px;
-}
-
-.signature{
-    width:190px;
-    text-align:center;
-    border-top:1px solid #222;
-    padding-top:7px;
-    font-size:13px;
-}
-
-.print-button{
-    display:block;
-    margin:25px auto 0;
-    padding:10px 25px;
-    border:0;
-    border-radius:6px;
-    background:#075c43;
-    color:#fff;
-    cursor:pointer;
-}
-
-@media print{
-
-    body{
-        padding:0;
-    }
-
-    .receipt{
-        border:2px solid #075c43;
-    }
-
-    .print-button{
-        display:none;
-    }
-
-}
-
-</style>
-
-</head>
-
-<body>
-
-<div class="receipt">
-
-    <div class="header">
-
-        <h1>
-            মাদরাসায়ে নূরুল কুরআন
-        </h1>
-
-        <h2>
-            MADRASHA-E NURUL QURAN
-        </h2>
-
-        <p>
-            Salary Payment Receipt
-        </p>
-
-    </div>
-
-
-    <div class="receipt-title">
-
-        <h2>
-            ${personType} Salary Receipt
-        </h2>
-
-    </div>
-
-
-    <table class="info">
-
-        <tr>
-            <td>
-                Name
-            </td>
-
-            <td>
-                ${escapeHtml(personName)}
-            </td>
-        </tr>
-
-
-        <tr>
-            <td>
-                ${personType} ID
-            </td>
-
-            <td>
-                ${escapeHtml(
-                    String(personIdText)
-                )}
-            </td>
-        </tr>
-
-
-        <tr>
-            <td>
-                Mobile
-            </td>
-
-            <td>
-                ${escapeHtml(phone)}
-            </td>
-        </tr>
-
-
-        <tr>
-            <td>
-                Salary Month
-            </td>
-
-            <td>
-                ${escapeHtml(
-                    salary.salary_month || "-"
-                )}
-            </td>
-        </tr>
-
-
-        <tr>
-            <td>
-                Payment Date
-            </td>
-
-            <td>
-                ${escapeHtml(
-                    salary.payment_date || "-"
-                )}
-            </td>
-        </tr>
-
-
-        <tr>
-            <td>
-                Payment Method
-            </td>
-
-            <td>
-                ${escapeHtml(
-                    salary.payment_method || "-"
-                )}
-            </td>
-        </tr>
-
-    </table>
-
-
-    <div class="amount-box">
-
-        <div class="amount-row">
-
-            <span>
-                Salary Amount
-            </span>
-
-            <strong>
-                ৳ ${amount.toFixed(2)}
-            </strong>
-
-        </div>
-
-
-        <div class="amount-row">
-
-            <span>
-                Paid Amount
-            </span>
-
-            <strong>
-                ৳ ${paid.toFixed(2)}
-            </strong>
-
-        </div>
-
-
-        <div class="amount-row due-row">
-
-            <span>
-                Due Amount
-            </span>
-
-            <strong>
-                ৳ ${due.toFixed(2)}
-            </strong>
-
-        </div>
-
-    </div>
-
-
-    <div class="footer">
-
-        <div class="signature">
-            Receiver Signature
-        </div>
-
-        <div class="signature">
-            Authorized Signature
-        </div>
-
-    </div>
-
-
-    <button
-        class="print-button"
-        onclick="window.print()">
-
-        🖨️ Print Receipt
-
-    </button>
-
-</div>
-
-</body>
-
-</html>
-
-`);
-
-
-    win.document.close();
-
-    win.focus();
-
-}
-
-
-function printSalaryFromButton(button){
-
-    printSalary(
-        button.getAttribute(
-            "data-id"
-        )
-    );
-
-}
-
-
-/* =========================================================
+/* =====================================================
    TEACHER TAB
-========================================================= */
+===================================================== */
 
 teacherTab.onclick =
 async function(){
@@ -2775,18 +2500,25 @@ async function(){
     );
 
 
-    personLabel.textContent =
+    document.getElementById(
+        "personLabel"
+    ).textContent =
         "Teacher *";
 
 
-    listTitle.textContent =
+    document.getElementById(
+        "personHelp"
+    ).textContent =
+        "Teacher list থেকে নির্বাচন করুন";
+
+
+    document.getElementById(
+        "listTitle"
+    ).textContent =
         "👨‍🏫 Teacher Salary List";
 
 
     resetForm();
-
-
-    loadPersonDropdown();
 
 
     await loadTeacherSalary();
@@ -2794,9 +2526,9 @@ async function(){
 };
 
 
-/* =========================================================
+/* =====================================================
    EMPLOYEE TAB
-========================================================= */
+===================================================== */
 
 employeeTab.onclick =
 async function(){
@@ -2819,18 +2551,25 @@ async function(){
     );
 
 
-    personLabel.textContent =
+    document.getElementById(
+        "personLabel"
+    ).textContent =
         "Employee *";
 
 
-    listTitle.textContent =
+    document.getElementById(
+        "personHelp"
+    ).textContent =
+        "Employee list থেকে নির্বাচন করুন";
+
+
+    document.getElementById(
+        "listTitle"
+    ).textContent =
         "👨‍💼 Employee Salary List";
 
 
     resetForm();
-
-
-    loadPersonDropdown();
 
 
     await loadEmployeeSalary();
@@ -2838,9 +2577,9 @@ async function(){
 };
 
 
-/* =========================================================
+/* =====================================================
    SEARCH
-========================================================= */
+===================================================== */
 
 document.getElementById(
     "search"
@@ -2848,145 +2587,167 @@ document.getElementById(
     "input",
     function(){
 
-        const q =
+        applySearch(
             this.value
-            .toLowerCase()
-            .trim();
-
-
-        if(mode === "teacher"){
-
-            const filtered =
-                teacherSalaries.filter(
-                    salary=>{
-
-                        const teacher =
-                            teachers.find(
-                                t =>
-                                String(t.id) ===
-                                String(
-                                    salary.teacher_id
-                                )
-                            );
-
-
-                        if(!teacher){
-                            return false;
-                        }
-
-
-                        const text =
-                            [
-                                teacher.name,
-                                teacher.phone,
-                                teacher.id,
-                                salary.salary_month,
-                                salary.payment_method
-                            ]
-                            .filter(Boolean)
-                            .join(" ")
-                            .toLowerCase();
-
-
-                        return text.includes(q);
-
-                    }
-                );
-
-
-            renderTeacherSalary(
-                filtered
-            );
-
-        }
-
-        else{
-
-            const filtered =
-                employeeSalaries.filter(
-                    salary=>{
-
-                        const employee =
-                            employees.find(
-                                e =>
-                                String(e.id) ===
-                                String(
-                                    salary.employee_id
-                                )
-                            );
-
-
-                        if(!employee){
-                            return false;
-                        }
-
-
-                        const text =
-                            [
-                                employee.name,
-                                employee.phone,
-                                employee.employee_id,
-                                salary.salary_month,
-                                salary.payment_method
-                            ]
-                            .filter(Boolean)
-                            .join(" ")
-                            .toLowerCase();
-
-
-                        return text.includes(q);
-
-                    }
-                );
-
-
-            renderEmployeeSalary(
-                filtered
-            );
-
-        }
+        );
 
     }
 );
 
 
-/* =========================================================
+/* =====================================================
+   APPLY SEARCH
+===================================================== */
+
+function applySearch(
+    query
+){
+
+    const q =
+        String(query)
+        .toLowerCase()
+        .trim();
+
+
+    const original =
+        mode === "teacher"
+        ?
+        teacherSalaries
+        :
+        employeeSalaries;
+
+
+    if(!q){
+
+        renderSalary(
+            original
+        );
+
+        return;
+
+    }
+
+
+    const filtered =
+        original.filter(
+            salary => {
+
+                const name =
+                    getPersonName(
+                        salary
+                    )
+                    .toLowerCase();
+
+
+                const id =
+                    String(
+                        getPersonDisplayId(
+                            salary
+                        )
+                    )
+                    .toLowerCase();
+
+
+                const phone =
+                    getPersonPhone(
+                        salary
+                    )
+                    .toLowerCase();
+
+
+                const month =
+                    String(
+                        salary.salary_month ||
+                        ""
+                    )
+                    .toLowerCase();
+
+
+                return (
+                    name.includes(q) ||
+                    id.includes(q) ||
+                    phone.includes(q) ||
+                    month.includes(q)
+                );
+
+            }
+        );
+
+
+    renderSalary(
+        filtered
+    );
+
+}
+
+
+/* =====================================================
+   CLEAR SEARCH
+===================================================== */
+
+document.getElementById(
+    "clearSearch"
+).onclick =
+function(){
+
+    const search =
+        document.getElementById(
+            "search"
+        );
+
+    search.value = "";
+
+    renderSalary();
+
+};
+
+
+/* =====================================================
    RESET FORM
-========================================================= */
+===================================================== */
 
 function resetForm(){
 
-    document.getElementById(
-        "salaryForm"
-    ).reset();
+    salaryForm.reset();
 
 
     document.getElementById(
         "editId"
-    ).value =
-        "";
+    ).value = "";
 
 
-    document.getElementById(
-        "paymentDate"
-    ).value =
+    salaryMonth.value =
+        currentMonth();
+
+
+    paymentDate.value =
         today();
 
 
-    formTitle.textContent =
+    method.value =
+        "Cash";
+
+
+    document.getElementById(
+        "saveBtn"
+    ).textContent =
+        "💾 Save Salary";
+
+
+    document.getElementById(
+        "cancelBtn"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "formTitle"
+    ).textContent =
         mode === "teacher"
         ?
         "➕ Add Teacher Salary"
         :
         "➕ Add Employee Salary";
-
-
-    saveBtn.textContent =
-        "💾 Save Salary";
-
-
-    cancelBtn.style.display =
-        "none";
 
 
     clearMessage();
@@ -2997,11 +2758,13 @@ function resetForm(){
 }
 
 
-/* =========================================================
-   CANCEL
-========================================================= */
+/* =====================================================
+   CANCEL EDIT
+===================================================== */
 
-cancelBtn.onclick =
+document.getElementById(
+    "cancelBtn"
+).onclick =
 function(){
 
     resetForm();
@@ -3009,49 +2772,659 @@ function(){
 };
 
 
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
+/* =====================================================
+   PRINT SALARY
+===================================================== */
 
-function escapeHtml(value){
+function printSalary(id){
 
-    return String(value ?? "")
+    const list =
+        mode === "teacher"
+        ?
+        teacherSalaries
+        :
+        employeeSalaries;
 
-        .replaceAll(
-            "&",
-            "&amp;"
-        )
 
-        .replaceAll(
-            "<",
-            "&lt;"
-        )
-
-        .replaceAll(
-            ">",
-            "&gt;"
-        )
-
-        .replaceAll(
-            '"',
-            "&quot;"
-        )
-
-        .replaceAll(
-            "'",
-            "&#039;"
+    const salary =
+        list.find(
+            item =>
+                String(item.id) ===
+                String(id)
         );
+
+
+    if(!salary){
+
+        alert(
+            "❌ Salary record পাওয়া যায়নি।"
+        );
+
+        return;
+
+    }
+
+
+    const person =
+        getPerson(
+            salary
+        );
+
+
+    const personName =
+        person?.name ||
+        "Unknown";
+
+
+    const personId =
+        mode === "teacher"
+        ?
+        person?.id || "—"
+        :
+        person?.employee_id ||
+        person?.id ||
+        "—";
+
+
+    const phone =
+        person?.phone ||
+        "—";
+
+
+    const salaryAmount =
+        Number(
+            salary.amount
+        ) || 0;
+
+
+    const paid =
+        Number(
+            salary.paid_amount
+        ) || 0;
+
+
+    const due =
+        salaryAmount -
+        paid;
+
+
+    const personType =
+        mode === "teacher"
+        ?
+        "Teacher"
+        :
+        "Employee";
+
+
+    const receiptNo =
+        "SAL-" +
+        String(
+            salary.id
+        );
+
+
+    const printWindow =
+        window.open(
+            "",
+            "_blank",
+            "width=900,height=900"
+        );
+
+
+    if(!printWindow){
+
+        alert(
+            "❌ Browser popup blocked। Popup allow করুন।"
+        );
+
+        return;
+
+    }
+
+
+    printWindow.document.write(`
+
+<!DOCTYPE html>
+
+<html lang="bn">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>
+Salary Receipt - ${escapeHtml(
+    personName
+)}
+</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+@page{
+    size:A4;
+    margin:10mm;
+}
+
+body{
+    margin:0;
+    padding:0;
+    font-family:
+        Arial,
+        sans-serif;
+    color:#222;
+    background:#fff;
+}
+
+.page{
+    width:190mm;
+    margin:auto;
+}
+
+.receipt{
+    border:1.5px solid #075f50;
+    padding:12mm;
+    margin-bottom:8mm;
+    min-height:115mm;
+    position:relative;
+}
+
+.header{
+    text-align:center;
+    border-bottom:1px solid #075f50;
+    padding-bottom:7px;
+    margin-bottom:10px;
+}
+
+.header h1{
+    margin:0;
+    color:#075f50;
+    font-size:21px;
+}
+
+.header p{
+    margin:3px 0;
+    font-size:10px;
+}
+
+.copy-title{
+    text-align:center;
+    margin:7px 0 10px;
+}
+
+.copy-title span{
+    display:inline-block;
+    border:1px solid #075f50;
+    padding:4px 15px;
+    border-radius:20px;
+    color:#075f50;
+    font-size:11px;
+    font-weight:bold;
+}
+
+.info{
+    width:100%;
+    border-collapse:collapse;
+    margin-bottom:10px;
+}
+
+.info td{
+    border:1px solid #ccc;
+    padding:6px 8px;
+    font-size:10px;
+}
+
+.info td:first-child{
+    width:30%;
+    background:#f2f7f5;
+    font-weight:bold;
+}
+
+.amount-table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.amount-table td{
+    border:1px solid #ccc;
+    padding:7px 8px;
+    font-size:10px;
+}
+
+.amount-table td:last-child{
+    text-align:right;
+}
+
+.due-row td{
+    font-weight:bold;
+    font-size:12px;
+    background:#fff7e4;
+}
+
+.footer{
+    display:flex;
+    justify-content:space-between;
+    margin-top:25px;
+}
+
+.signature{
+    width:55mm;
+    text-align:center;
+    border-top:1px solid #333;
+    padding-top:5px;
+    font-size:9px;
+}
+
+.cut{
+    border-top:1px dashed #888;
+    margin:2mm 0 6mm;
+    text-align:center;
+    font-size:8px;
+    color:#888;
+}
+
+.controls{
+    text-align:center;
+    margin:15px;
+}
+
+.controls button{
+    background:#075f50;
+    color:#fff;
+    border:0;
+    padding:9px 18px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+@media print{
+
+    .controls{
+        display:none;
+    }
+
+    .receipt{
+        break-inside:avoid;
+    }
+
+    .cut{
+        break-after:avoid;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="page">
+
+
+<!-- ================= RECEIVER COPY ================= -->
+
+<div class="receipt">
+
+    <div class="header">
+
+        <h1>
+            মাদরাসায়ে নূরুল কুরআন
+        </h1>
+
+        <p>
+            MADRASHA-E NURUL QURAN
+        </p>
+
+        <p>
+            Salary Payment Receipt
+        </p>
+
+    </div>
+
+
+    <div class="copy-title">
+
+        <span>
+            STUDENT / RECEIVER COPY
+        </span>
+
+    </div>
+
+
+    <table class="info">
+
+        <tr>
+            <td>Receipt No.</td>
+            <td>${escapeHtml(
+                receiptNo
+            )}</td>
+        </tr>
+
+        <tr>
+            <td>Name</td>
+            <td>${escapeHtml(
+                personName
+            )}</td>
+        </tr>
+
+        <tr>
+            <td>${personType} ID</td>
+            <td>${escapeHtml(
+                String(personId)
+            )}</td>
+        </tr>
+
+        <tr>
+            <td>Mobile</td>
+            <td>${escapeHtml(
+                phone
+            )}</td>
+        </tr>
+
+        <tr>
+            <td>Salary Month</td>
+            <td>${escapeHtml(
+                salary.salary_month ||
+                "-"
+            )}</td>
+        </tr>
+
+        <tr>
+            <td>Payment Date</td>
+            <td>${escapeHtml(
+                salary.payment_date ||
+                "-"
+            )}</td>
+        </tr>
+
+        <tr>
+            <td>Payment Method</td>
+            <td>${escapeHtml(
+                salary.payment_method ||
+                "-"
+            )}</td>
+        </tr>
+
+    </table>
+
+
+    <table class="amount-table">
+
+        <tr>
+            <td>Salary Amount</td>
+            <td>
+                ৳ ${salaryAmount.toFixed(2)}
+            </td>
+        </tr>
+
+        <tr>
+            <td>Paid Amount</td>
+            <td>
+                ৳ ${paid.toFixed(2)}
+            </td>
+        </tr>
+
+        <tr class="due-row">
+            <td>Due Amount</td>
+            <td>
+                ৳ ${due.toFixed(2)}
+            </td>
+        </tr>
+
+    </table>
+
+
+    <div class="footer">
+
+        <div class="signature">
+            Receiver Signature
+        </div>
+
+        <div class="signature">
+            Authorized Signature
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="cut">
+    ✂ ───────────── Cut Here ───────────── ✂
+</div>
+
+
+<!-- ================= MADRASHA COPY ================= -->
+
+<div class="receipt">
+
+    <div class="header">
+
+        <h1>
+            মাদরাসায়ে নূরুল কুরআন
+        </h1>
+
+        <p>
+            MADRASHA-E NURUL QURAN
+        </p>
+
+        <p>
+            Salary Payment Receipt
+        </p>
+
+    </div>
+
+
+    <div class="copy-title">
+
+        <span>
+            MADRASHA COPY
+        </span>
+
+    </div>
+
+
+    <table class="info">
+
+        <tr>
+            <td>Receipt No.</td>
+            <td>${escapeHtml(
+                receiptNo
+            )}</td>
+        </tr>
+
+        <tr>
+            <td>Name</td>
+            <td>${escapeHtml(
+                personName
+            )}</td>
+        </tr>
+
+        <tr>
+            <td>${personType} ID</td>
+            <td>${escapeHtml(
+                String(personId)
+            )}</td>
+        </tr>
+
+        <tr>
+            <td>Mobile</td>
+            <td>${escapeHtml(
+                phone
+            )}</td>
+        </tr>
+
+        <tr>
+            <td>Salary Month</td>
+            <td>${escapeHtml(
+                salary.salary_month ||
+                "-"
+            )}</td>
+        </tr>
+
+        <tr>
+            <td>Payment Date</td>
+            <td>${escapeHtml(
+                salary.payment_date ||
+                "-"
+            )}</td>
+        </tr>
+
+        <tr>
+            <td>Payment Method</td>
+            <td>${escapeHtml(
+                salary.payment_method ||
+                "-"
+            )}</td>
+        </tr>
+
+    </table>
+
+
+    <table class="amount-table">
+
+        <tr>
+            <td>Salary Amount</td>
+            <td>
+                ৳ ${salaryAmount.toFixed(2)}
+            </td>
+        </tr>
+
+        <tr>
+            <td>Paid Amount</td>
+            <td>
+                ৳ ${paid.toFixed(2)}
+            </td>
+        </tr>
+
+        <tr class="due-row">
+            <td>Due Amount</td>
+            <td>
+                ৳ ${due.toFixed(2)}
+            </td>
+        </tr>
+
+    </table>
+
+
+    <div class="footer">
+
+        <div class="signature">
+            Receiver Signature
+        </div>
+
+        <div class="signature">
+            Authorized Signature
+        </div>
+
+    </div>
+
+</div>
+
+
+</div>
+
+
+<div class="controls">
+
+    <button
+        onclick="window.print()"
+    >
+        🖨️ Print A4
+    </button>
+
+</div>
+
+
+</body>
+
+</html>
+
+`);
+
+
+    printWindow.document.close();
+
+    printWindow.focus();
 
 }
 
 
-/* =========================================================
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHtml(
+    value
+){
+
+    return String(
+        value ?? ""
+    )
+
+    .replaceAll(
+        "&",
+        "&amp;"
+    )
+
+    .replaceAll(
+        "<",
+        "&lt;"
+    )
+
+    .replaceAll(
+        ">",
+        "&gt;"
+    )
+
+    .replaceAll(
+        '"',
+        "&quot;"
+    )
+
+    .replaceAll(
+        "'",
+        "&#039;"
+    );
+
+}
+
+
+/* =====================================================
+   KEYBOARD / MODAL
+===================================================== */
+
+document.getElementById(
+    "deleteModal"
+).addEventListener(
+    "click",
+    function(event){
+
+        if(
+            event.target ===
+            this
+        ){
+
+            closeDelete();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
    RUN
-========================================================= */
+===================================================== */
 
 start();
 
 </script>
 
 </body>
+
 </html>
