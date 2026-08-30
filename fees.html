@@ -9,17 +9,22 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;500;600;700;800&display=swap');
 
 *{
   box-sizing:border-box;
 }
 
+html{
+  scroll-behavior:smooth;
+}
+
 body{
   margin:0;
-  background:#f4f8f7;
+  background:#f1f8f6;
   color:#173f37;
   font-family:'Noto Serif Bengali',serif;
+  font-size:14px;
 }
 
 .topbar{
@@ -29,75 +34,105 @@ body{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:10px 18px;
-  box-shadow:0 3px 12px rgba(0,0,0,.15);
+  padding:0 18px;
+  box-shadow:0 3px 14px rgba(0,80,70,.22);
+  position:sticky;
+  top:0;
+  z-index:100;
 }
 
 .brand{
-  font-size:18px;
-  font-weight:700;
+  font-size:17px;
+  font-weight:800;
+}
+
+.brand small{
+  display:block;
+  font-size:9px;
+  opacity:.8;
+  font-weight:400;
 }
 
 .dashboard{
   color:#fff;
   text-decoration:none;
-  font-size:14px;
+  background:rgba(255,255,255,.12);
+  padding:7px 12px;
+  border-radius:7px;
+  font-size:12px;
+}
+
+.dashboard:hover{
+  background:rgba(255,255,255,.22);
 }
 
 .container{
   width:96%;
   max-width:1200px;
-  margin:18px auto 40px;
+  margin:16px auto 50px;
 }
 
 .card{
   background:#fff;
-  border-radius:14px;
-  padding:18px;
-  margin-bottom:18px;
+  border-radius:13px;
+  padding:16px;
+  margin-bottom:16px;
   box-shadow:0 3px 15px rgba(0,80,70,.08);
-  border:1px solid #e1eeeb;
+  border:1px solid #deebe8;
 }
 
 .title{
-  font-size:18px;
-  font-weight:700;
+  margin:0 0 12px;
   color:#00695c;
-  margin:0 0 15px;
+  font-size:18px;
+  font-weight:800;
+}
+
+.subtitle{
+  color:#78908b;
+  font-size:11px;
+  margin:-6px 0 14px;
 }
 
 .grid{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
+  grid-template-columns:1fr 1fr;
   gap:12px;
 }
 
-.form-group{
-  margin-bottom:12px;
+.grid-3{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
 }
 
 .full{
   grid-column:1/-1;
 }
 
+.form-group{
+  margin-bottom:9px;
+}
+
 label{
   display:block;
-  font-size:14px;
-  font-weight:600;
-  margin-bottom:6px;
+  margin-bottom:5px;
   color:#24584f;
+  font-size:12px;
+  font-weight:700;
 }
 
 select,
 input{
   width:100%;
-  height:44px;
+  height:43px;
   border:1px solid #cbded9;
   border-radius:8px;
-  padding:0 12px;
+  padding:0 11px;
   background:#fbfefd;
+  color:#173f37;
   font-family:inherit;
-  font-size:14px;
+  font-size:13px;
   outline:none;
 }
 
@@ -109,25 +144,27 @@ input:focus{
 
 select:disabled{
   background:#eef3f2;
+  color:#8a9995;
   cursor:not-allowed;
 }
 
 .hint{
-  color:#78908b;
-  font-size:11px;
-  margin-top:4px;
+  color:#819691;
+  font-size:10px;
+  margin-top:3px;
 }
 
 .btn{
   border:0;
   border-radius:8px;
-  padding:10px 16px;
+  padding:9px 14px;
   color:#fff;
   background:#00796b;
   cursor:pointer;
   font-family:inherit;
-  font-weight:600;
-  margin-top:5px;
+  font-size:12px;
+  font-weight:700;
+  margin:2px;
 }
 
 .btn:hover{
@@ -135,8 +172,16 @@ select:disabled{
 }
 
 .btn:disabled{
-  opacity:.6;
+  opacity:.55;
   cursor:not-allowed;
+}
+
+.refresh-btn{
+  background:#455a64;
+}
+
+.refresh-btn:hover{
+  background:#263238;
 }
 
 .edit-btn{
@@ -155,185 +200,243 @@ select:disabled{
   background:#b71c1c;
 }
 
-.cancel-btn{
-  background:#757575;
-  margin-left:6px;
+.print-btn{
+  background:#6a1b9a;
 }
 
-.refresh-btn{
-  background:#455a64;
-  margin-left:6px;
+.print-btn:hover{
+  background:#4a148c;
+}
+
+.cancel-btn{
+  background:#757575;
 }
 
 .small-btn{
-  padding:6px 9px;
-  font-size:11px;
-  margin:2px;
-}
-
-.summary{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:10px;
-  margin-bottom:15px;
-}
-
-.summary-box{
-  background:#edf7f5;
-  padding:13px 14px;
-  border-radius:10px;
-  font-size:13px;
-  color:#12665b;
-  font-weight:600;
-  border:1px solid #d9eee9;
-}
-
-.summary-box strong{
-  display:block;
-  font-size:20px;
-  margin-top:4px;
-}
-
-.summary-box.due{
-  background:#fff7e8;
-  color:#a06400;
-  border-color:#f3dfb0;
-}
-
-.summary-box.student{
-  background:#edf4ff;
-  color:#14549a;
-  border-color:#d8e6fa;
-}
-
-.search{
-  margin-bottom:12px;
-}
-
-.table-wrap{
-  width:100%;
-  overflow-x:auto;
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-  min-width:1050px;
-  font-size:13px;
-}
-
-th{
-  background:#00695c;
-  color:#fff;
-  padding:11px 8px;
-  text-align:left;
-  white-space:nowrap;
-}
-
-td{
-  padding:10px 8px;
-  border-bottom:1px solid #e4eeec;
-  white-space:nowrap;
-}
-
-tr:hover td{
-  background:#f2f9f7;
-}
-
-.student-small{
+  padding:5px 8px;
   font-size:10px;
-  color:#78908b;
-  margin-top:3px;
 }
 
-.empty{
-  text-align:center;
-  padding:25px;
-  color:#819691;
+.message{
+  margin-top:10px;
 }
 
 .error{
-  color:#c62828;
-  background:#fff2f2;
+  color:#b71c1c;
+  background:#fff1f1;
   border:1px solid #ffcaca;
-  padding:10px;
+  padding:9px 11px;
   border-radius:8px;
-  margin-top:10px;
-  font-size:13px;
+  font-size:12px;
 }
 
 .success{
   color:#087f23;
   background:#effaf1;
   border:1px solid #bde8c5;
-  padding:10px;
+  padding:9px 11px;
   border-radius:8px;
-  margin-top:10px;
-  font-size:13px;
+  font-size:12px;
 }
 
-.loading{
-  text-align:center;
-  padding:25px;
+.info{
+  color:#24584f;
+  background:#eef8f6;
+  border-left:4px solid #00897b;
+  padding:9px 11px;
+  border-radius:7px;
+  font-size:11px;
+  margin-bottom:12px;
+}
+
+/* SUMMARY */
+
+.summary{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:9px;
+  margin-bottom:12px;
+}
+
+.summary-box{
+  padding:11px 12px;
+  border-radius:9px;
+  background:#edf7f5;
+  border:1px solid #dcece8;
+}
+
+.summary-box:nth-child(1){
+  background:#eef4ff;
+  border-color:#d8e4fb;
+}
+
+.summary-box:nth-child(4){
+  background:#fff8e8;
+  border-color:#f1e2bd;
+}
+
+.summary-label{
+  display:block;
+  color:#52736b;
+  font-size:10px;
+  margin-bottom:2px;
+}
+
+.summary-box strong{
+  color:#12665b;
+  font-size:17px;
+}
+
+/* SEARCH */
+
+.search-wrap{
+  position:relative;
+  margin-bottom:10px;
+}
+
+.search-wrap input{
+  padding-left:35px;
+}
+
+.search-icon{
+  position:absolute;
+  left:12px;
+  top:11px;
   color:#78908b;
 }
 
+/* TABLE */
+
+.table-wrap{
+  width:100%;
+  overflow-x:auto;
+  border-radius:8px;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:1050px;
+  font-size:11px;
+}
+
+th{
+  background:#00695c;
+  color:#fff;
+  padding:9px 7px;
+  text-align:left;
+  white-space:nowrap;
+  font-weight:700;
+}
+
+td{
+  padding:8px 7px;
+  border-bottom:1px solid #e4eeec;
+  white-space:nowrap;
+}
+
+tr:hover td{
+  background:#f4faf8;
+}
+
+.student-name{
+  font-weight:700;
+  color:#173f37;
+}
+
+.student-small{
+  font-size:9px;
+  color:#78908b;
+  margin-top:2px;
+}
+
 .status-paid{
-  color:#087f23;
-  font-weight:bold;
+  display:inline-block;
+  background:#e7f8eb;
+  color:#137333;
+  border:1px solid #bce7c4;
+  padding:3px 7px;
+  border-radius:20px;
+  font-size:9px;
+  font-weight:700;
 }
 
 .status-due{
-  color:#c77700;
-  font-weight:bold;
+  display:inline-block;
+  background:#fff3e3;
+  color:#b85b00;
+  border:1px solid #f1d19f;
+  padding:3px 7px;
+  border-radius:20px;
+  font-size:9px;
+  font-weight:700;
 }
 
-.student-count{
-  margin-top:10px;
-  padding:10px;
-  background:#f2f8f7;
-  border-radius:8px;
-  color:#14665b;
-  font-size:13px;
+.status-unpaid{
+  display:inline-block;
+  background:#fff0f0;
+  color:#c62828;
+  border:1px solid #ffcaca;
+  padding:3px 7px;
+  border-radius:20px;
+  font-size:9px;
+  font-weight:700;
 }
 
-.info-box{
-  padding:11px;
-  background:#f5faf9;
-  border-left:4px solid #00897b;
-  border-radius:7px;
-  margin-bottom:15px;
-  font-size:13px;
+.empty,
+.loading{
+  text-align:center;
+  padding:25px !important;
+  color:#819691;
 }
 
-.print-btn{
-  background:#5e35b1;
+/* MONTHLY */
+
+.monthly-wrap{
+  width:100%;
+  overflow-x:auto;
 }
 
-.print-btn:hover{
-  background:#4527a0;
+.monthly-table{
+  min-width:1250px;
 }
+
+.month-cell{
+  text-align:center;
+  min-width:75px;
+}
+
+.month-paid{
+  color:#137333;
+  font-weight:700;
+}
+
+.month-due{
+  color:#c25b00;
+  font-weight:700;
+}
+
+.month-none{
+  color:#aaa;
+}
+
+/* PRINT RECEIPT */
+
+#printArea{
+  display:none;
+}
+
+/* MOBILE */
 
 @media(max-width:800px){
 
+  .grid,
+  .grid-3{
+    grid-template-columns:1fr;
+  }
+
   .summary{
     grid-template-columns:1fr 1fr;
-  }
-
-  .grid{
-    grid-template-columns:1fr;
-  }
-
-  .full{
-    grid-column:auto;
-  }
-
-}
-
-@media(max-width:500px){
-
-  .summary{
-    grid-template-columns:1fr;
   }
 
   .container{
@@ -341,31 +444,73 @@ tr:hover td{
   }
 
   .card{
-    padding:14px;
-  }
-
-  .topbar{
-    padding:10px 12px;
+    padding:13px;
   }
 
   .brand{
-    font-size:15px;
+    font-size:14px;
   }
 
   .dashboard{
-    font-size:12px;
+    font-size:10px;
+  }
+}
+
+@media(max-width:430px){
+
+  .summary{
+    grid-template-columns:1fr 1fr;
   }
 
+  .summary-box strong{
+    font-size:15px;
+  }
+
+  .title{
+    font-size:16px;
+  }
+}
+
+/* PRINT */
+
+@media print{
+
+  body *{
+    visibility:hidden !important;
+  }
+
+  #printArea,
+  #printArea *{
+    visibility:visible !important;
+  }
+
+  #printArea{
+    display:block !important;
+    position:absolute;
+    left:0;
+    top:0;
+    width:100%;
+    padding:30px;
+    color:#000;
+    background:#fff;
+  }
+
+  .no-print{
+    display:none !important;
+  }
 }
 </style>
 </head>
 
 <body>
 
+<!-- HEADER -->
+
 <div class="topbar">
 
   <div class="brand">
     💰 Student Fees
+    <small>মাদরাসায়ে নূরুল কুরআন</small>
   </div>
 
   <a href="dashboard.html" class="dashboard">
@@ -380,7 +525,7 @@ tr:hover td{
 
 <!-- ======================================================
      SESSION + CLASS
-======================================================= -->
+====================================================== -->
 
 <div class="card">
 
@@ -388,24 +533,24 @@ tr:hover td{
     🔎 Class & Session অনুযায়ী শিক্ষার্থী নির্বাচন
   </h2>
 
+  <div class="subtitle">
+    Session নির্বাচন করুন → Class নির্বাচন করুন → শিক্ষার্থীর Fee দেখুন ও যোগ করুন।
+  </div>
+
   <div class="grid">
 
     <div class="form-group">
 
-      <label>
-        Session *
-      </label>
+      <label>Session *</label>
 
       <select id="sessionSelect">
-
         <option value="">
           Session নির্বাচন করুন
         </option>
-
       </select>
 
       <div class="hint">
-        Session নির্বাচন করলে ঐ Session-এর Class দেখাবে।
+        Students table-এর Session অনুযায়ী তালিকা তৈরি হবে।
       </div>
 
     </div>
@@ -413,9 +558,7 @@ tr:hover td{
 
     <div class="form-group">
 
-      <label>
-        Class *
-      </label>
+      <label>Class *</label>
 
       <select id="classSelect" disabled>
 
@@ -426,7 +569,7 @@ tr:hover td{
       </select>
 
       <div class="hint">
-        Class নির্বাচন করলে ঐ Class-এর শিক্ষার্থী আসবে।
+        ঐ Session-এর Class দেখাবে।
       </div>
 
     </div>
@@ -436,27 +579,21 @@ tr:hover td{
 
   <button
     class="btn refresh-btn"
-    onclick="reloadCurrent()"
+    onclick="initializePage(true)"
   >
     ↻ Refresh
   </button>
 
 
-  <div id="selectError"></div>
-
-  <div
-    id="studentCount"
-    class="student-count"
-    style="display:none"
-  ></div>
+  <div id="selectMessage" class="message"></div>
 
 </div>
 
 
 
 <!-- ======================================================
-     ADD / EDIT FEE
-======================================================= -->
+     ADD FEE
+====================================================== -->
 
 <div class="card">
 
@@ -464,25 +601,16 @@ tr:hover td{
     ➕ Add Fee Payment
   </h2>
 
-
-  <div class="info-box">
-
-    Session ও Class নির্বাচন করার পর এখান থেকে
-    Student নির্বাচন করে Fee Payment যোগ করুন।
-
+  <div class="info">
+    Session ও Class নির্বাচন করার পর এখান থেকে Student নির্বাচন করে Fee Payment যোগ করুন।
   </div>
 
 
   <div class="form-group">
 
-    <label>
-      Student *
-    </label>
+    <label>Student *</label>
 
-    <select
-      id="studentSelect"
-      disabled
-    >
+    <select id="studentSelect" disabled>
 
       <option value="">
         আগে Session ও Class নির্বাচন করুন
@@ -495,14 +623,9 @@ tr:hover td{
 
   <div class="grid">
 
-
-    <!-- MONTH -->
-
     <div class="form-group">
 
-      <label>
-        Fee Month *
-      </label>
+      <label>Fee Month *</label>
 
       <select id="feeMonth">
 
@@ -510,66 +633,27 @@ tr:hover td{
           মাস নির্বাচন করুন
         </option>
 
-        <option value="January">
-          January
-        </option>
-
-        <option value="February">
-          February
-        </option>
-
-        <option value="March">
-          March
-        </option>
-
-        <option value="April">
-          April
-        </option>
-
-        <option value="May">
-          May
-        </option>
-
-        <option value="June">
-          June
-        </option>
-
-        <option value="July">
-          July
-        </option>
-
-        <option value="August">
-          August
-        </option>
-
-        <option value="September">
-          September
-        </option>
-
-        <option value="October">
-          October
-        </option>
-
-        <option value="November">
-          November
-        </option>
-
-        <option value="December">
-          December
-        </option>
+        <option value="January">January</option>
+        <option value="February">February</option>
+        <option value="March">March</option>
+        <option value="April">April</option>
+        <option value="May">May</option>
+        <option value="June">June</option>
+        <option value="July">July</option>
+        <option value="August">August</option>
+        <option value="September">September</option>
+        <option value="October">October</option>
+        <option value="November">November</option>
+        <option value="December">December</option>
 
       </select>
 
     </div>
 
 
-    <!-- FEE -->
-
     <div class="form-group">
 
-      <label>
-        Fee Amount *
-      </label>
+      <label>Fee Amount *</label>
 
       <input
         type="number"
@@ -582,13 +666,9 @@ tr:hover td{
     </div>
 
 
-    <!-- PAID -->
-
     <div class="form-group">
 
-      <label>
-        Paid Amount *
-      </label>
+      <label>Paid Amount *</label>
 
       <input
         type="number"
@@ -601,13 +681,9 @@ tr:hover td{
     </div>
 
 
-    <!-- DATE -->
-
     <div class="form-group">
 
-      <label>
-        Payment Date
-      </label>
+      <label>Payment Date</label>
 
       <input
         type="date"
@@ -617,31 +693,16 @@ tr:hover td{
     </div>
 
 
-    <!-- METHOD -->
-
     <div class="form-group">
 
-      <label>
-        Payment Method
-      </label>
+      <label>Payment Method</label>
 
       <select id="paymentMethod">
 
-        <option value="Cash">
-          Cash
-        </option>
-
-        <option value="Bkash">
-          bKash
-        </option>
-
-        <option value="Nagad">
-          Nagad
-        </option>
-
-        <option value="Bank">
-          Bank
-        </option>
+        <option value="Cash">Cash</option>
+        <option value="Bkash">bKash</option>
+        <option value="Nagad">Nagad</option>
+        <option value="Bank">Bank</option>
 
       </select>
 
@@ -669,7 +730,7 @@ tr:hover td{
   </button>
 
 
-  <div id="paymentMessage"></div>
+  <div id="paymentMessage" class="message"></div>
 
 </div>
 
@@ -677,7 +738,7 @@ tr:hover td{
 
 <!-- ======================================================
      FEE COLLECTION
-======================================================= -->
+====================================================== -->
 
 <div class="card">
 
@@ -685,15 +746,15 @@ tr:hover td{
     💰 Fee Collection
   </h2>
 
-
   <div class="summary">
 
+    <div class="summary-box">
 
-    <div class="summary-box student">
+      <span class="summary-label">
+        Students
+      </span>
 
-      Students
-
-      <strong id="totalStudents">
+      <strong id="studentCount">
         0
       </strong>
 
@@ -702,7 +763,9 @@ tr:hover td{
 
     <div class="summary-box">
 
-      Total Fee
+      <span class="summary-label">
+        Total Fee
+      </span>
 
       <strong id="totalFee">
         0.00
@@ -713,7 +776,9 @@ tr:hover td{
 
     <div class="summary-box">
 
-      Paid
+      <span class="summary-label">
+        Paid
+      </span>
 
       <strong id="totalPaid">
         0.00
@@ -722,9 +787,11 @@ tr:hover td{
     </div>
 
 
-    <div class="summary-box due">
+    <div class="summary-box">
 
-      Due
+      <span class="summary-label">
+        Due
+      </span>
 
       <strong id="totalDue">
         0.00
@@ -735,13 +802,20 @@ tr:hover td{
   </div>
 
 
-  <input
-    class="search"
-    id="searchBox"
-    type="text"
-    placeholder="🔍 Student name / ID / Roll দিয়ে খুঁজুন..."
-    oninput="filterTable()"
-  >
+  <div class="search-wrap">
+
+    <span class="search-icon">
+      🔍
+    </span>
+
+    <input
+      id="searchBox"
+      type="text"
+      placeholder="Student name / ID / Roll / Month দিয়ে খুঁজুন..."
+      oninput="filterTable()"
+    >
+
+  </div>
 
 
   <div class="table-wrap">
@@ -752,49 +826,17 @@ tr:hover td{
 
         <tr>
 
-          <th>
-            Student
-          </th>
-
-          <th>
-            Class
-          </th>
-
-          <th>
-            Session
-          </th>
-
-          <th>
-            Month
-          </th>
-
-          <th>
-            Fee
-          </th>
-
-          <th>
-            Paid
-          </th>
-
-          <th>
-            Due
-          </th>
-
-          <th>
-            Date
-          </th>
-
-          <th>
-            Method
-          </th>
-
-          <th>
-            Status
-          </th>
-
-          <th>
-            Action
-          </th>
+          <th>Student</th>
+          <th>Class</th>
+          <th>Session</th>
+          <th>Month</th>
+          <th>Fee</th>
+          <th>Paid</th>
+          <th>Due</th>
+          <th>Date</th>
+          <th>Method</th>
+          <th>Status</th>
+          <th>Action</th>
 
         </tr>
 
@@ -809,9 +851,7 @@ tr:hover td{
             colspan="11"
             class="empty"
           >
-
             Session ও Class নির্বাচন করুন
-
           </td>
 
         </tr>
@@ -827,8 +867,8 @@ tr:hover td{
 
 
 <!-- ======================================================
-     MONTHLY STUDENT FEE STATUS
-======================================================= -->
+     MONTHLY STATUS
+====================================================== -->
 
 <div class="card">
 
@@ -836,78 +876,33 @@ tr:hover td{
     📊 Student Monthly Fee Status
   </h2>
 
-  <p style="font-size:13px;color:#718580">
-
-    নির্বাচিত Session ও Class-এর প্রত্যেক শিক্ষার্থীর
-    কোন মাসের Fee দেওয়া হয়েছে এবং কোন মাস Pending
-    তা এখানে দেখা যাবে।
-
-  </p>
+  <div class="subtitle">
+    নির্বাচিত Session ও Class-এর প্রত্যেক শিক্ষার্থীর ১২ মাসের Fee Status এখানে দেখা যাবে।
+  </div>
 
 
-  <div class="table-wrap">
+  <div class="monthly-wrap">
 
-    <table>
+    <table class="monthly-table">
 
       <thead>
 
         <tr>
 
-          <th>
-            Student
-          </th>
-
-          <th>
-            Roll
-          </th>
-
-          <th>
-            January
-          </th>
-
-          <th>
-            February
-          </th>
-
-          <th>
-            March
-          </th>
-
-          <th>
-            April
-          </th>
-
-          <th>
-            May
-          </th>
-
-          <th>
-            June
-          </th>
-
-          <th>
-            July
-          </th>
-
-          <th>
-            August
-          </th>
-
-          <th>
-            September
-          </th>
-
-          <th>
-            October
-          </th>
-
-          <th>
-            November
-          </th>
-
-          <th>
-            December
-          </th>
+          <th>Student</th>
+          <th>Roll</th>
+          <th>January</th>
+          <th>February</th>
+          <th>March</th>
+          <th>April</th>
+          <th>May</th>
+          <th>June</th>
+          <th>July</th>
+          <th>August</th>
+          <th>September</th>
+          <th>October</th>
+          <th>November</th>
+          <th>December</th>
 
         </tr>
 
@@ -922,9 +917,7 @@ tr:hover td{
             colspan="14"
             class="empty"
           >
-
             Session ও Class নির্বাচন করুন
-
           </td>
 
         </tr>
@@ -939,6 +932,14 @@ tr:hover td{
 
 
 </div>
+
+
+
+<!-- ======================================================
+     PRINT AREA
+====================================================== -->
+
+<div id="printArea"></div>
 
 
 
@@ -962,14 +963,42 @@ window.supabase.createClient(
 
 
 /* =========================================================
-   GLOBAL
+   GLOBAL DATA
 ========================================================= */
 
-let students = [];
-let fees = [];
-let allClasses = [];
+let allStudents = [];
+
+let currentStudents = [];
+
+let allFees = [];
+
+let currentFees = [];
+
+let classMap = {};
 
 let editingId = null;
+
+
+/* =========================================================
+   MONTHS
+========================================================= */
+
+const MONTHS = [
+
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December"
+
+];
 
 
 /* =========================================================
@@ -1001,9 +1030,9 @@ document.getElementById(
   "monthlyTable"
 );
 
-const totalStudents =
+const studentCount =
 document.getElementById(
-  "totalStudents"
+  "studentCount"
 );
 
 const totalFee =
@@ -1021,9 +1050,9 @@ document.getElementById(
   "totalDue"
 );
 
-const selectError =
+const selectMessage =
 document.getElementById(
-  "selectError"
+  "selectMessage"
 );
 
 const paymentMessage =
@@ -1041,33 +1070,6 @@ document.getElementById(
   "cancelBtn"
 );
 
-const studentCount =
-document.getElementById(
-  "studentCount"
-);
-
-
-/* =========================================================
-   MONTHS
-========================================================= */
-
-const MONTHS = [
-
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December"
-
-];
-
 
 /* =========================================================
    TODAY
@@ -1075,42 +1077,78 @@ const MONTHS = [
 
 function today(){
 
-  const d =
-    new Date();
+  const d = new Date();
 
-  return (
+  const y =
+    d.getFullYear();
 
-    d.getFullYear()
-    +
-    "-"
-    +
+  const m =
     String(
       d.getMonth()+1
-    ).padStart(2,"0")
-    +
-    "-"
-    +
+    ).padStart(2,"0");
+
+  const day =
     String(
       d.getDate()
-    ).padStart(2,"0")
+    ).padStart(2,"0");
 
-  );
+  return `${y}-${m}-${day}`;
 
 }
 
 
 /* =========================================================
-   DOM LOAD
+   PAGE LOAD
 ========================================================= */
 
 document.addEventListener(
-"DOMContentLoaded",
-async()=>{
+  "DOMContentLoaded",
+  async()=>{
 
-  document.getElementById(
-    "paymentDate"
-  ).value =
-    today();
+    document.getElementById(
+      "paymentDate"
+    ).value = today();
+
+    await initializePage();
+
+  }
+);
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+async function initializePage(
+  refresh = false
+){
+
+  clearSelectMessage();
+
+  if(refresh){
+
+    sessionSelect.innerHTML =
+      `<option value="">
+        Loading...
+      </option>`;
+
+    classSelect.innerHTML =
+      `<option value="">
+        আগে Session নির্বাচন করুন
+      </option>`;
+
+    classSelect.disabled =
+      true;
+
+    studentSelect.innerHTML =
+      `<option value="">
+        আগে Session ও Class নির্বাচন করুন
+      </option>`;
+
+    studentSelect.disabled =
+      true;
+
+  }
 
 
   const {
@@ -1129,47 +1167,9 @@ async()=>{
   }
 
 
-  await loadInitialData();
+  await loadStudents();
 
-});
-
-
-/* =========================================================
-   INITIAL DATA
-========================================================= */
-
-async function loadInitialData(){
-
-  clearSelectError();
-
-
-  /*
-    প্রথমে Students load করছি।
-    কারণ এখান থেকেই Session/Class পাওয়া যাবে।
-  */
-
-  const result =
-    await supabaseClient
-      .from("students")
-      .select("*");
-
-
-  if(result.error){
-
-    showSelectError(
-      "Student load error: "
-      +
-      result.error.message
-    );
-
-    return;
-
-  }
-
-
-  students =
-    result.data || [];
-
+  await loadFeesDatabase();
 
   buildSessions();
 
@@ -1177,65 +1177,235 @@ async function loadInitialData(){
 
 
 /* =========================================================
-   GET STUDENT SESSION
+   LOAD STUDENTS
 ========================================================= */
 
-function getStudentSession(student){
+async function loadStudents(){
 
-  return String(
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+    .from("students")
+    .select("*");
 
-    student.session
-    ??
-    student.year_session
-    ??
-    student.year
-    ??
-    ""
 
-  ).trim();
+  if(error){
+
+    showSelectError(
+      "Students load error: " +
+      error.message
+    );
+
+    allStudents = [];
+
+    return;
+
+  }
+
+
+  allStudents =
+    data || [];
+
+
+  if(!allStudents.length){
+
+    showSelectError(
+      "Students table-এ কোনো Student পাওয়া যায়নি।"
+    );
+
+    return;
+
+  }
+
+
+  /*
+    Class information-এর জন্য
+    সম্ভাব্য field detect করা হচ্ছে।
+  */
+
+  buildClassMap();
 
 }
 
 
 /* =========================================================
-   GET STUDENT CLASS
+   BUILD CLASS MAP
 ========================================================= */
 
-function getStudentClass(student){
+function buildClassMap(){
 
-  return String(
+  classMap = {};
 
-    student.class_name
-    ??
-    student.class
-    ??
-    student.className
-    ??
-    ""
+  allStudents.forEach(student=>{
 
-  ).trim();
+    const classId =
+      getClassId(student);
+
+    const className =
+      getClassNameFromStudent(
+        student
+      );
+
+
+    if(classId !== null){
+
+      classMap[
+        String(classId)
+      ] =
+        className;
+
+    }
+
+  });
 
 }
 
 
 /* =========================================================
-   BUILD SESSION
+   GET SESSION
+========================================================= */
+
+function getStudentSession(
+  student
+){
+
+  return cleanValue(
+
+    student.session ??
+
+    student.academic_session ??
+
+    student.session_name ??
+
+    student.year ??
+
+    ""
+
+  );
+
+}
+
+
+/* =========================================================
+   GET CLASS ID
+========================================================= */
+
+function getClassId(
+  student
+){
+
+  const value =
+
+    student.class_id ??
+
+    student.classId ??
+
+    student.classid ??
+
+    null;
+
+
+  if(
+    value === null ||
+    value === ""
+  ){
+
+    return null;
+
+  }
+
+
+  return String(value);
+
+}
+
+
+/* =========================================================
+   GET CLASS NAME
+========================================================= */
+
+function getClassNameFromStudent(
+  student
+){
+
+  return cleanValue(
+
+    student.class_name ??
+
+    student.className ??
+
+    student.class_title ??
+
+    student.class ??
+
+    student.classname ??
+
+    classMap[
+      String(
+        getClassId(student)
+      )
+    ] ??
+
+    "-"
+
+  );
+
+}
+
+
+/* =========================================================
+   BUILD SESSIONS
 ========================================================= */
 
 function buildSessions(){
 
-  const sessions =
-    [
-      ...new Set(
+  const sessions = [
 
-        students
-          .map(
-            getStudentSession
-          )
-          .filter(Boolean)
+    ...new Set(
 
-      )
-    ];
+      allStudents
+
+        .map(
+          getStudentSession
+        )
+
+        .filter(Boolean)
+
+    )
+
+  ];
+
+
+  sessions.sort(
+    (a,b)=>{
+
+      const na =
+        Number(a);
+
+      const nb =
+        Number(b);
+
+
+      if(
+        Number.isFinite(na) &&
+        Number.isFinite(nb)
+      ){
+
+        return nb-na;
+
+      }
+
+
+      return String(a)
+        .localeCompare(
+          String(b),
+          "bn"
+        );
+
+    }
+  );
 
 
   sessionSelect.innerHTML =
@@ -1244,9 +1414,8 @@ function buildSessions(){
     </option>`;
 
 
-  sessions
-    .sort()
-    .forEach(session=>{
+  sessions.forEach(
+    session=>{
 
       const option =
         document.createElement(
@@ -1263,13 +1432,14 @@ function buildSessions(){
         option
       );
 
-    });
+    }
+  );
 
 
   if(!sessions.length){
 
     showSelectError(
-      "students table-এ কোনো Session পাওয়া যায়নি।"
+      "Students table-এ Session পাওয়া যায়নি। students table-এর session column-এ Session দিতে হবে।"
     );
 
   }
@@ -1282,119 +1452,147 @@ function buildSessions(){
 ========================================================= */
 
 sessionSelect.addEventListener(
-"change",
-async()=>{
+  "change",
+  ()=>{
 
-  const session =
-    sessionSelect.value;
-
-
-  classSelect.innerHTML =
-    `<option value="">
-      Class নির্বাচন করুন
-    </option>`;
+    const session =
+      sessionSelect.value;
 
 
-  studentSelect.innerHTML =
-    `<option value="">
-      আগে Class নির্বাচন করুন
-    </option>`;
+    classSelect.innerHTML =
+      `<option value="">
+        Class নির্বাচন করুন
+      </option>`;
 
 
-  studentSelect.disabled =
-    true;
+    studentSelect.innerHTML =
+      `<option value="">
+        আগে Class নির্বাচন করুন
+      </option>`;
 
 
-  clearSelectError();
-
-
-  if(!session){
-
-    classSelect.disabled =
+    studentSelect.disabled =
       true;
 
-    showEmptyTable();
 
-    return;
+    clearSelectMessage();
+
+
+    if(!session){
+
+      classSelect.disabled =
+        true;
+
+      showEmptyTable();
+
+      return;
+
+    }
+
+
+    classSelect.disabled =
+      false;
+
+
+    buildClasses(
+      session
+    );
 
   }
-
-
-  buildClasses(session);
-
-});
+);
 
 
 /* =========================================================
    BUILD CLASSES
 ========================================================= */
 
-function buildClasses(session){
-
-  /*
-    class_name থাকলে সেটি ব্যবহার করবে।
-    class_id থাকলেও সমস্যা হবে না।
-  */
+function buildClasses(
+  session
+){
 
   const filtered =
-    students.filter(
+    allStudents.filter(
       student =>
-        getStudentSession(student)
-        ===
-        String(session)
+        getStudentSession(
+          student
+        ) === session
     );
 
 
-  const classNames =
-    [
-      ...new Set(
-
-        filtered
-          .map(
-            getStudentClass
-          )
-          .filter(Boolean)
-
-      )
-    ];
+  const unique =
+    new Map();
 
 
-  classSelect.innerHTML =
-    `<option value="">
-      Class নির্বাচন করুন
-    </option>`;
+  filtered.forEach(
+    student=>{
 
+      const id =
+        getClassId(student);
 
-  classNames
-    .sort()
-    .forEach(name=>{
-
-      const option =
-        document.createElement(
-          "option"
+      const name =
+        getClassNameFromStudent(
+          student
         );
 
-      option.value =
-        name;
 
-      option.textContent =
-        name;
+      /*
+        যদি class_id থাকে
+      */
 
-      classSelect.appendChild(
-        option
-      );
+      if(id !== null){
 
-    });
+        unique.set(
+          String(id),
+          name
+        );
+
+      }
+
+      /*
+        class_id না থাকলে
+        class name দিয়েই option বানাবে।
+      */
+
+      else if(name !== "-"){
+
+        unique.set(
+          name,
+          name
+        );
+
+      }
+
+    }
+  );
 
 
-  classSelect.disabled =
-    false;
+  [...unique.entries()]
+    .forEach(
+      ([id,name])=>{
+
+        const option =
+          document.createElement(
+            "option"
+          );
+
+        option.value =
+          id;
+
+        option.textContent =
+          name;
+
+        classSelect.appendChild(
+          option
+        );
+
+      }
+    );
 
 
-  if(!classNames.length){
+  if(!unique.size){
 
     showSelectError(
-      "এই Session-এর Student-দের মধ্যে কোনো Class পাওয়া যায়নি।"
+      "এই Session-এর Student আছে, কিন্তু Class information পাওয়া যায়নি।"
     );
 
   }
@@ -1407,126 +1605,109 @@ function buildClasses(session){
 ========================================================= */
 
 classSelect.addEventListener(
-"change",
-async()=>{
+  "change",
+  async()=>{
 
-  const session =
-    sessionSelect.value;
+    const session =
+      sessionSelect.value;
 
-  const className =
-    classSelect.value;
+    const classId =
+      classSelect.value;
 
-
-  clearSelectError();
-
-
-  if(!session || !className){
 
     studentSelect.innerHTML =
       `<option value="">
         Student নির্বাচন করুন
       </option>`;
 
+
     studentSelect.disabled =
       true;
 
-    showEmptyTable();
 
-    return;
+    if(!session || !classId){
 
-  }
+      showEmptyTable();
 
-
-  await loadStudentsForSelection(
-    session,
-    className
-  );
-
-
-  await loadFees(
-    session,
-    className
-  );
-
-});
-
-
-/* =========================================================
-   LOAD STUDENTS
-========================================================= */
-
-async function loadStudentsForSelection(
-session,
-className
-){
-
-  /*
-    Already loaded students থেকে
-    Session + Class filter করছি।
-  */
-
-  students =
-    students.filter(
-      student => {
-
-        const s =
-          getStudentSession(
-            student
-          );
-
-        const c =
-          getStudentClass(
-            student
-          );
-
-        return (
-
-          s === String(session)
-          &&
-          c === String(className)
-
-        );
-
-      }
-    );
-
-
-  /*
-    যদি আবার অন্য Session নির্বাচন করে,
-    global students হারিয়ে না যায়।
-    তাই database থেকে আবার load করা হবে।
-  */
-
-  if(!students.length){
-
-    const result =
-      await supabaseClient
-        .from("students")
-        .select("*");
-
-
-    if(!result.error){
-
-      const all =
-        result.data || [];
-
-
-      students =
-        all.filter(
-          student =>
-            getStudentSession(student)
-            ===
-            String(session)
-            &&
-            getStudentClass(student)
-            ===
-            String(className)
-        );
+      return;
 
     }
 
-  }
 
+    currentStudents =
+      getStudentsByClass(
+        session,
+        classId
+      );
+
+
+    buildStudentSelect();
+
+    filterCurrentFees();
+
+  }
+);
+
+
+/* =========================================================
+   GET STUDENTS BY CLASS
+========================================================= */
+
+function getStudentsByClass(
+  session,
+  classId
+){
+
+  return allStudents.filter(
+    student=>{
+
+      if(
+        getStudentSession(
+          student
+        ) !== session
+      ){
+
+        return false;
+
+      }
+
+
+      const studentClassId =
+        getClassId(student);
+
+
+      if(studentClassId !== null){
+
+        return (
+          String(studentClassId) ===
+          String(classId)
+        );
+
+      }
+
+
+      const name =
+        getClassNameFromStudent(
+          student
+        );
+
+
+      return (
+        String(name) ===
+        String(classId)
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   BUILD STUDENT SELECT
+========================================================= */
+
+function buildStudentSelect(){
 
   studentSelect.innerHTML =
     `<option value="">
@@ -1534,74 +1715,89 @@ className
     </option>`;
 
 
-  students.forEach(student=>{
+  if(!currentStudents.length){
 
-    const option =
-      document.createElement(
-        "option"
-      );
+    studentSelect.innerHTML =
+      `<option value="">
+        এই Class-এ কোনো Student নেই
+      </option>`;
 
+    return;
 
-    /*
-      fees.student_id সাধারণত
-      students.id-এর সাথে থাকবে।
-    */
-
-    option.value =
-      String(
-        student.id
-      );
+  }
 
 
-    const name =
-      student.student_name
-      ??
-      student.name
-      ??
-      student.name_en
-      ??
-      "Unnamed Student";
+  const sorted =
+    [...currentStudents].sort(
+      (a,b)=>{
 
+        const ra =
+          Number(
+            a.roll_no ??
+            a.roll ??
+            999999
+          );
 
-    const sid =
-      student.student_id
-      ??
-      "-";
+        const rb =
+          Number(
+            b.roll_no ??
+            b.roll ??
+            999999
+          );
 
+        return ra-rb;
 
-    const roll =
-      student.roll_no
-      ??
-      student.roll
-      ??
-      "-";
-
-
-    option.textContent =
-      `${roll} - ${name} (${sid})`;
-
-
-    studentSelect.appendChild(
-      option
+      }
     );
 
-  });
+
+  sorted.forEach(
+    student=>{
+
+      const option =
+        document.createElement(
+          "option"
+        );
+
+
+      option.value =
+        String(
+          student.id
+        );
+
+
+      const name =
+        getStudentName(
+          student
+        );
+
+
+      const sid =
+        getStudentCode(
+          student
+        );
+
+
+      const roll =
+        getRoll(
+          student
+        );
+
+
+      option.textContent =
+        `${roll} - ${name} (${sid})`;
+
+
+      studentSelect.appendChild(
+        option
+      );
+
+    }
+  );
 
 
   studentSelect.disabled =
-    !students.length;
-
-
-  totalStudents.textContent =
-    students.length;
-
-
-  studentCount.style.display =
-    "block";
-
-
-  studentCount.innerHTML =
-    `👨‍🎓 এই Class-এ মোট <strong>${students.length}</strong> জন শিক্ষার্থী পাওয়া গেছে।`;
+    false;
 
 }
 
@@ -1610,55 +1806,129 @@ className
    LOAD FEES
 ========================================================= */
 
-async function loadFees(
-session,
-className
+async function loadFeesDatabase(){
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+    .from("fees")
+    .select("*")
+    .order(
+      "payment_date",
+      {
+        ascending:false
+      }
+    );
+
+
+  if(error){
+
+    console.error(
+      "Fees load error:",
+      error
+    );
+
+
+    allFees = [];
+
+
+    showPaymentError(
+      "Fees load error: " +
+      error.message
+    );
+
+
+    return;
+
+  }
+
+
+  allFees =
+    data || [];
+
+}
+
+
+/* =========================================================
+   FILTER FEES
+========================================================= */
+
+function filterCurrentFees(){
+
+  const ids =
+    new Set(
+
+      currentStudents.map(
+        student =>
+          String(student.id)
+      )
+
+    );
+
+
+  currentFees =
+    allFees.filter(
+      fee =>
+        ids.has(
+          String(
+            fee.student_id
+          )
+        )
+    );
+
+
+  renderFees(
+    currentFees
+  );
+
+
+  renderMonthlyStatus();
+
+}
+
+
+/* =========================================================
+   RENDER FEES
+========================================================= */
+
+function renderFees(
+  data
 ){
 
   feeTable.innerHTML =
-    `<tr>
-      <td colspan="11" class="loading">
-        Loading Fee Records...
-      </td>
-    </tr>`;
+    "";
 
 
-  /*
-    IMPORTANT:
-    এখানে students!inner relationship
-    ব্যবহার করা হচ্ছে না।
+  let feeTotal = 0;
 
-    তাই Supabase foreign relationship
-    না থাকলেও কাজ করবে।
-  */
-
-  const result =
-    await supabaseClient
-      .from("fees")
-      .select("*")
-      .order(
-        "payment_date",
-        {
-          ascending:false
-        }
-      );
+  let paidTotal = 0;
 
 
-  if(result.error){
+  studentCount.textContent =
+    currentStudents.length;
+
+
+  if(!currentStudents.length){
+
+    showEmptyTable(
+      "Session ও Class নির্বাচন করুন।"
+    );
+
+    return;
+
+  }
+
+
+  if(!data.length){
 
     feeTable.innerHTML =
       `<tr>
-        <td
-          colspan="11"
-          class="empty"
-        >
-          Fee load error:
-          ${escapeHtml(
-            result.error.message
-          )}
+        <td colspan="11" class="empty">
+          এই Class-এর কোনো Fee Payment পাওয়া যায়নি।
         </td>
       </tr>`;
-
 
     updateSummary(
       0,
@@ -1670,322 +1940,238 @@ className
   }
 
 
-  const selectedStudentIds =
-    new Set(
+  data.forEach(
+    row=>{
 
-      students.map(
-        student =>
-          String(
-            student.id
+      const student =
+        findStudent(
+          row.student_id
+        );
+
+
+      if(!student){
+        return;
+      }
+
+
+      const fee =
+        getFeeAmount(row);
+
+
+      const paid =
+        getPaidAmount(row);
+
+
+      const due =
+        Math.max(
+          fee-paid,
+          0
+        );
+
+
+      feeTotal += fee;
+
+      paidTotal += paid;
+
+
+      const tr =
+        document.createElement(
+          "tr"
+        );
+
+
+      const name =
+        escapeHtml(
+          getStudentName(
+            student
           )
-      )
-
-    );
+        );
 
 
-  fees =
-    (result.data || [])
-      .filter(
-        fee =>
-          selectedStudentIds.has(
-            String(
-              fee.student_id
-            )
+      const sid =
+        escapeHtml(
+          getStudentCode(
+            student
           )
+        );
+
+
+      const roll =
+        escapeHtml(
+          getRoll(
+            student
+          )
+        );
+
+
+      const className =
+        escapeHtml(
+          getClassNameFromStudent(
+            student
+          )
+        );
+
+
+      const session =
+        escapeHtml(
+          getStudentSession(
+            student
+          )
+        );
+
+
+      const month =
+        escapeHtml(
+          row.fee_month ??
+          row.month ??
+          "-"
+        );
+
+
+      const date =
+        escapeHtml(
+          row.payment_date ??
+          row.date ??
+          "-"
+        );
+
+
+      const method =
+        escapeHtml(
+          row.payment_method ??
+          row.method ??
+          "Cash"
+        );
+
+
+      let status = "";
+
+
+      if(paid >= fee){
+
+        status =
+          `<span class="status-paid">
+            Paid
+          </span>`;
+
+      }
+
+      else if(paid > 0){
+
+        status =
+          `<span class="status-due">
+            Partial
+          </span>`;
+
+      }
+
+      else{
+
+        status =
+          `<span class="status-unpaid">
+            Unpaid
+          </span>`;
+
+      }
+
+
+      tr.innerHTML = `
+
+        <td>
+
+          <div class="student-name">
+            ${name}
+          </div>
+
+          <div class="student-small">
+            ID: ${sid} |
+            Roll: ${roll}
+          </div>
+
+        </td>
+
+
+        <td>
+          ${className}
+        </td>
+
+
+        <td>
+          ${session}
+        </td>
+
+
+        <td>
+          ${month}
+        </td>
+
+
+        <td>
+          ${money(fee)}
+        </td>
+
+
+        <td>
+          ${money(paid)}
+        </td>
+
+
+        <td>
+          ${money(due)}
+        </td>
+
+
+        <td>
+          ${date}
+        </td>
+
+
+        <td>
+          ${method}
+        </td>
+
+
+        <td>
+          ${status}
+        </td>
+
+
+        <td>
+
+          <button
+            class="btn edit-btn small-btn"
+            onclick="editFee(${Number(row.id)})"
+          >
+            Edit
+          </button>
+
+
+          <button
+            class="btn delete-btn small-btn"
+            onclick="deleteFee(${Number(row.id)})"
+          >
+            Delete
+          </button>
+
+
+          <button
+            class="btn print-btn small-btn"
+            onclick="printReceipt(${Number(row.id)})"
+          >
+            Print
+          </button>
+
+        </td>
+
+      `;
+
+
+      feeTable.appendChild(
+        tr
       );
-
-
-  renderFees(
-    fees
-  );
-
-
-  renderMonthlyStatus(
-    fees
-  );
-
-}
-
-
-/* =========================================================
-   FIND STUDENT
-========================================================= */
-
-function findStudent(
-studentId
-){
-
-  return students.find(
-    student =>
-      String(
-        student.id
-      )
-      ===
-      String(studentId)
-  );
-
-}
-
-
-/* =========================================================
-   RENDER FEES
-========================================================= */
-
-function renderFees(data){
-
-  feeTable.innerHTML =
-    "";
-
-
-  let feeTotal =
-    0;
-
-  let paidTotal =
-    0;
-
-
-  if(!data.length){
-
-    showEmptyTable(
-      "এই Session ও Class-এর কোনো Fee record নেই।"
-    );
-
-    renderMonthlyStatus([]);
-
-    return;
-
-  }
-
-
-  data.forEach(row=>{
-
-    const student =
-      findStudent(
-        row.student_id
-      );
-
-
-    if(!student){
-
-      return;
 
     }
-
-
-    const fee =
-      Number(
-        row.amount
-      )
-      || 0;
-
-
-    const paid =
-      Number(
-        row.paid_amount
-      )
-      || 0;
-
-
-    const due =
-      Math.max(
-        0,
-        fee-paid
-      );
-
-
-    feeTotal +=
-      fee;
-
-    paidTotal +=
-      paid;
-
-
-    const name =
-      escapeHtml(
-
-        student.student_name
-        ??
-        student.name
-        ??
-        student.name_en
-        ??
-        "-"
-
-      );
-
-
-    const sid =
-      escapeHtml(
-
-        student.student_id
-        ??
-        "-"
-
-      );
-
-
-    const roll =
-      escapeHtml(
-
-        student.roll_no
-        ??
-        student.roll
-        ??
-        "-"
-
-      );
-
-
-    const cls =
-      escapeHtml(
-        getStudentClass(student)
-      );
-
-
-    const ses =
-      escapeHtml(
-        getStudentSession(student)
-      );
-
-
-    const month =
-      escapeHtml(
-        row.fee_month
-        ??
-        "-"
-      );
-
-
-    const date =
-      escapeHtml(
-        row.payment_date
-        ??
-        "-"
-      );
-
-
-    const method =
-      escapeHtml(
-        row.payment_method
-        ??
-        "-"
-      );
-
-
-    const status =
-      due <= 0
-      ?
-
-      `<span class="status-paid">
-        PAID
-      </span>`
-
-      :
-
-      `<span class="status-due">
-        DUE
-      </span>`;
-
-
-    const tr =
-      document.createElement(
-        "tr"
-      );
-
-
-    tr.innerHTML = `
-
-      <td>
-
-        ${name}
-
-        <div class="student-small">
-
-          ID:
-          ${sid}
-
-          |
-
-          Roll:
-          ${roll}
-
-        </div>
-
-      </td>
-
-
-      <td>
-        ${cls}
-      </td>
-
-
-      <td>
-        ${ses}
-      </td>
-
-
-      <td>
-        ${month}
-      </td>
-
-
-      <td>
-        ${fee.toFixed(2)}
-      </td>
-
-
-      <td>
-        ${paid.toFixed(2)}
-      </td>
-
-
-      <td>
-        ${due.toFixed(2)}
-      </td>
-
-
-      <td>
-        ${date}
-      </td>
-
-
-      <td>
-        ${method}
-      </td>
-
-
-      <td>
-        ${status}
-      </td>
-
-
-      <td>
-
-        <button
-          class="btn edit-btn small-btn"
-          onclick="editFee(${Number(row.id)})"
-        >
-          ✏️ Edit
-        </button>
-
-
-        <button
-          class="btn delete-btn small-btn"
-          onclick="deleteFee(${Number(row.id)})"
-        >
-          🗑 Delete
-        </button>
-
-      </td>
-
-    `;
-
-
-    feeTable.appendChild(
-      tr
-    );
-
-  });
+  );
 
 
   updateSummary(
@@ -2000,20 +2186,18 @@ function renderFees(data){
    MONTHLY STATUS
 ========================================================= */
 
-function renderMonthlyStatus(
-data
-){
+function renderMonthlyStatus(){
 
   monthlyTable.innerHTML =
     "";
 
 
-  if(!students.length){
+  if(!currentStudents.length){
 
     monthlyTable.innerHTML =
       `<tr>
         <td colspan="14" class="empty">
-          কোনো Student নেই।
+          Session ও Class নির্বাচন করুন
         </td>
       </tr>`;
 
@@ -2022,231 +2206,185 @@ data
   }
 
 
-  students.forEach(student=>{
+  const sorted =
+    [...currentStudents].sort(
+      (a,b)=>{
 
-    const name =
-      escapeHtml(
+        const ra =
+          Number(
+            a.roll_no ??
+            a.roll ??
+            999999
+          );
 
-        student.student_name
-        ??
-        student.name
-        ??
-        student.name_en
-        ??
-        "-"
+        const rb =
+          Number(
+            b.roll_no ??
+            b.roll ??
+            999999
+          );
 
-      );
-
-
-    const roll =
-      escapeHtml(
-
-        student.roll_no
-        ??
-        student.roll
-        ??
-        "-"
-
-      );
-
-
-    const tr =
-      document.createElement(
-        "tr"
-      );
-
-
-    let html = `
-
-      <td>
-
-        ${name}
-
-        <div class="student-small">
-
-          ID:
-          ${escapeHtml(
-            student.student_id
-            ??
-            "-"
-          )}
-
-        </div>
-
-      </td>
-
-
-      <td>
-        ${roll}
-      </td>
-
-    `;
-
-
-    MONTHS.forEach(month=>{
-
-      const records =
-        data.filter(
-          fee =>
-
-            String(
-              fee.student_id
-            )
-            ===
-            String(student.id)
-
-            &&
-
-            String(
-              fee.fee_month
-              ??
-              ""
-            )
-            ===
-            month
-
-        );
-
-
-      if(!records.length){
-
-        html += `
-
-          <td>
-
-            <span class="status-due">
-              Pending
-            </span>
-
-          </td>
-
-        `;
-
-        return;
+        return ra-rb;
 
       }
+    );
 
 
-      const paid =
-        records.reduce(
-          (
-            total,
-            item
-          ) =>
-            total
-            +
-            (
-              Number(
-                item.paid_amount
-              )
-              || 0
-            ),
-          0
+  sorted.forEach(
+    student=>{
+
+      const tr =
+        document.createElement(
+          "tr"
         );
 
 
-      const amount =
-        records.reduce(
-          (
-            total,
-            item
-          ) =>
-            total
-            +
-            (
-              Number(
-                item.amount
-              )
-              || 0
-            ),
-          0
+      const studentFees =
+        currentFees.filter(
+          fee =>
+            String(
+              fee.student_id
+            ) ===
+            String(
+              student.id
+            )
         );
 
 
-      const due =
-        Math.max(
-          0,
-          amount-paid
-        );
-
-
-      html += `
+      let html = `
 
         <td>
 
-          ${
-            due <= 0
+          <div class="student-name">
+            ${escapeHtml(
+              getStudentName(student)
+            )}
+          </div>
 
-            ?
+          <div class="student-small">
+            ID:
+            ${escapeHtml(
+              getStudentCode(student)
+            )}
+          </div>
 
-            `<span class="status-paid">
-              ✅ Paid
-            </span>`
+        </td>
 
-            :
 
-            `<span class="status-due">
-              Due ${due.toFixed(0)}
-            </span>`
-
-          }
-
+        <td>
+          ${escapeHtml(
+            getRoll(student)
+          )}
         </td>
 
       `;
 
-    });
+
+      MONTHS.forEach(
+        month=>{
+
+          const records =
+            studentFees.filter(
+              fee =>
+
+                String(
+                  fee.fee_month ??
+                  fee.month ??
+                  ""
+                ).toLowerCase() ===
+                month.toLowerCase()
+
+            );
 
 
-    tr.innerHTML =
-      html;
+          let fee = 0;
+
+          let paid = 0;
 
 
-    monthlyTable.appendChild(
-      tr
-    );
+          records.forEach(
+            record=>{
 
-  });
+              fee +=
+                getFeeAmount(
+                  record
+                );
 
-}
+              paid +=
+                getPaidAmount(
+                  record
+                );
 
-
-/* =========================================================
-   SUMMARY
-========================================================= */
-
-function updateSummary(
-fee,
-paid
-){
-
-  const f =
-    Number(fee)
-    || 0;
+            }
+          );
 
 
-  const p =
-    Number(paid)
-    || 0;
+          if(!records.length){
+
+            html += `
+
+              <td class="month-cell">
+
+                <span class="month-none">
+                  —
+                </span>
+
+              </td>
+
+            `;
+
+          }
+
+          else if(
+            paid >= fee
+          ){
+
+            html += `
+
+              <td class="month-cell">
+
+                <span class="month-paid">
+                  ✓ ${money(paid)}
+                </span>
+
+              </td>
+
+            `;
+
+          }
+
+          else{
+
+            html += `
+
+              <td class="month-cell">
+
+                <span class="month-due">
+                  ${money(paid)}
+                  /
+                  ${money(fee)}
+                </span>
+
+              </td>
+
+            `;
+
+          }
+
+        }
+      );
 
 
-  const due =
-    Math.max(
-      0,
-      f-p
-    );
+      tr.innerHTML =
+        html;
 
 
-  totalFee.textContent =
-    f.toFixed(2);
+      monthlyTable.appendChild(
+        tr
+      );
 
-
-  totalPaid.textContent =
-    p.toFixed(2);
-
-
-  totalDue.textContent =
-    due.toFixed(2);
+    }
+  );
 
 }
 
@@ -2257,8 +2395,7 @@ paid
 
 async function savePayment(){
 
-  paymentMessage.innerHTML =
-    "";
+  clearPaymentMessage();
 
 
   const studentId =
@@ -2290,8 +2427,7 @@ async function savePayment(){
   const paymentDate =
     document.getElementById(
       "paymentDate"
-    ).value
-    ||
+    ).value ||
     null;
 
 
@@ -2326,8 +2462,7 @@ async function savePayment(){
 
 
   if(
-    !Number.isFinite(amount)
-    ||
+    !Number.isFinite(amount) ||
     amount <= 0
   ){
 
@@ -2341,8 +2476,7 @@ async function savePayment(){
 
 
   if(
-    !Number.isFinite(paidAmount)
-    ||
+    !Number.isFinite(paidAmount) ||
     paidAmount < 0
   ){
 
@@ -2355,7 +2489,9 @@ async function savePayment(){
   }
 
 
-  if(paidAmount > amount){
+  if(
+    paidAmount > amount
+  ){
 
     showPaymentError(
       "Paid Amount Fee Amount-এর বেশি হতে পারবে না।"
@@ -2367,49 +2503,9 @@ async function savePayment(){
 
 
   /*
-    Duplicate month check:
-    একই student + একই month
-    থাকলে নতুন record না করে
-    user-কে জানাবে।
+    এখানে relationship / upsert ব্যবহার করা হয়নি।
+    সরাসরি fees table-এ insert/update হবে।
   */
-
-  if(!editingId){
-
-    const duplicate =
-      fees.find(
-        fee =>
-
-          String(
-            fee.student_id
-          )
-          ===
-          String(studentId)
-
-          &&
-
-          String(
-            fee.fee_month
-            ??
-            ""
-          )
-          ===
-          String(month)
-
-      );
-
-
-    if(duplicate){
-
-      showPaymentError(
-        `${month} মাসের Fee এই Student-এর জন্য আগে থেকেই আছে। Edit ব্যবহার করুন।`
-      );
-
-      return;
-
-    }
-
-  }
-
 
   const record = {
 
@@ -2440,16 +2536,16 @@ async function savePayment(){
 
   saveBtn.textContent =
     editingId
-      ?
-      "Updating..."
-      :
-      "Saving...";
+      ? "Updating..."
+      : "Saving...";
 
 
   try{
 
     let result;
 
+
+    /* UPDATE */
 
     if(editingId){
 
@@ -2460,11 +2556,12 @@ async function savePayment(){
           .eq(
             "id",
             Number(editingId)
-          )
-          .select()
-          .single();
+          );
 
     }
+
+
+    /* INSERT */
 
     else{
 
@@ -2473,14 +2570,18 @@ async function savePayment(){
           .from("fees")
           .insert([
             record
-          ])
-          .select()
-          .single();
+          ]);
 
     }
 
 
     if(result.error){
+
+      console.error(
+        "Save error:",
+        result.error
+      );
+
 
       showPaymentError(
         result.error.message
@@ -2492,44 +2593,24 @@ async function savePayment(){
 
 
     showPaymentSuccess(
-
       editingId
-
-      ?
-
-      "Fee Payment সফলভাবে Update হয়েছে।"
-
-      :
-
-      "Fee Payment সফলভাবে Save হয়েছে।"
-
+        ? "Fee Payment সফলভাবে Update হয়েছে।"
+        : "Fee Payment সফলভাবে Save হয়েছে।"
     );
-
-
-    const currentSession =
-      sessionSelect.value;
-
-
-    const currentClass =
-      classSelect.value;
 
 
     resetFeeForm();
 
 
-    /*
-      Student data আবার load
-      করার দরকার নেই।
-    */
+    await loadFeesDatabase();
 
-    await loadFees(
-      currentSession,
-      currentClass
-    );
+    filterCurrentFees();
 
   }
 
   catch(error){
+
+    console.error(error);
 
     showPaymentError(
       error.message
@@ -2542,16 +2623,7 @@ async function savePayment(){
     saveBtn.disabled =
       false;
 
-
     saveBtn.textContent =
-      editingId
-
-      ?
-
-      "💾 Update Payment"
-
-      :
-
       "💾 Save Payment";
 
   }
@@ -2563,31 +2635,35 @@ async function savePayment(){
    EDIT FEE
 ========================================================= */
 
-async function editFee(id){
+async function editFee(
+  id
+){
 
   let fee =
-    fees.find(
+    allFees.find(
       item =>
-        Number(item.id)
-        ===
+        Number(item.id) ===
         Number(id)
     );
 
 
   if(!fee){
 
-    const result =
-      await supabaseClient
-        .from("fees")
-        .select("*")
-        .eq(
-          "id",
-          Number(id)
-        )
-        .single();
+    const {
+      data,
+      error
+    } =
+    await supabaseClient
+      .from("fees")
+      .select("*")
+      .eq(
+        "id",
+        Number(id)
+      )
+      .single();
 
 
-    if(result.error){
+    if(error){
 
       alert(
         "Fee record পাওয়া যায়নি।"
@@ -2599,19 +2675,18 @@ async function editFee(id){
 
 
     fee =
-      result.data;
+      data;
 
   }
 
 
   editingId =
-    Number(
-      fee.id
-    );
+    Number(fee.id);
 
 
   /*
-    Student select
+    Student আগে থেকেই
+    selected list-এ থাকবে।
   */
 
   studentSelect.value =
@@ -2623,40 +2698,34 @@ async function editFee(id){
   document.getElementById(
     "feeMonth"
   ).value =
-    fee.fee_month
-    ??
+    fee.fee_month ??
+    fee.month ??
     "";
 
 
   document.getElementById(
     "feeAmount"
   ).value =
-    fee.amount
-    ??
-    "";
+    getFeeAmount(fee);
 
 
   document.getElementById(
     "paidAmount"
   ).value =
-    fee.paid_amount
-    ??
-    "";
+    getPaidAmount(fee);
 
 
   document.getElementById(
     "paymentDate"
   ).value =
-    fee.payment_date
-    ??
+    fee.payment_date ??
     today();
 
 
   document.getElementById(
     "paymentMethod"
   ).value =
-    fee.payment_method
-    ??
+    fee.payment_method ??
     "Cash";
 
 
@@ -2674,28 +2743,63 @@ async function editFee(id){
     "inline-block";
 
 
-  paymentMessage.innerHTML =
-    "";
+  clearPaymentMessage();
 
 
   window.scrollTo({
-
     top:0,
-
     behavior:"smooth"
-
   });
 
 }
 
 
 /* =========================================================
-   CANCEL EDIT
+   DELETE
 ========================================================= */
 
-function cancelEdit(){
+async function deleteFee(
+  id
+){
 
-  resetFeeForm();
+  const ok =
+    confirm(
+      "এই Fee record delete করবেন?"
+    );
+
+
+  if(!ok){
+    return;
+  }
+
+
+  const {
+    error
+  } =
+  await supabaseClient
+    .from("fees")
+    .delete()
+    .eq(
+      "id",
+      Number(id)
+    );
+
+
+  if(error){
+
+    alert(
+      "Delete error: " +
+      error.message
+    );
+
+    return;
+
+  }
+
+
+  await loadFeesDatabase();
+
+  filterCurrentFees();
 
 }
 
@@ -2708,10 +2812,6 @@ function resetFeeForm(){
 
   editingId =
     null;
-
-
-  studentSelect.value =
-    "";
 
 
   document.getElementById(
@@ -2757,59 +2857,16 @@ function resetFeeForm(){
   cancelBtn.style.display =
     "none";
 
-
-  paymentMessage.innerHTML =
-    "";
-
 }
 
 
 /* =========================================================
-   DELETE
+   CANCEL EDIT
 ========================================================= */
 
-async function deleteFee(id){
+function cancelEdit(){
 
-  const ok =
-    confirm(
-      "এই Fee record delete করবেন?"
-    );
-
-
-  if(!ok){
-
-    return;
-
-  }
-
-
-  const result =
-    await supabaseClient
-      .from("fees")
-      .delete()
-      .eq(
-        "id",
-        Number(id)
-      );
-
-
-  if(result.error){
-
-    alert(
-      "Delete error: "
-      +
-      result.error.message
-    );
-
-    return;
-
-  }
-
-
-  await loadFees(
-    sessionSelect.value,
-    classSelect.value
-  );
+  resetFeeForm();
 
 }
 
@@ -2823,8 +2880,7 @@ function filterTable(){
   const query =
     document.getElementById(
       "searchBox"
-    )
-    .value
+    ).value
     .toLowerCase()
     .trim();
 
@@ -2835,62 +2891,45 @@ function filterTable(){
     );
 
 
-  rows.forEach(row=>{
+  rows.forEach(
+    row=>{
 
-    const text =
-      row.textContent
-        .toLowerCase();
+      const text =
+        row.textContent
+          .toLowerCase();
 
 
-    row.style.display =
-      text.includes(query)
-      ?
-      ""
-      :
-      "none";
+      row.style.display =
+        text.includes(query)
+          ? ""
+          : "none";
 
-  });
+    }
+  );
 
 }
 
 
 /* =========================================================
-   REFRESH CURRENT
+   PRINT RECEIPT
 ========================================================= */
 
-async function reloadCurrent(){
+function printReceipt(
+  id
+){
 
-  const session =
-    sessionSelect.value;
-
-
-  const className =
-    classSelect.value;
-
-
-  if(!session){
-
-    window.location.reload();
-
-    return;
-
-  }
+  const fee =
+    allFees.find(
+      item =>
+        Number(item.id) ===
+        Number(id)
+    );
 
 
-  /*
-    Fresh students load
-  */
+  if(!fee){
 
-  const result =
-    await supabaseClient
-      .from("students")
-      .select("*");
-
-
-  if(result.error){
-
-    showSelectError(
-      result.error.message
+    alert(
+      "Fee record পাওয়া যায়নি।"
     );
 
     return;
@@ -2898,40 +2937,610 @@ async function reloadCurrent(){
   }
 
 
-  students =
-    result.data || [];
+  const student =
+    findStudent(
+      fee.student_id
+    );
 
 
-  buildSessions();
+  if(!student){
+
+    alert(
+      "Student পাওয়া যায়নি।"
+    );
+
+    return;
+
+  }
 
 
-  sessionSelect.value =
-    session;
+  const feeAmount =
+    getFeeAmount(fee);
 
 
-  buildClasses(
-    session
+  const paidAmount =
+    getPaidAmount(fee);
+
+
+  const due =
+    Math.max(
+      feeAmount-paidAmount,
+      0
+    );
+
+
+  const receiptNo =
+    "FEE-" +
+    String(fee.id)
+      .padStart(5,"0");
+
+
+  document.getElementById(
+    "printArea"
+  ).innerHTML = `
+
+    <div
+      style="
+        max-width:700px;
+        margin:auto;
+        border:2px solid #00695c;
+        padding:30px;
+        font-family:'Noto Serif Bengali',serif;
+      "
+    >
+
+      <div
+        style="
+          text-align:center;
+          border-bottom:1px solid #ccc;
+          padding-bottom:15px;
+          margin-bottom:20px;
+        "
+      >
+
+        <h1
+          style="
+            margin:0;
+            color:#00695c;
+            font-size:24px;
+          "
+        >
+          মাদরাসায়ে নূরুল কুরআন
+        </h1>
+
+        <div>
+          MADRASHA-E NURUL QURAN
+        </div>
+
+        <h2
+          style="
+            margin:15px 0 5px;
+            font-size:20px;
+          "
+        >
+          FEE PAYMENT RECEIPT
+        </h2>
+
+        <div>
+          Receipt No: ${receiptNo}
+        </div>
+
+      </div>
+
+
+      <table
+        style="
+          width:100%;
+          border-collapse:collapse;
+          margin-bottom:20px;
+        "
+      >
+
+        <tr>
+
+          <td
+            style="
+              padding:8px;
+              border:1px solid #ddd;
+              font-weight:bold;
+            "
+          >
+            Student Name
+          </td>
+
+          <td
+            style="
+              padding:8px;
+              border:1px solid #ddd;
+            "
+          >
+            ${escapeHtml(
+              getStudentName(student)
+            )}
+          </td>
+
+        </tr>
+
+
+        <tr>
+
+          <td
+            style="
+              padding:8px;
+              border:1px solid #ddd;
+              font-weight:bold;
+            "
+          >
+            Student ID
+          </td>
+
+          <td
+            style="
+              padding:8px;
+              border:1px solid #ddd;
+            "
+          >
+            ${escapeHtml(
+              getStudentCode(student)
+            )}
+          </td>
+
+        </tr>
+
+
+        <tr>
+
+          <td
+            style="
+              padding:8px;
+              border:1px solid #ddd;
+              font-weight:bold;
+            "
+          >
+            Roll
+          </td>
+
+          <td
+            style="
+              padding:8px;
+              border:1px solid #ddd;
+            "
+          >
+            ${escapeHtml(
+              getRoll(student)
+            )}
+          </td>
+
+        </tr>
+
+
+        <tr>
+
+          <td
+            style="
+              padding:8px;
+              border:1px solid #ddd;
+              font-weight:bold;
+            "
+          >
+            Class
+          </td>
+
+          <td
+            style="
+              padding:8px;
+              border:1px solid #ddd;
+            "
+          >
+            ${escapeHtml(
+              getClassNameFromStudent(student)
+            )}
+          </td>
+
+        </tr>
+
+
+        <tr>
+
+          <td
+            style="
+              padding:8px;
+              border:1px solid #ddd;
+              font-weight:bold;
+            "
+          >
+            Session
+          </td>
+
+          <td
+            style="
+              padding:8px;
+              border:1px solid #ddd;
+            "
+          >
+            ${escapeHtml(
+              getStudentSession(student)
+            )}
+          </td>
+
+        </tr>
+
+
+        <tr>
+
+          <td
+            style="
+              padding:8px;
+              border:1px solid #ddd;
+              font-weight:bold;
+            "
+          >
+            Fee Month
+          </td>
+
+          <td
+            style="
+              padding:8px;
+              border:1px solid #ddd;
+            "
+          >
+            ${escapeHtml(
+              fee.fee_month ??
+              fee.month ??
+              "-"
+            )}
+          </td>
+
+        </tr>
+
+      </table>
+
+
+      <table
+        style="
+          width:100%;
+          border-collapse:collapse;
+          margin-bottom:25px;
+        "
+      >
+
+        <tr>
+
+          <th
+            style="
+              padding:10px;
+              border:1px solid #ddd;
+              background:#00695c;
+              color:white;
+            "
+          >
+            Fee Amount
+          </th>
+
+          <th
+            style="
+              padding:10px;
+              border:1px solid #ddd;
+              background:#00695c;
+              color:white;
+            "
+          >
+            Paid Amount
+          </th>
+
+          <th
+            style="
+              padding:10px;
+              border:1px solid #ddd;
+              background:#00695c;
+              color:white;
+            "
+          >
+            Due
+          </th>
+
+        </tr>
+
+
+        <tr>
+
+          <td
+            style="
+              padding:12px;
+              border:1px solid #ddd;
+              text-align:center;
+            "
+          >
+            ${money(feeAmount)}
+          </td>
+
+          <td
+            style="
+              padding:12px;
+              border:1px solid #ddd;
+              text-align:center;
+            "
+          >
+            ${money(paidAmount)}
+          </td>
+
+          <td
+            style="
+              padding:12px;
+              border:1px solid #ddd;
+              text-align:center;
+            "
+          >
+            ${money(due)}
+          </td>
+
+        </tr>
+
+      </table>
+
+
+      <div
+        style="
+          display:flex;
+          justify-content:space-between;
+          margin-top:50px;
+        "
+      >
+
+        <div>
+          ___________________<br>
+          Received By
+        </div>
+
+        <div>
+          ___________________<br>
+          Guardian Signature
+        </div>
+
+      </div>
+
+
+      <div
+        style="
+          text-align:center;
+          margin-top:30px;
+          font-size:11px;
+          color:#777;
+        "
+      >
+        Payment Date:
+        ${escapeHtml(
+          fee.payment_date ??
+          today()
+        )}
+        |
+        Method:
+        ${escapeHtml(
+          fee.payment_method ??
+          "Cash"
+        )}
+      </div>
+
+    </div>
+
+  `;
+
+
+  window.print();
+
+}
+
+
+/* =========================================================
+   FIND STUDENT
+========================================================= */
+
+function findStudent(
+  studentId
+){
+
+  return allStudents.find(
+    student =>
+      String(student.id) ===
+      String(studentId)
   );
 
-
-  classSelect.value =
-    className;
+}
 
 
-  if(className){
+/* =========================================================
+   STUDENT NAME
+========================================================= */
 
-    await loadStudentsForSelection(
-      session,
-      className
-    );
+function getStudentName(
+  student
+){
+
+  return cleanValue(
+
+    student.name ??
+
+    student.name_bn ??
+
+    student.name_en ??
+
+    student.student_name ??
+
+    "Unnamed Student"
+
+  );
+
+}
 
 
-    await loadFees(
-      session,
-      className
-    );
+/* =========================================================
+   STUDENT CODE
+========================================================= */
+
+function getStudentCode(
+  student
+){
+
+  return cleanValue(
+
+    student.student_id ??
+
+    student.studentId ??
+
+    student.student_code ??
+
+    student.id ??
+
+    "-"
+
+  );
+
+}
+
+
+/* =========================================================
+   ROLL
+========================================================= */
+
+function getRoll(
+  student
+){
+
+  return cleanValue(
+
+    student.roll_no ??
+
+    student.roll ??
+
+    student.roll_number ??
+
+    "-"
+
+  );
+
+}
+
+
+/* =========================================================
+   FEE AMOUNT
+========================================================= */
+
+function getFeeAmount(
+  fee
+){
+
+  return Number(
+
+    fee.amount ??
+
+    fee.fee_amount ??
+
+    fee.total_fee ??
+
+    0
+
+  ) || 0;
+
+}
+
+
+/* =========================================================
+   PAID AMOUNT
+========================================================= */
+
+function getPaidAmount(
+  fee
+){
+
+  return Number(
+
+    fee.paid_amount ??
+
+    fee.paid ??
+
+    fee.payment_amount ??
+
+    0
+
+  ) || 0;
+
+}
+
+
+/* =========================================================
+   MONEY
+========================================================= */
+
+function money(
+  value
+){
+
+  return Number(
+    value || 0
+  ).toFixed(2);
+
+}
+
+
+/* =========================================================
+   CLEAN
+========================================================= */
+
+function cleanValue(
+  value
+){
+
+  if(
+    value === null ||
+    value === undefined
+  ){
+
+    return "";
 
   }
+
+
+  return String(value)
+    .trim();
+
+}
+
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+function updateSummary(
+  fee,
+  paid
+){
+
+  const f =
+    Number(fee) || 0;
+
+  const p =
+    Number(paid) || 0;
+
+
+  totalFee.textContent =
+    money(f);
+
+
+  totalPaid.textContent =
+    money(p);
+
+
+  totalDue.textContent =
+    money(
+      Math.max(
+        f-p,
+        0
+      )
+    );
+
+
+  studentCount.textContent =
+    currentStudents.length;
 
 }
 
@@ -2941,46 +3550,30 @@ async function reloadCurrent(){
 ========================================================= */
 
 function showEmptyTable(
-message =
-"Session ও Class নির্বাচন করুন"
+  message =
+  "Session ও Class নির্বাচন করুন"
 ){
 
   feeTable.innerHTML =
     `<tr>
-
       <td
         colspan="11"
         class="empty"
       >
-
-        ${escapeHtml(
-          message
-        )}
-
+        ${escapeHtml(message)}
       </td>
-
     </tr>`;
 
 
   monthlyTable.innerHTML =
     `<tr>
-
       <td
         colspan="14"
         class="empty"
       >
-
-        ${escapeHtml(
-          message
-        )}
-
+        ${escapeHtml(message)}
       </td>
-
     </tr>`;
-
-
-  totalStudents.textContent =
-    "0";
 
 
   updateSummary(
@@ -2992,58 +3585,61 @@ message =
 
 
 /* =========================================================
-   ERROR
+   SELECT ERROR
 ========================================================= */
 
 function showSelectError(
-message
+  message
 ){
 
-  selectError.innerHTML =
+  selectMessage.innerHTML =
     `<div class="error">
-
-      ❌
-      ${escapeHtml(message)}
-
+      ❌ ${escapeHtml(message)}
     </div>`;
 
 }
 
 
-function clearSelectError(){
+function clearSelectMessage(){
 
-  selectError.innerHTML =
+  selectMessage.innerHTML =
     "";
 
 }
 
 
+/* =========================================================
+   PAYMENT ERROR
+========================================================= */
+
 function showPaymentError(
-message
+  message
 ){
 
   paymentMessage.innerHTML =
     `<div class="error">
-
-      ❌
-      ${escapeHtml(message)}
-
+      ❌ ${escapeHtml(message)}
     </div>`;
 
 }
 
 
 function showPaymentSuccess(
-message
+  message
 ){
 
   paymentMessage.innerHTML =
     `<div class="success">
-
-      ✅
-      ${escapeHtml(message)}
-
+      ✅ ${escapeHtml(message)}
     </div>`;
+
+}
+
+
+function clearPaymentMessage(){
+
+  paymentMessage.innerHTML =
+    "";
 
 }
 
@@ -3052,7 +3648,9 @@ message
    ESCAPE HTML
 ========================================================= */
 
-function escapeHtml(value){
+function escapeHtml(
+  value
+){
 
   return String(value)
 
