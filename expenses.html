@@ -1,13 +1,32 @@
 <!DOCTYPE html>
 <html lang="bn">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Expense Management | মাদরাসায়ে নূরুল কুরআন</title>
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1">
+
+<title>
+Daily Expense | মাদরাসায়ে নূরুল কুরআন
+</title>
+
 
 <style>
-*{box-sizing:border-box}
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    box-sizing:border-box;
+}
+
+
+/* =====================================================
+   BODY
+===================================================== */
 
 body{
     margin:0;
@@ -16,263 +35,843 @@ body{
     color:#222;
 }
 
+
+/* =====================================================
+   TOP HEADER
+===================================================== */
+
 .top{
+
     background:#075c43;
+
     color:#fff;
+
     padding:17px 22px;
+
     display:flex;
+
     justify-content:space-between;
+
     align-items:center;
+
 }
 
 .top h2{
+
     margin:0;
+
     color:#fff;
+
     font-size:20px;
+
 }
 
 .top a{
+
     color:#fff;
+
     text-decoration:none;
+
 }
+
+
+/* =====================================================
+   CONTAINER
+===================================================== */
 
 .container{
+
     max-width:1200px;
+
     margin:25px auto;
+
     padding:0 15px;
+
 }
+
+
+/* =====================================================
+   BOX
+===================================================== */
 
 .box{
+
     background:#fff;
+
     padding:22px;
+
     border-radius:12px;
-    box-shadow:0 2px 10px #0001;
+
+    box-shadow:
+    0 2px 10px #0001;
+
     margin-bottom:20px;
+
 }
+
+
+/* =====================================================
+   HEADINGS
+===================================================== */
 
 h3{
+
     color:#075c43;
+
     margin:0 0 18px;
+
 }
 
+
+/* =====================================================
+   FORM
+===================================================== */
+
 .form{
+
     display:grid;
-    grid-template-columns:1fr 1fr;
+
+    grid-template-columns:
+    1fr 1fr;
+
     gap:14px;
+
 }
 
 .full{
+
     grid-column:1/-1;
+
 }
 
+
 label{
+
     font-weight:bold;
+
     font-size:14px;
+
 }
+
 
 input,
 select,
 textarea{
+
     width:100%;
+
     padding:11px;
+
     margin-top:6px;
-    border:1px solid #ddd;
+
+    border:
+    1px solid #ddd;
+
     border-radius:7px;
+
     font-size:14px;
+
     background:#fff;
+
 }
+
 
 textarea{
-    min-height:90px;
+
     resize:vertical;
+
+    min-height:80px;
+
 }
+
+
+/* =====================================================
+   BUTTON
+===================================================== */
 
 button{
+
     border:0;
+
     padding:10px 16px;
+
     border-radius:7px;
+
     background:#087f5b;
+
     color:#fff;
+
     font-weight:bold;
+
     cursor:pointer;
+
 }
+
 
 button:disabled{
+
     opacity:.6;
+
     cursor:not-allowed;
+
 }
+
 
 .cancel{
+
     background:#777;
+
     margin-left:7px;
+
 }
+
 
 .edit{
+
     background:#1565c0;
+
 }
+
 
 .delete{
+
     background:#c62828;
+
 }
 
-#printBtn{
-    background:#333;
-    margin-left:7px;
+
+.print{
+
+    background:#6a1b9a;
+
 }
+
+
+.pdf{
+
+    background:#ad1457;
+
+}
+
+
+/* =====================================================
+   MESSAGE
+===================================================== */
 
 #msg{
+
     margin-top:12px;
+
     min-height:20px;
+
     font-weight:bold;
+
 }
+
 
 .success{
+
     color:#087f5b;
+
 }
+
 
 .error{
+
     color:#c62828;
+
 }
+
+
+/* =====================================================
+   SUMMARY
+===================================================== */
 
 .summary{
+
     display:flex;
+
     gap:12px;
+
     flex-wrap:wrap;
+
     margin-bottom:18px;
+
 }
+
 
 .card{
-    background:#eee;
-    padding:12px 18px;
+
+    background:#edf7f4;
+
+    padding:13px 20px;
+
     border-radius:8px;
+
     font-weight:bold;
+
+    color:#075c43;
+
+    min-width:150px;
+
 }
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
 
 .search{
+
     width:100%;
+
     margin-bottom:15px;
+
 }
+
+
+/* =====================================================
+   TABLE
+===================================================== */
 
 .table-wrap{
+
     overflow:auto;
+
 }
 
+
 table{
+
     width:100%;
+
     border-collapse:collapse;
+
 }
+
 
 th,
 td{
+
     padding:10px 8px;
-    border-bottom:1px solid #ddd;
+
+    border-bottom:
+    1px solid #ddd;
+
     text-align:left;
+
     font-size:14px;
+
 }
+
 
 th{
+
     background:#075c43;
+
     color:#fff;
+
 }
+
 
 .action{
+
     white-space:nowrap;
+
 }
+
 
 .action button{
+
     padding:7px 10px;
+
     font-size:12px;
+
     margin:2px;
+
 }
+
 
 .loading{
+
     text-align:center;
+
     padding:20px;
+
 }
 
-.no-print{}
+
+/* =====================================================
+   CUSTOM BOX
+===================================================== */
+
+.custom-box{
+
+    display:none;
+
+}
+
+
+/* =====================================================
+   REPORT FILTER
+===================================================== */
+
+.report-tools{
+
+    display:flex;
+
+    gap:10px;
+
+    flex-wrap:wrap;
+
+    margin-bottom:18px;
+
+}
+
+
+.report-tools input{
+
+    width:auto;
+
+    min-width:180px;
+
+    margin-top:0;
+
+}
+
+
+.report-tools button{
+
+    height:42px;
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
 
 @media(max-width:650px){
 
     .form{
+
         grid-template-columns:1fr;
+
     }
 
     .full{
+
         grid-column:auto;
+
     }
 
     table{
-        min-width:1000px;
+
+        min-width:1050px;
+
     }
+
+    .report-tools{
+
+        flex-direction:column;
+
+    }
+
+    .report-tools input,
+    .report-tools button{
+
+        width:100%;
+
+    }
+
 }
 
 
-/* =========================
+/* =====================================================
    PRINT
-========================= */
+===================================================== */
 
 @media print{
 
     body{
+
         background:#fff;
+
     }
 
-    .top{
-        background:#fff;
-        color:#000;
-        border-bottom:2px solid #000;
-    }
-
-    .top h2{
-        color:#000;
-    }
-
-    .top a,
-    .no-print,
+    .top,
+    .form-box,
+    .search-box,
     .action,
-    #msg{
+    .no-print{
+
         display:none !important;
+
     }
 
     .container{
+
         max-width:none;
+
         margin:0;
+
         padding:0;
+
     }
 
     .box{
+
         box-shadow:none;
+
         border:0;
-        padding:10px;
+
+        margin:0;
+
+        padding:0;
+
     }
 
     .summary{
+
         margin-bottom:15px;
+
     }
 
-    table{
-        min-width:0;
-    }
+    .print-report{
 
-    th{
-        background:#ddd !important;
-        color:#000 !important;
+        display:block !important;
+
     }
 
     @page{
-        size:A4 landscape;
+
+        size:A4 portrait;
+
         margin:12mm;
+
     }
+
 }
+
+
+/* =====================================================
+   PRINT REPORT
+===================================================== */
+
+.print-report{
+
+    display:none;
+
+}
+
+
+.print-header{
+
+    text-align:center;
+
+    border-bottom:
+    2px solid #075c43;
+
+    padding-bottom:10px;
+
+    margin-bottom:15px;
+
+}
+
+
+.print-header h1{
+
+    margin:0;
+
+    color:#075c43;
+
+    font-size:24px;
+
+}
+
+
+.print-header p{
+
+    margin:4px 0;
+
+    font-size:13px;
+
+}
+
+
+.report-title{
+
+    text-align:center;
+
+    font-size:20px;
+
+    font-weight:bold;
+
+    margin:12px 0;
+
+}
+
+
+.report-date{
+
+    text-align:center;
+
+    font-size:13px;
+
+    margin-bottom:15px;
+
+}
+
+
+.report-summary{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    border:1px solid #aaa;
+
+    margin-bottom:15px;
+
+}
+
+
+.report-summary div{
+
+    width:50%;
+
+    padding:9px;
+
+    text-align:center;
+
+    border-right:1px solid #aaa;
+
+}
+
+
+.report-summary div:last-child{
+
+    border-right:0;
+
+}
+
+
+.print-table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+
+.print-table th,
+.print-table td{
+
+    border:1px solid #999;
+
+    padding:7px;
+
+    font-size:11px;
+
+}
+
+
+.print-table th{
+
+    background:#e8f2ef;
+
+    color:#075c43;
+
+}
+
+
+.report-footer{
+
+    margin-top:35px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+}
+
+
+.signature{
+
+    width:180px;
+
+    text-align:center;
+
+    border-top:1px solid #333;
+
+    padding-top:5px;
+
+    font-size:12px;
+
+}
+
+
+/* =====================================================
+   PRINT INDIVIDUAL RECEIPT
+===================================================== */
+
+.receipt-print{
+
+    display:none;
+
+}
+
+
+.receipt{
+
+    width:100%;
+
+    max-width:700px;
+
+    margin:auto;
+
+    border:2px solid #075c43;
+
+    padding:25px;
+
+}
+
+
+.receipt-header{
+
+    text-align:center;
+
+    border-bottom:
+    2px solid #075c43;
+
+    padding-bottom:12px;
+
+}
+
+
+.receipt-header h1{
+
+    margin:0;
+
+    color:#075c43;
+
+    font-size:23px;
+
+}
+
+
+.receipt-title{
+
+    text-align:center;
+
+    margin:20px 0;
+
+}
+
+
+.receipt-info{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+
+.receipt-info td{
+
+    border:1px solid #bbb;
+
+    padding:9px;
+
+}
+
+
+.receipt-info td:first-child{
+
+    width:38%;
+
+    font-weight:bold;
+
+    background:#f3f3f3;
+
+}
+
+
+.receipt-amount{
+
+    margin-top:20px;
+
+    border:2px solid #075c43;
+
+}
+
+
+.receipt-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    padding:11px;
+
+    border-bottom:1px solid #ddd;
+
+}
+
+
+.receipt-row:last-child{
+
+    border-bottom:0;
+
+}
+
+
+.receipt-footer{
+
+    margin-top:50px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+}
+
+
+@media print{
+
+    .receipt-print{
+
+        display:block !important;
+
+    }
+
+    .main-content-print{
+
+        display:none !important;
+
+    }
+
+}
+
 </style>
+
 </head>
+
 
 <body>
 
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
 <header class="top">
 
-<h2>💸 Expense Management</h2>
+<h2>
+💸 Daily Expense
+</h2>
 
 <a href="dashboard.html">
 ← Dashboard
@@ -281,105 +880,107 @@ th{
 </header>
 
 
-<div class="container">
+<div class="container main-content-print">
 
 
-<!-- =========================
+<!-- =====================================================
      EXPENSE FORM
-========================= -->
+===================================================== -->
 
-<div class="box no-print">
+<div class="box form-box">
 
-<h3 id="formTitle">
-➕ Add Expense
+
+<h3>
+➕ Add Daily Expense
 </h3>
 
 
 <form id="expenseForm">
 
+
 <input
 type="hidden"
 id="editId"
+value=""
 >
 
 
 <div>
 
 <label>
-Expense Date *
+Expense Type *
 </label>
 
-<input
-type="date"
-id="expenseDate"
+<select
+id="expenseType"
 required>
+
+<option value="">
+Expense Type নির্বাচন করুন
+</option>
+
+<option value="Food">
+🍚 Food
+</option>
+
+<option value="Utilities">
+💡 Utilities
+</option>
+
+<option value="Electricity">
+⚡ Electricity
+</option>
+
+<option value="Water">
+💧 Water
+</option>
+
+<option value="Transport">
+🚗 Transport
+</option>
+
+<option value="Stationery">
+📚 Stationery
+</option>
+
+<option value="Maintenance">
+🔧 Maintenance
+</option>
+
+<option value="Salary">
+💰 Salary
+</option>
+
+<option value="Medical">
+💊 Medical
+</option>
+
+<option value="Other">
+📦 Other
+</option>
+
+<option value="Custom">
+➕ নতুন Expense Type
+</option>
+
+</select>
 
 </div>
 
 
-<div>
+<div
+id="customBox"
+class="custom-box">
 
 <label>
-Expense Category *
+Custom Expense Type
 </label>
 
-<select
-id="category"
-required>
-
-<option value="">
-Category নির্বাচন করুন
-</option>
-
-<option value="Food">
-🍚 Food / খাবার
-</option>
-
-<option value="Electricity">
-💡 Electricity / বিদ্যুৎ
-</option>
-
-<option value="Water">
-💧 Water / পানি
-</option>
-
-<option value="Gas">
-🔥 Gas / গ্যাস
-</option>
-
-<option value="Salary">
-💰 Salary / বেতন
-</option>
-
-<option value="Education">
-📚 Education / শিক্ষা
-</option>
-
-<option value="Maintenance">
-🔧 Maintenance / মেরামত
-</option>
-
-<option value="Office">
-🏢 Office / অফিস
-</option>
-
-<option value="Transport">
-🚗 Transport / যাতায়াত
-</option>
-
-<option value="Medical">
-🏥 Medical / চিকিৎসা
-</option>
-
-<option value="Stationery">
-📒 Stationery / স্টেশনারি
-</option>
-
-<option value="Other">
-📦 Other / অন্যান্য
-</option>
-
-</select>
+<input
+type="text"
+id="customType"
+placeholder="যেমন: মাইক ভাড়া, ভবন মেরামত..."
+>
 
 </div>
 
@@ -396,7 +997,23 @@ id="amount"
 min="0"
 step="0.01"
 required
-placeholder="যেমন: 5000">
+placeholder="যেমন: 1500"
+>
+
+</div>
+
+
+<div>
+
+<label>
+Expense Date *
+</label>
+
+<input
+type="date"
+id="expenseDate"
+required
+>
 
 </div>
 
@@ -425,7 +1042,26 @@ Nagad
 Bank
 </option>
 
+<option value="Other">
+Other
+</option>
+
 </select>
+
+</div>
+
+
+<div>
+
+<label>
+Paid To
+</label>
+
+<input
+type="text"
+id="paidTo"
+placeholder="যাকে টাকা দেওয়া হয়েছে"
+>
 
 </div>
 
@@ -433,12 +1069,28 @@ Bank
 <div class="full">
 
 <label>
-Expense Description
+Title *
+</label>
+
+<input
+type="text"
+id="title"
+required
+placeholder="যেমন: আজকের বাজার খরচ"
+>
+
+</div>
+
+
+<div class="full">
+
+<label>
+Description
 </label>
 
 <textarea
 id="description"
-placeholder="খরচের বিস্তারিত লিখুন..."></textarea>
+placeholder="Expense সম্পর্কে বিস্তারিত লিখুন..."></textarea>
 
 </div>
 
@@ -469,88 +1121,157 @@ Cancel
 
 </div>
 
+
 </form>
 
 </div>
 
 
+<!-- =====================================================
+     REPORT TOOLS
+===================================================== -->
 
-<!-- =========================
+<div class="box no-print">
+
+
+<h3>
+📄 Expense Report / PDF
+</h3>
+
+
+<div class="report-tools">
+
+
+<input
+type="date"
+id="reportFrom"
+title="From Date"
+>
+
+
+<input
+type="date"
+id="reportTo"
+title="To Date"
+>
+
+
+<button
+type="button"
+id="printReportBtn"
+class="pdf">
+
+📄 A4 PDF / Print
+
+</button>
+
+
+<button
+type="button"
+id="printTodayBtn"
+class="print">
+
+🖨️ Today Report
+
+</button>
+
+
+</div>
+
+
+<p style="margin:0;color:#666;font-size:13px">
+
+তারিখ নির্বাচন করে <b>A4 PDF / Print</b> চাপলে
+Browser-এর Print window থেকে <b>Save as PDF</b> নির্বাচন করুন।
+
+</p>
+
+</div>
+
+
+<!-- =====================================================
      EXPENSE LIST
-========================= -->
+===================================================== -->
 
 <div class="box">
+
 
 <h3>
 💸 Expense List
 </h3>
 
 
+<!-- SUMMARY -->
+
 <div class="summary">
+
 
 <div class="card">
 
 Total Expense:
-<span id="totalExpense">
+<br>
+
+৳ <span id="totalExpense">
 0.00
 </span>
 
 </div>
 
+
 <div class="card">
 
-Total Records:
+Today:
+<br>
+
+৳ <span id="todayExpense">
+0.00
+</span>
+
+</div>
+
+
+<div class="card">
+
+Records:
+<br>
+
 <span id="totalRecords">
 0
 </span>
 
 </div>
 
+
 </div>
 
 
-
-<div class="no-print">
+<!-- SEARCH -->
 
 <input
 class="search"
 id="search"
-placeholder="🔍 Category / description / amount দিয়ে খুঁজুন..."
+placeholder="🔍 Title / Type / Paid To / Date দিয়ে খুঁজুন..."
 >
 
-<button
-type="button"
-id="printBtn"
-onclick="window.print()">
 
-🖨️ Print
-
-</button>
-
-</div>
-
-
-<br>
-
+<!-- TABLE -->
 
 <div class="table-wrap">
 
+
 <table>
+
 
 <thead>
 
 <tr>
 
 <th>
-Date
+Title
 </th>
 
 <th>
-Category
-</th>
-
-<th>
-Description
+Type
 </th>
 
 <th>
@@ -558,10 +1279,22 @@ Amount
 </th>
 
 <th>
+Date
+</th>
+
+<th>
 Method
 </th>
 
-<th class="action">
+<th>
+Paid To
+</th>
+
+<th>
+Description
+</th>
+
+<th>
 Action
 </th>
 
@@ -575,7 +1308,7 @@ Action
 <tr>
 
 <td
-colspan="6"
+colspan="8"
 class="loading">
 
 Loading...
@@ -586,17 +1319,172 @@ Loading...
 
 </tbody>
 
+
 </table>
 
 </div>
 
+
+</div>
+
+
+</div>
+
+
+<!-- =====================================================
+     PRINT REPORT
+===================================================== -->
+
+<div
+class="print-report"
+id="printReport">
+
+
+<div class="print-header">
+
+<h1>
+মাদরাসায়ে নূরুল কুরআন
+</h1>
+
+<p>
+MADRASHA-E NURUL QURAN
+</p>
+
+<p>
+Daily Expense Management
+</p>
+
+</div>
+
+
+<div class="report-title">
+
+DAILY EXPENSE REPORT
+
+</div>
+
+
+<div
+class="report-date"
+id="reportDateText">
+
+-
+
+</div>
+
+
+<div class="report-summary">
+
+<div>
+
+<b>
+Total Expense
+</b>
+
+<br>
+
+৳ <span id="printTotal">
+0.00
+</span>
+
+</div>
+
+
+<div>
+
+<b>
+Total Records
+</b>
+
+<br>
+
+<span id="printRecords">
+0
+</span>
+
 </div>
 
 </div>
 
 
+<table class="print-table">
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<thead>
+
+<tr>
+
+<th>
+SL
+</th>
+
+<th>
+Date
+</th>
+
+<th>
+Title
+</th>
+
+<th>
+Type
+</th>
+
+<th>
+Paid To
+</th>
+
+<th>
+Method
+</th>
+
+<th>
+Amount
+</th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="printList">
+
+</tbody>
+
+
+</table>
+
+
+<div class="report-footer">
+
+
+<div class="signature">
+
+Prepared By
+
+</div>
+
+
+<div class="signature">
+
+Authorized Signature
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+<!-- =====================================================
+     SUPABASE
+===================================================== -->
+
+<script
+src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+</script>
 
 
 <script>
@@ -607,6 +1495,7 @@ Loading...
 
 const SUPABASE_URL =
 "https://qavublwhqiqsgpcmfyft.supabase.co";
+
 
 const SUPABASE_KEY =
 "sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
@@ -627,14 +1516,27 @@ let expenses = [];
 
 
 /* =====================================================
-   TODAY
+   LOCAL DATE
 ===================================================== */
 
 function today(){
 
-return new Date()
-.toISOString()
-.split("T")[0];
+    const d = new Date();
+
+    const year =
+        d.getFullYear();
+
+    const month =
+        String(
+            d.getMonth()+1
+        ).padStart(2,"0");
+
+    const day =
+        String(
+            d.getDate()
+        ).padStart(2,"0");
+
+    return `${year}-${month}-${day}`;
 
 }
 
@@ -643,14 +1545,21 @@ return new Date()
    MESSAGE
 ===================================================== */
 
-function showMessage(text,type=""){
+function showMessage(
+    text,
+    type=""
+){
 
-const msg =
-document.getElementById("msg");
+    const msg =
+        document.getElementById(
+            "msg"
+        );
 
-msg.textContent = text;
+    msg.textContent =
+        text;
 
-msg.className = type;
+    msg.className =
+        type;
 
 }
 
@@ -661,54 +1570,57 @@ msg.className = type;
 
 async function start(){
 
-try{
+    try{
 
-const {
-data,
-error
-} = await db.auth.getSession();
-
-
-if(error){
-
-showMessage(
-"❌ Session error: " +
-error.message,
-"error"
-);
-
-return;
-
-}
+        const {
+            data,
+            error
+        } =
+        await db.auth.getSession();
 
 
-if(!data.session){
+        if(error){
 
-location.href = "admin.html";
+            showMessage(
+                "❌ Session error: " +
+                error.message,
+                "error"
+            );
 
-return;
+            return;
 
-}
-
-
-document.getElementById(
-"expenseDate"
-).value = today();
+        }
 
 
-await loadExpenses();
+        if(!data.session){
 
-}
+            location.href =
+                "admin.html";
 
-catch(error){
+            return;
 
-showMessage(
-"❌ Start error: " +
-error.message,
-"error"
-);
+        }
 
-}
+
+        document.getElementById(
+            "expenseDate"
+        ).value =
+            today();
+
+
+        await loadExpenses();
+
+    }
+
+    catch(error){
+
+        showMessage(
+            "❌ Start error: " +
+            error.message,
+            "error"
+        );
+
+    }
 
 }
 
@@ -719,60 +1631,82 @@ error.message,
 
 async function loadExpenses(){
 
-const tbody =
-document.getElementById(
-"expenseList"
-);
+    const tbody =
+        document.getElementById(
+            "expenseList"
+        );
 
 
-tbody.innerHTML = `
-<tr>
-<td colspan="6" class="loading">
-Loading...
-</td>
-</tr>
-`;
+    tbody.innerHTML = `
+
+        <tr>
+
+            <td
+            colspan="8"
+            class="loading">
+
+                Loading...
+
+            </td>
+
+        </tr>
+
+    `;
 
 
-const {
-data,
-error
-} = await db
+    const {
+        data,
+        error
+    } =
+    await db
 
-.from("expenses")
+        .from("expenses")
 
-.select("*")
+        .select("*")
 
-.order(
-"expense_date",
-{
-ascending:false
-}
-);
-
-
-if(error){
-
-expenses = [];
+        .order(
+            "id",
+            {
+                ascending:false
+            }
+        );
 
 
-tbody.innerHTML = `
-<tr>
-<td colspan="6" class="error">
-❌ ${escapeHtml(error.message)}
-</td>
-</tr>
-`;
+    if(error){
 
-return;
-
-}
+        expenses = [];
 
 
-expenses = data || [];
+        tbody.innerHTML = `
+
+            <tr>
+
+                <td
+                colspan="8"
+                class="error">
+
+                    ❌ ${
+                        escapeHtml(
+                            error.message
+                        )
+                    }
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
 
 
-renderExpenses();
+    expenses =
+        data || [];
+
+
+    renderExpenses();
 
 }
 
@@ -782,374 +1716,599 @@ renderExpenses();
 ===================================================== */
 
 function renderExpenses(
-list = expenses
+    list = expenses
 ){
 
-let total = 0;
+    let total = 0;
+
+    let todayTotal = 0;
 
 
-list.forEach(
-function(e){
-
-total +=
-Number(e.amount) || 0;
-
-});
+    const currentDate =
+        today();
 
 
-document.getElementById(
-"totalExpense"
-).textContent =
-total.toFixed(2);
+    list.forEach(
+        item => {
+
+            const amount =
+                Number(
+                    item.amount
+                ) || 0;
 
 
-document.getElementById(
-"totalRecords"
-).textContent =
-list.length;
+            total +=
+                amount;
 
 
-const tbody =
-document.getElementById(
-"expenseList"
-);
+            if(
+                String(
+                    item.expense_date || ""
+                ) === currentDate
+            ){
+
+                todayTotal +=
+                    amount;
+
+            }
+
+        }
+    );
 
 
-if(!list.length){
-
-tbody.innerHTML = `
-<tr>
-<td
-colspan="6"
-style="text-align:center">
-
-কোনো Expense record নেই
-
-</td>
-</tr>
-`;
-
-return;
-
-}
+    document.getElementById(
+        "totalExpense"
+    ).textContent =
+        total.toFixed(2);
 
 
-tbody.innerHTML =
-list.map(
-function(e){
-
-const category =
-e.category || "-";
-
-const description =
-e.description || "-";
-
-const amount =
-Number(e.amount) || 0;
-
-const method =
-e.payment_method || "-";
+    document.getElementById(
+        "todayExpense"
+    ).textContent =
+        todayTotal.toFixed(2);
 
 
-return `
-
-<tr>
-
-<td>
-${escapeHtml(
-e.expense_date || "-"
-)}
-</td>
+    document.getElementById(
+        "totalRecords"
+    ).textContent =
+        list.length;
 
 
-<td>
-${escapeHtml(
-category
-)}
-</td>
+    const tbody =
+        document.getElementById(
+            "expenseList"
+        );
 
 
-<td>
-${escapeHtml(
-description
-)}
-</td>
+    if(!list.length){
+
+        tbody.innerHTML = `
+
+            <tr>
+
+                <td
+                colspan="8"
+                style="text-align:center">
+
+                    কোনো Expense record নেই
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
 
 
-<td>
-${amount.toFixed(2)}
-</td>
+    tbody.innerHTML =
+        list.map(
+            item => {
+
+                const amount =
+                    Number(
+                        item.amount
+                    ) || 0;
 
 
-<td>
-${escapeHtml(
-method
-)}
-</td>
+                return `
+
+                <tr>
+
+                    <td>
+
+                        ${
+                            escapeHtml(
+                                item.title || "-"
+                            )
+                        }
+
+                    </td>
 
 
-<td class="action">
+                    <td>
 
-<button
-type="button"
-class="edit"
-data-id="${escapeHtml(
-String(e.id)
-)}"
-onclick="editExpenseFromButton(this)">
+                        ${
+                            escapeHtml(
+                                item.expense_type || "-"
+                            )
+                        }
 
-Edit
-
-</button>
+                    </td>
 
 
-<button
-type="button"
-class="delete"
-data-id="${escapeHtml(
-String(e.id)
-)}"
-onclick="deleteExpenseFromButton(this)">
+                    <td>
 
-Delete
+                        ৳ ${amount.toFixed(2)}
 
-</button>
+                    </td>
 
-</td>
 
-</tr>
+                    <td>
 
-`;
+                        ${
+                            escapeHtml(
+                                item.expense_date || "-"
+                            )
+                        }
 
-}
-).join("");
+                    </td>
+
+
+                    <td>
+
+                        ${
+                            escapeHtml(
+                                item.payment_method || "-"
+                            )
+                        }
+
+                    </td>
+
+
+                    <td>
+
+                        ${
+                            escapeHtml(
+                                item.paid_to || "-"
+                            )
+                        }
+
+                    </td>
+
+
+                    <td>
+
+                        ${
+                            escapeHtml(
+                                item.description || "-"
+                            )
+                        }
+
+                    </td>
+
+
+                    <td class="action">
+
+
+                        <button
+                        type="button"
+                        class="edit"
+                        data-expense-id="${
+                            escapeHtml(
+                                String(item.id)
+                            )
+                        }"
+                        onclick="editExpenseFromButton(this)">
+
+                            Edit
+
+                        </button>
+
+
+                        <button
+                        type="button"
+                        class="delete"
+                        data-expense-id="${
+                            escapeHtml(
+                                String(item.id)
+                            )
+                        }"
+                        onclick="deleteExpenseFromButton(this)">
+
+                            Delete
+
+                        </button>
+
+
+                        <button
+                        type="button"
+                        class="print"
+                        data-expense-id="${
+                            escapeHtml(
+                                String(item.id)
+                            )
+                        }"
+                        onclick="printExpenseFromButton(this)">
+
+                            🖨️ Print
+
+                        </button>
+
+
+                    </td>
+
+                </tr>
+
+                `;
+
+            }
+        )
+        .join("");
 
 }
 
 
 /* =====================================================
-   SAVE EXPENSE
-===================================================== */
-
-document.getElementById(
-"expenseForm"
-).addEventListener(
-"submit",
-async function(e){
-
-e.preventDefault();
-
-
-const editId =
-document.getElementById(
-"editId"
-).value.trim();
-
-
-const expenseDate =
-document.getElementById(
-"expenseDate"
-).value;
-
-
-const category =
-document.getElementById(
-"category"
-).value;
-
-
-const amount =
-Number(
-document.getElementById(
-"amount"
-).value
-);
-
-
-const description =
-document.getElementById(
-"description"
-).value.trim();
-
-
-const method =
-document.getElementById(
-"method"
-).value;
-
-
-if(!expenseDate){
-
-showMessage(
-"❌ Expense Date দিন",
-"error"
-);
-
-return;
-
-}
-
-
-if(!category){
-
-showMessage(
-"❌ Expense Category নির্বাচন করুন",
-"error"
-);
-
-return;
-
-}
-
-
-if(
-!Number.isFinite(amount) ||
-amount <= 0
-){
-
-showMessage(
-"❌ সঠিক Amount দিন",
-"error"
-);
-
-return;
-
-}
-
-
-const record = {
-
-expense_date:
-expenseDate,
-
-category:
-category,
-
-amount:
-amount,
-
-description:
-description || null,
-
-payment_method:
-method
-
-};
-
-
-const saveBtn =
-document.getElementById(
-"saveBtn"
-);
-
-
-saveBtn.disabled = true;
-
-
-showMessage(
-editId
-? "Updating..."
-: "Saving..."
-);
-
-
-try{
-
-let result;
-
-
-if(editId){
-
-result =
-await db
-
-.from("expenses")
-
-.update(record)
-
-.eq("id",editId)
-
-.select();
-
-}
-
-else{
-
-result =
-await db
-
-.from("expenses")
-
-.insert(record)
-
-.select();
-
-}
-
-
-if(result.error){
-
-showMessage(
-"❌ " +
-result.error.message,
-"error"
-);
-
-return;
-
-}
-
-
-showMessage(
-editId
-? "✅ Expense updated successfully"
-: "✅ Expense saved successfully",
-"success"
-);
-
-
-resetForm();
-
-
-await loadExpenses();
-
-}
-
-catch(error){
-
-showMessage(
-"❌ " +
-error.message,
-"error"
-);
-
-}
-
-finally{
-
-saveBtn.disabled = false;
-
-}
-
-});
-
-
-/* =====================================================
-   EDIT BUTTON
+   BUTTON HANDLERS
 ===================================================== */
 
 function editExpenseFromButton(
-button
+    button
 ){
 
-const id =
-button.getAttribute(
-"data-id"
-);
+    const id =
+        button.getAttribute(
+            "data-expense-id"
+        );
 
-editExpense(id);
+    editExpense(id);
 
 }
+
+
+function deleteExpenseFromButton(
+    button
+){
+
+    const id =
+        button.getAttribute(
+            "data-expense-id"
+        );
+
+    deleteExpense(id);
+
+}
+
+
+function printExpenseFromButton(
+    button
+){
+
+    const id =
+        button.getAttribute(
+            "data-expense-id"
+        );
+
+    printExpense(id);
+
+}
+
+
+/* =====================================================
+   EXPENSE TYPE CHANGE
+===================================================== */
+
+document.getElementById(
+    "expenseType"
+).addEventListener(
+    "change",
+    function(){
+
+        const customBox =
+            document.getElementById(
+                "customBox"
+            );
+
+
+        const customType =
+            document.getElementById(
+                "customType"
+            );
+
+
+        if(
+            this.value === "Custom"
+        ){
+
+            customBox.style.display =
+                "block";
+
+            customType.required =
+                true;
+
+        }
+
+        else{
+
+            customBox.style.display =
+                "none";
+
+            customType.required =
+                false;
+
+            customType.value =
+                "";
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   SAVE / UPDATE
+===================================================== */
+
+document.getElementById(
+    "expenseForm"
+).addEventListener(
+    "submit",
+    async function(e){
+
+        e.preventDefault();
+
+
+        const editId =
+            document.getElementById(
+                "editId"
+            ).value.trim();
+
+
+        let expenseType =
+            document.getElementById(
+                "expenseType"
+            ).value;
+
+
+        const customType =
+            document.getElementById(
+                "customType"
+            ).value.trim();
+
+
+        if(
+            expenseType === "Custom"
+        ){
+
+            if(!customType){
+
+                showMessage(
+                    "❌ Custom Expense Type লিখুন",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            expenseType =
+                customType;
+
+        }
+
+
+        if(!expenseType){
+
+            showMessage(
+                "❌ Expense Type নির্বাচন করুন",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        const title =
+            document.getElementById(
+                "title"
+            ).value.trim();
+
+
+        const amount =
+            Number(
+                document.getElementById(
+                    "amount"
+                ).value
+            );
+
+
+        const expenseDate =
+            document.getElementById(
+                "expenseDate"
+            ).value;
+
+
+        if(!title){
+
+            showMessage(
+                "❌ Title লিখুন",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if(
+            !Number.isFinite(amount) ||
+            amount <= 0
+        ){
+
+            showMessage(
+                "❌ Amount সঠিকভাবে দিন",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if(!expenseDate){
+
+            showMessage(
+                "❌ Expense Date নির্বাচন করুন",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        const record = {
+
+            title:
+                title,
+
+            expense_type:
+                expenseType,
+
+            amount:
+                amount,
+
+            expense_date:
+                expenseDate,
+
+            payment_method:
+                document.getElementById(
+                    "method"
+                ).value,
+
+            paid_to:
+                document.getElementById(
+                    "paidTo"
+                ).value.trim() || null,
+
+            description:
+                document.getElementById(
+                    "description"
+                ).value.trim() || null
+
+        };
+
+
+        const saveBtn =
+            document.getElementById(
+                "saveBtn"
+            );
+
+
+        saveBtn.disabled =
+            true;
+
+
+        showMessage(
+            editId
+            ?
+            "Updating..."
+            :
+            "Saving..."
+        );
+
+
+        try{
+
+            let result;
+
+
+            if(editId){
+
+                result =
+                    await db
+
+                    .from("expenses")
+
+                    .update(record)
+
+                    .eq(
+                        "id",
+                        editId
+                    )
+
+                    .select();
+
+            }
+
+            else{
+
+                result =
+                    await db
+
+                    .from("expenses")
+
+                    .insert(record)
+
+                    .select();
+
+            }
+
+
+            if(result.error){
+
+                showMessage(
+                    "❌ " +
+                    result.error.message,
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            showMessage(
+                editId
+                ?
+                "✅ Expense Updated Successfully"
+                :
+                "✅ Expense Saved Successfully",
+                "success"
+            );
+
+
+            resetForm();
+
+
+            await loadExpenses();
+
+        }
+
+        catch(error){
+
+            showMessage(
+                "❌ " +
+                error.message,
+                "error"
+            );
+
+        }
+
+        finally{
+
+            saveBtn.disabled =
+                false;
+
+        }
+
+    }
+);
 
 
 /* =====================================================
@@ -1158,105 +2317,152 @@ editExpense(id);
 
 function editExpense(id){
 
-const expense =
-expenses.find(
-function(e){
-
-return String(e.id) ===
-String(id);
-
-}
-);
+    const expense =
+        expenses.find(
+            item =>
+                String(item.id) ===
+                String(id)
+        );
 
 
-if(!expense){
+    if(!expense){
 
-alert(
-"❌ Expense record পাওয়া যায়নি।"
-);
+        alert(
+            "❌ Expense record পাওয়া যায়নি।"
+        );
 
-return;
+        return;
 
-}
-
-
-document.getElementById(
-"editId"
-).value =
-String(expense.id);
+    }
 
 
-document.getElementById(
-"expenseDate"
-).value =
-expense.expense_date || "";
+    document.getElementById(
+        "editId"
+    ).value =
+        String(expense.id);
 
 
-document.getElementById(
-"category"
-).value =
-expense.category || "";
+    const select =
+        document.getElementById(
+            "expenseType"
+        );
 
 
-document.getElementById(
-"amount"
-).value =
-expense.amount ?? "";
+    const standardTypes = [
+
+        "Food",
+        "Utilities",
+        "Electricity",
+        "Water",
+        "Transport",
+        "Stationery",
+        "Maintenance",
+        "Salary",
+        "Medical",
+        "Other"
+
+    ];
 
 
-document.getElementById(
-"description"
-).value =
-expense.description || "";
+    if(
+        standardTypes.includes(
+            expense.expense_type
+        )
+    ){
+
+        select.value =
+            expense.expense_type;
 
 
-document.getElementById(
-"method"
-).value =
-expense.payment_method ||
-"Cash";
+        document.getElementById(
+            "customBox"
+        ).style.display =
+            "none";
+
+    }
+
+    else{
+
+        select.value =
+            "Custom";
 
 
-document.getElementById(
-"formTitle"
-).textContent =
-"✏️ Edit Expense";
+        document.getElementById(
+            "customBox"
+        ).style.display =
+            "block";
 
 
-document.getElementById(
-"saveBtn"
-).textContent =
-"💾 Update Expense";
+        document.getElementById(
+            "customType"
+        ).value =
+            expense.expense_type || "";
 
 
-document.getElementById(
-"cancelBtn"
-).style.display =
-"inline-block";
+        document.getElementById(
+            "customType"
+        ).required =
+            true;
+
+    }
 
 
-window.scrollTo({
-top:0,
-behavior:"smooth"
-});
-
-}
+    document.getElementById(
+        "title"
+    ).value =
+        expense.title || "";
 
 
-/* =====================================================
-   DELETE BUTTON
-===================================================== */
+    document.getElementById(
+        "amount"
+    ).value =
+        expense.amount ?? "";
 
-function deleteExpenseFromButton(
-button
-){
 
-const id =
-button.getAttribute(
-"data-id"
-);
+    document.getElementById(
+        "expenseDate"
+    ).value =
+        expense.expense_date || "";
 
-deleteExpense(id);
+
+    document.getElementById(
+        "method"
+    ).value =
+        expense.payment_method ||
+        "Cash";
+
+
+    document.getElementById(
+        "paidTo"
+    ).value =
+        expense.paid_to || "";
+
+
+    document.getElementById(
+        "description"
+    ).value =
+        expense.description || "";
+
+
+    document.getElementById(
+        "saveBtn"
+    ).textContent =
+        "💾 Update Expense";
+
+
+    document.getElementById(
+        "cancelBtn"
+    ).style.display =
+        "inline-block";
+
+
+    window.scrollTo({
+
+        top:0,
+
+        behavior:"smooth"
+
+    });
 
 }
 
@@ -1267,80 +2473,82 @@ deleteExpense(id);
 
 async function deleteExpense(id){
 
-if(
-!id ||
-String(id) === "null" ||
-String(id) === "undefined"
-){
+    if(
+        id === null ||
+        id === undefined ||
+        String(id).trim() === ""
+    ){
 
-alert(
-"❌ Invalid Expense ID"
-);
+        alert(
+            "❌ Invalid Expense ID"
+        );
 
-return;
+        return;
 
-}
-
-
-const confirmed =
-confirm(
-"এই Expense record Delete করতে চান?"
-);
+    }
 
 
-if(!confirmed){
+    if(
+        !confirm(
+            "এই Expense record Delete করতে চান?"
+        )
+    ){
 
-return;
+        return;
 
-}
-
-
-const {
-data,
-error
-} = await db
-
-.from("expenses")
-
-.delete()
-
-.eq("id",id)
-
-.select("id");
+    }
 
 
-if(error){
+    const {
+        data,
+        error
+    } =
+    await db
 
-alert(
-"❌ Delete failed:\n" +
-error.message
-);
+        .from("expenses")
 
-return;
+        .delete()
 
-}
+        .eq(
+            "id",
+            id
+        )
 
-
-if(
-!data ||
-data.length === 0
-){
-
-alert(
-"❌ Record পাওয়া যায়নি অথবা Delete করার permission নেই।"
-);
-
-return;
-
-}
+        .select("id");
 
 
-alert(
-"✅ Expense deleted successfully"
-);
+    if(error){
+
+        alert(
+            "❌ Delete failed:\n" +
+            error.message
+        );
+
+        return;
+
+    }
 
 
-await loadExpenses();
+    if(
+        !data ||
+        data.length === 0
+    ){
+
+        alert(
+            "❌ Record পাওয়া যায়নি অথবা Delete permission নেই।"
+        );
+
+        return;
+
+    }
+
+
+    alert(
+        "✅ Expense deleted successfully"
+    );
+
+
+    await loadExpenses();
 
 }
 
@@ -1350,137 +2558,151 @@ await loadExpenses();
 ===================================================== */
 
 document.getElementById(
-"search"
+    "search"
 ).addEventListener(
-"input",
-function(){
+    "input",
+    function(){
 
-const q =
-this.value
-.toLowerCase()
-.trim();
-
-
-if(!q){
-
-renderExpenses();
-
-return;
-
-}
+        const q =
+            this.value
+            .toLowerCase()
+            .trim();
 
 
-const filtered =
-expenses.filter(
-function(e){
+        if(!q){
 
-const date =
-String(
-e.expense_date || ""
-).toLowerCase();
+            renderExpenses();
 
+            return;
 
-const category =
-String(
-e.category || ""
-).toLowerCase();
+        }
 
 
-const description =
-String(
-e.description || ""
-).toLowerCase();
+        const filtered =
+            expenses.filter(
+                item => {
+
+                    const title =
+                        String(
+                            item.title || ""
+                        ).toLowerCase();
 
 
-const amount =
-String(
-e.amount || ""
-).toLowerCase();
+                    const type =
+                        String(
+                            item.expense_type || ""
+                        ).toLowerCase();
 
 
-const method =
-String(
-e.payment_method || ""
-).toLowerCase();
+                    const paidTo =
+                        String(
+                            item.paid_to || ""
+                        ).toLowerCase();
 
 
-return (
+                    const method =
+                        String(
+                            item.payment_method || ""
+                        ).toLowerCase();
 
-date.includes(q) ||
 
-category.includes(q) ||
+                    const description =
+                        String(
+                            item.description || ""
+                        ).toLowerCase();
 
-description.includes(q) ||
 
-amount.includes(q) ||
+                    const date =
+                        String(
+                            item.expense_date || ""
+                        ).toLowerCase();
 
-method.includes(q)
 
+                    return (
+
+                        title.includes(q) ||
+
+                        type.includes(q) ||
+
+                        paidTo.includes(q) ||
+
+                        method.includes(q) ||
+
+                        description.includes(q) ||
+
+                        date.includes(q)
+
+                    );
+
+                }
+            );
+
+
+        renderExpenses(
+            filtered
+        );
+
+    }
 );
-
-}
-);
-
-
-renderExpenses(filtered);
-
-});
 
 
 /* =====================================================
-   RESET
+   RESET FORM
 ===================================================== */
 
 function resetForm(){
 
-document.getElementById(
-"expenseForm"
-).reset();
+    document.getElementById(
+        "expenseForm"
+    ).reset();
 
 
-document.getElementById(
-"editId"
-).value = "";
+    document.getElementById(
+        "editId"
+    ).value =
+        "";
 
 
-document.getElementById(
-"expenseDate"
-).value =
-today();
+    document.getElementById(
+        "expenseDate"
+    ).value =
+        today();
 
 
-document.getElementById(
-"method"
-).value =
-"Cash";
+    document.getElementById(
+        "saveBtn"
+    ).textContent =
+        "💾 Save Expense";
 
 
-document.getElementById(
-"formTitle"
-).textContent =
-"➕ Add Expense";
+    document.getElementById(
+        "cancelBtn"
+    ).style.display =
+        "none";
 
 
-document.getElementById(
-"saveBtn"
-).textContent =
-"💾 Save Expense";
+    document.getElementById(
+        "customBox"
+    ).style.display =
+        "none";
 
 
-document.getElementById(
-"cancelBtn"
-).style.display =
-"none";
+    document.getElementById(
+        "customType"
+    ).required =
+        false;
 
 
-document.getElementById(
-"msg"
-).textContent = "";
+    document.getElementById(
+        "msg"
+    ).textContent =
+        "";
 
 
-document.getElementById(
-"msg"
-).className = "";
+    document.getElementById(
+        "msg"
+    ).className =
+        "";
 
 }
 
@@ -1490,13 +2712,703 @@ document.getElementById(
 ===================================================== */
 
 document.getElementById(
-"cancelBtn"
+    "cancelBtn"
 ).onclick =
 function(){
 
-resetForm();
+    resetForm();
 
 };
+
+
+/* =====================================================
+   PRINT REPORT
+===================================================== */
+
+function printReport(
+    list,
+    fromDate = "",
+    toDate = ""
+){
+
+    if(!list.length){
+
+        alert(
+            "❌ এই তারিখের কোনো Expense record নেই।"
+        );
+
+        return;
+
+    }
+
+
+    let total = 0;
+
+
+    const rows =
+        list.map(
+            (item,index) => {
+
+                const amount =
+                    Number(
+                        item.amount
+                    ) || 0;
+
+
+                total +=
+                    amount;
+
+
+                return `
+
+                <tr>
+
+                    <td>
+                        ${index + 1}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            item.expense_date || "-"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            item.title || "-"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            item.expense_type || "-"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            item.paid_to || "-"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            item.payment_method || "-"
+                        )}
+                    </td>
+
+                    <td style="text-align:right">
+                        ৳ ${amount.toFixed(2)}
+                    </td>
+
+                </tr>
+
+                `;
+
+            }
+        )
+        .join("");
+
+
+    document.getElementById(
+        "printList"
+    ).innerHTML =
+        rows;
+
+
+    document.getElementById(
+        "printTotal"
+    ).textContent =
+        total.toFixed(2);
+
+
+    document.getElementById(
+        "printRecords"
+    ).textContent =
+        list.length;
+
+
+    let dateText =
+        "All Expense Records";
+
+
+    if(
+        fromDate &&
+        toDate
+    ){
+
+        dateText =
+            `${fromDate} → ${toDate}`;
+
+    }
+
+    else if(fromDate){
+
+        dateText =
+            `From ${fromDate}`;
+
+    }
+
+    else if(toDate){
+
+        dateText =
+            `Up to ${toDate}`;
+
+    }
+
+
+    document.getElementById(
+        "reportDateText"
+    ).textContent =
+        dateText;
+
+
+    window.print();
+
+}
+
+
+/* =====================================================
+   PDF / PRINT BUTTON
+===================================================== */
+
+document.getElementById(
+    "printReportBtn"
+).onclick =
+function(){
+
+    const from =
+        document.getElementById(
+            "reportFrom"
+        ).value;
+
+
+    const to =
+        document.getElementById(
+            "reportTo"
+        ).value;
+
+
+    let list =
+        [...expenses];
+
+
+    if(from){
+
+        list =
+            list.filter(
+                item =>
+                    String(
+                        item.expense_date || ""
+                    ) >= from
+            );
+
+    }
+
+
+    if(to){
+
+        list =
+            list.filter(
+                item =>
+                    String(
+                        item.expense_date || ""
+                    ) <= to
+            );
+
+    }
+
+
+    list.sort(
+        (a,b) =>
+            String(
+                b.expense_date || ""
+            ).localeCompare(
+                String(
+                    a.expense_date || ""
+                )
+            )
+    );
+
+
+    printReport(
+        list,
+        from,
+        to
+    );
+
+};
+
+
+/* =====================================================
+   TODAY REPORT
+===================================================== */
+
+document.getElementById(
+    "printTodayBtn"
+).onclick =
+function(){
+
+    const current =
+        today();
+
+
+    const list =
+        expenses.filter(
+            item =>
+                String(
+                    item.expense_date || ""
+                ) === current
+        );
+
+
+    printReport(
+        list,
+        current,
+        current
+    );
+
+};
+
+
+/* =====================================================
+   INDIVIDUAL EXPENSE PRINT
+===================================================== */
+
+function printExpense(id){
+
+    const expense =
+        expenses.find(
+            item =>
+                String(item.id) ===
+                String(id)
+        );
+
+
+    if(!expense){
+
+        alert(
+            "❌ Expense record পাওয়া যায়নি।"
+        );
+
+        return;
+
+    }
+
+
+    const amount =
+        Number(
+            expense.amount
+        ) || 0;
+
+
+    const printWindow =
+        window.open(
+            "",
+            "_blank",
+            "width=800,height=900"
+        );
+
+
+    if(!printWindow){
+
+        alert(
+            "❌ Print window blocked। Browser popup allow করুন।"
+        );
+
+        return;
+
+    }
+
+
+    printWindow.document.write(`
+
+<!DOCTYPE html>
+
+<html lang="bn">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>
+Expense Receipt
+</title>
+
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+
+body{
+
+    margin:0;
+
+    padding:30px;
+
+    font-family:Arial,sans-serif;
+
+    background:#fff;
+
+    color:#222;
+
+}
+
+
+.receipt{
+
+    max-width:700px;
+
+    margin:auto;
+
+    border:2px solid #075c43;
+
+    padding:28px;
+
+}
+
+
+.header{
+
+    text-align:center;
+
+    border-bottom:2px solid #075c43;
+
+    padding-bottom:12px;
+
+}
+
+
+.header h1{
+
+    margin:0;
+
+    color:#075c43;
+
+    font-size:24px;
+
+}
+
+
+.header p{
+
+    margin:5px 0;
+
+}
+
+
+.title{
+
+    text-align:center;
+
+    margin:20px 0;
+
+}
+
+
+.info{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+
+.info td{
+
+    border:1px solid #bbb;
+
+    padding:10px;
+
+}
+
+
+.info td:first-child{
+
+    width:38%;
+
+    font-weight:bold;
+
+    background:#f3f3f3;
+
+}
+
+
+.amount{
+
+    margin-top:20px;
+
+    border:2px solid #075c43;
+
+    padding:14px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    font-size:19px;
+
+    font-weight:bold;
+
+}
+
+
+.footer{
+
+    margin-top:55px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+}
+
+
+.signature{
+
+    width:180px;
+
+    text-align:center;
+
+    border-top:1px solid #222;
+
+    padding-top:6px;
+
+}
+
+
+button{
+
+    display:block;
+
+    margin:25px auto 0;
+
+    background:#075c43;
+
+    color:white;
+
+    border:0;
+
+    padding:10px 25px;
+
+}
+
+
+@media print{
+
+    body{
+
+        padding:0;
+
+    }
+
+
+    button{
+
+        display:none;
+
+    }
+
+
+    @page{
+
+        size:A4 portrait;
+
+        margin:15mm;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="receipt">
+
+
+<div class="header">
+
+<h1>
+মাদরাসায়ে নূরুল কুরআন
+</h1>
+
+<p>
+MADRASHA-E NURUL QURAN
+</p>
+
+<p>
+Daily Expense Receipt
+</p>
+
+</div>
+
+
+<div class="title">
+
+<h2>
+EXPENSE PAYMENT
+</h2>
+
+</div>
+
+
+<table class="info">
+
+
+<tr>
+
+<td>
+Title
+</td>
+
+<td>
+${escapeHtml(
+    expense.title || "-"
+)}
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+Expense Type
+</td>
+
+<td>
+${escapeHtml(
+    expense.expense_type || "-"
+)}
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+Expense Date
+</td>
+
+<td>
+${escapeHtml(
+    expense.expense_date || "-"
+)}
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+Paid To
+</td>
+
+<td>
+${escapeHtml(
+    expense.paid_to || "-"
+)}
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+Payment Method
+</td>
+
+<td>
+${escapeHtml(
+    expense.payment_method || "-"
+)}
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+Description
+</td>
+
+<td>
+${escapeHtml(
+    expense.description || "-"
+)}
+</td>
+
+</tr>
+
+
+</table>
+
+
+<div class="amount">
+
+<span>
+Total Expense
+</span>
+
+<span>
+৳ ${amount.toFixed(2)}
+</span>
+
+</div>
+
+
+<div class="footer">
+
+
+<div class="signature">
+Prepared By
+</div>
+
+
+<div class="signature">
+Authorized Signature
+</div>
+
+
+</div>
+
+
+<button
+onclick="window.print()">
+
+🖨️ Print / Save PDF
+
+</button>
+
+
+</div>
+
+
+</body>
+
+</html>
+
+`);
+
+
+    printWindow.document.close();
+
+    printWindow.focus();
+
+}
 
 
 /* =====================================================
@@ -1505,32 +3417,32 @@ resetForm();
 
 function escapeHtml(value){
 
-return String(value)
+    return String(value)
 
-.replaceAll(
-"&",
-"&amp;"
-)
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
 
-.replaceAll(
-"<",
-"&lt;"
-)
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
 
-.replaceAll(
-">",
-"&gt;"
-)
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
 
-.replaceAll(
-'"',
-"&quot;"
-)
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
 
-.replaceAll(
-"'",
-"&#039;"
-);
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
 
 }
 
@@ -1543,5 +3455,7 @@ start();
 
 </script>
 
+
 </body>
+
 </html>
