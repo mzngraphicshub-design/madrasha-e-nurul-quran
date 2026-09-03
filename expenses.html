@@ -5,10 +5,8 @@
 
 <meta charset="UTF-8">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>Daily Expense | মাদরাসায়ে নূরুল কুরআন</title>
 
@@ -22,12 +20,14 @@ content="width=device-width, initial-scale=1.0"
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
 
+<!-- ================= BANGLA FONT ================= -->
+
+<link
+rel="stylesheet"
+href="https://banglawebfonts.pages.dev/css/bornomala.css"
+>
 
 <style>
-
-/* =====================================================
-   RESET
-===================================================== */
 
 *{
     box-sizing:border-box;
@@ -38,118 +38,137 @@ html{
 }
 
 body{
+
     margin:0;
-    font-family:Arial, sans-serif;
+
     background:#f3f7f5;
-    color:#263238;
+
+    color:#26332f;
+
+    font-family:
+    "Bornomala",
+    "Noto Sans Bengali",
+    Arial,
+    sans-serif;
+
 }
 
-
-/* =====================================================
-   TOP BAR
-===================================================== */
+/* ================= HEADER ================= */
 
 .top{
-    background:#075c43;
-    color:#fff;
 
-    padding:15px 22px;
+    background:#075c43;
+
+    color:white;
+
+    padding:15px 20px;
 
     display:flex;
-    align-items:center;
+
     justify-content:space-between;
 
-    box-shadow:0 2px 8px #0002;
+    align-items:center;
 
     position:sticky;
+
     top:0;
-    z-index:100;
+
+    z-index:1000;
+
+    box-shadow:0 2px 8px #0003;
+
 }
 
 .top h2{
+
     margin:0;
-    color:#fff;
-    font-size:19px;
+
+    font-size:20px;
+
+    color:white;
+
 }
 
 .top a{
-    color:#fff;
+
+    color:white;
+
     text-decoration:none;
-    font-weight:bold;
+
     font-size:14px;
+
 }
 
-
-/* =====================================================
-   CONTAINER
-===================================================== */
+/* ================= CONTAINER ================= */
 
 .container{
+
     max-width:1250px;
+
     margin:22px auto;
-    padding:0 14px;
+
+    padding:0 15px;
+
 }
 
-
-/* =====================================================
-   BOX
-===================================================== */
+/* ================= BOX ================= */
 
 .box{
-    background:#fff;
+
+    background:white;
+
+    border-radius:13px;
 
     padding:20px;
 
-    border-radius:12px;
+    margin-bottom:20px;
 
     box-shadow:
-        0 2px 12px #00000010;
+    0 3px 15px rgba(0,0,0,.07);
 
-    margin-bottom:20px;
 }
 
+.box h3{
 
-/* =====================================================
-   HEADINGS
-===================================================== */
-
-h3{
     margin:0 0 18px;
 
     color:#075c43;
 
     font-size:18px;
+
 }
 
-
-/* =====================================================
-   FORM
-===================================================== */
+/* ================= FORM ================= */
 
 .form{
+
     display:grid;
 
     grid-template-columns:
-        repeat(2, minmax(0,1fr));
+    repeat(2,1fr);
 
-    gap:14px;
+    gap:15px;
+
 }
 
 .full{
-    grid-column:1 / -1;
+
+    grid-column:
+    1 / -1;
+
 }
 
-
 label{
-    display:block;
 
-    font-size:14px;
+    display:block;
 
     font-weight:bold;
 
-    color:#35534a;
-}
+    color:#315047;
 
+    font-size:14px;
+
+}
 
 input,
 select,
@@ -157,46 +176,46 @@ textarea{
 
     width:100%;
 
-    margin-top:6px;
-
     padding:12px;
 
-    border:1px solid #d8e1de;
+    margin-top:6px;
+
+    border:1px solid #d5e0dc;
 
     border-radius:8px;
 
-    background:#fff;
+    outline:none;
+
+    background:white;
+
+    font-family:inherit;
 
     font-size:14px;
 
-    outline:none;
-
     transition:.2s;
-}
 
+}
 
 input:focus,
 select:focus,
 textarea:focus{
 
-    border-color:#087f5b;
+    border-color:#07805e;
 
     box-shadow:
-        0 0 0 3px #087f5b15;
-}
+    0 0 0 3px #07805e18;
 
+}
 
 textarea{
 
     min-height:90px;
 
     resize:vertical;
+
 }
 
-
-/* =====================================================
-   BUTTONS
-===================================================== */
+/* ================= BUTTON ================= */
 
 button{
 
@@ -204,56 +223,73 @@ button{
 
     border-radius:8px;
 
-    padding:11px 16px;
+    padding:11px 17px;
 
     background:#087f5b;
 
-    color:#fff;
+    color:white;
 
-    font-size:14px;
+    font-family:inherit;
 
     font-weight:bold;
 
     cursor:pointer;
 
     transition:.2s;
+
 }
 
 button:hover{
+
     opacity:.9;
+
+    transform:translateY(-1px);
+
 }
 
 button:disabled{
-    opacity:.6;
+
+    opacity:.55;
+
     cursor:not-allowed;
+
+    transform:none;
+
 }
 
-
 .cancel{
+
     background:#777;
-    margin-left:6px;
+
+    margin-left:7px;
+
 }
 
 .edit{
+
     background:#1565c0;
+
 }
 
 .delete{
+
     background:#c62828;
+
 }
 
 .pdf{
-    background:#b0005a;
+
+    background:#9c165d;
+
 }
 
-.today-pdf{
+.pdf.today{
+
     background:#6a1b9a;
+
 }
 
-
-/* =====================================================
-   MESSAGE
-===================================================== */
+/* ================= MESSAGE ================= */
 
 #msg{
 
@@ -263,145 +299,129 @@ button:disabled{
 
     font-weight:bold;
 
-    font-size:14px;
 }
 
 .success{
+
     color:#087f5b;
+
 }
 
 .error{
+
     color:#c62828;
+
 }
 
-
-/* =====================================================
-   CUSTOM TYPE
-===================================================== */
+/* ================= CUSTOM ================= */
 
 .custom-box{
+
     display:none;
+
 }
 
+/* ================= NOTICE ================= */
 
-/* =====================================================
-   QUICK NOTE
-===================================================== */
+.info{
 
-.expense-note{
+    background:#fff8df;
 
-    background:#fff8e1;
-
-    border-left:5px solid #f9a825;
+    border-left:5px solid #f2a900;
 
     padding:15px;
 
     border-radius:8px;
 
-    color:#604b00;
+    line-height:1.7;
 
-    font-size:14px;
-
-    line-height:1.6;
 }
 
-
-/* =====================================================
-   PDF AREA
-===================================================== */
-
-.pdf-area{
-
-    display:grid;
-
-    grid-template-columns:
-        1fr 1fr auto auto;
-
-    gap:10px;
-
-    align-items:end;
-}
-
-
-.pdf-area .field label{
-    margin-bottom:0;
-}
-
-
-/* =====================================================
-   SUMMARY
-===================================================== */
+/* ================= SUMMARY ================= */
 
 .summary{
 
     display:grid;
 
     grid-template-columns:
-        repeat(3,1fr);
+    repeat(3,1fr);
 
     gap:12px;
 
-    margin-bottom:18px;
-}
+    margin-bottom:17px;
 
+}
 
 .card{
 
-    background:#edf8f5;
+    background:#edf8f4;
 
     border-radius:10px;
 
-    padding:16px;
+    padding:15px;
 
-    border:1px solid #d9eee8;
+    color:#176653;
+
 }
 
+.card small{
 
-.card-title{
-
-    color:#477268;
-
-    font-size:13px;
-
-    margin-bottom:6px;
-}
-
-
-.card-value{
-
-    color:#075c43;
-
-    font-size:20px;
+    display:block;
 
     font-weight:bold;
+
+    margin-bottom:5px;
+
 }
 
+.card strong{
 
-/* =====================================================
-   SEARCH
-===================================================== */
+    font-size:21px;
+
+}
+
+/* ================= REPORT ================= */
+
+.report-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    1fr 1fr;
+
+    gap:15px;
+
+}
+
+.report-buttons{
+
+    display:flex;
+
+    gap:8px;
+
+    align-items:end;
+
+}
+
+/* ================= SEARCH ================= */
 
 .search{
 
     width:100%;
 
     margin-bottom:15px;
+
 }
 
-
-/* =====================================================
-   TABLE
-===================================================== */
+/* ================= TABLE ================= */
 
 .table-wrap{
 
-    width:100%;
-
-    overflow-x:auto;
+    overflow:auto;
 
     border-radius:8px;
-}
 
+}
 
 table{
 
@@ -409,62 +429,71 @@ table{
 
     border-collapse:collapse;
 
-    min-width:1050px;
+    min-width:1000px;
+
 }
-
-
-th,
-td{
-
-    padding:10px 9px;
-
-    border-bottom:1px solid #e1e6e4;
-
-    text-align:left;
-
-    font-size:13px;
-
-    vertical-align:top;
-}
-
 
 th{
 
     background:#075c43;
 
-    color:#fff;
+    color:white;
 
-    font-weight:bold;
+    padding:11px 9px;
+
+    text-align:left;
+
+    font-size:13px;
 
     white-space:nowrap;
+
 }
 
+td{
+
+    padding:10px 9px;
+
+    border-bottom:1px solid #e2e8e5;
+
+    font-size:13px;
+
+    vertical-align:top;
+
+}
 
 tr:hover td{
 
     background:#f8fbfa;
-}
 
+}
 
 .action{
 
     white-space:nowrap;
-}
 
+}
 
 .action button{
 
-    padding:7px 9px;
+    padding:6px 9px;
 
     font-size:12px;
 
     margin:2px;
+
 }
 
+.amount{
 
-/* =====================================================
-   LOADING
-===================================================== */
+    font-weight:bold;
+
+    color:#075c43;
+
+    white-space:nowrap;
+
+}
+
+/* ================= EMPTY / LOADING ================= */
 
 .loading{
 
@@ -472,13 +501,9 @@ tr:hover td{
 
     padding:25px;
 
-    color:#607d75;
+    color:#777;
+
 }
-
-
-/* =====================================================
-   EMPTY
-===================================================== */
 
 .empty{
 
@@ -486,98 +511,84 @@ tr:hover td{
 
     padding:30px;
 
-    color:#78909c;
+    color:#777;
+
 }
 
+/* ================= MOBILE ================= */
 
-/* =====================================================
-   BADGE
-===================================================== */
-
-.badge{
-
-    display:inline-block;
-
-    padding:4px 8px;
-
-    border-radius:20px;
-
-    background:#e8f5e9;
-
-    color:#087f5b;
-
-    font-size:12px;
-
-    font-weight:bold;
-}
-
-
-/* =====================================================
-   RESPONSIVE
-===================================================== */
-
-@media(max-width:750px){
+@media(max-width:700px){
 
     .top{
 
-        padding:13px 14px;
+        padding:13px 15px;
+
     }
 
     .top h2{
 
-        font-size:16px;
+        font-size:17px;
+
     }
 
     .top a{
 
         font-size:12px;
+
     }
 
     .container{
 
-        margin:14px auto;
+        margin:15px auto;
+
+        padding:0 10px;
+
     }
 
     .box{
 
         padding:15px;
 
-        border-radius:10px;
+        border-radius:11px;
+
     }
 
     .form{
 
         grid-template-columns:1fr;
+
     }
 
     .full{
 
         grid-column:auto;
+
     }
 
     .summary{
 
         grid-template-columns:1fr;
+
     }
 
-    .pdf-area{
-
-        grid-template-columns:1fr 1fr;
-    }
-
-    .pdf-area button{
-
-        width:100%;
-    }
-
-}
-
-
-@media(max-width:450px){
-
-    .pdf-area{
+    .report-grid{
 
         grid-template-columns:1fr;
+
+    }
+
+    .report-buttons{
+
+        align-items:stretch;
+
+        flex-direction:column;
+
+    }
+
+    .report-buttons button{
+
+        width:100%;
+
     }
 
 }
@@ -586,12 +597,11 @@ tr:hover td{
 
 </head>
 
-
 <body>
 
 
 <!-- =====================================================
-     TOP
+HEADER
 ===================================================== -->
 
 <header class="top">
@@ -605,18 +615,17 @@ tr:hover td{
 </header>
 
 
-
 <div class="container">
 
 
 <!-- =====================================================
-     ADD EXPENSE
+ADD EXPENSE
 ===================================================== -->
 
 <div class="box">
 
 <h3>
-    ➕ Add Daily Expense
+➕ Add Daily Expense
 </h3>
 
 
@@ -625,13 +634,14 @@ tr:hover td{
 <input
 type="hidden"
 id="editId"
+value=""
 >
 
 
 <div>
 
 <label>
-    Expense Type *
+Expense Type *
 </label>
 
 <select
@@ -640,61 +650,60 @@ required
 >
 
 <option value="">
-    Expense Type নির্বাচন করুন
+Expense Type নির্বাচন করুন
 </option>
 
 <option value="Utilities">
-    💡 Utilities
+💡 Utilities
 </option>
 
 <option value="Food">
-    🍚 Food
-</option>
-
-<option value="Stationery">
-    📚 Stationery
-</option>
-
-<option value="Electricity">
-    ⚡ Electricity
-</option>
-
-<option value="Water">
-    💧 Water
-</option>
-
-<option value="Transport">
-    🚗 Transport
-</option>
-
-<option value="Maintenance">
-    🔧 Maintenance
+🍲 Food
 </option>
 
 <option value="Salary">
-    💰 Salary
+💰 Salary
+</option>
+
+<option value="Education">
+📚 Education
+</option>
+
+<option value="Maintenance">
+🔧 Maintenance
+</option>
+
+<option value="Transport">
+🚗 Transport
+</option>
+
+<option value="Stationery">
+📝 Stationery
+</option>
+
+<option value="Electricity">
+⚡ Electricity
+</option>
+
+<option value="Water">
+💧 Water
 </option>
 
 <option value="Rent">
-    🏠 Rent
-</option>
-
-<option value="Medical">
-    🏥 Medical
+🏠 Rent
 </option>
 
 <option value="Other">
-    📦 Other
+📦 Other
 </option>
 
 <option value="Custom">
-    ➕ নতুন Expense Type
+➕ নতুন Expense Type
 </option>
 
 </select>
 
 </div>
-
 
 
 <div
@@ -703,7 +712,7 @@ class="custom-box"
 >
 
 <label>
-    Custom Expense Type
+Custom Expense Type
 </label>
 
 <input
@@ -715,11 +724,10 @@ placeholder="যেমন: জমি ভাড়া, মেরামত..."
 </div>
 
 
-
 <div>
 
 <label>
-    Amount *
+Amount *
 </label>
 
 <input
@@ -727,18 +735,17 @@ type="number"
 id="amount"
 min="0"
 step="0.01"
-required
 placeholder="যেমন: 500"
+required
 >
 
 </div>
 
 
-
 <div>
 
 <label>
-    Expense Date *
+Expense Date *
 </label>
 
 <input
@@ -750,33 +757,36 @@ required
 </div>
 
 
-
 <div>
 
 <label>
-    Payment Method
+Payment Method
 </label>
 
 <select id="method">
 
 <option value="Cash">
-    Cash
+Cash
 </option>
 
 <option value="bKash">
-    bKash
+bKash
 </option>
 
 <option value="Nagad">
-    Nagad
+Nagad
 </option>
 
 <option value="Bank">
-    Bank
+Bank
+</option>
+
+<option value="Cheque">
+Cheque
 </option>
 
 <option value="Other">
-    Other
+Other
 </option>
 
 </select>
@@ -784,11 +794,10 @@ required
 </div>
 
 
-
 <div>
 
 <label>
-    Paid To
+Paid To
 </label>
 
 <input
@@ -800,28 +809,26 @@ placeholder="যাকে টাকা দেওয়া হয়েছে"
 </div>
 
 
-
 <div class="full">
 
 <label>
-    Title *
+Title *
 </label>
 
 <input
 type="text"
 id="title"
-required
 placeholder="যেমন: বিদ্যুৎ বিল"
+required
 >
 
 </div>
 
 
-
 <div class="full">
 
 <label>
-    Description
+Description
 </label>
 
 <textarea
@@ -832,74 +839,74 @@ placeholder="Expense সম্পর্কে বিস্তারিত লি
 </div>
 
 
-
 <div class="full">
 
 <button
 type="submit"
 id="saveBtn"
 >
-    💾 Save Expense
+💾 Save Expense
 </button>
 
 <button
 type="button"
-class="cancel"
 id="cancelBtn"
+class="cancel"
 style="display:none"
 >
-    Cancel
+Cancel
 </button>
 
 <div id="msg"></div>
 
 </div>
 
-
 </form>
 
 </div>
 
 
-
 <!-- =====================================================
-     NOTE
+INFO
 ===================================================== -->
 
 <div class="box">
 
-<div class="expense-note">
+<div class="info">
 
-<b>💡 Expense Management</b><br>
+💡 <b>Expense Management</b><br>
 
 প্রতিদিনের খরচ এখানে সংরক্ষণ করুন।
-Expense Type, Amount, Date, Payment Method এবং Paid To
-দিয়ে Save করলে নিচের তালিকায় দেখা যাবে।
+Expense Type, Amount, Date, Payment Method,
+Paid To, Title এবং Description দিয়ে Save করুন।
+
+<br>
+
+📄 নির্দিষ্ট তারিখের Expense Report
+PDF আকারে Download করা যাবে।
 
 </div>
 
 </div>
-
 
 
 <!-- =====================================================
-     PDF REPORT
+PDF REPORT
 ===================================================== -->
 
 <div class="box">
 
 <h3>
-    📄 Expense Report / PDF
+📄 Expense Report / PDF
 </h3>
 
 
-<div class="pdf-area">
+<div class="report-grid">
 
-
-<div class="field">
+<div>
 
 <label>
-    From Date
+From Date
 </label>
 
 <input
@@ -910,11 +917,10 @@ id="fromDate"
 </div>
 
 
-
-<div class="field">
+<div>
 
 <label>
-    To Date
+To Date
 </label>
 
 <input
@@ -924,111 +930,109 @@ id="toDate"
 
 </div>
 
+</div>
 
+
+<br>
+
+
+<div class="report-buttons">
 
 <button
 type="button"
 class="pdf"
-id="pdfBtn"
+id="rangePdfBtn"
 >
-    📄 PDF / Print
+📄 PDF / Print
 </button>
-
-
 
 <button
 type="button"
-class="today-pdf"
+class="pdf today"
 id="todayPdfBtn"
 >
-    📊 Today Report
+📅 Today Report
 </button>
-
 
 </div>
 
 
-<p style="
-margin:12px 0 0;
+<p
+style="
+color:#777;
 font-size:13px;
-color:#607d75;
-">
+margin-bottom:0;
+"
+>
 
-তারিখ নির্বাচন করে <b>PDF / Print</b> চাপলে ঐ date range-এর
-Expense Report তৈরি হবে।
+তারিখ নির্বাচন করে PDF / Print চাপলে
+নির্বাচিত date range-এর Expense Report তৈরি হবে।
 
 </p>
 
 </div>
 
 
-
 <!-- =====================================================
-     EXPENSE LIST
+EXPENSE LIST
 ===================================================== -->
 
 <div class="box">
 
 <h3>
-    💸 Expense List
+💸 Expense List
 </h3>
 
 
 <div class="summary">
 
-
 <div class="card">
 
-<div class="card-title">
-    Total Expense
-</div>
+<small>
+Total Expense
+</small>
 
-<div class="card-value">
-    ৳ <span id="totalExpense">0.00</span>
-</div>
-
-</div>
-
-
-
-<div class="card">
-
-<div class="card-title">
-    Today
-</div>
-
-<div class="card-value">
-    ৳ <span id="todayExpense">0.00</span>
-</div>
+<strong>
+৳ <span id="totalExpense">0.00</span>
+</strong>
 
 </div>
-
 
 
 <div class="card">
 
-<div class="card-title">
-    Records
-</div>
+<small>
+Today
+</small>
 
-<div class="card-value">
-    <span id="recordCount">0</span>
-</div>
-
-</div>
-
+<strong>
+৳ <span id="todayExpense">0.00</span>
+</strong>
 
 </div>
 
+
+<div class="card">
+
+<small>
+Records
+</small>
+
+<strong>
+<span id="recordCount">0</span>
+</strong>
+
+</div>
+
+</div>
 
 
 <input
 type="search"
-class="search"
 id="search"
+class="search"
 placeholder="🔍 Title / Type / Paid To / Date দিয়ে খুঁজুন..."
 >
-
 
 
 <div class="table-wrap">
@@ -1039,21 +1043,37 @@ placeholder="🔍 Title / Type / Paid To / Date দিয়ে খুঁজুন.
 
 <tr>
 
-<th>Title</th>
+<th>
+Title
+</th>
 
-<th>Type</th>
+<th>
+Type
+</th>
 
-<th>Amount</th>
+<th>
+Amount
+</th>
 
-<th>Date</th>
+<th>
+Date
+</th>
 
-<th>Method</th>
+<th>
+Method
+</th>
 
-<th>Paid To</th>
+<th>
+Paid To
+</th>
 
-<th>Description</th>
+<th>
+Description
+</th>
 
-<th>Action</th>
+<th>
+Action
+</th>
 
 </tr>
 
@@ -1087,11 +1107,10 @@ Loading...
 </div>
 
 
-
 <script>
 
 /* =====================================================
-   SUPABASE CONFIG
+SUPABASE CONFIG
 ===================================================== */
 
 const SUPABASE_URL =
@@ -1109,30 +1128,16 @@ window.supabase.createClient(
 
 
 /* =====================================================
-   VARIABLES
+VARIABLES
 ===================================================== */
 
 let expenses = [];
 
-
-/*
-   Database column compatibility.
-
-   Primary:
-   expense_type
-
-   Fallback:
-   type
-
-   This solves schema-cache problems if your table
-   uses "type" instead of "expense_type".
-*/
-
-let expenseTypeColumn = "expense_type";
+let filteredExpenses = [];
 
 
 /* =====================================================
-   TODAY
+DATE FUNCTION
 ===================================================== */
 
 function today(){
@@ -1140,17 +1145,15 @@ function today(){
     const d = new Date();
 
     const year =
-        d.getFullYear();
+    d.getFullYear();
 
     const month =
-        String(
-            d.getMonth()+1
-        ).padStart(2,"0");
+    String(d.getMonth()+1)
+    .padStart(2,"0");
 
     const day =
-        String(
-            d.getDate()
-        ).padStart(2,"0");
+    String(d.getDate())
+    .padStart(2,"0");
 
     return `${year}-${month}-${day}`;
 
@@ -1158,7 +1161,44 @@ function today(){
 
 
 /* =====================================================
-   MESSAGE
+FORMAT MONEY
+===================================================== */
+
+function money(value){
+
+    const n =
+    Number(value) || 0;
+
+    return n.toLocaleString(
+        "en-BD",
+        {
+            minimumFractionDigits:2,
+            maximumFractionDigits:2
+        }
+    );
+
+}
+
+
+/* =====================================================
+ESCAPE HTML
+===================================================== */
+
+function escapeHtml(value){
+
+    return String(value ?? "")
+
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+/* =====================================================
+MESSAGE
 ===================================================== */
 
 function showMessage(
@@ -1167,97 +1207,39 @@ function showMessage(
 ){
 
     const msg =
-        document.getElementById("msg");
+    document.getElementById("msg");
 
-    msg.textContent =
-        text;
+    msg.textContent = text;
 
-    msg.className =
-        type;
+    msg.className = type;
 
 }
 
 
 /* =====================================================
-   GET EXPENSE TYPE
+AUTH CHECK
 ===================================================== */
 
-function getExpenseType(item){
-
-    return String(
-
-        item.expense_type ??
-
-        item.type ??
-
-        item.category ??
-
-        ""
-
-    );
-
-}
-
-
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
-
-function escapeHtml(value){
-
-    return String(value ?? "")
-
-        .replaceAll(
-            "&",
-            "&amp;"
-        )
-
-        .replaceAll(
-            "<",
-            "&lt;"
-        )
-
-        .replaceAll(
-            ">",
-            "&gt;"
-        )
-
-        .replaceAll(
-            '"',
-            "&quot;"
-        )
-
-        .replaceAll(
-            "'",
-            "&#039;"
-        );
-
-}
-
-
-/* =====================================================
-   START
-===================================================== */
-
-async function start(){
+async function checkAuth(){
 
     try{
 
         const {
             data,
             error
-        } = await db.auth.getSession();
+        } =
+        await db.auth.getSession();
 
 
         if(error){
 
             showMessage(
-                "❌ Session error: " +
+                "❌ Session Error: "+
                 error.message,
                 "error"
             );
 
-            return;
+            return false;
 
         }
 
@@ -1265,42 +1247,26 @@ async function start(){
         if(!data.session){
 
             location.href =
-                "admin.html";
+            "admin.html";
 
-            return;
+            return false;
 
         }
 
 
-        document.getElementById(
-            "expenseDate"
-        ).value =
-            today();
-
-
-        document.getElementById(
-            "fromDate"
-        ).value =
-            today();
-
-
-        document.getElementById(
-            "toDate"
-        ).value =
-            today();
-
-
-        await loadExpenses();
+        return true;
 
     }
 
     catch(error){
 
         showMessage(
-            "❌ Start error: " +
+            "❌ Authentication Error: "+
             error.message,
             "error"
         );
+
+        return false;
 
     }
 
@@ -1308,15 +1274,15 @@ async function start(){
 
 
 /* =====================================================
-   LOAD EXPENSES
+LOAD EXPENSES
 ===================================================== */
 
 async function loadExpenses(){
 
     const tbody =
-        document.getElementById(
-            "expenseList"
-        );
+    document.getElementById(
+        "expenseList"
+    );
 
 
     tbody.innerHTML = `
@@ -1327,7 +1293,9 @@ async function loadExpenses(){
             colspan="8"
             class="loading"
             >
-                Loading...
+
+                ⏳ Loading Expense...
+
             </td>
 
         </tr>
@@ -1335,10 +1303,30 @@ async function loadExpenses(){
     `;
 
 
-    let result =
+    try{
+
+        const {
+            data,
+            error
+        } =
         await db
         .from("expenses")
-        .select("*")
+        .select(`
+            id,
+            expense_type,
+            amount,
+            expense_date,
+            payment_method,
+            paid_to,
+            title,
+            description
+        `)
+        .order(
+            "expense_date",
+            {
+                ascending:false
+            }
+        )
         .order(
             "id",
             {
@@ -1347,14 +1335,82 @@ async function loadExpenses(){
         );
 
 
-    /*
-       If normal query fails because of a schema
-       issue, show the actual Supabase error.
-    */
+        if(error){
 
-    if(result.error){
+            console.error(
+                "LOAD ERROR:",
+                error
+            );
 
-        expenses = [];
+
+            expenses=[];
+
+
+            tbody.innerHTML = `
+
+                <tr>
+
+                    <td
+                    colspan="8"
+                    class="error"
+                    style="padding:20px"
+                    >
+
+                    ❌ ${escapeHtml(
+                        error.message
+                    )}
+
+                    <br><br>
+
+                    <small>
+
+                    Supabase-এ
+                    expense_type,
+                    amount,
+                    expense_date,
+                    payment_method,
+                    paid_to,
+                    title,
+                    description
+                    column আছে কিনা নিশ্চিত করুন।
+
+                    </small>
+
+                    </td>
+
+                </tr>
+
+            `;
+
+
+            updateSummary();
+
+            return;
+
+        }
+
+
+        expenses =
+        Array.isArray(data)
+        ? data
+        : [];
+
+
+        filteredExpenses =
+        [...expenses];
+
+
+        renderExpenses(
+            filteredExpenses
+        );
+
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
 
         tbody.innerHTML = `
 
@@ -1363,14 +1419,11 @@ async function loadExpenses(){
                 <td
                 colspan="8"
                 class="error"
-                style="text-align:center"
                 >
 
-                    ❌ ${
-                        escapeHtml(
-                            result.error.message
-                        )
-                    }
+                ❌ ${escapeHtml(
+                    error.message
+                )}
 
                 </td>
 
@@ -1378,84 +1431,41 @@ async function loadExpenses(){
 
         `;
 
-        return;
-
     }
-
-
-    expenses =
-        result.data || [];
-
-
-    /*
-       Detect which expense type column exists.
-    */
-
-    if(
-        expenses.length &&
-        Object.prototype.hasOwnProperty.call(
-            expenses[0],
-            "expense_type"
-        )
-    ){
-
-        expenseTypeColumn =
-            "expense_type";
-
-    }
-
-    else if(
-        expenses.length &&
-        Object.prototype.hasOwnProperty.call(
-            expenses[0],
-            "type"
-        )
-    ){
-
-        expenseTypeColumn =
-            "type";
-
-    }
-
-
-    renderExpenses();
 
 }
 
 
 /* =====================================================
-   RENDER EXPENSES
+SUMMARY
 ===================================================== */
 
-function renderExpenses(
-    list = expenses
+function updateSummary(
+    list=expenses
 ){
 
     let total = 0;
 
     let todayTotal = 0;
 
-    const currentDate =
-        today();
+
+    const todayDate =
+    today();
 
 
-    list.forEach(item => {
+    list.forEach(item=>{
 
         const amount =
-            Number(
-                item.amount
-            ) || 0;
+        Number(item.amount) || 0;
 
 
         total += amount;
 
 
         if(
-            String(
-                item.expense_date ??
-                item.date ??
-                ""
-            ) === currentDate
+            normalizeDate(
+                item.expense_date
+            ) === todayDate
         ){
 
             todayTotal += amount;
@@ -1468,25 +1478,57 @@ function renderExpenses(
     document.getElementById(
         "totalExpense"
     ).textContent =
-        total.toFixed(2);
+    money(total);
 
 
     document.getElementById(
         "todayExpense"
     ).textContent =
-        todayTotal.toFixed(2);
+    money(todayTotal);
 
 
     document.getElementById(
         "recordCount"
     ).textContent =
-        list.length;
+    list.length;
+
+}
+
+
+/* =====================================================
+DATE NORMALIZE
+===================================================== */
+
+function normalizeDate(value){
+
+    if(!value){
+
+        return "";
+
+    }
+
+
+    return String(value)
+    .substring(0,10);
+
+}
+
+
+/* =====================================================
+RENDER
+===================================================== */
+
+function renderExpenses(
+    list=expenses
+){
+
+    updateSummary(list);
 
 
     const tbody =
-        document.getElementById(
-            "expenseList"
-        );
+    document.getElementById(
+        "expenseList"
+    );
 
 
     if(!list.length){
@@ -1514,133 +1556,107 @@ function renderExpenses(
 
 
     tbody.innerHTML =
+    list.map(item=>{
 
-        list.map(item => {
-
-            const amount =
-                Number(
-                    item.amount
-                ) || 0;
+        const amount =
+        Number(item.amount) || 0;
 
 
-            const date =
-                item.expense_date ??
-                item.date ??
-                "";
+        return `
+
+        <tr>
+
+            <td>
+                ${escapeHtml(
+                    item.title || "-"
+                )}
+            </td>
 
 
-            return `
-
-            <tr>
-
-                <td>
-                    ${
-                        escapeHtml(
-                            item.title || "-"
-                        )
-                    }
-                </td>
+            <td>
+                ${escapeHtml(
+                    item.expense_type || "-"
+                )}
+            </td>
 
 
-                <td>
-                    <span class="badge">
-                        ${
-                            escapeHtml(
-                                getExpenseType(item)
-                                || "-"
-                            )
-                        }
-                    </span>
-                </td>
+            <td class="amount">
+                ৳ ${money(amount)}
+            </td>
 
 
-                <td>
-                    ৳ ${amount.toFixed(2)}
-                </td>
+            <td>
+                ${escapeHtml(
+                    normalizeDate(
+                        item.expense_date
+                    ) || "-"
+                )}
+            </td>
 
 
-                <td>
-                    ${
-                        escapeHtml(
-                            date || "-"
-                        )
-                    }
-                </td>
+            <td>
+                ${escapeHtml(
+                    item.payment_method || "-"
+                )}
+            </td>
 
 
-                <td>
-                    ${
-                        escapeHtml(
-                            item.payment_method ??
-                            item.method ??
-                            "-"
-                        )
-                    }
-                </td>
+            <td>
+                ${escapeHtml(
+                    item.paid_to || "-"
+                )}
+            </td>
 
 
-                <td>
-                    ${
-                        escapeHtml(
-                            item.paid_to ??
-                            "-"
-                        )
-                    }
-                </td>
+            <td>
+                ${escapeHtml(
+                    item.description || "-"
+                )}
+            </td>
 
 
-                <td>
-                    ${
-                        escapeHtml(
-                            item.description ??
-                            "-"
-                        )
-                    }
-                </td>
+            <td class="action">
+
+                <button
+                type="button"
+                class="edit"
+                data-id="${escapeHtml(
+                    String(item.id)
+                )}"
+                onclick="editExpenseFromButton(this)"
+                >
+
+                    ✏️ Edit
+
+                </button>
 
 
-                <td class="action">
+                <button
+                type="button"
+                class="delete"
+                data-id="${escapeHtml(
+                    String(item.id)
+                )}"
+                onclick="deleteExpenseFromButton(this)"
+                >
 
-                    <button
-                    type="button"
-                    class="edit"
-                    data-id="${
-                        escapeHtml(
-                            String(item.id)
-                        )
-                    }"
-                    onclick="editExpenseFromButton(this)"
-                    >
-                        Edit
-                    </button>
+                    🗑 Delete
 
+                </button>
 
-                    <button
-                    type="button"
-                    class="delete"
-                    data-id="${
-                        escapeHtml(
-                            String(item.id)
-                        )
-                    }"
-                    onclick="deleteExpenseFromButton(this)"
-                    >
-                        Delete
-                    </button>
+            </td>
 
-                </td>
+        </tr>
 
-            </tr>
+        `;
 
-            `;
-
-        }).join("");
+    }).join("");
 
 }
 
 
 /* =====================================================
-   BUTTON HANDLERS
+EDIT BUTTON
 ===================================================== */
 
 function editExpenseFromButton(
@@ -1648,23 +1664,23 @@ function editExpenseFromButton(
 ){
 
     const id =
-        button.getAttribute(
-            "data-id"
-        );
+    button.getAttribute("data-id");
 
     editExpense(id);
 
 }
 
 
+/* =====================================================
+DELETE BUTTON
+===================================================== */
+
 function deleteExpenseFromButton(
     button
 ){
 
     const id =
-        button.getAttribute(
-            "data-id"
-        );
+    button.getAttribute("data-id");
 
     deleteExpense(id);
 
@@ -1672,7 +1688,7 @@ function deleteExpenseFromButton(
 
 
 /* =====================================================
-   EXPENSE TYPE CHANGE
+CUSTOM TYPE
 ===================================================== */
 
 document.getElementById(
@@ -1682,38 +1698,35 @@ document.getElementById(
     function(){
 
         const customBox =
-            document.getElementById(
-                "customBox"
-            );
+        document.getElementById(
+            "customBox"
+        );
 
         const customType =
-            document.getElementById(
-                "customType"
-            );
+        document.getElementById(
+            "customType"
+        );
 
 
-        if(
-            this.value === "Custom"
-        ){
+        if(this.value === "Custom"){
 
             customBox.style.display =
-                "block";
+            "block";
 
             customType.required =
-                true;
+            true;
 
         }
 
         else{
 
             customBox.style.display =
-                "none";
+            "none";
 
             customType.required =
-                false;
+            false;
 
-            customType.value =
-                "";
+            customType.value = "";
 
         }
 
@@ -1722,7 +1735,7 @@ document.getElementById(
 
 
 /* =====================================================
-   SAVE / UPDATE
+SAVE / UPDATE
 ===================================================== */
 
 document.getElementById(
@@ -1735,25 +1748,26 @@ document.getElementById(
 
 
         const editId =
-            document.getElementById(
-                "editId"
-            ).value.trim();
+        document.getElementById(
+            "editId"
+        ).value.trim();
 
 
         let expenseType =
-            document.getElementById(
-                "expenseType"
-            ).value;
+        document.getElementById(
+            "expenseType"
+        ).value;
 
 
         const customType =
-            document.getElementById(
-                "customType"
-            ).value.trim();
+        document.getElementById(
+            "customType"
+        ).value.trim();
 
 
         if(
-            expenseType === "Custom"
+            expenseType ===
+            "Custom"
         ){
 
             if(!customType){
@@ -1767,8 +1781,9 @@ document.getElementById(
 
             }
 
+
             expenseType =
-                customType;
+            customType;
 
         }
 
@@ -1786,23 +1801,41 @@ document.getElementById(
 
 
         const title =
-            document.getElementById(
-                "title"
-            ).value.trim();
+        document.getElementById(
+            "title"
+        ).value.trim();
 
 
         const amount =
-            Number(
-                document.getElementById(
-                    "amount"
-                ).value
-            );
+        Number(
+            document.getElementById(
+                "amount"
+            ).value
+        );
 
 
         const expenseDate =
-            document.getElementById(
-                "expenseDate"
-            ).value;
+        document.getElementById(
+            "expenseDate"
+        ).value;
+
+
+        const paymentMethod =
+        document.getElementById(
+            "method"
+        ).value;
+
+
+        const paidTo =
+        document.getElementById(
+            "paidTo"
+        ).value.trim();
+
+
+        const description =
+        document.getElementById(
+            "description"
+        ).value.trim();
 
 
         if(!title){
@@ -1844,55 +1877,46 @@ document.getElementById(
         }
 
 
-        /*
-           Base record.
+        const record = {
 
-           IMPORTANT:
-           expense_type is added dynamically below.
-        */
+            expense_type:
+            expenseType,
 
-        let record = {
+            amount:
+            amount,
 
-            amount: amount,
-
-            expense_date: expenseDate,
+            expense_date:
+            expenseDate,
 
             payment_method:
-                document.getElementById(
-                    "method"
-                ).value,
+            paymentMethod,
 
             paid_to:
-                document.getElementById(
-                    "paidTo"
-                ).value.trim()
-                || null,
+            paidTo || null,
 
-            title: title,
+            title:
+            title,
 
             description:
-                document.getElementById(
-                    "description"
-                ).value.trim()
-                || null
+            description || null
 
         };
 
 
-        record[
-            expenseTypeColumn
-        ] =
-            expenseType;
-
-
         const saveBtn =
-            document.getElementById(
-                "saveBtn"
-            );
+        document.getElementById(
+            "saveBtn"
+        );
 
 
         saveBtn.disabled =
-            true;
+        true;
+
+
+        saveBtn.textContent =
+        editId
+        ? "⏳ Updating..."
+        : "⏳ Saving...";
 
 
         try{
@@ -1903,111 +1927,35 @@ document.getElementById(
             if(editId){
 
                 result =
-                    await db
-                    .from("expenses")
-                    .update(record)
-                    .eq(
-                        "id",
-                        editId
-                    )
-                    .select();
+                await db
+                .from("expenses")
+                .update(record)
+                .eq("id",editId)
+                .select();
 
             }
 
             else{
 
                 result =
-                    await db
-                    .from("expenses")
-                    .insert(record)
-                    .select();
-
-            }
-
-
-            /*
-               AUTOMATIC FALLBACK
-
-               If database does not have
-               expense_type but has type,
-               retry automatically.
-            */
-
-            if(
-                result.error &&
-                expenseTypeColumn ===
-                "expense_type" &&
-                /expense_type/i.test(
-                    result.error.message
-                )
-            ){
-
-                expenseTypeColumn =
-                    "type";
-
-
-                record = {
-
-                    type: expenseType,
-
-                    amount: amount,
-
-                    expense_date:
-                        expenseDate,
-
-                    payment_method:
-                        document.getElementById(
-                            "method"
-                        ).value,
-
-                    paid_to:
-                        document.getElementById(
-                            "paidTo"
-                        ).value.trim()
-                        || null,
-
-                    title: title,
-
-                    description:
-                        document.getElementById(
-                            "description"
-                        ).value.trim()
-                        || null
-
-                };
-
-
-                if(editId){
-
-                    result =
-                        await db
-                        .from("expenses")
-                        .update(record)
-                        .eq(
-                            "id",
-                            editId
-                        )
-                        .select();
-
-                }
-
-                else{
-
-                    result =
-                        await db
-                        .from("expenses")
-                        .insert(record)
-                        .select();
-
-                }
+                await db
+                .from("expenses")
+                .insert(record)
+                .select();
 
             }
 
 
             if(result.error){
 
+                console.error(
+                    "SAVE ERROR:",
+                    result.error
+                );
+
+
                 showMessage(
-                    "❌ " +
+                    "❌ "+
                     result.error.message,
                     "error"
                 );
@@ -2018,15 +1966,10 @@ document.getElementById(
 
 
             showMessage(
-
                 editId
-
-                ? "✅ Expense Updated Successfully"
-
-                : "✅ Expense Saved Successfully",
-
+                ? "✅ Expense Successfully Updated"
+                : "✅ Expense Successfully Saved",
                 "success"
-
             );
 
 
@@ -2039,8 +1982,11 @@ document.getElementById(
 
         catch(error){
 
+            console.error(error);
+
+
             showMessage(
-                "❌ " +
+                "❌ "+
                 error.message,
                 "error"
             );
@@ -2050,7 +1996,10 @@ document.getElementById(
         finally{
 
             saveBtn.disabled =
-                false;
+            false;
+
+            saveBtn.textContent =
+            "💾 Save Expense";
 
         }
 
@@ -2059,20 +2008,20 @@ document.getElementById(
 
 
 /* =====================================================
-   EDIT EXPENSE
+EDIT EXPENSE
 ===================================================== */
 
 function editExpense(id){
 
-    const expense =
-        expenses.find(
-            item =>
-                String(item.id) ===
-                String(id)
-        );
+    const item =
+    expenses.find(
+        x =>
+        String(x.id) ===
+        String(id)
+    );
 
 
-    if(!expense){
+    if(!item){
 
         alert(
             "❌ Expense record পাওয়া যায়নি।"
@@ -2086,44 +2035,34 @@ function editExpense(id){
     document.getElementById(
         "editId"
     ).value =
-        String(expense.id);
-
-
-    const type =
-        getExpenseType(expense);
-
-
-    const select =
-        document.getElementById(
-            "expenseType"
-        );
+    String(item.id);
 
 
     const standardTypes = [
 
         "Utilities",
-
         "Food",
-
-        "Stationery",
-
-        "Electricity",
-
-        "Water",
-
-        "Transport",
-
-        "Maintenance",
-
         "Salary",
-
+        "Education",
+        "Maintenance",
+        "Transport",
+        "Stationery",
+        "Electricity",
+        "Water",
         "Rent",
-
-        "Medical",
-
         "Other"
 
     ];
+
+
+    const select =
+    document.getElementById(
+        "expenseType"
+    );
+
+
+    const type =
+    item.expense_type || "";
 
 
     if(
@@ -2131,44 +2070,43 @@ function editExpense(id){
     ){
 
         select.value =
-            type;
+        type;
 
 
         document.getElementById(
             "customBox"
         ).style.display =
-            "none";
+        "none";
 
 
         document.getElementById(
             "customType"
-        ).value =
-            "";
+        ).value = "";
 
     }
 
     else{
 
         select.value =
-            "Custom";
+        "Custom";
 
 
         document.getElementById(
             "customBox"
         ).style.display =
-            "block";
+        "block";
 
 
         document.getElementById(
             "customType"
         ).value =
-            type;
+        type;
 
 
         document.getElementById(
             "customType"
         ).required =
-            true;
+        true;
 
     }
 
@@ -2176,55 +2114,52 @@ function editExpense(id){
     document.getElementById(
         "amount"
     ).value =
-        expense.amount ?? "";
+    item.amount ?? "";
 
 
     document.getElementById(
         "expenseDate"
     ).value =
-
-        expense.expense_date ??
-        expense.date ??
-        "";
+    normalizeDate(
+        item.expense_date
+    );
 
 
     document.getElementById(
         "method"
     ).value =
-
-        expense.payment_method ??
-        expense.method ??
-        "Cash";
+    item.payment_method ||
+    "Cash";
 
 
     document.getElementById(
         "paidTo"
     ).value =
-        expense.paid_to ?? "";
+    item.paid_to || "";
 
 
     document.getElementById(
         "title"
     ).value =
-        expense.title ?? "";
+    item.title || "";
 
 
     document.getElementById(
         "description"
     ).value =
-        expense.description ?? "";
+    item.description || "";
 
 
     document.getElementById(
         "saveBtn"
     ).textContent =
-        "💾 Update Expense";
+    "💾 Update Expense";
 
 
     document.getElementById(
         "cancelBtn"
     ).style.display =
-        "inline-block";
+    "inline-block";
 
 
     window.scrollTo({
@@ -2239,7 +2174,7 @@ function editExpense(id){
 
 
 /* =====================================================
-   DELETE EXPENSE
+DELETE
 ===================================================== */
 
 async function deleteExpense(id){
@@ -2255,11 +2190,20 @@ async function deleteExpense(id){
     }
 
 
-    if(
-        !confirm(
-            "এই Expense record Delete করতে চান?"
-        )
-    ){
+    const item =
+    expenses.find(
+        x =>
+        String(x.id) ===
+        String(id)
+    );
+
+
+    if(!confirm(
+
+        "এই Expense record Delete করতে চান?\n\n"+
+        (item?.title || "")
+
+    )){
 
         return;
 
@@ -2272,20 +2216,17 @@ async function deleteExpense(id){
             data,
             error
         } =
-            await db
-            .from("expenses")
-            .delete()
-            .eq(
-                "id",
-                id
-            )
-            .select("id");
+        await db
+        .from("expenses")
+        .delete()
+        .eq("id",id)
+        .select("id");
 
 
         if(error){
 
             alert(
-                "❌ Delete failed:\n" +
+                "❌ Delete failed:\n\n"+
                 error.message
             );
 
@@ -2309,7 +2250,7 @@ async function deleteExpense(id){
 
 
         alert(
-            "✅ Expense deleted successfully"
+            "✅ Expense successfully deleted"
         );
 
 
@@ -2320,7 +2261,7 @@ async function deleteExpense(id){
     catch(error){
 
         alert(
-            "❌ " +
+            "❌ "+
             error.message
         );
 
@@ -2330,7 +2271,7 @@ async function deleteExpense(id){
 
 
 /* =====================================================
-   SEARCH
+SEARCH
 ===================================================== */
 
 document.getElementById(
@@ -2340,95 +2281,63 @@ document.getElementById(
     function(){
 
         const q =
-            this.value
-            .toLowerCase()
-            .trim();
+        this.value
+        .toLowerCase()
+        .trim();
 
 
         if(!q){
 
-            renderExpenses();
+            filteredExpenses =
+            [...expenses];
+
+            renderExpenses(
+                filteredExpenses
+            );
 
             return;
 
         }
 
 
-        const filtered =
-            expenses.filter(
-                item => {
+        filteredExpenses =
+        expenses.filter(
+            item=>{
 
-                    const title =
-                        String(
-                            item.title ??
-                            ""
-                        )
-                        .toLowerCase();
+                const values = [
 
+                    item.title,
 
-                    const type =
-                        getExpenseType(
-                            item
-                        )
-                        .toLowerCase();
+                    item.expense_type,
 
+                    item.paid_to,
 
-                    const paidTo =
-                        String(
-                            item.paid_to ??
-                            ""
-                        )
-                        .toLowerCase();
+                    item.payment_method,
+
+                    item.description,
+
+                    item.expense_date,
+
+                    item.amount
+
+                ];
 
 
-                    const method =
-                        String(
-                            item.payment_method ??
-                            item.method ??
-                            ""
-                        )
-                        .toLowerCase();
+                return values.some(
+                    value =>
+                    String(
+                        value ?? ""
+                    )
+                    .toLowerCase()
+                    .includes(q)
+                );
 
-
-                    const description =
-                        String(
-                            item.description ??
-                            ""
-                        )
-                        .toLowerCase();
-
-
-                    const date =
-                        String(
-                            item.expense_date ??
-                            item.date ??
-                            ""
-                        )
-                        .toLowerCase();
-
-
-                    return (
-
-                        title.includes(q) ||
-
-                        type.includes(q) ||
-
-                        paidTo.includes(q) ||
-
-                        method.includes(q) ||
-
-                        description.includes(q) ||
-
-                        date.includes(q)
-
-                    );
-
-                }
-            );
+            }
+        );
 
 
         renderExpenses(
-            filtered
+            filteredExpenses
         );
 
     }
@@ -2436,7 +2345,7 @@ document.getElementById(
 
 
 /* =====================================================
-   RESET FORM
+RESET
 ===================================================== */
 
 function resetForm(){
@@ -2448,140 +2357,102 @@ function resetForm(){
 
     document.getElementById(
         "editId"
-    ).value =
-        "";
+    ).value = "";
 
 
     document.getElementById(
         "expenseDate"
     ).value =
-        today();
+    today();
 
 
     document.getElementById(
         "saveBtn"
     ).textContent =
-        "💾 Save Expense";
+    "💾 Save Expense";
 
 
     document.getElementById(
         "cancelBtn"
     ).style.display =
-        "none";
+    "none";
 
 
     document.getElementById(
         "customBox"
     ).style.display =
-        "none";
+    "none";
 
 
     document.getElementById(
         "customType"
     ).required =
-        false;
+    false;
 
 
     document.getElementById(
         "msg"
-    ).textContent =
-        "";
-
-
-    document.getElementById(
-        "msg"
-    ).className =
-        "";
+    ).textContent = "";
 
 }
 
 
 /* =====================================================
-   CANCEL
+CANCEL
 ===================================================== */
 
 document.getElementById(
     "cancelBtn"
-).onclick =
+).addEventListener(
+    "click",
     function(){
 
         resetForm();
 
-    };
+    }
+);
 
 
 /* =====================================================
-   DATE RANGE FILTER
+PDF DATA
 ===================================================== */
 
-function getDateRange(){
-
-    const from =
-        document.getElementById(
-            "fromDate"
-        ).value;
-
-
-    const to =
-        document.getElementById(
-            "toDate"
-        ).value;
-
-
-    if(!from || !to){
-
-        alert(
-            "❌ From Date এবং To Date নির্বাচন করুন।"
-        );
-
-        return null;
-
-    }
-
-
-    if(from > to){
-
-        alert(
-            "❌ From Date, To Date-এর পরে হতে পারবে না।"
-        );
-
-        return null;
-
-    }
-
-
-    return {
-        from,
-        to
-    };
-
-}
-
-
-/* =====================================================
-   FILTER EXPENSES BY DATE
-===================================================== */
-
-function filterByDate(
+function getDateRangeData(
     from,
     to
 ){
 
     return expenses.filter(
-        item => {
+        item=>{
 
             const date =
-                String(
-                    item.expense_date ??
-                    item.date ??
-                    ""
-                );
-
-
-            return (
-                date >= from &&
-                date <= to
+            normalizeDate(
+                item.expense_date
             );
+
+
+            if(!date){
+
+                return false;
+
+            }
+
+
+            if(from && date < from){
+
+                return false;
+
+            }
+
+
+            if(to && date > to){
+
+                return false;
+
+            }
+
+
+            return true;
 
         }
     );
@@ -2590,23 +2461,20 @@ function filterByDate(
 
 
 /* =====================================================
-   PDF REPORT
+PDF GENERATOR
 ===================================================== */
 
-async function generatePDF(
+function generatePDF(
+    list,
     from,
     to,
-    titleText
+    reportTitle
 ){
 
-    const list =
-        filterByDate(
-            from,
-            to
-        );
-
-
-    if(!list.length){
+    if(
+        !list ||
+        !list.length
+    ){
 
         alert(
             "❌ এই তারিখের মধ্যে কোনো Expense record নেই।"
@@ -2619,155 +2487,143 @@ async function generatePDF(
 
     const {
         jsPDF
-    } = window.jspdf;
+    } =
+    window.jspdf;
 
 
     const doc =
-        new jsPDF(
-            "landscape",
-            "mm",
-            "a4"
-        );
+    new jsPDF({
+        orientation:"landscape",
+        unit:"mm",
+        format:"a4"
+    });
 
 
-    /*
-       Header
-    */
+    /* HEADER */
 
-    doc.setFontSize(18);
-
-    doc.setFont(
-        "helvetica",
-        "bold"
-    );
+    doc.setFontSize(17);
 
     doc.text(
         "MADRASHA-E NURUL QURAN",
         148,
-        15,
+        13,
         {
             align:"center"
         }
     );
 
 
-    doc.setFontSize(14);
+    doc.setFontSize(13);
 
     doc.text(
-        "Daily Expense Report",
+        reportTitle,
         148,
-        23,
+        21,
         {
             align:"center"
         }
+    );
+
+
+    doc.setFontSize(9);
+
+
+    const rangeText =
+    from && to
+    ? `Date: ${from} to ${to}`
+    : from
+    ? `Date: ${from}`
+    : to
+    ? `Date: ${to}`
+    : "All Expense Records";
+
+
+    doc.text(
+        rangeText,
+        148,
+        27,
+        {
+            align:"center"
+        }
+    );
+
+
+    /* TOTAL */
+
+    const total =
+    list.reduce(
+        (
+            sum,
+            item
+        ) =>
+        sum +
+        (Number(item.amount)||0),
+        0
     );
 
 
     doc.setFontSize(10);
 
-    doc.setFont(
-        "helvetica",
-        "normal"
+    doc.text(
+        `Total Expense: BDT ${money(total)}`,
+        14,
+        35
     );
 
+
     doc.text(
-        "Period: " +
-        from +
-        " to " +
-        to,
-        148,
-        30,
+        `Records: ${list.length}`,
+        285,
+        35,
         {
-            align:"center"
+            align:"right"
         }
     );
 
 
-    let total = 0;
-
+    /* TABLE */
 
     const rows =
-        list.map(
-            (item,index) => {
+    list.map(
+        item => [
 
-                const amount =
-                    Number(
-                        item.amount
-                    ) || 0;
+            item.title || "-",
 
+            item.expense_type || "-",
 
-                total += amount;
+            `BDT ${money(
+                item.amount
+            )}`,
 
+            normalizeDate(
+                item.expense_date
+            ) || "-",
 
-                return [
+            item.payment_method || "-",
 
-                    String(index+1),
+            item.paid_to || "-",
 
-                    String(
-                        item.title ??
-                        "-"
-                    ),
+            item.description || "-"
 
-                    String(
-                        getExpenseType(
-                            item
-                        ) || "-"
-                    ),
+        ]
+    );
 
-                    amount.toFixed(2),
-
-                    String(
-                        item.expense_date ??
-                        item.date ??
-                        "-"
-                    ),
-
-                    String(
-                        item.payment_method ??
-                        item.method ??
-                        "-"
-                    ),
-
-                    String(
-                        item.paid_to ??
-                        "-"
-                    )
-
-                ];
-
-            }
-        );
-
-
-    /*
-       Table
-    */
 
     doc.autoTable({
 
-        startY:37,
+        startY:40,
 
-        head:[
+        head:[[
 
-            [
+            "Title",
+            "Type",
+            "Amount",
+            "Date",
+            "Method",
+            "Paid To",
+            "Description"
 
-                "#",
-
-                "Title",
-
-                "Type",
-
-                "Amount",
-
-                "Date",
-
-                "Method",
-
-                "Paid To"
-
-            ]
-
-        ],
+        ]],
 
         body:rows,
 
@@ -2775,94 +2631,85 @@ async function generatePDF(
 
         styles:{
 
-            font:"helvetica",
+            fontSize:7,
 
-            fontSize:9,
+            cellPadding:2,
 
-            cellPadding:4
+            overflow:"linebreak"
 
         },
 
         headStyles:{
 
-            fontStyle:"bold"
+            fontSize:8
 
         },
 
-        foot:[
+        columnStyles:{
 
-            [
+            0:{cellWidth:42},
 
-                "",
+            1:{cellWidth:28},
 
-                "",
+            2:{cellWidth:28},
 
-                "TOTAL",
+            3:{cellWidth:25},
 
-                total.toFixed(2),
+            4:{cellWidth:25},
 
-                "",
+            5:{cellWidth:35},
 
-                "",
+            6:{cellWidth:80}
 
-                ""
+        },
 
-            ]
+        margin:{
 
-        ],
+            left:10,
 
-        footStyles:{
-
-            fontStyle:"bold"
+            right:10
 
         }
 
     });
 
 
-    const finalY =
-        doc.lastAutoTable.finalY ||
-        40;
+    /* FOOTER */
+
+    const pageCount =
+    doc.internal
+    .getNumberOfPages();
 
 
-    doc.setFontSize(10);
+    for(
+        let i=1;
+        i<=pageCount;
+        i++
+    ){
 
+        doc.setPage(i);
 
-    doc.text(
+        doc.setFontSize(8);
 
-        "Total Expense: " +
-        total.toFixed(2),
+        doc.text(
 
-        15,
+            `Generated: ${today()} | Page ${i} of ${pageCount}`,
 
-        finalY + 12
+            148,
 
-    );
+            202,
 
+            {
+                align:"center"
+            }
 
-    doc.text(
+        );
 
-        "Generated: " +
-        new Date().toLocaleString(),
+    }
 
-        15,
-
-        finalY + 19
-
-    );
-
-
-    /*
-       Save PDF
-    */
 
     const fileName =
-
-        "Expense_Report_" +
-        from +
-        "_to_" +
-        to +
-        ".pdf";
+    `Expense_Report_${from || "all"}_${to || "all"}.pdf`;
 
 
     doc.save(
@@ -2873,33 +2720,65 @@ async function generatePDF(
 
 
 /* =====================================================
-   PDF BUTTON
+RANGE PDF
 ===================================================== */
 
 document.getElementById(
-    "pdfBtn"
+    "rangePdfBtn"
 ).addEventListener(
     "click",
     function(){
 
-        const range =
-            getDateRange();
+        const from =
+        document.getElementById(
+            "fromDate"
+        ).value;
 
 
-        if(!range){
+        const to =
+        document.getElementById(
+            "toDate"
+        ).value;
+
+
+        if(!from || !to){
+
+            alert(
+                "❌ From Date এবং To Date নির্বাচন করুন।"
+            );
 
             return;
 
         }
 
 
+        if(from > to){
+
+            alert(
+                "❌ From Date, To Date-এর পরে হতে পারবে না।"
+            );
+
+            return;
+
+        }
+
+
+        const list =
+        getDateRangeData(
+            from,
+            to
+        );
+
+
         generatePDF(
 
-            range.from,
+            list,
 
-            range.to,
+            from,
 
-            "Expense Report"
+            to,
+
+            "DAILY EXPENSE REPORT"
 
         );
 
@@ -2908,7 +2787,7 @@ document.getElementById(
 
 
 /* =====================================================
-   TODAY PDF
+TODAY PDF
 ===================================================== */
 
 document.getElementById(
@@ -2917,29 +2796,26 @@ document.getElementById(
     "click",
     function(){
 
-        const d =
-            today();
+        const date =
+        today();
 
 
-        document.getElementById(
-            "fromDate"
-        ).value =
-            d;
-
-
-        document.getElementById(
-            "toDate"
-        ).value =
-            d;
+        const list =
+        getDateRangeData(
+            date,
+            date
+        );
 
 
         generatePDF(
 
-            d,
+            list,
 
-            d,
+            date,
 
-            "Today's Expense Report"
+            date,
+
+            "TODAY EXPENSE REPORT"
 
         );
 
@@ -2948,13 +2824,56 @@ document.getElementById(
 
 
 /* =====================================================
-   RUN
+START
+===================================================== */
+
+async function start(){
+
+    const authenticated =
+    await checkAuth();
+
+
+    if(!authenticated){
+
+        return;
+
+    }
+
+
+    const current =
+    today();
+
+
+    document.getElementById(
+        "expenseDate"
+    ).value =
+    current;
+
+
+    document.getElementById(
+        "fromDate"
+    ).value =
+    current;
+
+
+    document.getElementById(
+        "toDate"
+    ).value =
+    current;
+
+
+    await loadExpenses();
+
+}
+
+
+/* =====================================================
+RUN
 ===================================================== */
 
 start();
 
 </script>
-
 
 </body>
 
