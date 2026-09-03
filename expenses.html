@@ -5,12 +5,22 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1">
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
 
-<title>
-Daily Expense | মাদরাসায়ে নূরুল কুরআন
-</title>
+<title>Daily Expense | মাদরাসায়ে নূরুল কুরআন</title>
+
+<!-- ================= SUPABASE ================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- ================= PDF ================= -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
 
 
 <style>
@@ -23,55 +33,50 @@ Daily Expense | মাদরাসায়ে নূরুল কুরআন
     box-sizing:border-box;
 }
 
-
-/* =====================================================
-   BODY
-===================================================== */
+html{
+    scroll-behavior:smooth;
+}
 
 body{
     margin:0;
-    font-family:Arial,sans-serif;
-    background:#f4f7f6;
-    color:#222;
+    font-family:Arial, sans-serif;
+    background:#f3f7f5;
+    color:#263238;
 }
 
 
 /* =====================================================
-   TOP HEADER
+   TOP BAR
 ===================================================== */
 
 .top{
-
     background:#075c43;
-
     color:#fff;
 
-    padding:17px 22px;
+    padding:15px 22px;
 
     display:flex;
-
+    align-items:center;
     justify-content:space-between;
 
-    align-items:center;
+    box-shadow:0 2px 8px #0002;
 
+    position:sticky;
+    top:0;
+    z-index:100;
 }
 
 .top h2{
-
     margin:0;
-
     color:#fff;
-
-    font-size:20px;
-
+    font-size:19px;
 }
 
 .top a{
-
     color:#fff;
-
     text-decoration:none;
-
+    font-weight:bold;
+    font-size:14px;
 }
 
 
@@ -80,13 +85,9 @@ body{
 ===================================================== */
 
 .container{
-
-    max-width:1200px;
-
-    margin:25px auto;
-
-    padding:0 15px;
-
+    max-width:1250px;
+    margin:22px auto;
+    padding:0 14px;
 }
 
 
@@ -95,18 +96,16 @@ body{
 ===================================================== */
 
 .box{
-
     background:#fff;
 
-    padding:22px;
+    padding:20px;
 
     border-radius:12px;
 
     box-shadow:
-    0 2px 10px #0001;
+        0 2px 12px #00000010;
 
     margin-bottom:20px;
-
 }
 
 
@@ -115,11 +114,11 @@ body{
 ===================================================== */
 
 h3{
+    margin:0 0 18px;
 
     color:#075c43;
 
-    margin:0 0 18px;
-
+    font-size:18px;
 }
 
 
@@ -128,29 +127,27 @@ h3{
 ===================================================== */
 
 .form{
-
     display:grid;
 
     grid-template-columns:
-    1fr 1fr;
+        repeat(2, minmax(0,1fr));
 
     gap:14px;
-
 }
 
 .full{
-
-    grid-column:1/-1;
-
+    grid-column:1 / -1;
 }
 
 
 label{
-
-    font-weight:bold;
+    display:block;
 
     font-size:14px;
 
+    font-weight:bold;
+
+    color:#35534a;
 }
 
 
@@ -160,97 +157,97 @@ textarea{
 
     width:100%;
 
-    padding:11px;
-
     margin-top:6px;
 
-    border:
-    1px solid #ddd;
+    padding:12px;
 
-    border-radius:7px;
+    border:1px solid #d8e1de;
 
-    font-size:14px;
+    border-radius:8px;
 
     background:#fff;
 
+    font-size:14px;
+
+    outline:none;
+
+    transition:.2s;
+}
+
+
+input:focus,
+select:focus,
+textarea:focus{
+
+    border-color:#087f5b;
+
+    box-shadow:
+        0 0 0 3px #087f5b15;
 }
 
 
 textarea{
 
+    min-height:90px;
+
     resize:vertical;
-
-    min-height:80px;
-
 }
 
 
 /* =====================================================
-   BUTTON
+   BUTTONS
 ===================================================== */
 
 button{
 
     border:0;
 
-    padding:10px 16px;
+    border-radius:8px;
 
-    border-radius:7px;
+    padding:11px 16px;
 
     background:#087f5b;
 
     color:#fff;
 
+    font-size:14px;
+
     font-weight:bold;
 
     cursor:pointer;
 
+    transition:.2s;
 }
 
+button:hover{
+    opacity:.9;
+}
 
 button:disabled{
-
     opacity:.6;
-
     cursor:not-allowed;
-
 }
 
 
 .cancel{
-
     background:#777;
-
-    margin-left:7px;
-
+    margin-left:6px;
 }
-
 
 .edit{
-
     background:#1565c0;
-
 }
-
 
 .delete{
-
     background:#c62828;
-
 }
-
-
-.print{
-
-    background:#6a1b9a;
-
-}
-
 
 .pdf{
+    background:#b0005a;
+}
 
-    background:#ad1457;
-
+.today-pdf{
+    background:#6a1b9a;
 }
 
 
@@ -262,24 +259,72 @@ button:disabled{
 
     margin-top:12px;
 
-    min-height:20px;
+    min-height:22px;
 
     font-weight:bold;
 
+    font-size:14px;
 }
-
 
 .success{
-
     color:#087f5b;
+}
 
+.error{
+    color:#c62828;
 }
 
 
-.error{
+/* =====================================================
+   CUSTOM TYPE
+===================================================== */
 
-    color:#c62828;
+.custom-box{
+    display:none;
+}
 
+
+/* =====================================================
+   QUICK NOTE
+===================================================== */
+
+.expense-note{
+
+    background:#fff8e1;
+
+    border-left:5px solid #f9a825;
+
+    padding:15px;
+
+    border-radius:8px;
+
+    color:#604b00;
+
+    font-size:14px;
+
+    line-height:1.6;
+}
+
+
+/* =====================================================
+   PDF AREA
+===================================================== */
+
+.pdf-area{
+
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr auto auto;
+
+    gap:10px;
+
+    align-items:end;
+}
+
+
+.pdf-area .field label{
+    margin-bottom:0;
 }
 
 
@@ -289,31 +334,46 @@ button:disabled{
 
 .summary{
 
-    display:flex;
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
 
     gap:12px;
 
-    flex-wrap:wrap;
-
     margin-bottom:18px;
-
 }
 
 
 .card{
 
-    background:#edf7f4;
+    background:#edf8f5;
 
-    padding:13px 20px;
+    border-radius:10px;
 
-    border-radius:8px;
+    padding:16px;
 
-    font-weight:bold;
+    border:1px solid #d9eee8;
+}
+
+
+.card-title{
+
+    color:#477268;
+
+    font-size:13px;
+
+    margin-bottom:6px;
+}
+
+
+.card-value{
 
     color:#075c43;
 
-    min-width:150px;
+    font-size:20px;
 
+    font-weight:bold;
 }
 
 
@@ -326,7 +386,6 @@ button:disabled{
     width:100%;
 
     margin-bottom:15px;
-
 }
 
 
@@ -336,8 +395,11 @@ button:disabled{
 
 .table-wrap{
 
-    overflow:auto;
+    width:100%;
 
+    overflow-x:auto;
+
+    border-radius:8px;
 }
 
 
@@ -347,21 +409,22 @@ table{
 
     border-collapse:collapse;
 
+    min-width:1050px;
 }
 
 
 th,
 td{
 
-    padding:10px 8px;
+    padding:10px 9px;
 
-    border-bottom:
-    1px solid #ddd;
+    border-bottom:1px solid #e1e6e4;
 
     text-align:left;
 
-    font-size:14px;
+    font-size:13px;
 
+    vertical-align:top;
 }
 
 
@@ -371,486 +434,150 @@ th{
 
     color:#fff;
 
+    font-weight:bold;
+
+    white-space:nowrap;
+}
+
+
+tr:hover td{
+
+    background:#f8fbfa;
 }
 
 
 .action{
 
     white-space:nowrap;
-
 }
 
 
 .action button{
 
-    padding:7px 10px;
+    padding:7px 9px;
 
     font-size:12px;
 
     margin:2px;
-
 }
 
+
+/* =====================================================
+   LOADING
+===================================================== */
 
 .loading{
 
     text-align:center;
 
-    padding:20px;
+    padding:25px;
 
+    color:#607d75;
 }
 
 
 /* =====================================================
-   CUSTOM BOX
+   EMPTY
 ===================================================== */
 
-.custom-box{
+.empty{
 
-    display:none;
+    text-align:center;
 
+    padding:30px;
+
+    color:#78909c;
 }
 
 
 /* =====================================================
-   REPORT FILTER
+   BADGE
 ===================================================== */
 
-.report-tools{
+.badge{
 
-    display:flex;
+    display:inline-block;
 
-    gap:10px;
+    padding:4px 8px;
 
-    flex-wrap:wrap;
+    border-radius:20px;
 
-    margin-bottom:18px;
+    background:#e8f5e9;
 
-}
+    color:#087f5b;
 
+    font-size:12px;
 
-.report-tools input{
-
-    width:auto;
-
-    min-width:180px;
-
-    margin-top:0;
-
-}
-
-
-.report-tools button{
-
-    height:42px;
-
+    font-weight:bold;
 }
 
 
 /* =====================================================
-   MOBILE
+   RESPONSIVE
 ===================================================== */
 
-@media(max-width:650px){
+@media(max-width:750px){
+
+    .top{
+
+        padding:13px 14px;
+    }
+
+    .top h2{
+
+        font-size:16px;
+    }
+
+    .top a{
+
+        font-size:12px;
+    }
+
+    .container{
+
+        margin:14px auto;
+    }
+
+    .box{
+
+        padding:15px;
+
+        border-radius:10px;
+    }
 
     .form{
 
         grid-template-columns:1fr;
-
     }
 
     .full{
 
         grid-column:auto;
-
-    }
-
-    table{
-
-        min-width:1050px;
-
-    }
-
-    .report-tools{
-
-        flex-direction:column;
-
-    }
-
-    .report-tools input,
-    .report-tools button{
-
-        width:100%;
-
-    }
-
-}
-
-
-/* =====================================================
-   PRINT
-===================================================== */
-
-@media print{
-
-    body{
-
-        background:#fff;
-
-    }
-
-    .top,
-    .form-box,
-    .search-box,
-    .action,
-    .no-print{
-
-        display:none !important;
-
-    }
-
-    .container{
-
-        max-width:none;
-
-        margin:0;
-
-        padding:0;
-
-    }
-
-    .box{
-
-        box-shadow:none;
-
-        border:0;
-
-        margin:0;
-
-        padding:0;
-
     }
 
     .summary{
 
-        margin-bottom:15px;
-
+        grid-template-columns:1fr;
     }
 
-    .print-report{
+    .pdf-area{
 
-        display:block !important;
-
+        grid-template-columns:1fr 1fr;
     }
 
-    @page{
+    .pdf-area button{
 
-        size:A4 portrait;
-
-        margin:12mm;
-
+        width:100%;
     }
 
 }
 
 
-/* =====================================================
-   PRINT REPORT
-===================================================== */
+@media(max-width:450px){
 
-.print-report{
+    .pdf-area{
 
-    display:none;
-
-}
-
-
-.print-header{
-
-    text-align:center;
-
-    border-bottom:
-    2px solid #075c43;
-
-    padding-bottom:10px;
-
-    margin-bottom:15px;
-
-}
-
-
-.print-header h1{
-
-    margin:0;
-
-    color:#075c43;
-
-    font-size:24px;
-
-}
-
-
-.print-header p{
-
-    margin:4px 0;
-
-    font-size:13px;
-
-}
-
-
-.report-title{
-
-    text-align:center;
-
-    font-size:20px;
-
-    font-weight:bold;
-
-    margin:12px 0;
-
-}
-
-
-.report-date{
-
-    text-align:center;
-
-    font-size:13px;
-
-    margin-bottom:15px;
-
-}
-
-
-.report-summary{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    border:1px solid #aaa;
-
-    margin-bottom:15px;
-
-}
-
-
-.report-summary div{
-
-    width:50%;
-
-    padding:9px;
-
-    text-align:center;
-
-    border-right:1px solid #aaa;
-
-}
-
-
-.report-summary div:last-child{
-
-    border-right:0;
-
-}
-
-
-.print-table{
-
-    width:100%;
-
-    border-collapse:collapse;
-
-}
-
-
-.print-table th,
-.print-table td{
-
-    border:1px solid #999;
-
-    padding:7px;
-
-    font-size:11px;
-
-}
-
-
-.print-table th{
-
-    background:#e8f2ef;
-
-    color:#075c43;
-
-}
-
-
-.report-footer{
-
-    margin-top:35px;
-
-    display:flex;
-
-    justify-content:space-between;
-
-}
-
-
-.signature{
-
-    width:180px;
-
-    text-align:center;
-
-    border-top:1px solid #333;
-
-    padding-top:5px;
-
-    font-size:12px;
-
-}
-
-
-/* =====================================================
-   PRINT INDIVIDUAL RECEIPT
-===================================================== */
-
-.receipt-print{
-
-    display:none;
-
-}
-
-
-.receipt{
-
-    width:100%;
-
-    max-width:700px;
-
-    margin:auto;
-
-    border:2px solid #075c43;
-
-    padding:25px;
-
-}
-
-
-.receipt-header{
-
-    text-align:center;
-
-    border-bottom:
-    2px solid #075c43;
-
-    padding-bottom:12px;
-
-}
-
-
-.receipt-header h1{
-
-    margin:0;
-
-    color:#075c43;
-
-    font-size:23px;
-
-}
-
-
-.receipt-title{
-
-    text-align:center;
-
-    margin:20px 0;
-
-}
-
-
-.receipt-info{
-
-    width:100%;
-
-    border-collapse:collapse;
-
-}
-
-
-.receipt-info td{
-
-    border:1px solid #bbb;
-
-    padding:9px;
-
-}
-
-
-.receipt-info td:first-child{
-
-    width:38%;
-
-    font-weight:bold;
-
-    background:#f3f3f3;
-
-}
-
-
-.receipt-amount{
-
-    margin-top:20px;
-
-    border:2px solid #075c43;
-
-}
-
-
-.receipt-row{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    padding:11px;
-
-    border-bottom:1px solid #ddd;
-
-}
-
-
-.receipt-row:last-child{
-
-    border-bottom:0;
-
-}
-
-
-.receipt-footer{
-
-    margin-top:50px;
-
-    display:flex;
-
-    justify-content:space-between;
-
-}
-
-
-@media print{
-
-    .receipt-print{
-
-        display:block !important;
-
-    }
-
-    .main-content-print{
-
-        display:none !important;
-
+        grid-template-columns:1fr;
     }
 
 }
@@ -864,103 +591,104 @@ th{
 
 
 <!-- =====================================================
-     HEADER
+     TOP
 ===================================================== -->
 
 <header class="top">
 
-<h2>
-💸 Daily Expense
-</h2>
+    <h2>💸 Daily Expense</h2>
 
-<a href="dashboard.html">
-← Dashboard
-</a>
+    <a href="dashboard.html">
+        ← Dashboard
+    </a>
 
 </header>
 
 
-<div class="container main-content-print">
+
+<div class="container">
 
 
 <!-- =====================================================
-     EXPENSE FORM
+     ADD EXPENSE
 ===================================================== -->
 
-<div class="box form-box">
-
+<div class="box">
 
 <h3>
-➕ Add Daily Expense
+    ➕ Add Daily Expense
 </h3>
 
 
 <form id="expenseForm">
 
-
 <input
 type="hidden"
 id="editId"
-value=""
 >
 
 
 <div>
 
 <label>
-Expense Type *
+    Expense Type *
 </label>
 
 <select
 id="expenseType"
-required>
+required
+>
 
 <option value="">
-Expense Type নির্বাচন করুন
-</option>
-
-<option value="Food">
-🍚 Food
+    Expense Type নির্বাচন করুন
 </option>
 
 <option value="Utilities">
-💡 Utilities
+    💡 Utilities
 </option>
 
-<option value="Electricity">
-⚡ Electricity
-</option>
-
-<option value="Water">
-💧 Water
-</option>
-
-<option value="Transport">
-🚗 Transport
+<option value="Food">
+    🍚 Food
 </option>
 
 <option value="Stationery">
-📚 Stationery
+    📚 Stationery
+</option>
+
+<option value="Electricity">
+    ⚡ Electricity
+</option>
+
+<option value="Water">
+    💧 Water
+</option>
+
+<option value="Transport">
+    🚗 Transport
 </option>
 
 <option value="Maintenance">
-🔧 Maintenance
+    🔧 Maintenance
 </option>
 
 <option value="Salary">
-💰 Salary
+    💰 Salary
+</option>
+
+<option value="Rent">
+    🏠 Rent
 </option>
 
 <option value="Medical">
-💊 Medical
+    🏥 Medical
 </option>
 
 <option value="Other">
-📦 Other
+    📦 Other
 </option>
 
 <option value="Custom">
-➕ নতুন Expense Type
+    ➕ নতুন Expense Type
 </option>
 
 </select>
@@ -968,27 +696,30 @@ Expense Type নির্বাচন করুন
 </div>
 
 
+
 <div
 id="customBox"
-class="custom-box">
+class="custom-box"
+>
 
 <label>
-Custom Expense Type
+    Custom Expense Type
 </label>
 
 <input
 type="text"
 id="customType"
-placeholder="যেমন: মাইক ভাড়া, ভবন মেরামত..."
+placeholder="যেমন: জমি ভাড়া, মেরামত..."
 >
 
 </div>
 
 
+
 <div>
 
 <label>
-Amount *
+    Amount *
 </label>
 
 <input
@@ -997,16 +728,17 @@ id="amount"
 min="0"
 step="0.01"
 required
-placeholder="যেমন: 1500"
+placeholder="যেমন: 500"
 >
 
 </div>
 
 
+
 <div>
 
 <label>
-Expense Date *
+    Expense Date *
 </label>
 
 <input
@@ -1018,32 +750,33 @@ required
 </div>
 
 
+
 <div>
 
 <label>
-Payment Method
+    Payment Method
 </label>
 
 <select id="method">
 
 <option value="Cash">
-Cash
+    Cash
 </option>
 
 <option value="bKash">
-bKash
+    bKash
 </option>
 
 <option value="Nagad">
-Nagad
+    Nagad
 </option>
 
 <option value="Bank">
-Bank
+    Bank
 </option>
 
 <option value="Other">
-Other
+    Other
 </option>
 
 </select>
@@ -1051,10 +784,11 @@ Other
 </div>
 
 
+
 <div>
 
 <label>
-Paid To
+    Paid To
 </label>
 
 <input
@@ -1066,56 +800,56 @@ placeholder="যাকে টাকা দেওয়া হয়েছে"
 </div>
 
 
+
 <div class="full">
 
 <label>
-Title *
+    Title *
 </label>
 
 <input
 type="text"
 id="title"
 required
-placeholder="যেমন: আজকের বাজার খরচ"
+placeholder="যেমন: বিদ্যুৎ বিল"
 >
 
 </div>
 
 
+
 <div class="full">
 
 <label>
-Description
+    Description
 </label>
 
 <textarea
 id="description"
-placeholder="Expense সম্পর্কে বিস্তারিত লিখুন..."></textarea>
+placeholder="Expense সম্পর্কে বিস্তারিত লিখুন..."
+></textarea>
 
 </div>
+
 
 
 <div class="full">
 
 <button
 type="submit"
-id="saveBtn">
-
-💾 Save Expense
-
+id="saveBtn"
+>
+    💾 Save Expense
 </button>
-
 
 <button
 type="button"
 class="cancel"
 id="cancelBtn"
-style="display:none">
-
-Cancel
-
+style="display:none"
+>
+    Cancel
 </button>
-
 
 <div id="msg"></div>
 
@@ -1127,66 +861,106 @@ Cancel
 </div>
 
 
+
 <!-- =====================================================
-     REPORT TOOLS
+     NOTE
 ===================================================== -->
 
-<div class="box no-print">
+<div class="box">
 
+<div class="expense-note">
+
+<b>💡 Expense Management</b><br>
+
+প্রতিদিনের খরচ এখানে সংরক্ষণ করুন।
+Expense Type, Amount, Date, Payment Method এবং Paid To
+দিয়ে Save করলে নিচের তালিকায় দেখা যাবে।
+
+</div>
+
+</div>
+
+
+
+<!-- =====================================================
+     PDF REPORT
+===================================================== -->
+
+<div class="box">
 
 <h3>
-📄 Expense Report / PDF
+    📄 Expense Report / PDF
 </h3>
 
 
-<div class="report-tools">
+<div class="pdf-area">
 
+
+<div class="field">
+
+<label>
+    From Date
+</label>
 
 <input
 type="date"
-id="reportFrom"
-title="From Date"
+id="fromDate"
 >
 
+</div>
+
+
+
+<div class="field">
+
+<label>
+    To Date
+</label>
 
 <input
 type="date"
-id="reportTo"
-title="To Date"
+id="toDate"
 >
+
+</div>
+
 
 
 <button
 type="button"
-id="printReportBtn"
-class="pdf">
-
-📄 A4 PDF / Print
-
+class="pdf"
+id="pdfBtn"
+>
+    📄 PDF / Print
 </button>
 
 
+
 <button
 type="button"
-id="printTodayBtn"
-class="print">
-
-🖨️ Today Report
-
+class="today-pdf"
+id="todayPdfBtn"
+>
+    📊 Today Report
 </button>
 
 
 </div>
 
 
-<p style="margin:0;color:#666;font-size:13px">
+<p style="
+margin:12px 0 0;
+font-size:13px;
+color:#607d75;
+">
 
-তারিখ নির্বাচন করে <b>A4 PDF / Print</b> চাপলে
-Browser-এর Print window থেকে <b>Save as PDF</b> নির্বাচন করুন।
+তারিখ নির্বাচন করে <b>PDF / Print</b> চাপলে ঐ date range-এর
+Expense Report তৈরি হবে।
 
 </p>
 
 </div>
+
 
 
 <!-- =====================================================
@@ -1195,49 +969,51 @@ Browser-এর Print window থেকে <b>Save as PDF</b> নির্বা�
 
 <div class="box">
 
-
 <h3>
-💸 Expense List
+    💸 Expense List
 </h3>
 
-
-<!-- SUMMARY -->
 
 <div class="summary">
 
 
 <div class="card">
 
-Total Expense:
-<br>
+<div class="card-title">
+    Total Expense
+</div>
 
-৳ <span id="totalExpense">
-0.00
-</span>
+<div class="card-value">
+    ৳ <span id="totalExpense">0.00</span>
+</div>
 
 </div>
+
 
 
 <div class="card">
 
-Today:
-<br>
+<div class="card-title">
+    Today
+</div>
 
-৳ <span id="todayExpense">
-0.00
-</span>
+<div class="card-value">
+    ৳ <span id="todayExpense">0.00</span>
+</div>
 
 </div>
+
 
 
 <div class="card">
 
-Records:
-<br>
+<div class="card-title">
+    Records
+</div>
 
-<span id="totalRecords">
-0
-</span>
+<div class="card-value">
+    <span id="recordCount">0</span>
+</div>
 
 </div>
 
@@ -1245,58 +1021,39 @@ Records:
 </div>
 
 
-<!-- SEARCH -->
 
 <input
+type="search"
 class="search"
 id="search"
 placeholder="🔍 Title / Type / Paid To / Date দিয়ে খুঁজুন..."
 >
 
 
-<!-- TABLE -->
 
 <div class="table-wrap">
 
-
 <table>
-
 
 <thead>
 
 <tr>
 
-<th>
-Title
-</th>
+<th>Title</th>
 
-<th>
-Type
-</th>
+<th>Type</th>
 
-<th>
-Amount
-</th>
+<th>Amount</th>
 
-<th>
-Date
-</th>
+<th>Date</th>
 
-<th>
-Method
-</th>
+<th>Method</th>
 
-<th>
-Paid To
-</th>
+<th>Paid To</th>
 
-<th>
-Description
-</th>
+<th>Description</th>
 
-<th>
-Action
-</th>
+<th>Action</th>
 
 </tr>
 
@@ -1309,7 +1066,8 @@ Action
 
 <td
 colspan="8"
-class="loading">
+class="loading"
+>
 
 Loading...
 
@@ -1319,172 +1077,15 @@ Loading...
 
 </tbody>
 
-
 </table>
 
 </div>
 
-
 </div>
 
 
 </div>
 
-
-<!-- =====================================================
-     PRINT REPORT
-===================================================== -->
-
-<div
-class="print-report"
-id="printReport">
-
-
-<div class="print-header">
-
-<h1>
-মাদরাসায়ে নূরুল কুরআন
-</h1>
-
-<p>
-MADRASHA-E NURUL QURAN
-</p>
-
-<p>
-Daily Expense Management
-</p>
-
-</div>
-
-
-<div class="report-title">
-
-DAILY EXPENSE REPORT
-
-</div>
-
-
-<div
-class="report-date"
-id="reportDateText">
-
--
-
-</div>
-
-
-<div class="report-summary">
-
-<div>
-
-<b>
-Total Expense
-</b>
-
-<br>
-
-৳ <span id="printTotal">
-0.00
-</span>
-
-</div>
-
-
-<div>
-
-<b>
-Total Records
-</b>
-
-<br>
-
-<span id="printRecords">
-0
-</span>
-
-</div>
-
-</div>
-
-
-<table class="print-table">
-
-
-<thead>
-
-<tr>
-
-<th>
-SL
-</th>
-
-<th>
-Date
-</th>
-
-<th>
-Title
-</th>
-
-<th>
-Type
-</th>
-
-<th>
-Paid To
-</th>
-
-<th>
-Method
-</th>
-
-<th>
-Amount
-</th>
-
-</tr>
-
-</thead>
-
-
-<tbody id="printList">
-
-</tbody>
-
-
-</table>
-
-
-<div class="report-footer">
-
-
-<div class="signature">
-
-Prepared By
-
-</div>
-
-
-<div class="signature">
-
-Authorized Signature
-
-</div>
-
-
-</div>
-
-
-</div>
-
-
-<!-- =====================================================
-     SUPABASE
-===================================================== -->
-
-<script
-src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
-</script>
 
 
 <script>
@@ -1495,7 +1096,6 @@ src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
 
 const SUPABASE_URL =
 "https://qavublwhqiqsgpcmfyft.supabase.co";
-
 
 const SUPABASE_KEY =
 "sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
@@ -1515,8 +1115,24 @@ window.supabase.createClient(
 let expenses = [];
 
 
+/*
+   Database column compatibility.
+
+   Primary:
+   expense_type
+
+   Fallback:
+   type
+
+   This solves schema-cache problems if your table
+   uses "type" instead of "expense_type".
+*/
+
+let expenseTypeColumn = "expense_type";
+
+
 /* =====================================================
-   LOCAL DATE
+   TODAY
 ===================================================== */
 
 function today(){
@@ -1551,15 +1167,70 @@ function showMessage(
 ){
 
     const msg =
-        document.getElementById(
-            "msg"
-        );
+        document.getElementById("msg");
 
     msg.textContent =
         text;
 
     msg.className =
         type;
+
+}
+
+
+/* =====================================================
+   GET EXPENSE TYPE
+===================================================== */
+
+function getExpenseType(item){
+
+    return String(
+
+        item.expense_type ??
+
+        item.type ??
+
+        item.category ??
+
+        ""
+
+    );
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHtml(value){
+
+    return String(value ?? "")
+
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
 
 }
 
@@ -1575,8 +1246,7 @@ async function start(){
         const {
             data,
             error
-        } =
-        await db.auth.getSession();
+        } = await db.auth.getSession();
 
 
         if(error){
@@ -1604,6 +1274,18 @@ async function start(){
 
         document.getElementById(
             "expenseDate"
+        ).value =
+            today();
+
+
+        document.getElementById(
+            "fromDate"
+        ).value =
+            today();
+
+
+        document.getElementById(
+            "toDate"
         ).value =
             today();
 
@@ -1643,10 +1325,9 @@ async function loadExpenses(){
 
             <td
             colspan="8"
-            class="loading">
-
+            class="loading"
+            >
                 Loading...
-
             </td>
 
         </tr>
@@ -1654,16 +1335,10 @@ async function loadExpenses(){
     `;
 
 
-    const {
-        data,
-        error
-    } =
-    await db
-
+    let result =
+        await db
         .from("expenses")
-
         .select("*")
-
         .order(
             "id",
             {
@@ -1672,10 +1347,14 @@ async function loadExpenses(){
         );
 
 
-    if(error){
+    /*
+       If normal query fails because of a schema
+       issue, show the actual Supabase error.
+    */
+
+    if(result.error){
 
         expenses = [];
-
 
         tbody.innerHTML = `
 
@@ -1683,11 +1362,13 @@ async function loadExpenses(){
 
                 <td
                 colspan="8"
-                class="error">
+                class="error"
+                style="text-align:center"
+                >
 
                     ❌ ${
                         escapeHtml(
-                            error.message
+                            result.error.message
                         )
                     }
 
@@ -1703,7 +1384,38 @@ async function loadExpenses(){
 
 
     expenses =
-        data || [];
+        result.data || [];
+
+
+    /*
+       Detect which expense type column exists.
+    */
+
+    if(
+        expenses.length &&
+        Object.prototype.hasOwnProperty.call(
+            expenses[0],
+            "expense_type"
+        )
+    ){
+
+        expenseTypeColumn =
+            "expense_type";
+
+    }
+
+    else if(
+        expenses.length &&
+        Object.prototype.hasOwnProperty.call(
+            expenses[0],
+            "type"
+        )
+    ){
+
+        expenseTypeColumn =
+            "type";
+
+    }
 
 
     renderExpenses();
@@ -1723,37 +1435,34 @@ function renderExpenses(
 
     let todayTotal = 0;
 
-
     const currentDate =
         today();
 
 
-    list.forEach(
-        item => {
+    list.forEach(item => {
 
-            const amount =
-                Number(
-                    item.amount
-                ) || 0;
-
-
-            total +=
-                amount;
+        const amount =
+            Number(
+                item.amount
+            ) || 0;
 
 
-            if(
-                String(
-                    item.expense_date || ""
-                ) === currentDate
-            ){
+        total += amount;
 
-                todayTotal +=
-                    amount;
 
-            }
+        if(
+            String(
+                item.expense_date ??
+                item.date ??
+                ""
+            ) === currentDate
+        ){
+
+            todayTotal += amount;
 
         }
-    );
+
+    });
 
 
     document.getElementById(
@@ -1769,7 +1478,7 @@ function renderExpenses(
 
 
     document.getElementById(
-        "totalRecords"
+        "recordCount"
     ).textContent =
         list.length;
 
@@ -1788,7 +1497,8 @@ function renderExpenses(
 
                 <td
                 colspan="8"
-                style="text-align:center">
+                class="empty"
+                >
 
                     কোনো Expense record নেই
 
@@ -1804,149 +1514,127 @@ function renderExpenses(
 
 
     tbody.innerHTML =
-        list.map(
-            item => {
 
-                const amount =
-                    Number(
-                        item.amount
-                    ) || 0;
+        list.map(item => {
+
+            const amount =
+                Number(
+                    item.amount
+                ) || 0;
 
 
-                return `
+            const date =
+                item.expense_date ??
+                item.date ??
+                "";
 
-                <tr>
 
-                    <td>
+            return `
 
+            <tr>
+
+                <td>
+                    ${
+                        escapeHtml(
+                            item.title || "-"
+                        )
+                    }
+                </td>
+
+
+                <td>
+                    <span class="badge">
                         ${
                             escapeHtml(
-                                item.title || "-"
+                                getExpenseType(item)
+                                || "-"
                             )
                         }
-
-                    </td>
-
-
-                    <td>
-
-                        ${
-                            escapeHtml(
-                                item.expense_type || "-"
-                            )
-                        }
-
-                    </td>
+                    </span>
+                </td>
 
 
-                    <td>
-
-                        ৳ ${amount.toFixed(2)}
-
-                    </td>
+                <td>
+                    ৳ ${amount.toFixed(2)}
+                </td>
 
 
-                    <td>
-
-                        ${
-                            escapeHtml(
-                                item.expense_date || "-"
-                            )
-                        }
-
-                    </td>
+                <td>
+                    ${
+                        escapeHtml(
+                            date || "-"
+                        )
+                    }
+                </td>
 
 
-                    <td>
-
-                        ${
-                            escapeHtml(
-                                item.payment_method || "-"
-                            )
-                        }
-
-                    </td>
-
-
-                    <td>
-
-                        ${
-                            escapeHtml(
-                                item.paid_to || "-"
-                            )
-                        }
-
-                    </td>
+                <td>
+                    ${
+                        escapeHtml(
+                            item.payment_method ??
+                            item.method ??
+                            "-"
+                        )
+                    }
+                </td>
 
 
-                    <td>
-
-                        ${
-                            escapeHtml(
-                                item.description || "-"
-                            )
-                        }
-
-                    </td>
-
-
-                    <td class="action">
+                <td>
+                    ${
+                        escapeHtml(
+                            item.paid_to ??
+                            "-"
+                        )
+                    }
+                </td>
 
 
-                        <button
-                        type="button"
-                        class="edit"
-                        data-expense-id="${
-                            escapeHtml(
-                                String(item.id)
-                            )
-                        }"
-                        onclick="editExpenseFromButton(this)">
-
-                            Edit
-
-                        </button>
+                <td>
+                    ${
+                        escapeHtml(
+                            item.description ??
+                            "-"
+                        )
+                    }
+                </td>
 
 
-                        <button
-                        type="button"
-                        class="delete"
-                        data-expense-id="${
-                            escapeHtml(
-                                String(item.id)
-                            )
-                        }"
-                        onclick="deleteExpenseFromButton(this)">
+                <td class="action">
 
-                            Delete
-
-                        </button>
-
-
-                        <button
-                        type="button"
-                        class="print"
-                        data-expense-id="${
-                            escapeHtml(
-                                String(item.id)
-                            )
-                        }"
-                        onclick="printExpenseFromButton(this)">
-
-                            🖨️ Print
-
-                        </button>
+                    <button
+                    type="button"
+                    class="edit"
+                    data-id="${
+                        escapeHtml(
+                            String(item.id)
+                        )
+                    }"
+                    onclick="editExpenseFromButton(this)"
+                    >
+                        Edit
+                    </button>
 
 
-                    </td>
+                    <button
+                    type="button"
+                    class="delete"
+                    data-id="${
+                        escapeHtml(
+                            String(item.id)
+                        )
+                    }"
+                    onclick="deleteExpenseFromButton(this)"
+                    >
+                        Delete
+                    </button>
 
-                </tr>
+                </td>
 
-                `;
+            </tr>
 
-            }
-        )
-        .join("");
+            `;
+
+        }).join("");
 
 }
 
@@ -1961,7 +1649,7 @@ function editExpenseFromButton(
 
     const id =
         button.getAttribute(
-            "data-expense-id"
+            "data-id"
         );
 
     editExpense(id);
@@ -1975,24 +1663,10 @@ function deleteExpenseFromButton(
 
     const id =
         button.getAttribute(
-            "data-expense-id"
+            "data-id"
         );
 
     deleteExpense(id);
-
-}
-
-
-function printExpenseFromButton(
-    button
-){
-
-    const id =
-        button.getAttribute(
-            "data-expense-id"
-        );
-
-    printExpense(id);
 
 }
 
@@ -2011,7 +1685,6 @@ document.getElementById(
             document.getElementById(
                 "customBox"
             );
-
 
         const customType =
             document.getElementById(
@@ -2094,7 +1767,6 @@ document.getElementById(
 
             }
 
-
             expenseType =
                 customType;
 
@@ -2172,19 +1844,18 @@ document.getElementById(
         }
 
 
-        const record = {
+        /*
+           Base record.
 
-            title:
-                title,
+           IMPORTANT:
+           expense_type is added dynamically below.
+        */
 
-            expense_type:
-                expenseType,
+        let record = {
 
-            amount:
-                amount,
+            amount: amount,
 
-            expense_date:
-                expenseDate,
+            expense_date: expenseDate,
 
             payment_method:
                 document.getElementById(
@@ -2194,14 +1865,24 @@ document.getElementById(
             paid_to:
                 document.getElementById(
                     "paidTo"
-                ).value.trim() || null,
+                ).value.trim()
+                || null,
+
+            title: title,
 
             description:
                 document.getElementById(
                     "description"
-                ).value.trim() || null
+                ).value.trim()
+                || null
 
         };
+
+
+        record[
+            expenseTypeColumn
+        ] =
+            expenseType;
 
 
         const saveBtn =
@@ -2214,15 +1895,6 @@ document.getElementById(
             true;
 
 
-        showMessage(
-            editId
-            ?
-            "Updating..."
-            :
-            "Saving..."
-        );
-
-
         try{
 
             let result;
@@ -2232,16 +1904,12 @@ document.getElementById(
 
                 result =
                     await db
-
                     .from("expenses")
-
                     .update(record)
-
                     .eq(
                         "id",
                         editId
                     )
-
                     .select();
 
             }
@@ -2250,12 +1918,88 @@ document.getElementById(
 
                 result =
                     await db
-
                     .from("expenses")
-
                     .insert(record)
-
                     .select();
+
+            }
+
+
+            /*
+               AUTOMATIC FALLBACK
+
+               If database does not have
+               expense_type but has type,
+               retry automatically.
+            */
+
+            if(
+                result.error &&
+                expenseTypeColumn ===
+                "expense_type" &&
+                /expense_type/i.test(
+                    result.error.message
+                )
+            ){
+
+                expenseTypeColumn =
+                    "type";
+
+
+                record = {
+
+                    type: expenseType,
+
+                    amount: amount,
+
+                    expense_date:
+                        expenseDate,
+
+                    payment_method:
+                        document.getElementById(
+                            "method"
+                        ).value,
+
+                    paid_to:
+                        document.getElementById(
+                            "paidTo"
+                        ).value.trim()
+                        || null,
+
+                    title: title,
+
+                    description:
+                        document.getElementById(
+                            "description"
+                        ).value.trim()
+                        || null
+
+                };
+
+
+                if(editId){
+
+                    result =
+                        await db
+                        .from("expenses")
+                        .update(record)
+                        .eq(
+                            "id",
+                            editId
+                        )
+                        .select();
+
+                }
+
+                else{
+
+                    result =
+                        await db
+                        .from("expenses")
+                        .insert(record)
+                        .select();
+
+                }
 
             }
 
@@ -2274,12 +2018,15 @@ document.getElementById(
 
 
             showMessage(
+
                 editId
-                ?
-                "✅ Expense Updated Successfully"
-                :
-                "✅ Expense Saved Successfully",
+
+                ? "✅ Expense Updated Successfully"
+
+                : "✅ Expense Saved Successfully",
+
                 "success"
+
             );
 
 
@@ -2342,6 +2089,10 @@ function editExpense(id){
         String(expense.id);
 
 
+    const type =
+        getExpenseType(expense);
+
+
     const select =
         document.getElementById(
             "expenseType"
@@ -2350,34 +2101,49 @@ function editExpense(id){
 
     const standardTypes = [
 
-        "Food",
         "Utilities",
-        "Electricity",
-        "Water",
-        "Transport",
+
+        "Food",
+
         "Stationery",
+
+        "Electricity",
+
+        "Water",
+
+        "Transport",
+
         "Maintenance",
+
         "Salary",
+
+        "Rent",
+
         "Medical",
+
         "Other"
 
     ];
 
 
     if(
-        standardTypes.includes(
-            expense.expense_type
-        )
+        standardTypes.includes(type)
     ){
 
         select.value =
-            expense.expense_type;
+            type;
 
 
         document.getElementById(
             "customBox"
         ).style.display =
             "none";
+
+
+        document.getElementById(
+            "customType"
+        ).value =
+            "";
 
     }
 
@@ -2396,7 +2162,7 @@ function editExpense(id){
         document.getElementById(
             "customType"
         ).value =
-            expense.expense_type || "";
+            type;
 
 
         document.getElementById(
@@ -2408,12 +2174,6 @@ function editExpense(id){
 
 
     document.getElementById(
-        "title"
-    ).value =
-        expense.title || "";
-
-
-    document.getElementById(
         "amount"
     ).value =
         expense.amount ?? "";
@@ -2422,26 +2182,37 @@ function editExpense(id){
     document.getElementById(
         "expenseDate"
     ).value =
-        expense.expense_date || "";
+
+        expense.expense_date ??
+        expense.date ??
+        "";
 
 
     document.getElementById(
         "method"
     ).value =
-        expense.payment_method ||
+
+        expense.payment_method ??
+        expense.method ??
         "Cash";
 
 
     document.getElementById(
         "paidTo"
     ).value =
-        expense.paid_to || "";
+        expense.paid_to ?? "";
+
+
+    document.getElementById(
+        "title"
+    ).value =
+        expense.title ?? "";
 
 
     document.getElementById(
         "description"
     ).value =
-        expense.description || "";
+        expense.description ?? "";
 
 
     document.getElementById(
@@ -2473,11 +2244,7 @@ function editExpense(id){
 
 async function deleteExpense(id){
 
-    if(
-        id === null ||
-        id === undefined ||
-        String(id).trim() === ""
-    ){
+    if(!id){
 
         alert(
             "❌ Invalid Expense ID"
@@ -2499,56 +2266,65 @@ async function deleteExpense(id){
     }
 
 
-    const {
-        data,
-        error
-    } =
-    await db
+    try{
 
-        .from("expenses")
-
-        .delete()
-
-        .eq(
-            "id",
-            id
-        )
-
-        .select("id");
+        const {
+            data,
+            error
+        } =
+            await db
+            .from("expenses")
+            .delete()
+            .eq(
+                "id",
+                id
+            )
+            .select("id");
 
 
-    if(error){
+        if(error){
+
+            alert(
+                "❌ Delete failed:\n" +
+                error.message
+            );
+
+            return;
+
+        }
+
+
+        if(
+            !data ||
+            !data.length
+        ){
+
+            alert(
+                "❌ Record পাওয়া যায়নি অথবা Delete permission নেই।"
+            );
+
+            return;
+
+        }
+
 
         alert(
-            "❌ Delete failed:\n" +
+            "✅ Expense deleted successfully"
+        );
+
+
+        await loadExpenses();
+
+    }
+
+    catch(error){
+
+        alert(
+            "❌ " +
             error.message
         );
 
-        return;
-
     }
-
-
-    if(
-        !data ||
-        data.length === 0
-    ){
-
-        alert(
-            "❌ Record পাওয়া যায়নি অথবা Delete permission নেই।"
-        );
-
-        return;
-
-    }
-
-
-    alert(
-        "✅ Expense deleted successfully"
-    );
-
-
-    await loadExpenses();
 
 }
 
@@ -2584,38 +2360,51 @@ document.getElementById(
 
                     const title =
                         String(
-                            item.title || ""
-                        ).toLowerCase();
+                            item.title ??
+                            ""
+                        )
+                        .toLowerCase();
 
 
                     const type =
-                        String(
-                            item.expense_type || ""
-                        ).toLowerCase();
+                        getExpenseType(
+                            item
+                        )
+                        .toLowerCase();
 
 
                     const paidTo =
                         String(
-                            item.paid_to || ""
-                        ).toLowerCase();
+                            item.paid_to ??
+                            ""
+                        )
+                        .toLowerCase();
 
 
                     const method =
                         String(
-                            item.payment_method || ""
-                        ).toLowerCase();
+                            item.payment_method ??
+                            item.method ??
+                            ""
+                        )
+                        .toLowerCase();
 
 
                     const description =
                         String(
-                            item.description || ""
-                        ).toLowerCase();
+                            item.description ??
+                            ""
+                        )
+                        .toLowerCase();
 
 
                     const date =
                         String(
-                            item.expense_date || ""
-                        ).toLowerCase();
+                            item.expense_date ??
+                            item.date ??
+                            ""
+                        )
+                        .toLowerCase();
 
 
                     return (
@@ -2714,32 +2503,184 @@ function resetForm(){
 document.getElementById(
     "cancelBtn"
 ).onclick =
-function(){
+    function(){
 
-    resetForm();
+        resetForm();
 
-};
+    };
 
 
 /* =====================================================
-   PRINT REPORT
+   DATE RANGE FILTER
 ===================================================== */
 
-function printReport(
-    list,
-    fromDate = "",
-    toDate = ""
+function getDateRange(){
+
+    const from =
+        document.getElementById(
+            "fromDate"
+        ).value;
+
+
+    const to =
+        document.getElementById(
+            "toDate"
+        ).value;
+
+
+    if(!from || !to){
+
+        alert(
+            "❌ From Date এবং To Date নির্বাচন করুন।"
+        );
+
+        return null;
+
+    }
+
+
+    if(from > to){
+
+        alert(
+            "❌ From Date, To Date-এর পরে হতে পারবে না।"
+        );
+
+        return null;
+
+    }
+
+
+    return {
+        from,
+        to
+    };
+
+}
+
+
+/* =====================================================
+   FILTER EXPENSES BY DATE
+===================================================== */
+
+function filterByDate(
+    from,
+    to
 ){
+
+    return expenses.filter(
+        item => {
+
+            const date =
+                String(
+                    item.expense_date ??
+                    item.date ??
+                    ""
+                );
+
+
+            return (
+                date >= from &&
+                date <= to
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   PDF REPORT
+===================================================== */
+
+async function generatePDF(
+    from,
+    to,
+    titleText
+){
+
+    const list =
+        filterByDate(
+            from,
+            to
+        );
+
 
     if(!list.length){
 
         alert(
-            "❌ এই তারিখের কোনো Expense record নেই।"
+            "❌ এই তারিখের মধ্যে কোনো Expense record নেই।"
         );
 
         return;
 
     }
+
+
+    const {
+        jsPDF
+    } = window.jspdf;
+
+
+    const doc =
+        new jsPDF(
+            "landscape",
+            "mm",
+            "a4"
+        );
+
+
+    /*
+       Header
+    */
+
+    doc.setFontSize(18);
+
+    doc.setFont(
+        "helvetica",
+        "bold"
+    );
+
+    doc.text(
+        "MADRASHA-E NURUL QURAN",
+        148,
+        15,
+        {
+            align:"center"
+        }
+    );
+
+
+    doc.setFontSize(14);
+
+    doc.text(
+        "Daily Expense Report",
+        148,
+        23,
+        {
+            align:"center"
+        }
+    );
+
+
+    doc.setFontSize(10);
+
+    doc.setFont(
+        "helvetica",
+        "normal"
+    );
+
+    doc.text(
+        "Period: " +
+        from +
+        " to " +
+        to,
+        148,
+        30,
+        {
+            align:"center"
+        }
+    );
 
 
     let total = 0;
@@ -2755,696 +2696,255 @@ function printReport(
                     ) || 0;
 
 
-                total +=
-                    amount;
+                total += amount;
 
 
-                return `
+                return [
 
-                <tr>
+                    String(index+1),
 
-                    <td>
-                        ${index + 1}
-                    </td>
+                    String(
+                        item.title ??
+                        "-"
+                    ),
 
-                    <td>
-                        ${escapeHtml(
-                            item.expense_date || "-"
-                        )}
-                    </td>
+                    String(
+                        getExpenseType(
+                            item
+                        ) || "-"
+                    ),
 
-                    <td>
-                        ${escapeHtml(
-                            item.title || "-"
-                        )}
-                    </td>
+                    amount.toFixed(2),
 
-                    <td>
-                        ${escapeHtml(
-                            item.expense_type || "-"
-                        )}
-                    </td>
+                    String(
+                        item.expense_date ??
+                        item.date ??
+                        "-"
+                    ),
 
-                    <td>
-                        ${escapeHtml(
-                            item.paid_to || "-"
-                        )}
-                    </td>
+                    String(
+                        item.payment_method ??
+                        item.method ??
+                        "-"
+                    ),
 
-                    <td>
-                        ${escapeHtml(
-                            item.payment_method || "-"
-                        )}
-                    </td>
+                    String(
+                        item.paid_to ??
+                        "-"
+                    )
 
-                    <td style="text-align:right">
-                        ৳ ${amount.toFixed(2)}
-                    </td>
-
-                </tr>
-
-                `;
+                ];
 
             }
-        )
-        .join("");
+        );
 
 
-    document.getElementById(
-        "printList"
-    ).innerHTML =
-        rows;
+    /*
+       Table
+    */
+
+    doc.autoTable({
+
+        startY:37,
+
+        head:[
+
+            [
+
+                "#",
+
+                "Title",
+
+                "Type",
+
+                "Amount",
+
+                "Date",
+
+                "Method",
+
+                "Paid To"
+
+            ]
+
+        ],
+
+        body:rows,
+
+        theme:"grid",
+
+        styles:{
+
+            font:"helvetica",
+
+            fontSize:9,
+
+            cellPadding:4
+
+        },
+
+        headStyles:{
+
+            fontStyle:"bold"
+
+        },
+
+        foot:[
+
+            [
+
+                "",
+
+                "",
+
+                "TOTAL",
+
+                total.toFixed(2),
+
+                "",
+
+                "",
+
+                ""
+
+            ]
+
+        ],
+
+        footStyles:{
+
+            fontStyle:"bold"
+
+        }
+
+    });
 
 
-    document.getElementById(
-        "printTotal"
-    ).textContent =
-        total.toFixed(2);
+    const finalY =
+        doc.lastAutoTable.finalY ||
+        40;
 
 
-    document.getElementById(
-        "printRecords"
-    ).textContent =
-        list.length;
+    doc.setFontSize(10);
 
 
-    let dateText =
-        "All Expense Records";
+    doc.text(
+
+        "Total Expense: " +
+        total.toFixed(2),
+
+        15,
+
+        finalY + 12
+
+    );
 
 
-    if(
-        fromDate &&
-        toDate
-    ){
+    doc.text(
 
-        dateText =
-            `${fromDate} → ${toDate}`;
+        "Generated: " +
+        new Date().toLocaleString(),
 
-    }
+        15,
 
-    else if(fromDate){
+        finalY + 19
 
-        dateText =
-            `From ${fromDate}`;
-
-    }
-
-    else if(toDate){
-
-        dateText =
-            `Up to ${toDate}`;
-
-    }
+    );
 
 
-    document.getElementById(
-        "reportDateText"
-    ).textContent =
-        dateText;
+    /*
+       Save PDF
+    */
+
+    const fileName =
+
+        "Expense_Report_" +
+        from +
+        "_to_" +
+        to +
+        ".pdf";
 
 
-    window.print();
+    doc.save(
+        fileName
+    );
 
 }
 
 
 /* =====================================================
-   PDF / PRINT BUTTON
+   PDF BUTTON
 ===================================================== */
 
 document.getElementById(
-    "printReportBtn"
-).onclick =
-function(){
+    "pdfBtn"
+).addEventListener(
+    "click",
+    function(){
 
-    const from =
-        document.getElementById(
-            "reportFrom"
-        ).value;
-
-
-    const to =
-        document.getElementById(
-            "reportTo"
-        ).value;
+        const range =
+            getDateRange();
 
 
-    let list =
-        [...expenses];
+        if(!range){
+
+            return;
+
+        }
 
 
-    if(from){
+        generatePDF(
 
-        list =
-            list.filter(
-                item =>
-                    String(
-                        item.expense_date || ""
-                    ) >= from
-            );
+            range.from,
+
+            range.to,
+
+            "Expense Report"
+
+        );
 
     }
-
-
-    if(to){
-
-        list =
-            list.filter(
-                item =>
-                    String(
-                        item.expense_date || ""
-                    ) <= to
-            );
-
-    }
-
-
-    list.sort(
-        (a,b) =>
-            String(
-                b.expense_date || ""
-            ).localeCompare(
-                String(
-                    a.expense_date || ""
-                )
-            )
-    );
-
-
-    printReport(
-        list,
-        from,
-        to
-    );
-
-};
+);
 
 
 /* =====================================================
-   TODAY REPORT
+   TODAY PDF
 ===================================================== */
 
 document.getElementById(
-    "printTodayBtn"
-).onclick =
-function(){
+    "todayPdfBtn"
+).addEventListener(
+    "click",
+    function(){
 
-    const current =
-        today();
+        const d =
+            today();
 
 
-    const list =
-        expenses.filter(
-            item =>
-                String(
-                    item.expense_date || ""
-                ) === current
+        document.getElementById(
+            "fromDate"
+        ).value =
+            d;
+
+
+        document.getElementById(
+            "toDate"
+        ).value =
+            d;
+
+
+        generatePDF(
+
+            d,
+
+            d,
+
+            "Today's Expense Report"
+
         );
-
-
-    printReport(
-        list,
-        current,
-        current
-    );
-
-};
-
-
-/* =====================================================
-   INDIVIDUAL EXPENSE PRINT
-===================================================== */
-
-function printExpense(id){
-
-    const expense =
-        expenses.find(
-            item =>
-                String(item.id) ===
-                String(id)
-        );
-
-
-    if(!expense){
-
-        alert(
-            "❌ Expense record পাওয়া যায়নি।"
-        );
-
-        return;
 
     }
-
-
-    const amount =
-        Number(
-            expense.amount
-        ) || 0;
-
-
-    const printWindow =
-        window.open(
-            "",
-            "_blank",
-            "width=800,height=900"
-        );
-
-
-    if(!printWindow){
-
-        alert(
-            "❌ Print window blocked। Browser popup allow করুন।"
-        );
-
-        return;
-
-    }
-
-
-    printWindow.document.write(`
-
-<!DOCTYPE html>
-
-<html lang="bn">
-
-<head>
-
-<meta charset="UTF-8">
-
-<title>
-Expense Receipt
-</title>
-
-
-<style>
-
-*{
-    box-sizing:border-box;
-}
-
-
-body{
-
-    margin:0;
-
-    padding:30px;
-
-    font-family:Arial,sans-serif;
-
-    background:#fff;
-
-    color:#222;
-
-}
-
-
-.receipt{
-
-    max-width:700px;
-
-    margin:auto;
-
-    border:2px solid #075c43;
-
-    padding:28px;
-
-}
-
-
-.header{
-
-    text-align:center;
-
-    border-bottom:2px solid #075c43;
-
-    padding-bottom:12px;
-
-}
-
-
-.header h1{
-
-    margin:0;
-
-    color:#075c43;
-
-    font-size:24px;
-
-}
-
-
-.header p{
-
-    margin:5px 0;
-
-}
-
-
-.title{
-
-    text-align:center;
-
-    margin:20px 0;
-
-}
-
-
-.info{
-
-    width:100%;
-
-    border-collapse:collapse;
-
-}
-
-
-.info td{
-
-    border:1px solid #bbb;
-
-    padding:10px;
-
-}
-
-
-.info td:first-child{
-
-    width:38%;
-
-    font-weight:bold;
-
-    background:#f3f3f3;
-
-}
-
-
-.amount{
-
-    margin-top:20px;
-
-    border:2px solid #075c43;
-
-    padding:14px;
-
-    display:flex;
-
-    justify-content:space-between;
-
-    font-size:19px;
-
-    font-weight:bold;
-
-}
-
-
-.footer{
-
-    margin-top:55px;
-
-    display:flex;
-
-    justify-content:space-between;
-
-}
-
-
-.signature{
-
-    width:180px;
-
-    text-align:center;
-
-    border-top:1px solid #222;
-
-    padding-top:6px;
-
-}
-
-
-button{
-
-    display:block;
-
-    margin:25px auto 0;
-
-    background:#075c43;
-
-    color:white;
-
-    border:0;
-
-    padding:10px 25px;
-
-}
-
-
-@media print{
-
-    body{
-
-        padding:0;
-
-    }
-
-
-    button{
-
-        display:none;
-
-    }
-
-
-    @page{
-
-        size:A4 portrait;
-
-        margin:15mm;
-
-    }
-
-}
-
-</style>
-
-</head>
-
-
-<body>
-
-
-<div class="receipt">
-
-
-<div class="header">
-
-<h1>
-মাদরাসায়ে নূরুল কুরআন
-</h1>
-
-<p>
-MADRASHA-E NURUL QURAN
-</p>
-
-<p>
-Daily Expense Receipt
-</p>
-
-</div>
-
-
-<div class="title">
-
-<h2>
-EXPENSE PAYMENT
-</h2>
-
-</div>
-
-
-<table class="info">
-
-
-<tr>
-
-<td>
-Title
-</td>
-
-<td>
-${escapeHtml(
-    expense.title || "-"
-)}
-</td>
-
-</tr>
-
-
-<tr>
-
-<td>
-Expense Type
-</td>
-
-<td>
-${escapeHtml(
-    expense.expense_type || "-"
-)}
-</td>
-
-</tr>
-
-
-<tr>
-
-<td>
-Expense Date
-</td>
-
-<td>
-${escapeHtml(
-    expense.expense_date || "-"
-)}
-</td>
-
-</tr>
-
-
-<tr>
-
-<td>
-Paid To
-</td>
-
-<td>
-${escapeHtml(
-    expense.paid_to || "-"
-)}
-</td>
-
-</tr>
-
-
-<tr>
-
-<td>
-Payment Method
-</td>
-
-<td>
-${escapeHtml(
-    expense.payment_method || "-"
-)}
-</td>
-
-</tr>
-
-
-<tr>
-
-<td>
-Description
-</td>
-
-<td>
-${escapeHtml(
-    expense.description || "-"
-)}
-</td>
-
-</tr>
-
-
-</table>
-
-
-<div class="amount">
-
-<span>
-Total Expense
-</span>
-
-<span>
-৳ ${amount.toFixed(2)}
-</span>
-
-</div>
-
-
-<div class="footer">
-
-
-<div class="signature">
-Prepared By
-</div>
-
-
-<div class="signature">
-Authorized Signature
-</div>
-
-
-</div>
-
-
-<button
-onclick="window.print()">
-
-🖨️ Print / Save PDF
-
-</button>
-
-
-</div>
-
-
-</body>
-
-</html>
-
-`);
-
-
-    printWindow.document.close();
-
-    printWindow.focus();
-
-}
-
-
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
-
-function escapeHtml(value){
-
-    return String(value)
-
-        .replaceAll(
-            "&",
-            "&amp;"
-        )
-
-        .replaceAll(
-            "<",
-            "&lt;"
-        )
-
-        .replaceAll(
-            ">",
-            "&gt;"
-        )
-
-        .replaceAll(
-            '"',
-            "&quot;"
-        )
-
-        .replaceAll(
-            "'",
-            "&#039;"
-        );
-
-}
+);
 
 
 /* =====================================================
