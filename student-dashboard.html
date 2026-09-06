@@ -3138,11 +3138,111 @@ async function loadResults(){
 }
 
 
+<script>
+
 /* =====================================================
-   SUBJECTS
+   SUBJECTS — CLASS WISE ONLY
 ===================================================== */
 
 async function loadSubjects(){
+
+    const box =
+        document.getElementById(
+            "studentSubjects"
+        );
+
+    if(!box)
+        return;
+
+
+    /* Loading */
+
+    box.innerHTML = `
+        <div class="loading">
+            <i class="fa-solid fa-spinner fa-spin"></i>
+            বিষয় লোড হচ্ছে...
+        </div>
+    `;
+
+
+    /* -------------------------------------------------
+       Student class information
+    ------------------------------------------------- */
+
+    const studentClassId =
+        currentStudent?.class_id ??
+        currentStudent?.classId ??
+        null;
+
+
+    const studentClassName =
+        currentStudent?.classes?.name ||
+        currentStudent?.class_name ||
+        currentStudent?.class ||
+        currentStudent?.className ||
+        "";
+
+
+    const cleanClassId =
+        studentClassId !== null &&
+        studentClassId !== undefined
+            ? String(studentClassId).trim()
+            : "";
+
+
+    const cleanClassName =
+        String(
+            studentClassName || ""
+        )
+        .trim()
+        .toLowerCase();
+
+
+    console.log(
+        "Student Class ID:",
+        cleanClassId
+    );
+
+    console.log(
+        "Student Class Name:",
+        studentClassName
+    );
+
+
+    /* -------------------------------------------------
+       Class information missing
+    ------------------------------------------------- */
+
+    if(
+        !cleanClassId &&
+        !cleanClassName
+    ){
+
+        box.innerHTML = `
+            <div class="student-empty">
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+                শিক্ষার্থীর শ্রেণির তথ্য পাওয়া যায়নি।
+
+                <br>
+
+                <small>
+                    Admin Dashboard থেকে শিক্ষার্থীর Class ঠিকভাবে নির্ধারণ করুন।
+                </small>
+
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    /* -------------------------------------------------
+       Load ALL subjects from database
+       Then strictly filter by student's class
+    ------------------------------------------------- */
 
     const response =
         await db
@@ -3152,42 +3252,178 @@ async function loadSubjects(){
 
     if(response.error){
 
-        document.getElementById(
-            "studentSubjects"
-        ).innerHTML =
-            `<div class="student-empty">
-                বিষয় তথ্য পাওয়া যায়নি।
-            </div>`;
+        console.error(
+            "Subjects Error:",
+            response.error
+        );
+
+
+        box.innerHTML = `
+            <div class="student-empty">
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+                বিষয় তথ্য লোড করা যায়নি।
+
+                <br>
+
+                <small>
+                    ${esc(
+                        response.error.message ||
+                        "Database error"
+                    )}
+                </small>
+
+            </div>
+        `;
 
         return;
 
     }
 
 
-    let rows =
+    const allSubjects =
         response.data || [];
 
 
-    if(
-        currentStudent.class_id
-    ){
+    /* -------------------------------------------------
+       STRICT CLASS-WISE FILTER
+    ------------------------------------------------- */
 
-        const filtered =
-            rows.filter(
-                r=>
-                    String(r.class_id) ===
-                    String(currentStudent.class_id)
-            );
+    const rows =
+        allSubjects.filter(subject => {
+
+            /* -----------------------------------------
+               Subject Class ID
+            ----------------------------------------- */
+
+            const subjectClassId =
+                subject.class_id ??
+                subject.classId ??
+                null;
 
 
-        if(filtered.length){
+            const subjectClassIdText =
+                subjectClassId !== null &&
+                subjectClassId !== undefined
+                    ? String(
+                        subjectClassId
+                    ).trim()
+                    : "";
 
-            rows=filtered;
 
-        }
+            /* -----------------------------------------
+               Subject Class Name
+            ----------------------------------------- */
+
+            const subjectClassName =
+                subject.class_name ??
+                subject.class ??
+                subject.className ??
+                "";
+
+
+            const subjectClassNameText =
+                String(
+                    subjectClassName || ""
+                )
+                .trim()
+                .toLowerCase();
+
+
+            /* -----------------------------------------
+               Match by Class ID
+            ----------------------------------------- */
+
+            if(
+                cleanClassId &&
+                subjectClassIdText
+            ){
+
+                return (
+                    subjectClassIdText ===
+                    cleanClassId
+                );
+
+            }
+
+
+            /* -----------------------------------------
+               Match by Class Name
+            ----------------------------------------- */
+
+            if(
+                cleanClassName &&
+                subjectClassNameText
+            ){
+
+                return (
+                    subjectClassNameText ===
+                    cleanClassName
+                );
+
+            }
+
+
+            /*
+               VERY IMPORTANT:
+
+               Subject-এর class information না থাকলে
+               সেটি দেখানো হবে না।
+
+               অর্থাৎ অন্য সব subject দেখানোর
+               fallback এখানে নেই।
+            */
+
+            return false;
+
+        });
+
+
+    console.log(
+        "All Subjects:",
+        allSubjects
+    );
+
+    console.log(
+        "Class-wise Subjects:",
+        rows
+    );
+
+
+    /* -------------------------------------------------
+       No subject for this class
+    ------------------------------------------------- */
+
+    if(!rows.length){
+
+        box.innerHTML = `
+            <div class="student-empty">
+
+                <i class="fa-regular fa-folder-open"></i>
+
+                <strong>
+                    ${esc(
+                        studentClassName ||
+                        "এই শ্রেণি"
+                    )}
+                </strong>
+
+                <br>
+
+                এই শ্রেণির জন্য এখনো কোনো বিষয় যোগ করা হয়নি।
+
+            </div>
+        `;
+
+        return;
 
     }
 
+
+    /* -------------------------------------------------
+       Render class-wise subjects
+    ------------------------------------------------- */
 
     renderTable(
         "studentSubjects",
@@ -3196,32 +3432,42 @@ async function loadSubjects(){
 
             {
                 label:"বিষয়ের নাম",
-                value:r=>
+
+                value:r =>
                     r.subject_name ||
                     r.name ||
+                    r.title ||
                     "-"
             },
 
+
             {
                 label:"কোড",
-                value:r=>
+
+                value:r =>
                     r.subject_code ||
                     r.code ||
                     "-"
             },
 
+
             {
                 label:"পূর্ণমান",
-                value:r=>
+
+                value:r =>
                     r.full_mark ??
+                    r.full_marks ??
                     r.total_marks ??
                     "-"
             },
 
+
             {
                 label:"পাস নম্বর",
-                value:r=>
+
+                value:r =>
                     r.pass_mark ??
+                    r.passing_mark ??
                     "-"
             }
 
@@ -3230,6 +3476,7 @@ async function loadSubjects(){
 
 }
 
+</script>
 
 /* =====================================================
    EXAMS
