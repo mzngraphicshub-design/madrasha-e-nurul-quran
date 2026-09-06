@@ -2,2579 +2,3517 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Students | মাদরাসায়ে নূরুল কুরআন</title>
+<title>Students Management | মাদরাসায়ে নূরুল কুরআন</title>
 
 <link href="https://banglawebfonts.pages.dev/css/bornomala.css" rel="stylesheet">
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
-*{box-sizing:border-box}
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
 
 :root{
---primary:#0d47a1;
---primary2:#1976d2;
---dark:#083b82;
---light:#e3f2fd;
---bg:#f4f7fb;
---white:#fff;
---text:#1e293b;
---muted:#64748b;
---border:#e2e8f0;
---danger:#dc2626;
---danger-light:#fee2e2;
---success:#15803d;
+    --primary:#0d47a1;
+    --primary2:#1976d2;
+    --secondary:#0b3d91;
+    --gold:#d4af37;
+    --bg:#f4f7fb;
+    --white:#fff;
+    --text:#1d2939;
+    --muted:#667085;
+    --border:#dfe5ee;
+    --danger:#dc2626;
+    --success:#15803d;
+    --shadow:0 8px 30px rgba(15,23,42,.08);
 }
 
 body{
-margin:0;
-font-family:"Bornomala","Bornomala-Regular",serif;
-background:var(--bg);
-color:var(--text);
+    font-family:'Bornomala',Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
 }
+
+/* ================= TOPBAR ================= */
 
 .topbar{
-background:linear-gradient(135deg,#0d47a1,#1976d2);
-color:#fff;
-min-height:72px;
-padding:14px 28px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:20px;
-position:sticky;
-top:0;
-z-index:100;
-box-shadow:0 3px 15px #0002;
+    height:70px;
+    background:linear-gradient(135deg,var(--primary),var(--primary2));
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 24px;
+    box-shadow:0 4px 18px rgba(13,71,161,.25);
+    position:sticky;
+    top:0;
+    z-index:100;
 }
 
-.brand-title{font-size:21px;font-weight:800}
-.brand-sub{
-font-family:Arial,sans-serif;
-font-size:10px;
-letter-spacing:1px;
-opacity:.8;
+.brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
 }
 
-.top-right{display:flex;align-items:center;gap:8px}
-
-.dashboard-link{
-color:#fff;
-background:#ffffff20;
-border:1px solid #ffffff35;
-padding:9px 14px;
-border-radius:8px;
-text-decoration:none;
-font-weight:700;
+.brand-icon{
+    width:44px;
+    height:44px;
+    border-radius:12px;
+    background:rgba(255,255,255,.16);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
 }
 
-.dashboard-link:hover{
-background:#fff;
-color:var(--primary);
+.brand h1{
+    font-size:21px;
 }
+
+.brand small{
+    display:block;
+    opacity:.8;
+    font-family:Arial,sans-serif;
+    font-size:11px;
+}
+
+.top-actions{
+    display:flex;
+    gap:8px;
+}
+
+.top-actions a,
+.top-actions button{
+    border:0;
+    text-decoration:none;
+    color:white;
+    background:rgba(255,255,255,.13);
+    padding:9px 13px;
+    border-radius:9px;
+    cursor:pointer;
+    font-family:inherit;
+    transition:.2s;
+}
+
+.top-actions a:hover,
+.top-actions button:hover{
+    background:rgba(255,255,255,.24);
+}
+
+/* ================= CONTAINER ================= */
 
 .container{
-max-width:1300px;
-margin:26px auto;
-padding:0 18px 50px;
+    width:min(1450px,96%);
+    margin:25px auto;
 }
 
-.page-heading{margin-bottom:22px}
-.page-heading h1{
-margin:0 0 5px;
-font-size:29px;
-color:#0f172a;
-}
-.page-heading p{
-margin:0;
-color:var(--muted);
-font-size:15px;
-}
+/* ================= STATS ================= */
 
 .stats{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:16px;
-margin-bottom:20px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-bottom:20px;
 }
 
-.stat-box{
-background:#fff;
-border:1px solid var(--border);
-border-radius:14px;
-padding:20px;
-box-shadow:0 3px 15px #0d47a110;
-position:relative;
-overflow:hidden;
+.stat{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:15px;
+    padding:18px;
+    box-shadow:var(--shadow);
+    display:flex;
+    align-items:center;
+    gap:15px;
 }
 
-.stat-box:before{
-content:"";
-position:absolute;
-left:0;
-top:0;
-width:4px;
-height:100%;
-background:linear-gradient(#0d47a1,#1976d2);
+.stat-icon{
+    width:50px;
+    height:50px;
+    border-radius:13px;
+    background:#e8f0fe;
+    color:var(--primary);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:23px;
 }
 
-.stat-label{color:var(--muted);font-size:13px}
-
-.stat-number{
-font-family:Arial,sans-serif;
-font-size:27px;
-font-weight:800;
-color:var(--dark);
-margin-top:6px;
+.stat strong{
+    display:block;
+    font-size:25px;
+    line-height:1.2;
 }
 
-.box{
-background:#fff;
-border:1px solid var(--border);
-border-radius:15px;
-padding:23px;
-margin-bottom:20px;
-box-shadow:0 3px 15px #0d47a110;
+.stat span{
+    color:var(--muted);
+    font-size:13px;
 }
 
-.box-header{margin-bottom:19px}
-.box-title{
-font-size:20px;
-font-weight:800;
-color:var(--primary);
-}
-.box-description{
-font-size:13px;
-color:var(--muted);
-margin-top:4px;
+/* ================= CARD ================= */
+
+.card{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:16px;
+    box-shadow:var(--shadow);
+    padding:20px;
+    margin-bottom:20px;
 }
 
-.session-info{
-background:linear-gradient(135deg,#e3f2fd,#f4f9ff);
-border:1px solid #bbd7f5;
-padding:11px 14px;
-border-radius:9px;
-font-size:13px;
-color:var(--dark);
-margin-bottom:18px;
+.card-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
+    gap:10px;
 }
+
+.card-title h2{
+    font-size:20px;
+    color:var(--primary);
+}
+
+/* ================= FORM ================= */
 
 .form-grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:16px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
 }
 
-.full{grid-column:1/-1}
-
-.form-group{
-display:flex;
-flex-direction:column;
+.field{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
 }
 
-label{
-font-size:14px;
-font-weight:700;
-margin-bottom:6px;
+.field.full{
+    grid-column:1/-1;
 }
 
-input,select,textarea{
-width:100%;
-border:1px solid #d5dce6;
-border-radius:9px;
-padding:11px 13px;
-font-family:"Bornomala",serif;
-font-size:14px;
-outline:none;
-background:#fff;
-color:var(--text);
-transition:.2s;
+.field label{
+    font-size:14px;
+    font-weight:bold;
 }
 
-input:focus,select:focus,textarea:focus{
-border-color:var(--primary2);
-box-shadow:0 0 0 3px #1976d215;
+.field input,
+.field select,
+.field textarea{
+    width:100%;
+    border:1px solid #d4dbe6;
+    border-radius:9px;
+    padding:11px 12px;
+    outline:none;
+    font-family:inherit;
+    background:#fff;
+    transition:.2s;
 }
 
-input[readonly]{
-background:#f1f5f9;
-color:#64748b;
+.field input:focus,
+.field select:focus,
+.field textarea:focus{
+    border-color:var(--primary2);
+    box-shadow:0 0 0 3px rgba(25,118,210,.1);
 }
 
-textarea{
-resize:vertical;
-min-height:90px;
+.field textarea{
+    min-height:80px;
+    resize:vertical;
 }
 
-.buttons{
-display:flex;
-gap:9px;
-margin-top:5px;
-flex-wrap:wrap;
+.field input[readonly]{
+    background:#f0f4f9;
+    color:#475467;
 }
 
-button{
-border:0;
-border-radius:9px;
-padding:10px 17px;
-font-family:"Bornomala",serif;
-font-weight:700;
-cursor:pointer;
-transition:.2s;
+.form-actions{
+    margin-top:17px;
+    display:flex;
+    gap:9px;
+    flex-wrap:wrap;
 }
 
-button:hover{transform:translateY(-1px)}
+/* ================= BUTTON ================= */
+
+.btn{
+    border:0;
+    border-radius:9px;
+    padding:10px 15px;
+    cursor:pointer;
+    font-family:inherit;
+    font-weight:bold;
+    transition:.2s;
+}
+
+.btn:hover{
+    transform:translateY(-1px);
+}
 
 .btn-primary{
-background:linear-gradient(135deg,#0d47a1,#1976d2);
-color:#fff;
+    color:white;
+    background:linear-gradient(135deg,var(--primary),var(--primary2));
 }
 
-.btn-secondary{background:#eef2f7;color:#374151}
-.btn-danger{background:var(--danger-light);color:#b91c1c}
-.btn-edit{background:#e3f2fd;color:#0d47a1}
-.btn-print{background:#1976d2;color:#fff}
-.btn-print-all{background:#0d47a1;color:#fff}
-
-button:disabled{
-opacity:.6;
-cursor:not-allowed;
-transform:none;
+.btn-secondary{
+    background:#eef2f7;
+    color:#344054;
 }
 
-.message{
-min-height:22px;
-margin-top:12px;
-font-size:13px;
-font-weight:600;
+.btn-success{
+    color:white;
+    background:var(--success);
 }
 
-.success{color:var(--success)}
-.error{color:#c62828}
-
-.search-row{
-display:grid;
-grid-template-columns:1fr 220px auto auto;
-gap:12px;
-margin-bottom:16px;
+.btn-danger{
+    color:white;
+    background:var(--danger);
 }
+
+.btn-gold{
+    color:#382900;
+    background:#e7c65b;
+}
+
+/* ================= FILTER ================= */
+
+.filter-grid{
+    display:grid;
+    grid-template-columns:1fr 180px 180px auto;
+    gap:10px;
+    margin-bottom:18px;
+}
+
+.filter-grid input,
+.filter-grid select{
+    border:1px solid var(--border);
+    border-radius:9px;
+    padding:11px;
+    font-family:inherit;
+    outline:none;
+}
+
+/* ================= TABLE ================= */
 
 .table-wrap{
-overflow-x:auto;
-border:1px solid var(--border);
-border-radius:11px;
+    width:100%;
+    overflow-x:auto;
 }
 
 table{
-width:100%;
-border-collapse:collapse;
-min-width:1200px;
+    width:100%;
+    border-collapse:collapse;
+    min-width:1100px;
+}
+
+thead{
+    background:#edf4ff;
+}
+
+th,
+td{
+    padding:10px 9px;
+    border-bottom:1px solid var(--border);
+    text-align:left;
+    vertical-align:middle;
+    font-size:13px;
 }
 
 th{
-background:linear-gradient(135deg,#0d47a1,#1976d2);
-color:#fff;
-padding:13px 11px;
-font-size:13px;
-text-align:left;
-white-space:nowrap;
+    color:#174ea6;
+    font-weight:bold;
+    white-space:nowrap;
 }
 
-td{
-padding:12px 11px;
-border-bottom:1px solid #edf0f5;
-font-size:13px;
-vertical-align:middle;
+tbody tr:hover{
+    background:#f8fbff;
 }
 
-tbody tr:hover td{background:#f7faff}
-
-.student-id{
-font-family:Arial,sans-serif;
-font-weight:800;
-color:var(--dark);
-}
-
-.roll-number{
-font-family:Arial,sans-serif;
-font-weight:800;
-color:#b45309;
-}
-
-.badge{
-display:inline-block;
-background:#e3f2fd;
-color:#0d47a1;
-padding:5px 9px;
-border-radius:20px;
-font-size:11px;
-font-weight:700;
-}
-
-.roll-badge{
-display:inline-block;
-background:#fef3c7;
-color:#92400e;
-padding:5px 9px;
-border-radius:20px;
-font-size:11px;
-font-family:Arial,sans-serif;
-font-weight:800;
-}
-
-.photo{
-width:42px;
-height:42px;
-border-radius:8px;
-object-fit:cover;
-border:1px solid #dbe4ef;
-}
-
-.action-buttons{
-display:flex;
-gap:6px;
-flex-wrap:wrap;
-}
-
-.action-buttons button{
-padding:6px 9px;
-font-size:11px;
-}
-
-.center{
-text-align:center;
-padding:30px!important;
-color:var(--muted);
-}
-
-.loading{
-height:3px;
-background:#e3edf9;
-overflow:hidden;
-margin-bottom:15px;
-}
-
-.loading:after{
-content:"";
-display:block;
-height:100%;
-width:40%;
-background:linear-gradient(90deg,#0d47a1,#1976d2);
-animation:load 1s infinite;
-}
-
-@keyframes load{
-from{transform:translateX(-100%)}
-to{transform:translateX(300%)}
-}
-
-.empty-icon{font-size:30px;margin-bottom:6px}
-.empty-text{font-size:14px}
-
-/* =====================================================
-   PRINT AREA
-===================================================== */
-
-#printArea{
-display:none;
-}
-
-/* =====================================================
-   PRINT DESIGN
-===================================================== */
-
-@media print{
-
-@page{
-size:A4 portrait;
-margin:8mm;
-}
-
-html,body{
-margin:0!important;
-padding:0!important;
-background:#fff!important;
-width:100%!important;
-font-family:"Bornomala","Bornomala-Regular",serif!important;
-}
-
-body > *:not(#printArea){
-display:none!important;
-}
-
-#printArea{
-display:block!important;
-width:100%!important;
-max-width:none!important;
-margin:0!important;
-padding:0!important;
-background:#fff!important;
-color:#111!important;
-}
-
-.print-page{
-width:100%;
-min-height:0;
-margin:0;
-padding:0;
-}
-
-.print-header{
-width:100%;
-text-align:center;
-border-bottom:2px solid #174a7c;
-padding:0 0 7px;
-margin:0 0 9px;
-}
-
-.print-logo-title{
-font-family:"Bornomala","Bornomala-Regular",serif;
-font-size:20px;
-font-weight:800;
-color:#0d47a1;
-line-height:1.3;
-margin:0;
-}
-
-.print-subtitle{
-font-family:Arial,sans-serif;
-font-size:8px;
-letter-spacing:1.5px;
-color:#64748b;
-margin-top:2px;
-}
-
-.print-title{
-text-align:center;
-font-family:"Bornomala","Bornomala-Regular",serif;
-font-size:15px;
-font-weight:800;
-color:#111827;
-margin:7px 0 4px;
-}
-
-.print-meta{
-display:flex;
-justify-content:center;
-align-items:center;
-gap:12px;
-font-family:"Bornomala","Bornomala-Regular",serif;
-font-size:9px;
-margin:3px 0 8px;
-}
-
-.print-meta span{
-border:1px solid #cbd5e1;
-padding:2px 7px;
-border-radius:20px;
-background:#f8fafc;
-}
-
-.print-table{
-width:100%!important;
-min-width:0!important;
-table-layout:fixed!important;
-border-collapse:collapse!important;
-font-family:"Bornomala","Bornomala-Regular",serif!important;
-font-size:8.5px!important;
-margin:0!important;
-}
-
-.print-table thead{
-display:table-header-group;
-}
-
-.print-table tr{
-page-break-inside:avoid;
-break-inside:avoid;
-}
-
-.print-table th,
-.print-table td{
-border:1px solid #94a3b8!important;
-padding:4px 3px!important;
-line-height:1.25!important;
-vertical-align:middle!important;
-overflow:hidden;
-word-break:break-word;
-}
-
-.print-table th{
-background:#eaf2f8!important;
-color:#123b63!important;
-font-weight:800!important;
-text-align:center!important;
-}
-
-.print-table td{
-background:#fff!important;
-color:#111!important;
-}
-
-.print-table th:nth-child(1),
-.print-table td:nth-child(1){width:4%}
-
-.print-table th:nth-child(2),
-.print-table td:nth-child(2){width:8%}
-
-.print-table th:nth-child(3),
-.print-table td:nth-child(3){width:7%}
-
-.print-table th:nth-child(4),
-.print-table td:nth-child(4){width:10%}
-
-.print-table th:nth-child(5),
-.print-table td:nth-child(5){width:16%}
-
-.print-table th:nth-child(6),
-.print-table td:nth-child(6){width:14%}
-
-.print-table th:nth-child(7),
-.print-table td:nth-child(7){width:13%}
-
-.print-table th:nth-child(8),
-.print-table td:nth-child(8){width:8%}
-
-.print-table th:nth-child(9),
-.print-table td:nth-child(9){width:9%}
-
-.print-table th:nth-child(10),
-.print-table td:nth-child(10){width:11%}
-
-.print-photo{
-width:30px!important;
-height:36px!important;
-object-fit:cover!important;
-display:block;
-margin:auto;
-border:1px solid #64748b;
+.student-photo{
+    width:45px;
+    height:45px;
+    border-radius:9px;
+    object-fit:cover;
+    border:1px solid #d7dee9;
+    background:#eef2f7;
 }
 
 .no-photo{
-font-size:7px;
-color:#64748b;
-text-align:center;
+    width:45px;
+    height:45px;
+    border-radius:9px;
+    background:#edf2f7;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#98a2b3;
+    font-size:18px;
 }
 
-.print-footer{
-display:flex;
-justify-content:space-between;
-align-items:flex-end;
-border-top:1px solid #cbd5e1;
-margin-top:10px;
-padding-top:6px;
-font-size:8px;
-color:#475569;
+.actions{
+    display:flex;
+    gap:5px;
+    flex-wrap:wrap;
 }
 
-.print-signature{
-width:150px;
-text-align:center;
-border-top:1px solid #475569;
-padding-top:3px;
+.actions .btn{
+    padding:6px 9px;
+    font-size:12px;
 }
 
-/* SINGLE STUDENT */
+/* ================= MESSAGE ================= */
 
-.single-student{
-width:100%;
-max-width:100%;
-margin:0 auto;
+.message{
+    display:none;
+    padding:11px 14px;
+    border-radius:9px;
+    margin-bottom:15px;
+    font-size:14px;
 }
 
-.single-card{
-border:1.5px solid #174a7c;
-border-radius:7px;
-overflow:hidden;
-page-break-inside:avoid;
-break-inside:avoid;
+.message.show{
+    display:block;
 }
 
-.single-card-top{
-display:flex;
-gap:16px;
-padding:13px;
-border-bottom:1px solid #94a3b8;
-align-items:center;
+.message.success{
+    color:#166534;
+    background:#dcfce7;
+    border:1px solid #bbf7d0;
 }
 
-.student-photo-box{
-width:105px;
-height:125px;
-flex:none;
-border:1px solid #64748b;
-display:flex;
-align-items:center;
-justify-content:center;
-background:#f8fafc;
-overflow:hidden;
+.message.error{
+    color:#991b1b;
+    background:#fee2e2;
+    border:1px solid #fecaca;
 }
 
-.student-photo-box img{
-width:100%;
-height:100%;
-object-fit:cover;
+.message.info{
+    color:#1e40af;
+    background:#dbeafe;
+    border:1px solid #bfdbfe;
 }
 
-.no-photo-large{
-font-size:10px;
-color:#64748b;
-text-align:center;
+/* ================= LOADER ================= */
+
+.loader{
+    display:none;
+    text-align:center;
+    padding:30px;
+    color:var(--primary);
 }
 
-.student-main{
-flex:1;
+.loader.show{
+    display:block;
 }
 
-.student-main h2{
-margin:0 0 6px;
-font-family:"Bornomala","Bornomala-Regular",serif;
-font-size:22px;
-font-weight:800;
-color:#0d47a1;
+.spinner{
+    width:30px;
+    height:30px;
+    border:3px solid #dbeafe;
+    border-top-color:var(--primary);
+    border-radius:50%;
+    animation:spin .7s linear infinite;
+    margin:auto auto 8px;
 }
 
-.student-main .student-id-line{
-font-family:Arial,sans-serif;
-font-size:10px;
-color:#475569;
-margin-bottom:7px;
+@keyframes spin{
+    to{transform:rotate(360deg);}
 }
 
-.student-tags{
-display:flex;
-gap:6px;
-flex-wrap:wrap;
+/* ================= EMPTY ================= */
+
+.empty{
+    text-align:center;
+    padding:35px;
+    color:#98a2b3;
 }
 
-.student-tag{
-border:1px solid #bfd3e7;
-background:#edf5fb;
-padding:4px 8px;
-border-radius:12px;
-font-size:9px;
-color:#174a7c;
+/* ================= FOOTER ================= */
+
+.footer{
+    text-align:center;
+    padding:25px;
+    color:#98a2b3;
+    font-size:13px;
 }
 
-.single-info{
-width:100%;
-border-collapse:collapse;
-margin:0;
-table-layout:fixed;
+/* ================= PRINT AREA ================= */
+
+#printArea{
+    display:none;
 }
 
-.single-info td{
-border-bottom:1px solid #cbd5e1;
-padding:7px 9px;
-font-size:10.5px;
-line-height:1.35;
-vertical-align:top;
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1000px){
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .form-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .filter-grid{
+        grid-template-columns:1fr 1fr;
+    }
 }
 
-.single-info tr:last-child td{
-border-bottom:0;
+@media(max-width:650px){
+    .topbar{
+        height:auto;
+        min-height:65px;
+        padding:10px 13px;
+    }
+
+    .brand h1{
+        font-size:16px;
+    }
+
+    .brand small{
+        display:none;
+    }
+
+    .top-actions a,
+    .top-actions button{
+        padding:7px 9px;
+        font-size:12px;
+    }
+
+    .container{
+        width:94%;
+        margin:15px auto;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+        gap:9px;
+    }
+
+    .stat{
+        padding:12px;
+        gap:9px;
+    }
+
+    .stat-icon{
+        width:38px;
+        height:38px;
+        font-size:18px;
+    }
+
+    .stat strong{
+        font-size:20px;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .filter-grid{
+        grid-template-columns:1fr;
+    }
+
+    .card{
+        padding:14px;
+    }
 }
 
-.single-info td:first-child{
-width:30%;
-font-weight:800;
-background:#f1f5f9;
-color:#334155;
-}
+/* =========================================================
+   PRINT
+========================================================= */
 
-.single-info td:nth-child(2){
-width:70%;
-color:#111827;
-}
+@media print{
 
-.address-cell{
-min-height:35px;
-}
+    @page{
+        size:A4 landscape;
+        margin:7mm;
+    }
 
-.single-footer{
-display:flex;
-justify-content:space-between;
-align-items:flex-end;
-margin-top:35px;
-font-size:9px;
-}
+    html,
+    body{
+        background:white !important;
+        margin:0 !important;
+        padding:0 !important;
+    }
 
-.signature-box{
-width:155px;
-text-align:center;
-padding-top:5px;
-border-top:1px solid #475569;
-}
+    body > *:not(#printArea){
+        display:none !important;
+    }
 
-.print-note{
-font-size:8px;
-color:#64748b;
-margin-top:8px;
-text-align:center;
-}
+    #printArea{
+        display:block !important;
+        width:100% !important;
+        color:#000 !important;
+    }
 
-/* prevent accidental extra pages */
-.print-page,
-.single-student{
-page-break-after:auto;
-}
+    .print-header{
+        text-align:center;
+        margin-bottom:8px;
+    }
 
-}
+    .print-header h1{
+        font-size:19px;
+        margin-bottom:2px;
+    }
 
-@media(max-width:900px){
-.stats{grid-template-columns:repeat(2,1fr)}
-.search-row{grid-template-columns:1fr 1fr}
-}
+    .print-header h2{
+        font-size:14px;
+        margin-bottom:2px;
+    }
 
-@media(max-width:800px){
+    .print-header p{
+        font-size:10px;
+        margin:1px 0;
+    }
 
-.topbar{padding:13px 16px}
-.brand-title{font-size:18px}
+    .print-meta{
+        display:flex;
+        justify-content:space-between;
+        border-top:1px solid #000;
+        border-bottom:1px solid #000;
+        padding:3px 0;
+        margin:5px 0;
+        font-size:10px;
+    }
 
-.container{
-margin:18px auto;
-padding:0 12px 40px;
-}
+    .print-table{
+        width:100% !important;
+        min-width:0 !important;
+        border-collapse:collapse !important;
+        table-layout:fixed;
+    }
 
-.form-grid{grid-template-columns:1fr}
-.full{grid-column:auto}
-.box{padding:17px}
+    .print-table th,
+    .print-table td{
+        border:1px solid #555 !important;
+        padding:3px 3px !important;
+        font-size:8.5px !important;
+        line-height:1.2;
+        color:#000 !important;
+        overflow:hidden;
+    }
 
-}
+    .print-table th{
+        background:#eee !important;
+        font-weight:bold;
+    }
 
-@media(max-width:600px){
+    .print-table th:nth-child(1){width:3%}
+    .print-table th:nth-child(2){width:8%}
+    .print-table th:nth-child(3){width:5%}
+    .print-table th:nth-child(4){width:14%}
+    .print-table th:nth-child(5){width:13%}
+    .print-table th:nth-child(6){width:13%}
+    .print-table th:nth-child(7){width:9%}
+    .print-table th:nth-child(8){width:7%}
+    .print-table th:nth-child(9){width:7%}
+    .print-table th:nth-child(10){width:21%}
 
-.topbar{
-flex-direction:column;
-align-items:flex-start;
-}
+    .print-photo{
+        width:28px;
+        height:32px;
+        object-fit:cover;
+        display:block;
+        margin:auto;
+    }
 
-.top-right{width:100%}
-.search-row{grid-template-columns:1fr}
+    .print-footer{
+        margin-top:7px;
+        font-size:8px;
+        text-align:center;
+    }
 
-}
+    .profile-print{
+        page-break-inside:avoid;
+        width:100%;
+    }
 
-@media(max-width:500px){
+    .profile-title{
+        text-align:center;
+        margin-bottom:12px;
+    }
 
-.stats{grid-template-columns:1fr 1fr}
-.stat-box{padding:15px}
-.stat-number{font-size:23px}
+    .profile-title h1{
+        font-size:21px;
+    }
 
+    .profile-title p{
+        font-size:11px;
+    }
+
+    .profile-box{
+        display:flex;
+        gap:20px;
+        border:1px solid #222;
+        padding:12px;
+    }
+
+    .profile-photo-box{
+        width:120px;
+        flex:none;
+        text-align:center;
+    }
+
+    .profile-photo{
+        width:105px;
+        height:125px;
+        object-fit:cover;
+        border:1px solid #333;
+    }
+
+    .profile-info{
+        flex:1;
+    }
+
+    .profile-info table{
+        width:100% !important;
+        min-width:0 !important;
+        border-collapse:collapse !important;
+    }
+
+    .profile-info td{
+        border:1px solid #555 !important;
+        padding:6px !important;
+        font-size:10px !important;
+    }
+
+    .profile-info td:first-child{
+        width:23%;
+        font-weight:bold;
+        background:#f1f1f1 !important;
+    }
+
+    .signature-row{
+        display:flex;
+        justify-content:space-between;
+        margin-top:55px;
+        font-size:10px;
+    }
 }
 </style>
 </head>
 
 <body>
 
+<!-- ================= TOPBAR ================= -->
+
 <header class="topbar">
 
-<div>
-<div class="brand-title">📚 মাদরাসায়ে নূরুল কুরআন</div>
-<div class="brand-sub">STUDENT MANAGEMENT SYSTEM</div>
-</div>
+    <div class="brand">
+        <div class="brand-icon">🎓</div>
 
-<div class="top-right">
-<a href="dashboard.html" class="dashboard-link">← Dashboard</a>
-</div>
+        <div>
+            <h1>শিক্ষার্থী ব্যবস্থাপনা</h1>
+            <small>MADRASA-E NURUL QURAN</small>
+        </div>
+    </div>
+
+    <div class="top-actions">
+        <a href="admin.html">🏠 Dashboard</a>
+        <button onclick="logout()">🚪 Logout</button>
+    </div>
 
 </header>
 
+
 <main class="container">
 
-<div class="page-heading">
-<h1>👨‍🎓 Student Management</h1>
-<p>শিক্ষার্থীদের তথ্য সংরক্ষণ, সম্পাদনা ও ব্যবস্থাপনা</p>
-</div>
+    <div id="message" class="message"></div>
 
-<div class="stats">
 
-<div class="stat-box">
-<div class="stat-label">মোট শিক্ষার্থী</div>
-<div class="stat-number" id="totalStudents">0</div>
-</div>
+    <!-- ================= STATS ================= -->
 
-<div class="stat-box">
-<div class="stat-label">দৃশ্যমান শিক্ষার্থী</div>
-<div class="stat-number" id="visibleStudents">0</div>
-</div>
+    <section class="stats">
 
-<div class="stat-box">
-<div class="stat-label">বর্তমান Year</div>
-<div class="stat-number" id="currentSession">-</div>
-</div>
+        <div class="stat">
+            <div class="stat-icon">👨‍🎓</div>
+            <div>
+                <strong id="totalStudents">0</strong>
+                <span>মোট শিক্ষার্থী</span>
+            </div>
+        </div>
 
-<div class="stat-box">
-<div class="stat-label">Pending Admission</div>
-<div class="stat-number" id="onlineAdmissionCount">0</div>
-</div>
+        <div class="stat">
+            <div class="stat-icon">📅</div>
+            <div>
+                <strong id="currentYearStudents">0</strong>
+                <span>নির্বাচিত বছরের শিক্ষার্থী</span>
+            </div>
+        </div>
 
-</div>
+        <div class="stat">
+            <div class="stat-icon">🏫</div>
+            <div>
+                <strong id="totalClasses">0</strong>
+                <span>মোট শ্রেণি</span>
+            </div>
+        </div>
 
-<section class="box">
+        <div class="stat">
+            <div class="stat-icon">📝</div>
+            <div>
+                <strong id="onlineAdmissions">0</strong>
+                <span>Pending Admission</span>
+            </div>
+        </div>
 
-<div class="box-header">
-<div class="box-title" id="formTitle">➕ Add Student</div>
-<div class="box-description">
-Year, Roll Number ও শিক্ষার্থীর তথ্য সংরক্ষণ করুন
-</div>
-</div>
+    </section>
 
-<div class="session-info">
-<strong>📅 Current Year:</strong>
-<span id="sessionText">Loading...</span>
-</div>
 
-<form id="studentForm">
+    <!-- ================= ADD / EDIT ================= -->
 
-<input type="hidden" id="editId">
+    <section class="card">
 
-<div class="form-grid">
+        <div class="card-title">
+            <h2 id="formTitle">➕ নতুন শিক্ষার্থী যোগ করুন</h2>
+        </div>
 
-<div class="form-group">
-<label>Student ID</label>
-<input id="studentId" readonly placeholder="Auto generated">
-</div>
+        <form id="studentForm">
 
-<div class="form-group">
-<label>Roll Number *</label>
-<input id="rollNumber" required placeholder="যেমন: 01" maxlength="20">
-</div>
+            <input type="hidden" id="editId">
 
-<div class="form-group">
-<label>শিক্ষার্থীর নাম *</label>
-<input id="name" required placeholder="শিক্ষার্থীর পূর্ণ নাম">
-</div>
+            <div class="form-grid">
 
-<div class="form-group">
-<label>পিতার নাম</label>
-<input id="father" placeholder="পিতার নাম">
-</div>
+                <div class="field">
+                    <label>Student ID</label>
+                    <input
+                        type="text"
+                        id="studentId"
+                        readonly
+                        placeholder="Auto Generated"
+                    >
+                </div>
 
-<div class="form-group">
-<label>মাতার নাম</label>
-<input id="mother" placeholder="মাতার নাম">
-</div>
+                <div class="field">
+                    <label>Roll Number *</label>
+                    <input
+                        type="text"
+                        id="rollNumber"
+                        required
+                        placeholder="যেমন: 101"
+                    >
+                </div>
 
-<div class="form-group">
-<label>মোবাইল</label>
-<input id="phone" type="tel" placeholder="মোবাইল নম্বর">
-</div>
+                <div class="field">
+                    <label>শিক্ষার্থীর নাম *</label>
+                    <input
+                        type="text"
+                        id="studentName"
+                        required
+                        placeholder="শিক্ষার্থীর পূর্ণ নাম"
+                    >
+                </div>
 
-<div class="form-group">
-<label>Year *</label>
-<select id="session" required>
-<option value="">Year নির্বাচন করুন</option>
-</select>
-</div>
+                <div class="field">
+                    <label>পিতার নাম</label>
+                    <input
+                        type="text"
+                        id="fatherName"
+                        placeholder="পিতার নাম"
+                    >
+                </div>
 
-<div class="form-group">
-<label>Class *</label>
-<select id="classId" required>
-<option value="">শ্রেণি নির্বাচন করুন</option>
-</select>
-</div>
+                <div class="field">
+                    <label>মাতার নাম</label>
+                    <input
+                        type="text"
+                        id="motherName"
+                        placeholder="মাতার নাম"
+                    >
+                </div>
 
-<div class="form-group">
-<label>ভর্তি তারিখ</label>
-<input id="admissionDate" type="date">
-</div>
+                <div class="field">
+                    <label>মোবাইল নম্বর</label>
+                    <input
+                        type="tel"
+                        id="phone"
+                        placeholder="01XXXXXXXXX"
+                    >
+                </div>
 
-<div class="form-group">
-<label>শিক্ষার্থীর ছবি</label>
-<input id="photo" type="file" accept="image/*">
-</div>
+                <div class="field">
+                    <label>শিক্ষাবর্ষ *</label>
+                    <select id="session" required>
+                        <option value="">শিক্ষাবর্ষ নির্বাচন করুন</option>
+                    </select>
+                </div>
 
-<div class="form-group full">
-<label>ঠিকানা</label>
-<textarea id="address" placeholder="শিক্ষার্থীর ঠিকানা"></textarea>
-</div>
+                <div class="field">
+                    <label>শ্রেণি *</label>
+                    <select id="classId" required>
+                        <option value="">শ্রেণি নির্বাচন করুন</option>
+                    </select>
+                </div>
 
-<div class="form-group full">
+                <div class="field">
+                    <label>ভর্তির তারিখ</label>
+                    <input type="date" id="admissionDate">
+                </div>
 
-<div class="buttons">
+                <div class="field">
+                    <label>ছবি</label>
+                    <input
+                        type="file"
+                        id="photo"
+                        accept="image/*"
+                    >
+                </div>
 
-<button type="submit" class="btn-primary" id="saveBtn">
-💾 Save Student
-</button>
+                <div class="field full">
+                    <label>ঠিকানা</label>
+                    <textarea
+                        id="address"
+                        placeholder="শিক্ষার্থীর পূর্ণ ঠিকানা"
+                    ></textarea>
+                </div>
 
-<button type="button" class="btn-secondary" id="cancelBtn" style="display:none">
-✖ Cancel
-</button>
+            </div>
 
-</div>
+            <div class="form-actions">
 
-<div id="msg" class="message"></div>
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                    id="saveBtn"
+                >
+                    💾 শিক্ষার্থী সংরক্ষণ
+                </button>
 
-</div>
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    onclick="resetForm()"
+                >
+                    ↻ Reset
+                </button>
 
-</div>
+            </div>
 
-</form>
-</section>
+        </form>
 
-<section class="box">
+    </section>
 
-<div class="box-header">
-<div class="box-title">👨‍🎓 Student List</div>
-<div class="box-description">
-Roll Number, Student ID, Year ও Search অনুযায়ী শিক্ষার্থীদের তালিকা
-</div>
-</div>
 
-<div class="search-row">
+    <!-- ================= STUDENTS LIST ================= -->
 
-<input id="search"
-placeholder="🔍 Roll Number, Student ID, নাম অথবা মোবাইল দিয়ে খুঁজুন...">
+    <section class="card">
 
-<select id="filterSession">
-<option value="">All Years</option>
-</select>
+        <div class="card-title">
 
-<button class="btn-print" id="printFilteredBtn" type="button">
-🖨 Print List
-</button>
+            <h2>👨‍🎓 শিক্ষার্থীদের তালিকা</h2>
 
-<button class="btn-print-all" id="printAllBtn" type="button">
-🖨 Print All
-</button>
+            <div class="form-actions">
 
-</div>
+                <button
+                    class="btn btn-success"
+                    onclick="printFiltered()"
+                >
+                    🖨️ Filtered Print
+                </button>
 
-<div class="table-wrap">
+                <button
+                    class="btn btn-gold"
+                    onclick="printAll()"
+                >
+                    🖨️ All Print
+                </button>
 
-<table>
+            </div>
 
-<thead>
-<tr>
-<th>Photo</th>
-<th>Roll</th>
-<th>Student ID</th>
-<th>নাম</th>
-<th>পিতা</th>
-<th>মোবাইল</th>
-<th>Year</th>
-<th>Class</th>
-<th>ভর্তি তারিখ</th>
-<th>Action</th>
-</tr>
-</thead>
+        </div>
 
-<tbody id="studentList">
 
-<tr>
-<td colspan="10" class="center">
-<div class="loading"></div>
-Loading...
-</td>
-</tr>
+        <!-- FILTER -->
 
-</tbody>
+        <div class="filter-grid">
 
-</table>
+            <input
+                type="search"
+                id="search"
+                placeholder="🔍 Roll / Student ID / নাম / মোবাইল / পিতার নাম দিয়ে খুঁজুন..."
+            >
 
-</div>
+            <select id="yearFilter">
+                <option value="">সব শিক্ষাবর্ষ</option>
+            </select>
 
-</section>
+            <select id="classFilter">
+                <option value="">সব শ্রেণি</option>
+            </select>
+
+            <button
+                class="btn btn-secondary"
+                onclick="clearFilters()"
+            >
+                ✕ Clear
+            </button>
+
+        </div>
+
+
+        <div id="loader" class="loader">
+            <div class="spinner"></div>
+            শিক্ষার্থীদের তথ্য লোড হচ্ছে...
+        </div>
+
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>ছবি</th>
+                        <th>Student ID</th>
+                        <th>Roll</th>
+                        <th>নাম</th>
+                        <th>পিতার নাম</th>
+                        <th>মাতার নাম</th>
+                        <th>মোবাইল</th>
+                        <th>শ্রেণি</th>
+                        <th>বছর</th>
+                        <th>ভর্তির তারিখ</th>
+                        <th>Action</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="studentTableBody"></tbody>
+
+            </table>
+
+        </div>
+
+    </section>
 
 </main>
 
+
+<footer class="footer">
+    © <span id="footerYear"></span> মাদরাসায়ে নূরুল কুরআন — Student Management System
+</footer>
+
+
+<!-- =========================================================
+     PRINT AREA
+========================================================= -->
+
 <div id="printArea"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 
-/* =====================================================
-   SUPABASE
-===================================================== */
+/* =========================================================
+   SUPABASE CONFIG
+========================================================= */
 
 const SUPABASE_URL =
-"https://qavublwhqiqsgpcmfyft.supabase.co";
+    "https://qavublwhqiqsgpcmfyft.supabase.co";
 
 const SUPABASE_KEY =
-"sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
+    "sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQK";
+
+const { createClient } =
+    supabase;
 
 const db =
-window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
-);
-
-let students=[];
-let classes=[];
-let years=[];
-let currentUser=null;
+    createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
 
 
-/* =====================================================
-   CURRENT YEAR
-===================================================== */
+/* =========================================================
+   GLOBAL DATA
+========================================================= */
 
-function getCurrentYear(){
-return String(new Date().getFullYear());
-}
+let students = [];
+let classes = [];
+let sessions = [];
+let editingStudent = null;
 
 
-/* =====================================================
-   AUTH
-===================================================== */
+/* =========================================================
+   ELEMENTS
+========================================================= */
 
-async function start(){
+const messageBox =
+    document.getElementById("message");
 
-try{
+const loader =
+    document.getElementById("loader");
 
-const {
-data:{session},
-error
-}=await db.auth.getSession();
+const tableBody =
+    document.getElementById("studentTableBody");
 
-if(error) throw error;
+const searchInput =
+    document.getElementById("search");
 
-if(!session){
-location.href="admin.html";
-return;
-}
+const yearFilter =
+    document.getElementById("yearFilter");
 
-currentUser=session;
+const classFilter =
+    document.getElementById("classFilter");
 
-await loadClasses();
-await loadYears();
-await loadStudents();
-await loadOnlineAdmissionCount();
 
-const current=getCurrentYear();
+/* =========================================================
+   MESSAGE
+========================================================= */
 
-document.getElementById("currentSession").textContent=current;
-document.getElementById("sessionText").textContent=current;
-
-if(
-years.some(x=>String(x.year)===current)
+function showMessage(
+    text,
+    type = "info"
 ){
 
-document.getElementById("session").value=current;
-document.getElementById("filterSession").value=current;
+    messageBox.textContent = text;
 
-}else{
+    messageBox.className =
+        "message show " + type;
 
-document.getElementById("session").value=current;
+    setTimeout(() => {
 
-}
+        messageBox.className =
+            "message";
 
-applyFilters();
-
-}catch(error){
-
-console.error(error);
-showMessage(error.message,"error");
-
-}
-
+    }, 4500);
 }
 
 
-/* =====================================================
-   AUTH STATE
-===================================================== */
+/* =========================================================
+   LOADER
+========================================================= */
 
-db.auth.onAuthStateChange(
-(event,session)=>{
+function showLoader(){
 
-if(!session){
-location.href="admin.html";
+    loader.classList.add("show");
+
 }
 
-});
+function hideLoader(){
 
-
-/* =====================================================
-   LOAD CLASSES
-===================================================== */
-
-async function loadClasses(){
-
-const select=document.getElementById("classId");
-
-const {
-data,
-error
-}=await db
-.from("classes")
-.select("id,name")
-.order("id");
-
-if(error){
-
-showMessage(
-"Class load error: "+error.message,
-"error"
-);
-
-return;
-}
-
-classes=data||[];
-
-select.innerHTML=
-`<option value="">শ্রেণি নির্বাচন করুন</option>`;
-
-classes.forEach(c=>{
-
-const option=document.createElement("option");
-
-option.value=c.id;
-option.textContent=c.name;
-
-select.appendChild(option);
-
-});
+    loader.classList.remove("show");
 
 }
 
 
-/* =====================================================
-   LOAD YEARS
-===================================================== */
-
-async function loadYears(){
-
-const {
-data,
-error
-}=await db
-.from("sessions")
-.select("id,year")
-.order("year",{ascending:false});
-
-if(error){
-
-console.warn(
-"Sessions unavailable:",
-error.message
-);
-
-await loadYearsFromStudents();
-return;
-
-}
-
-years=data||[];
-
-const unique=[];
-
-years.forEach(x=>{
-
-const y=String(x.year||"").trim();
-
-if(
-y &&
-!unique.some(
-a=>String(a.year)===y
-)
-){
-
-unique.push({
-id:x.id,
-year:y
-});
-
-}
-
-});
-
-years=unique;
-
-renderYearOptions();
-
-}
-
-
-/* =====================================================
-   FALLBACK YEARS
-===================================================== */
-
-async function loadYearsFromStudents(){
-
-const {
-data,
-error
-}=await db
-.from("students")
-.select("session")
-.not("session","is",null);
-
-if(error){
-
-console.error(error);
-return;
-
-}
-
-const unique=[
-...new Set(
-(data||[])
-.map(x=>String(x.session||"").trim())
-.filter(Boolean)
-)
-];
-
-unique.sort(
-(a,b)=>Number(b)-Number(a)
-);
-
-years=unique.map(
-y=>({year:y})
-);
-
-const current=getCurrentYear();
-
-if(
-!years.some(
-x=>String(x.year)===current
-)
-){
-
-years.push({
-year:current
-});
-
-}
-
-renderYearOptions();
-
-}
-
-
-/* =====================================================
-   YEAR OPTIONS
-===================================================== */
-
-function renderYearOptions(){
-
-const formSession=
-document.getElementById("session");
-
-const filterSession=
-document.getElementById("filterSession");
-
-formSession.innerHTML=
-`<option value="">Year নির্বাচন করুন</option>`;
-
-filterSession.innerHTML=
-`<option value="">All Years</option>`;
-
-years.forEach(item=>{
-
-const year=String(item.year);
-
-const o1=document.createElement("option");
-
-o1.value=year;
-o1.textContent=year;
-
-formSession.appendChild(o1);
-
-const o2=document.createElement("option");
-
-o2.value=year;
-o2.textContent=year;
-
-filterSession.appendChild(o2);
-
-});
-
-}
-
-
-/* =====================================================
-   LOAD STUDENTS
-===================================================== */
-
-async function loadStudents(){
-
-const tbody=
-document.getElementById("studentList");
-
-tbody.innerHTML=`
-
-<tr>
-<td colspan="10" class="center">
-<div class="loading"></div>
-Loading...
-</td>
-</tr>
-
-`;
-
-const {
-data,
-error
-}=await db
-.from("students")
-.select(`
-id,
-student_id,
-roll_number,
-name,
-father_name,
-mother_name,
-phone,
-class_id,
-session,
-admission_date,
-address,
-photo_url,
-created_at
-`)
-.order("created_at",{ascending:false});
-
-if(error){
-
-console.error(error);
-
-tbody.innerHTML=`
-
-<tr>
-<td colspan="10" class="center">
-❌ ${escapeHtml(error.message)}
-</td>
-</tr>
-
-`;
-
-return;
-
-}
-
-students=data||[];
-
-updateStats();
-applyFilters();
-
-}
-
-
-/* =====================================================
-   ONLINE ADMISSION
-===================================================== */
-
-async function loadOnlineAdmissionCount(){
-
-try{
-
-const {
-count,
-error
-}=await db
-.from("admission_applications")
-.select("id",{count:"exact",head:true})
-.eq("status","pending");
-
-if(!error){
-
-document.getElementById(
-"onlineAdmissionCount"
-).textContent=count||0;
-
-}
-
-}catch(error){
-
-console.log(
-"Admission table unavailable"
-);
-
-}
-
-}
-
-
-/* =====================================================
-   STATS
-===================================================== */
-
-function updateStats(){
-
-document.getElementById(
-"totalStudents"
-).textContent=
-students.length;
-
-}
-
-
-/* =====================================================
-   FILTER
-===================================================== */
-
-function getFilteredStudents(){
-
-const q=
-document.getElementById("search")
-.value
-.toLowerCase()
-.trim();
-
-const selectedYear=
-document.getElementById("filterSession")
-.value;
-
-return students.filter(s=>{
-
-const yearMatch=
-!selectedYear ||
-String(s.session||"")===
-String(selectedYear);
-
-const searchMatch=
-!q ||
-
-String(s.roll_number||"")
-.toLowerCase()
-.includes(q)
-
-||
-
-String(s.student_id||"")
-.toLowerCase()
-.includes(q)
-
-||
-
-String(s.name||"")
-.toLowerCase()
-.includes(q)
-
-||
-
-String(s.phone||"")
-.toLowerCase()
-.includes(q)
-
-||
-
-String(s.father_name||"")
-.toLowerCase()
-.includes(q);
-
-return yearMatch && searchMatch;
-
-});
-
-}
-
-function applyFilters(){
-
-render(getFilteredStudents());
-
-}
-
-
-/* =====================================================
-   CLASS NAME
-===================================================== */
-
-function getClassName(student){
-
-const c=
-classes.find(
-x=>String(x.id)===
-String(student?.class_id)
-);
-
-return c?c.name:"-";
-
-}
-
-
-/* =====================================================
-   RENDER
-===================================================== */
-
-function render(list){
-
-const tbody=
-document.getElementById("studentList");
-
-document.getElementById(
-"visibleStudents"
-).textContent=list.length;
-
-if(!list.length){
-
-tbody.innerHTML=`
-
-<tr>
-<td colspan="10" class="center">
-
-<div class="empty-icon">🎓</div>
-
-<div class="empty-text">
-কোনো Student পাওয়া যায়নি
-</div>
-
-</td>
-</tr>
-
-`;
-
-return;
-
-}
-
-tbody.innerHTML=
-list.map(s=>{
-
-const photo=s.photo_url
-
-?
-
-`<img
-src="${escapeHtml(s.photo_url)}"
-class="photo"
-alt="Student Photo"
-onerror="this.style.display='none'"
->`
-
-:
-
-`<span class="badge">No Photo</span>`;
-
-return `
-
-<tr>
-
-<td>${photo}</td>
-
-<td>
-<span class="roll-badge">
-${escapeHtml(s.roll_number||"-")}
-</span>
-</td>
-
-<td>
-<span class="student-id">
-${escapeHtml(s.student_id||"-")}
-</span>
-</td>
-
-<td>
-<strong>${escapeHtml(s.name||"-")}</strong>
-</td>
-
-<td>${escapeHtml(s.father_name||"-")}</td>
-
-<td>${escapeHtml(s.phone||"-")}</td>
-
-<td>
-<span class="badge">
-${escapeHtml(s.session||"-")}
-</span>
-</td>
-
-<td>
-<span class="badge">
-${escapeHtml(getClassName(s))}
-</span>
-</td>
-
-<td>
-${escapeHtml(formatDate(s.admission_date))}
-</td>
-
-<td>
-
-<div class="action-buttons">
-
-<button
-type="button"
-class="btn-edit"
-onclick="editStudent('${String(s.id)}')">
-✏ Edit
-</button>
-
-<button
-type="button"
-class="btn-print"
-onclick="printSingleStudent('${String(s.id)}')">
-🖨
-</button>
-
-<button
-type="button"
-class="btn-danger"
-onclick="deleteStudent('${String(s.id)}')">
-🗑
-</button>
-
-</div>
-
-</td>
-
-</tr>
-
-`;
-
-}).join("");
-
-}
-
-
-/* =====================================================
-   DATE
-===================================================== */
-
-function formatDate(date){
-
-if(!date)return "-";
-
-try{
-
-const d=new Date(date+"T00:00:00");
-
-return d.toLocaleDateString("bn-BD");
-
-}catch(e){
-
-return date;
-
-}
-
-}
-
-
-/* =====================================================
-   PHOTO UPLOAD
-===================================================== */
-
-async function uploadStudentPhoto(){
-
-const file=
-document.getElementById("photo").files[0];
-
-if(!file)return null;
-
-if(!file.type.startsWith("image/")){
-
-throw new Error(
-"শুধু Image file upload করা যাবে।"
-);
-
-}
-
-if(file.size>5*1024*1024){
-
-throw new Error(
-"ছবির size 5MB-এর বেশি হতে পারবে না।"
-);
-
-}
-
-const ext=
-file.name
-.split(".")
-.pop()
-.toLowerCase();
-
-const fileName=
-"student_"+
-Date.now()+
-"_"+Math.random()
-.toString(36)
-.substring(2)+
-"."+ext;
-
-const {error}=await db.storage
-.from("student-photo")
-.upload(
-fileName,
-file,
-{upsert:false}
-);
-
-if(error){
-
-throw new Error(
-"Photo upload failed: "+error.message
-);
-
-}
-
-const {data}=db.storage
-.from("student-photo")
-.getPublicUrl(fileName);
-
-return data.publicUrl;
-
-}
-
-
-/* =====================================================
-   GENERATE STUDENT ID
-===================================================== */
-
-async function generateStudentId(){
-
-const {
-data,
-error
-}=await db.rpc("next_student_id");
-
-if(error){
-
-throw new Error(
-"Student ID generate failed: "+
-error.message
-);
-
-}
-
-return data;
-
-}
-
-
-/* =====================================================
-   SAVE / UPDATE
-===================================================== */
-
-document
-.getElementById("studentForm")
-.addEventListener(
-"submit",
-async e=>{
-
-e.preventDefault();
-
-const editId=
-document.getElementById("editId").value;
-
-const msg=
-document.getElementById("msg");
-
-const saveBtn=
-document.getElementById("saveBtn");
-
-saveBtn.disabled=true;
-
-msg.className="message";
-
-msg.textContent=
-editId?"Updating...":"Saving...";
-
-try{
-
-let photoUrl=null;
-
-if(
-document.getElementById("photo").files[0]
-){
-
-photoUrl=
-await uploadStudentPhoto();
-
-}
-
-const student={
-
-roll_number:
-document.getElementById("rollNumber").value.trim(),
-
-name:
-document.getElementById("name").value.trim(),
-
-father_name:
-document.getElementById("father").value.trim(),
-
-mother_name:
-document.getElementById("mother").value.trim(),
-
-phone:
-document.getElementById("phone").value.trim(),
-
-session:
-document.getElementById("session").value,
-
-class_id:
-document.getElementById("classId").value,
-
-admission_date:
-document.getElementById("admissionDate").value||null,
-
-address:
-document.getElementById("address").value.trim()
-
-};
-
-if(!student.roll_number)
-throw new Error("Roll Number দিন।");
-
-if(!student.name)
-throw new Error("শিক্ষার্থীর নাম দিন।");
-
-if(!student.session)
-throw new Error("Year নির্বাচন করুন।");
-
-if(!student.class_id)
-throw new Error("Class নির্বাচন করুন।");
-
-
-/* UPDATE */
-
-if(editId){
-
-if(photoUrl)
-student.photo_url=photoUrl;
-
-const {error}=await db
-.from("students")
-.update(student)
-.eq("id",editId);
-
-if(error)throw error;
-
-const index=
-students.findIndex(
-x=>String(x.id)===String(editId)
-);
-
-if(index!==-1){
-
-students[index]={
-...students[index],
-...student
-};
-
-}
-
-msg.className="message success";
-
-msg.textContent=
-"✅ Student successfully updated.";
-
-updateStats();
-applyFilters();
-
-await loadYears();
-
-setTimeout(resetForm,700);
-
-}
-
-
-/* ADD */
-
-else{
-
-student.student_id=
-await generateStudentId();
-
-if(photoUrl)
-student.photo_url=photoUrl;
-
-const {
-data,
-error
-}=await db
-.from("students")
-.insert(student)
-.select(`
-id,
-student_id,
-roll_number,
-name,
-father_name,
-mother_name,
-phone,
-class_id,
-session,
-admission_date,
-address,
-photo_url,
-created_at
-`)
-.single();
-
-if(error)throw error;
-
-students.unshift(data);
-
-msg.className="message success";
-
-msg.textContent=
-"✅ Student added successfully. ID: "+
-data.student_id+
-" | Roll: "+
-data.roll_number;
-
-updateStats();
-applyFilters();
-
-await loadYears();
-
-setTimeout(resetForm,1200);
-
-}
-
-}catch(error){
-
-console.error(error);
-
-msg.className="message error";
-msg.textContent="❌ "+error.message;
-
-}finally{
-
-saveBtn.disabled=false;
-
-}
-
-}
-);
-
-
-/* =====================================================
-   EDIT
-===================================================== */
-
-function editStudent(id){
-
-const student=
-students.find(
-x=>String(x.id)===String(id)
-);
-
-if(!student){
-
-alert(
-"Student information পাওয়া যায়নি।"
-);
-
-return;
-
-}
-
-document.getElementById("editId").value=student.id;
-document.getElementById("studentId").value=student.student_id||"";
-document.getElementById("rollNumber").value=student.roll_number||"";
-document.getElementById("name").value=student.name||"";
-document.getElementById("father").value=student.father_name||"";
-document.getElementById("mother").value=student.mother_name||"";
-document.getElementById("phone").value=student.phone||"";
-document.getElementById("session").value=student.session||"";
-document.getElementById("classId").value=student.class_id||"";
-document.getElementById("admissionDate").value=student.admission_date||"";
-document.getElementById("address").value=student.address||"";
-document.getElementById("photo").value="";
-
-document.getElementById("formTitle").textContent=
-"✏ Edit Student";
-
-document.getElementById("saveBtn").textContent=
-"💾 Update Student";
-
-document.getElementById("cancelBtn").style.display=
-"inline-block";
-
-document.getElementById("msg").textContent="";
-
-window.scrollTo({
-top:0,
-behavior:"smooth"
-});
-
-}
-
-
-/* =====================================================
-   DELETE
-===================================================== */
-
-async function deleteStudent(id){
-
-const student=
-students.find(
-x=>String(x.id)===String(id)
-);
-
-if(!student)return;
-
-const ok=
-confirm(
-"“"+(student.name||"Student")+
-"” কে Delete করতে চান?"
-);
-
-if(!ok)return;
-
-try{
-
-const {error}=await db
-.from("students")
-.delete()
-.eq("id",id);
-
-if(error)throw error;
-
-students=
-students.filter(
-s=>String(s.id)!==String(id)
-);
-
-updateStats();
-applyFilters();
-
-await loadYears();
-
-alert(
-"✅ Student successfully deleted."
-);
-
-}catch(error){
-
-alert("❌ "+error.message);
-
-}
-
-}
-
-
-/* =====================================================
-   RESET
-===================================================== */
-
-function resetForm(){
-
-document
-.getElementById("studentForm")
-.reset();
-
-document.getElementById("editId").value="";
-document.getElementById("studentId").value="";
-document.getElementById("rollNumber").value="";
-
-const current=getCurrentYear();
-
-document.getElementById("session").value=current;
-
-document.getElementById("formTitle").textContent=
-"➕ Add Student";
-
-document.getElementById("saveBtn").textContent=
-"💾 Save Student";
-
-document.getElementById("cancelBtn").style.display=
-"none";
-
-document.getElementById("msg").textContent="";
-
-}
-
-
-/* =====================================================
-   CANCEL
-===================================================== */
-
-document
-.getElementById("cancelBtn")
-.onclick=resetForm;
-
-
-/* =====================================================
-   WAIT FOR PRINT IMAGES
-===================================================== */
-
-function waitForPrintImages(){
-
-const images=
-Array.from(
-document.querySelectorAll("#printArea img")
-);
-
-if(!images.length)
-return Promise.resolve();
-
-return Promise.all(
-images.map(img=>{
-
-if(img.complete)
-return Promise.resolve();
-
-return new Promise(resolve=>{
-
-img.onload=resolve;
-img.onerror=resolve;
-
-});
-
-})
-);
-
-}
-
-
-/* =====================================================
-   PRINT LIST
-===================================================== */
-
-async function printStudents(list,title){
-
-if(!list.length){
-
-alert(
-"Print করার জন্য কোনো Student পাওয়া যায়নি।"
-);
-
-return;
-
-}
-
-let year=
-document.getElementById("filterSession").value;
-
-if(!year)
-year="All Years";
-
-const rows=
-list.map((s,index)=>{
-
-const photo=
-s.photo_url
-
-?
-
-`<img
-src="${escapeHtml(s.photo_url)}"
-class="print-photo"
-alt="Photo">`
-
-:
-
-`<div class="no-photo">No Photo</div>`;
-
-return `
-
-<tr>
-
-<td style="text-align:center">
-${index+1}
-</td>
-
-<td>${photo}</td>
-
-<td style="text-align:center">
-${escapeHtml(s.roll_number||"-")}
-</td>
-
-<td>
-${escapeHtml(s.student_id||"-")}
-</td>
-
-<td>
-${escapeHtml(s.name||"-")}
-</td>
-
-<td>
-${escapeHtml(s.father_name||"-")}
-</td>
-
-<td>
-${escapeHtml(s.phone||"-")}
-</td>
-
-<td style="text-align:center">
-${escapeHtml(s.session||"-")}
-</td>
-
-<td style="text-align:center">
-${escapeHtml(getClassName(s))}
-</td>
-
-<td>
-${escapeHtml(formatDate(s.admission_date))}
-</td>
-
-</tr>
-
-`;
-
-}).join("");
-
-document.getElementById("printArea").innerHTML=`
-
-<div class="print-page">
-
-<div class="print-header">
-
-<div class="print-logo-title">
-মাদরাসায়ে নূরুল কুরআন
-</div>
-
-<div class="print-subtitle">
-STUDENT MANAGEMENT SYSTEM
-</div>
-
-</div>
-
-<div class="print-title">
-${escapeHtml(title)}
-</div>
-
-<div class="print-meta">
-
-<span>
-Year: ${escapeHtml(year)}
-</span>
-
-<span>
-Total Student: ${list.length}
-</span>
-
-</div>
-
-<table class="print-table">
-
-<thead>
-
-<tr>
-
-<th>#</th>
-<th>Photo</th>
-<th>Roll</th>
-<th>Student ID</th>
-<th>নাম</th>
-<th>পিতা</th>
-<th>মোবাইল</th>
-<th>Year</th>
-<th>Class</th>
-<th>ভর্তি তারিখ</th>
-
-</tr>
-
-</thead>
-
-<tbody>
-${rows}
-</tbody>
-
-</table>
-
-<div class="print-footer">
-
-<span>
-প্রিন্ট তারিখ:
-${new Date().toLocaleDateString("bn-BD")}
-</span>
-
-<span class="print-signature">
-অনুমোদিত স্বাক্ষর
-</span>
-
-</div>
-
-</div>
-
-`;
-
-await waitForPrintImages();
-
-setTimeout(()=>{
-window.print();
-},100);
-
-}
-
-
-/* =====================================================
-   PRINT FILTERED
-===================================================== */
-
-document
-.getElementById("printFilteredBtn")
-.addEventListener(
-"click",
-()=>{
-
-printStudents(
-getFilteredStudents(),
-"Student List"
-);
-
-}
-);
-
-
-/* =====================================================
-   PRINT ALL
-===================================================== */
-
-document
-.getElementById("printAllBtn")
-.addEventListener(
-"click",
-()=>{
-
-printStudents(
-students,
-"All Student List"
-);
-
-}
-);
-
-
-/* =====================================================
-   SINGLE STUDENT PRINT
-===================================================== */
-
-async function printSingleStudent(id){
-
-const s=
-students.find(
-x=>String(x.id)===String(id)
-);
-
-if(!s)return;
-
-const photo=
-s.photo_url
-
-?
-
-`<img
-src="${escapeHtml(s.photo_url)}"
-alt="Student Photo">`
-
-:
-
-`<div class="no-photo-large">
-NO PHOTO
-</div>`;
-
-document.getElementById("printArea").innerHTML=`
-
-<div class="single-student">
-
-<div class="print-header">
-
-<div class="print-logo-title">
-মাদরাসায়ে নূরুল কুরআন
-</div>
-
-<div class="print-subtitle">
-STUDENT INFORMATION PROFILE
-</div>
-
-</div>
-
-<div class="single-card">
-
-<div class="single-card-top">
-
-<div class="student-photo-box">
-${photo}
-</div>
-
-<div class="student-main">
-
-<h2>
-${escapeHtml(s.name||"-")}
-</h2>
-
-<div class="student-id-line">
-Student ID:
-<strong>
-${escapeHtml(s.student_id||"-")}
-</strong>
-</div>
-
-<div class="student-tags">
-
-<span class="student-tag">
-Roll:
-${escapeHtml(s.roll_number||"-")}
-</span>
-
-<span class="student-tag">
-Year:
-${escapeHtml(s.session||"-")}
-</span>
-
-<span class="student-tag">
-Class:
-${escapeHtml(getClassName(s))}
-</span>
-
-</div>
-
-</div>
-
-</div>
-
-<table class="single-info">
-
-<tr>
-<td>Roll Number</td>
-<td>${escapeHtml(s.roll_number||"-")}</td>
-</tr>
-
-<tr>
-<td>Student ID</td>
-<td>${escapeHtml(s.student_id||"-")}</td>
-</tr>
-
-<tr>
-<td>Student Name</td>
-<td>${escapeHtml(s.name||"-")}</td>
-</tr>
-
-<tr>
-<td>Father's Name</td>
-<td>${escapeHtml(s.father_name||"-")}</td>
-</tr>
-
-<tr>
-<td>Mother's Name</td>
-<td>${escapeHtml(s.mother_name||"-")}</td>
-</tr>
-
-<tr>
-<td>Mobile</td>
-<td>${escapeHtml(s.phone||"-")}</td>
-</tr>
-
-<tr>
-<td>Year</td>
-<td>${escapeHtml(s.session||"-")}</td>
-</tr>
-
-<tr>
-<td>Class</td>
-<td>${escapeHtml(getClassName(s))}</td>
-</tr>
-
-<tr>
-<td>Admission Date</td>
-<td>${escapeHtml(formatDate(s.admission_date))}</td>
-</tr>
-
-<tr>
-<td>Address</td>
-<td class="address-cell">
-${escapeHtml(s.address||"-")}
-</td>
-</tr>
-
-</table>
-
-</div>
-
-<div class="single-footer">
-
-<div>
-তারিখ:
-${new Date().toLocaleDateString("bn-BD")}
-</div>
-
-<div class="signature-box">
-অভিভাবকের স্বাক্ষর
-</div>
-
-<div class="signature-box">
-কর্তৃপক্ষের স্বাক্ষর
-</div>
-
-</div>
-
-<div class="print-note">
-এই তথ্যপত্রটি মাদরাসায়ে নূরুল কুরআনের Student Management System থেকে তৈরি করা হয়েছে।
-</div>
-
-</div>
-
-`;
-
-await waitForPrintImages();
-
-setTimeout(()=>{
-window.print();
-},100);
-
-}
-
-
-/* =====================================================
-   SEARCH
-===================================================== */
-
-document
-.getElementById("search")
-.addEventListener(
-"input",
-applyFilters
-);
-
-
-/* =====================================================
-   YEAR FILTER
-===================================================== */
-
-document
-.getElementById("filterSession")
-.addEventListener(
-"change",
-()=>{
-
-applyFilters();
-
-const value=
-document.getElementById("filterSession").value;
-
-document.getElementById(
-"currentSession"
-).textContent=
-value||getCurrentYear();
-
-}
-);
-
-
-/* =====================================================
+/* =========================================================
    ESCAPE HTML
-===================================================== */
+========================================================= */
 
 function escapeHtml(value){
 
-return String(value??"")
+    if(
+        value === null ||
+        value === undefined
+    ){
+        return "";
+    }
 
-.replaceAll("&","&amp;")
-.replaceAll("<","&lt;")
-.replaceAll(">","&gt;")
-.replaceAll('"',"&quot;")
-.replaceAll("'","&#039;");
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+
+/* =========================================================
+   AUTH CHECK
+========================================================= */
+
+async function checkAuth(){
+
+    const {
+        data,
+        error
+    } = await db.auth.getSession();
+
+    if(error){
+
+        console.error(error);
+
+        showMessage(
+            "Authentication Error: " + error.message,
+            "error"
+        );
+
+        return false;
+    }
+
+    if(
+        !data ||
+        !data.session
+    ){
+
+        window.location.href =
+            "login.html";
+
+        return false;
+    }
+
+    return true;
+}
+
+
+/* =========================================================
+   AUTH STATE
+========================================================= */
+
+db.auth.onAuthStateChange(
+    (event, session) => {
+
+        if(
+            event === "SIGNED_OUT" ||
+            !session
+        ){
+
+            window.location.href =
+                "login.html";
+        }
+
+    }
+);
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+async function logout(){
+
+    const ok =
+        confirm(
+            "আপনি কি Logout করতে চান?"
+        );
+
+    if(!ok) return;
+
+    await db.auth.signOut();
+
+    window.location.href =
+        "login.html";
+}
+
+
+/* =========================================================
+   LOAD CLASSES
+========================================================= */
+
+async function loadClasses(){
+
+    const {
+        data,
+        error
+    } = await db
+        .from("classes")
+        .select("*")
+        .order("id");
+
+    if(error){
+
+        console.error(
+            "Classes Error:",
+            error
+        );
+
+        showMessage(
+            "শ্রেণির তথ্য লোড করা যায়নি: " +
+            error.message,
+            "error"
+        );
+
+        return;
+    }
+
+    classes =
+        data || [];
+
+    const classSelect =
+        document.getElementById("classId");
+
+    classSelect.innerHTML =
+        '<option value="">শ্রেণি নির্বাচন করুন</option>';
+
+    classFilter.innerHTML =
+        '<option value="">সব শ্রেণি</option>';
+
+    classes.forEach(item => {
+
+        const option1 =
+            document.createElement("option");
+
+        option1.value =
+            item.id;
+
+        option1.textContent =
+            item.name;
+
+        classSelect.appendChild(
+            option1
+        );
+
+
+        const option2 =
+            document.createElement("option");
+
+        option2.value =
+            item.id;
+
+        option2.textContent =
+            item.name;
+
+        classFilter.appendChild(
+            option2
+        );
+
+    });
+
+
+    document.getElementById(
+        "totalClasses"
+    ).textContent =
+        classes.length;
+}
+
+
+/* =========================================================
+   CLASS NAME
+========================================================= */
+
+function getClassName(classId){
+
+    const item =
+        classes.find(
+            c => String(c.id) ===
+                 String(classId)
+        );
+
+    return item
+        ? item.name
+        : "—";
+}
+
+
+/* =========================================================
+   LOAD SESSIONS
+========================================================= */
+
+async function loadSessions(){
+
+    const {
+        data,
+        error
+    } = await db
+        .from("sessions")
+        .select("*")
+        .order("year", {
+            ascending:false
+        });
+
+    if(!error && data){
+
+        sessions =
+            data;
+
+    }else{
+
+        console.warn(
+            "Sessions table error:",
+            error
+        );
+
+        sessions = [];
+    }
+
+
+    const select =
+        document.getElementById(
+            "session"
+        );
+
+    const filter =
+        document.getElementById(
+            "yearFilter"
+        );
+
+    select.innerHTML =
+        '<option value="">শিক্ষাবর্ষ নির্বাচন করুন</option>';
+
+    filter.innerHTML =
+        '<option value="">সব শিক্ষাবর্ষ</option>';
+
+
+    sessions.forEach(item => {
+
+        const year =
+            item.year;
+
+        const option =
+            document.createElement(
+                "option"
+            );
+
+        option.value =
+            year;
+
+        option.textContent =
+            year;
+
+        select.appendChild(
+            option
+        );
+
+
+        const filterOption =
+            document.createElement(
+                "option"
+            );
+
+        filterOption.value =
+            year;
+
+        filterOption.textContent =
+            year;
+
+        filter.appendChild(
+            filterOption
+        );
+
+    });
+
+
+    /*
+       যদি sessions table-এ data না থাকে,
+       students table থেকে year নেওয়ার চেষ্টা।
+    */
+
+    if(
+        !sessions.length
+    ){
+
+        const {
+            data: studentYears,
+            error: yearError
+        } = await db
+            .from("students")
+            .select("session");
+
+        if(!yearError){
+
+            const years =
+                [
+                    ...new Set(
+                        (studentYears || [])
+                        .map(x => x.session)
+                        .filter(Boolean)
+                    )
+                ]
+                .sort()
+                .reverse();
+
+            years.forEach(year => {
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+                option.value =
+                    year;
+
+                option.textContent =
+                    year;
+
+                select.appendChild(
+                    option
+                );
+
+
+                const filterOption =
+                    document.createElement(
+                        "option"
+                    );
+
+                filterOption.value =
+                    year;
+
+                filterOption.textContent =
+                    year;
+
+                filter.appendChild(
+                    filterOption
+                );
+
+            });
+
+        }
+
+    }
+
+
+    /*
+       Current year default
+    */
+
+    const currentYear =
+        new Date()
+            .getFullYear()
+            .toString();
+
+    const hasCurrentYear =
+        [...select.options]
+        .some(
+            o =>
+                o.value ===
+                currentYear
+        );
+
+    if(hasCurrentYear){
+
+        select.value =
+            currentYear;
+
+    }
 
 }
 
 
-/* =====================================================
-   MESSAGE
-===================================================== */
+/* =========================================================
+   LOAD STUDENTS
+========================================================= */
 
-function showMessage(text,type=""){
+async function loadStudents(){
 
-const msg=
-document.getElementById("msg");
+    showLoader();
 
-msg.className=
-"message "+type;
+    try{
 
-msg.textContent=text;
+        const {
+            data,
+            error
+        } = await db
+            .from("students")
+            .select(`
+                id,
+                student_id,
+                roll_number,
+                name,
+                father_name,
+                mother_name,
+                phone,
+                class_id,
+                session,
+                admission_date,
+                address,
+                photo_url,
+                created_at
+            `)
+            .order(
+                "roll_number",
+                {
+                    ascending:true
+                }
+            );
+
+        if(error){
+
+            console.error(error);
+
+            showMessage(
+                "শিক্ষার্থীদের তথ্য লোড করা যায়নি: " +
+                error.message,
+                "error"
+            );
+
+            students = [];
+
+            renderStudents();
+
+            return;
+        }
+
+        students =
+            data || [];
+
+        renderStudents();
+
+        updateStats();
+
+    }finally{
+
+        hideLoader();
+
+    }
+}
+
+
+/* =========================================================
+   LOAD ONLINE ADMISSION COUNT
+========================================================= */
+
+async function loadOnlineAdmissionCount(){
+
+    const {
+        count,
+        error
+    } = await db
+        .from("admission_applications")
+        .select(
+            "*",
+            {
+                count:"exact",
+                head:true
+            }
+        )
+        .eq(
+            "status",
+            "pending"
+        );
+
+    if(!error){
+
+        document.getElementById(
+            "onlineAdmissions"
+        ).textContent =
+            count || 0;
+
+    }else{
+
+        document.getElementById(
+            "onlineAdmissions"
+        ).textContent =
+            "0";
+
+    }
 
 }
 
 
-/* =====================================================
+/* =========================================================
+   UPDATE STATS
+========================================================= */
+
+function updateStats(){
+
+    document.getElementById(
+        "totalStudents"
+    ).textContent =
+        students.length;
+
+
+    const selectedYear =
+        yearFilter.value;
+
+    let count =
+        students.length;
+
+    if(selectedYear){
+
+        count =
+            students.filter(
+                s =>
+                    String(s.session || "") ===
+                    String(selectedYear)
+            ).length;
+
+    }
+
+    document.getElementById(
+        "currentYearStudents"
+    ).textContent =
+        count;
+
+}
+
+
+/* =========================================================
+   FILTER STUDENTS
+========================================================= */
+
+function getFilteredStudents(){
+
+    const search =
+        searchInput.value
+            .trim()
+            .toLowerCase();
+
+    const year =
+        yearFilter.value;
+
+    const classId =
+        classFilter.value;
+
+
+    return students.filter(
+        student => {
+
+            const text = [
+
+                student.student_id,
+                student.roll_number,
+                student.name,
+                student.father_name,
+                student.mother_name,
+                student.phone
+
+            ]
+            .filter(Boolean)
+            .join(" ")
+            .toLowerCase();
+
+
+            const matchSearch =
+                !search ||
+                text.includes(search);
+
+
+            const matchYear =
+                !year ||
+                String(
+                    student.session || ""
+                ) ===
+                String(year);
+
+
+            const matchClass =
+                !classId ||
+                String(
+                    student.class_id || ""
+                ) ===
+                String(classId);
+
+
+            return (
+                matchSearch &&
+                matchYear &&
+                matchClass
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   RENDER STUDENTS
+========================================================= */
+
+function renderStudents(){
+
+    const list =
+        getFilteredStudents();
+
+    if(!list.length){
+
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="11">
+                    <div class="empty">
+                        📭 কোনো শিক্ষার্থীর তথ্য পাওয়া যায়নি।
+                    </div>
+                </td>
+            </tr>
+        `;
+
+        updateStats();
+
+        return;
+    }
+
+
+    tableBody.innerHTML =
+        list.map(student => {
+
+            const photo =
+                student.photo_url
+                ? `
+                    <img
+                        src="${escapeHtml(student.photo_url)}"
+                        class="student-photo"
+                        alt="Student"
+                        loading="lazy"
+                    >
+                  `
+                : `
+                    <div class="no-photo">
+                        👤
+                    </div>
+                  `;
+
+
+            return `
+                <tr>
+
+                    <td>
+                        ${photo}
+                    </td>
+
+                    <td>
+                        <strong>
+                            ${escapeHtml(
+                                student.student_id || "—"
+                            )}
+                        </strong>
+                    </td>
+
+                    <td>
+                        <strong>
+                            ${escapeHtml(
+                                student.roll_number || "—"
+                            )}
+                        </strong>
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            student.name || "—"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            student.father_name || "—"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            student.mother_name || "—"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            student.phone || "—"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            getClassName(
+                                student.class_id
+                            )
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            student.session || "—"
+                        )}
+                    </td>
+
+                    <td>
+                        ${formatDate(
+                            student.admission_date
+                        )}
+                    </td>
+
+                    <td>
+
+                        <div class="actions">
+
+                            <button
+                                class="btn btn-primary"
+                                onclick="editStudent('${encodeURIComponent(student.id)}')"
+                            >
+                                ✏️ Edit
+                            </button>
+
+                            <button
+                                class="btn btn-danger"
+                                onclick="deleteStudent('${encodeURIComponent(student.id)}')"
+                            >
+                                🗑️ Delete
+                            </button>
+
+                            <button
+                                class="btn btn-success"
+                                onclick="printStudent('${encodeURIComponent(student.id)}')"
+                            >
+                                🖨️ Print
+                            </button>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+            `;
+
+        })
+        .join("");
+
+    updateStats();
+
+}
+
+
+/* =========================================================
+   DATE FORMAT
+========================================================= */
+
+function formatDate(date){
+
+    if(!date) return "—";
+
+    try{
+
+        const d =
+            new Date(date);
+
+        if(
+            Number.isNaN(
+                d.getTime()
+            )
+        ){
+            return date;
+        }
+
+        return d.toLocaleDateString(
+            "bn-BD",
+            {
+                day:"2-digit",
+                month:"2-digit",
+                year:"numeric"
+            }
+        );
+
+    }catch{
+
+        return date;
+
+    }
+
+}
+
+
+/* =========================================================
+   GENERATE STUDENT ID
+========================================================= */
+
+async function generateStudentId(){
+
+    const input =
+        document.getElementById(
+            "studentId"
+        );
+
+    input.value =
+        "Generating...";
+
+    const {
+        data,
+        error
+    } = await db.rpc(
+        "next_student_id"
+    );
+
+    if(error){
+
+        console.error(error);
+
+        input.value = "";
+
+        showMessage(
+            "Student ID generate করা যায়নি। " +
+            error.message,
+            "error"
+        );
+
+        return null;
+    }
+
+
+    let generated = "";
+
+
+    if(
+        typeof data === "string"
+    ){
+
+        generated =
+            data;
+
+    }else if(
+        Array.isArray(data) &&
+        data.length
+    ){
+
+        generated =
+            data[0];
+
+    }else if(
+        data &&
+        typeof data === "object"
+    ){
+
+        generated =
+            data.student_id ||
+            data.next_student_id ||
+            data.id ||
+            "";
+
+    }
+
+
+    if(!generated){
+
+        input.value = "";
+
+        showMessage(
+            "Student ID পাওয়া যায়নি।",
+            "error"
+        );
+
+        return null;
+    }
+
+
+    input.value =
+        generated;
+
+    return generated;
+
+}
+
+
+/* =========================================================
+   DUPLICATE ROLL CHECK
+========================================================= */
+
+async function checkDuplicateRoll(
+    roll,
+    session,
+    currentId = null
+){
+
+    let query =
+        db
+        .from("students")
+        .select("id")
+        .eq(
+            "roll_number",
+            roll
+        );
+
+
+    if(session){
+
+        query =
+            query.eq(
+                "session",
+                session
+            );
+
+    }
+
+
+    if(currentId){
+
+        query =
+            query.neq(
+                "id",
+                currentId
+            );
+
+    }
+
+
+    const {
+        data,
+        error
+    } =
+        await query.limit(1);
+
+
+    if(error){
+
+        console.warn(
+            "Duplicate check:",
+            error
+        );
+
+        /*
+           যদি schema/RLS-এর কারণে duplicate
+           check fail করে, save বন্ধ না করে
+           মূল query-কে কাজ করতে দেওয়া হচ্ছে।
+        */
+
+        return false;
+    }
+
+
+    return (
+        data &&
+        data.length > 0
+    );
+
+}
+
+
+/* =========================================================
+   FORM SUBMIT
+========================================================= */
+
+document.getElementById(
+    "studentForm"
+).addEventListener(
+    "submit",
+    async function(e){
+
+        e.preventDefault();
+
+
+        const editId =
+            document.getElementById(
+                "editId"
+            ).value.trim();
+
+
+        const roll =
+            document.getElementById(
+                "rollNumber"
+            ).value.trim();
+
+
+        const name =
+            document.getElementById(
+                "studentName"
+            ).value.trim();
+
+
+        const father =
+            document.getElementById(
+                "fatherName"
+            ).value.trim();
+
+
+        const mother =
+            document.getElementById(
+                "motherName"
+            ).value.trim();
+
+
+        const phone =
+            document.getElementById(
+                "phone"
+            ).value.trim();
+
+
+        const session =
+            document.getElementById(
+                "session"
+            ).value.trim();
+
+
+        const classId =
+            document.getElementById(
+                "classId"
+            ).value;
+
+
+        const admissionDate =
+            document.getElementById(
+                "admissionDate"
+            ).value;
+
+
+        const address =
+            document.getElementById(
+                "address"
+            ).value.trim();
+
+
+        const photoFile =
+            document.getElementById(
+                "photo"
+            ).files[0];
+
+
+        if(!roll){
+
+            showMessage(
+                "Roll Number দিন।",
+                "error"
+            );
+
+            return;
+        }
+
+
+        if(!name){
+
+            showMessage(
+                "শিক্ষার্থীর নাম দিন।",
+                "error"
+            );
+
+            return;
+        }
+
+
+        if(!session){
+
+            showMessage(
+                "শিক্ষাবর্ষ নির্বাচন করুন।",
+                "error"
+            );
+
+            return;
+        }
+
+
+        if(!classId){
+
+            showMessage(
+                "শ্রেণি নির্বাচন করুন।",
+                "error"
+            );
+
+            return;
+        }
+
+
+        /*
+           Duplicate Roll + Session
+        */
+
+        const duplicate =
+            await checkDuplicateRoll(
+                roll,
+                session,
+                editId || null
+            );
+
+
+        if(duplicate){
+
+            showMessage(
+                "এই শিক্ষাবর্ষে এই Roll Number ইতোমধ্যে ব্যবহার করা হয়েছে।",
+                "error"
+            );
+
+            return;
+        }
+
+
+        const saveBtn =
+            document.getElementById(
+                "saveBtn"
+            );
+
+        saveBtn.disabled =
+            true;
+
+        saveBtn.textContent =
+            "⏳ সংরক্ষণ হচ্ছে...";
+
+
+        try{
+
+            let studentId =
+                document.getElementById(
+                    "studentId"
+                ).value.trim();
+
+
+            /*
+               New student হলে Student ID generate
+            */
+
+            if(!editId){
+
+                if(
+                    !studentId ||
+                    studentId ===
+                    "Generating..."
+                ){
+
+                    studentId =
+                        await generateStudentId();
+
+                    if(!studentId){
+
+                        throw new Error(
+                            "Student ID generate failed"
+                        );
+
+                    }
+
+                }
+
+            }
+
+
+            let photoUrl =
+                editingStudent
+                ? (
+                    editingStudent.photo_url ||
+                    ""
+                  )
+                : "";
+
+
+            /*
+               Photo Upload
+            */
+
+            if(photoFile){
+
+                const extension =
+                    photoFile.name
+                        .split(".")
+                        .pop()
+                        .toLowerCase();
+
+
+                const safeExtension =
+                    extension || "jpg";
+
+
+                const fileName =
+                    `${Date.now()}-${Math.random()
+                    .toString(36)
+                    .substring(2)}.${safeExtension}`;
+
+
+                const filePath =
+                    fileName;
+
+
+                const {
+                    error: uploadError
+                } =
+                    await db.storage
+                        .from("student-photo")
+                        .upload(
+                            filePath,
+                            photoFile,
+                            {
+                                upsert:false
+                            }
+                        );
+
+
+                if(uploadError){
+
+                    throw uploadError;
+
+                }
+
+
+                const {
+                    data: publicData
+                } =
+                    db.storage
+                        .from("student-photo")
+                        .getPublicUrl(
+                            filePath
+                        );
+
+
+                photoUrl =
+                    publicData.publicUrl;
+
+            }
+
+
+            const payload = {
+
+                student_id:
+                    studentId,
+
+                roll_number:
+                    roll,
+
+                name:
+                    name,
+
+                father_name:
+                    father,
+
+                mother_name:
+                    mother,
+
+                phone:
+                    phone,
+
+                class_id:
+                    classId,
+
+                session:
+                    session,
+
+                admission_date:
+                    admissionDate || null,
+
+                address:
+                    address,
+
+                photo_url:
+                    photoUrl || null
+
+            };
+
+
+            /*
+               UPDATE
+            */
+
+            if(editId){
+
+                const {
+                    error
+                } =
+                    await db
+                        .from("students")
+                        .update(payload)
+                        .eq(
+                            "id",
+                            editId
+                        );
+
+
+                if(error){
+
+                    throw error;
+
+                }
+
+
+                showMessage(
+                    "শিক্ষার্থীর তথ্য সফলভাবে Update হয়েছে।",
+                    "success"
+                );
+
+            }
+
+            /*
+               INSERT
+            */
+
+            else{
+
+                const {
+                    error
+                } =
+                    await db
+                        .from("students")
+                        .insert(
+                            payload
+                        );
+
+
+                if(error){
+
+                    throw error;
+
+                }
+
+
+                showMessage(
+                    "নতুন শিক্ষার্থী সফলভাবে যোগ হয়েছে।",
+                    "success"
+                );
+
+            }
+
+
+            resetForm();
+
+            await loadStudents();
+
+        }catch(error){
+
+            console.error(error);
+
+            showMessage(
+                "সংরক্ষণ করা যায়নি: " +
+                (
+                    error.message ||
+                    "Unknown error"
+                ),
+                "error"
+            );
+
+        }finally{
+
+            saveBtn.disabled =
+                false;
+
+            saveBtn.textContent =
+                "💾 শিক্ষার্থী সংরক্ষণ";
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   EDIT STUDENT
+========================================================= */
+
+async function editStudent(encodedId){
+
+    const id =
+        decodeURIComponent(
+            encodedId
+        );
+
+
+    const student =
+        students.find(
+            s =>
+                String(s.id) ===
+                String(id)
+        );
+
+
+    if(!student){
+
+        showMessage(
+            "শিক্ষার্থীর তথ্য পাওয়া যায়নি।",
+            "error"
+        );
+
+        return;
+    }
+
+
+    editingStudent =
+        student;
+
+
+    document.getElementById(
+        "editId"
+    ).value =
+        student.id;
+
+
+    document.getElementById(
+        "studentId"
+    ).value =
+        student.student_id || "";
+
+
+    document.getElementById(
+        "rollNumber"
+    ).value =
+        student.roll_number || "";
+
+
+    document.getElementById(
+        "studentName"
+    ).value =
+        student.name || "";
+
+
+    document.getElementById(
+        "fatherName"
+    ).value =
+        student.father_name || "";
+
+
+    document.getElementById(
+        "motherName"
+    ).value =
+        student.mother_name || "";
+
+
+    document.getElementById(
+        "phone"
+    ).value =
+        student.phone || "";
+
+
+    document.getElementById(
+        "session"
+    ).value =
+        student.session || "";
+
+
+    document.getElementById(
+        "classId"
+    ).value =
+        student.class_id || "";
+
+
+    document.getElementById(
+        "admissionDate"
+    ).value =
+        student.admission_date
+        ? String(
+            student.admission_date
+          ).substring(0,10)
+        : "";
+
+
+    document.getElementById(
+        "address"
+    ).value =
+        student.address || "";
+
+
+    document.getElementById(
+        "photo"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "formTitle"
+    ).textContent =
+        "✏️ শিক্ষার্থীর তথ্য Edit করুন";
+
+
+    document.getElementById(
+        "saveBtn"
+    ).textContent =
+        "💾 Update করুন";
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+/* =========================================================
+   DELETE STUDENT
+========================================================= */
+
+async function deleteStudent(encodedId){
+
+    const id =
+        decodeURIComponent(
+            encodedId
+        );
+
+
+    const student =
+        students.find(
+            s =>
+                String(s.id) ===
+                String(id)
+        );
+
+
+    if(!student){
+
+        showMessage(
+            "শিক্ষার্থীর তথ্য পাওয়া যায়নি।",
+            "error"
+        );
+
+        return;
+    }
+
+
+    const ok =
+        confirm(
+            `আপনি কি "${student.name}"-কে Delete করতে চান?\n\nStudent ID: ${student.student_id}\nRoll: ${student.roll_number}`
+        );
+
+
+    if(!ok) return;
+
+
+    try{
+
+        const {
+            error
+        } =
+            await db
+                .from("students")
+                .delete()
+                .eq(
+                    "id",
+                    id
+                );
+
+
+        if(error){
+
+            throw error;
+
+        }
+
+
+        showMessage(
+            "শিক্ষার্থী সফলভাবে Delete হয়েছে।",
+            "success"
+        );
+
+
+        await loadStudents();
+
+    }catch(error){
+
+        console.error(error);
+
+        showMessage(
+            "Delete করা যায়নি: " +
+            error.message,
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   RESET FORM
+========================================================= */
+
+function resetForm(){
+
+    editingStudent =
+        null;
+
+
+    document.getElementById(
+        "studentForm"
+    ).reset();
+
+
+    document.getElementById(
+        "editId"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "studentId"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "formTitle"
+    ).textContent =
+        "➕ নতুন শিক্ষার্থী যোগ করুন";
+
+
+    document.getElementById(
+        "saveBtn"
+    ).textContent =
+        "💾 শিক্ষার্থী সংরক্ষণ";
+
+
+    /*
+       Default current year
+    */
+
+    const currentYear =
+        new Date()
+            .getFullYear()
+            .toString();
+
+
+    const sessionSelect =
+        document.getElementById(
+            "session"
+        );
+
+
+    const hasYear =
+        [...sessionSelect.options]
+        .some(
+            option =>
+                option.value ===
+                currentYear
+        );
+
+
+    if(hasYear){
+
+        sessionSelect.value =
+            currentYear;
+
+    }
+
+}
+
+
+/* =========================================================
+   CLEAR FILTERS
+========================================================= */
+
+function clearFilters(){
+
+    searchInput.value =
+        "";
+
+    yearFilter.value =
+        "";
+
+    classFilter.value =
+        "";
+
+    renderStudents();
+
+}
+
+
+/* =========================================================
+   FILTER EVENTS
+========================================================= */
+
+searchInput.addEventListener(
+    "input",
+    () => {
+
+        renderStudents();
+
+    }
+);
+
+
+yearFilter.addEventListener(
+    "change",
+    () => {
+
+        renderStudents();
+
+    }
+);
+
+
+classFilter.addEventListener(
+    "change",
+    () => {
+
+        renderStudents();
+
+    }
+);
+
+
+/* =========================================================
+   PRINT DATE
+========================================================= */
+
+function printNowDate(){
+
+    return new Date()
+        .toLocaleDateString(
+            "bn-BD",
+            {
+                day:"2-digit",
+                month:"long",
+                year:"numeric"
+            }
+        );
+
+}
+
+
+/* =========================================================
+   PRINT LIST
+========================================================= */
+
+function buildPrintList(
+    list,
+    title
+){
+
+    const printArea =
+        document.getElementById(
+            "printArea"
+        );
+
+
+    const selectedYear =
+        yearFilter.value ||
+        "সকল শিক্ষাবর্ষ";
+
+
+    const selectedClass =
+        classFilter.value
+        ? getClassName(
+            classFilter.value
+          )
+        : "সকল শ্রেণি";
+
+
+    let rows = "";
+
+
+    list.forEach(
+        (student,index) => {
+
+            const photo =
+                student.photo_url
+                ? `
+                    <img
+                        src="${escapeHtml(student.photo_url)}"
+                        class="print-photo"
+                    >
+                  `
+                : "—";
+
+
+            rows += `
+
+                <tr>
+
+                    <td>
+                        ${index + 1}
+                    </td>
+
+                    <td>
+                        ${photo}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            student.student_id || "—"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            student.roll_number || "—"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            student.name || "—"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            student.father_name || "—"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            student.mother_name || "—"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            student.phone || "—"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            getClassName(
+                                student.class_id
+                            )
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            student.session || "—"
+                        )}
+                    </td>
+
+                    <td>
+                        ${formatDate(
+                            student.admission_date
+                        )}
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+    );
+
+
+    printArea.innerHTML = `
+
+        <div class="print-header">
+
+            <h1>
+                মাদরাসায়ে নূরুল কুরআন
+            </h1>
+
+            <h2>
+                শিক্ষার্থীদের তালিকা
+            </h2>
+
+            <p>
+                MADRASA-E NURUL QURAN
+            </p>
+
+        </div>
+
+
+        <div class="print-meta">
+
+            <span>
+                শিক্ষাবর্ষ:
+                <strong>
+                    ${escapeHtml(selectedYear)}
+                </strong>
+            </span>
+
+            <span>
+                শ্রেণি:
+                <strong>
+                    ${escapeHtml(selectedClass)}
+                </strong>
+            </span>
+
+            <span>
+                মোট শিক্ষার্থী:
+                <strong>
+                    ${list.length}
+                </strong>
+            </span>
+
+            <span>
+                তারিখ:
+                ${printNowDate()}
+            </span>
+
+        </div>
+
+
+        <table class="print-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>ক্রম</th>
+                    <th>ছবি</th>
+                    <th>Student ID</th>
+                    <th>Roll</th>
+                    <th>শিক্ষার্থীর নাম</th>
+                    <th>পিতার নাম</th>
+                    <th>মাতার নাম</th>
+                    <th>মোবাইল</th>
+                    <th>শ্রেণি</th>
+                    <th>বছর</th>
+                    <th>ভর্তির তারিখ</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+                ${rows}
+            </tbody>
+
+        </table>
+
+
+        <div class="print-footer">
+            মাদরাসায়ে নূরুল কুরআন — Student Management System
+        </div>
+
+    `;
+
+
+    waitForImagesAndPrint();
+
+}
+
+
+/* =========================================================
+   FILTERED PRINT
+========================================================= */
+
+function printFiltered(){
+
+    const list =
+        getFilteredStudents();
+
+
+    if(!list.length){
+
+        showMessage(
+            "Print করার মতো কোনো শিক্ষার্থী নেই।",
+            "error"
+        );
+
+        return;
+    }
+
+
+    buildPrintList(
+        list,
+        "Filtered Students"
+    );
+
+}
+
+
+/* =========================================================
+   ALL PRINT
+========================================================= */
+
+function printAll(){
+
+    if(!students.length){
+
+        showMessage(
+            "Print করার মতো কোনো শিক্ষার্থী নেই।",
+            "error"
+        );
+
+        return;
+    }
+
+
+    buildPrintList(
+        students,
+        "All Students"
+    );
+
+}
+
+
+/* =========================================================
+   SINGLE STUDENT PRINT
+========================================================= */
+
+function printStudent(encodedId){
+
+    const id =
+        decodeURIComponent(
+            encodedId
+        );
+
+
+    const student =
+        students.find(
+            s =>
+                String(s.id) ===
+                String(id)
+        );
+
+
+    if(!student){
+
+        showMessage(
+            "শিক্ষার্থীর তথ্য পাওয়া যায়নি।",
+            "error"
+        );
+
+        return;
+    }
+
+
+    const printArea =
+        document.getElementById(
+            "printArea"
+        );
+
+
+    const photo =
+        student.photo_url
+        ? `
+            <img
+                src="${escapeHtml(student.photo_url)}"
+                class="profile-photo"
+            >
+          `
+        : `
+            <div
+                style="
+                    width:105px;
+                    height:125px;
+                    border:1px solid #333;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    font-size:30px;
+                "
+            >
+                👤
+            </div>
+          `;
+
+
+    printArea.innerHTML = `
+
+        <div class="profile-print">
+
+            <div class="profile-title">
+
+                <h1>
+                    মাদরাসায়ে নূরুল কুরআন
+                </h1>
+
+                <p>
+                    MADRASA-E NURUL QURAN
+                </p>
+
+                <p>
+                    শিক্ষার্থী তথ্য বিবরণী
+                </p>
+
+            </div>
+
+
+            <div class="profile-box">
+
+                <div class="profile-photo-box">
+
+                    ${photo}
+
+                    <div
+                        style="
+                            margin-top:5px;
+                            font-size:9px;
+                        "
+                    >
+                        Student Photo
+                    </div>
+
+                </div>
+
+
+                <div class="profile-info">
+
+                    <table>
+
+                        <tr>
+                            <td>Student ID</td>
+                            <td>
+                                ${escapeHtml(
+                                    student.student_id || "—"
+                                )}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Roll Number</td>
+                            <td>
+                                ${escapeHtml(
+                                    student.roll_number || "—"
+                                )}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>শিক্ষার্থীর নাম</td>
+                            <td>
+                                ${escapeHtml(
+                                    student.name || "—"
+                                )}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>পিতার নাম</td>
+                            <td>
+                                ${escapeHtml(
+                                    student.father_name || "—"
+                                )}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>মাতার নাম</td>
+                            <td>
+                                ${escapeHtml(
+                                    student.mother_name || "—"
+                                )}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>মোবাইল</td>
+                            <td>
+                                ${escapeHtml(
+                                    student.phone || "—"
+                                )}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>শিক্ষাবর্ষ</td>
+                            <td>
+                                ${escapeHtml(
+                                    student.session || "—"
+                                )}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>শ্রেণি</td>
+                            <td>
+                                ${escapeHtml(
+                                    getClassName(
+                                        student.class_id
+                                    )
+                                )}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>ভর্তির তারিখ</td>
+                            <td>
+                                ${formatDate(
+                                    student.admission_date
+                                )}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>ঠিকানা</td>
+                            <td>
+                                ${escapeHtml(
+                                    student.address || "—"
+                                )}
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+            <div class="signature-row">
+
+                <div>
+                    ____________________<br>
+                    অভিভাবকের স্বাক্ষর
+                </div>
+
+                <div>
+                    ____________________<br>
+                    শ্রেণি শিক্ষকের স্বাক্ষর
+                </div>
+
+                <div>
+                    ____________________<br>
+                    অধ্যক্ষের স্বাক্ষর
+                </div>
+
+            </div>
+
+
+            <div
+                style="
+                    text-align:center;
+                    margin-top:20px;
+                    font-size:9px;
+                "
+            >
+                Printed:
+                ${printNowDate()}
+            </div>
+
+        </div>
+
+    `;
+
+
+    waitForImagesAndPrint();
+
+}
+
+
+/* =========================================================
+   WAIT FOR IMAGE THEN PRINT
+========================================================= */
+
+function waitForImagesAndPrint(){
+
+    const printArea =
+        document.getElementById(
+            "printArea"
+        );
+
+
+    const images =
+        [
+            ...printArea.querySelectorAll(
+                "img"
+            )
+        ];
+
+
+    if(!images.length){
+
+        setTimeout(
+            () => window.print(),
+            150
+        );
+
+        return;
+    }
+
+
+    let loaded = 0;
+
+
+    const done = () => {
+
+        loaded++;
+
+        if(
+            loaded >=
+            images.length
+        ){
+
+            setTimeout(
+                () => window.print(),
+                200
+            );
+
+        }
+
+    };
+
+
+    images.forEach(img => {
+
+        if(img.complete){
+
+            done();
+
+        }else{
+
+            img.addEventListener(
+                "load",
+                done,
+                {
+                    once:true
+                }
+            );
+
+            img.addEventListener(
+                "error",
+                done,
+                {
+                    once:true
+                }
+            );
+
+        }
+
+    });
+
+
+    /*
+       Safety fallback
+    */
+
+    setTimeout(
+        () => {
+
+            if(
+                loaded <
+                images.length
+            ){
+
+                window.print();
+
+            }
+
+        },
+        2500
+    );
+
+}
+
+
+/* =========================================================
+   AFTER PRINT
+========================================================= */
+
+window.addEventListener(
+    "afterprint",
+    () => {
+
+        document.getElementById(
+            "printArea"
+        ).innerHTML =
+            "";
+
+    }
+);
+
+
+/* =========================================================
+   SESSION CHANGE
+========================================================= */
+
+document.getElementById(
+    "session"
+).addEventListener(
+    "change",
+    () => {
+
+        /*
+           Roll manual থাকবে।
+           এখানে কোনো Roll auto-generate হবে না।
+        */
+
+    }
+);
+
+
+/* =========================================================
    START
-===================================================== */
+========================================================= */
+
+async function start(){
+
+    document.getElementById(
+        "footerYear"
+    ).textContent =
+        new Date().getFullYear();
+
+
+    const authenticated =
+        await checkAuth();
+
+
+    if(!authenticated){
+
+        return;
+
+    }
+
+
+    await loadClasses();
+
+    await loadSessions();
+
+    await loadStudents();
+
+    await loadOnlineAdmissionCount();
+
+
+    /*
+       নতুন Student ID আগে থেকেই generate
+       করার চেষ্টা।
+    */
+
+    await generateStudentId();
+
+}
+
 
 start();
 
