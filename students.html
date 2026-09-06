@@ -5,50 +5,52 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>শিক্ষার্থী ব্যবস্থাপনা | মাদরাসায়ে নূরুল কুরআন</title>
 
-<!-- Bornomala -->
+<!-- Bornomala — আগের মতোই রাখা হয়েছে -->
 <link rel="stylesheet" href="https://banglawebfonts.pages.dev/css/bornomala.css">
 
-<!-- Supabase -->
+<!-- Supabase JS -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
 body{
-  font-family:'Bornomala','Noto Sans Bengali',sans-serif;
+  font-family:'Bornomala',sans-serif;
   background:#eef3f9;
-  color:#17324d;
+  color:#18344d;
   font-size:14px;
 }
-button,input,select,textarea{font-family:inherit}
+button,input,select,textarea{font-family:'Bornomala',sans-serif}
+
 .topbar{
-  height:64px;background:linear-gradient(135deg,#0758ad,#087bd1);
+  height:64px;background:linear-gradient(135deg,#0759ad,#087ed3);
   color:#fff;display:flex;align-items:center;justify-content:space-between;
-  padding:0 22px;box-shadow:0 4px 16px rgba(0,71,140,.25)
+  padding:0 22px;box-shadow:0 4px 16px rgba(0,65,130,.24)
 }
 .brand{display:flex;align-items:center;gap:10px}
 .brand-logo{
   width:40px;height:40px;border-radius:11px;background:rgba(255,255,255,.16);
-  display:grid;place-items:center;font-size:21px
+  display:grid;place-items:center;font-size:20px
 }
-.brand h1{font-size:18px;margin:0;font-weight:700}
-.brand small{display:block;font-size:10px;opacity:.85}
-.top-actions{display:flex;gap:8px}
+.brand h1{margin:0;font-size:18px}
+.brand small{font-size:9px;opacity:.85}
+.top-actions{display:flex;gap:7px}
 .top-actions a,.top-actions button{
   color:#fff;text-decoration:none;border:0;border-radius:8px;
-  padding:8px 12px;background:rgba(255,255,255,.14);cursor:pointer
+  background:rgba(255,255,255,.14);padding:8px 12px;cursor:pointer
 }
-.container{max-width:1400px;margin:0 auto;padding:16px}
+.container{max-width:1400px;margin:auto;padding:16px}
 .alert{
-  display:none;margin-bottom:12px;padding:10px 13px;border-radius:8px;
-  border:1px solid #ffd0d0;background:#fff0f0;color:#a12626
+  display:none;padding:10px 13px;margin-bottom:12px;border-radius:8px;
+  background:#fff0f0;color:#a12626;border:1px solid #ffd0d0
 }
-.alert.ok{background:#edf9f1;border-color:#bfe8ca;color:#176b2e}
+.alert.ok{background:#edf9f1;color:#176b2e;border-color:#bfe8ca}
+
 .stats{
   display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px
 }
 .stat{
-  background:#fff;border-radius:12px;padding:14px 16px;
+  background:#fff;border-radius:12px;padding:13px 15px;
   box-shadow:0 5px 18px rgba(26,53,79,.08);
   display:flex;align-items:center;gap:12px
 }
@@ -56,31 +58,36 @@ button,input,select,textarea{font-family:inherit}
   width:42px;height:42px;border-radius:10px;background:#edf4ff;
   display:grid;place-items:center;font-size:20px
 }
-.stat b{display:block;font-size:21px;color:#182d42}
-.stat span{font-size:12px;color:#748190}
+.stat b{display:block;font-size:21px;color:#172d42}
+.stat span{font-size:12px;color:#778490}
+
 .card{
   background:#fff;border-radius:13px;padding:16px;margin-bottom:16px;
   box-shadow:0 5px 18px rgba(26,53,79,.08)
 }
 .card-title{
-  display:flex;align-items:center;justify-content:space-between;gap:10px;
-  margin-bottom:13px
+  display:flex;align-items:center;justify-content:space-between;
+  gap:10px;margin-bottom:13px
 }
-.card-title h2{font-size:18px;margin:0;color:#19486d}
+.card-title h2{margin:0;font-size:18px;color:#19486d}
+
 .form-grid{
   display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 14px
 }
-.field label{display:block;font-size:12px;font-weight:700;color:#31485c;margin:0 0 5px}
+.field label{
+  display:block;font-size:12px;font-weight:700;color:#31485c;margin-bottom:5px
+}
 .field input,.field select,.field textarea{
   width:100%;border:1px solid #dbe3eb;border-radius:8px;
-  padding:9px 10px;outline:none;background:#fff;color:#263d51
+  padding:9px 10px;background:#fff;color:#263d51;outline:none
 }
 .field input:focus,.field select:focus,.field textarea:focus{
-  border-color:#1984d6;box-shadow:0 0 0 2px rgba(25,132,214,.09)
+  border-color:#1681d2;box-shadow:0 0 0 2px rgba(22,129,210,.08)
 }
-.field input[readonly]{background:#edf2f7;color:#697a88}
+.field input[readonly]{background:#edf2f7;color:#71808d}
 .field textarea{min-height:75px;resize:vertical}
 .full{grid-column:1/-1}
+
 .actions{display:flex;gap:8px;margin-top:4px}
 .btn{
   border:0;border-radius:8px;padding:9px 14px;cursor:pointer;font-weight:700
@@ -96,13 +103,16 @@ button,input,select,textarea{font-family:inherit}
   display:grid;grid-template-columns:1.7fr 1fr 1fr auto;gap:8px;margin-bottom:10px
 }
 .toolbar input,.toolbar select{
-  width:100%;padding:9px 10px;border:1px solid #dbe3eb;border-radius:8px;
-  background:#fff;outline:none
+  width:100%;padding:9px 10px;border:1px solid #dbe3eb;
+  border-radius:8px;background:#fff;outline:none
 }
-.toolbar-actions{display:flex;gap:7px;justify-content:flex-end}
+.toolbar-actions{display:flex;gap:7px}
 .table-wrap{overflow:auto;border:1px solid #e2e8ef;border-radius:9px}
 table{width:100%;border-collapse:collapse;min-width:1050px}
-th,td{padding:8px 7px;border-bottom:1px solid #edf1f5;text-align:left;white-space:nowrap}
+th,td{
+  padding:8px 7px;border-bottom:1px solid #edf1f5;
+  text-align:left;white-space:nowrap
+}
 th{background:#edf5ff;color:#18476e;font-size:12px}
 td{font-size:12px}
 tbody tr:hover{background:#f8fbff}
@@ -112,42 +122,32 @@ tbody tr:hover{background:#f8fbff}
 }
 .empty{text-align:center!important;padding:30px!important;color:#7a8792}
 .row-actions{display:flex;gap:5px}
-.mini{
-  border:0;border-radius:6px;padding:5px 8px;cursor:pointer;font-size:11px
-}
+.mini{border:0;border-radius:6px;padding:5px 8px;cursor:pointer;font-size:11px}
 .edit{background:#e7f2ff;color:#0564a9}
 .del{background:#ffe8e8;color:#b52a2a}
 .print-one{background:#eaf8ef;color:#19723a}
 .footer{text-align:center;color:#8b98a5;font-size:11px;padding:10px 0 22px}
 
-.loading{opacity:.65;pointer-events:none}
-.hide{display:none!important}
-
 @media(max-width:900px){
   .stats{grid-template-columns:repeat(2,1fr)}
   .toolbar{grid-template-columns:1fr 1fr}
-  .toolbar-actions{justify-content:stretch}
-  .toolbar-actions button{flex:1}
 }
 @media(max-width:600px){
   body{font-size:13px}
   .topbar{height:58px;padding:0 10px}
-  .brand h1{font-size:15px}
-  .brand small{font-size:8px}
+  .brand h1{font-size:15px}.brand small{font-size:8px}
   .top-actions a,.top-actions button{padding:7px 8px;font-size:11px}
   .container{padding:10px}
   .stats{gap:8px}
   .stat{padding:10px}
   .stat-icon{width:34px;height:34px;font-size:17px}
-  .stat b{font-size:17px}
-  .stat span{font-size:10px}
+  .stat b{font-size:17px}.stat span{font-size:10px}
   .form-grid{grid-template-columns:1fr}
   .full{grid-column:auto}
   .toolbar{grid-template-columns:1fr}
   .toolbar-actions{display:grid;grid-template-columns:1fr 1fr}
 }
 
-/* ================= PRINT ================= */
 #printArea{display:none}
 
 @media print{
@@ -155,53 +155,46 @@ tbody tr:hover{background:#f8fbff}
   html,body{background:#fff!important}
   body>*:not(#printArea){display:none!important}
   #printArea{
-    display:block!important;
-    position:relative;
-    width:100%;
-    min-height:calc(210mm - 16mm);
-    color:#111;
-    font-family:'Bornomala','Noto Sans Bengali',sans-serif
+    display:block!important;width:100%;min-height:194mm;
+    color:#111;font-family:'Bornomala',sans-serif
   }
-  .print-header{text-align:center;margin-bottom:8px}
+  .print-header{text-align:center;margin-bottom:6px}
   .print-header h1{font-size:20px;margin:0 0 2px}
-  .print-header h2{font-size:15px;margin:0 0 3px}
+  .print-header h2{font-size:15px;margin:0 0 2px}
   .print-header p{font-size:10px;margin:0}
   .print-meta{
-    display:flex;justify-content:space-between;align-items:center;
-    font-size:10px;border-top:1px solid #222;border-bottom:1px solid #222;
-    padding:4px 0;margin:6px 0
+    display:flex;justify-content:space-between;
+    border-top:1px solid #222;border-bottom:1px solid #222;
+    padding:4px 0;margin:5px 0;font-size:10px
   }
   .print-table{width:100%;border-collapse:collapse;min-width:0!important}
   .print-table th,.print-table td{
-    border:1px solid #555;padding:4px 3px;white-space:nowrap;
+    border:1px solid #555;padding:3px 3px;white-space:nowrap;
     font-size:9px;color:#111
   }
   .print-table th{background:#eee!important}
-  .print-img{width:26px;height:26px;object-fit:cover}
+  .print-img{width:25px;height:25px;object-fit:cover}
   .print-footer{
     position:fixed;left:0;right:0;bottom:2mm;
     text-align:center;font-size:9px;color:#555
   }
   .profile{
-    width:100%;max-width:180mm;margin:0 auto;border:1px solid #333;
-    padding:10mm
+    width:170mm;margin:0 auto;border:1px solid #333;padding:8mm
   }
-  .profile-top{text-align:center;margin-bottom:8px}
+  .profile-top{text-align:center;margin-bottom:6px}
   .profile-photo{
-    width:80px;height:80px;border-radius:50%;object-fit:cover;
-    border:1px solid #444;margin-bottom:5px
+    width:75px;height:75px;border-radius:50%;object-fit:cover;
+    border:1px solid #444;margin-bottom:4px
   }
   .profile-title{font-size:19px;margin:0}
   .profile-sub{font-size:11px;margin:2px 0}
-  .profile-table{width:100%;border-collapse:collapse;margin-top:8px}
-  .profile-table td{
-    border:1px solid #555;padding:6px;font-size:11px
-  }
+  .profile-table{width:100%;border-collapse:collapse;margin-top:7px}
+  .profile-table td{border:1px solid #555;padding:6px;font-size:11px}
   .profile-table td:first-child{font-weight:700;width:35%;background:#f1f1f1}
   .profile-footer{
-    display:flex;justify-content:space-between;margin-top:30mm;font-size:10px
+    display:flex;justify-content:space-between;
+    margin-top:25mm;font-size:10px
   }
-  .no-print{display:none!important}
 }
 </style>
 </head>
@@ -245,7 +238,6 @@ tbody tr:hover{background:#f8fbff}
     </div>
   </section>
 
-  <!-- Student Form -->
   <section class="card">
     <div class="card-title">
       <h2>➕ নতুন শিক্ষার্থী যোগ করুন</h2>
@@ -263,8 +255,9 @@ tbody tr:hover{background:#f8fbff}
 
         <div class="field">
           <label>Roll Number <span style="color:#d22">*</span></label>
-          <!-- Roll is intentionally MANUAL -->
-          <input id="rollNumber" type="text" required placeholder="যেমন: 01" autocomplete="off">
+          <!-- ROLL সম্পূর্ণ MANUAL -->
+          <input id="rollNumber" type="text" required
+                 placeholder="যেমন: 01" autocomplete="off">
         </div>
 
         <div class="field">
@@ -317,15 +310,18 @@ tbody tr:hover{background:#f8fbff}
         </div>
 
         <div class="actions full">
-          <button class="btn btn-primary" type="submit" id="saveBtn">💾 শিক্ষার্থী সংরক্ষণ</button>
-          <button class="btn btn-secondary" type="button" id="resetBtn">↻ Reset</button>
+          <button class="btn btn-primary" type="submit" id="saveBtn">
+            💾 শিক্ষার্থী সংরক্ষণ
+          </button>
+          <button class="btn btn-secondary" type="button" id="resetBtn">
+            ↻ Reset
+          </button>
         </div>
 
       </div>
     </form>
   </section>
 
-  <!-- List -->
   <section class="card">
     <div class="card-title">
       <h2>👨‍🎓 শিক্ষার্থীদের তালিকা</h2>
@@ -336,7 +332,8 @@ tbody tr:hover{background:#f8fbff}
     </div>
 
     <div class="toolbar">
-      <input id="search" type="search" placeholder="🔎 Roll / Student ID / নাম / মোবাইল / পিতার নাম দিয়ে খুঁজুন...">
+      <input id="search" type="search"
+             placeholder="🔎 Roll / Student ID / নাম / মোবাইল / পিতার নাম দিয়ে খুঁজুন...">
 
       <select id="filterSession">
         <option value="">সব শিক্ষাবর্ষ</option>
@@ -382,42 +379,40 @@ tbody tr:hover{background:#f8fbff}
 <div id="printArea"></div>
 
 <script>
-/* ============================================================
-   SUPABASE CONFIG
-   ============================================================ */
+/* =========================================================
+   SUPABASE
+   আপনার দেওয়া দুইটি তথ্য এখানেই বসানো আছে:
+   1) SUPABASE_URL
+   2) SUPABASE_KEY
+   ========================================================= */
+
 const SUPABASE_URL = "https://qavublwhqiqsgpcmfyft.supabase.co";
 
-/*
-  এই Publishable Key-টি এই project-এর জন্য ব্যবহার করা হয়েছে।
-  যদি Supabase dashboard-এ নতুন key rotate করা হয়ে থাকে,
-  শুধু এই এক জায়গায় নতুন Publishable/Anon key বসালেই হবে।
-*/
-const SUPABASE_KEY = "sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPQKQK";
+/* আপনার দেওয়া API / Publishable key */
+const SUPABASE_KEY = "sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
 
+/* Supabase client */
 const { createClient } = supabase;
+
 const db = createClient(SUPABASE_URL, SUPABASE_KEY, {
-  auth: {
-    persistSession: true,
-    autoRefreshToken: true,
-    detectSessionInUrl: true
+  auth:{
+    persistSession:true,
+    autoRefreshToken:true,
+    detectSessionInUrl:true
   }
 });
 
-/* ============================================================
-   STATE
-   ============================================================ */
 let students = [];
 let classes = [];
 let sessions = [];
-let currentUser = null;
 
-/* ============================================================
+/* =========================================================
    HELPERS
-   ============================================================ */
+   ========================================================= */
 const $ = id => document.getElementById(id);
 
-function esc(value){
-  return String(value ?? "")
+function esc(v){
+  return String(v ?? "")
     .replaceAll("&","&amp;")
     .replaceAll("<","&lt;")
     .replaceAll(">","&gt;")
@@ -425,257 +420,235 @@ function esc(value){
     .replaceAll("'","&#039;");
 }
 
-function normalize(value){
-  return String(value ?? "").trim().toLowerCase();
+function normalize(v){
+  return String(v ?? "").trim().toLowerCase();
 }
 
-function showMessage(message, type="error"){
-  const box = $("alert");
-  box.textContent = message;
-  box.className = "alert" + (type === "ok" ? " ok" : "");
-  box.style.display = "block";
+function showMessage(msg,type="error"){
+  const box=$("alert");
+  box.textContent=msg;
+  box.className="alert"+(type==="ok"?" ok":"");
+  box.style.display="block";
   clearTimeout(window.__msgTimer);
-  window.__msgTimer = setTimeout(() => {
-    box.style.display = "none";
-  }, 6500);
+  window.__msgTimer=setTimeout(()=>{
+    box.style.display="none";
+  },7000);
 }
 
 function friendlyError(error){
-  if(!error) return "অজানা সমস্যা হয়েছে।";
-  const msg = error.message || error.error_description || String(error);
+  if(!error)return"অজানা সমস্যা হয়েছে।";
+
+  const msg=error.message||error.error_description||String(error);
 
   if(/invalid api key/i.test(msg)){
-    return "Supabase Invalid API Key। এই HTML-এর SUPABASE_KEY-এ বর্তমান Publishable/Anon Key বসাতে হবে।";
+    return "Supabase Invalid API Key। SUPABASE_KEY-এ বর্তমান Publishable/Anon Key দিতে হবে।";
   }
-  if(/jwt/i.test(msg)) return "Login session-এর সমস্যা হয়েছে। আবার Login করুন।";
-  if(/permission|row-level security|rls/i.test(msg)){
-    return "Database permission/RLS policy-এর কারণে কাজটি করা যাচ্ছে না।";
-  }
+
   if(/column .*session.* does not exist/i.test(msg)){
     return "students table-এ session column নেই। Database-এ session column যোগ করুন।";
   }
+
+  if(/row-level security|permission denied|not authorized/i.test(msg)){
+    return "Database RLS/Permission-এর কারণে কাজটি করা যাচ্ছে না।";
+  }
+
   return msg;
 }
 
-function formatDate(date){
-  if(!date) return "";
-  try{
-    const d = new Date(date);
-    if(Number.isNaN(d.getTime())) return date;
-    return d.toLocaleDateString("bn-BD",{
-      day:"2-digit",month:"2-digit",year:"numeric"
-    });
-  }catch(e){ return date; }
-}
-
-function safeImage(url){
-  return url ? esc(url) : "";
+function formatDate(v){
+  if(!v)return"";
+  const d=new Date(v);
+  if(Number.isNaN(d.getTime()))return String(v);
+  return d.toLocaleDateString("bn-BD",{
+    day:"2-digit",month:"2-digit",year:"numeric"
+  });
 }
 
 function classNameById(id){
-  const found = classes.find(c => String(c.id) === String(id));
-  return found ? found.name : "—";
+  const c=classes.find(x=>String(x.id)===String(id));
+  return c?c.name:"—";
 }
 
-function sessionValue(s){
-  return s?.year ?? s?.name ?? s?.session ?? "";
-}
-
-/* ============================================================
+/* =========================================================
    AUTH
-   ============================================================ */
+   ========================================================= */
 async function checkAuth(){
-  const {data,error} = await db.auth.getSession();
+  const {data,error}=await db.auth.getSession();
 
   if(error){
     showMessage(friendlyError(error));
     return false;
   }
 
-  currentUser = data?.session?.user || null;
-
-  if(!currentUser){
-    window.location.href = "login.html";
+  if(!data?.session){
+    window.location.href="login.html";
     return false;
   }
 
   return true;
 }
 
-db.auth.onAuthStateChange((event, session) => {
-  if(event === "SIGNED_OUT"){
-    window.location.href = "login.html";
+db.auth.onAuthStateChange((event)=>{
+  if(event==="SIGNED_OUT"){
+    window.location.href="login.html";
   }
 });
 
-/* ============================================================
-   LOAD CLASSES
-   ============================================================ */
+/* =========================================================
+   CLASSES
+   ========================================================= */
 async function loadClasses(){
-  const {data,error} = await db
+  const {data,error}=await db
     .from("classes")
     .select("*")
     .order("id",{ascending:true});
 
-  if(error){
-    throw error;
-  }
+  if(error)throw error;
 
-  classes = data || [];
+  classes=data||[];
 
-  $("totalClasses").textContent = classes.length;
+  $("totalClasses").textContent=classes.length;
 
-  $("classId").innerHTML =
-    '<option value="">শ্রেণি নির্বাচন করুন</option>' +
-    classes.map(c =>
+  $("classId").innerHTML=
+    '<option value="">শ্রেণি নির্বাচন করুন</option>'+
+    classes.map(c=>
       `<option value="${esc(c.id)}">${esc(c.name)}</option>`
     ).join("");
 
-  $("filterClass").innerHTML =
-    '<option value="">সব শ্রেণি</option>' +
-    classes.map(c =>
+  $("filterClass").innerHTML=
+    '<option value="">সব শ্রেণি</option>'+
+    classes.map(c=>
       `<option value="${esc(c.id)}">${esc(c.name)}</option>`
     ).join("");
 }
 
-/* ============================================================
-   LOAD SESSIONS / YEARS
-   ============================================================ */
+/* =========================================================
+   SESSIONS
+   ========================================================= */
 async function loadSessions(){
-  const {data,error} = await db
+  const {data,error}=await db
     .from("sessions")
     .select("*")
     .order("year",{ascending:false});
 
   if(!error && data?.length){
-    sessions = data;
+    sessions=data;
   }else{
-    /*
-      sessions table না থাকলেও students.session থেকে year তৈরি করার চেষ্টা
-    */
-    const unique = [...new Set(
+    const years=[...new Set(
       students
-        .map(s => s.session)
-        .filter(v => v !== null && v !== undefined && String(v).trim() !== "")
-        .map(v => String(v))
-    )].sort((a,b) => Number(b)-Number(a));
+      .map(s=>s.session)
+      .filter(v=>v!==null&&v!==undefined&&String(v).trim()!=="")
+      .map(v=>String(v))
+    )].sort((a,b)=>Number(b)-Number(a));
 
-    sessions = unique.map((year,i) => ({id:"local-"+i,year}));
+    sessions=years.map((year,i)=>({id:"local-"+i,year}));
   }
 
-  fillSessionSelects();
+  fillYears();
 }
 
-function fillSessionSelects(){
-  const years = [...new Set(
-    sessions.map(sessionValue).filter(v => String(v).trim() !== "")
+function fillYears(){
+  const years=[...new Set(
+    sessions
+    .map(s=>s.year??s.name??s.session)
+    .filter(v=>String(v).trim()!=="")
+    .map(v=>String(v))
   )];
 
-  const currentYear = String(new Date().getFullYear());
+  const currentYear=String(new Date().getFullYear());
 
-  if(!years.includes(currentYear)) years.unshift(currentYear);
-
-  $("session").innerHTML =
-    '<option value="">শিক্ষাবর্ষ নির্বাচন করুন</option>' +
-    years.map(y => `<option value="${esc(y)}">${esc(y)}</option>`).join("");
-
-  $("filterSession").innerHTML =
-    '<option value="">সব শিক্ষাবর্ষ</option>' +
-    years.map(y => `<option value="${esc(y)}">${esc(y)}</option>`).join("");
-
-  if(!$("session").value){
-    $("session").value = currentYear;
+  if(!years.includes(currentYear)){
+    years.unshift(currentYear);
   }
+
+  $("session").innerHTML=
+    '<option value="">শিক্ষাবর্ষ নির্বাচন করুন</option>'+
+    years.map(y=>`<option value="${esc(y)}">${esc(y)}</option>`).join("");
+
+  $("filterSession").innerHTML=
+    '<option value="">সব শিক্ষাবর্ষ</option>'+
+    years.map(y=>`<option value="${esc(y)}">${esc(y)}</option>`).join("");
+
+  $("session").value=currentYear;
 }
 
-/* ============================================================
-   LOAD STUDENTS
-   ============================================================ */
+/* =========================================================
+   STUDENTS
+   ========================================================= */
 async function loadStudents(){
-  $("studentTable").innerHTML =
-    '<tr><td colspan="11" class="empty">⏳ শিক্ষার্থীদের তথ্য লোড হচ্ছে...</td></tr>';
+  $("studentTable").innerHTML=
+    '<tr><td colspan="11" class="empty">⏳ লোড হচ্ছে...</td></tr>';
 
-  const {data,error} = await db
+  const {data,error}=await db
     .from("students")
     .select("*")
     .order("class_id",{ascending:true})
     .order("roll_number",{ascending:true});
 
   if(error){
-    $("studentTable").innerHTML =
+    $("studentTable").innerHTML=
       `<tr><td colspan="11" class="empty">⚠️ ${esc(friendlyError(error))}</td></tr>`;
     showMessage(friendlyError(error));
     return;
   }
 
-  students = data || [];
-  $("totalStudents").textContent = students.length;
+  students=data||[];
+  $("totalStudents").textContent=students.length;
 
-  /*
-    students থেকে year না পাওয়া গেলে sessions table-এর data দিয়েই
-    select চলবে। student record-এ session থাকলে তা filter হবে।
-  */
   renderStudents();
   updateYearCount();
+
   await loadSessions();
 }
 
-/* ============================================================
-   FILTER
-   ============================================================ */
 function getFilteredStudents(){
-  const q = normalize($("search").value);
-  const year = String($("filterSession").value || "").trim();
-  const cls = String($("filterClass").value || "").trim();
+  const q=normalize($("search").value);
+  const year=String($("filterSession").value||"").trim();
+  const cls=String($("filterClass").value||"").trim();
 
-  return students.filter(s => {
-    const sYear = String(s.session ?? "").trim();
-    const matchesYear = !year || sYear === year;
+  return students.filter(s=>{
+    const sy=String(s.session??"").trim();
 
-    const matchesClass =
-      !cls || String(s.class_id) === cls;
+    const yearOK=!year||sy===year;
+    const classOK=!cls||String(s.class_id)===cls;
 
-    const haystack = [
-      s.roll_number,
-      s.student_id,
-      s.name,
-      s.phone,
-      s.father_name,
-      s.mother_name
+    const text=[
+      s.roll_number,s.student_id,s.name,s.phone,
+      s.father_name,s.mother_name
     ].map(normalize).join(" ");
 
-    const matchesSearch = !q || haystack.includes(q);
+    const searchOK=!q||text.includes(q);
 
-    return matchesYear && matchesClass && matchesSearch;
+    return yearOK&&classOK&&searchOK;
   });
 }
 
 function renderStudents(){
-  const list = getFilteredStudents();
-  const tbody = $("studentTable");
+  const list=getFilteredStudents();
+  const tbody=$("studentTable");
 
   if(!list.length){
-    tbody.innerHTML =
+    tbody.innerHTML=
       '<tr><td colspan="11" class="empty">🎓 কোনো শিক্ষার্থীর তথ্য পাওয়া যায়নি।</td></tr>';
     return;
   }
 
-  tbody.innerHTML = list.map(s => {
-    const photo = s.photo_url
-      ? `<img class="student-photo" src="${safeImage(s.photo_url)}" alt="photo">`
+  tbody.innerHTML=list.map(s=>{
+    const image=s.photo_url
+      ? `<img class="student-photo" src="${esc(s.photo_url)}" alt="ছবি">`
       : "👤";
 
     return `
       <tr>
-        <td>${photo}</td>
-        <td>${esc(s.student_id || "—")}</td>
-        <td><b>${esc(s.roll_number || "—")}</b></td>
-        <td>${esc(s.name || "—")}</td>
-        <td>${esc(s.father_name || "—")}</td>
-        <td>${esc(s.mother_name || "—")}</td>
-        <td>${esc(s.phone || "—")}</td>
+        <td>${image}</td>
+        <td>${esc(s.student_id||"—")}</td>
+        <td><b>${esc(s.roll_number||"—")}</b></td>
+        <td>${esc(s.name||"—")}</td>
+        <td>${esc(s.father_name||"—")}</td>
+        <td>${esc(s.mother_name||"—")}</td>
+        <td>${esc(s.phone||"—")}</td>
         <td>${esc(classNameById(s.class_id))}</td>
-        <td>${esc(s.session || "—")}</td>
+        <td>${esc(s.session||"—")}</td>
         <td>${esc(formatDate(s.admission_date))}</td>
         <td>
           <div class="row-actions">
@@ -690,181 +663,174 @@ function renderStudents(){
 }
 
 function updateYearCount(){
-  const selected = String($("filterSession").value || "").trim();
+  const year=String($("filterSession").value||"").trim();
 
-  if(!selected){
-    $("yearStudents").textContent = students.length;
-  }else{
-    $("yearStudents").textContent =
-      students.filter(s => String(s.session || "").trim() === selected).length;
-  }
+  $("yearStudents").textContent=year
+    ? students.filter(s=>String(s.session||"").trim()===year).length
+    : students.length;
 }
 
-/* ============================================================
+/* =========================================================
    STUDENT ID
-   ============================================================ */
-async function generateStudentId(){
-  /*
-    RPC ব্যবহার করা হচ্ছে না।
-    তাই next_student_id RPC-এর Invalid API Key / RPC সমস্যা হবে না।
-    Student ID NQ-001, NQ-002... হিসেবে পরবর্তী available ID তৈরি হবে।
-  */
-  const ids = students
-    .map(s => String(s.student_id || ""))
-    .map(id => {
-      const m = id.match(/(\d+)$/);
-      return m ? Number(m[1]) : 0;
-    })
-    .filter(n => Number.isFinite(n));
+   RPC বাদ দেওয়া হয়েছে
+   ========================================================= */
+function generateStudentId(){
+  const numbers=students.map(s=>{
+    const m=String(s.student_id||"").match(/(\d+)$/);
+    return m?Number(m[1]):0;
+  }).filter(Number.isFinite);
 
-  let next = Math.max(0,...ids) + 1;
+  let next=Math.max(0,...numbers)+1;
 
-  while(
-    students.some(s => String(s.student_id || "").toUpperCase() ===
-      `NQ-${String(next).padStart(3,"0")}`)
-  ){
+  while(students.some(s=>
+    String(s.student_id||"").toUpperCase()===
+    `NQ-${String(next).padStart(3,"0")}`
+  )){
     next++;
   }
 
   return `NQ-${String(next).padStart(3,"0")}`;
 }
 
-/* ============================================================
-   DUPLICATE ROLL CHECK
-   ============================================================ */
-async function rollExists(roll, sessionYear, classId, excludeId=""){
-  const query = db
+/* =========================================================
+   DUPLICATE ROLL
+   একই CLASS + YEAR-এ একই ROLL আটকাবে।
+   কিন্তু অন্য class-এ একই Roll 01/02/03 রাখা যাবে।
+   ========================================================= */
+async function rollExists(roll,year,classId,excludeId=""){
+  const {data,error}=await db
     .from("students")
     .select("id,roll_number,session,class_id")
-    .eq("roll_number", roll)
-    .eq("class_id", classId)
-    .limit(20);
+    .eq("roll_number",roll)
+    .eq("class_id",classId);
 
-  const {data,error} = await query;
+  if(error)throw error;
 
-  if(error) throw error;
-
-  return (data || []).some(row =>
-    String(row.id) !== String(excludeId || "") &&
-    String(row.session || "").trim() === String(sessionYear || "").trim()
+  return (data||[]).some(row=>
+    String(row.id)!==String(excludeId||"") &&
+    String(row.session||"").trim()===String(year||"").trim()
   );
 }
 
-/* ============================================================
-   PHOTO UPLOAD
-   ============================================================ */
-async function uploadPhoto(file, studentId){
-  if(!file) return null;
+/* =========================================================
+   PHOTO
+   ========================================================= */
+async function uploadPhoto(file,studentId){
+  if(!file)return null;
 
-  const ext = (file.name.split(".").pop() || "jpg").toLowerCase();
-  const path = `${studentId}/${Date.now()}.${ext}`;
+  const ext=(file.name.split(".").pop()||"jpg").toLowerCase();
+  const path=`${studentId}/${Date.now()}.${ext}`;
 
-  const {error:uploadError} = await db.storage
+  const {error}=await db.storage
     .from("student-photo")
     .upload(path,file,{
       upsert:true,
-      contentType:file.type || "image/jpeg"
+      contentType:file.type||"image/jpeg"
     });
 
-  if(uploadError) throw uploadError;
+  if(error)throw error;
 
-  const {data} = db.storage
+  const {data}=db.storage
     .from("student-photo")
     .getPublicUrl(path);
 
-  return data?.publicUrl || null;
+  return data?.publicUrl||null;
 }
 
-/* ============================================================
-   SAVE STUDENT
-   ============================================================ */
-$("studentForm").addEventListener("submit", async e => {
+/* =========================================================
+   SAVE
+   ========================================================= */
+$("studentForm").addEventListener("submit",async e=>{
   e.preventDefault();
 
-  const saveBtn = $("saveBtn");
-  saveBtn.disabled = true;
-  saveBtn.textContent = "⏳ সংরক্ষণ হচ্ছে...";
+  const btn=$("saveBtn");
+  btn.disabled=true;
+  btn.textContent="⏳ সংরক্ষণ হচ্ছে...";
 
   try{
-    const editId = $("editId").value.trim();
-    let studentId = $("studentId").value.trim();
+    const editId=$("editId").value.trim();
 
-    /*
-      Roll Number MANUAL.
-      এখানে কোনো auto-roll logic নেই।
-    */
-    const roll = $("rollNumber").value.trim();
-    const name = $("name").value.trim();
-    const fatherName = $("fatherName").value.trim();
-    const motherName = $("motherName").value.trim();
-    const phone = $("phone").value.trim();
-    const sessionYear = $("session").value.trim();
-    const classId = $("classId").value.trim();
-    const admissionDate = $("admissionDate").value || null;
-    const address = $("address").value.trim();
-    const file = $("photo").files[0];
+    let studentId=$("studentId").value.trim();
+
+    /* Roll MANUAL — কোনো auto roll নেই */
+    const roll=$("rollNumber").value.trim();
+    const name=$("name").value.trim();
+    const father=$("fatherName").value.trim();
+    const mother=$("motherName").value.trim();
+    const phone=$("phone").value.trim();
+    const year=$("session").value.trim();
+    const classId=$("classId").value.trim();
+    const admissionDate=$("admissionDate").value||null;
+    const address=$("address").value.trim();
+    const file=$("photo").files[0];
 
     if(!roll){
-      showMessage("Roll Number দিন। এটি আপনি নিজে পরিবর্তন করতে পারবেন।");
+      showMessage("Roll Number দিন। Roll আপনি নিজে লিখবেন ও পরিবর্তন করতে পারবেন।");
       $("rollNumber").focus();
       return;
     }
 
-    if(!name || !sessionYear || !classId){
-      showMessage("নাম, শিক্ষাবর্ষ এবং শ্রেণি অবশ্যই নির্বাচন করুন।");
+    if(!name||!year||!classId){
+      showMessage("নাম, শিক্ষাবর্ষ ও শ্রেণি অবশ্যই দিতে হবে।");
       return;
     }
 
-    /* Same class + same year-এ একই roll রাখা যাবে না */
-    if(await rollExists(roll,sessionYear,classId,editId)){
-      showMessage(`Roll ${roll} এই শ্রেণি ও শিক্ষাবর্ষে আগে থেকেই আছে। অন্য Roll দিন।`);
+    if(await rollExists(roll,year,classId,editId)){
+      showMessage(
+        `এই শ্রেণি ও শিক্ষাবর্ষে Roll ${roll} ইতোমধ্যে আছে। অন্য Roll দিন।`
+      );
       $("rollNumber").focus();
       return;
     }
 
     if(!editId){
-      studentId = await generateStudentId();
-      $("studentId").value = studentId;
+      studentId=generateStudentId();
+      $("studentId").value=studentId;
     }
 
-    let photoUrl = null;
+    let photoUrl=null;
 
     if(file){
-      photoUrl = await uploadPhoto(file,studentId);
+      photoUrl=await uploadPhoto(file,studentId);
     }
 
-    const payload = {
-      student_id: studentId,
-      roll_number: roll,
-      name,
-      father_name: fatherName || null,
-      mother_name: motherName || null,
-      phone: phone || null,
-      class_id: classId,
-      session: sessionYear,
-      admission_date: admissionDate,
-      address: address || null
+    const payload={
+      student_id:studentId,
+      roll_number:roll,
+      name:name,
+      father_name:father||null,
+      mother_name:mother||null,
+      phone:phone||null,
+      class_id:classId,
+      session:year,
+      admission_date:admissionDate,
+      address:address||null
     };
 
-    if(photoUrl) payload.photo_url = photoUrl;
+    if(photoUrl){
+      payload.photo_url=photoUrl;
+    }
 
     if(editId){
-      const {error} = await db
+      const {error}=await db
         .from("students")
         .update(payload)
         .eq("id",editId);
 
-      if(error) throw error;
+      if(error)throw error;
 
       showMessage("শিক্ষার্থীর তথ্য সফলভাবে আপডেট হয়েছে।","ok");
     }else{
-      const {error} = await db
+      const {error}=await db
         .from("students")
         .insert(payload);
 
-      if(error) throw error;
+      if(error)throw error;
 
-      showMessage(`শিক্ষার্থী সফলভাবে যোগ হয়েছে। Student ID: ${studentId}`,"ok");
+      showMessage(
+        `শিক্ষার্থী সফলভাবে যোগ হয়েছে। Student ID: ${studentId}`,
+        "ok"
+      );
     }
 
     resetForm();
@@ -874,56 +840,54 @@ $("studentForm").addEventListener("submit", async e => {
     console.error(error);
     showMessage(friendlyError(error));
   }finally{
-    saveBtn.disabled = false;
-    saveBtn.textContent = "💾 শিক্ষার্থী সংরক্ষণ";
+    btn.disabled=false;
+    btn.textContent="💾 শিক্ষার্থী সংরক্ষণ";
   }
 });
 
-/* ============================================================
+/* =========================================================
    EDIT
-   ============================================================ */
-window.editStudent = function(id){
-  const s = students.find(x => String(x.id) === String(id));
-  if(!s) return;
+   ========================================================= */
+window.editStudent=function(id){
+  const s=students.find(x=>String(x.id)===String(id));
+  if(!s)return;
 
-  $("editId").value = s.id;
-  $("studentId").value = s.student_id || "";
-  $("rollNumber").value = s.roll_number || "";
-  $("name").value = s.name || "";
-  $("fatherName").value = s.father_name || "";
-  $("motherName").value = s.mother_name || "";
-  $("phone").value = s.phone || "";
-  $("session").value = s.session || "";
-  $("classId").value = s.class_id || "";
-  $("admissionDate").value = s.admission_date || "";
-  $("address").value = s.address || "";
-  $("photo").value = "";
+  $("editId").value=s.id;
+  $("studentId").value=s.student_id||"";
+  $("rollNumber").value=s.roll_number||"";
+  $("name").value=s.name||"";
+  $("fatherName").value=s.father_name||"";
+  $("motherName").value=s.mother_name||"";
+  $("phone").value=s.phone||"";
+  $("session").value=s.session||"";
+  $("classId").value=s.class_id||"";
+  $("admissionDate").value=s.admission_date||"";
+  $("address").value=s.address||"";
+  $("photo").value="";
 
-  $("saveBtn").textContent = "💾 তথ্য আপডেট করুন";
+  $("saveBtn").textContent="💾 তথ্য আপডেট করুন";
 
   window.scrollTo({top:0,behavior:"smooth"});
 };
 
-/* ============================================================
+/* =========================================================
    DELETE
-   ============================================================ */
-window.deleteStudent = async function(id){
-  const s = students.find(x => String(x.id) === String(id));
-  if(!s) return;
+   ========================================================= */
+window.deleteStudent=async function(id){
+  const s=students.find(x=>String(x.id)===String(id));
+  if(!s)return;
 
-  const ok = confirm(
-    `আপনি কি "${s.name}" (Roll: ${s.roll_number || "—"}) শিক্ষার্থীকে মুছে ফেলতে চান?`
-  );
-
-  if(!ok) return;
+  if(!confirm(
+    `"${s.name}" (Roll: ${s.roll_number||"—"}) শিক্ষার্থীকে মুছে ফেলবেন?`
+  ))return;
 
   try{
-    const {error} = await db
+    const {error}=await db
       .from("students")
       .delete()
       .eq("id",id);
 
-    if(error) throw error;
+    if(error)throw error;
 
     showMessage("শিক্ষার্থী মুছে ফেলা হয়েছে।","ok");
     await loadStudents();
@@ -934,54 +898,52 @@ window.deleteStudent = async function(id){
   }
 };
 
-/* ============================================================
+/* =========================================================
    RESET
-   ============================================================ */
+   ========================================================= */
 function resetForm(){
   $("studentForm").reset();
-  $("editId").value = "";
-  $("studentId").value = "";
-  $("saveBtn").textContent = "💾 শিক্ষার্থী সংরক্ষণ";
+  $("editId").value="";
+  $("studentId").value="";
+  $("saveBtn").textContent="💾 শিক্ষার্থী সংরক্ষণ";
 
-  const currentYear =
-    $("filterSession").value ||
-    String(new Date().getFullYear());
-
-  $("session").value = currentYear;
+  const year=$("filterSession").value||String(new Date().getFullYear());
+  $("session").value=year;
 }
 
 $("resetBtn").addEventListener("click",resetForm);
 
-/* ============================================================
-   SEARCH / FILTER EVENTS
-   ============================================================ */
+/* =========================================================
+   FILTER EVENTS
+   ========================================================= */
 $("search").addEventListener("input",renderStudents);
 
-$("filterSession").addEventListener("change",() => {
+$("filterSession").addEventListener("change",()=>{
   renderStudents();
   updateYearCount();
 });
 
 $("filterClass").addEventListener("change",renderStudents);
 
-$("clearBtn").addEventListener("click",() => {
-  $("search").value = "";
-  $("filterSession").value = "";
-  $("filterClass").value = "";
+$("clearBtn").addEventListener("click",()=>{
+  $("search").value="";
+  $("filterSession").value="";
+  $("filterClass").value="";
   renderStudents();
   updateYearCount();
 });
 
-/* ============================================================
+/* =========================================================
    PRINT
-   ============================================================ */
-function printHeader(title,meta=""){
+   ========================================================= */
+function printHeader(title,meta){
   return `
     <div class="print-header">
       <h1>মাদরাসায়ে নূরুল কুরআন</h1>
       <h2>${esc(title)}</h2>
       <p>MADRASA-E NURUL QURAN</p>
     </div>
+
     <div class="print-meta">
       <span>${esc(meta)}</span>
       <span>তারিখ: ${esc(formatDate(new Date()))}</span>
@@ -990,32 +952,58 @@ function printHeader(title,meta=""){
 }
 
 function printFooter(){
-  return `<div class="print-footer">© 2026 মাদরাসায়ে নূরুল কুরআন — Student Management System</div>`;
+  /*
+    fixed bottom = A4 page-এর একদম নিচে
+  */
+  return `
+    <div class="print-footer">
+      © 2026 মাদরাসায়ে নূরুল কুরআন — Student Management System
+    </div>
+  `;
+}
+
+function preparePrint(){
+  const imgs=[...$("printArea").querySelectorAll("img")];
+
+  const waits=imgs.map(img=>new Promise(resolve=>{
+    if(img.complete)resolve();
+    else{
+      img.onload=resolve;
+      img.onerror=resolve;
+    }
+  }));
+
+  Promise.all(waits).then(()=>{
+    setTimeout(()=>window.print(),250);
+  });
 }
 
 function buildListPrint(list,title,meta){
-  const rows = list.map((s,i) => `
+  const rows=list.map((s,i)=>`
     <tr>
       <td>${i+1}</td>
       <td>
-        ${s.photo_url
-          ? `<img class="print-img" src="${safeImage(s.photo_url)}" alt="">`
-          : "—"}
+        ${
+          s.photo_url
+          ? `<img class="print-img" src="${esc(s.photo_url)}" alt="">`
+          : "—"
+        }
       </td>
-      <td>${esc(s.student_id || "—")}</td>
-      <td>${esc(s.roll_number || "—")}</td>
-      <td>${esc(s.name || "—")}</td>
-      <td>${esc(s.father_name || "—")}</td>
-      <td>${esc(s.mother_name || "—")}</td>
-      <td>${esc(s.phone || "—")}</td>
+      <td>${esc(s.student_id||"—")}</td>
+      <td>${esc(s.roll_number||"—")}</td>
+      <td>${esc(s.name||"—")}</td>
+      <td>${esc(s.father_name||"—")}</td>
+      <td>${esc(s.mother_name||"—")}</td>
+      <td>${esc(s.phone||"—")}</td>
       <td>${esc(classNameById(s.class_id))}</td>
-      <td>${esc(s.session || "—")}</td>
+      <td>${esc(s.session||"—")}</td>
       <td>${esc(formatDate(s.admission_date))}</td>
     </tr>
   `).join("");
 
-  $("printArea").innerHTML = `
+  $("printArea").innerHTML=`
     ${printHeader(title,meta)}
+
     <table class="print-table">
       <thead>
         <tr>
@@ -1034,38 +1022,23 @@ function buildListPrint(list,title,meta){
       </thead>
       <tbody>${rows}</tbody>
     </table>
+
     ${printFooter()}
   `;
 
   preparePrint();
 }
 
-function preparePrint(){
-  const images = [...$("printArea").querySelectorAll("img")];
-
-  const wait = images.map(img => new Promise(resolve => {
-    if(img.complete) resolve();
-    else{
-      img.onload = resolve;
-      img.onerror = resolve;
-    }
-  }));
-
-  Promise.all(wait).then(() => {
-    setTimeout(() => window.print(),250);
-  });
-}
-
-$("filteredPrintBtn").addEventListener("click",() => {
-  const list = getFilteredStudents();
+$("filteredPrintBtn").addEventListener("click",()=>{
+  const list=getFilteredStudents();
 
   if(!list.length){
     showMessage("Print করার মতো কোনো শিক্ষার্থী পাওয়া যায়নি।");
     return;
   }
 
-  const year = $("filterSession").value || "সব শিক্ষাবর্ষ";
-  const cls = $("filterClass").value
+  const year=$("filterSession").value||"সব শিক্ষাবর্ষ";
+  const cls=$("filterClass").value
     ? classNameById($("filterClass").value)
     : "সব শ্রেণি";
 
@@ -1076,7 +1049,7 @@ $("filteredPrintBtn").addEventListener("click",() => {
   );
 });
 
-$("allPrintBtn").addEventListener("click",() => {
+$("allPrintBtn").addEventListener("click",()=>{
   if(!students.length){
     showMessage("Print করার মতো কোনো শিক্ষার্থী নেই।");
     return;
@@ -1089,89 +1062,82 @@ $("allPrintBtn").addEventListener("click",() => {
   );
 });
 
-window.printStudent = function(id){
-  const s = students.find(x => String(x.id) === String(id));
-  if(!s) return;
+window.printStudent=function(id){
+  const s=students.find(x=>String(x.id)===String(id));
+  if(!s)return;
 
-  $("printArea").innerHTML = `
+  $("printArea").innerHTML=`
     <div class="profile">
+
       <div class="profile-top">
         ${
           s.photo_url
-          ? `<img class="profile-photo" src="${safeImage(s.photo_url)}" alt="">`
-          : `<div style="font-size:60px">👤</div>`
+          ? `<img class="profile-photo" src="${esc(s.photo_url)}" alt="">`
+          : `<div style="font-size:58px">👤</div>`
         }
+
         <h1 class="profile-title">মাদরাসায়ে নূরুল কুরআন</h1>
         <div class="profile-sub">শিক্ষার্থী তথ্য</div>
         <div class="profile-sub">MADRASA-E NURUL QURAN</div>
       </div>
 
       <table class="profile-table">
-        <tr><td>Student ID</td><td>${esc(s.student_id || "—")}</td></tr>
-        <tr><td>Roll Number</td><td>${esc(s.roll_number || "—")}</td></tr>
-        <tr><td>শিক্ষার্থীর নাম</td><td>${esc(s.name || "—")}</td></tr>
-        <tr><td>পিতার নাম</td><td>${esc(s.father_name || "—")}</td></tr>
-        <tr><td>মাতার নাম</td><td>${esc(s.mother_name || "—")}</td></tr>
-        <tr><td>মোবাইল নম্বর</td><td>${esc(s.phone || "—")}</td></tr>
+        <tr><td>Student ID</td><td>${esc(s.student_id||"—")}</td></tr>
+        <tr><td>Roll Number</td><td>${esc(s.roll_number||"—")}</td></tr>
+        <tr><td>শিক্ষার্থীর নাম</td><td>${esc(s.name||"—")}</td></tr>
+        <tr><td>পিতার নাম</td><td>${esc(s.father_name||"—")}</td></tr>
+        <tr><td>মাতার নাম</td><td>${esc(s.mother_name||"—")}</td></tr>
+        <tr><td>মোবাইল নম্বর</td><td>${esc(s.phone||"—")}</td></tr>
         <tr><td>শ্রেণি</td><td>${esc(classNameById(s.class_id))}</td></tr>
-        <tr><td>শিক্ষাবর্ষ</td><td>${esc(s.session || "—")}</td></tr>
+        <tr><td>শিক্ষাবর্ষ</td><td>${esc(s.session||"—")}</td></tr>
         <tr><td>ভর্তি তারিখ</td><td>${esc(formatDate(s.admission_date))}</td></tr>
-        <tr><td>ঠিকানা</td><td>${esc(s.address || "—")}</td></tr>
+        <tr><td>ঠিকানা</td><td>${esc(s.address||"—")}</td></tr>
       </table>
 
       <div class="profile-footer">
         <span>অভিভাবকের স্বাক্ষর: __________________</span>
         <span>মাদরাসা কর্তৃপক্ষ: __________________</span>
       </div>
+
     </div>
+
     ${printFooter()}
   `;
 
   preparePrint();
 };
 
-window.addEventListener("afterprint",() => {
-  $("printArea").innerHTML = "";
+window.addEventListener("afterprint",()=>{
+  $("printArea").innerHTML="";
 });
 
-/* ============================================================
-   PENDING ADMISSION COUNT
-   ============================================================ */
+/* =========================================================
+   PENDING ADMISSION
+   ========================================================= */
 async function loadPendingAdmission(){
-  const {count,error} = await db
+  const {count,error}=await db
     .from("admission_applications")
     .select("*",{count:"exact",head:true})
     .eq("status","pending");
 
-  if(error){
-    $("pendingAdmission").textContent = "0";
-    return;
-  }
-
-  $("pendingAdmission").textContent = count || 0;
+  $("pendingAdmission").textContent=error?"0":(count||0);
 }
 
-/* ============================================================
+/* =========================================================
    LOGOUT
-   ============================================================ */
-$("logoutBtn").addEventListener("click",async() => {
-  try{
-    await db.auth.signOut();
-  }catch(e){
-    console.error(e);
-    window.location.href = "login.html";
-  }
+   ========================================================= */
+$("logoutBtn").addEventListener("click",async()=>{
+  await db.auth.signOut();
+  window.location.href="login.html";
 });
 
-/* ============================================================
+/* =========================================================
    START
-   ============================================================ */
+   ========================================================= */
 async function start(){
-  document.body.classList.add("loading");
-
   try{
-    const ok = await checkAuth();
-    if(!ok) return;
+    const ok=await checkAuth();
+    if(!ok)return;
 
     await loadClasses();
     await loadStudents();
@@ -1180,8 +1146,6 @@ async function start(){
   }catch(error){
     console.error(error);
     showMessage(friendlyError(error));
-  }finally{
-    document.body.classList.remove("loading");
   }
 }
 
