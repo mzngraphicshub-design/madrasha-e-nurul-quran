@@ -7,7 +7,6 @@
 <title>শিক্ষার্থী ব্যবস্থাপনা | মাদরাসায়ে নূরুল কুরআন</title>
 
 <link href="https://banglawebfonts.pages.dev/css/bornomala.css" rel="stylesheet">
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
@@ -20,16 +19,15 @@
 :root{
     --primary:#0d47a1;
     --primary2:#1976d2;
-    --blue:#1565c0;
-    --gold:#e4bd45;
-    --bg:#f2f5f9;
+    --gold:#e6c14f;
+    --bg:#f3f6fa;
     --white:#fff;
     --text:#263238;
     --muted:#78909c;
-    --border:#e1e7ef;
+    --border:#e0e6ed;
     --success:#16834b;
     --danger:#d32f2f;
-    --shadow:0 5px 22px rgba(0,0,0,.07);
+    --shadow:0 5px 20px rgba(0,0,0,.07);
 }
 
 html,body{
@@ -43,20 +41,16 @@ body{
     color:var(--text);
 }
 
-/* TOPBAR */
+/* ================= TOPBAR ================= */
 
 .topbar{
-    background:linear-gradient(
-        135deg,
-        #0d47a1,
-        #1976d2
-    );
     min-height:62px;
     padding:8px 18px;
     display:flex;
     align-items:center;
     justify-content:space-between;
     color:#fff;
+    background:linear-gradient(135deg,#0d47a1,#1976d2);
     box-shadow:0 4px 15px rgba(13,71,161,.25);
 }
 
@@ -107,20 +101,15 @@ body{
     font-size:12px;
 }
 
-.top-actions a:hover,
-.top-actions button:hover{
-    background:rgba(255,255,255,.25);
-}
-
-/* CONTAINER */
+/* ================= CONTAINER ================= */
 
 .container{
     width:96%;
-    max-width:1400px;
+    max-width:1450px;
     margin:18px auto;
 }
 
-/* MESSAGE */
+/* ================= MESSAGE ================= */
 
 .message{
     display:none;
@@ -152,7 +141,7 @@ body{
     border:1px solid #c7ddff;
 }
 
-/* STATS */
+/* ================= STATS ================= */
 
 .stats{
     display:grid;
@@ -194,7 +183,7 @@ body{
     font-size:11px;
 }
 
-/* CARD */
+/* ================= CARD ================= */
 
 .card{
     background:#fff;
@@ -218,7 +207,7 @@ body{
     font-size:17px;
 }
 
-/* FORM */
+/* ================= FORM ================= */
 
 .form-grid{
     display:grid;
@@ -273,6 +262,11 @@ body{
     resize:vertical;
 }
 
+.roll-help{
+    font-size:9px;
+    color:#78909c;
+}
+
 .form-actions{
     display:flex;
     flex-wrap:wrap;
@@ -280,7 +274,7 @@ body{
     margin-top:13px;
 }
 
-/* BUTTON */
+/* ================= BUTTON ================= */
 
 .btn{
     border:0;
@@ -304,11 +298,7 @@ body{
 
 .btn-primary{
     color:#fff;
-    background:linear-gradient(
-        135deg,
-        #0d47a1,
-        #1976d2
-    );
+    background:linear-gradient(135deg,#0d47a1,#1976d2);
 }
 
 .btn-secondary{
@@ -331,11 +321,11 @@ body{
     background:#e8c450;
 }
 
-/* FILTER */
+/* ================= FILTER ================= */
 
 .filter-grid{
     display:grid;
-    grid-template-columns:1fr 190px 190px 100px;
+    grid-template-columns:1fr 180px 180px 90px;
     gap:8px;
     margin-bottom:12px;
 }
@@ -351,7 +341,7 @@ body{
     background:#fff;
 }
 
-/* TABLE */
+/* ================= TABLE ================= */
 
 .table-wrap{
     width:100%;
@@ -361,7 +351,7 @@ body{
 table{
     width:100%;
     border-collapse:collapse;
-    min-width:1050px;
+    min-width:1100px;
 }
 
 thead{
@@ -416,7 +406,7 @@ tbody tr:hover{
     font-size:10px;
 }
 
-/* LOADER */
+/* ================= LOADER ================= */
 
 .loader{
     display:none;
@@ -446,7 +436,7 @@ tbody tr:hover{
     }
 }
 
-/* EMPTY */
+/* ================= EMPTY ================= */
 
 .empty{
     text-align:center;
@@ -455,7 +445,7 @@ tbody tr:hover{
     font-size:12px;
 }
 
-/* FOOTER */
+/* ================= FOOTER ================= */
 
 .footer{
     text-align:center;
@@ -464,13 +454,13 @@ tbody tr:hover{
     padding:15px 0 25px;
 }
 
-/* PRINT AREA */
+/* ================= PRINT AREA ================= */
 
 #printArea{
     display:none;
 }
 
-/* RESPONSIVE */
+/* ================= RESPONSIVE ================= */
 
 @media(max-width:1000px){
 
@@ -548,7 +538,9 @@ tbody tr:hover{
     }
 }
 
-/* PRINT */
+/* =========================================================
+   PRINT
+========================================================= */
 
 @media print{
 
@@ -559,9 +551,11 @@ tbody tr:hover{
 
     html,
     body{
-        background:#fff !important;
+        width:100%;
+        height:100%;
         margin:0 !important;
         padding:0 !important;
+        background:#fff !important;
     }
 
     body > *:not(#printArea){
@@ -571,12 +565,30 @@ tbody tr:hover{
     #printArea{
         display:block !important;
         width:100% !important;
+        min-height:283mm;
         color:#000 !important;
+    }
+
+    /*
+       পুরো A4 page-এর ভিতরে header,
+       table এবং footer control করবে।
+    */
+
+    .print-page{
+        width:100%;
+        min-height:283mm;
+        display:flex;
+        flex-direction:column;
+    }
+
+    .print-content{
+        width:100%;
     }
 
     .print-header{
         text-align:center;
-        margin-bottom:6px;
+        flex:none;
+        margin-bottom:5px;
     }
 
     .print-header h1{
@@ -596,6 +608,7 @@ tbody tr:hover{
     .print-meta{
         display:flex;
         justify-content:space-between;
+        align-items:center;
         border-top:1px solid #333;
         border-bottom:1px solid #333;
         padding:3px 0;
@@ -618,6 +631,7 @@ tbody tr:hover{
         color:#000 !important;
         line-height:1.15;
         overflow:hidden;
+        word-break:break-word;
     }
 
     .print-table th{
@@ -632,14 +646,26 @@ tbody tr:hover{
         margin:auto;
     }
 
+    /*
+       Footer একদম A4 page-এর নিচে
+    */
+
     .print-footer{
+        margin-top:auto !important;
+        padding-top:8px;
         text-align:center;
-        font-size:7px;
-        margin-top:5px;
+        font-size:8px;
+        color:#555;
+        border-top:1px solid #aaa;
+        width:100%;
     }
 
+    /* SINGLE PROFILE */
+
     .profile-print{
-        page-break-inside:avoid;
+        min-height:283mm;
+        display:flex;
+        flex-direction:column;
     }
 
     .profile-title{
@@ -702,6 +728,15 @@ tbody tr:hover{
         margin-top:50px;
         font-size:9px;
     }
+
+    .profile-footer{
+        margin-top:auto !important;
+        padding-top:8px;
+        border-top:1px solid #aaa;
+        text-align:center;
+        font-size:8px;
+        color:#555;
+    }
 }
 </style>
 </head>
@@ -743,7 +778,7 @@ tbody tr:hover{
     <div id="message" class="message"></div>
 
 
-    <!-- STATS -->
+    <!-- ================= STATS ================= -->
 
     <section class="stats">
 
@@ -805,7 +840,7 @@ tbody tr:hover{
     </section>
 
 
-    <!-- ADD STUDENT -->
+    <!-- ================= ADD STUDENT ================= -->
 
     <section class="card">
 
@@ -829,6 +864,8 @@ tbody tr:hover{
             <div class="form-grid">
 
 
+                <!-- STUDENT ID -->
+
                 <div class="field">
 
                     <label>
@@ -845,6 +882,8 @@ tbody tr:hover{
                 </div>
 
 
+                <!-- ROLL -->
+
                 <div class="field">
 
                     <label>
@@ -855,11 +894,18 @@ tbody tr:hover{
                         type="text"
                         id="rollNumber"
                         required
-                        placeholder="যেমন: 101"
+                        readonly
+                        placeholder="Class নির্বাচন করুন"
                     >
+
+                    <span class="roll-help">
+                        প্রতিটি শ্রেণির Roll 01 থেকে শুরু হবে
+                    </span>
 
                 </div>
 
+
+                <!-- NAME -->
 
                 <div class="field">
 
@@ -877,6 +923,8 @@ tbody tr:hover{
                 </div>
 
 
+                <!-- FATHER -->
+
                 <div class="field">
 
                     <label>
@@ -891,6 +939,8 @@ tbody tr:hover{
 
                 </div>
 
+
+                <!-- MOTHER -->
 
                 <div class="field">
 
@@ -907,6 +957,8 @@ tbody tr:hover{
                 </div>
 
 
+                <!-- PHONE -->
+
                 <div class="field">
 
                     <label>
@@ -922,6 +974,8 @@ tbody tr:hover{
                 </div>
 
 
+                <!-- SESSION -->
+
                 <div class="field">
 
                     <label>
@@ -932,13 +986,17 @@ tbody tr:hover{
                         id="session"
                         required
                     >
+
                         <option value="">
                             শিক্ষাবর্ষ নির্বাচন করুন
                         </option>
+
                     </select>
 
                 </div>
 
+
+                <!-- CLASS -->
 
                 <div class="field">
 
@@ -950,13 +1008,17 @@ tbody tr:hover{
                         id="classId"
                         required
                     >
+
                         <option value="">
                             শ্রেণি নির্বাচন করুন
                         </option>
+
                     </select>
 
                 </div>
 
+
+                <!-- ADMISSION DATE -->
 
                 <div class="field">
 
@@ -972,6 +1034,8 @@ tbody tr:hover{
                 </div>
 
 
+                <!-- PHOTO -->
+
                 <div class="field">
 
                     <label>
@@ -986,6 +1050,8 @@ tbody tr:hover{
 
                 </div>
 
+
+                <!-- ADDRESS -->
 
                 <div class="field full">
 
@@ -1029,7 +1095,7 @@ tbody tr:hover{
     </section>
 
 
-    <!-- STUDENT LIST -->
+    <!-- ================= STUDENT LIST ================= -->
 
     <section class="card">
 
@@ -1065,8 +1131,9 @@ tbody tr:hover{
             <input
                 type="search"
                 id="search"
-                placeholder="🔍 Roll / Student ID / নাম / মোবাইল / পিতার নাম দিয়ে খুঁজুন..."
+                placeholder="🔍 Roll / Student ID / নাম / মোবাইল / পিতার নাম..."
             >
+
 
             <select id="yearFilter">
 
@@ -1157,17 +1224,12 @@ tbody tr:hover{
 
 <script>
 
-/* =====================================================
-   SUPABASE
-===================================================== */
+/* =========================================================
+   SUPABASE CONFIGURATION
+========================================================= */
 
 const SUPABASE_URL =
     "https://qavublwhqiqsgpcmfyft.supabase.co";
-
-/*
-   তোমার আগের key-টাই রাখা হয়েছে।
-   Extra K যোগ করা হয়নি।
-*/
 
 const SUPABASE_KEY =
     "sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
@@ -1179,9 +1241,9 @@ const db =
     );
 
 
-/* =====================================================
-   GLOBAL
-===================================================== */
+/* =========================================================
+   GLOBAL VARIABLES
+========================================================= */
 
 let students = [];
 let classes = [];
@@ -1189,9 +1251,9 @@ let sessions = [];
 let editingStudent = null;
 
 
-/* =====================================================
+/* =========================================================
    ELEMENTS
-===================================================== */
+========================================================= */
 
 const messageBox =
     document.getElementById("message");
@@ -1211,10 +1273,19 @@ const yearFilter =
 const classFilter =
     document.getElementById("classFilter");
 
+const classSelect =
+    document.getElementById("classId");
 
-/* =====================================================
+const sessionSelect =
+    document.getElementById("session");
+
+const rollInput =
+    document.getElementById("rollNumber");
+
+
+/* =========================================================
    MESSAGE
-===================================================== */
+========================================================= */
 
 function showMessage(text,type="info"){
 
@@ -1239,9 +1310,9 @@ function showMessage(text,type="info"){
 }
 
 
-/* =====================================================
+/* =========================================================
    LOADER
-===================================================== */
+========================================================= */
 
 function showLoader(){
     loader.classList.add("show");
@@ -1252,9 +1323,9 @@ function hideLoader(){
 }
 
 
-/* =====================================================
-   ESCAPE
-===================================================== */
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
 
 function escapeHtml(value){
 
@@ -1274,9 +1345,9 @@ function escapeHtml(value){
 }
 
 
-/* =====================================================
+/* =========================================================
    AUTH CHECK
-===================================================== */
+========================================================= */
 
 async function checkAuth(){
 
@@ -1287,6 +1358,7 @@ async function checkAuth(){
             error
         } =
             await db.auth.getSession();
+
 
         if(error){
 
@@ -1301,6 +1373,7 @@ async function checkAuth(){
             return false;
         }
 
+
         if(
             !data ||
             !data.session
@@ -1312,25 +1385,24 @@ async function checkAuth(){
             return false;
         }
 
+
         return true;
 
     }catch(error){
 
         console.error(error);
 
-        showMessage(
-            "Login session check failed.",
-            "error"
-        );
+        window.location.href =
+            "login.html";
 
         return false;
     }
 }
 
 
-/* =====================================================
+/* =========================================================
    AUTH STATE
-===================================================== */
+========================================================= */
 
 db.auth.onAuthStateChange(
     (event,session)=>{
@@ -1347,9 +1419,9 @@ db.auth.onAuthStateChange(
 );
 
 
-/* =====================================================
+/* =========================================================
    LOGOUT
-===================================================== */
+========================================================= */
 
 async function logout(){
 
@@ -1368,9 +1440,9 @@ async function logout(){
 }
 
 
-/* =====================================================
+/* =========================================================
    LOAD CLASSES
-===================================================== */
+========================================================= */
 
 async function loadClasses(){
 
@@ -1382,6 +1454,7 @@ async function loadClasses(){
             .from("classes")
             .select("*")
             .order("id");
+
 
     if(error){
 
@@ -1396,14 +1469,10 @@ async function loadClasses(){
         return;
     }
 
+
     classes =
         data || [];
 
-
-    const classSelect =
-        document.getElementById(
-            "classId"
-        );
 
     classSelect.innerHTML =
         `
@@ -1424,9 +1493,7 @@ async function loadClasses(){
     classes.forEach(item=>{
 
         const option =
-            document.createElement(
-                "option"
-            );
+            document.createElement("option");
 
         option.value =
             item.id;
@@ -1440,9 +1507,7 @@ async function loadClasses(){
 
 
         const filterOption =
-            document.createElement(
-                "option"
-            );
+            document.createElement("option");
 
         filterOption.value =
             item.id;
@@ -1464,9 +1529,9 @@ async function loadClasses(){
 }
 
 
-/* =====================================================
-   CLASS NAME
-===================================================== */
+/* =========================================================
+   GET CLASS NAME
+========================================================= */
 
 function getClassName(id){
 
@@ -1477,15 +1542,16 @@ function getClassName(id){
                 String(id)
         );
 
+
     return found
         ? found.name
         : "—";
 }
 
 
-/* =====================================================
+/* =========================================================
    LOAD SESSIONS
-===================================================== */
+========================================================= */
 
 async function loadSessions(){
 
@@ -1502,12 +1568,6 @@ async function loadSessions(){
                     ascending:false
                 }
             );
-
-
-    const sessionSelect =
-        document.getElementById(
-            "session"
-        );
 
 
     sessionSelect.innerHTML =
@@ -1536,6 +1596,7 @@ async function loadSessions(){
 
             const year =
                 item.year;
+
 
             const option =
                 document.createElement(
@@ -1572,78 +1633,67 @@ async function loadSessions(){
 
     }else{
 
-        console.warn(
-            "Sessions table:",
-            error
-        );
-
         /*
-           sessions table unavailable হলে
-           students table থেকে year নেওয়া।
+           Sessions table থেকে data না এলে
+           Students table থেকে year নেওয়া হবে।
         */
 
         const {
-            data:studentYears,
-            error:studentYearError
+            data:studentYears
         } =
             await db
                 .from("students")
                 .select("session");
 
 
-        if(!studentYearError){
-
-            const years =
-                [
-                    ...new Set(
-                        (studentYears || [])
-                        .map(
-                            x=>x.session
-                        )
-                        .filter(Boolean)
+        const years =
+            [
+                ...new Set(
+                    (studentYears || [])
+                    .map(
+                        x=>x.session
                     )
-                ]
-                .sort()
-                .reverse();
+                    .filter(Boolean)
+                )
+            ]
+            .sort()
+            .reverse();
 
 
-            years.forEach(year=>{
+        years.forEach(year=>{
 
-                const option =
-                    document.createElement(
-                        "option"
-                    );
-
-                option.value =
-                    year;
-
-                option.textContent =
-                    year;
-
-                sessionSelect.appendChild(
-                    option
+            const option =
+                document.createElement(
+                    "option"
                 );
 
+            option.value =
+                year;
 
-                const filterOption =
-                    document.createElement(
-                        "option"
-                    );
+            option.textContent =
+                year;
 
-                filterOption.value =
-                    year;
+            sessionSelect.appendChild(
+                option
+            );
 
-                filterOption.textContent =
-                    year;
 
-                yearFilter.appendChild(
-                    filterOption
+            const filterOption =
+                document.createElement(
+                    "option"
                 );
 
-            });
+            filterOption.value =
+                year;
 
-        }
+            filterOption.textContent =
+                year;
 
+            yearFilter.appendChild(
+                filterOption
+            );
+
+        });
     }
 
 
@@ -1670,13 +1720,14 @@ async function loadSessions(){
 }
 
 
-/* =====================================================
+/* =========================================================
    LOAD STUDENTS
-===================================================== */
+========================================================= */
 
 async function loadStudents(){
 
     showLoader();
+
 
     try{
 
@@ -1712,19 +1763,23 @@ async function loadStudents(){
         if(error){
 
             console.error(
-                "Students:",
+                "Students error:",
                 error
             );
 
+
             students = [];
 
+
             renderStudents();
+
 
             showMessage(
                 "Students load হয়নি: " +
                 error.message,
                 "error"
             );
+
 
             return;
         }
@@ -1741,14 +1796,13 @@ async function loadStudents(){
     }finally{
 
         hideLoader();
-
     }
 }
 
 
-/* =====================================================
-   ONLINE ADMISSION
-===================================================== */
+/* =========================================================
+   ONLINE ADMISSION COUNT
+========================================================= */
 
 async function loadOnlineAdmissionCount(){
 
@@ -1782,9 +1836,9 @@ async function loadOnlineAdmissionCount(){
 }
 
 
-/* =====================================================
-   STATS
-===================================================== */
+/* =========================================================
+   UPDATE STATS
+========================================================= */
 
 function updateStats(){
 
@@ -1839,9 +1893,9 @@ function updateStats(){
 }
 
 
-/* =====================================================
-   FILTER
-===================================================== */
+/* =========================================================
+   FILTERED STUDENTS
+========================================================= */
 
 function getFilteredStudents(){
 
@@ -1907,9 +1961,9 @@ function getFilteredStudents(){
 }
 
 
-/* =====================================================
-   RENDER
-===================================================== */
+/* =========================================================
+   RENDER STUDENTS
+========================================================= */
 
 function renderStudents(){
 
@@ -1923,12 +1977,15 @@ function renderStudents(){
             `
             <tr>
                 <td colspan="11">
+
                     <div class="empty">
                         📭 কোনো শিক্ষার্থীর তথ্য পাওয়া যায়নি।
                     </div>
+
                 </td>
             </tr>
             `;
+
 
         updateStats();
 
@@ -1959,6 +2016,7 @@ function renderStudents(){
 
 
             return `
+
             <tr>
 
                 <td>
@@ -2055,6 +2113,7 @@ function renderStudents(){
                 </td>
 
             </tr>
+
             `;
 
         })
@@ -2065,9 +2124,9 @@ function renderStudents(){
 }
 
 
-/* =====================================================
-   DATE
-===================================================== */
+/* =========================================================
+   DATE FORMAT
+========================================================= */
 
 function formatDate(value){
 
@@ -2100,9 +2159,9 @@ function formatDate(value){
 }
 
 
-/* =====================================================
-   STUDENT ID
-===================================================== */
+/* =========================================================
+   GENERATE STUDENT ID
+========================================================= */
 
 async function generateStudentId(){
 
@@ -2132,14 +2191,17 @@ async function generateStudentId(){
             error
         );
 
+
         input.value =
             "";
+
 
         showMessage(
             "Student ID generate করা যায়নি: " +
             error.message,
             "error"
         );
+
 
         return null;
     }
@@ -2181,10 +2243,12 @@ async function generateStudentId(){
         input.value =
             "";
 
+
         showMessage(
             "Student ID পাওয়া যায়নি।",
             "error"
         );
+
 
         return null;
     }
@@ -2193,16 +2257,260 @@ async function generateStudentId(){
     input.value =
         id;
 
+
     return id;
 }
 
 
-/* =====================================================
-   DUPLICATE ROLL
-===================================================== */
+/* =========================================================
+   GET NEXT ROLL BY CLASS + SESSION
+========================================================= */
+
+/*
+   সবচেয়ে গুরুত্বপূর্ণ অংশ:
+
+   নূরানী:
+   01, 02, 03...
+
+   ১ম শ্রেণি:
+   01, 02, 03...
+
+   ২য় শ্রেণি:
+   01, 02, 03...
+
+   প্রতিটি class-এর Roll আলাদা।
+*/
+
+async function generateNextRoll(
+    classId,
+    session,
+    excludeId=""
+){
+
+    if(!classId || !session){
+
+        rollInput.value =
+            "";
+
+        return "";
+    }
+
+
+    try{
+
+        let query =
+            db
+                .from("students")
+                .select("id,roll_number")
+                .eq(
+                    "class_id",
+                    classId
+                )
+                .eq(
+                    "session",
+                    session
+                );
+
+
+        if(excludeId){
+
+            query =
+                query.neq(
+                    "id",
+                    excludeId
+                );
+        }
+
+
+        const {
+            data,
+            error
+        } =
+            await query;
+
+
+        if(error){
+
+            console.error(
+                "Roll generation error:",
+                error
+            );
+
+
+            /*
+               Error হলেও user যেন manual
+               Roll দিতে পারে।
+            */
+
+            rollInput.readOnly =
+                false;
+
+
+            rollInput.placeholder =
+                "01";
+
+
+            return "";
+        }
+
+
+        const numbers =
+            (data || [])
+            .map(student=>{
+
+                const value =
+                    String(
+                        student.roll_number || ""
+                    ).trim();
+
+
+                /*
+                   01, 02, 003 — সব numeric
+                   হিসেবে নেওয়া হবে।
+                */
+
+                const number =
+                    parseInt(
+                        value,
+                        10
+                    );
+
+
+                return Number.isFinite(number)
+                    ? number
+                    : 0;
+
+            })
+            .filter(
+                number =>
+                    number > 0
+            );
+
+
+        let next =
+            1;
+
+
+        while(
+            numbers.includes(next)
+        ){
+
+            next++;
+        }
+
+
+        /*
+           দুই digit Roll:
+           01, 02, 03 ... 09, 10
+        */
+
+        const formatted =
+            String(next)
+                .padStart(
+                    2,
+                    "0"
+                );
+
+
+        rollInput.value =
+            formatted;
+
+
+        rollInput.readOnly =
+            true;
+
+
+        return formatted;
+
+
+    }catch(error){
+
+        console.error(error);
+
+        rollInput.value =
+            "";
+
+        rollInput.readOnly =
+            false;
+
+        return "";
+    }
+}
+
+
+/* =========================================================
+   CLASS CHANGE
+========================================================= */
+
+classSelect.addEventListener(
+    "change",
+    async ()=>{
+
+        const classId =
+            classSelect.value;
+
+
+        const session =
+            sessionSelect.value;
+
+
+        /*
+           Edit mode-এ class পরিবর্তন করলে
+           নতুন class-এর next roll হবে।
+        */
+
+        await generateNextRoll(
+            classId,
+            session,
+            editingStudent
+            ? editingStudent.id
+            : ""
+        );
+    }
+);
+
+
+/* =========================================================
+   SESSION CHANGE
+========================================================= */
+
+sessionSelect.addEventListener(
+    "change",
+    async ()=>{
+
+        const classId =
+            classSelect.value;
+
+
+        const session =
+            sessionSelect.value;
+
+
+        if(classId && session){
+
+            await generateNextRoll(
+                classId,
+                session,
+                editingStudent
+                ? editingStudent.id
+                : ""
+            );
+        }else{
+
+            rollInput.value =
+                "";
+        }
+    }
+);
+
+
+/* =========================================================
+   DUPLICATE ROLL CHECK
+========================================================= */
 
 async function duplicateRoll(
     roll,
+    classId,
     session,
     currentId=""
 ){
@@ -2214,6 +2522,10 @@ async function duplicateRoll(
             .eq(
                 "roll_number",
                 roll
+            )
+            .eq(
+                "class_id",
+                classId
             )
             .eq(
                 "session",
@@ -2256,9 +2568,9 @@ async function duplicateRoll(
 }
 
 
-/* =====================================================
-   SUBMIT
-===================================================== */
+/* =========================================================
+   FORM SUBMIT
+========================================================= */
 
 document.getElementById(
     "studentForm"
@@ -2335,21 +2647,10 @@ document.getElementById(
             ).files[0];
 
 
-        if(!roll){
+        if(!classId){
 
             showMessage(
-                "Roll Number দিন।",
-                "error"
-            );
-
-            return;
-        }
-
-
-        if(!name){
-
-            showMessage(
-                "শিক্ষার্থীর নাম দিন।",
+                "প্রথমে শ্রেণি নির্বাচন করুন।",
                 "error"
             );
 
@@ -2368,10 +2669,27 @@ document.getElementById(
         }
 
 
-        if(!classId){
+        if(!roll){
+
+            await generateNextRoll(
+                classId,
+                session,
+                editId
+            );
 
             showMessage(
-                "শ্রেণি নির্বাচন করুন।",
+                "Roll Number generate হচ্ছে। আবার Save করুন।",
+                "info"
+            );
+
+            return;
+        }
+
+
+        if(!name){
+
+            showMessage(
+                "শিক্ষার্থীর নাম দিন।",
                 "error"
             );
 
@@ -2379,9 +2697,14 @@ document.getElementById(
         }
 
 
+        /*
+           Same class + same year-এ duplicate Roll আটকানো।
+        */
+
         const duplicate =
             await duplicateRoll(
                 roll,
+                classId,
                 session,
                 editId
             );
@@ -2389,10 +2712,27 @@ document.getElementById(
 
         if(duplicate){
 
+            /*
+               Duplicate হলে পরের Roll generate
+            */
+
+            const newRoll =
+                await generateNextRoll(
+                    classId,
+                    session,
+                    editId
+                );
+
+
             showMessage(
-                "এই শিক্ষাবর্ষে এই Roll Number ইতোমধ্যে আছে।",
+                "এই শ্রেণিতে Roll " +
+                roll +
+                " আগে থেকেই আছে। নতুন Roll " +
+                newRoll +
+                " দেওয়া হয়েছে।",
                 "error"
             );
+
 
             return;
         }
@@ -2407,6 +2747,7 @@ document.getElementById(
         saveBtn.disabled =
             true;
 
+
         saveBtn.textContent =
             "⏳ সংরক্ষণ হচ্ছে...";
 
@@ -2420,7 +2761,7 @@ document.getElementById(
 
 
             /*
-               নতুন student হলে ID generate
+               New student হলে Student ID generate
             */
 
             if(!editId){
@@ -2433,6 +2774,7 @@ document.getElementById(
 
                     studentId =
                         await generateStudentId();
+
 
                     if(!studentId){
 
@@ -2556,9 +2898,7 @@ document.getElementById(
             };
 
 
-            /*
-               UPDATE
-            */
+            /* UPDATE */
 
             if(editId){
 
@@ -2589,9 +2929,8 @@ document.getElementById(
 
             }
 
-            /*
-               INSERT
-            */
+
+            /* INSERT */
 
             else{
 
@@ -2612,7 +2951,8 @@ document.getElementById(
 
 
                 showMessage(
-                    "নতুন শিক্ষার্থী সফলভাবে যোগ হয়েছে।",
+                    "নতুন শিক্ষার্থী সফলভাবে যোগ হয়েছে। Roll: " +
+                    roll,
                     "success"
                 );
             }
@@ -2620,11 +2960,13 @@ document.getElementById(
 
             resetForm();
 
+
             await loadStudents();
 
         }catch(error){
 
             console.error(error);
+
 
             showMessage(
                 "সংরক্ষণ করা যায়নি: " +
@@ -2648,9 +2990,9 @@ document.getElementById(
 );
 
 
-/* =====================================================
-   EDIT
-===================================================== */
+/* =========================================================
+   EDIT STUDENT
+========================================================= */
 
 async function editStudent(encodedId){
 
@@ -2701,6 +3043,14 @@ async function editStudent(encodedId){
         student.roll_number || "";
 
 
+    /*
+       Edit-এ Roll readonly থাকবে।
+    */
+
+    rollInput.readOnly =
+        true;
+
+
     document.getElementById(
         "studentName"
     ).value =
@@ -2741,10 +3091,15 @@ async function editStudent(encodedId){
         "admissionDate"
     ).value =
         student.admission_date
-        ? String(
+        ?
+        String(
             student.admission_date
-        ).substring(0,10)
-        : "";
+        ).substring(
+            0,
+            10
+        )
+        :
+        "";
 
 
     document.getElementById(
@@ -2778,9 +3133,9 @@ async function editStudent(encodedId){
 }
 
 
-/* =====================================================
-   DELETE
-===================================================== */
+/* =========================================================
+   DELETE STUDENT
+========================================================= */
 
 async function deleteStudent(encodedId){
 
@@ -2817,7 +3172,11 @@ async function deleteStudent(encodedId){
             "\nStudent ID: " +
             student.student_id +
             "\nRoll: " +
-            student.roll_number
+            student.roll_number +
+            "\nশ্রেণি: " +
+            getClassName(
+                student.class_id
+            )
         );
 
 
@@ -2858,6 +3217,7 @@ async function deleteStudent(encodedId){
 
         console.error(error);
 
+
         showMessage(
             "Delete করা যায়নি: " +
             error.message,
@@ -2867,11 +3227,11 @@ async function deleteStudent(encodedId){
 }
 
 
-/* =====================================================
-   RESET
-===================================================== */
+/* =========================================================
+   RESET FORM
+========================================================= */
 
-function resetForm(){
+async function resetForm(){
 
     editingStudent =
         null;
@@ -2894,6 +3254,14 @@ function resetForm(){
         "";
 
 
+    rollInput.value =
+        "";
+
+
+    rollInput.readOnly =
+        true;
+
+
     document.getElementById(
         "formTitle"
     ).textContent =
@@ -2906,20 +3274,18 @@ function resetForm(){
         "💾 শিক্ষার্থী সংরক্ষণ";
 
 
+    /*
+       Current year automatically select
+    */
+
     const currentYear =
         String(
             new Date().getFullYear()
         );
 
 
-    const select =
-        document.getElementById(
-            "session"
-        );
-
-
     const exists =
-        [...select.options]
+        [...sessionSelect.options]
         .some(
             option =>
                 option.value ===
@@ -2929,22 +3295,35 @@ function resetForm(){
 
     if(exists){
 
-        select.value =
+        sessionSelect.value =
             currentYear;
     }
 
 
+    await generateStudentId();
+
+
     /*
-       নতুন Student ID আবার generate
+       যদি class আগে selected থাকে,
+       নতুন Roll generate হবে।
     */
 
-    generateStudentId();
+    if(
+        classSelect.value &&
+        sessionSelect.value
+    ){
+
+        await generateNextRoll(
+            classSelect.value,
+            sessionSelect.value
+        );
+    }
 }
 
 
-/* =====================================================
-   CLEAR FILTER
-===================================================== */
+/* =========================================================
+   CLEAR FILTERS
+========================================================= */
 
 function clearFilters(){
 
@@ -2958,17 +3337,22 @@ function clearFilters(){
         "";
 
     renderStudents();
+
+    updateStats();
 }
 
 
-/* =====================================================
+/* =========================================================
    FILTER EVENTS
-===================================================== */
+========================================================= */
 
 searchInput.addEventListener(
     "input",
-    renderStudents
+    ()=>{
+        renderStudents();
+    }
 );
+
 
 yearFilter.addEventListener(
     "change",
@@ -2977,6 +3361,7 @@ yearFilter.addEventListener(
         updateStats();
     }
 );
+
 
 classFilter.addEventListener(
     "change",
@@ -2987,9 +3372,9 @@ classFilter.addEventListener(
 );
 
 
-/* =====================================================
+/* =========================================================
    PRINT DATE
-===================================================== */
+========================================================= */
 
 function printDate(){
 
@@ -3005,9 +3390,9 @@ function printDate(){
 }
 
 
-/* =====================================================
-   PRINT LIST
-===================================================== */
+/* =========================================================
+   BUILD PRINT LIST
+========================================================= */
 
 function buildPrintList(list){
 
@@ -3052,6 +3437,7 @@ function buildPrintList(list){
 
 
             rows += `
+
             <tr>
 
                 <td>
@@ -3119,6 +3505,7 @@ function buildPrintList(list){
                 </td>
 
             </tr>
+
             `;
         }
     );
@@ -3126,87 +3513,129 @@ function buildPrintList(list){
 
     printArea.innerHTML = `
 
-        <div class="print-header">
+        <div class="print-page">
 
-            <h1>
-                মাদরাসায়ে নূরুল কুরআন
-            </h1>
+            <div class="print-content">
 
-            <h2>
-                শিক্ষার্থীদের তালিকা
-            </h2>
+                <div class="print-header">
 
-            <p>
-                MADRASA-E NURUL QURAN
-            </p>
+                    <h1>
+                        মাদরাসায়ে নূরুল কুরআন
+                    </h1>
 
-        </div>
+                    <h2>
+                        শিক্ষার্থীদের তালিকা
+                    </h2>
 
+                    <p>
+                        MADRASA-E NURUL QURAN
+                    </p>
 
-        <div class="print-meta">
-
-            <span>
-                শিক্ষাবর্ষ:
-                <strong>
-                    ${escapeHtml(year)}
-                </strong>
-            </span>
-
-            <span>
-                শ্রেণি:
-                <strong>
-                    ${escapeHtml(className)}
-                </strong>
-            </span>
-
-            <span>
-                মোট:
-                <strong>
-                    ${list.length}
-                </strong>
-            </span>
-
-            <span>
-                তারিখ:
-                ${printDate()}
-            </span>
-
-        </div>
+                </div>
 
 
-        <table class="print-table">
+                <div class="print-meta">
 
-            <thead>
+                    <span>
+                        শিক্ষাবর্ষ:
+                        <strong>
+                            ${escapeHtml(year)}
+                        </strong>
+                    </span>
 
-                <tr>
+                    <span>
+                        শ্রেণি:
+                        <strong>
+                            ${escapeHtml(className)}
+                        </strong>
+                    </span>
 
-                    <th>ক্রম</th>
-                    <th>ছবি</th>
-                    <th>Student ID</th>
-                    <th>Roll</th>
-                    <th>শিক্ষার্থীর নাম</th>
-                    <th>পিতার নাম</th>
-                    <th>মাতার নাম</th>
-                    <th>মোবাইল</th>
-                    <th>শ্রেণি</th>
-                    <th>বছর</th>
-                    <th>ভর্তির তারিখ</th>
+                    <span>
+                        মোট:
+                        <strong>
+                            ${list.length}
+                        </strong>
+                    </span>
 
-                </tr>
+                    <span>
+                        তারিখ:
+                        ${printDate()}
+                    </span>
 
-            </thead>
-
-            <tbody>
-                ${rows}
-            </tbody>
-
-        </table>
+                </div>
 
 
-        <div class="print-footer">
+                <table class="print-table">
 
-            মাদরাসায়ে নূরুল কুরআন —
-            Student Management System
+                    <thead>
+
+                        <tr>
+
+                            <th style="width:4%">
+                                ক্রম
+                            </th>
+
+                            <th style="width:5%">
+                                ছবি
+                            </th>
+
+                            <th style="width:9%">
+                                Student ID
+                            </th>
+
+                            <th style="width:5%">
+                                Roll
+                            </th>
+
+                            <th style="width:13%">
+                                শিক্ষার্থীর নাম
+                            </th>
+
+                            <th style="width:13%">
+                                পিতার নাম
+                            </th>
+
+                            <th style="width:13%">
+                                মাতার নাম
+                            </th>
+
+                            <th style="width:9%">
+                                মোবাইল
+                            </th>
+
+                            <th style="width:9%">
+                                শ্রেণি
+                            </th>
+
+                            <th style="width:7%">
+                                বছর
+                            </th>
+
+                            <th style="width:9%">
+                                ভর্তির তারিখ
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+                        ${rows}
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <!-- FOOTER ALWAYS BOTTOM -->
+
+            <div class="print-footer">
+
+                মাদরাসায়ে নূরুল কুরআন —
+                Student Management System
+
+            </div>
 
         </div>
     `;
@@ -3216,9 +3645,9 @@ function buildPrintList(list){
 }
 
 
-/* =====================================================
+/* =========================================================
    FILTERED PRINT
-===================================================== */
+========================================================= */
 
 function printFiltered(){
 
@@ -3241,9 +3670,9 @@ function printFiltered(){
 }
 
 
-/* =====================================================
+/* =========================================================
    ALL PRINT
-===================================================== */
+========================================================= */
 
 function printAll(){
 
@@ -3258,15 +3687,20 @@ function printAll(){
     }
 
 
+    /*
+       All Print-এ সব student থাকবে।
+       Serial 1 থেকেই শুরু হবে।
+    */
+
     buildPrintList(
         students
     );
 }
 
 
-/* =====================================================
+/* =========================================================
    SINGLE STUDENT PRINT
-===================================================== */
+========================================================= */
 
 function printStudent(encodedId){
 
@@ -3332,172 +3766,177 @@ function printStudent(encodedId){
 
         <div class="profile-print">
 
-            <div class="profile-title">
+            <div>
 
-                <h1>
-                    মাদরাসায়ে নূরুল কুরআন
-                </h1>
+                <div class="profile-title">
 
-                <p>
-                    MADRASA-E NURUL QURAN
-                </p>
+                    <h1>
+                        মাদরাসায়ে নূরুল কুরআন
+                    </h1>
 
-                <p>
-                    শিক্ষার্থী তথ্য বিবরণী
-                </p>
+                    <p>
+                        MADRASA-E NURUL QURAN
+                    </p>
 
-            </div>
+                    <p>
+                        শিক্ষার্থী তথ্য বিবরণী
+                    </p>
+
+                </div>
 
 
-            <div class="profile-box">
+                <div class="profile-box">
 
-                <div class="profile-photo-box">
+                    <div class="profile-photo-box">
 
-                    ${photo}
+                        ${photo}
 
-                    <div
-                        style="
-                            margin-top:4px;
-                            font-size:8px;
-                        "
-                    >
-                        Student Photo
+                        <div
+                            style="
+                                margin-top:4px;
+                                font-size:8px;
+                            "
+                        >
+                            Student Photo
+                        </div>
+
+                    </div>
+
+
+                    <div class="profile-info">
+
+                        <table>
+
+                            <tr>
+                                <td>Student ID</td>
+                                <td>
+                                    ${escapeHtml(
+                                        student.student_id || "—"
+                                    )}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Roll Number</td>
+                                <td>
+                                    ${escapeHtml(
+                                        student.roll_number || "—"
+                                    )}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>শিক্ষার্থীর নাম</td>
+                                <td>
+                                    ${escapeHtml(
+                                        student.name || "—"
+                                    )}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>পিতার নাম</td>
+                                <td>
+                                    ${escapeHtml(
+                                        student.father_name || "—"
+                                    )}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>মাতার নাম</td>
+                                <td>
+                                    ${escapeHtml(
+                                        student.mother_name || "—"
+                                    )}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>মোবাইল</td>
+                                <td>
+                                    ${escapeHtml(
+                                        student.phone || "—"
+                                    )}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>শিক্ষাবর্ষ</td>
+                                <td>
+                                    ${escapeHtml(
+                                        student.session || "—"
+                                    )}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>শ্রেণি</td>
+                                <td>
+                                    ${escapeHtml(
+                                        getClassName(
+                                            student.class_id
+                                        )
+                                    )}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>ভর্তির তারিখ</td>
+                                <td>
+                                    ${formatDate(
+                                        student.admission_date
+                                    )}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>ঠিকানা</td>
+                                <td>
+                                    ${escapeHtml(
+                                        student.address || "—"
+                                    )}
+                                </td>
+                            </tr>
+
+                        </table>
+
                     </div>
 
                 </div>
 
 
-                <div class="profile-info">
+                <div class="signature-row">
 
-                    <table>
+                    <div>
+                        ____________________<br>
+                        অভিভাবকের স্বাক্ষর
+                    </div>
 
-                        <tr>
-                            <td>Student ID</td>
-                            <td>
-                                ${escapeHtml(
-                                    student.student_id || "—"
-                                )}
-                            </td>
-                        </tr>
+                    <div>
+                        ____________________<br>
+                        শ্রেণি শিক্ষকের স্বাক্ষর
+                    </div>
 
-                        <tr>
-                            <td>Roll Number</td>
-                            <td>
-                                ${escapeHtml(
-                                    student.roll_number || "—"
-                                )}
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>শিক্ষার্থীর নাম</td>
-                            <td>
-                                ${escapeHtml(
-                                    student.name || "—"
-                                )}
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>পিতার নাম</td>
-                            <td>
-                                ${escapeHtml(
-                                    student.father_name || "—"
-                                )}
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>মাতার নাম</td>
-                            <td>
-                                ${escapeHtml(
-                                    student.mother_name || "—"
-                                )}
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>মোবাইল</td>
-                            <td>
-                                ${escapeHtml(
-                                    student.phone || "—"
-                                )}
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>শিক্ষাবর্ষ</td>
-                            <td>
-                                ${escapeHtml(
-                                    student.session || "—"
-                                )}
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>শ্রেণি</td>
-                            <td>
-                                ${escapeHtml(
-                                    getClassName(
-                                        student.class_id
-                                    )
-                                )}
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>ভর্তির তারিখ</td>
-                            <td>
-                                ${formatDate(
-                                    student.admission_date
-                                )}
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>ঠিকানা</td>
-                            <td>
-                                ${escapeHtml(
-                                    student.address || "—"
-                                )}
-                            </td>
-                        </tr>
-
-                    </table>
+                    <div>
+                        ____________________<br>
+                        অধ্যক্ষের স্বাক্ষর
+                    </div>
 
                 </div>
 
             </div>
 
 
-            <div class="signature-row">
+            <!-- PROFILE FOOTER BOTTOM -->
 
-                <div>
-                    ____________________<br>
-                    অভিভাবকের স্বাক্ষর
-                </div>
+            <div class="profile-footer">
 
-                <div>
-                    ____________________<br>
-                    শ্রেণি শিক্ষকের স্বাক্ষর
-                </div>
-
-                <div>
-                    ____________________<br>
-                    অধ্যক্ষের স্বাক্ষর
-                </div>
-
-            </div>
-
-
-            <div
-                style="
-                    text-align:center;
-                    margin-top:18px;
-                    font-size:8px;
-                "
-            >
+                মাদরাসায়ে নূরুল কুরআন —
+                Student Management System
+                &nbsp; | &nbsp;
                 Printed: ${printDate()}
+
             </div>
 
         </div>
@@ -3508,9 +3947,9 @@ function printStudent(encodedId){
 }
 
 
-/* =====================================================
-   WAIT IMAGE
-===================================================== */
+/* =========================================================
+   WAIT FOR PRINT IMAGES
+========================================================= */
 
 function waitAndPrint(){
 
@@ -3571,18 +4010,26 @@ function waitAndPrint(){
             img.addEventListener(
                 "load",
                 done,
-                {once:true}
+                {
+                    once:true
+                }
             );
 
             img.addEventListener(
                 "error",
                 done,
-                {once:true}
+                {
+                    once:true
+                }
             );
         }
 
     });
 
+
+    /*
+       Image আটকে গেলে 3 sec পরেও print হবে।
+    */
 
     setTimeout(
         ()=>{
@@ -3590,31 +4037,35 @@ function waitAndPrint(){
                 loaded <
                 images.length
             ){
+
                 window.print();
             }
+
         },
         3000
     );
 }
 
 
-/* =====================================================
+/* =========================================================
    AFTER PRINT
-===================================================== */
+========================================================= */
 
 window.addEventListener(
     "afterprint",
     ()=>{
+
         document.getElementById(
             "printArea"
         ).innerHTML = "";
+
     }
 );
 
 
-/* =====================================================
+/* =========================================================
    START
-===================================================== */
+========================================================= */
 
 async function start(){
 
@@ -3624,11 +4075,11 @@ async function start(){
         new Date().getFullYear();
 
 
-    const auth =
+    const authenticated =
         await checkAuth();
 
 
-    if(!auth){
+    if(!authenticated){
         return;
     }
 
@@ -3643,11 +4094,27 @@ async function start(){
 
 
     /*
-       নতুন student-এর জন্য
-       Student ID generate
+       New Student-এর জন্য Student ID
     */
 
     await generateStudentId();
+
+
+    /*
+       Current class + session থাকলে
+       Roll 01 থেকে generate হবে।
+    */
+
+    if(
+        classSelect.value &&
+        sessionSelect.value
+    ){
+
+        await generateNextRoll(
+            classSelect.value,
+            sessionSelect.value
+        );
+    }
 }
 
 
