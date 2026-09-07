@@ -3,226 +3,1480 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Teacher Attendance</title>
+
+<title>Teacher Attendance | মাদরাসায়ে নূরুল কুরআন</title>
+
+<link href="https://banglawebfonts.pages.dev/css/bornomala.css" rel="stylesheet">
 
 <style>
-*{box-sizing:border-box}
 
-body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#f4f7f6;
-color:#222
+*{
+    box-sizing:border-box;
 }
 
+:root{
+    --primary:#075c43;
+    --primary2:#087f5b;
+    --dark:#064b38;
+    --light:#eef8f5;
+    --border:#d8e5e0;
+    --text:#173c32;
+    --muted:#6b7d77;
+    --danger:#c62828;
+    --warning:#e79500;
+    --blue:#1565c0;
+    --white:#fff;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    background:#f3f8f6;
+    color:var(--text);
+    font-family:"Bornomala",Arial,sans-serif;
+}
+
+/* =========================
+   TOPBAR
+========================= */
+
 .top{
-background:#075c43;
-color:#fff;
-padding:17px 22px;
-display:flex;
-justify-content:space-between;
-align-items:center
+    min-height:54px;
+    padding:11px 18px;
+    background:var(--primary);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    box-shadow:0 2px 10px #0002;
 }
 
 .top h2{
-margin:0;
-color:#fff
+    margin:0;
+    color:#fff;
+    font-size:18px;
+    font-weight:bold;
 }
 
 .top a{
-color:#fff;
-text-decoration:none
+    color:#fff;
+    text-decoration:none;
+    border:1px solid #ffffff45;
+    padding:7px 13px;
+    border-radius:6px;
+    font-size:13px;
 }
 
+.top a:hover{
+    background:#ffffff15;
+}
+
+/* =========================
+   CONTAINER
+========================= */
+
 .container{
-max-width:1100px;
-margin:25px auto;
-padding:0 15px
+    width:100%;
+    max-width:1250px;
+    margin:20px auto;
+    padding:0 12px;
 }
 
 .box{
-background:#fff;
-padding:22px;
-border-radius:12px;
-box-shadow:0 2px 10px #0001;
-margin-bottom:20px
+    background:#fff;
+    border:1px solid #e1ebe7;
+    border-radius:11px;
+    padding:16px;
+    margin-bottom:17px;
+    box-shadow:0 2px 12px #0000000d;
 }
 
-.form{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:14px
+.box h3{
+    margin:0 0 14px;
+    color:var(--primary);
+    font-size:17px;
 }
 
-.full{
-grid-column:1/-1
+/* =========================
+   GRID
+========================= */
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
 }
 
-label{
-font-weight:bold;
-font-size:14px
+.field label{
+    display:block;
+    margin-bottom:5px;
+    font-size:13px;
+    font-weight:bold;
 }
 
-input,select{
-width:100%;
-padding:11px;
-margin-top:6px;
-border:1px solid #ddd;
-border-radius:7px
+input,
+select,
+textarea{
+    width:100%;
+    border:1px solid var(--border);
+    background:#fff;
+    border-radius:7px;
+    padding:9px 10px;
+    outline:none;
+    font-family:inherit;
+    font-size:13px;
+    color:var(--text);
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+    border-color:var(--primary2);
+    box-shadow:0 0 0 2px #087f5b15;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.buttons{
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+    margin-top:12px;
 }
 
 button{
-border:0;
-padding:9px 13px;
-border-radius:7px;
-background:#087f5b;
-color:#fff;
-font-weight:bold;
-cursor:pointer
+    border:0;
+    border-radius:6px;
+    padding:9px 14px;
+    color:#fff;
+    background:var(--primary2);
+    font-family:inherit;
+    font-size:13px;
+    font-weight:bold;
+    cursor:pointer;
 }
 
 button:hover{
-opacity:.9
+    opacity:.92;
+}
+
+button:disabled{
+    opacity:.55;
+    cursor:not-allowed;
+}
+
+.btn-danger{
+    background:var(--danger);
+}
+
+.btn-warning{
+    background:var(--warning);
+}
+
+.btn-blue{
+    background:var(--blue);
+}
+
+.btn-gray{
+    background:#607d8b;
+}
+
+.btn-dark{
+    background:#37474f;
+}
+
+/* =========================
+   MESSAGE
+========================= */
+
+.message{
+    display:none;
+    margin-top:10px;
+    padding:9px 11px;
+    border-radius:6px;
+    font-size:13px;
+    font-weight:bold;
+}
+
+.message.success{
+    display:block;
+    background:#e6f6ed;
+    color:#087f5b;
+}
+
+.message.error{
+    display:block;
+    background:#ffebee;
+    color:#c62828;
+}
+
+.message.info{
+    display:block;
+    background:#e8f1ff;
+    color:#1565c0;
+}
+
+/* =========================
+   SUMMARY
+========================= */
+
+.summary{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:10px;
+}
+
+.summary-card{
+    min-height:70px;
+    padding:11px;
+    background:#f0f8f5;
+    border:1px solid #e0eee9;
+    border-radius:8px;
+}
+
+.summary-card small{
+    display:block;
+    color:#607d75;
+    font-size:12px;
+}
+
+.summary-card strong{
+    display:block;
+    margin-top:4px;
+    color:var(--primary);
+    font-size:21px;
+}
+
+/* =========================
+   TEACHER TOOLBAR
+========================= */
+
+.teacher-toolbar{
+    display:flex;
+    gap:8px;
+    margin-bottom:12px;
+}
+
+.teacher-toolbar input{
+    flex:1;
+}
+
+/* =========================
+   TEACHER LIST
+========================= */
+
+.teacher-list{
+    max-height:590px;
+    overflow:auto;
+    padding-right:2px;
+}
+
+.teacher-header{
+    display:grid;
+    grid-template-columns:55px minmax(180px,1.5fr) minmax(130px,1fr) 150px minmax(150px,1fr);
+    gap:8px;
+    padding:9px 10px;
+    background:#075c43;
+    color:#fff;
+    font-size:12px;
+    font-weight:bold;
+    border-radius:6px;
+    margin-bottom:6px;
+}
+
+.teacher-row{
+    display:grid;
+    grid-template-columns:55px minmax(180px,1.5fr) minmax(130px,1fr) 150px minmax(150px,1fr);
+    gap:8px;
+    align-items:center;
+    padding:8px 10px;
+    margin-bottom:5px;
+    border:1px solid #dceae5;
+    background:#f2faf7;
+    border-radius:6px;
+}
+
+.teacher-row.present{
+    background:#edf9f2;
+}
+
+.teacher-row.absent{
+    background:#fff1f1;
+    border-color:#f3d2d2;
+}
+
+.teacher-row.late{
+    background:#fff9e8;
+    border-color:#f1dfb3;
+}
+
+.teacher-row.leave{
+    background:#eef5ff;
+    border-color:#d5e2f8;
+}
+
+.teacher-roll{
+    font-weight:bold;
+    color:var(--primary);
+}
+
+.teacher-name{
+    font-weight:bold;
+}
+
+.teacher-department{
+    color:#657a73;
+    font-size:12px;
+}
+
+.teacher-status{
+    padding:8px;
+}
+
+.note-input{
+    padding:8px;
+}
+
+/* =========================
+   TABLE
+========================= */
+
+.table-wrap{
+    width:100%;
+    overflow:auto;
 }
 
 table{
-width:100%;
-border-collapse:collapse;
-margin-top:15px
-}
-
-th,td{
-padding:10px;
-border-bottom:1px solid #ddd;
-text-align:left
+    width:100%;
+    border-collapse:collapse;
+    table-layout:fixed;
 }
 
 th{
-background:#075c43;
-color:#fff
+    padding:9px 8px;
+    background:var(--primary);
+    color:#fff;
+    text-align:left;
+    font-size:12px;
+    font-weight:bold;
+    border-right:1px solid #ffffff22;
 }
 
-.table-wrap{
-overflow:auto
+td{
+    padding:8px;
+    border-bottom:1px solid #e4ece9;
+    font-size:12px;
+    vertical-align:middle;
+}
+
+tbody tr:nth-child(even){
+    background:#f7fbfa;
+}
+
+tbody tr:hover{
+    background:#eef8f5;
+}
+
+.status{
+    display:inline-block;
+    padding:4px 8px;
+    border-radius:4px;
+    font-size:11px;
+    font-weight:bold;
+}
+
+.present-status{
+    background:#d9f3e3;
+    color:#087f5b;
+}
+
+.absent-status{
+    background:#ffe0e0;
+    color:#c62828;
+}
+
+.late-status{
+    background:#fff0c7;
+    color:#986500;
+}
+
+.leave-status{
+    background:#dce9ff;
+    color:#1565c0;
 }
 
 .action{
-white-space:nowrap
+    white-space:nowrap;
 }
 
-.edit{
-background:#1565c0;
-margin-right:5px
+.action button{
+    padding:5px 8px;
+    font-size:11px;
+    margin:1px;
 }
 
-.delete{
-background:#c62828
+/* =========================
+   REPORT
+========================= */
+
+.report-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:10px;
 }
 
-#msg{
-margin-top:12px;
-font-weight:bold
+.report-summary{
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    gap:9px;
+    margin-top:14px;
 }
 
-@media(max-width:650px){
-.form{
-grid-template-columns:1fr
+.report-card{
+    padding:11px;
+    background:#f2f8f6;
+    border:1px solid #e0ebe7;
+    border-radius:7px;
 }
 
-.full{
-grid-column:auto
+.report-card b{
+    display:block;
+    font-size:11px;
+    color:#60736d;
 }
+
+.report-card strong{
+    display:block;
+    margin-top:4px;
+    color:var(--primary);
+    font-size:19px;
 }
+
+/* =========================
+   PRINT HEADER
+========================= */
+
+.print-header{
+    display:none;
+}
+
+.print-title{
+    text-align:center;
+    font-size:21px;
+    font-weight:bold;
+    color:#064b38;
+    margin:0;
+}
+
+.print-subtitle{
+    text-align:center;
+    font-size:12px;
+    margin-top:3px;
+    color:#555;
+}
+
+.print-line{
+    border-top:1px solid #333;
+    margin:9px 0 12px;
+}
+
+.loading{
+    padding:20px;
+    text-align:center;
+    color:#70817c;
+}
+
+.empty{
+    padding:20px;
+    text-align:center;
+    color:#777;
+}
+
+.small-note{
+    margin-top:6px;
+    color:#70817c;
+    font-size:11px;
+}
+
+.hidden{
+    display:none!important;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:900px){
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .summary{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .report-grid{
+        grid-template-columns:1fr;
+    }
+
+    .report-summary{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .teacher-header{
+        display:none;
+    }
+
+    .teacher-row{
+        grid-template-columns:40px 1fr 120px;
+    }
+
+    .teacher-department{
+        grid-column:2;
+    }
+
+    .teacher-status{
+        grid-column:3;
+        grid-row:1 / span 2;
+    }
+
+    .note-input{
+        grid-column:2 / -1;
+    }
+
+}
+
+@media(max-width:520px){
+
+    .container{
+        padding:0 7px;
+        margin-top:12px;
+    }
+
+    .box{
+        padding:11px;
+        border-radius:8px;
+    }
+
+    .top{
+        padding:10px 11px;
+    }
+
+    .top h2{
+        font-size:15px;
+    }
+
+    .top a{
+        font-size:11px;
+        padding:6px 9px;
+    }
+
+    .summary{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .report-summary{
+        grid-template-columns:1fr 1fr;
+    }
+
+}
+
+/* =====================================================
+   A4 EXCEL STYLE PRINT
+===================================================== */
+
+@page{
+    size:A4 landscape;
+    margin:8mm;
+}
+
+@media print{
+
+    *{
+        -webkit-print-color-adjust:exact!important;
+        print-color-adjust:exact!important;
+    }
+
+    html,
+    body{
+        width:100%;
+        background:#fff!important;
+    }
+
+    body{
+        font-family:"Bornomala",Arial,sans-serif;
+        color:#111;
+    }
+
+    .top,
+    .no-print,
+    #controlBox,
+    #summaryBox,
+    #teacherBox,
+    #historyBox{
+        display:none!important;
+    }
+
+    .container{
+        max-width:none!important;
+        width:100%!important;
+        margin:0!important;
+        padding:0!important;
+    }
+
+    #reportBox{
+        display:block!important;
+        width:100%!important;
+        margin:0!important;
+        padding:0!important;
+        border:0!important;
+        box-shadow:none!important;
+    }
+
+    .print-header{
+        display:block!important;
+        page-break-inside:avoid;
+    }
+
+    .print-title{
+        font-size:20px;
+    }
+
+    .print-subtitle{
+        font-size:11px;
+    }
+
+    .report-summary{
+        display:grid!important;
+        grid-template-columns:repeat(6,1fr)!important;
+        gap:5px!important;
+        margin:8px 0!important;
+        page-break-inside:avoid;
+    }
+
+    .report-card{
+        border:1px solid #aaa!important;
+        border-radius:0!important;
+        padding:6px!important;
+        background:#f5f5f5!important;
+        min-height:43px!important;
+    }
+
+    .report-card b{
+        font-size:9px!important;
+        color:#222!important;
+    }
+
+    .report-card strong{
+        font-size:15px!important;
+        color:#000!important;
+    }
+
+    .table-wrap{
+        overflow:visible!important;
+        width:100%!important;
+    }
+
+    table{
+        width:100%!important;
+        min-width:0!important;
+        border-collapse:collapse!important;
+        table-layout:fixed!important;
+    }
+
+    th{
+        background:#075c43!important;
+        color:#fff!important;
+        border:1px solid #333!important;
+        padding:5px!important;
+        font-size:9px!important;
+    }
+
+    td{
+        border:1px solid #999!important;
+        padding:4px!important;
+        font-size:9px!important;
+        line-height:1.2!important;
+    }
+
+    tbody tr:nth-child(even){
+        background:#fafafa!important;
+    }
+
+    .status{
+        padding:2px 5px!important;
+        border-radius:2px!important;
+        font-size:8px!important;
+    }
+
+    .action{
+        display:none!important;
+    }
+
+    #reportList tr{
+        page-break-inside:avoid!important;
+    }
+
+    #reportBox h3,
+    #reportMessage{
+        display:none!important;
+    }
+
+}
+
+/* =========================
+   PRINT FOOTER
+========================= */
+
+.print-footer{
+    display:none;
+}
+
+@media print{
+
+    .print-footer{
+        display:flex!important;
+        justify-content:space-between;
+        margin-top:10px;
+        padding-top:5px;
+        border-top:1px solid #777;
+        font-size:8px;
+        color:#444;
+    }
+
+}
+
 </style>
 </head>
 
 <body>
 
+<!-- =====================================================
+     TOPBAR
+===================================================== -->
+
 <header class="top">
-<h2>👨‍🏫 Teacher Attendance</h2>
-<a href="dashboard.html">← Dashboard</a>
+
+    <h2>Teacher Attendance</h2>
+
+    <a href="dashboard.html">
+        Dashboard
+    </a>
+
 </header>
+
 
 <div class="container">
 
-<div class="box">
 
-<h3>Attendance নেওয়া</h3>
+<!-- =====================================================
+     ATTENDANCE CONTROL
+===================================================== -->
 
-<div class="form">
+<div class="box no-print" id="controlBox">
 
-<div>
-<label>Date</label>
-<input type="date" id="date">
+    <h3>Teacher Attendance</h3>
+
+    <div class="grid">
+
+        <div class="field">
+
+            <label>
+                Attendance Date
+            </label>
+
+            <input
+                type="date"
+                id="attendanceDate"
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Department / Section
+            </label>
+
+            <select id="departmentFilter">
+
+                <option value="">
+                    All Department / Section
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Default Attendance Status
+            </label>
+
+            <select id="defaultStatus">
+
+                <option value="Present">
+                    উপস্থিত
+                </option>
+
+                <option value="Absent">
+                    অনুপস্থিত
+                </option>
+
+                <option value="Late">
+                    দেরি
+                </option>
+
+                <option value="Leave">
+                    ছুটি
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <div class="buttons">
+
+        <button
+            type="button"
+            id="allPresentBtn"
+        >
+            সবাই উপস্থিত
+        </button>
+
+
+        <button
+            type="button"
+            id="allAbsentBtn"
+            class="btn-danger"
+        >
+            সবাই অনুপস্থিত
+        </button>
+
+
+        <button
+            type="button"
+            id="allLeaveBtn"
+            class="btn-warning"
+        >
+            সবাই ছুটি
+        </button>
+
+
+        <button
+            type="button"
+            id="allLateBtn"
+            class="btn-blue"
+        >
+            সবাই দেরি
+        </button>
+
+
+        <button
+            type="button"
+            id="refreshBtn"
+            class="btn-gray"
+        >
+            Refresh
+        </button>
+
+    </div>
+
+
+    <div
+        id="mainMessage"
+        class="message"
+    ></div>
+
+
+    <div class="small-note">
+        Department নির্বাচন করলে শুধুমাত্র নির্বাচিত Department-এর শিক্ষকদের attendance save হবে।
+    </div>
+
 </div>
 
-<div>
-<label>Teacher</label>
-<select id="teacher">
-<option value="">সব Teacher</option>
-</select>
+
+<!-- =====================================================
+     SUMMARY
+===================================================== -->
+
+<div class="box no-print" id="summaryBox">
+
+    <h3>
+        Today's Teacher Attendance Summary
+    </h3>
+
+
+    <div class="summary">
+
+        <div class="summary-card">
+
+            <small>
+                Total Teachers
+            </small>
+
+            <strong id="totalTeachers">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <small>
+                Present
+            </small>
+
+            <strong id="presentCount">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <small>
+                Absent
+            </small>
+
+            <strong id="absentCount">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <small>
+                Late
+            </small>
+
+            <strong id="lateCount">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <small>
+                Leave
+            </small>
+
+            <strong id="leaveCount">
+                0
+            </strong>
+
+        </div>
+
+    </div>
+
 </div>
 
-<div class="full">
-<button onclick="loadTeachers()" type="button">
-Load Teachers
-</button>
-</div>
+
+<!-- =====================================================
+     TEACHER LIST
+===================================================== -->
+
+<div class="box no-print" id="teacherBox">
+
+    <div
+        style="
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        gap:10px;
+        flex-wrap:wrap;
+        "
+    >
+
+        <h3 style="margin-bottom:10px;">
+            Teacher List
+        </h3>
+
+
+        <button
+            type="button"
+            id="saveAttendanceBtn"
+        >
+            Save Attendance
+        </button>
+
+    </div>
+
+
+    <div class="teacher-toolbar">
+
+        <input
+            type="text"
+            id="teacherSearch"
+            placeholder="Teacher Name / ID / Phone দিয়ে খুঁজুন..."
+        >
+
+    </div>
+
+
+    <div class="teacher-list">
+
+        <div class="teacher-header">
+
+            <div>
+                SL
+            </div>
+
+            <div>
+                Teacher Name
+            </div>
+
+            <div>
+                Department
+            </div>
+
+            <div>
+                Status
+            </div>
+
+            <div>
+                Note
+            </div>
+
+        </div>
+
+
+        <div id="teacherList">
+
+            <div class="loading">
+                Loading teachers...
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 
+
+<!-- =====================================================
+     ATTENDANCE HISTORY
+===================================================== -->
+
+<div class="box no-print" id="historyBox">
+
+    <h3>
+        Attendance History
+    </h3>
+
+
+    <div class="grid">
+
+        <div class="field">
+
+            <label>
+                Date
+            </label>
+
+            <input
+                type="date"
+                id="historyDate"
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Department / Section
+            </label>
+
+            <select id="historyDepartment">
+
+                <option value="">
+                    All Department / Section
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Search
+            </label>
+
+            <input
+                type="text"
+                id="historySearch"
+                placeholder="Teacher Name / ID..."
+            >
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="table-wrap"
+        style="margin-top:15px;"
+    >
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th style="width:9%;">
+                        ID
+                    </th>
+
+                    <th style="width:24%;">
+                        Teacher Name
+                    </th>
+
+                    <th style="width:17%;">
+                        Department
+                    </th>
+
+                    <th style="width:15%;">
+                        Date
+                    </th>
+
+                    <th style="width:13%;">
+                        Status
+                    </th>
+
+                    <th style="width:12%;">
+                        Note
+                    </th>
+
+                    <th style="width:10%;">
+                        Action
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody id="historyList">
+
+                <tr>
+
+                    <td
+                        colspan="7"
+                        class="loading"
+                    >
+                        Loading...
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
 </div>
 
 
-<div class="box">
+<!-- =====================================================
+     REPORT
+===================================================== -->
 
-<h3>👨‍🏫 Teacher List</h3>
+<div class="box" id="reportBox">
 
-<div class="table-wrap">
+    <div class="print-header">
 
-<table>
+        <h1 class="print-title">
+            মাদরাসায়ে নূরুল কুরআন
+        </h1>
 
-<thead>
+        <div class="print-subtitle">
+            Teacher Attendance Report
+        </div>
 
-<tr>
-<th>নাম</th>
-<th>পদবি</th>
-<th>Attendance</th>
-<th>Action</th>
-</tr>
+        <div class="print-line"></div>
 
-</thead>
+    </div>
 
-<tbody id="teacherList">
 
-<tr>
-<td colspan="4">
-Date নির্বাচন করে Load Teachers চাপুন
-</td>
-</tr>
+    <h3 class="no-print">
+        Attendance Report
+    </h3>
 
-</tbody>
 
-</table>
+    <div class="report-grid no-print">
+
+        <div class="field">
+
+            <label>
+                From Date
+            </label>
+
+            <input
+                type="date"
+                id="reportFrom"
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                To Date
+            </label>
+
+            <input
+                type="date"
+                id="reportTo"
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Department / Section
+            </label>
+
+            <select id="reportDepartment">
+
+                <option value="">
+                    All Department / Section
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <div class="buttons no-print">
+
+        <button
+            type="button"
+            id="generateReportBtn"
+        >
+            Generate Report
+        </button>
+
+
+        <button
+            type="button"
+            id="printReportBtn"
+            class="btn-blue"
+        >
+            Print / PDF
+        </button>
+
+    </div>
+
+
+    <div
+        id="reportMessage"
+        class="message no-print"
+    ></div>
+
+
+    <div id="reportContent">
+
+
+        <div class="report-summary">
+
+            <div class="report-card">
+
+                <b>
+                    Total Records
+                </b>
+
+                <strong id="reportTotal">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="report-card">
+
+                <b>
+                    Present
+                </b>
+
+                <strong id="reportPresent">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="report-card">
+
+                <b>
+                    Absent
+                </b>
+
+                <strong id="reportAbsent">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="report-card">
+
+                <b>
+                    Late
+                </b>
+
+                <strong id="reportLate">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="report-card">
+
+                <b>
+                    Leave
+                </b>
+
+                <strong id="reportLeave">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="report-card">
+
+                <b>
+                    Attendance %
+                </b>
+
+                <strong id="reportPercentage">
+                    0%
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="table-wrap"
+            style="margin-top:14px;"
+        >
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th style="width:10%;">
+                            Teacher ID
+                        </th>
+
+                        <th style="width:25%;">
+                            Teacher Name
+                        </th>
+
+                        <th style="width:17%;">
+                            Department
+                        </th>
+
+                        <th style="width:15%;">
+                            Date
+                        </th>
+
+                        <th style="width:13%;">
+                            Status
+                        </th>
+
+                        <th style="width:20%;">
+                            Note
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="reportList">
+
+                    <tr>
+
+                        <td
+                            colspan="6"
+                            class="empty"
+                        >
+                            Report generate করুন
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <div class="print-footer">
+
+            <span>
+                Teacher Attendance Report
+            </span>
+
+            <span>
+                Generated: <span id="printDate"></span>
+            </span>
+
+        </div>
+
+    </div>
 
 </div>
 
-<br>
-
-<button onclick="saveAttendance()" type="button">
-💾 Save Attendance
-</button>
-
-<div id="msg"></div>
 
 </div>
 
-</div>
 
+<!-- =====================================================
+     SUPABASE
+===================================================== -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
+
+/* =====================================================
+   SUPABASE CONFIG
+===================================================== */
 
 const SUPABASE_URL =
 "https://qavublwhqiqsgpcmfyft.supabase.co";
@@ -232,540 +1486,2460 @@ const SUPABASE_KEY =
 
 const db =
 window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
+    SUPABASE_URL,
+    SUPABASE_KEY
 );
 
 
-let teachers=[];
+/* =====================================================
+   GLOBAL DATA
+===================================================== */
+
+let teachers = [];
+
+let attendanceRecords = [];
+
+let currentAttendance = {};
 
 
-/* ================= DATE ================= */
+/* =====================================================
+   DATE
+===================================================== */
 
-document.getElementById("date").value =
-new Date().toISOString().split("T")[0];
+function today(){
 
+    const d = new Date();
 
-/* ================= START ================= */
+    const y =
+        d.getFullYear();
 
-async function start(){
+    const m =
+        String(
+            d.getMonth()+1
+        ).padStart(2,"0");
 
-const {
-data:{session}
-} = await db.auth.getSession();
+    const day =
+        String(
+            d.getDate()
+        ).padStart(2,"0");
 
-if(!session){
-
-location.href="admin.html";
-return;
-
-}
-
-
-const {
-data,
-error
-} = await db
-.from("teachers")
-.select("id,name,designation")
-.order("name");
-
-
-if(error){
-
-alert(error.message);
-return;
+    return `${y}-${m}-${day}`;
 
 }
 
 
-teachers=data || [];
-
-
-const select =
-document.getElementById("teacher");
-
-
-select.innerHTML =
-'<option value="">সব Teacher</option>';
-
-
-teachers.forEach(t=>{
-
-select.innerHTML += `
-
-<option value="${escapeHtml(t.id)}">
-
-${escapeHtml(t.name)}
-
-</option>
-
-`;
-
-});
-
-
-loadTeachers();
-
-}
-
-
-/* ================= LOAD TEACHERS ================= */
-
-async function loadTeachers(){
-
-const selected =
-document.getElementById("teacher").value;
-
-let list=teachers;
-
-
-if(selected){
-
-list =
-teachers.filter(t=>
-String(t.id) === String(selected)
-);
-
-}
-
-
-const date =
-document.getElementById("date").value;
-
-
-if(!date){
-
-alert("Date নির্বাচন করুন");
-return;
-
-}
-
-
-const {
-data:old,
-error
-} = await db
-.from("teacher_attendance")
-.select("id,teacher_id,status,attendance_date")
-.eq("attendance_date",date);
-
-
-if(error){
-
-document.getElementById("msg").textContent =
-"❌ "+error.message;
-
-return;
-
-}
-
-
-const oldMap={};
-
-
-(old || []).forEach(x=>{
-
-oldMap[x.teacher_id]=x;
-
-});
-
-
-const tbody =
-document.getElementById("teacherList");
-
-
-if(!list.length){
-
-tbody.innerHTML =
-'<tr><td colspan="4">কোনো Teacher নেই</td></tr>';
-
-return;
-
-}
-
-
-tbody.innerHTML =
-list.map(t=>{
-
-const record =
-oldMap[t.id];
-
-const status =
-record?.status || "present";
-
-
-return `
-
-<tr>
-
-<td>
-${escapeHtml(t.name)}
-</td>
-
-<td>
-${escapeHtml(t.designation || "-")}
-</td>
-
-<td>
-
-<select id="status_${escapeHtml(t.id)}">
-
-<option value="present"
-${status==="present"?"selected":""}>
-উপস্থিত
-</option>
-
-<option value="absent"
-${status==="absent"?"selected":""}>
-অনুপস্থিত
-</option>
-
-</select>
-
-</td>
-
-<td class="action">
-
-${
-record
-?
-`
-
-<button
-type="button"
-class="edit"
-onclick="editAttendance('${escapeHtml(record.id)}')">
-
-✏️ Edit
-
-</button>
-
-<button
-type="button"
-class="delete"
-onclick="deleteAttendance('${escapeHtml(record.id)}')">
-
-🗑️ Delete
-
-</button>
-
-`
-:
-`<span style="color:#777">Not saved</span>`
-}
-
-</td>
-
-</tr>
-
-`;
-
-}).join("");
-
-}
-
-
-/* ================= SAVE ================= */
-
-async function saveAttendance(){
-
-const date =
-document.getElementById("date").value;
-
-const selected =
-document.getElementById("teacher").value;
-
-
-if(!date){
-
-alert("Date নির্বাচন করুন");
-return;
-
-}
-
-
-let list=teachers;
-
-
-if(selected){
-
-list =
-teachers.filter(t=>
-String(t.id) === String(selected)
-);
-
-}
-
-
-if(!list.length){
-
-alert("Teacher পাওয়া যায়নি");
-return;
-
-}
-
-
-const rows =
-list.map(t=>({
-
-teacher_id:t.id,
-
-attendance_date:date,
-
-status:
-document.getElementById(
-"status_"+t.id
-).value
-
-}));
-
-
-const {
-error
-} = await db
-.from("teacher_attendance")
-.upsert(
-rows,
-{
-onConflict:
-"teacher_id,attendance_date"
-}
-);
-
-
-if(error){
-
-document.getElementById("msg").textContent =
-"❌ "+error.message;
-
-return;
-
-}
-
-
-document.getElementById("msg").textContent =
-"✅ Teacher Attendance saved successfully";
-
-
-await loadTeachers();
-
-}
-
-
-/* ================= EDIT ================= */
-
-async function editAttendance(id){
-
-if(!id){
-
-alert("Invalid Attendance ID");
-return;
-
-}
-
-
-const {
-data,
-error
-} = await db
-.from("teacher_attendance")
-.select("*")
-.eq("id",id)
-.maybeSingle();
-
-
-if(error){
-
-alert("❌ "+error.message);
-return;
-
-}
-
-
-if(!data){
-
-alert("❌ Attendance record পাওয়া যায়নি");
-return;
-
-}
-
-
-const current =
-data.status || "present";
-
-
-const newStatus =
-current === "present"
-?
-"absent"
-:
-"present";
-
-
-const confirmEdit =
-confirm(
-
-"বর্তমান Status: "+
-(
-current==="present"
-?
-"উপস্থিত"
-:
-"অনুপস্থিত"
-)+
-
-"\n\nনতুন Status হবে: "+
-(
-newStatus==="present"
-?
-"উপস্থিত"
-:
-"অনুপস্থিত"
-)+
-
-"\n\nUpdate করতে চান?"
-
-);
-
-
-if(!confirmEdit){
-
-return;
-
-}
-
-
-const {
-error:updateError
-} = await db
-.from("teacher_attendance")
-.update({
-status:newStatus
-})
-.eq("id",id);
-
-
-if(updateError){
-
-alert(
-"❌ Edit failed:\n"+
-updateError.message
-);
-
-return;
-
-}
-
-
-alert("✅ Attendance updated successfully");
-
-
-await loadTeachers();
-
-}
-
-
-/* ================= DELETE ================= */
-
-async function deleteAttendance(id){
-
-if(!id){
-
-alert("Invalid Attendance ID");
-return;
-
-}
-
-
-const confirmDelete =
-confirm(
-"এই Teacher Attendance record Delete করতে চান?"
-);
-
-
-if(!confirmDelete){
-
-return;
-
-}
-
-
-const {
-data,
-error
-} = await db
-.from("teacher_attendance")
-.delete()
-.eq("id",id)
-.select("id");
-
-
-if(error){
-
-alert(
-"❌ Delete failed:\n"+
-error.message
-);
-
-return;
-
-}
-
-
-if(!data || data.length===0){
-
-alert(
-"❌ Record Delete হয়নি। RLS permission check করুন।"
-);
-
-return;
-
-}
-
-
-alert(
-"✅ Teacher Attendance deleted successfully"
-);
-
-
-await loadTeachers();
-
-}
-
-
-/* ================= EVENTS ================= */
-
-document.getElementById("date")
-.addEventListener(
-"change",
-loadTeachers
-);
-
-
-document.getElementById("teacher")
-.addEventListener(
-"change",
-loadTeachers
-);
-
-
-/* ================= ESCAPE ================= */
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
 
 function escapeHtml(value){
 
-return String(value ?? "")
-
-.replaceAll("&","&amp;")
-.replaceAll("<","&lt;")
-.replaceAll(">","&gt;")
-.replaceAll('"',"&quot;")
-.replaceAll("'","&#039;");
+    return String(
+        value ?? ""
+    )
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 
 }
 
 
-/* ================= RUN ================= */
+/* =====================================================
+   MESSAGE
+===================================================== */
+
+function showMessage(
+    text,
+    type="info"
+){
+
+    const el =
+        document.getElementById(
+            "mainMessage"
+        );
+
+    el.textContent =
+        text;
+
+    el.className =
+        "message " + type;
+
+}
+
+
+function showReportMessage(
+    text,
+    type="info"
+){
+
+    const el =
+        document.getElementById(
+            "reportMessage"
+        );
+
+    el.textContent =
+        text;
+
+    el.className =
+        "message no-print " + type;
+
+}
+
+
+/* =====================================================
+   TEACHER NAME
+===================================================== */
+
+function teacherName(t){
+
+    return (
+        t.name ||
+        t.teacher_name ||
+        t.full_name ||
+        t.fullName ||
+        t.teacherName ||
+        "Unnamed Teacher"
+    );
+
+}
+
+
+/* =====================================================
+   TEACHER ID
+===================================================== */
+
+function teacherId(t){
+
+    return (
+        t.teacher_id ||
+        t.employee_id ||
+        t.id
+    );
+
+}
+
+
+/* =====================================================
+   DEPARTMENT
+===================================================== */
+
+function teacherDepartment(t){
+
+    return (
+        t.department ||
+        t.department_name ||
+        t.designation ||
+        t.section ||
+        t.subject ||
+        t.class_name ||
+        t.class ||
+        "-"
+    );
+
+}
+
+
+/* =====================================================
+   PHONE
+===================================================== */
+
+function teacherPhone(t){
+
+    return (
+        t.phone ||
+        t.mobile ||
+        t.contact ||
+        t.phone_number ||
+        ""
+    );
+
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+function statusBangla(status){
+
+    if(status==="Present")
+        return "উপস্থিত";
+
+    if(status==="Absent")
+        return "অনুপস্থিত";
+
+    if(status==="Late")
+        return "দেরি";
+
+    if(status==="Leave")
+        return "ছুটি";
+
+    return status || "";
+
+}
+
+
+function statusClass(status){
+
+    if(status==="Present")
+        return "present-status";
+
+    if(status==="Absent")
+        return "absent-status";
+
+    if(status==="Late")
+        return "late-status";
+
+    return "leave-status";
+
+}
+
+
+/* =====================================================
+   AUTH
+===================================================== */
+
+async function checkAuth(){
+
+    const {
+        data,
+        error
+    } =
+    await db.auth.getSession();
+
+    if(error){
+
+        showMessage(
+            "Session error: " +
+            error.message,
+            "error"
+        );
+
+        return false;
+
+    }
+
+    if(!data.session){
+
+        location.href =
+            "admin.html";
+
+        return false;
+
+    }
+
+    return true;
+
+}
+
+
+/* =====================================================
+   LOAD TEACHERS
+===================================================== */
+
+async function loadTeachers(){
+
+    const list =
+        document.getElementById(
+            "teacherList"
+        );
+
+    list.innerHTML =
+        `<div class="loading">
+            Loading teachers...
+        </div>`;
+
+
+    const {
+        data,
+        error
+    } =
+    await db
+        .from("teachers")
+        .select("*")
+        .order("id",{ascending:true});
+
+
+    if(error){
+
+        list.innerHTML = `
+            <div class="message error">
+                Teacher Load Error:
+                ${escapeHtml(error.message)}
+            </div>
+        `;
+
+        showMessage(
+            "Teacher data load করা যায়নি।",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    teachers =
+        data || [];
+
+
+    buildDepartmentFilters();
+
+    await loadTodayAttendance();
+
+    renderTeachers();
+
+    buildReportDepartment();
+
+}
+
+
+/* =====================================================
+   BUILD DEPARTMENT FILTERS
+===================================================== */
+
+function getDepartments(){
+
+    const set =
+        new Set();
+
+    teachers.forEach(t=>{
+
+        const d =
+            teacherDepartment(t);
+
+        if(
+            d &&
+            d !== "-"
+        ){
+
+            set.add(
+                String(d)
+            );
+
+        }
+
+    });
+
+    return Array.from(set).sort(
+        (a,b)=>
+            a.localeCompare(
+                b,
+                "bn"
+            )
+    );
+
+}
+
+
+/* =====================================================
+   BUILD ALL DEPARTMENT FILTERS
+===================================================== */
+
+function buildDepartmentFilters(){
+
+    const departments =
+        getDepartments();
+
+
+    const selects = [
+
+        document.getElementById(
+            "departmentFilter"
+        ),
+
+        document.getElementById(
+            "historyDepartment"
+        ),
+
+        document.getElementById(
+            "reportDepartment"
+        )
+
+    ];
+
+
+    selects.forEach(select=>{
+
+        const old =
+            select.value;
+
+
+        select.innerHTML = `
+
+            <option value="">
+                All Department / Section
+            </option>
+
+        `;
+
+
+        departments.forEach(dept=>{
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+            option.value =
+                dept;
+
+            option.textContent =
+                dept;
+
+            select.appendChild(
+                option
+            );
+
+        });
+
+
+        if(
+            departments.includes(old)
+        ){
+
+            select.value =
+                old;
+
+        }
+
+    });
+
+}
+
+
+/* =====================================================
+   REPORT DEPARTMENT
+===================================================== */
+
+function buildReportDepartment(){
+
+    const select =
+        document.getElementById(
+            "reportDepartment"
+        );
+
+    const old =
+        select.value;
+
+    const departments =
+        getDepartments();
+
+    select.innerHTML = `
+        <option value="">
+            All Department / Section
+        </option>
+    `;
+
+    departments.forEach(dept=>{
+
+        const option =
+            document.createElement(
+                "option"
+            );
+
+        option.value =
+            dept;
+
+        option.textContent =
+            dept;
+
+        select.appendChild(
+            option
+        );
+
+    });
+
+    if(
+        departments.includes(old)
+    ){
+
+        select.value =
+            old;
+
+    }
+
+}
+
+
+/* =====================================================
+   LOAD TODAY ATTENDANCE
+===================================================== */
+
+async function loadTodayAttendance(){
+
+    const date =
+        document.getElementById(
+            "attendanceDate"
+        ).value;
+
+
+    if(!date)
+        return;
+
+
+    const {
+        data,
+        error
+    } =
+    await db
+        .from("teacher_attendance")
+        .select("*")
+        .eq(
+            "attendance_date",
+            date
+        );
+
+
+    if(error){
+
+        attendanceRecords =
+            [];
+
+        currentAttendance =
+            {};
+
+        showMessage(
+            "Attendance load error: " +
+            error.message,
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    attendanceRecords =
+        data || [];
+
+
+    currentAttendance =
+        {};
+
+
+    attendanceRecords.forEach(
+        record=>{
+
+            currentAttendance[
+                String(
+                    record.teacher_id
+                )
+            ] = {
+
+                status:
+                    record.status ||
+                    "Present",
+
+                note:
+                    record.note ||
+                    "",
+
+                id:
+                    record.id
+
+            };
+
+        }
+    );
+
+
+    updateSummary();
+
+}
+
+
+/* =====================================================
+   RENDER TEACHERS
+===================================================== */
+
+function renderTeachers(){
+
+    const list =
+        document.getElementById(
+            "teacherList"
+        );
+
+
+    const selectedDepartment =
+        document.getElementById(
+            "departmentFilter"
+        ).value
+        .toLowerCase()
+        .trim();
+
+
+    const search =
+        document.getElementById(
+            "teacherSearch"
+        ).value
+        .toLowerCase()
+        .trim();
+
+
+    const filtered =
+        teachers.filter(t=>{
+
+            const name =
+                String(
+                    teacherName(t)
+                ).toLowerCase();
+
+
+            const id =
+                String(
+                    teacherId(t)
+                ).toLowerCase();
+
+
+            const phone =
+                String(
+                    teacherPhone(t)
+                ).toLowerCase();
+
+
+            const dept =
+                String(
+                    teacherDepartment(t)
+                ).toLowerCase();
+
+
+            const departmentMatch =
+                !selectedDepartment ||
+                dept === selectedDepartment;
+
+
+            const searchMatch =
+                !search ||
+                name.includes(search) ||
+                id.includes(search) ||
+                phone.includes(search);
+
+
+            return (
+                departmentMatch &&
+                searchMatch
+            );
+
+        });
+
+
+    document.getElementById(
+        "totalTeachers"
+    ).textContent =
+        filtered.length;
+
+
+    if(!filtered.length){
+
+        list.innerHTML =
+            `<div class="empty">
+                কোনো শিক্ষক পাওয়া যায়নি।
+            </div>`;
+
+        updateSummary();
+
+        return;
+
+    }
+
+
+    list.innerHTML =
+        filtered.map(
+            (teacher,index)=>{
+
+                const id =
+                    String(
+                        teacherId(
+                            teacher
+                        )
+                    );
+
+
+                const record =
+                    currentAttendance[id]
+                    || {};
+
+
+                const status =
+                    record.status ||
+                    "Present";
+
+
+                return `
+
+                <div
+                    class="teacher-row ${status.toLowerCase()}"
+                    data-teacher-row="${escapeHtml(id)}"
+                >
+
+                    <div class="teacher-roll">
+                        ${index+1}
+                    </div>
+
+
+                    <div class="teacher-name">
+
+                        ${escapeHtml(
+                            teacherName(
+                                teacher
+                            )
+                        )}
+
+                    </div>
+
+
+                    <div class="teacher-department">
+
+                        ${escapeHtml(
+                            teacherDepartment(
+                                teacher
+                            )
+                        )}
+
+                    </div>
+
+
+                    <select
+                        class="teacher-status"
+                        data-teacher-id="${escapeHtml(id)}"
+                    >
+
+                        <option
+                            value="Present"
+                            ${status==="Present"?"selected":""}
+                        >
+                            উপস্থিত
+                        </option>
+
+
+                        <option
+                            value="Absent"
+                            ${status==="Absent"?"selected":""}
+                        >
+                            অনুপস্থিত
+                        </option>
+
+
+                        <option
+                            value="Late"
+                            ${status==="Late"?"selected":""}
+                        >
+                            দেরি
+                        </option>
+
+
+                        <option
+                            value="Leave"
+                            ${status==="Leave"?"selected":""}
+                        >
+                            ছুটি
+                        </option>
+
+                    </select>
+
+
+                    <input
+                        class="note-input"
+                        data-note-id="${escapeHtml(id)}"
+                        value="${escapeHtml(record.note || "")}"
+                        placeholder="Note / মন্তব্য"
+                    >
+
+                </div>
+
+                `;
+
+            }
+        ).join("");
+
+
+    document
+        .querySelectorAll(
+            ".teacher-status"
+        )
+        .forEach(select=>{
+
+            select.addEventListener(
+                "change",
+                function(){
+
+                    const id =
+                        this.dataset.teacherId;
+
+                    setAttendanceStatus(
+                        id,
+                        this.value
+                    );
+
+                }
+            );
+
+        });
+
+
+    document
+        .querySelectorAll(
+            ".note-input"
+        )
+        .forEach(input=>{
+
+            input.addEventListener(
+                "input",
+                function(){
+
+                    const id =
+                        this.dataset.noteId;
+
+
+                    if(
+                        !currentAttendance[id]
+                    ){
+
+                        currentAttendance[id] = {
+
+                            status:
+                                "Present",
+
+                            note:
+                                "",
+
+                            id:
+                                null
+
+                        };
+
+                    }
+
+
+                    currentAttendance[id].note =
+                        this.value;
+
+                }
+            );
+
+        });
+
+
+    updateSummary();
+
+}
+
+
+/* =====================================================
+   SET STATUS
+===================================================== */
+
+function setAttendanceStatus(
+    id,
+    status
+){
+
+    if(
+        !currentAttendance[id]
+    ){
+
+        currentAttendance[id] = {
+
+            status:
+                status,
+
+            note:
+                "",
+
+            id:
+                null
+
+        };
+
+    }
+    else{
+
+        currentAttendance[id].status =
+            status;
+
+    }
+
+
+    const row =
+        document.querySelector(
+            `[data-teacher-row="${CSS.escape(id)}"]`
+        );
+
+
+    if(row){
+
+        row.classList.remove(
+            "present",
+            "absent",
+            "late",
+            "leave"
+        );
+
+
+        row.classList.add(
+            status.toLowerCase()
+        );
+
+    }
+
+
+    updateSummary();
+
+}
+
+
+/* =====================================================
+   SET ALL STATUS
+   IMPORTANT:
+   ONLY SELECTED DEPARTMENT
+===================================================== */
+
+function setAllStatus(status){
+
+    const selectedDepartment =
+        document.getElementById(
+            "departmentFilter"
+        ).value
+        .trim()
+        .toLowerCase();
+
+
+    if(!selectedDepartment){
+
+        showMessage(
+            "প্রথমে Department / Section নির্বাচন করুন। তারপর সবাইকে একসাথে status দিন।",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const selectedTeachers =
+        teachers.filter(t=>{
+
+            const dept =
+                String(
+                    teacherDepartment(t)
+                )
+                .trim()
+                .toLowerCase();
+
+            return (
+                dept ===
+                selectedDepartment
+            );
+
+        });
+
+
+    if(!selectedTeachers.length){
+
+        showMessage(
+            "এই Department-এ কোনো শিক্ষক পাওয়া যায়নি।",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    selectedTeachers.forEach(
+        teacher=>{
+
+            const id =
+                String(
+                    teacherId(
+                        teacher
+                    )
+                );
+
+
+            if(
+                !currentAttendance[id]
+            ){
+
+                currentAttendance[id] = {
+
+                    status:
+                        status,
+
+                    note:
+                        "",
+
+                    id:
+                        null
+
+                };
+
+            }
+            else{
+
+                currentAttendance[id].status =
+                    status;
+
+            }
+
+        }
+    );
+
+
+    renderTeachers();
+
+
+    showMessage(
+        "Selected Department-এর সব শিক্ষককে " +
+        statusBangla(status) +
+        " করা হয়েছে। এখন Save Attendance চাপুন।",
+        "success"
+    );
+
+}
+
+
+/* =====================================================
+   SUMMARY
+===================================================== */
+
+function updateSummary(){
+
+    const selectedDepartment =
+        document.getElementById(
+            "departmentFilter"
+        ).value
+        .trim()
+        .toLowerCase();
+
+
+    const selectedTeachers =
+        teachers.filter(t=>{
+
+            const dept =
+                String(
+                    teacherDepartment(t)
+                )
+                .trim()
+                .toLowerCase();
+
+            return (
+                !selectedDepartment ||
+                dept === selectedDepartment
+            );
+
+        });
+
+
+    let present = 0;
+    let absent = 0;
+    let late = 0;
+    let leave = 0;
+
+
+    selectedTeachers.forEach(
+        teacher=>{
+
+            const id =
+                String(
+                    teacherId(
+                        teacher
+                    )
+                );
+
+
+            const status =
+                currentAttendance[id]
+                ?.status ||
+                "Present";
+
+
+            if(status==="Present")
+                present++;
+
+            else if(status==="Absent")
+                absent++;
+
+            else if(status==="Late")
+                late++;
+
+            else if(status==="Leave")
+                leave++;
+
+        }
+    );
+
+
+    document.getElementById(
+        "totalTeachers"
+    ).textContent =
+        selectedTeachers.length;
+
+
+    document.getElementById(
+        "presentCount"
+    ).textContent =
+        present;
+
+
+    document.getElementById(
+        "absentCount"
+    ).textContent =
+        absent;
+
+
+    document.getElementById(
+        "lateCount"
+    ).textContent =
+        late;
+
+
+    document.getElementById(
+        "leaveCount"
+    ).textContent =
+        leave;
+
+}
+
+
+/* =====================================================
+   SAVE ATTENDANCE
+   ONLY SELECTED DEPARTMENT
+===================================================== */
+
+async function saveAttendance(){
+
+    const selectedDepartment =
+        document.getElementById(
+            "departmentFilter"
+        ).value.trim();
+
+
+    if(!selectedDepartment){
+
+        showMessage(
+            "Save করার আগে Department / Section নির্বাচন করুন।",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const date =
+        document.getElementById(
+            "attendanceDate"
+        ).value;
+
+
+    if(!date){
+
+        showMessage(
+            "Attendance Date নির্বাচন করুন।",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const selectedTeachers =
+        teachers.filter(t=>{
+
+            const dept =
+                String(
+                    teacherDepartment(t)
+                ).trim();
+
+
+            return (
+                dept ===
+                selectedDepartment
+            );
+
+        });
+
+
+    if(!selectedTeachers.length){
+
+        showMessage(
+            "Selected Department-এ কোনো শিক্ষক নেই।",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const btn =
+        document.getElementById(
+            "saveAttendanceBtn"
+        );
+
+
+    btn.disabled =
+        true;
+
+    btn.textContent =
+        "Saving...";
+
+
+    try{
+
+        /*
+        IMPORTANT:
+
+        এখানে শুধু selected department-এর
+        teachers নেওয়া হচ্ছে।
+
+        অন্য department-এর teacher
+        database-এ delete/update হবে না।
+        */
+
+
+        const teacherIds =
+            selectedTeachers.map(
+                t=>teacherId(t)
+            );
+
+
+        /*
+        Existing attendance for
+        ONLY selected department
+        and selected date remove করা হবে.
+        */
+
+
+        const {
+            error:deleteError
+        } =
+        await db
+            .from(
+                "teacher_attendance"
+            )
+            .delete()
+            .eq(
+                "attendance_date",
+                date
+            )
+            .in(
+                "teacher_id",
+                teacherIds
+            );
+
+
+        if(deleteError){
+
+            throw deleteError;
+
+        }
+
+
+        const rows =
+            selectedTeachers.map(
+                teacher=>{
+
+                    const id =
+                        teacherId(
+                            teacher
+                        );
+
+
+                    const record =
+                        currentAttendance[
+                            String(id)
+                        ] || {};
+
+
+                    /*
+                    NOTE intentionally
+                    omitted here because some
+                    teacher_attendance schemas
+                    don't have note column.
+                    */
+
+                    return {
+
+                        teacher_id:
+                            id,
+
+                        attendance_date:
+                            date,
+
+                        status:
+                            record.status ||
+                            "Present"
+
+                    };
+
+                }
+            );
+
+
+        const {
+            error:insertError
+        } =
+        await db
+            .from(
+                "teacher_attendance"
+            )
+            .insert(rows);
+
+
+        if(insertError){
+
+            throw insertError;
+
+        }
+
+
+        showMessage(
+            selectedDepartment +
+            " Department-এর " +
+            selectedTeachers.length +
+            " জন শিক্ষকের attendance successfully saved.",
+            "success"
+        );
+
+
+        await loadTodayAttendance();
+
+        renderTeachers();
+
+        await loadHistory();
+
+    }
+    catch(error){
+
+        showMessage(
+            "Attendance Save Error: " +
+            error.message,
+            "error"
+        );
+
+    }
+    finally{
+
+        btn.disabled =
+            false;
+
+        btn.textContent =
+            "Save Attendance";
+
+    }
+
+}
+
+
+/* =====================================================
+   LOAD HISTORY
+===================================================== */
+
+async function loadHistory(){
+
+    const tbody =
+        document.getElementById(
+            "historyList"
+        );
+
+
+    tbody.innerHTML = `
+        <tr>
+            <td colspan="7" class="loading">
+                Loading...
+            </td>
+        </tr>
+    `;
+
+
+    let query =
+        db
+            .from(
+                "teacher_attendance"
+            )
+            .select("*")
+            .order(
+                "attendance_date",
+                {
+                    ascending:false
+                }
+            )
+            .order(
+                "id",
+                {
+                    ascending:false
+                }
+            )
+            .limit(1000);
+
+
+    const date =
+        document.getElementById(
+            "historyDate"
+        ).value;
+
+
+    if(date){
+
+        query =
+            query.eq(
+                "attendance_date",
+                date
+            );
+
+    }
+
+
+    const {
+        data,
+        error
+    } =
+    await query;
+
+
+    if(error){
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="7">
+                    ${escapeHtml(
+                        error.message
+                    )}
+                </td>
+            </tr>
+        `;
+
+        return;
+
+    }
+
+
+    let records =
+        data || [];
+
+
+    const department =
+        document.getElementById(
+            "historyDepartment"
+        ).value
+        .trim()
+        .toLowerCase();
+
+
+    const search =
+        document.getElementById(
+            "historySearch"
+        ).value
+        .toLowerCase()
+        .trim();
+
+
+    records =
+        records.filter(record=>{
+
+            const teacher =
+                teachers.find(
+                    t=>
+                        String(
+                            teacherId(t)
+                        ) ===
+                        String(
+                            record.teacher_id
+                        )
+                );
+
+
+            if(!teacher)
+                return false;
+
+
+            const name =
+                String(
+                    teacherName(teacher)
+                ).toLowerCase();
+
+
+            const id =
+                String(
+                    teacherId(teacher)
+                ).toLowerCase();
+
+
+            const dept =
+                String(
+                    teacherDepartment(
+                        teacher
+                    )
+                ).toLowerCase();
+
+
+            const departmentMatch =
+                !department ||
+                dept === department;
+
+
+            const searchMatch =
+                !search ||
+                name.includes(search) ||
+                id.includes(search);
+
+
+            return (
+                departmentMatch &&
+                searchMatch
+            );
+
+        });
+
+
+    if(!records.length){
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="7" class="empty">
+                    কোনো attendance record নেই
+                </td>
+            </tr>
+        `;
+
+        return;
+
+    }
+
+
+    tbody.innerHTML =
+        records.map(record=>{
+
+            const teacher =
+                teachers.find(
+                    t=>
+                        String(
+                            teacherId(t)
+                        ) ===
+                        String(
+                            record.teacher_id
+                        )
+                );
+
+
+            const name =
+                teacher ?
+                teacherName(teacher) :
+                "Unknown";
+
+
+            const id =
+                teacher ?
+                teacherId(teacher) :
+                record.teacher_id;
+
+
+            const dept =
+                teacher ?
+                teacherDepartment(
+                    teacher
+                ) :
+                "-";
+
+
+            const status =
+                record.status ||
+                "Present";
+
+
+            return `
+
+            <tr>
+
+                <td>
+                    ${escapeHtml(id)}
+                </td>
+
+                <td>
+                    ${escapeHtml(name)}
+                </td>
+
+                <td>
+                    ${escapeHtml(dept)}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        record.attendance_date
+                    )}
+                </td>
+
+                <td>
+
+                    <span
+                        class="status ${statusClass(status)}"
+                    >
+                        ${escapeHtml(
+                            statusBangla(status)
+                        )}
+                    </span>
+
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        record.note || "-"
+                    )}
+                </td>
+
+                <td class="action">
+
+                    <button
+                        class="btn-blue"
+                        onclick="editAttendance('${escapeHtml(String(record.id))}')"
+                    >
+                        Edit
+                    </button>
+
+                    <button
+                        class="btn-danger"
+                        onclick="deleteAttendance('${escapeHtml(String(record.id))}')"
+                    >
+                        Delete
+                    </button>
+
+                </td>
+
+            </tr>
+
+            `;
+
+        }).join("");
+
+}
+
+
+/* =====================================================
+   EDIT ATTENDANCE
+===================================================== */
+
+async function editAttendance(id){
+
+    const {
+        data,
+        error
+    } =
+    await db
+        .from(
+            "teacher_attendance"
+        )
+        .select("*")
+        .eq(
+            "id",
+            id
+        )
+        .maybeSingle();
+
+
+    if(error){
+
+        alert(
+            error.message
+        );
+
+        return;
+
+    }
+
+
+    if(!data){
+
+        alert(
+            "Attendance record পাওয়া যায়নি।"
+        );
+
+        return;
+
+    }
+
+
+    const teacher =
+        teachers.find(
+            t=>
+                String(
+                    teacherId(t)
+                ) ===
+                String(
+                    data.teacher_id
+                )
+        );
+
+
+    if(!teacher){
+
+        alert(
+            "Teacher record পাওয়া যায়নি।"
+        );
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "attendanceDate"
+    ).value =
+        data.attendance_date;
+
+
+    document.getElementById(
+        "departmentFilter"
+    ).value =
+        teacherDepartment(
+            teacher
+        );
+
+
+    currentAttendance =
+        {};
+
+
+    currentAttendance[
+        String(
+            data.teacher_id
+        )
+    ] = {
+
+        status:
+            data.status ||
+            "Present",
+
+        note:
+            data.note ||
+            "",
+
+        id:
+            data.id
+
+    };
+
+
+    renderTeachers();
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+
+    showMessage(
+        "Attendance edit mode-এ load হয়েছে।",
+        "info"
+    );
+
+}
+
+
+/* =====================================================
+   DELETE ATTENDANCE
+===================================================== */
+
+async function deleteAttendance(id){
+
+    if(
+        !confirm(
+            "এই attendance record delete করতে চান?"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    const {
+        error
+    } =
+    await db
+        .from(
+            "teacher_attendance"
+        )
+        .delete()
+        .eq(
+            "id",
+            id
+        );
+
+
+    if(error){
+
+        alert(
+            "Delete failed:\n" +
+            error.message
+        );
+
+        return;
+
+    }
+
+
+    await loadHistory();
+
+    await loadTodayAttendance();
+
+    renderTeachers();
+
+
+    showMessage(
+        "Attendance record deleted successfully.",
+        "success"
+    );
+
+}
+
+
+/* =====================================================
+   REPORT
+===================================================== */
+
+async function generateReport(){
+
+    const from =
+        document.getElementById(
+            "reportFrom"
+        ).value;
+
+
+    const to =
+        document.getElementById(
+            "reportTo"
+        ).value;
+
+
+    const department =
+        document.getElementById(
+            "reportDepartment"
+        ).value
+        .trim();
+
+
+    if(!from || !to){
+
+        showReportMessage(
+            "From Date এবং To Date নির্বাচন করুন।",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if(from > to){
+
+        showReportMessage(
+            "From Date অবশ্যই To Date-এর আগে হতে হবে।",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    showReportMessage(
+        "Report তৈরি হচ্ছে...",
+        "info"
+    );
+
+
+    let query =
+        db
+            .from(
+                "teacher_attendance"
+            )
+            .select("*")
+            .gte(
+                "attendance_date",
+                from
+            )
+            .lte(
+                "attendance_date",
+                to
+            )
+            .order(
+                "attendance_date",
+                {
+                    ascending:true
+                }
+            )
+            .order(
+                "id",
+                {
+                    ascending:true
+                }
+            );
+
+
+    const {
+        data,
+        error
+    } =
+    await query;
+
+
+    if(error){
+
+        showReportMessage(
+            "Report Error: " +
+            error.message,
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    let records =
+        data || [];
+
+
+    /*
+    Department filter client-side
+    করা হচ্ছে, কারণ teacher_attendance
+    table-এ department column নাও থাকতে পারে।
+    */
+
+
+    if(department){
+
+        records =
+            records.filter(
+                record=>{
+
+                    const teacher =
+                        teachers.find(
+                            t=>
+                                String(
+                                    teacherId(t)
+                                ) ===
+                                String(
+                                    record.teacher_id
+                                )
+                        );
+
+
+                    if(!teacher)
+                        return false;
+
+
+                    return (
+                        String(
+                            teacherDepartment(
+                                teacher
+                            )
+                        ).trim() ===
+                        department
+                    );
+
+                }
+            );
+
+    }
+
+
+    let present = 0;
+    let absent = 0;
+    let late = 0;
+    let leave = 0;
+
+
+    records.forEach(
+        record=>{
+
+            if(
+                record.status ===
+                "Present"
+            ){
+
+                present++;
+
+            }
+            else if(
+                record.status ===
+                "Absent"
+            ){
+
+                absent++;
+
+            }
+            else if(
+                record.status ===
+                "Late"
+            ){
+
+                late++;
+
+            }
+            else if(
+                record.status ===
+                "Leave"
+            ){
+
+                leave++;
+
+            }
+
+        }
+    );
+
+
+    const total =
+        records.length;
+
+
+    const attendanceBase =
+        present +
+        absent +
+        late;
+
+
+    const percentage =
+        attendanceBase > 0
+        ?
+        (
+            (
+                present +
+                late
+            )
+            /
+            attendanceBase
+            *
+            100
+        ).toFixed(2)
+        :
+        "0.00";
+
+
+    document.getElementById(
+        "reportTotal"
+    ).textContent =
+        total;
+
+
+    document.getElementById(
+        "reportPresent"
+    ).textContent =
+        present;
+
+
+    document.getElementById(
+        "reportAbsent"
+    ).textContent =
+        absent;
+
+
+    document.getElementById(
+        "reportLate"
+    ).textContent =
+        late;
+
+
+    document.getElementById(
+        "reportLeave"
+    ).textContent =
+        leave;
+
+
+    document.getElementById(
+        "reportPercentage"
+    ).textContent =
+        percentage + "%";
+
+
+    document.getElementById(
+        "printDate"
+    ).textContent =
+        new Date().toLocaleDateString(
+            "en-GB"
+        );
+
+
+    const tbody =
+        document.getElementById(
+            "reportList"
+        );
+
+
+    if(!records.length){
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="6" class="empty">
+                    এই সময়ের মধ্যে কোনো attendance record নেই।
+                </td>
+            </tr>
+        `;
+
+
+        showReportMessage(
+            "কোনো record পাওয়া যায়নি।",
+            "info"
+        );
+
+        return;
+
+    }
+
+
+    tbody.innerHTML =
+        records.map(
+            record=>{
+
+                const teacher =
+                    teachers.find(
+                        t=>
+                            String(
+                                teacherId(t)
+                            ) ===
+                            String(
+                                record.teacher_id
+                            )
+                    );
+
+
+                return `
+
+                <tr>
+
+                    <td>
+                        ${escapeHtml(
+                            teacher ?
+                            teacherId(teacher) :
+                            record.teacher_id
+                        )}
+                    </td>
+
+
+                    <td>
+                        ${escapeHtml(
+                            teacher ?
+                            teacherName(teacher) :
+                            "Unknown"
+                        )}
+                    </td>
+
+
+                    <td>
+                        ${escapeHtml(
+                            teacher ?
+                            teacherDepartment(
+                                teacher
+                            ) :
+                            "-"
+                        )}
+                    </td>
+
+
+                    <td>
+                        ${escapeHtml(
+                            record.attendance_date
+                        )}
+                    </td>
+
+
+                    <td>
+
+                        <span
+                            class="status ${statusClass(record.status)}"
+                        >
+                            ${escapeHtml(
+                                statusBangla(
+                                    record.status
+                                )
+                            )}
+                        </span>
+
+                    </td>
+
+
+                    <td>
+                        ${escapeHtml(
+                            record.note || "-"
+                        )}
+                    </td>
+
+                </tr>
+
+                `;
+
+            }
+        ).join("");
+
+
+    showReportMessage(
+        "Report তৈরি হয়েছে — " +
+        total +
+        " টি record।",
+        "success"
+    );
+
+}
+
+
+/* =====================================================
+   PRINT
+===================================================== */
+
+function printReport(){
+
+    const reportRows =
+        document.querySelectorAll(
+            "#reportList tr"
+        );
+
+
+    if(
+        !reportRows.length ||
+        reportRows[0].querySelector(
+            ".empty"
+        )
+    ){
+
+        alert(
+            "প্রথমে Report Generate করুন।"
+        );
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "printDate"
+    ).textContent =
+        new Date().toLocaleDateString(
+            "en-GB"
+        );
+
+
+    setTimeout(
+        ()=>{
+            window.print();
+        },
+        150
+    );
+
+}
+
+
+/* =====================================================
+   EVENTS
+===================================================== */
+
+document.getElementById(
+    "attendanceDate"
+).addEventListener(
+    "change",
+    async ()=>{
+
+        await loadTodayAttendance();
+
+        renderTeachers();
+
+    }
+);
+
+
+document.getElementById(
+    "departmentFilter"
+).addEventListener(
+    "change",
+    ()=>{
+
+        renderTeachers();
+
+        showMessage(
+            document.getElementById(
+                "departmentFilter"
+            ).value
+            ?
+            "Selected Department-এর শিক্ষক দেখানো হচ্ছে।"
+            :
+            "সব Department-এর শিক্ষক দেখানো হচ্ছে।",
+            "info"
+        );
+
+    }
+);
+
+
+document.getElementById(
+    "teacherSearch"
+).addEventListener(
+    "input",
+    renderTeachers
+);
+
+
+document.getElementById(
+    "historyDate"
+).addEventListener(
+    "change",
+    loadHistory
+);
+
+
+document.getElementById(
+    "historyDepartment"
+).addEventListener(
+    "change",
+    loadHistory
+);
+
+
+document.getElementById(
+    "historySearch"
+).addEventListener(
+    "input",
+    loadHistory
+);
+
+
+document.getElementById(
+    "allPresentBtn"
+).addEventListener(
+    "click",
+    ()=>setAllStatus(
+        "Present"
+    )
+);
+
+
+document.getElementById(
+    "allAbsentBtn"
+).addEventListener(
+    "click",
+    ()=>setAllStatus(
+        "Absent"
+    )
+);
+
+
+document.getElementById(
+    "allLeaveBtn"
+).addEventListener(
+    "click",
+    ()=>setAllStatus(
+        "Leave"
+    )
+);
+
+
+document.getElementById(
+    "allLateBtn"
+).addEventListener(
+    "click",
+    ()=>setAllStatus(
+        "Late"
+    )
+);
+
+
+document.getElementById(
+    "refreshBtn"
+).addEventListener(
+    "click",
+    async ()=>{
+
+        await loadTeachers();
+
+        await loadHistory();
+
+        showMessage(
+            "Attendance data refreshed.",
+            "success"
+        );
+
+    }
+);
+
+
+document.getElementById(
+    "saveAttendanceBtn"
+).addEventListener(
+    "click",
+    saveAttendance
+);
+
+
+document.getElementById(
+    "generateReportBtn"
+).addEventListener(
+    "click",
+    generateReport
+);
+
+
+document.getElementById(
+    "printReportBtn"
+).addEventListener(
+    "click",
+    printReport
+);
+
+
+/* =====================================================
+   START
+===================================================== */
+
+async function start(){
+
+    const auth =
+        await checkAuth();
+
+
+    if(!auth)
+        return;
+
+
+    const current =
+        today();
+
+
+    document.getElementById(
+        "attendanceDate"
+    ).value =
+        current;
+
+
+    document.getElementById(
+        "historyDate"
+    ).value =
+        current;
+
+
+    document.getElementById(
+        "reportFrom"
+    ).value =
+        current;
+
+
+    document.getElementById(
+        "reportTo"
+    ).value =
+        current;
+
+
+    await loadTeachers();
+
+    await loadHistory();
+
+}
+
 
 start();
 
