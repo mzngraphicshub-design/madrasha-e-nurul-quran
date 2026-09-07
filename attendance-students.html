@@ -15,20 +15,17 @@
 
 :root{
     --primary:#075c43;
+    --primary-dark:#034936;
     --primary2:#087f5b;
-    --primary3:#064936;
     --light:#eef8f5;
-    --border:#d7e4df;
+    --border:#d8e4df;
+    --text:#183d33;
+    --muted:#6b7c76;
     --danger:#c62828;
-    --danger-bg:#fff1f1;
-    --warning:#d88900;
-    --warning-bg:#fff8e6;
+    --warning:#e89000;
     --blue:#1565c0;
-    --blue-bg:#eef5ff;
-    --text:#173c32;
-    --muted:#687b75;
     --white:#fff;
-    --shadow:0 3px 15px rgba(0,0,0,.07);
+    --shadow:0 2px 12px rgba(0,0,0,.08);
 }
 
 html{
@@ -37,7 +34,7 @@ html{
 
 body{
     margin:0;
-    background:#f3f8f6;
+    background:#f2f7f5;
     color:var(--text);
     font-family:"Bornomala",Arial,sans-serif;
 }
@@ -47,20 +44,19 @@ body{
 ========================= */
 
 .top{
-    background:linear-gradient(135deg,var(--primary3),var(--primary2));
+    min-height:52px;
+    padding:10px 18px;
+    background:linear-gradient(90deg,var(--primary-dark),var(--primary2));
     color:#fff;
-    min-height:55px;
-    padding:11px 18px;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    box-shadow:0 2px 10px rgba(0,0,0,.15);
+    box-shadow:0 2px 8px rgba(0,0,0,.15);
 }
 
 .top h2{
     margin:0;
     font-size:18px;
-    color:#fff;
     font-weight:bold;
 }
 
@@ -68,13 +64,9 @@ body{
     color:#fff;
     text-decoration:none;
     font-size:13px;
-    padding:7px 10px;
+    padding:6px 10px;
     border:1px solid rgba(255,255,255,.25);
-    border-radius:6px;
-}
-
-.top a:hover{
-    background:rgba(255,255,255,.1);
+    border-radius:5px;
 }
 
 /* =========================
@@ -82,32 +74,28 @@ body{
 ========================= */
 
 .container{
-    max-width:1250px;
-    margin:20px auto;
+    width:min(1250px,100%);
+    margin:18px auto;
     padding:0 12px;
 }
 
-/* =========================
-   BOX
-========================= */
-
 .box{
     background:#fff;
-    border:1px solid #e1ebe7;
-    border-radius:12px;
-    padding:16px;
-    margin-bottom:18px;
+    border:1px solid #e4ece9;
+    border-radius:10px;
+    padding:15px;
+    margin-bottom:15px;
     box-shadow:var(--shadow);
 }
 
 .box h3{
-    margin:0 0 14px;
+    margin:0 0 13px;
     color:var(--primary);
-    font-size:17px;
+    font-size:16px;
 }
 
 /* =========================
-   GRID
+   FORM
 ========================= */
 
 .grid{
@@ -118,10 +106,9 @@ body{
 
 .field label{
     display:block;
-    font-size:13px;
-    font-weight:bold;
     margin-bottom:5px;
-    color:#35564d;
+    font-size:12px;
+    font-weight:bold;
 }
 
 input,
@@ -129,59 +116,41 @@ select,
 textarea{
     width:100%;
     border:1px solid var(--border);
-    border-radius:7px;
-    padding:10px;
+    border-radius:6px;
+    padding:9px 10px;
     background:#fff;
+    color:var(--text);
     font-family:inherit;
-    font-size:14px;
+    font-size:13px;
     outline:none;
-    color:#23473d;
 }
 
 input:focus,
 select:focus,
 textarea:focus{
     border-color:var(--primary2);
-    box-shadow:0 0 0 3px rgba(8,127,91,.08);
-}
-
-textarea{
-    min-height:75px;
-    resize:vertical;
-}
-
-/* =========================
-   BUTTONS
-========================= */
-
-.buttons{
-    display:flex;
-    gap:7px;
-    flex-wrap:wrap;
-    margin-top:12px;
+    box-shadow:0 0 0 2px rgba(8,127,91,.08);
 }
 
 button{
     border:0;
-    border-radius:7px;
-    padding:9px 14px;
+    border-radius:6px;
+    padding:9px 13px;
     cursor:pointer;
     color:#fff;
     font-family:inherit;
     font-weight:bold;
+    font-size:12px;
     background:var(--primary2);
-    transition:.15s;
 }
 
 button:hover{
-    transform:translateY(-1px);
-    opacity:.94;
+    filter:brightness(.95);
 }
 
 button:disabled{
-    opacity:.55;
+    opacity:.5;
     cursor:not-allowed;
-    transform:none;
 }
 
 .btn-danger{
@@ -200,10 +169,6 @@ button:disabled{
     background:var(--warning);
 }
 
-.btn-dark{
-    background:#344c45;
-}
-
 /* =========================
    MESSAGE
 ========================= */
@@ -211,28 +176,54 @@ button:disabled{
 .message{
     margin-top:10px;
     padding:9px 11px;
-    border-radius:7px;
+    border-radius:6px;
     display:none;
+    font-size:12px;
     font-weight:bold;
-    font-size:13px;
 }
 
 .message.success{
     display:block;
-    background:#e7f7ee;
+    background:#e6f6ee;
     color:#087f5b;
 }
 
 .message.error{
     display:block;
     background:#ffebee;
-    color:var(--danger);
+    color:#c62828;
 }
 
 .message.info{
     display:block;
-    background:#e8f1ff;
+    background:#eaf2ff;
     color:#1565c0;
+}
+
+/* =========================
+   BUTTON ROW
+========================= */
+
+.buttons{
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+    margin-top:12px;
+}
+
+/* =========================
+   CLASS WARNING
+========================= */
+
+.class-required{
+    margin-top:10px;
+    padding:9px 11px;
+    border:1px solid #f0d38a;
+    background:#fff9e8;
+    color:#875d00;
+    border-radius:6px;
+    font-size:12px;
+    font-weight:bold;
 }
 
 /* =========================
@@ -242,28 +233,27 @@ button:disabled{
 .summary{
     display:grid;
     grid-template-columns:repeat(5,1fr);
-    gap:10px;
+    gap:9px;
 }
 
 .summary-card{
-    background:#f1f8f5;
-    border:1px solid #e0eee9;
-    border-radius:9px;
-    padding:12px;
-    min-height:70px;
+    background:#f0f8f5;
+    border:1px solid #e1eeea;
+    border-radius:8px;
+    padding:11px;
 }
 
 .summary-card small{
     display:block;
-    font-size:12px;
-    color:#557069;
+    color:#647770;
+    font-size:11px;
 }
 
 .summary-card strong{
     display:block;
     margin-top:3px;
-    font-size:21px;
     color:var(--primary);
+    font-size:20px;
 }
 
 /* =========================
@@ -273,70 +263,91 @@ button:disabled{
 .student-toolbar{
     display:flex;
     gap:8px;
-    margin-bottom:12px;
-    flex-wrap:wrap;
+    margin-bottom:10px;
 }
 
 .student-toolbar input{
     flex:1;
-    min-width:220px;
 }
 
 /* =========================
-   STUDENT LIST HEADER
+   STUDENT LIST
 ========================= */
-
-.student-list-header{
-    display:grid;
-    grid-template-columns:55px minmax(180px,1.5fr) minmax(130px,1fr) 145px minmax(180px,1.2fr);
-    gap:10px;
-    padding:9px 12px;
-    background:#e8f2ef;
-    border:1px solid #d6e4df;
-    border-radius:7px;
-    margin-bottom:6px;
-    font-size:12px;
-    font-weight:bold;
-    color:#36564e;
-}
 
 .student-list{
     display:flex;
     flex-direction:column;
-    gap:6px;
-    max-height:560px;
+    gap:5px;
+    max-height:580px;
     overflow:auto;
     padding-right:2px;
 }
 
-.student-row{
+/*
+Excel style header
+*/
+.student-header{
     display:grid;
-    grid-template-columns:55px minmax(180px,1.5fr) minmax(130px,1fr) 145px minmax(180px,1.2fr);
-    align-items:center;
-    gap:10px;
-    background:#f4faf8;
-    border:1px solid #e2ece8;
-    border-radius:7px;
-    padding:7px 10px;
+    grid-template-columns:55px minmax(180px,1fr) 140px 145px minmax(160px,1fr);
+    gap:0;
+    background:var(--primary);
+    color:#fff;
+    border-radius:5px;
+    overflow:hidden;
 }
 
-.student-row:hover{
-    border-color:#b9d6cb;
+.student-header div{
+    padding:8px;
+    border-right:1px solid rgba(255,255,255,.18);
+    font-size:11px;
+    font-weight:bold;
+}
+
+.student-row{
+    display:grid;
+    grid-template-columns:55px minmax(180px,1fr) 140px 145px minmax(160px,1fr);
+    gap:0;
+    align-items:center;
+    border:1px solid #dce9e4;
+    border-radius:5px;
+    overflow:hidden;
+    background:#fff;
+}
+
+.student-row > div,
+.student-row > select,
+.student-row > input{
+    min-width:0;
+    border-radius:0;
+    border:0;
+    border-right:1px solid #dce9e4;
+    min-height:39px;
+}
+
+.student-row > div{
+    padding:8px;
+    display:flex;
+    align-items:center;
+}
+
+.student-row:nth-child(even){
+    background:#f7fbfa;
+}
+
+.student-row.present{
+    background:#eef9f3;
 }
 
 .student-row.absent{
-    background:var(--danger-bg);
-    border-color:#f1d5d5;
+    background:#fff2f2;
 }
 
 .student-row.late{
-    background:var(--warning-bg);
-    border-color:#f0dfb4;
+    background:#fff9e9;
 }
 
 .student-row.leave{
-    background:var(--blue-bg);
-    border-color:#d4e2f7;
+    background:#f0f5ff;
 }
 
 .roll{
@@ -349,16 +360,26 @@ button:disabled{
 }
 
 .student-class{
+    color:#657872;
     font-size:12px;
-    color:#607d75;
+}
+
+.student-status{
+    padding:7px 8px;
+    background:transparent;
 }
 
 .note-input{
-    padding:8px;
+    padding:7px 8px;
+    background:transparent;
+}
+
+.student-row:hover{
+    outline:1px solid #aad6c6;
 }
 
 /* =========================
-   HISTORY
+   HISTORY TABLE
 ========================= */
 
 .table-wrap{
@@ -368,43 +389,79 @@ button:disabled{
 
 table{
     width:100%;
-    min-width:900px;
     border-collapse:collapse;
-    background:#fff;
+    table-layout:fixed;
 }
 
 th{
     background:var(--primary);
     color:#fff;
-    padding:9px;
+    padding:8px;
+    border:1px solid #d4e2dd;
     text-align:left;
-    font-size:13px;
-    border:1px solid var(--primary3);
-    white-space:nowrap;
+    font-size:11px;
+    font-weight:bold;
 }
 
 td{
-    padding:8px;
-    border:1px solid #e1e9e6;
-    font-size:13px;
+    padding:7px 8px;
+    border:1px solid #dce7e3;
+    font-size:11px;
     vertical-align:middle;
 }
 
-tbody tr:hover{
-    background:#f7fbfa;
+tbody tr:nth-child(even){
+    background:#f8fbfa;
 }
+
+tbody tr:hover{
+    background:#eef8f5;
+}
+
+.history-table th:nth-child(1){
+    width:9%;
+}
+
+.history-table th:nth-child(2){
+    width:22%;
+}
+
+.history-table th:nth-child(3){
+    width:15%;
+}
+
+.history-table th:nth-child(4){
+    width:13%;
+}
+
+.history-table th:nth-child(5){
+    width:13%;
+}
+
+.history-table th:nth-child(6){
+    width:16%;
+}
+
+.history-table th:nth-child(7){
+    width:12%;
+}
+
+/* =========================
+   STATUS
+========================= */
 
 .status{
     display:inline-block;
-    padding:4px 9px;
-    border-radius:5px;
-    font-size:11px;
+    min-width:60px;
+    text-align:center;
+    padding:4px 7px;
+    border-radius:4px;
+    font-size:10px;
     font-weight:bold;
-    white-space:nowrap;
 }
 
-.present{
-    background:#d9f4e5;
+.present-status{
+    background:#d9f2e4;
     color:#087f5b;
 }
 
@@ -414,8 +471,8 @@ tbody tr:hover{
 }
 
 .late-status{
-    background:#fff0c7;
-    color:#9b6500;
+    background:#fff0c5;
+    color:#8c6200;
 }
 
 .leave-status{
@@ -424,9 +481,9 @@ tbody tr:hover{
 }
 
 .action button{
-    padding:6px 9px;
-    font-size:11px;
-    margin:2px;
+    padding:5px 8px;
+    margin:1px;
+    font-size:10px;
 }
 
 /* =========================
@@ -442,354 +499,301 @@ tbody tr:hover{
 .report-summary{
     display:grid;
     grid-template-columns:repeat(6,1fr);
-    gap:10px;
-    margin-top:14px;
+    gap:8px;
+    margin-top:12px;
 }
 
 .report-card{
-    padding:12px;
-    background:#f1f8f6;
-    border:1px solid #dfebe7;
-    border-radius:8px;
+    border:1px solid #dfeae6;
+    background:#f3f8f6;
+    border-radius:7px;
+    padding:10px;
 }
 
 .report-card b{
     display:block;
-    font-size:12px;
-    color:#60766f;
+    font-size:10px;
+    color:#63746e;
 }
 
 .report-card strong{
     display:block;
-    margin-top:4px;
-    font-size:21px;
+    margin-top:3px;
     color:var(--primary);
+    font-size:19px;
 }
 
-/* =========================
-   PRINT REPORT HEADER
-========================= */
-
-.print-report-header{
+.report-title{
     display:none;
 }
 
-.print-title{
-    font-size:21px;
-    font-weight:bold;
-    text-align:center;
-    color:#075c43;
-    margin:0;
-}
+/* =========================
+   LOADING / EMPTY
+========================= */
 
-.print-subtitle{
+.loading,
+.empty{
+    padding:22px;
     text-align:center;
-    font-size:13px;
-    color:#444;
-    margin-top:3px;
-}
-
-.print-meta{
-    display:flex;
-    justify-content:space-between;
-    gap:15px;
-    margin:12px 0;
-    padding:7px 0;
-    border-top:1px solid #aaa;
-    border-bottom:1px solid #aaa;
+    color:#778782;
     font-size:12px;
 }
 
-.print-summary{
-    display:grid;
-    grid-template-columns:repeat(6,1fr);
-    border:1px solid #333;
-    margin-bottom:12px;
-}
-
-.print-summary-item{
-    padding:7px;
-    text-align:center;
-    border-right:1px solid #333;
-}
-
-.print-summary-item:last-child{
-    border-right:0;
-}
-
-.print-summary-item small{
-    display:block;
-    font-size:10px;
-}
-
-.print-summary-item strong{
-    display:block;
-    font-size:15px;
-    margin-top:2px;
-}
-
-.print-footer{
-    margin-top:12px;
-    display:flex;
-    justify-content:space-between;
-    font-size:10px;
-    border-top:1px solid #aaa;
-    padding-top:6px;
-}
-
 /* =========================
-   UTILITIES
+   HIDDEN
 ========================= */
-
-.loading{
-    text-align:center;
-    padding:20px;
-    color:#607d75;
-}
-
-.empty{
-    text-align:center;
-    padding:20px;
-    color:#777;
-}
 
 .hidden{
     display:none!important;
 }
 
 /* =========================
-   MOBILE
+   PRINT
 ========================= */
 
-@media(max-width:900px){
+@page{
+    size:A4 landscape;
+    margin:7mm;
+}
 
-    .grid{
-        grid-template-columns:1fr 1fr;
+@media print{
+
+    *{
+        box-shadow:none!important;
+        text-shadow:none!important;
     }
 
-    .summary{
-        grid-template-columns:repeat(3,1fr);
+    html,
+    body{
+        width:100%;
+        margin:0;
+        padding:0;
+        background:#fff!important;
+        color:#111!important;
+    }
+
+    .top,
+    .no-print,
+    #attendanceBox,
+    #historyBox,
+    #mainMessage,
+    #reportMessage,
+    .buttons{
+        display:none!important;
+    }
+
+    .container{
+        width:100%;
+        max-width:none;
+        margin:0;
+        padding:0;
+    }
+
+    #reportBox{
+        display:block!important;
+        border:0!important;
+        margin:0!important;
+        padding:0!important;
+    }
+
+    .report-title{
+        display:block;
+        text-align:center;
+        margin-bottom:8px;
+    }
+
+    .report-title h1{
+        margin:0;
+        font-size:18px;
+        color:#111;
+    }
+
+    .report-title h2{
+        margin:2px 0;
+        font-size:13px;
+        font-weight:normal;
+    }
+
+    .report-title p{
+        margin:2px 0 7px;
+        font-size:10px;
     }
 
     .report-summary{
-        grid-template-columns:repeat(3,1fr);
+        grid-template-columns:repeat(6,1fr);
+        gap:4px;
+        margin:0 0 8px;
     }
 
-    .student-list-header{
-        display:none;
+    .report-card{
+        border:1px solid #777!important;
+        border-radius:0!important;
+        background:#fff!important;
+        padding:5px!important;
+        text-align:center;
     }
 
-    .student-row{
-        grid-template-columns:45px 1fr 120px;
+    .report-card b{
+        color:#111!important;
+        font-size:8px!important;
     }
 
-    .student-class{
-        grid-column:2;
+    .report-card strong{
+        color:#111!important;
+        font-size:13px!important;
     }
 
-    .note-input{
-        grid-column:1/-1;
+    .table-wrap{
+        overflow:visible!important;
+    }
+
+    table{
+        width:100%!important;
+        min-width:0!important;
+        border-collapse:collapse!important;
+        page-break-inside:auto;
+    }
+
+    tr{
+        page-break-inside:avoid;
+        page-break-after:auto;
+    }
+
+    thead{
+        display:table-header-group;
+    }
+
+    th{
+        background:#e5e5e5!important;
+        color:#111!important;
+        border:1px solid #555!important;
+        padding:4px 5px!important;
+        font-size:8px!important;
+    }
+
+    td{
+        color:#111!important;
+        border:1px solid #777!important;
+        padding:4px 5px!important;
+        font-size:8px!important;
+        line-height:1.2;
+    }
+
+    .status{
+        background:transparent!important;
+        color:#111!important;
+        padding:0!important;
+        min-width:0!important;
+        font-size:8px!important;
+    }
+
+    .print-footer{
+        display:flex!important;
+        justify-content:space-between;
+        margin-top:7px;
+        padding-top:5px;
+        border-top:1px solid #777;
+        font-size:8px;
     }
 
 }
 
-@media(max-width:600px){
+/* Hide print footer on screen */
+.print-footer{
+    display:none;
+}
 
-    .container{
-        margin:10px auto;
-        padding:0 8px;
-    }
+/* =========================
+   MOBILE
+========================= */
 
-    .box{
-        padding:12px;
-        margin-bottom:12px;
-    }
+@media(max-width:850px){
 
     .grid{
         grid-template-columns:1fr;
     }
 
     .summary{
-        grid-template-columns:1fr 1fr;
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .report-grid{
+        grid-template-columns:1fr;
     }
 
     .report-summary{
-        grid-template-columns:1fr 1fr;
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .student-header{
+        display:none;
     }
 
     .student-row{
-        grid-template-columns:40px 1fr 105px;
-        gap:7px;
-        padding:8px;
+        grid-template-columns:42px 1fr 110px;
+        gap:0;
+    }
+
+    .student-row > div,
+    .student-row > select,
+    .student-row > input{
+        border-bottom:1px solid #dce9e4;
     }
 
     .student-name{
-        font-size:13px;
+        grid-column:2;
     }
 
     .student-class{
+        grid-column:2;
         font-size:11px;
     }
 
-    .top{
-        padding:10px 12px;
+    .student-status{
+        grid-column:3;
+        grid-row:1 / span 2;
     }
 
-    .top h2{
-        font-size:15px;
-    }
-
-    .top a{
-        font-size:11px;
+    .note-input{
+        grid-column:2 / 4;
     }
 
 }
 
-/* =========================
-   PRINT
-========================= */
+@media(max-width:480px){
 
-@media print{
-
-    @page{
-        size:A4 landscape;
-        margin:8mm;
+    .container{
+        padding:0 7px;
+        margin-top:10px;
     }
 
-    html,
-    body{
-        background:#fff!important;
-        width:100%;
-        margin:0;
-        padding:0;
+    .box{
+        padding:10px;
+        border-radius:8px;
     }
 
-    body{
-        font-family:"Bornomala",Arial,sans-serif;
-        color:#111;
+    .top{
+        padding:9px 10px;
     }
 
-    body *{
-        visibility:hidden;
+    .top h2{
+        font-size:14px;
     }
 
-    #reportBox,
-    #reportBox *{
-        visibility:visible;
+    .top a{
+        font-size:10px;
     }
 
-    #reportBox{
-        position:absolute;
-        left:0;
-        top:0;
-        width:100%;
-        margin:0;
-        padding:0;
-        border:0;
-        box-shadow:none;
-        background:#fff;
+    .summary{
+        grid-template-columns:1fr 1fr;
     }
 
-    #reportBox > h3,
-    #reportBox > .report-grid,
-    #reportBox > .buttons,
-    #reportBox > #reportMessage{
-        display:none!important;
+    .summary-card{
+        padding:9px;
     }
 
-    #reportContent{
-        display:block!important;
-        width:100%;
-    }
-
-    .print-report-header{
-        display:block!important;
-    }
-
-    .report-summary{
-        display:none!important;
-    }
-
-    .table-wrap{
-        overflow:visible!important;
-        width:100%!important;
-    }
-
-    #reportListTable{
-        display:table!important;
-        width:100%!important;
-        min-width:0!important;
-        border-collapse:collapse!important;
-        table-layout:fixed;
-    }
-
-    #reportListTable th{
-        background:#075c43!important;
-        color:#fff!important;
-        border:1px solid #333!important;
-        padding:6px 5px!important;
-        font-size:10px!important;
-        text-align:left!important;
-    }
-
-    #reportListTable td{
-        color:#111!important;
-        border:1px solid #555!important;
-        padding:5px!important;
-        font-size:9px!important;
-        line-height:1.2!important;
-    }
-
-    #reportListTable th:nth-child(1),
-    #reportListTable td:nth-child(1){
-        width:9%;
-    }
-
-    #reportListTable th:nth-child(2),
-    #reportListTable td:nth-child(2){
-        width:25%;
-    }
-
-    #reportListTable th:nth-child(3),
-    #reportListTable td:nth-child(3){
-        width:18%;
-    }
-
-    #reportListTable th:nth-child(4),
-    #reportListTable td:nth-child(4){
-        width:15%;
-    }
-
-    #reportListTable th:nth-child(5),
-    #reportListTable td:nth-child(5){
-        width:13%;
-    }
-
-    #reportListTable th:nth-child(6),
-    #reportListTable td:nth-child(6){
-        width:20%;
-    }
-
-    .print-status{
-        font-weight:bold!important;
-        background:transparent!important;
-        padding:0!important;
-        border-radius:0!important;
-    }
-
-    .print-footer{
-        display:flex!important;
-    }
-
-    .no-print{
-        display:none!important;
-    }
-
-    .status{
-        background:transparent!important;
-        padding:0!important;
-        border-radius:0!important;
-        color:#111!important;
+    .summary-card strong{
+        font-size:18px;
     }
 
 }
@@ -798,7 +802,7 @@ tbody tr:hover{
 
 <body>
 
-<header class="top no-print">
+<header class="top">
     <h2>Student Attendance</h2>
     <a href="dashboard.html">Dashboard</a>
 </header>
@@ -816,7 +820,7 @@ tbody tr:hover{
     <div class="grid">
 
         <div class="field">
-            <label>Attendance Date *</label>
+            <label>Attendance Date</label>
             <input type="date" id="attendanceDate">
         </div>
 
@@ -839,6 +843,10 @@ tbody tr:hover{
             </select>
         </div>
 
+    </div>
+
+    <div id="classRequiredMessage" class="class-required">
+        Attendance save করার জন্য আগে একটি নির্দিষ্ট Class / Department নির্বাচন করুন।
     </div>
 
     <div class="buttons">
@@ -871,7 +879,7 @@ tbody tr:hover{
 
 
 <!-- =====================================================
-     TODAY SUMMARY
+     SUMMARY
 ===================================================== -->
 
 <div class="box">
@@ -928,7 +936,10 @@ tbody tr:hover{
             Student List
         </h3>
 
-        <button type="button" id="saveAttendanceBtn">
+        <button
+            type="button"
+            id="saveAttendanceBtn"
+        >
             Save Attendance
         </button>
 
@@ -944,20 +955,24 @@ tbody tr:hover{
 
     </div>
 
-    <div class="student-list-header">
+    <div class="student-list">
 
-        <div>Roll</div>
-        <div>Student Name</div>
-        <div>Class / Department</div>
-        <div>Status</div>
-        <div>Note</div>
+        <div class="student-header">
 
-    </div>
+            <div>Roll</div>
+            <div>Student Name</div>
+            <div>Class / Department</div>
+            <div>Status</div>
+            <div>Note</div>
 
-    <div id="studentList" class="student-list">
+        </div>
 
-        <div class="loading">
-            Loading students...
+        <div id="studentList">
+
+            <div class="loading">
+                Loading students...
+            </div>
+
         </div>
 
     </div>
@@ -976,32 +991,25 @@ tbody tr:hover{
     <div class="grid">
 
         <div class="field">
-
             <label>Date</label>
 
             <input
                 type="date"
                 id="historyDate"
             >
-
         </div>
 
         <div class="field">
-
             <label>Class / Department</label>
 
             <select id="historyClass">
-
                 <option value="">
                     All Class / Department
                 </option>
-
             </select>
-
         </div>
 
         <div class="field">
-
             <label>Search</label>
 
             <input
@@ -1009,14 +1017,13 @@ tbody tr:hover{
                 id="historySearch"
                 placeholder="Student Name / Roll / ID"
             >
-
         </div>
 
     </div>
 
-    <div class="table-wrap" style="margin-top:15px;">
+    <div class="table-wrap" style="margin-top:14px;">
 
-        <table>
+        <table class="history-table">
 
             <thead>
 
@@ -1055,6 +1062,18 @@ tbody tr:hover{
 
 <div class="box" id="reportBox">
 
+    <div class="report-title">
+
+        <h1>মাদরাসায়ে নূরুল কুরআন</h1>
+
+        <h2>Student Attendance Report</h2>
+
+        <p id="printReportPeriod">
+            Attendance Report
+        </p>
+
+    </div>
+
     <h3 class="no-print">
         Attendance Report
     </h3>
@@ -1085,20 +1104,17 @@ tbody tr:hover{
 
         <div class="field">
 
-            <label>Student</label>
+            <label>Student / Class</label>
 
             <select id="reportStudent">
-
                 <option value="">
                     সকল শিক্ষার্থী
                 </option>
-
             </select>
 
         </div>
 
     </div>
-
 
     <div class="buttons no-print">
 
@@ -1119,94 +1135,7 @@ tbody tr:hover{
 
     </div>
 
-
-    <div
-        id="reportMessage"
-        class="message no-print"
-    ></div>
-
-
-    <!-- PRINT HEADER -->
-
-    <div class="print-report-header">
-
-        <h1 class="print-title">
-            মাদরাসায়ে নূরুল কুরআন
-        </h1>
-
-        <div class="print-subtitle">
-            Student Attendance Report
-        </div>
-
-        <div class="print-meta">
-
-            <div>
-                From:
-                <strong id="printFrom">
-                    -
-                </strong>
-            </div>
-
-            <div>
-                To:
-                <strong id="printTo">
-                    -
-                </strong>
-            </div>
-
-            <div>
-                Student:
-                <strong id="printStudent">
-                    সকল শিক্ষার্থী
-                </strong>
-            </div>
-
-            <div>
-                Generated:
-                <strong id="printGenerated">
-                    -
-                </strong>
-            </div>
-
-        </div>
-
-
-        <div class="print-summary">
-
-            <div class="print-summary-item">
-                <small>Total Records</small>
-                <strong id="printTotal">0</strong>
-            </div>
-
-            <div class="print-summary-item">
-                <small>Present</small>
-                <strong id="printPresent">0</strong>
-            </div>
-
-            <div class="print-summary-item">
-                <small>Absent</small>
-                <strong id="printAbsent">0</strong>
-            </div>
-
-            <div class="print-summary-item">
-                <small>Late</small>
-                <strong id="printLate">0</strong>
-            </div>
-
-            <div class="print-summary-item">
-                <small>Leave</small>
-                <strong id="printLeave">0</strong>
-            </div>
-
-            <div class="print-summary-item">
-                <small>Attendance</small>
-                <strong id="printPercentage">0%</strong>
-            </div>
-
-        </div>
-
-    </div>
-
+    <div id="reportMessage" class="message"></div>
 
     <div id="reportContent">
 
@@ -1244,10 +1173,9 @@ tbody tr:hover{
 
         </div>
 
+        <div class="table-wrap" style="margin-top:12px;">
 
-        <div class="table-wrap" style="margin-top:15px;">
-
-            <table id="reportListTable">
+            <table>
 
                 <thead>
 
@@ -1278,16 +1206,13 @@ tbody tr:hover{
 
     </div>
 
-
-    <div class="print-footer print-report-header">
-
-        <span>
-            Student Attendance Report
-        </span>
+    <div class="print-footer">
 
         <span>
-            মাদরাসায়ে নূরুল কুরআন
+            Generated by Student Attendance System
         </span>
+
+        <span id="printGeneratedDate"></span>
 
     </div>
 
@@ -1322,17 +1247,24 @@ window.supabase.createClient(
 
 
 /* =====================================================
-   GLOBAL
+   GLOBAL DATA
 ===================================================== */
 
 let students = [];
+
 let classes = [];
+
 let attendanceRecords = [];
+
 let currentAttendance = {};
+
+let classNameMap = {};
+
+let editingAttendanceId = null;
 
 
 /* =====================================================
-   DATE
+   TODAY
 ===================================================== */
 
 function today(){
@@ -1343,10 +1275,12 @@ function today(){
         d.getFullYear();
 
     const m =
-        String(d.getMonth()+1).padStart(2,"0");
+        String(d.getMonth()+1)
+        .padStart(2,"0");
 
     const day =
-        String(d.getDate()).padStart(2,"0");
+        String(d.getDate())
+        .padStart(2,"0");
 
     return `${y}-${m}-${day}`;
 
@@ -1373,12 +1307,18 @@ function escapeHtml(value){
    MESSAGE
 ===================================================== */
 
-function showMessage(text,type="info"){
+function showMessage(
+    text,
+    type="info"
+){
 
     const el =
-        document.getElementById("mainMessage");
+        document.getElementById(
+            "mainMessage"
+        );
 
-    el.textContent = text;
+    el.textContent =
+        text;
 
     el.className =
         "message " + type;
@@ -1386,15 +1326,21 @@ function showMessage(text,type="info"){
 }
 
 
-function showReportMessage(text,type="info"){
+function showReportMessage(
+    text,
+    type="info"
+){
 
     const el =
-        document.getElementById("reportMessage");
+        document.getElementById(
+            "reportMessage"
+        );
 
-    el.textContent = text;
+    el.textContent =
+        text;
 
     el.className =
-        "message " + type + " no-print";
+        "message " + type;
 
 }
 
@@ -1419,9 +1365,9 @@ function studentName(s){
 function studentRoll(s){
 
     return (
-        s.roll ??
-        s.roll_no ??
         s.roll_number ??
+        s.roll_no ??
+        s.roll ??
         s.student_roll ??
         "-"
     );
@@ -1440,68 +1386,67 @@ function studentId(s){
    CLASS NAME
 ===================================================== */
 
-function getClassNameById(id){
-
-    if(
-        id === null ||
-        id === undefined ||
-        id === ""
-    ){
-        return "-";
-    }
-
-    const found =
-        classes.find(c =>
-            String(c.id) === String(id)
-        );
-
-    if(found){
-
-        return (
-            found.name ||
-            found.class_name ||
-            found.title ||
-            "-"
-        );
-
-    }
-
-    return String(id);
-
-}
-
-
 function studentClass(s){
 
     /*
-      Priority:
-      1. class_name stored directly
-      2. department
-      3. class_id mapped from classes table
+      First priority:
+      class_name stored directly in students
     */
 
-    if(s.class_name)
-        return s.class_name;
-
-    if(s.class_name_bn)
-        return s.class_name_bn;
-
-    if(s.department)
-        return s.department;
-
-    if(s.class)
-        return s.class;
-
-    if(s.className)
-        return s.className;
-
     if(
-        s.class_id !== undefined &&
-        s.class_id !== null
+        s.class_name &&
+        String(s.class_name).trim()
     ){
 
-        return getClassNameById(
-            s.class_id
+        return s.class_name;
+
+    }
+
+    if(
+        s.class_department &&
+        String(s.class_department).trim()
+    ){
+
+        return s.class_department;
+
+    }
+
+    if(
+        s.department &&
+        String(s.department).trim()
+    ){
+
+        return s.department;
+
+    }
+
+    if(
+        s.class &&
+        String(s.class).trim()
+    ){
+
+        return s.class;
+
+    }
+
+    /*
+      If students.class_id exists,
+      get name from classes table.
+    */
+
+    const id =
+        s.class_id ??
+        s.classId;
+
+    if(
+        id !== null &&
+        id !== undefined &&
+        id !== ""
+    ){
+
+        return (
+            classNameMap[String(id)] ||
+            String(id)
         );
 
     }
@@ -1517,13 +1462,13 @@ function studentClass(s){
 
 function statusClass(status){
 
-    if(status === "Present")
-        return "present";
+    if(status==="Present")
+        return "present-status";
 
-    if(status === "Absent")
+    if(status==="Absent")
         return "absent-status";
 
-    if(status === "Late")
+    if(status==="Late")
         return "late-status";
 
     return "leave-status";
@@ -1533,16 +1478,16 @@ function statusClass(status){
 
 function statusBangla(status){
 
-    if(status === "Present")
+    if(status==="Present")
         return "উপস্থিত";
 
-    if(status === "Absent")
+    if(status==="Absent")
         return "অনুপস্থিত";
 
-    if(status === "Late")
+    if(status==="Late")
         return "দেরি";
 
-    if(status === "Leave")
+    if(status==="Leave")
         return "ছুটি";
 
     return status || "-";
@@ -1603,226 +1548,47 @@ async function loadClasses(){
         .select("*")
         .order("id",{ascending:true});
 
+    classNameMap = {};
+
+    classes = [];
+
     if(error){
 
-        console.error(
-            "Class Load Error:",
-            error
-        );
+        /*
+          If classes table cannot load,
+          students data can still be used.
+        */
 
-        classes = [];
-
-        showMessage(
-            "Class list load করা যায়নি: " +
-            error.message,
-            "error"
+        console.warn(
+            "Classes load error:",
+            error.message
         );
 
         return;
 
     }
 
-    classes = data || [];
-
-    buildClassFilters();
-
-}
-
-
-/* =====================================================
-   BUILD CLASS FILTER
-===================================================== */
-
-function buildClassFilters(){
-
-    const classFilter =
-        document.getElementById(
-            "classFilter"
-        );
-
-    const historyClass =
-        document.getElementById(
-            "historyClass"
-        );
-
-    const oldMain =
-        classFilter.value;
-
-    const oldHistory =
-        historyClass.value;
-
-    classFilter.innerHTML =
-        `<option value="">All Class / Department</option>`;
-
-    historyClass.innerHTML =
-        `<option value="">All Class / Department</option>`;
+    classes =
+        data || [];
 
     classes.forEach(c=>{
 
         const id =
-            String(c.id);
+            c.id;
 
         const name =
-            c.name ||
-            c.class_name ||
-            c.title ||
+            c.name ??
+            c.class_name ??
+            c.title ??
+            c.department ??
             id;
 
-        const option1 =
-            document.createElement("option");
-
-        option1.value = id;
-
-        option1.textContent = name;
-
-        classFilter.appendChild(
-            option1
-        );
-
-
-        const option2 =
-            document.createElement("option");
-
-        option2.value = id;
-
-        option2.textContent = name;
-
-        historyClass.appendChild(
-            option2
-        );
+        classNameMap[
+            String(id)
+        ] =
+            String(name);
 
     });
-
-    /*
-      If students contain class names but
-      classes table is empty, create fallback
-      options from student data.
-    */
-
-    if(!classes.length){
-
-        const unique = [];
-
-        students.forEach(s=>{
-
-            const value =
-                s.class_name ||
-                s.department ||
-                s.class ||
-                s.className;
-
-            if(
-                value &&
-                !unique.includes(value)
-            ){
-
-                unique.push(value);
-
-            }
-
-        });
-
-        unique.sort();
-
-        unique.forEach(name=>{
-
-            const option1 =
-                document.createElement("option");
-
-            option1.value =
-                name;
-
-            option1.textContent =
-                name;
-
-            classFilter.appendChild(
-                option1
-            );
-
-
-            const option2 =
-                document.createElement("option");
-
-            option2.value =
-                name;
-
-            option2.textContent =
-                name;
-
-            historyClass.appendChild(
-                option2
-            );
-
-        });
-
-    }
-
-    if(
-        [...classFilter.options]
-            .some(o=>o.value === oldMain)
-    ){
-
-        classFilter.value =
-            oldMain;
-
-    }
-
-    if(
-        [...historyClass.options]
-            .some(o=>o.value === oldHistory)
-    ){
-
-        historyClass.value =
-            oldHistory;
-
-    }
-
-}
-
-
-/* =====================================================
-   CLASS FILTER MATCH
-===================================================== */
-
-function matchesClass(student,filter){
-
-    if(!filter)
-        return true;
-
-    /*
-      If classes table is available,
-      filter by class_id.
-    */
-
-    if(
-        student.class_id !== undefined &&
-        student.class_id !== null
-    ){
-
-        if(
-            String(student.class_id) ===
-            String(filter)
-        ){
-
-            return true;
-
-        }
-
-    }
-
-    /*
-      Fallback to class name
-    */
-
-    const className =
-        String(
-            studentClass(student)
-        ).toLowerCase();
-
-    return (
-        className ===
-        String(filter).toLowerCase()
-    );
 
 }
 
@@ -1843,6 +1609,12 @@ async function loadStudents(){
             Loading students...
         </div>`;
 
+    /*
+      First load classes.
+    */
+
+    await loadClasses();
+
     const {
         data,
         error
@@ -1850,7 +1622,10 @@ async function loadStudents(){
     await db
         .from("students")
         .select("*")
-        .order("id",{ascending:true});
+        .order(
+            "roll_number",
+            {ascending:true}
+        );
 
     if(error){
 
@@ -1866,7 +1641,7 @@ async function loadStudents(){
             "error"
         );
 
-        return false;
+        return;
 
     }
 
@@ -1881,7 +1656,178 @@ async function loadStudents(){
 
     renderStudents();
 
-    return true;
+}
+
+
+/* =====================================================
+   BUILD CLASS FILTERS
+===================================================== */
+
+function buildClassFilters(){
+
+    const classMap =
+        new Map();
+
+    /*
+      Classes table first
+    */
+
+    classes.forEach(c=>{
+
+        const id =
+            c.id;
+
+        const name =
+            c.name ??
+            c.class_name ??
+            c.title ??
+            c.department;
+
+        if(
+            id !== undefined &&
+            id !== null &&
+            name
+        ){
+
+            classMap.set(
+                String(id),
+                String(name)
+            );
+
+        }
+
+    });
+
+    /*
+      Student class values
+      are also collected.
+    */
+
+    students.forEach(s=>{
+
+        const id =
+            s.class_id ??
+            s.classId;
+
+        if(
+            id !== undefined &&
+            id !== null
+        ){
+
+            const name =
+                studentClass(s);
+
+            if(name && name !== "-"){
+
+                classMap.set(
+                    String(id),
+                    String(name)
+                );
+
+            }
+
+        }
+
+    });
+
+    /*
+      Direct class_name values
+    */
+
+    students.forEach(s=>{
+
+        const c =
+            s.class_name ||
+            s.department ||
+            s.class ||
+            s.class_department;
+
+        if(c){
+
+            classMap.set(
+                "name:" + String(c),
+                String(c)
+            );
+
+        }
+
+    });
+
+    const names =
+        [...new Set(
+            [...classMap.values()]
+                .filter(Boolean)
+                .map(x=>String(x))
+        )];
+
+    names.sort(
+        (a,b)=>
+            a.localeCompare(
+                b,
+                "bn",
+                {numeric:true}
+            )
+    );
+
+    const selects = [
+
+        document.getElementById(
+            "classFilter"
+        ),
+
+        document.getElementById(
+            "historyClass"
+        )
+
+    ];
+
+    selects.forEach(select=>{
+
+        if(!select)
+            return;
+
+        const old =
+            select.value;
+
+        select.innerHTML =
+            `<option value="">
+                All Class / Department
+            </option>`;
+
+        names.forEach(name=>{
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+            option.value =
+                name;
+
+            option.textContent =
+                name;
+
+            select.appendChild(
+                option
+            );
+
+        });
+
+        if(
+            [...select.options]
+                .some(
+                    o=>o.value===old
+                )
+        ){
+
+            select.value =
+                old;
+
+        }
+
+    });
+
+    updateClassSaveState();
 
 }
 
@@ -1913,7 +1859,7 @@ function buildStudentReportFilter(){
             String(studentId(s));
 
         option.textContent =
-            `${studentRoll(s)} — ${studentName(s)}`;
+            `${studentRoll(s)} — ${studentName(s)} — ${studentClass(s)}`;
 
         select.appendChild(
             option
@@ -1952,11 +1898,16 @@ async function loadTodayAttendance(){
 
     if(error){
 
-        attendanceRecords = [];
+        attendanceRecords =
+            [];
+
+        currentAttendance =
+            {};
 
         /*
-          If there is a column mismatch,
-          show exact database error.
+          Do not block student list
+          because old DB may have other
+          schema problems.
         */
 
         showMessage(
@@ -1972,7 +1923,8 @@ async function loadTodayAttendance(){
     attendanceRecords =
         data || [];
 
-    currentAttendance = {};
+    currentAttendance =
+        {};
 
     attendanceRecords.forEach(r=>{
 
@@ -1981,10 +1933,12 @@ async function loadTodayAttendance(){
         ] = {
 
             status:
-                r.status || "Present",
+                r.status ||
+                "Present",
 
             note:
-                r.note || "",
+                r.note ||
+                "",
 
             id:
                 r.id
@@ -1994,6 +1948,105 @@ async function loadTodayAttendance(){
     });
 
     updateSummary();
+
+}
+
+
+/* =====================================================
+   GET SELECTED CLASS
+===================================================== */
+
+function getSelectedClass(){
+
+    return document
+        .getElementById(
+            "classFilter"
+        )
+        .value
+        .trim();
+
+}
+
+
+/* =====================================================
+   CLASS MATCH
+===================================================== */
+
+function studentMatchesClass(
+    student,
+    selectedClass
+){
+
+    if(!selectedClass)
+        return true;
+
+    return String(
+        studentClass(student)
+    ).trim() ===
+    String(selectedClass).trim();
+
+}
+
+
+/* =====================================================
+   GET SELECTED STUDENTS
+===================================================== */
+
+function getSelectedClassStudents(){
+
+    const selectedClass =
+        getSelectedClass();
+
+    if(!selectedClass)
+        return [];
+
+    return students.filter(
+        s =>
+            studentMatchesClass(
+                s,
+                selectedClass
+            )
+    );
+
+}
+
+
+/* =====================================================
+   UPDATE SAVE STATE
+===================================================== */
+
+function updateClassSaveState(){
+
+    const selected =
+        getSelectedClass();
+
+    const saveBtn =
+        document.getElementById(
+            "saveAttendanceBtn"
+        );
+
+    const warning =
+        document.getElementById(
+            "classRequiredMessage"
+        );
+
+    if(!selected){
+
+        saveBtn.disabled =
+            true;
+
+        warning.style.display =
+            "block";
+
+        return;
+
+    }
+
+    saveBtn.disabled =
+        false;
+
+    warning.style.display =
+        "none";
 
 }
 
@@ -2009,20 +2062,35 @@ function renderStudents(){
             "studentList"
         );
 
-    const classFilter =
-        document.getElementById(
-            "classFilter"
-        ).value;
+    const selectedClass =
+        getSelectedClass();
 
     const search =
         document.getElementById(
             "studentSearch"
-        ).value
+        )
+        .value
         .toLowerCase()
         .trim();
 
-    const filtered =
+    /*
+      IMPORTANT:
+      Only selected class.
+    */
+
+    let filtered =
         students.filter(s=>{
+
+            if(
+                !studentMatchesClass(
+                    s,
+                    selectedClass
+                )
+            ){
+
+                return false;
+
+            }
 
             const name =
                 String(
@@ -2039,51 +2107,47 @@ function renderStudents(){
                     studentId(s)
                 ).toLowerCase();
 
-            const className =
-                String(
-                    studentClass(s)
-                ).toLowerCase();
-
-            const classMatch =
-                matchesClass(
-                    s,
-                    classFilter
-                );
-
-            const searchMatch =
+            return (
                 !search ||
                 name.includes(search) ||
                 roll.includes(search) ||
-                id.includes(search) ||
-                className.includes(search);
-
-            return (
-                classMatch &&
-                searchMatch
+                id.includes(search)
             );
 
         });
-
 
     document.getElementById(
         "totalStudents"
     ).textContent =
         filtered.length;
 
+    updateSummary();
 
-    if(!filtered.length){
+    if(!selectedClass){
 
-        list.innerHTML =
-            `<div class="empty">
-                কোনো শিক্ষার্থী পাওয়া যায়নি।
-            </div>`;
+        list.innerHTML = `
+            <div class="empty">
+                Attendance দেওয়ার জন্য উপরের Class / Department থেকে একটি class নির্বাচন করুন।
+            </div>
+        `;
 
-        updateSummary();
+        updateClassSaveState();
 
         return;
 
     }
 
+    if(!filtered.length){
+
+        list.innerHTML = `
+            <div class="empty">
+                এই class-এ কোনো শিক্ষার্থী পাওয়া যায়নি।
+            </div>
+        `;
+
+        return;
+
+    }
 
     list.innerHTML =
         filtered.map(s=>{
@@ -2099,9 +2163,6 @@ function renderStudents(){
 
             const status =
                 record.status ||
-                document.getElementById(
-                    "defaultStatus"
-                ).value ||
                 "Present";
 
             return `
@@ -2134,31 +2195,23 @@ function renderStudents(){
                     data-student-id="${escapeHtml(id)}"
                 >
 
-                    <option
-                        value="Present"
-                        ${status==="Present" ? "selected" : ""}
-                    >
+                    <option value="Present"
+                        ${status==="Present"?"selected":""}>
                         উপস্থিত
                     </option>
 
-                    <option
-                        value="Absent"
-                        ${status==="Absent" ? "selected" : ""}
-                    >
+                    <option value="Absent"
+                        ${status==="Absent"?"selected":""}>
                         অনুপস্থিত
                     </option>
 
-                    <option
-                        value="Late"
-                        ${status==="Late" ? "selected" : ""}
-                    >
+                    <option value="Late"
+                        ${status==="Late"?"selected":""}>
                         দেরি
                     </option>
 
-                    <option
-                        value="Leave"
-                        ${status==="Leave" ? "selected" : ""}
-                    >
+                    <option value="Leave"
+                        ${status==="Leave"?"selected":""}>
                         ছুটি
                     </option>
 
@@ -2167,7 +2220,9 @@ function renderStudents(){
                 <input
                     class="note-input"
                     data-note-id="${escapeHtml(id)}"
-                    value="${escapeHtml(record.note || "")}"
+                    value="${escapeHtml(
+                        record.note || ""
+                    )}"
                     placeholder="Note / মন্তব্য"
                 >
 
@@ -2177,6 +2232,9 @@ function renderStudents(){
 
         }).join("");
 
+    /*
+      Status events
+    */
 
     document
         .querySelectorAll(
@@ -2188,11 +2246,8 @@ function renderStudents(){
                 "change",
                 function(){
 
-                    const id =
-                        this.dataset.studentId;
-
                     setAttendanceStatus(
-                        id,
+                        this.dataset.studentId,
                         this.value
                     );
 
@@ -2201,6 +2256,9 @@ function renderStudents(){
 
         });
 
+    /*
+      Note events
+    */
 
     document
         .querySelectorAll(
@@ -2239,7 +2297,6 @@ function renderStudents(){
 
         });
 
-
     updateSummary();
 
 }
@@ -2254,12 +2311,13 @@ function setAttendanceStatus(
     status
 ){
 
-    if(!currentAttendance[id]){
+    if(
+        !currentAttendance[id]
+    ){
 
         currentAttendance[id] = {
 
-            status:
-                status,
+            status:status,
 
             note:"",
 
@@ -2274,12 +2332,10 @@ function setAttendanceStatus(
 
     }
 
-
     const row =
         document.querySelector(
             `[data-student-row="${CSS.escape(id)}"]`
         );
-
 
     if(row){
 
@@ -2305,88 +2361,56 @@ function setAttendanceStatus(
    SET ALL STATUS
 ===================================================== */
 
-function setAllStatus(status){
+function setAllStatus(
+    status
+){
 
-    const classFilter =
-        document.getElementById(
-            "classFilter"
-        ).value;
+    const selectedClass =
+        getSelectedClass();
 
-    const search =
-        document.getElementById(
-            "studentSearch"
-        ).value
-        .toLowerCase()
-        .trim();
+    if(!selectedClass){
 
+        showMessage(
+            "প্রথমে একটি Class / Department নির্বাচন করুন।",
+            "error"
+        );
 
-    students
-        .filter(s=>{
+        return;
 
-            const name =
-                String(
-                    studentName(s)
-                ).toLowerCase();
+    }
 
-            const roll =
-                String(
-                    studentRoll(s)
-                ).toLowerCase();
+    const classStudents =
+        getSelectedClassStudents();
 
-            const id =
-                String(
-                    studentId(s)
-                ).toLowerCase();
+    classStudents.forEach(s=>{
 
-            const className =
-                String(
-                    studentClass(s)
-                ).toLowerCase();
-
-            return (
-                matchesClass(
-                    s,
-                    classFilter
-                ) &&
-                (
-                    !search ||
-                    name.includes(search) ||
-                    roll.includes(search) ||
-                    id.includes(search) ||
-                    className.includes(search)
-                )
+        const id =
+            String(
+                studentId(s)
             );
 
-        })
-        .forEach(s=>{
+        if(
+            !currentAttendance[id]
+        ){
 
-            const id =
-                String(
-                    studentId(s)
-                );
+            currentAttendance[id] = {
 
-            if(!currentAttendance[id]){
+                status:status,
 
-                currentAttendance[id] = {
+                note:"",
 
-                    status:
-                        status,
+                id:null
 
-                    note:"",
+            };
 
-                    id:null
+        }else{
 
-                };
+            currentAttendance[id].status =
+                status;
 
-            }else{
+        }
 
-                currentAttendance[id].status =
-                    status;
-
-            }
-
-        });
-
+    });
 
     renderStudents();
 
@@ -2399,13 +2423,20 @@ function setAllStatus(status){
 
 function updateSummary(){
 
+    const selectedClass =
+        getSelectedClass();
+
+    const targetStudents =
+        selectedClass
+        ? getSelectedClassStudents()
+        : [];
+
     let present = 0;
     let absent = 0;
     let late = 0;
     let leave = 0;
 
-
-    students.forEach(s=>{
+    targetStudents.forEach(s=>{
 
         const id =
             String(
@@ -2416,26 +2447,24 @@ function updateSummary(){
             currentAttendance[id]?.status ||
             "Present";
 
-
-        if(status === "Present")
+        if(status==="Present")
             present++;
 
-        else if(status === "Absent")
+        else if(status==="Absent")
             absent++;
 
-        else if(status === "Late")
+        else if(status==="Late")
             late++;
 
-        else if(status === "Leave")
+        else if(status==="Leave")
             leave++;
 
     });
 
-
     document.getElementById(
         "totalStudents"
     ).textContent =
-        students.length;
+        targetStudents.length;
 
     document.getElementById(
         "presentCount"
@@ -2466,10 +2495,18 @@ function updateSummary(){
 
 async function saveAttendance(){
 
-    if(!students.length){
+    const selectedClass =
+        getSelectedClass();
+
+    /*
+      VERY IMPORTANT:
+      No class = no save.
+    */
+
+    if(!selectedClass){
 
         showMessage(
-            "কোনো student পাওয়া যায়নি।",
+            "Attendance save করার আগে একটি Class / Department নির্বাচন করুন।",
             "error"
         );
 
@@ -2477,12 +2514,10 @@ async function saveAttendance(){
 
     }
 
-
     const date =
         document.getElementById(
             "attendanceDate"
         ).value;
-
 
     if(!date){
 
@@ -2495,23 +2530,89 @@ async function saveAttendance(){
 
     }
 
+    /*
+      ONLY SELECTED CLASS
+    */
+
+    const classStudents =
+        getSelectedClassStudents();
+
+    if(!classStudents.length){
+
+        showMessage(
+            "Selected class-এ কোনো student পাওয়া যায়নি।",
+            "error"
+        );
+
+        return;
+
+    }
 
     const btn =
         document.getElementById(
             "saveAttendanceBtn"
         );
 
-
-    btn.disabled = true;
+    btn.disabled =
+        true;
 
     btn.textContent =
         "Saving...";
 
-
     try{
 
+        /*
+          First determine selected student IDs.
+        */
+
+        const studentIds =
+            classStudents.map(
+                s => studentId(s)
+            );
+
+        /*
+          Existing attendance of ONLY selected
+          class students for selected date
+          will be removed.
+
+          Other class remains untouched.
+        */
+
+        for(
+            const sid of studentIds
+        ){
+
+            const {
+                error:deleteError
+            } =
+            await db
+                .from(
+                    "student_attendance"
+                )
+                .delete()
+                .eq(
+                    "attendance_date",
+                    date
+                )
+                .eq(
+                    "student_id",
+                    sid
+                );
+
+            if(deleteError){
+
+                throw deleteError;
+
+            }
+
+        }
+
+        /*
+          Build ONLY selected class rows.
+        */
+
         const rows =
-            students.map(s=>{
+            classStudents.map(s=>{
 
                 const id =
                     String(
@@ -2521,6 +2622,13 @@ async function saveAttendance(){
                 const record =
                     currentAttendance[id] ||
                     {};
+
+                /*
+                  IMPORTANT:
+                  Do NOT send note column.
+                  Your database currently reported
+                  that note column is missing.
+                */
 
                 return {
 
@@ -2532,48 +2640,20 @@ async function saveAttendance(){
 
                     status:
                         record.status ||
-                        "Present",
-
-                    note:
-                        record.note ||
-                        null
+                        "Present"
 
                 };
 
             });
 
-
-        /*
-          Delete old records for this date
-          so duplicate attendance is avoided.
-        */
-
-        const {
-            error:deleteError
-        } =
-        await db
-            .from("student_attendance")
-            .delete()
-            .eq(
-                "attendance_date",
-                date
-            );
-
-
-        if(deleteError){
-
-            throw deleteError;
-
-        }
-
-
         const {
             error:insertError
         } =
         await db
-            .from("student_attendance")
+            .from(
+                "student_attendance"
+            )
             .insert(rows);
-
 
         if(insertError){
 
@@ -2581,12 +2661,10 @@ async function saveAttendance(){
 
         }
 
-
         showMessage(
-            "Attendance successfully saved.",
+            `${selectedClass} class-এর ${rows.length} জন শিক্ষার্থীর attendance successfully saved হয়েছে।`,
             "success"
         );
-
 
         await loadTodayAttendance();
 
@@ -2606,10 +2684,13 @@ async function saveAttendance(){
     }
     finally{
 
-        btn.disabled = false;
+        btn.disabled =
+            false;
 
         btn.textContent =
             "Save Attendance";
+
+        updateClassSaveState();
 
     }
 
@@ -2627,18 +2708,19 @@ async function loadHistory(){
             "historyList"
         );
 
-
-    tbody.innerHTML =
-        `<tr>
+    tbody.innerHTML = `
+        <tr>
             <td colspan="7" class="loading">
                 Loading...
             </td>
-        </tr>`;
-
+        </tr>
+    `;
 
     let query =
         db
-            .from("student_attendance")
+            .from(
+                "student_attendance"
+            )
             .select("*")
             .order(
                 "attendance_date",
@@ -2648,14 +2730,12 @@ async function loadHistory(){
                 "id",
                 {ascending:false}
             )
-            .limit(500);
-
+            .limit(1000);
 
     const date =
         document.getElementById(
             "historyDate"
         ).value;
-
 
     if(date){
 
@@ -2667,25 +2747,19 @@ async function loadHistory(){
 
     }
 
-
     const {
         data,
         error
     } =
     await query;
 
-
     if(error){
 
         tbody.innerHTML = `
             <tr>
-                <td
-                    colspan="7"
-                    class="message error"
-                >
-                    ${escapeHtml(
-                        error.message
-                    )}
+                <td colspan="7">
+                    Attendance history load error:
+                    ${escapeHtml(error.message)}
                 </td>
             </tr>
         `;
@@ -2694,24 +2768,24 @@ async function loadHistory(){
 
     }
 
-
     let records =
         data || [];
-
 
     const classFilter =
         document.getElementById(
             "historyClass"
-        ).value;
-
+        )
+        .value
+        .toLowerCase()
+        .trim();
 
     const search =
         document.getElementById(
             "historySearch"
-        ).value
+        )
+        .value
         .toLowerCase()
         .trim();
-
 
     records =
         records.filter(r=>{
@@ -2727,49 +2801,42 @@ async function loadHistory(){
                         )
                 );
 
-
             if(!student)
                 return false;
 
+            const cls =
+                String(
+                    studentClass(student)
+                )
+                .toLowerCase();
 
             const name =
                 String(
                     studentName(student)
-                ).toLowerCase();
-
+                )
+                .toLowerCase();
 
             const roll =
                 String(
                     studentRoll(student)
-                ).toLowerCase();
+                )
+                .toLowerCase();
 
-
-            const id =
+            const sid =
                 String(
                     studentId(student)
-                ).toLowerCase();
-
-
-            const className =
-                String(
-                    studentClass(student)
-                ).toLowerCase();
-
+                )
+                .toLowerCase();
 
             const classMatch =
-                matchesClass(
-                    student,
-                    classFilter
-                );
-
+                !classFilter ||
+                cls === classFilter;
 
             const searchMatch =
                 !search ||
                 name.includes(search) ||
                 roll.includes(search) ||
-                id.includes(search) ||
-                className.includes(search);
-
+                sid.includes(search);
 
             return (
                 classMatch &&
@@ -2778,16 +2845,12 @@ async function loadHistory(){
 
         });
 
-
     if(!records.length){
 
         tbody.innerHTML = `
             <tr>
-                <td
-                    colspan="7"
-                    class="empty"
-                >
-                    কোনো attendance record নেই
+                <td colspan="7" class="empty">
+                    কোনো attendance record নেই।
                 </td>
             </tr>
         `;
@@ -2795,7 +2858,6 @@ async function loadHistory(){
         return;
 
     }
-
 
     tbody.innerHTML =
         records.map(r=>{
@@ -2811,29 +2873,24 @@ async function loadHistory(){
                         )
                 );
 
-
             const name =
-                student ?
-                studentName(student) :
-                "Unknown";
-
+                student
+                ? studentName(student)
+                : "Unknown";
 
             const roll =
-                student ?
-                studentRoll(student) :
-                "-";
-
+                student
+                ? studentRoll(student)
+                : "-";
 
             const cls =
-                student ?
-                studentClass(student) :
-                "-";
-
+                student
+                ? studentClass(student)
+                : "-";
 
             const status =
                 r.status ||
                 "Present";
-
 
             return `
 
@@ -2876,17 +2933,15 @@ async function loadHistory(){
                 <td class="action">
 
                     <button
-                        type="button"
                         class="btn-blue"
-                        onclick="editAttendance('${encodeURIComponent(String(r.id))}')"
+                        onclick="editAttendance('${escapeHtml(String(r.id))}')"
                     >
                         Edit
                     </button>
 
                     <button
-                        type="button"
                         class="btn-danger"
-                        onclick="deleteAttendance('${encodeURIComponent(String(r.id))}')"
+                        onclick="deleteAttendance('${escapeHtml(String(r.id))}')"
                     >
                         Delete
                     </button>
@@ -2903,52 +2958,48 @@ async function loadHistory(){
 
 
 /* =====================================================
-   EDIT
+   EDIT ATTENDANCE
 ===================================================== */
 
-async function editAttendance(
-    encodedId
-){
-
-    const id =
-        decodeURIComponent(
-            encodedId
-        );
-
+async function editAttendance(id){
 
     const {
         data,
         error
     } =
     await db
-        .from("student_attendance")
+        .from(
+            "student_attendance"
+        )
         .select("*")
-        .eq("id",id)
+        .eq(
+            "id",
+            id
+        )
         .maybeSingle();
-
 
     if(error){
 
-        alert(
+        showMessage(
             "Edit Error: " +
-            error.message
+            error.message,
+            "error"
         );
 
         return;
 
     }
-
 
     if(!data){
 
-        alert(
-            "Attendance record পাওয়া যায়নি।"
+        showMessage(
+            "Attendance record পাওয়া যায়নি।",
+            "error"
         );
 
         return;
 
     }
-
 
     const student =
         students.find(
@@ -2961,42 +3012,32 @@ async function editAttendance(
                 )
         );
 
-
     if(!student){
 
-        alert(
-            "Student record পাওয়া যায়নি।"
+        showMessage(
+            "Student record পাওয়া যায়নি।",
+            "error"
         );
 
         return;
 
     }
 
+    editingAttendanceId =
+        id;
 
     document.getElementById(
         "attendanceDate"
     ).value =
         data.attendance_date;
 
+    document.getElementById(
+        "classFilter"
+    ).value =
+        studentClass(student);
 
-    const classSelect =
-        document.getElementById(
-            "classFilter"
-        );
-
-
-    if(student.class_id !== undefined){
-
-        classSelect.value =
-            String(
-                student.class_id
-            );
-
-    }
-
-
-    currentAttendance = {};
-
+    currentAttendance =
+        {};
 
     currentAttendance[
         String(data.student_id)
@@ -3015,18 +3056,15 @@ async function editAttendance(
 
     };
 
-
     renderStudents();
-
 
     window.scrollTo({
         top:0,
         behavior:"smooth"
     });
 
-
     showMessage(
-        "Record edit mode-এ load হয়েছে। Save Attendance চাপুন।",
+        "Attendance record edit mode-এ load হয়েছে।",
         "info"
     );
 
@@ -3034,51 +3072,48 @@ async function editAttendance(
 
 
 /* =====================================================
-   DELETE
+   DELETE ATTENDANCE
 ===================================================== */
 
-async function deleteAttendance(
-    encodedId
-){
+async function deleteAttendance(id){
 
-    const id =
-        decodeURIComponent(
-            encodedId
+    const ok =
+        confirm(
+            "এই attendance record delete করতে চান?"
         );
 
-
-    if(!confirm(
-        "এই attendance record delete করতে চান?"
-    )){
-
+    if(!ok)
         return;
-
-    }
-
 
     const {
         error
     } =
     await db
-        .from("student_attendance")
+        .from(
+            "student_attendance"
+        )
         .delete()
         .eq(
             "id",
             id
         );
 
-
     if(error){
 
-        alert(
-            "Delete failed:\n" +
-            error.message
+        showMessage(
+            "Delete Error: " +
+            error.message,
+            "error"
         );
 
         return;
 
     }
 
+    showMessage(
+        "Attendance record deleted successfully.",
+        "success"
+    );
 
     await loadHistory();
 
@@ -3086,17 +3121,11 @@ async function deleteAttendance(
 
     renderStudents();
 
-
-    showMessage(
-        "Attendance record deleted successfully.",
-        "success"
-    );
-
 }
 
 
 /* =====================================================
-   REPORT
+   GENERATE REPORT
 ===================================================== */
 
 async function generateReport(){
@@ -3106,18 +3135,15 @@ async function generateReport(){
             "reportFrom"
         ).value;
 
-
     const to =
         document.getElementById(
             "reportTo"
         ).value;
 
-
     const studentIdFilter =
         document.getElementById(
             "reportStudent"
         ).value;
-
 
     if(!from || !to){
 
@@ -3130,7 +3156,6 @@ async function generateReport(){
 
     }
 
-
     if(from > to){
 
         showReportMessage(
@@ -3142,16 +3167,16 @@ async function generateReport(){
 
     }
 
-
     showReportMessage(
         "Report তৈরি হচ্ছে...",
         "info"
     );
 
-
     let query =
         db
-            .from("student_attendance")
+            .from(
+                "student_attendance"
+            )
             .select("*")
             .gte(
                 "attendance_date",
@@ -3170,7 +3195,6 @@ async function generateReport(){
                 {ascending:true}
             );
 
-
     if(studentIdFilter){
 
         query =
@@ -3181,13 +3205,11 @@ async function generateReport(){
 
     }
 
-
     const {
         data,
         error
     } =
     await query;
-
 
     if(error){
 
@@ -3201,210 +3223,126 @@ async function generateReport(){
 
     }
 
-
     const records =
         data || [];
-
 
     let present = 0;
     let absent = 0;
     let late = 0;
     let leave = 0;
 
-
     records.forEach(r=>{
 
-        if(r.status === "Present")
+        if(r.status==="Present")
             present++;
 
-        else if(r.status === "Absent")
+        else if(r.status==="Absent")
             absent++;
 
-        else if(r.status === "Late")
+        else if(r.status==="Late")
             late++;
 
-        else if(r.status === "Leave")
+        else if(r.status==="Leave")
             leave++;
 
     });
 
-
     const total =
         records.length;
 
-
     /*
-      Attendance percentage:
-      Present + Late are considered attended.
-      Leave is excluded.
+      Leave is excluded from attendance percentage.
+      Present + Late = attended days.
     */
 
-    const attendanceBase =
+    const workingRecords =
         present +
         absent +
         late;
 
-
     const percentage =
-        attendanceBase > 0
-        ?
-        (
+        workingRecords
+        ? (
             (
-                (present + late) /
-                attendanceBase
-            ) * 100
+                present +
+                late
+            )
+            /
+            workingRecords
+            *
+            100
         ).toFixed(2)
-        :
-        "0.00";
-
+        : "0.00";
 
     document.getElementById(
         "reportTotal"
     ).textContent =
         total;
 
-
     document.getElementById(
         "reportPresent"
     ).textContent =
         present;
-
 
     document.getElementById(
         "reportAbsent"
     ).textContent =
         absent;
 
-
     document.getElementById(
         "reportLate"
     ).textContent =
         late;
-
 
     document.getElementById(
         "reportLeave"
     ).textContent =
         leave;
 
-
     document.getElementById(
         "reportPercentage"
     ).textContent =
         percentage + "%";
 
+    document.getElementById(
+        "printReportPeriod"
+    ).textContent =
+        `Attendance Report: ${from} to ${to}`;
 
-    /*
-      PRINT SUMMARY
-    */
+    const now =
+        new Date();
 
     document.getElementById(
-        "printFrom"
+        "printGeneratedDate"
     ).textContent =
-        from;
-
-
-    document.getElementById(
-        "printTo"
-    ).textContent =
-        to;
-
-
-    const selectedStudent =
-        students.find(
-            s =>
-                String(
-                    studentId(s)
-                ) ===
-                String(
-                    studentIdFilter
-                )
-        );
-
-
-    document.getElementById(
-        "printStudent"
-    ).textContent =
-        selectedStudent
-        ?
-        studentName(selectedStudent)
-        :
-        "সকল শিক্ষার্থী";
-
-
-    document.getElementById(
-        "printGenerated"
-    ).textContent =
-        new Date().toLocaleString(
+        "Generated: " +
+        now.toLocaleDateString(
             "en-GB"
         );
-
-
-    document.getElementById(
-        "printTotal"
-    ).textContent =
-        total;
-
-
-    document.getElementById(
-        "printPresent"
-    ).textContent =
-        present;
-
-
-    document.getElementById(
-        "printAbsent"
-    ).textContent =
-        absent;
-
-
-    document.getElementById(
-        "printLate"
-    ).textContent =
-        late;
-
-
-    document.getElementById(
-        "printLeave"
-    ).textContent =
-        leave;
-
-
-    document.getElementById(
-        "printPercentage"
-    ).textContent =
-        percentage + "%";
-
 
     const tbody =
         document.getElementById(
             "reportList"
         );
 
-
     if(!records.length){
 
         tbody.innerHTML = `
             <tr>
-                <td
-                    colspan="6"
-                    class="empty"
-                >
+                <td colspan="6" class="empty">
                     এই সময়ের মধ্যে কোনো attendance record নেই।
                 </td>
             </tr>
         `;
 
-
         showReportMessage(
-            "কোনো record পাওয়া যায়নি।",
+            "কোনো attendance record পাওয়া যায়নি।",
             "info"
         );
 
         return;
 
     }
-
 
     tbody.innerHTML =
         records.map(r=>{
@@ -3420,50 +3358,32 @@ async function generateReport(){
                         )
                 );
 
-
-            const roll =
-                student
-                ?
-                studentRoll(student)
-                :
-                "-";
-
-
-            const name =
-                student
-                ?
-                studentName(student)
-                :
-                "Unknown";
-
-
-            const cls =
-                student
-                ?
-                studentClass(student)
-                :
-                "-";
-
-
-            const status =
-                r.status ||
-                "Present";
-
-
             return `
 
             <tr>
 
                 <td>
-                    ${escapeHtml(roll)}
+                    ${escapeHtml(
+                        student
+                        ? studentRoll(student)
+                        : "-"
+                    )}
                 </td>
 
                 <td>
-                    ${escapeHtml(name)}
+                    ${escapeHtml(
+                        student
+                        ? studentName(student)
+                        : "Unknown"
+                    )}
                 </td>
 
                 <td>
-                    ${escapeHtml(cls)}
+                    ${escapeHtml(
+                        student
+                        ? studentClass(student)
+                        : "-"
+                    )}
                 </td>
 
                 <td>
@@ -3473,11 +3393,9 @@ async function generateReport(){
                 </td>
 
                 <td>
-                    <span
-                        class="status ${statusClass(status)}"
-                    >
+                    <span class="status ${statusClass(r.status)}">
                         ${escapeHtml(
-                            statusBangla(status)
+                            statusBangla(r.status)
                         )}
                     </span>
                 </td>
@@ -3494,7 +3412,6 @@ async function generateReport(){
 
         }).join("");
 
-
     showReportMessage(
         `Report তৈরি হয়েছে — ${total} টি record।`,
         "success"
@@ -3504,67 +3421,66 @@ async function generateReport(){
 
 
 /* =====================================================
-   PRINT
+   PRINT REPORT
 ===================================================== */
 
-async function printReport(){
+function printReport(){
 
-    /*
-      If report table is empty,
-      generate it first.
-    */
-
-    const rows =
-        document.querySelectorAll(
-            "#reportList tr"
+    const tbody =
+        document.getElementById(
+            "reportList"
         );
 
+    if(
+        !tbody ||
+        !tbody.querySelector("tr")
+    ){
 
-    if(!rows.length){
+        showReportMessage(
+            "আগে Report Generate করুন।",
+            "error"
+        );
 
-        await generateReport();
+        return;
 
     }
 
+    const from =
+        document.getElementById(
+            "reportFrom"
+        ).value;
 
-    /*
-      Small delay allows the browser
-      to finish rendering before print.
-    */
+    const to =
+        document.getElementById(
+            "reportTo"
+        ).value;
 
-    setTimeout(()=>{
+    if(!from || !to){
 
-        window.print();
+        showReportMessage(
+            "আগে Report Generate করুন।",
+            "error"
+        );
 
-    },300);
+        return;
+
+    }
+
+    document.getElementById(
+        "printGeneratedDate"
+    ).textContent =
+        "Generated: " +
+        new Date().toLocaleDateString(
+            "en-GB"
+        );
+
+    window.print();
 
 }
 
 
 /* =====================================================
-   DEFAULT STATUS CHANGE
-===================================================== */
-
-document.getElementById(
-    "defaultStatus"
-).addEventListener(
-    "change",
-    function(){
-
-        /*
-          Default status only affects
-          students that do not have
-          an existing attendance record.
-        */
-
-        renderStudents();
-
-    }
-);
-
-
-/* =====================================================
-   DATE CHANGE
+   EVENTS
 ===================================================== */
 
 document.getElementById(
@@ -3572,6 +3488,9 @@ document.getElementById(
 ).addEventListener(
     "change",
     async function(){
+
+        editingAttendanceId =
+            null;
 
         await loadTodayAttendance();
 
@@ -3581,21 +3500,30 @@ document.getElementById(
 );
 
 
-/* =====================================================
-   CLASS FILTER
-===================================================== */
-
 document.getElementById(
     "classFilter"
 ).addEventListener(
     "change",
-    renderStudents
+    async function(){
+
+        /*
+          Changing class does NOT save anything.
+          It only changes the visible student list.
+        */
+
+        document.getElementById(
+            "studentSearch"
+        ).value = "";
+
+        await loadTodayAttendance();
+
+        renderStudents();
+
+        updateClassSaveState();
+
+    }
 );
 
-
-/* =====================================================
-   SEARCH
-===================================================== */
 
 document.getElementById(
     "studentSearch"
@@ -3605,10 +3533,6 @@ document.getElementById(
 );
 
 
-/* =====================================================
-   HISTORY DATE
-===================================================== */
-
 document.getElementById(
     "historyDate"
 ).addEventListener(
@@ -3616,10 +3540,6 @@ document.getElementById(
     loadHistory
 );
 
-
-/* =====================================================
-   HISTORY CLASS
-===================================================== */
 
 document.getElementById(
     "historyClass"
@@ -3629,10 +3549,6 @@ document.getElementById(
 );
 
 
-/* =====================================================
-   HISTORY SEARCH
-===================================================== */
-
 document.getElementById(
     "historySearch"
 ).addEventListener(
@@ -3641,73 +3557,43 @@ document.getElementById(
 );
 
 
-/* =====================================================
-   ALL PRESENT
-===================================================== */
-
 document.getElementById(
     "allPresentBtn"
 ).addEventListener(
     "click",
-    ()=>{
-        setAllStatus("Present");
-    }
+    ()=>setAllStatus("Present")
 );
 
-
-/* =====================================================
-   ALL ABSENT
-===================================================== */
 
 document.getElementById(
     "allAbsentBtn"
 ).addEventListener(
     "click",
-    ()=>{
-        setAllStatus("Absent");
-    }
+    ()=>setAllStatus("Absent")
 );
 
-
-/* =====================================================
-   ALL LEAVE
-===================================================== */
 
 document.getElementById(
     "allLeaveBtn"
 ).addEventListener(
     "click",
-    ()=>{
-        setAllStatus("Leave");
-    }
+    ()=>setAllStatus("Leave")
 );
 
-
-/* =====================================================
-   ALL LATE
-===================================================== */
 
 document.getElementById(
     "allLateBtn"
 ).addEventListener(
     "click",
-    ()=>{
-        setAllStatus("Late");
-    }
+    ()=>setAllStatus("Late")
 );
 
-
-/* =====================================================
-   REFRESH
-===================================================== */
 
 document.getElementById(
     "refreshBtn"
 ).addEventListener(
     "click",
     async ()=>{
-
-        await loadClasses();
 
         await loadStudents();
 
@@ -3722,10 +3608,6 @@ document.getElementById(
 );
 
 
-/* =====================================================
-   SAVE
-===================================================== */
-
 document.getElementById(
     "saveAttendanceBtn"
 ).addEventListener(
@@ -3734,10 +3616,6 @@ document.getElementById(
 );
 
 
-/* =====================================================
-   GENERATE REPORT
-===================================================== */
-
 document.getElementById(
     "generateReportBtn"
 ).addEventListener(
@@ -3745,10 +3623,6 @@ document.getElementById(
     generateReport
 );
 
-
-/* =====================================================
-   PRINT REPORT
-===================================================== */
 
 document.getElementById(
     "printReportBtn"
@@ -3770,49 +3644,36 @@ async function start(){
     if(!auth)
         return;
 
-
     const current =
         today();
-
 
     document.getElementById(
         "attendanceDate"
     ).value =
         current;
 
-
     document.getElementById(
         "historyDate"
     ).value =
         current;
-
 
     document.getElementById(
         "reportFrom"
     ).value =
         current;
 
-
     document.getElementById(
         "reportTo"
     ).value =
         current;
 
-
-    /*
-      Important:
-      Classes first, then students.
-      This fixes class_id -> class name mapping.
-    */
-
-    await loadClasses();
-
     await loadStudents();
 
     await loadHistory();
 
-}
+    updateClassSaveState();
 
+}
 
 start();
 
