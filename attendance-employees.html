@@ -1,192 +1,703 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Employee Attendance | Madrasa-e Nurul Quran</title>
-<link rel="stylesheet" href="https://banglawebfonts.pages.dev/css/bornomala.css">
+<link href="https://banglawebfonts.pages.dev/css/bornomala.css" rel="stylesheet">
+
 <style>
-*{box-sizing:border-box}body{margin:0;background:#f4f7fb;color:#1e293b;font-family:"Bornomala",Arial,sans-serif}
-.top{position:sticky;top:0;z-index:10;background:linear-gradient(135deg,#0d47a1,#1976d2);color:#fff;padding:15px 25px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 3px 15px #0002}
-.brand{font-size:21px;font-weight:800}.sub{font:10px Arial;letter-spacing:1px;opacity:.8}.dash{color:#fff;text-decoration:none;border:1px solid #ffffff45;padding:8px 13px;border-radius:8px}
-.wrap{max-width:1350px;margin:24px auto;padding:0 15px 60px}h1{margin:0 0 4px;font-size:29px}p{margin:0;color:#64748b;font-size:13px}
-.card{background:#fff;border:1px solid #dce4ee;border-radius:14px;padding:19px;margin:0 0 17px;box-shadow:0 4px 16px #0d47a10d}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.field label{display:block;font-size:13px;font-weight:800;margin-bottom:5px}
-input,select{width:100%;height:43px;border:1px solid #cbd5e1;border-radius:8px;padding:8px 11px;background:#fff;outline:0}
-input:focus,select:focus{border-color:#1976d2;box-shadow:0 0 0 3px #1976d215}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}button{border:0;border-radius:8px;padding:9px 14px;font-weight:800;cursor:pointer}
-.primary{background:linear-gradient(135deg,#0d47a1,#1976d2);color:#fff}.secondary{background:#eef2f7;color:#334155}.green{background:#dcfce7;color:#15803d}.red{background:#fee2e2;color:#b91c1c}.yellow{background:#fef3c7;color:#92400e}.blue{background:#e0f2fe;color:#075985}.purple{background:#ede9fe;color:#6d28d9}
-.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:17px}.stat{background:#fff;border:1px solid #dce4ee;border-radius:12px;padding:14px;position:relative}.stat:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:#1976d2}.stat small{color:#64748b}.num{font:bold 24px Arial;color:#083b82;margin-top:4px}
-.title{font-size:20px;font-weight:800;color:#0d47a1}.desc{font-size:12px;color:#64748b;margin:3px 0 14px}
-.tools{display:flex;gap:7px;flex-wrap:wrap;padding:10px;background:#f8fafc;border:1px solid #dce4ee;border-radius:9px;margin-bottom:14px}.tools button{padding:7px 10px;font-size:11px}
-.table{overflow:auto;border:1px solid #dce4ee;border-radius:10px}table{width:100%;border-collapse:collapse;min-width:850px}th{background:linear-gradient(135deg,#0d47a1,#1976d2);color:#fff;padding:11px 9px;text-align:left;font-size:12px}td{padding:9px;border-bottom:1px solid #edf1f5;font-size:12px}tr:hover td{background:#f8fbff}.sl{text-align:center;width:50px}.eid{font:bold 12px Arial;color:#083b82}.name{font-weight:800}.tag{background:#e8f0fe;color:#0d47a1;padding:4px 8px;border-radius:15px;font-size:10px;font-weight:800}
-.status{display:flex;gap:4px;flex-wrap:wrap}.sbtn{background:#fff;border:1px solid #d5dce6;padding:5px 8px;font-size:10px;border-radius:6px}.sbtn.on.p{background:#dcfce7;color:#15803d;border-color:#86efac}.sbtn.on.a{background:#fee2e2;color:#b91c1c;border-color:#fca5a5}.sbtn.on.l{background:#fef3c7;color:#92400e;border-color:#fcd34d}.sbtn.on.v{background:#e0f2fe;color:#075985;border-color:#7dd3fc}
+*{box-sizing:border-box}
+:root{
+ --primary:#0d47a1;--primary2:#1976d2;--dark:#083b82;
+ --bg:#f4f7fb;--white:#fff;--text:#1e293b;--muted:#64748b;
+ --border:#dbe4ef;--green:#15803d;--red:#b91c1c;
+ --yellow:#92400e;--blue:#075985;
+}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Bornomala",Arial,sans-serif}
+.topbar{
+ background:linear-gradient(135deg,#0d47a1,#1976d2);color:#fff;
+ min-height:72px;padding:13px 25px;display:flex;justify-content:space-between;
+ align-items:center;position:sticky;top:0;z-index:20;box-shadow:0 3px 15px #0002
+}
+.brand{font-size:21px;font-weight:800}.sub{font:10px Arial;letter-spacing:1px;opacity:.82}
+.dashboard{color:#fff;text-decoration:none;border:1px solid #ffffff45;background:#ffffff15;
+ padding:9px 14px;border-radius:8px;font-weight:700}
+.container{max-width:1350px;margin:24px auto;padding:0 16px 60px}
+.heading h1{margin:0 0 5px;font-size:29px;color:#0f172a}.heading p{margin:0;color:var(--muted);font-size:13px}
+.card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px;margin-top:18px;box-shadow:0 4px 18px #0d47a10c}
+.title{font-size:20px;font-weight:800;color:var(--primary)}.desc{font-size:12px;color:var(--muted);margin:3px 0 15px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+.field label{display:block;font-size:13px;font-weight:800;margin-bottom:6px}
+input,select{width:100%;height:43px;border:1px solid #cbd5e1;border-radius:8px;padding:8px 11px;
+ background:#fff;color:#1e293b;outline:none;font-family:"Bornomala",Arial,sans-serif}
+input:focus,select:focus{border-color:#1976d2;box-shadow:0 0 0 3px #1976d218}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
+button{border:0;border-radius:8px;padding:9px 14px;font-family:"Bornomala",Arial,sans-serif;font-weight:800;cursor:pointer}
+button:disabled{opacity:.55;cursor:not-allowed}.primary{background:linear-gradient(135deg,#0d47a1,#1976d2);color:#fff}
+.secondary{background:#eef2f7;color:#334155}.green{background:#dcfce7;color:#15803d}.red{background:#fee2e2;color:#b91c1c}
+.yellow{background:#fef3c7;color:#92400e}.blue{background:#e0f2fe;color:#075985}.purple{background:#ede9fe;color:#6d28d9}
+.info{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:12px}
+.info-box{background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:10px}
+.info-box small{display:block;color:var(--muted);font-size:10px}.info-box strong{font-size:14px}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:18px}
+.stat{background:#fff;border:1px solid var(--border);border-radius:12px;padding:14px;position:relative}
+.stat:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:#1976d2}
+.stat small{color:var(--muted);font-size:11px}.num{font:bold 23px Arial;color:var(--dark);margin-top:5px}
+.tools{display:flex;gap:7px;flex-wrap:wrap;background:#f8fafc;border:1px solid var(--border);padding:10px;border-radius:9px;margin-bottom:13px}
+.tools button{font-size:11px;padding:7px 10px}
+.table-wrap{overflow:auto;border:1px solid var(--border);border-radius:10px}
+table{width:100%;border-collapse:collapse;min-width:920px}
+th{background:linear-gradient(135deg,#0d47a1,#1976d2);color:#fff;padding:11px 9px;text-align:left;font-size:12px;white-space:nowrap}
+td{padding:9px;border-bottom:1px solid #edf1f5;font-size:12px;vertical-align:middle}
+tr:hover td{background:#f8fbff}.sl{text-align:center;width:48px}.eid{font:bold 12px Arial;color:#083b82}.name{font-weight:800}
+.badge{display:inline-block;background:#e8f0fe;color:#0d47a1;border-radius:14px;padding:4px 8px;font-size:10px;font-weight:800}
+.status{display:flex;gap:4px;flex-wrap:wrap}
+.sbtn{background:#fff;border:1px solid #d5dce6;padding:5px 8px;font-size:10px;border-radius:6px}
+.sbtn.on.p{background:#dcfce7;color:#15803d;border-color:#86efac}
+.sbtn.on.a{background:#fee2e2;color:#b91c1c;border-color:#fca5a5}
+.sbtn.on.l{background:#fef3c7;color:#92400e;border-color:#fcd34d}
+.sbtn.on.v{background:#e0f2fe;color:#075985;border-color:#7dd3fc}
 .msg{min-height:20px;margin-top:9px;font-size:12px;font-weight:700}.ok{color:#15803d}.err{color:#b91c1c}
-.hidden{display:none}.reportgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}.rbox{background:#f8fafc;border:1px solid #dce4ee;border-radius:9px;padding:12px}.rbox strong{display:block;font:bold 21px Arial;color:#083b82;margin-top:3px}
+.hidden{display:none}.report-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}
+.report-box{background:#f8fafc;border:1px solid var(--border);border-radius:9px;padding:11px}
+.report-box small{color:var(--muted)}.report-box strong{display:block;font:bold 21px Arial;color:#083b82;margin-top:3px}
 #printArea{display:none}
-@media(max-width:1000px){.grid{grid-template-columns:1fr 1fr}.stats{grid-template-columns:repeat(3,1fr)}.reportgrid{grid-template-columns:1fr 1fr}}
-@media(max-width:650px){.top{flex-direction:column;align-items:flex-start;gap:10px}.grid,.stats,.reportgrid{grid-template-columns:1fr}.wrap{padding:0 10px 40px}h1{font-size:25px}}
+
+@media(max-width:1000px){.grid{grid-template-columns:1fr 1fr}.stats{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:650px){
+ .topbar{flex-direction:column;align-items:flex-start;gap:10px}.container{padding:0 10px 40px}
+ .grid,.stats,.info,.report-grid{grid-template-columns:1fr}.heading h1{font-size:25px}
+}
+
 @media print{
-@page{size:A4 landscape;margin:7mm}body>*:not(#printArea){display:none!important}#printArea{display:block!important;color:#000;background:#fff}
-.sheet{min-height:calc(100vh - 14mm);display:flex;flex-direction:column}.ph{text-align:center;border-bottom:2px solid #000;padding-bottom:7px}.ph img{width:50px;height:50px;object-fit:contain}.ph h1{font-size:21px}.ph h2{font:700 12px Arial;margin:2px}.meta{display:flex;justify-content:space-between;font:10px Arial;margin:8px 0}.sum{text-align:center;font:700 10px Arial;margin-bottom:7px}.pt{width:100%;border-collapse:collapse;font-size:9px}.pt th,.pt td{border:1px solid #000;padding:5px}.pt th{background:#eee!important;color:#000!important;text-align:center}.pf{margin-top:auto;border-top:1px solid #000;padding-top:13px;display:flex;justify-content:space-between;font-size:9px}
+ @page{size:A4 landscape;margin:7mm}
+ body>*:not(#printArea){display:none!important}
+ #printArea{display:block!important;background:#fff;color:#000}
+ .print-sheet{min-height:calc(100vh - 14mm);display:flex;flex-direction:column}
+ .print-header{text-align:center;border-bottom:2px solid #000;padding-bottom:7px}
+ .print-header img{width:52px;height:52px;object-fit:contain}
+ .print-header h1{margin:2px 0;font:800 21px Arial,sans-serif}
+ .print-header h2{margin:2px 0;font:700 11px Arial,sans-serif}
+ .print-meta{display:flex;justify-content:space-between;margin:8px 0;font:10px Arial,sans-serif}
+ .print-summary{text-align:center;font:700 10px Arial,sans-serif;margin-bottom:7px}
+ .print-table{width:100%;border-collapse:collapse;font:9px Arial,sans-serif}
+ .print-table th,.print-table td{border:1px solid #000;padding:5px}
+ .print-table th{background:#eee!important;color:#000!important;text-align:center}
+ .print-footer{margin-top:auto;border-top:1px solid #000;padding-top:12px;display:flex;justify-content:space-between;font:9px Arial,sans-serif}
 }
 </style>
 </head>
+
 <body>
-<header class="top"><div><div class="brand">Madrasa-e Nurul Quran</div><div class="sub">EMPLOYEE ATTENDANCE MANAGEMENT SYSTEM</div></div><a class="dash" href="dashboard.html">Dashboard</a></header>
-<main class="wrap">
-<h1>Employee Daily Attendance</h1><p>Select a department or group. Only the selected group will be loaded and saved.</p>
+<header class="topbar">
+ <div>
+  <div class="brand">Madrasa-e Nurul Quran</div>
+  <div class="sub">EMPLOYEE ATTENDANCE MANAGEMENT SYSTEM</div>
+ </div>
+ <a href="dashboard.html" class="dashboard">Dashboard</a>
+</header>
 
-<section class="card">
-<div class="title">Attendance Controls</div><div class="desc">Choose date and department/group.</div>
-<div class="grid">
-<div class="field"><label>Date</label><input id="date" type="date"></div>
-<div class="field"><label>Department / Group</label><select id="dept"><option value="">Select Department / Group</option></select></div>
-<div class="field"><label>Search Employee</label><input id="search" placeholder="Name / ID / Designation"></div>
-<div class="field"><label>Selected Group</label><input id="groupText" readonly value="No department selected"></div>
-</div>
-<div class="actions"><button class="primary" id="load">Load Attendance</button><button class="secondary" id="refresh">Refresh</button><button class="purple" id="historyBtn">Attendance History</button><button class="blue" id="reportBtn">Attendance Report</button><button class="primary" id="print">Print A4 Sheet</button></div>
-<div id="msg" class="msg"></div>
-</section>
+<main class="container">
+ <div class="heading">
+  <h1>Employee Attendance</h1>
+  <p>Select an Employee ID. Employee information will appear automatically from the employees table.</p>
+ </div>
 
-<section class="stats">
-<div class="stat"><small>Selected Group Employees</small><div class="num" id="total">0</div></div>
-<div class="stat"><small>Present</small><div class="num" id="present">0</div></div>
-<div class="stat"><small>Absent</small><div class="num" id="absent">0</div></div>
-<div class="stat"><small>Late</small><div class="num" id="late">0</div></div>
-<div class="stat"><small>Leave</small><div class="num" id="leave">0</div></div>
-</section>
+ <section class="card">
+  <div class="title">Attendance Selection</div>
+  <div class="desc">Choose the date and Employee ID. No department selection is required.</div>
 
-<section class="card">
-<div class="title">Today's Attendance</div><div class="desc">Attendance actions affect only the currently selected department/group.</div>
-<div class="tools"><button class="green" data-all="Present">All Present</button><button class="red" data-all="Absent">All Absent</button><button class="yellow" data-all="Late">All Late</button><button class="blue" data-all="Leave">All Leave</button><button class="secondary" id="clear">Clear Status</button></div>
-<div class="table"><table><thead><tr><th>SL</th><th>Employee ID</th><th>Name</th><th>Department / Group</th><th>Designation</th><th>Status</th></tr></thead><tbody id="list"><tr><td colspan="6" style="text-align:center;padding:30px">Select a department/group first.</td></tr></tbody></table></div>
-<div class="actions"><button class="primary" id="save">Save Selected Group Attendance</button></div><div id="saveMsg" class="msg"></div>
-</section>
+  <div class="grid">
+   <div class="field">
+    <label>Attendance Date</label>
+    <input id="date" type="date">
+   </div>
 
-<section class="card hidden" id="history">
-<div class="title">Attendance History</div><div class="desc">History for the selected department/group.</div>
-<div class="grid">
-<div class="field"><label>From</label><input id="hf" type="date"></div><div class="field"><label>To</label><input id="ht" type="date"></div><div class="field"><label>Employee</label><select id="he"><option value="">All Employees</option></select></div><div class="field"><label>&nbsp;</label><button class="primary" id="loadHistory">Load History</button></div>
-</div>
-<div class="table" style="margin-top:14px"><table><thead><tr><th>SL</th><th>Date</th><th>Employee ID</th><th>Name</th><th>Department / Group</th><th>Designation</th><th>Status</th></tr></thead><tbody id="historyList"></tbody></table></div>
-</section>
+   <div class="field">
+    <label>Employee ID</label>
+    <select id="employeeSelect">
+     <option value="">Select Employee ID</option>
+    </select>
+   </div>
 
-<section class="card hidden" id="report">
-<div class="title">Attendance Report</div><div class="desc">Employee-wise attendance percentage.</div>
-<div class="grid">
-<div class="field"><label>From</label><input id="rf" type="date"></div><div class="field"><label>To</label><input id="rt" type="date"></div><div class="field"><label>Employee</label><select id="re"><option value="">All Employees</option></select></div><div class="field"><label>&nbsp;</label><button class="primary" id="loadReport">Generate Report</button></div>
-</div>
-<div class="reportgrid"><div class="rbox">Total Records<strong id="rc">0</strong></div><div class="rbox">Present<strong id="rp">0</strong></div><div class="rbox">Absent<strong id="ra">0</strong></div><div class="rbox">Attendance %<strong id="rper">0%</strong></div></div>
-<div class="table"><table><thead><tr><th>SL</th><th>Employee ID</th><th>Name</th><th>Department / Group</th><th>Designation</th><th>Present</th><th>Absent</th><th>Late</th><th>Leave</th><th>Attendance %</th></tr></thead><tbody id="reportList"></tbody></table></div>
-</section>
+   <div class="field">
+    <label>Search Employee ID</label>
+    <input id="searchId" placeholder="Type Employee ID">
+   </div>
+  </div>
+
+  <div class="info">
+   <div class="info-box"><small>Employee Name</small><strong id="autoName">—</strong></div>
+   <div class="info-box"><small>Designation</small><strong id="autoDesignation">—</strong></div>
+   <div class="info-box"><small>Phone</small><strong id="autoPhone">—</strong></div>
+  </div>
+
+  <div class="actions">
+   <button class="primary" id="loadBtn">Load Attendance</button>
+   <button class="secondary" id="refreshBtn">Refresh Employees</button>
+   <button class="purple" id="historyBtn">Attendance History</button>
+   <button class="blue" id="reportBtn">Attendance Report</button>
+   <button class="primary" id="printBtn">Print A4 Sheet</button>
+  </div>
+  <div id="msg" class="msg"></div>
+ </section>
+
+ <section class="stats">
+  <div class="stat"><small>Selected Employees</small><div class="num" id="total">0</div></div>
+  <div class="stat"><small>Present</small><div class="num" id="present">0</div></div>
+  <div class="stat"><small>Absent</small><div class="num" id="absent">0</div></div>
+  <div class="stat"><small>Late</small><div class="num" id="late">0</div></div>
+  <div class="stat"><small>Leave</small><div class="num" id="leave">0</div></div>
+ </section>
+
+ <section class="card">
+  <div class="title">Selected Employee Attendance</div>
+  <div class="desc">Only the selected Employee ID will be saved.</div>
+
+  <div class="tools">
+   <button class="green" id="presentBtn">Present</button>
+   <button class="red" id="absentBtn">Absent</button>
+   <button class="yellow" id="lateBtn">Late</button>
+   <button class="blue" id="leaveBtn">Leave</button>
+   <button class="secondary" id="clearBtn">Clear Status</button>
+  </div>
+
+  <div class="table-wrap">
+   <table>
+    <thead>
+     <tr>
+      <th>SL</th>
+      <th>Employee ID</th>
+      <th>Employee Name</th>
+      <th>Designation</th>
+      <th>Phone</th>
+      <th>Attendance Status</th>
+     </tr>
+    </thead>
+    <tbody id="attendanceList">
+     <tr><td colspan="6" style="text-align:center;padding:30px">Select an Employee ID first.</td></tr>
+    </tbody>
+   </table>
+  </div>
+
+  <div class="actions">
+   <button class="primary" id="saveBtn">Save Attendance</button>
+  </div>
+  <div id="saveMsg" class="msg"></div>
+ </section>
+
+ <section class="card hidden" id="historySection">
+  <div class="title">Attendance History</div>
+  <div class="desc">History is shown only for the selected Employee ID.</div>
+
+  <div class="grid">
+   <div class="field"><label>From Date</label><input id="historyFrom" type="date"></div>
+   <div class="field"><label>To Date</label><input id="historyTo" type="date"></div>
+   <div class="field"><label>Employee ID</label><select id="historyEmployee"><option value="">Select Employee ID</option></select></div>
+  </div>
+
+  <div class="actions"><button class="primary" id="loadHistoryBtn">Load History</button></div>
+
+  <div class="table-wrap" style="margin-top:13px">
+   <table>
+    <thead><tr><th>SL</th><th>Date</th><th>Employee ID</th><th>Name</th><th>Designation</th><th>Status</th></tr></thead>
+    <tbody id="historyList"></tbody>
+   </table>
+  </div>
+ </section>
+
+ <section class="card hidden" id="reportSection">
+  <div class="title">Employee Attendance Report</div>
+  <div class="desc">Generate attendance statistics for one Employee ID.</div>
+
+  <div class="grid">
+   <div class="field"><label>From Date</label><input id="reportFrom" type="date"></div>
+   <div class="field"><label>To Date</label><input id="reportTo" type="date"></div>
+   <div class="field"><label>Employee ID</label><select id="reportEmployee"><option value="">Select Employee ID</option></select></div>
+  </div>
+
+  <div class="actions"><button class="primary" id="loadReportBtn">Generate Report</button></div>
+
+  <div class="report-grid">
+   <div class="report-box"><small>Total Records</small><strong id="reportTotal">0</strong></div>
+   <div class="report-box"><small>Present</small><strong id="reportPresent">0</strong></div>
+   <div class="report-box"><small>Absent</small><strong id="reportAbsent">0</strong></div>
+   <div class="report-box"><small>Attendance</small><strong id="reportPercent">0%</strong></div>
+  </div>
+
+  <div class="table-wrap">
+   <table>
+    <thead><tr><th>SL</th><th>Employee ID</th><th>Name</th><th>Designation</th><th>Present</th><th>Absent</th><th>Late</th><th>Leave</th><th>Attendance %</th></tr></thead>
+    <tbody id="reportList"></tbody>
+   </table>
+  </div>
+ </section>
 </main>
+
 <div id="printArea"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const URL="https://qavublwhqiqsgpcmfyft.supabase.co";
-const KEY="sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
-const db=supabase.createClient(URL,KEY);
-const ATT="employee_attendance";
-let employees=[], amap=new Map();
+const SUPABASE_URL="https://qavublwhqiqsgpcmfyft.supabase.co";
+const SUPABASE_KEY="sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
-const $=x=>document.getElementById(x);
+const ATTENDANCE_TABLE="employee_attendance";
+
+let employees=[];
+let selectedEmployee=null;
+let currentStatus="";
+
+const $=id=>document.getElementById(id);
 const today=new Date().toISOString().slice(0,10);
-$("date").value=today;$("hf").value=today;$("ht").value=today;$("rf").value=today;$("rt").value=today;
 
-function esc(v){return String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
-function norm(v){v=String(v||"").toLowerCase().trim();return v==="present"?"Present":v==="absent"?"Absent":v==="late"?"Late":v==="leave"?"Leave":""}
-function dept(e){
- for(const x of [e.department,e.department_name,e.group,e.group_name,e.dept,e.section])if(x!=null&&String(x).trim())return String(x).trim();
- return String(e.designation||"General").trim()||"General";
+$("date").value=today;
+$("historyFrom").value=today;
+$("historyTo").value=today;
+$("reportFrom").value=today;
+$("reportTo").value=today;
+
+function esc(v){
+ return String(v??"")
+  .replaceAll("&","&amp;")
+  .replaceAll("<","&lt;")
+  .replaceAll(">","&gt;")
+  .replaceAll('"',"&quot;")
+  .replaceAll("'","&#039;");
 }
-function eid(e){return e.id}
-function label(e){return e.employee_id||e.id||"-"}
-function selected(){return $("dept").value}
-function groupEmployees(){return selected()?employees.filter(e=>dept(e)===selected()):[]}
-function visible(){let q=$("search").value.toLowerCase().trim();return groupEmployees().filter(e=>!q||[e.name,e.employee_id,e.phone,e.designation,dept(e)].some(x=>String(x||"").toLowerCase().includes(q)))}
-function msg(t,ok=false){$("msg").className="msg "+(ok?"ok":"err");$("msg").textContent=t}
-function smsg(t,ok=false){$("saveMsg").className="msg "+(ok?"ok":"err");$("saveMsg").textContent=t}
+
+function msg(text,ok=false){
+ $("msg").className="msg "+(ok?"ok":"err");
+ $("msg").textContent=text;
+}
+
+function saveMsg(text,ok=false){
+ $("saveMsg").className="msg "+(ok?"ok":"err");
+ $("saveMsg").textContent=text;
+}
+
+function employeeId(e){
+ return e.employee_id??e.id;
+}
+
+function employeeName(e){
+ return e.name??"";
+}
+
+function designation(e){
+ return e.designation??"";
+}
+
+function phone(e){
+ return e.phone??"";
+}
+
+function findEmployee(id){
+ return employees.find(e=>String(employeeId(e))===String(id));
+}
+
+function populateEmployeeSelects(){
+ const sorted=[...employees].sort((a,b)=>
+  String(employeeId(a)||"").localeCompare(String(employeeId(b)||""),undefined,{numeric:true})
+ );
+
+ const options=sorted.map(e=>
+  `<option value="${esc(employeeId(e))}">${esc(employeeId(e))} — ${esc(employeeName(e)||"-")}</option>`
+ ).join("");
+
+ $("employeeSelect").innerHTML='<option value="">Select Employee ID</option>'+options;
+ $("historyEmployee").innerHTML='<option value="">Select Employee ID</option>'+options;
+ $("reportEmployee").innerHTML='<option value="">Select Employee ID</option>'+options;
+}
 
 async function start(){
- const {data:{session},error}=await db.auth.getSession();if(error)throw error;if(!session){location.href="admin.html";return}
- await loadEmployees();
+ try{
+  const {data:{session},error}=await db.auth.getSession();
+  if(error)throw error;
+  if(!session){
+   location.href="admin.html";
+   return;
+  }
+  await loadEmployees();
+ }catch(e){
+  msg(e.message);
+ }
 }
-db.auth.onAuthStateChange((e,s)=>{if(!s)location.href="admin.html"});
+
+db.auth.onAuthStateChange((event,session)=>{
+ if(!session)location.href="admin.html";
+});
 
 async function loadEmployees(){
- const {data,error}=await db.from("employees").select("*").order("name",{ascending:true});if(error)throw error;
+ const {data,error}=await db
+  .from("employees")
+  .select("id,employee_id,name,phone,designation,address,created_at")
+  .order("employee_id",{ascending:true});
+
+ if(error)throw error;
+
  employees=data||[];
- const groups=[...new Set(employees.map(dept))].sort((a,b)=>a.localeCompare(b));
- $("dept").innerHTML='<option value="">Select Department / Group</option>'+groups.map(x=>`<option value="${esc(x)}">${esc(x)}</option>`).join("");
- fillEmployeeSelects();updateGroupText();
- $("list").innerHTML='<tr><td colspan="6" style="text-align:center;padding:30px">Select a department/group first.</td></tr>';
+ populateEmployeeSelects();
+
+ $("attendanceList").innerHTML=
+  '<tr><td colspan="6" style="text-align:center;padding:30px">Select an Employee ID first.</td></tr>';
+
+ selectedEmployee=null;
+ currentStatus="";
+ updateAutoInfo();
+ updateStats();
 }
-function fillEmployeeSelects(){
- let x=employees.slice().sort((a,b)=>String(a.name||"").localeCompare(String(b.name||""))).map(e=>`<option value="${esc(eid(e))}">${esc(e.name||"-")} — ${esc(label(e))}</option>`).join("");
- $("he").innerHTML='<option value="">All Employees</option>'+x;$("re").innerHTML='<option value="">All Employees</option>'+x;
+
+function updateAutoInfo(){
+ if(!selectedEmployee){
+  $("autoName").textContent="—";
+  $("autoDesignation").textContent="—";
+  $("autoPhone").textContent="—";
+  $("total").textContent="0";
+  return;
+ }
+
+ $("autoName").textContent=employeeName(selectedEmployee)||"—";
+ $("autoDesignation").textContent=designation(selectedEmployee)||"—";
+ $("autoPhone").textContent=phone(selectedEmployee)||"—";
+ $("total").textContent="1";
 }
-function updateGroupText(){$("groupText").value=selected()?selected()+" — "+groupEmployees().length+" employee(s)":"No department selected";$("total").textContent=groupEmployees().length}
-async function loadAttendance(){
- if(!selected())return msg("Please select a department/group first.");
- const ids=groupEmployees().map(e=>eid(e));amap=new Map();
- const {data,error}=await db.from(ATT).select("employee_id,attendance_date,status").eq("attendance_date",$("date").value).in("employee_id",ids);
- if(error)return msg(error.message);
- (data||[]).forEach(r=>amap.set(String(r.employee_id),norm(r.status)));render();updateStats();
+
+async function selectEmployee(id,load=true){
+ selectedEmployee=findEmployee(id);
+ currentStatus="";
+ updateAutoInfo();
+
+ if(!selectedEmployee){
+  $("attendanceList").innerHTML=
+   '<tr><td colspan="6" style="text-align:center;padding:30px">Employee not found.</td></tr>';
+  updateStats();
+  return;
+ }
+
+ if(load)await loadSelectedAttendance();
+ else renderAttendance();
 }
-function render(){
- const a=visible();
- if(!a.length){$("list").innerHTML='<tr><td colspan="6" style="text-align:center;padding:30px">No employee found.</td></tr>';return}
- $("list").innerHTML=a.map((e,i)=>{let id=String(eid(e)),s=amap.get(id)||"";return `<tr><td class="sl">${i+1}</td><td class="eid">${esc(label(e))}</td><td class="name">${esc(e.name||"-")}</td><td><span class="tag">${esc(dept(e))}</span></td><td>${esc(e.designation||"-")}</td><td><div class="status">${sb("Present","p",id,s)}${sb("Absent","a",id,s)}${sb("Late","l",id,s)}${sb("Leave","v",id,s)}</div></td></tr>`}).join("");
+
+async function loadSelectedAttendance(){
+ if(!selectedEmployee)return;
+
+ const {data,error}=await db
+  .from(ATTENDANCE_TABLE)
+  .select("employee_id,attendance_date,status")
+  .eq("employee_id",employeeId(selectedEmployee))
+  .eq("attendance_date",$("date").value)
+  .limit(1);
+
+ if(error){
+  msg(error.message);
+  return;
+ }
+
+ currentStatus=data&&data[0] ? normalizeStatus(data[0].status) : "";
+ renderAttendance();
+ updateStats();
 }
-function sb(t,c,id,s){return `<button type="button" class="sbtn ${c} ${s===t?"on":""}" onclick="setStatus('${esc(id)}','${t}')">${t}</button>`}
-window.setStatus=(id,s)=>{if(groupEmployees().some(e=>String(eid(e))===String(id))){amap.set(String(id),s);render();updateStats()}};
-function all(s){groupEmployees().forEach(e=>amap.set(String(eid(e)),s));render();updateStats()}
-function updateStats(){let c={Present:0,Absent:0,Late:0,Leave:0};groupEmployees().forEach(e=>c[amap.get(String(eid(e)))]++);$("present").textContent=c.Present;$("absent").textContent=c.Absent;$("late").textContent=c.Late;$("leave").textContent=c.Leave}
+
+function normalizeStatus(v){
+ const s=String(v||"").toLowerCase().trim();
+ if(s==="present")return"Present";
+ if(s==="absent")return"Absent";
+ if(s==="late")return"Late";
+ if(s==="leave")return"Leave";
+ return"";
+}
+
+function renderAttendance(){
+ if(!selectedEmployee){
+  $("attendanceList").innerHTML=
+   '<tr><td colspan="6" style="text-align:center;padding:30px">Select an Employee ID first.</td></tr>';
+  return;
+ }
+
+ $("attendanceList").innerHTML=`
+ <tr>
+  <td class="sl">1</td>
+  <td class="eid">${esc(employeeId(selectedEmployee))}</td>
+  <td class="name">${esc(employeeName(selectedEmployee)||"-")}</td>
+  <td>${esc(designation(selectedEmployee)||"-")}</td>
+  <td>${esc(phone(selectedEmployee)||"-")}</td>
+  <td>
+   <div class="status">
+    ${statusButton("Present","p")}
+    ${statusButton("Absent","a")}
+    ${statusButton("Late","l")}
+    ${statusButton("Leave","v")}
+   </div>
+  </td>
+ </tr>`;
+}
+
+function statusButton(text,cls){
+ return `<button type="button" class="sbtn ${cls} ${currentStatus===text?"on":""}" onclick="setStatus('${esc(text)}')">${text}</button>`;
+}
+
+window.setStatus=function(status){
+ if(!selectedEmployee)return;
+ currentStatus=status;
+ renderAttendance();
+ updateStats();
+};
+
+function updateStats(){
+ $("present").textContent=currentStatus==="Present"?"1":"0";
+ $("absent").textContent=currentStatus==="Absent"?"1":"0";
+ $("late").textContent=currentStatus==="Late"?"1":"0";
+ $("leave").textContent=currentStatus==="Leave"?"1":"0";
+ $("total").textContent=selectedEmployee?"1":"0";
+}
+
 async function saveAttendance(){
- if(!selected())return smsg("Please select a department/group.");
- let es=groupEmployees();if(!es.length)return smsg("No employee in selected group.");
- if(es.some(e=>!amap.get(String(eid(e)))))return smsg("Mark attendance for every employee in the selected group.");
- $("save").disabled=true;
+ if(!selectedEmployee)return saveMsg("Please select an Employee ID.");
+ if(!currentStatus)return saveMsg("Please select an attendance status.");
+
+ $("saveBtn").disabled=true;
+
  try{
-  let ids=es.map(e=>eid(e));
-  let d=$("date").value;
-  let del=await db.from(ATT).delete().eq("attendance_date",d).in("employee_id",ids);if(del.error)throw del.error;
-  let rows=es.map(e=>({employee_id:eid(e),attendance_date:d,status:amap.get(String(eid(e)))}));
-  let ins=await db.from(ATT).insert(rows);if(ins.error)throw ins.error;
-  smsg("Attendance saved successfully for "+selected()+" only.",true);
- }catch(e){smsg(e.message)}finally{$("save").disabled=false}
+  const id=employeeId(selectedEmployee);
+  const date=$("date").value;
+
+  const del=await db
+   .from(ATTENDANCE_TABLE)
+   .delete()
+   .eq("employee_id",id)
+   .eq("attendance_date",date);
+
+  if(del.error)throw del.error;
+
+  const ins=await db
+   .from(ATTENDANCE_TABLE)
+   .insert({
+    employee_id:id,
+    attendance_date:date,
+    status:currentStatus
+   });
+
+  if(ins.error)throw ins.error;
+
+  saveMsg("Attendance saved successfully.",true);
+ }catch(e){
+  saveMsg(e.message);
+ }finally{
+  $("saveBtn").disabled=false;
+ }
 }
-async function history(){
- if(!selected())return msg("Please select a department/group.");
- let q=db.from(ATT).select("employee_id,attendance_date,status").order("attendance_date",{ascending:false});
- if($("hf").value)q=q.gte("attendance_date",$("hf").value);if($("ht").value)q=q.lte("attendance_date",$("ht").value);if($("he").value)q=q.eq("employee_id",$("he").value);
- let r=await q;if(r.error)return msg(r.error.message);
- let ids=new Set(groupEmployees().map(e=>String(eid(e)))),em=new Map(employees.map(e=>[String(eid(e)),e]));
- let rows=(r.data||[]).filter(x=>ids.has(String(x.employee_id)));
- $("historyList").innerHTML=rows.length?rows.map((x,i)=>{let e=em.get(String(x.employee_id));return `<tr><td>${i+1}</td><td>${esc(x.attendance_date)}</td><td class="eid">${esc(label(e))}</td><td class="name">${esc(e.name)}</td><td>${esc(dept(e))}</td><td>${esc(e.designation||"-")}</td><td>${esc(norm(x.status))}</td></tr>`}).join(""):'<tr><td colspan="7" style="text-align:center;padding:25px">No records found.</td></tr>';
+
+function searchEmployeeId(){
+ const q=$("searchId").value.toLowerCase().trim();
+ if(!q)return;
+
+ const found=employees.find(e=>
+  String(employeeId(e)).toLowerCase().includes(q)
+ );
+
+ if(found){
+  $("employeeSelect").value=String(employeeId(found));
+  selectEmployee(employeeId(found));
+ }else{
+  msg("No Employee ID found.");
+ }
 }
-async function report(){
- if(!selected())return msg("Please select a department/group.");
- let q=db.from(ATT).select("employee_id,attendance_date,status");
- if($("rf").value)q=q.gte("attendance_date",$("rf").value);if($("rt").value)q=q.lte("attendance_date",$("rt").value);if($("re").value)q=q.eq("employee_id",$("re").value);
- let r=await q;if(r.error)return msg(r.error.message);
- let ids=new Set(groupEmployees().map(e=>String(eid(e)))),m=new Map();
- groupEmployees().forEach(e=>m.set(String(eid(e)),{e,p:0,a:0,l:0,v:0,t:0}));
- (r.data||[]).filter(x=>ids.has(String(x.employee_id))).forEach(x=>{let z=m.get(String(x.employee_id)),s=norm(x.status);if(!z)return;z.t++;if(s==="Present")z.p++;if(s==="Absent")z.a++;if(s==="Late")z.l++;if(s==="Leave")z.v++});
- let a=[...m.values()].filter(x=>x.t),T=a.reduce((n,x)=>n+x.t,0),P=a.reduce((n,x)=>n+x.p,0),A=a.reduce((n,x)=>n+x.a,0);$("rc").textContent=T;$("rp").textContent=P;$("ra").textContent=A;$("rper").textContent=(T?(P/T*100).toFixed(1):"0.0")+"%";
- $("reportList").innerHTML=a.length?a.map((x,i)=>`<tr><td>${i+1}</td><td class="eid">${esc(label(x.e))}</td><td class="name">${esc(x.e.name)}</td><td>${esc(dept(x.e))}</td><td>${esc(x.e.designation||"-")}</td><td>${x.p}</td><td>${x.a}</td><td>${x.l}</td><td>${x.v}</td><td><b>${(x.p/x.t*100).toFixed(1)}%</b></td></tr>`).join(""):'<tr><td colspan="10" style="text-align:center;padding:25px">No report data found.</td></tr>';
+
+async function loadHistory(){
+ const id=$("historyEmployee").value || (selectedEmployee?employeeId(selectedEmployee):"");
+ if(!id)return msg("Please select an Employee ID for history.");
+
+ const e=findEmployee(id);
+ if(!e)return msg("Employee not found.");
+
+ let q=db
+  .from(ATTENDANCE_TABLE)
+  .select("employee_id,attendance_date,status")
+  .eq("employee_id",id)
+  .order("attendance_date",{ascending:false});
+
+ if($("historyFrom").value)q=q.gte("attendance_date",$("historyFrom").value);
+ if($("historyTo").value)q=q.lte("attendance_date",$("historyTo").value);
+
+ const {data,error}=await q;
+ if(error)return msg(error.message);
+
+ const rows=data||[];
+
+ $("historyList").innerHTML=rows.length
+ ?rows.map((r,i)=>`
+  <tr>
+   <td>${i+1}</td>
+   <td>${esc(r.attendance_date)}</td>
+   <td class="eid">${esc(employeeId(e))}</td>
+   <td class="name">${esc(employeeName(e))}</td>
+   <td>${esc(designation(e)||"-")}</td>
+   <td>${esc(normalizeStatus(r.status)||"-")}</td>
+  </tr>`).join("")
+ :'<tr><td colspan="6" style="text-align:center;padding:25px">No attendance records found.</td></tr>';
 }
+
+async function loadReport(){
+ const id=$("reportEmployee").value || (selectedEmployee?employeeId(selectedEmployee):"");
+ if(!id)return msg("Please select an Employee ID for report.");
+
+ const e=findEmployee(id);
+ if(!e)return msg("Employee not found.");
+
+ let q=db
+  .from(ATTENDANCE_TABLE)
+  .select("employee_id,attendance_date,status")
+  .eq("employee_id",id);
+
+ if($("reportFrom").value)q=q.gte("attendance_date",$("reportFrom").value);
+ if($("reportTo").value)q=q.lte("attendance_date",$("reportTo").value);
+
+ const {data,error}=await q;
+ if(error)return msg(error.message);
+
+ const rows=data||[];
+ let p=0,a=0,l=0,v=0;
+
+ rows.forEach(r=>{
+  const s=normalizeStatus(r.status);
+  if(s==="Present")p++;
+  else if(s==="Absent")a++;
+  else if(s==="Late")l++;
+  else if(s==="Leave")v++;
+ });
+
+ const total=rows.length;
+ const percent=total?((p/total)*100).toFixed(1):"0.0";
+
+ $("reportTotal").textContent=total;
+ $("reportPresent").textContent=p;
+ $("reportAbsent").textContent=a;
+ $("reportPercent").textContent=percent+"%";
+
+ $("reportList").innerHTML=total
+ ?`<tr>
+   <td>1</td>
+   <td class="eid">${esc(employeeId(e))}</td>
+   <td class="name">${esc(employeeName(e))}</td>
+   <td>${esc(designation(e)||"-")}</td>
+   <td>${p}</td><td>${a}</td><td>${l}</td><td>${v}</td>
+   <td><b>${percent}%</b></td>
+  </tr>`
+ :'<tr><td colspan="9" style="text-align:center;padding:25px">No report data found.</td></tr>';
+}
+
 function printSheet(){
- if(!selected())return msg("Please select a department/group.");
- let es=groupEmployees();if(!es.length)return msg("No employee in selected group.");
- let c={Present:0,Absent:0,Late:0,Leave:0};es.forEach(e=>c[amap.get(String(eid(e)))]++);
- $("printArea").innerHTML=`<div class="sheet"><div class="ph"><img src="img/logo.png" onerror="this.style.display='none'"><h1>Madrasa-e Nurul Quran</h1><h2>EMPLOYEE DAILY ATTENDANCE SHEET</h2></div><div class="meta"><span><b>Department / Group:</b> ${esc(selected())}</span><span><b>Date:</b> ${esc($("date").value)}</span><span><b>Total:</b> ${es.length}</span></div><div class="sum">Present: ${c.Present} &nbsp; | &nbsp; Absent: ${c.Absent} &nbsp; | &nbsp; Late: ${c.Late} &nbsp; | &nbsp; Leave: ${c.Leave}</div><table class="pt"><thead><tr><th>SL</th><th>Employee ID</th><th>Name</th><th>Department / Group</th><th>Designation</th><th>Status</th></tr></thead><tbody>${es.map((e,i)=>`<tr><td>${i+1}</td><td>${esc(label(e))}</td><td>${esc(e.name||"-")}</td><td>${esc(dept(e))}</td><td>${esc(e.designation||"-")}</td><td>${esc(amap.get(String(eid(e)))||"Not Marked")}</td></tr>`).join("")}</tbody></table><div class="pf"><span>Prepared by: __________________</span><span>Madrasa Management</span><span>Authorized Signature: __________________</span></div></div>`;
+ if(!selectedEmployee)return msg("Please select an Employee ID.");
+ if(!currentStatus)return msg("Please mark attendance before printing.");
+
+ $("printArea").innerHTML=`
+ <div class="print-sheet">
+  <div class="print-header">
+   <img src="img/logo.png" onerror="this.style.display='none'">
+   <h1>Madrasa-e Nurul Quran</h1>
+   <h2>EMPLOYEE DAILY ATTENDANCE SHEET</h2>
+  </div>
+
+  <div class="print-meta">
+   <span><b>Employee ID:</b> ${esc(employeeId(selectedEmployee))}</span>
+   <span><b>Employee Name:</b> ${esc(employeeName(selectedEmployee))}</span>
+   <span><b>Date:</b> ${esc($("date").value)}</span>
+  </div>
+
+  <div class="print-summary">
+   Attendance Status: ${esc(currentStatus)}
+  </div>
+
+  <table class="print-table">
+   <thead>
+    <tr>
+     <th>SL</th>
+     <th>Employee ID</th>
+     <th>Employee Name</th>
+     <th>Designation</th>
+     <th>Phone</th>
+     <th>Attendance Status</th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr>
+     <td>1</td>
+     <td>${esc(employeeId(selectedEmployee))}</td>
+     <td>${esc(employeeName(selectedEmployee)||"-")}</td>
+     <td>${esc(designation(selectedEmployee)||"-")}</td>
+     <td>${esc(phone(selectedEmployee)||"-")}</td>
+     <td>${esc(currentStatus)}</td>
+    </tr>
+   </tbody>
+  </table>
+
+  <div class="print-footer">
+   <span>Prepared by: __________________</span>
+   <span>Madrasa Management</span>
+   <span>Authorized Signature: __________________</span>
+  </div>
+ </div>`;
+
  window.print();
 }
-$("dept").onchange=async()=>{updateGroupText();amap=new Map();await loadAttendance()};$("date").onchange=()=>selected()&&loadAttendance();$("search").oninput=render;$("load").onclick=loadAttendance;$("refresh").onclick=()=>loadEmployees();$("save").onclick=saveAttendance;$("clear").onclick=()=>{groupEmployees().forEach(e=>amap.delete(String(eid(e))));render();updateStats()};document.querySelectorAll("[data-all]").forEach(b=>b.onclick=()=>all(b.dataset.all));$("historyBtn").onclick=()=>{$("history").classList.toggle("hidden")};$("reportBtn").onclick=()=>{$("report").classList.toggle("hidden")};$("loadHistory").onclick=history;$("loadReport").onclick=report;$("print").onclick=printSheet;
-start().catch(e=>{msg(e.message);console.error(e)});
+
+$("employeeSelect").addEventListener("change",()=>{
+ const id=$("employeeSelect").value;
+ selectEmployee(id);
+});
+
+$("date").addEventListener("change",()=>{
+ if(selectedEmployee)loadSelectedAttendance();
+});
+
+$("searchId").addEventListener("keydown",e=>{
+ if(e.key==="Enter")searchEmployeeId();
+});
+
+$("loadBtn").onclick=()=>{
+ const id=$("employeeSelect").value;
+ if(!id)return msg("Please select an Employee ID.");
+ selectEmployee(id);
+};
+
+$("refreshBtn").onclick=async()=>{
+ try{
+  await loadEmployees();
+  msg("Employee list refreshed.",true);
+ }catch(e){msg(e.message);}
+};
+
+$("presentBtn").onclick=()=>setStatus("Present");
+$("absentBtn").onclick=()=>setStatus("Absent");
+$("lateBtn").onclick=()=>setStatus("Late");
+$("leaveBtn").onclick=()=>setStatus("Leave");
+
+$("clearBtn").onclick=()=>{
+ currentStatus="";
+ renderAttendance();
+ updateStats();
+ saveMsg("");
+};
+
+$("saveBtn").onclick=saveAttendance;
+
+$("historyBtn").onclick=()=>{
+ $("historySection").classList.toggle("hidden");
+ if(selectedEmployee)$("historyEmployee").value=String(employeeId(selectedEmployee));
+};
+
+$("reportBtn").onclick=()=>{
+ $("reportSection").classList.toggle("hidden");
+ if(selectedEmployee)$("reportEmployee").value=String(employeeId(selectedEmployee));
+};
+
+$("loadHistoryBtn").onclick=loadHistory;
+$("loadReportBtn").onclick=loadReport;
+$("printBtn").onclick=printSheet;
+
+start();
 </script>
 </body>
 </html>
