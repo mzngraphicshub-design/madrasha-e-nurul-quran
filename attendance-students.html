@@ -16,12 +16,23 @@
 :root{
     --primary:#075c43;
     --primary2:#087f5b;
+    --primary3:#064936;
     --light:#eef8f5;
-    --border:#dce7e3;
+    --border:#d7e4df;
     --danger:#c62828;
-    --warning:#ef9b00;
+    --danger-bg:#fff1f1;
+    --warning:#d88900;
+    --warning-bg:#fff8e6;
     --blue:#1565c0;
+    --blue-bg:#eef5ff;
     --text:#173c32;
+    --muted:#687b75;
+    --white:#fff;
+    --shadow:0 3px 15px rgba(0,0,0,.07);
+}
+
+html{
+    scroll-behavior:smooth;
 }
 
 body{
@@ -31,41 +42,62 @@ body{
     font-family:"Bornomala",Arial,sans-serif;
 }
 
+/* =========================
+   TOP BAR
+========================= */
+
 .top{
-    background:var(--primary);
-    color:white;
-    min-height:54px;
-    padding:12px 18px;
+    background:linear-gradient(135deg,var(--primary3),var(--primary2));
+    color:#fff;
+    min-height:55px;
+    padding:11px 18px;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    box-shadow:0 2px 8px #0002;
+    box-shadow:0 2px 10px rgba(0,0,0,.15);
 }
 
 .top h2{
     margin:0;
     font-size:18px;
     color:#fff;
+    font-weight:bold;
 }
 
 .top a{
     color:#fff;
     text-decoration:none;
     font-size:13px;
+    padding:7px 10px;
+    border:1px solid rgba(255,255,255,.25);
+    border-radius:6px;
 }
 
+.top a:hover{
+    background:rgba(255,255,255,.1);
+}
+
+/* =========================
+   CONTAINER
+========================= */
+
 .container{
-    max-width:1200px;
+    max-width:1250px;
     margin:20px auto;
     padding:0 12px;
 }
 
+/* =========================
+   BOX
+========================= */
+
 .box{
     background:#fff;
+    border:1px solid #e1ebe7;
     border-radius:12px;
     padding:16px;
     margin-bottom:18px;
-    box-shadow:0 2px 12px #00000012;
+    box-shadow:var(--shadow);
 }
 
 .box h3{
@@ -73,6 +105,10 @@ body{
     color:var(--primary);
     font-size:17px;
 }
+
+/* =========================
+   GRID
+========================= */
 
 .grid{
     display:grid;
@@ -85,6 +121,7 @@ body{
     font-size:13px;
     font-weight:bold;
     margin-bottom:5px;
+    color:#35564d;
 }
 
 input,
@@ -98,13 +135,14 @@ textarea{
     font-family:inherit;
     font-size:14px;
     outline:none;
+    color:#23473d;
 }
 
 input:focus,
 select:focus,
 textarea:focus{
     border-color:var(--primary2);
-    box-shadow:0 0 0 2px #087f5b15;
+    box-shadow:0 0 0 3px rgba(8,127,91,.08);
 }
 
 textarea{
@@ -112,9 +150,9 @@ textarea{
     resize:vertical;
 }
 
-.full{
-    grid-column:1/-1;
-}
+/* =========================
+   BUTTONS
+========================= */
 
 .buttons{
     display:flex;
@@ -132,15 +170,18 @@ button{
     font-family:inherit;
     font-weight:bold;
     background:var(--primary2);
+    transition:.15s;
 }
 
 button:hover{
-    opacity:.92;
+    transform:translateY(-1px);
+    opacity:.94;
 }
 
 button:disabled{
     opacity:.55;
     cursor:not-allowed;
+    transform:none;
 }
 
 .btn-danger{
@@ -156,8 +197,16 @@ button:disabled{
 }
 
 .btn-warning{
-    background:#ef8f00;
+    background:var(--warning);
 }
+
+.btn-dark{
+    background:#344c45;
+}
+
+/* =========================
+   MESSAGE
+========================= */
 
 .message{
     margin-top:10px;
@@ -186,35 +235,40 @@ button:disabled{
     color:#1565c0;
 }
 
-/* SUMMARY */
+/* =========================
+   SUMMARY
+========================= */
 
 .summary{
     display:grid;
     grid-template-columns:repeat(5,1fr);
     gap:10px;
-    margin-bottom:15px;
 }
 
 .summary-card{
-    background:#edf8f5;
+    background:#f1f8f5;
+    border:1px solid #e0eee9;
     border-radius:9px;
-    padding:11px;
-    min-height:67px;
+    padding:12px;
+    min-height:70px;
 }
 
 .summary-card small{
     display:block;
     font-size:12px;
+    color:#557069;
 }
 
 .summary-card strong{
     display:block;
     margin-top:3px;
-    font-size:20px;
+    font-size:21px;
     color:var(--primary);
 }
 
-/* STUDENT LIST */
+/* =========================
+   STUDENT TOOLBAR
+========================= */
 
 .student-toolbar{
     display:flex;
@@ -228,34 +282,61 @@ button:disabled{
     min-width:220px;
 }
 
+/* =========================
+   STUDENT LIST HEADER
+========================= */
+
+.student-list-header{
+    display:grid;
+    grid-template-columns:55px minmax(180px,1.5fr) minmax(130px,1fr) 145px minmax(180px,1.2fr);
+    gap:10px;
+    padding:9px 12px;
+    background:#e8f2ef;
+    border:1px solid #d6e4df;
+    border-radius:7px;
+    margin-bottom:6px;
+    font-size:12px;
+    font-weight:bold;
+    color:#36564e;
+}
+
 .student-list{
     display:flex;
     flex-direction:column;
-    gap:7px;
+    gap:6px;
     max-height:560px;
     overflow:auto;
+    padding-right:2px;
 }
 
 .student-row{
     display:grid;
-    grid-template-columns:45px minmax(150px,1fr) 95px 135px minmax(150px,1fr);
+    grid-template-columns:55px minmax(180px,1.5fr) minmax(130px,1fr) 145px minmax(180px,1.2fr);
     align-items:center;
     gap:10px;
-    background:#edf8ef;
-    border-radius:8px;
-    padding:8px 10px;
+    background:#f4faf8;
+    border:1px solid #e2ece8;
+    border-radius:7px;
+    padding:7px 10px;
+}
+
+.student-row:hover{
+    border-color:#b9d6cb;
 }
 
 .student-row.absent{
-    background:#fff1f1;
+    background:var(--danger-bg);
+    border-color:#f1d5d5;
 }
 
 .student-row.late{
-    background:#fff9e7;
+    background:var(--warning-bg);
+    border-color:#f0dfb4;
 }
 
 .student-row.leave{
-    background:#eef4ff;
+    background:var(--blue-bg);
+    border-color:#d4e2f7;
 }
 
 .roll{
@@ -276,13 +357,12 @@ button:disabled{
     padding:8px;
 }
 
-/* HISTORY */
-
-.search{
-    margin-bottom:12px;
-}
+/* =========================
+   HISTORY
+========================= */
 
 .table-wrap{
+    width:100%;
     overflow:auto;
 }
 
@@ -290,6 +370,7 @@ table{
     width:100%;
     min-width:900px;
     border-collapse:collapse;
+    background:#fff;
 }
 
 th{
@@ -298,20 +379,28 @@ th{
     padding:9px;
     text-align:left;
     font-size:13px;
+    border:1px solid var(--primary3);
+    white-space:nowrap;
 }
 
 td{
     padding:8px;
-    border-bottom:1px solid #e5ece9;
+    border:1px solid #e1e9e6;
     font-size:13px;
+    vertical-align:middle;
+}
+
+tbody tr:hover{
+    background:#f7fbfa;
 }
 
 .status{
     display:inline-block;
-    padding:4px 8px;
-    border-radius:20px;
+    padding:4px 9px;
+    border-radius:5px;
     font-size:11px;
     font-weight:bold;
+    white-space:nowrap;
 }
 
 .present{
@@ -340,7 +429,9 @@ td{
     margin:2px;
 }
 
-/* REPORT */
+/* =========================
+   REPORT
+========================= */
 
 .report-grid{
     display:grid;
@@ -350,26 +441,105 @@ td{
 
 .report-summary{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:repeat(6,1fr);
     gap:10px;
     margin-top:14px;
 }
 
 .report-card{
-    padding:13px;
+    padding:12px;
     background:#f1f8f6;
+    border:1px solid #dfebe7;
     border-radius:8px;
 }
 
 .report-card b{
     display:block;
     font-size:12px;
+    color:#60766f;
 }
 
 .report-card strong{
-    font-size:20px;
+    display:block;
+    margin-top:4px;
+    font-size:21px;
     color:var(--primary);
 }
+
+/* =========================
+   PRINT REPORT HEADER
+========================= */
+
+.print-report-header{
+    display:none;
+}
+
+.print-title{
+    font-size:21px;
+    font-weight:bold;
+    text-align:center;
+    color:#075c43;
+    margin:0;
+}
+
+.print-subtitle{
+    text-align:center;
+    font-size:13px;
+    color:#444;
+    margin-top:3px;
+}
+
+.print-meta{
+    display:flex;
+    justify-content:space-between;
+    gap:15px;
+    margin:12px 0;
+    padding:7px 0;
+    border-top:1px solid #aaa;
+    border-bottom:1px solid #aaa;
+    font-size:12px;
+}
+
+.print-summary{
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    border:1px solid #333;
+    margin-bottom:12px;
+}
+
+.print-summary-item{
+    padding:7px;
+    text-align:center;
+    border-right:1px solid #333;
+}
+
+.print-summary-item:last-child{
+    border-right:0;
+}
+
+.print-summary-item small{
+    display:block;
+    font-size:10px;
+}
+
+.print-summary-item strong{
+    display:block;
+    font-size:15px;
+    margin-top:2px;
+}
+
+.print-footer{
+    margin-top:12px;
+    display:flex;
+    justify-content:space-between;
+    font-size:10px;
+    border-top:1px solid #aaa;
+    padding-top:6px;
+}
+
+/* =========================
+   UTILITIES
+========================= */
 
 .loading{
     text-align:center;
@@ -383,108 +553,243 @@ td{
     color:#777;
 }
 
-.small-note{
-    font-size:12px;
-    color:#70827c;
-    margin-top:7px;
-}
-
 .hidden{
     display:none!important;
 }
 
-/* PRINT */
+/* =========================
+   MOBILE
+========================= */
 
-@media print{
-
-    body{
-        background:#fff;
-    }
-
-    .top,
-    .no-print,
-    .buttons,
-    .student-toolbar,
-    #historyBox,
-    #attendanceBox{
-        display:none!important;
-    }
-
-    .box{
-        box-shadow:none;
-        border:0;
-    }
-
-    #reportBox{
-        display:block!important;
-    }
-
-    table{
-        min-width:0;
-    }
-
-    .container{
-        max-width:none;
-        margin:0;
-        padding:0;
-    }
-}
-
-/* MOBILE */
-
-@media(max-width:800px){
+@media(max-width:900px){
 
     .grid{
-        grid-template-columns:1fr;
-    }
-
-    .full{
-        grid-column:auto;
+        grid-template-columns:1fr 1fr;
     }
 
     .summary{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .report-grid{
-        grid-template-columns:1fr;
+        grid-template-columns:repeat(3,1fr);
     }
 
     .report-summary{
-        grid-template-columns:repeat(2,1fr);
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .student-list-header{
+        display:none;
     }
 
     .student-row{
-        grid-template-columns:35px 1fr 105px;
+        grid-template-columns:45px 1fr 120px;
     }
 
-    .student-class,
+    .student-class{
+        grid-column:2;
+    }
+
     .note-input{
-        grid-column:2/-1;
+        grid-column:1/-1;
     }
 
 }
 
-@media(max-width:480px){
+@media(max-width:600px){
 
     .container{
+        margin:10px auto;
         padding:0 8px;
     }
 
     .box{
         padding:12px;
+        margin-bottom:12px;
+    }
+
+    .grid{
+        grid-template-columns:1fr;
     }
 
     .summary{
         grid-template-columns:1fr 1fr;
     }
 
+    .report-summary{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .student-row{
+        grid-template-columns:40px 1fr 105px;
+        gap:7px;
+        padding:8px;
+    }
+
+    .student-name{
+        font-size:13px;
+    }
+
+    .student-class{
+        font-size:11px;
+    }
+
+    .top{
+        padding:10px 12px;
+    }
+
     .top h2{
-        font-size:16px;
+        font-size:15px;
     }
 
     .top a{
         font-size:11px;
+    }
+
+}
+
+/* =========================
+   PRINT
+========================= */
+
+@media print{
+
+    @page{
+        size:A4 landscape;
+        margin:8mm;
+    }
+
+    html,
+    body{
+        background:#fff!important;
+        width:100%;
+        margin:0;
+        padding:0;
+    }
+
+    body{
+        font-family:"Bornomala",Arial,sans-serif;
+        color:#111;
+    }
+
+    body *{
+        visibility:hidden;
+    }
+
+    #reportBox,
+    #reportBox *{
+        visibility:visible;
+    }
+
+    #reportBox{
+        position:absolute;
+        left:0;
+        top:0;
+        width:100%;
+        margin:0;
+        padding:0;
+        border:0;
+        box-shadow:none;
+        background:#fff;
+    }
+
+    #reportBox > h3,
+    #reportBox > .report-grid,
+    #reportBox > .buttons,
+    #reportBox > #reportMessage{
+        display:none!important;
+    }
+
+    #reportContent{
+        display:block!important;
+        width:100%;
+    }
+
+    .print-report-header{
+        display:block!important;
+    }
+
+    .report-summary{
+        display:none!important;
+    }
+
+    .table-wrap{
+        overflow:visible!important;
+        width:100%!important;
+    }
+
+    #reportListTable{
+        display:table!important;
+        width:100%!important;
+        min-width:0!important;
+        border-collapse:collapse!important;
+        table-layout:fixed;
+    }
+
+    #reportListTable th{
+        background:#075c43!important;
+        color:#fff!important;
+        border:1px solid #333!important;
+        padding:6px 5px!important;
+        font-size:10px!important;
+        text-align:left!important;
+    }
+
+    #reportListTable td{
+        color:#111!important;
+        border:1px solid #555!important;
+        padding:5px!important;
+        font-size:9px!important;
+        line-height:1.2!important;
+    }
+
+    #reportListTable th:nth-child(1),
+    #reportListTable td:nth-child(1){
+        width:9%;
+    }
+
+    #reportListTable th:nth-child(2),
+    #reportListTable td:nth-child(2){
+        width:25%;
+    }
+
+    #reportListTable th:nth-child(3),
+    #reportListTable td:nth-child(3){
+        width:18%;
+    }
+
+    #reportListTable th:nth-child(4),
+    #reportListTable td:nth-child(4){
+        width:15%;
+    }
+
+    #reportListTable th:nth-child(5),
+    #reportListTable td:nth-child(5){
+        width:13%;
+    }
+
+    #reportListTable th:nth-child(6),
+    #reportListTable td:nth-child(6){
+        width:20%;
+    }
+
+    .print-status{
+        font-weight:bold!important;
+        background:transparent!important;
+        padding:0!important;
+        border-radius:0!important;
+    }
+
+    .print-footer{
+        display:flex!important;
+    }
+
+    .no-print{
+        display:none!important;
+    }
+
+    .status{
+        background:transparent!important;
+        padding:0!important;
+        border-radius:0!important;
+        color:#111!important;
     }
 
 }
@@ -493,9 +798,9 @@ td{
 
 <body>
 
-<header class="top">
-    <h2>👨‍🎓 Student Attendance</h2>
-    <a href="dashboard.html">← Dashboard</a>
+<header class="top no-print">
+    <h2>Student Attendance</h2>
+    <a href="dashboard.html">Dashboard</a>
 </header>
 
 <div class="container">
@@ -506,7 +811,7 @@ td{
 
 <div class="box no-print">
 
-    <h3>📋 Student Attendance</h3>
+    <h3>Student Attendance</h3>
 
     <div class="grid">
 
@@ -517,13 +822,15 @@ td{
 
         <div class="field">
             <label>Class / Department</label>
+
             <select id="classFilter">
                 <option value="">All Class / Department</option>
             </select>
         </div>
 
         <div class="field">
-            <label>Attendance Status</label>
+            <label>Default Attendance Status</label>
+
             <select id="defaultStatus">
                 <option value="Present">উপস্থিত</option>
                 <option value="Absent">অনুপস্থিত</option>
@@ -537,23 +844,23 @@ td{
     <div class="buttons">
 
         <button type="button" id="allPresentBtn">
-            ✅ সবাই উপস্থিত
+            সবাই উপস্থিত
         </button>
 
         <button type="button" id="allAbsentBtn" class="btn-danger">
-            ❌ সবাই অনুপস্থিত
+            সবাই অনুপস্থিত
         </button>
 
         <button type="button" id="allLeaveBtn" class="btn-warning">
-            🟡 সবাই ছুটি
+            সবাই ছুটি
         </button>
 
         <button type="button" id="allLateBtn" class="btn-blue">
-            ⏰ সবাই দেরি
+            সবাই দেরি
         </button>
 
         <button type="button" id="refreshBtn" class="btn-gray">
-            🔄 Refresh
+            Refresh
         </button>
 
     </div>
@@ -569,32 +876,32 @@ td{
 
 <div class="box">
 
-    <h3>📊 Today's Attendance Summary</h3>
+    <h3>Today's Attendance Summary</h3>
 
     <div class="summary">
 
         <div class="summary-card">
-            <small>👨‍🎓 Total Students</small>
+            <small>Total Students</small>
             <strong id="totalStudents">0</strong>
         </div>
 
         <div class="summary-card">
-            <small>✅ Present</small>
+            <small>Present</small>
             <strong id="presentCount">0</strong>
         </div>
 
         <div class="summary-card">
-            <small>❌ Absent</small>
+            <small>Absent</small>
             <strong id="absentCount">0</strong>
         </div>
 
         <div class="summary-card">
-            <small>⏰ Late</small>
+            <small>Late</small>
             <strong id="lateCount">0</strong>
         </div>
 
         <div class="summary-card">
-            <small>🟡 Leave</small>
+            <small>Leave</small>
             <strong id="leaveCount">0</strong>
         </div>
 
@@ -604,19 +911,25 @@ td{
 
 
 <!-- =====================================================
-     STUDENT ATTENDANCE LIST
+     STUDENT LIST
 ===================================================== -->
 
 <div class="box no-print" id="attendanceBox">
 
-    <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;">
+    <div style="
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        gap:10px;
+        flex-wrap:wrap;
+    ">
 
         <h3 style="margin-bottom:10px;">
-            👥 Student List
+            Student List
         </h3>
 
         <button type="button" id="saveAttendanceBtn">
-            💾 Save Attendance
+            Save Attendance
         </button>
 
     </div>
@@ -626,8 +939,18 @@ td{
         <input
             type="text"
             id="studentSearch"
-            placeholder="🔍 Roll / ID / Student Name দিয়ে খুঁজুন..."
+            placeholder="Roll / Student ID / Student Name দিয়ে খুঁজুন"
         >
+
+    </div>
+
+    <div class="student-list-header">
+
+        <div>Roll</div>
+        <div>Student Name</div>
+        <div>Class / Department</div>
+        <div>Status</div>
+        <div>Note</div>
 
     </div>
 
@@ -643,34 +966,50 @@ td{
 
 
 <!-- =====================================================
-     ATTENDANCE HISTORY
+     HISTORY
 ===================================================== -->
 
 <div class="box no-print" id="historyBox">
 
-    <h3>📅 Attendance History</h3>
+    <h3>Attendance History</h3>
 
     <div class="grid">
 
         <div class="field">
+
             <label>Date</label>
-            <input type="date" id="historyDate">
+
+            <input
+                type="date"
+                id="historyDate"
+            >
+
         </div>
 
         <div class="field">
+
             <label>Class / Department</label>
+
             <select id="historyClass">
-                <option value="">All Class / Department</option>
+
+                <option value="">
+                    All Class / Department
+                </option>
+
             </select>
+
         </div>
 
         <div class="field">
+
             <label>Search</label>
+
             <input
                 type="text"
                 id="historySearch"
-                placeholder="Student Name / Roll..."
+                placeholder="Student Name / Roll / ID"
             >
+
         </div>
 
     </div>
@@ -711,87 +1050,204 @@ td{
 
 
 <!-- =====================================================
-     ATTENDANCE REPORT
+     REPORT
 ===================================================== -->
 
 <div class="box" id="reportBox">
 
-    <h3>📈 Attendance Report</h3>
+    <h3 class="no-print">
+        Attendance Report
+    </h3>
 
     <div class="report-grid no-print">
 
         <div class="field">
+
             <label>From Date</label>
-            <input type="date" id="reportFrom">
+
+            <input
+                type="date"
+                id="reportFrom"
+            >
+
         </div>
 
         <div class="field">
+
             <label>To Date</label>
-            <input type="date" id="reportTo">
+
+            <input
+                type="date"
+                id="reportTo"
+            >
+
         </div>
 
         <div class="field">
+
             <label>Student</label>
+
             <select id="reportStudent">
-                <option value="">সকল শিক্ষার্থী</option>
+
+                <option value="">
+                    সকল শিক্ষার্থী
+                </option>
+
             </select>
+
         </div>
 
     </div>
+
 
     <div class="buttons no-print">
 
-        <button type="button" id="generateReportBtn">
-            📊 Generate Report
+        <button
+            type="button"
+            id="generateReportBtn"
+        >
+            Generate Report
         </button>
 
-        <button type="button" id="printReportBtn" class="btn-blue">
-            🖨️ Print / PDF
+        <button
+            type="button"
+            id="printReportBtn"
+            class="btn-blue"
+        >
+            Print / PDF
         </button>
 
     </div>
 
-    <div id="reportMessage" class="message"></div>
+
+    <div
+        id="reportMessage"
+        class="message no-print"
+    ></div>
+
+
+    <!-- PRINT HEADER -->
+
+    <div class="print-report-header">
+
+        <h1 class="print-title">
+            মাদরাসায়ে নূরুল কুরআন
+        </h1>
+
+        <div class="print-subtitle">
+            Student Attendance Report
+        </div>
+
+        <div class="print-meta">
+
+            <div>
+                From:
+                <strong id="printFrom">
+                    -
+                </strong>
+            </div>
+
+            <div>
+                To:
+                <strong id="printTo">
+                    -
+                </strong>
+            </div>
+
+            <div>
+                Student:
+                <strong id="printStudent">
+                    সকল শিক্ষার্থী
+                </strong>
+            </div>
+
+            <div>
+                Generated:
+                <strong id="printGenerated">
+                    -
+                </strong>
+            </div>
+
+        </div>
+
+
+        <div class="print-summary">
+
+            <div class="print-summary-item">
+                <small>Total Records</small>
+                <strong id="printTotal">0</strong>
+            </div>
+
+            <div class="print-summary-item">
+                <small>Present</small>
+                <strong id="printPresent">0</strong>
+            </div>
+
+            <div class="print-summary-item">
+                <small>Absent</small>
+                <strong id="printAbsent">0</strong>
+            </div>
+
+            <div class="print-summary-item">
+                <small>Late</small>
+                <strong id="printLate">0</strong>
+            </div>
+
+            <div class="print-summary-item">
+                <small>Leave</small>
+                <strong id="printLeave">0</strong>
+            </div>
+
+            <div class="print-summary-item">
+                <small>Attendance</small>
+                <strong id="printPercentage">0%</strong>
+            </div>
+
+        </div>
+
+    </div>
+
 
     <div id="reportContent">
 
         <div class="report-summary">
 
             <div class="report-card">
-                <b>📋 Total Records</b>
+                <b>Total Records</b>
                 <strong id="reportTotal">0</strong>
             </div>
 
             <div class="report-card">
-                <b>✅ Present</b>
+                <b>Present</b>
                 <strong id="reportPresent">0</strong>
             </div>
 
             <div class="report-card">
-                <b>❌ Absent</b>
+                <b>Absent</b>
                 <strong id="reportAbsent">0</strong>
             </div>
 
             <div class="report-card">
-                <b>⏰ Late</b>
+                <b>Late</b>
                 <strong id="reportLate">0</strong>
             </div>
 
             <div class="report-card">
-                <b>🟡 Leave</b>
+                <b>Leave</b>
                 <strong id="reportLeave">0</strong>
             </div>
 
             <div class="report-card">
-                <b>📈 Attendance %</b>
+                <b>Attendance %</b>
                 <strong id="reportPercentage">0%</strong>
             </div>
 
         </div>
 
+
         <div class="table-wrap" style="margin-top:15px;">
 
-            <table>
+            <table id="reportListTable">
 
                 <thead>
 
@@ -819,6 +1275,19 @@ td{
             </table>
 
         </div>
+
+    </div>
+
+
+    <div class="print-footer print-report-header">
+
+        <span>
+            Student Attendance Report
+        </span>
+
+        <span>
+            মাদরাসায়ে নূরুল কুরআন
+        </span>
 
     </div>
 
@@ -853,30 +1322,31 @@ window.supabase.createClient(
 
 
 /* =====================================================
-   GLOBAL DATA
+   GLOBAL
 ===================================================== */
 
 let students = [];
+let classes = [];
 let attendanceRecords = [];
-
 let currentAttendance = {};
-
-let editingAttendanceId = null;
 
 
 /* =====================================================
-   DATE HELPERS
+   DATE
 ===================================================== */
 
 function today(){
 
     const d = new Date();
 
-    const y = d.getFullYear();
+    const y =
+        d.getFullYear();
 
-    const m = String(d.getMonth()+1).padStart(2,"0");
+    const m =
+        String(d.getMonth()+1).padStart(2,"0");
 
-    const day = String(d.getDate()).padStart(2,"0");
+    const day =
+        String(d.getDate()).padStart(2,"0");
 
     return `${y}-${m}-${day}`;
 
@@ -924,13 +1394,13 @@ function showReportMessage(text,type="info"){
     el.textContent = text;
 
     el.className =
-        "message " + type;
+        "message " + type + " no-print";
 
 }
 
 
 /* =====================================================
-   STUDENT FIELD DETECTION
+   STUDENT HELPERS
 ===================================================== */
 
 function studentName(s){
@@ -940,7 +1410,6 @@ function studentName(s){
         s.student_name ||
         s.full_name ||
         s.studentName ||
-        s.student ||
         "Unnamed Student"
     );
 
@@ -960,21 +1429,6 @@ function studentRoll(s){
 }
 
 
-function studentClass(s){
-
-    return (
-        s.class_name ||
-        s.class ||
-        s.class_name_bn ||
-        s.department ||
-        s.class_department ||
-        s.className ||
-        "-"
-    );
-
-}
-
-
 function studentId(s){
 
     return s.id;
@@ -983,18 +1437,93 @@ function studentId(s){
 
 
 /* =====================================================
-   STATUS CLASS
+   CLASS NAME
+===================================================== */
+
+function getClassNameById(id){
+
+    if(
+        id === null ||
+        id === undefined ||
+        id === ""
+    ){
+        return "-";
+    }
+
+    const found =
+        classes.find(c =>
+            String(c.id) === String(id)
+        );
+
+    if(found){
+
+        return (
+            found.name ||
+            found.class_name ||
+            found.title ||
+            "-"
+        );
+
+    }
+
+    return String(id);
+
+}
+
+
+function studentClass(s){
+
+    /*
+      Priority:
+      1. class_name stored directly
+      2. department
+      3. class_id mapped from classes table
+    */
+
+    if(s.class_name)
+        return s.class_name;
+
+    if(s.class_name_bn)
+        return s.class_name_bn;
+
+    if(s.department)
+        return s.department;
+
+    if(s.class)
+        return s.class;
+
+    if(s.className)
+        return s.className;
+
+    if(
+        s.class_id !== undefined &&
+        s.class_id !== null
+    ){
+
+        return getClassNameById(
+            s.class_id
+        );
+
+    }
+
+    return "-";
+
+}
+
+
+/* =====================================================
+   STATUS
 ===================================================== */
 
 function statusClass(status){
 
-    if(status==="Present")
+    if(status === "Present")
         return "present";
 
-    if(status==="Absent")
+    if(status === "Absent")
         return "absent-status";
 
-    if(status==="Late")
+    if(status === "Late")
         return "late-status";
 
     return "leave-status";
@@ -1004,25 +1533,25 @@ function statusClass(status){
 
 function statusBangla(status){
 
-    if(status==="Present")
+    if(status === "Present")
         return "উপস্থিত";
 
-    if(status==="Absent")
+    if(status === "Absent")
         return "অনুপস্থিত";
 
-    if(status==="Late")
+    if(status === "Late")
         return "দেরি";
 
-    if(status==="Leave")
+    if(status === "Leave")
         return "ছুটি";
 
-    return status;
+    return status || "-";
 
 }
 
 
 /* =====================================================
-   AUTH CHECK
+   AUTH
 ===================================================== */
 
 async function checkAuth(){
@@ -1036,7 +1565,8 @@ async function checkAuth(){
     if(error){
 
         showMessage(
-            "❌ Session error: " + error.message,
+            "Session error: " +
+            error.message,
             "error"
         );
 
@@ -1046,7 +1576,8 @@ async function checkAuth(){
 
     if(!data.session){
 
-        location.href="admin.html";
+        location.href =
+            "admin.html";
 
         return false;
 
@@ -1058,16 +1589,259 @@ async function checkAuth(){
 
 
 /* =====================================================
+   LOAD CLASSES
+===================================================== */
+
+async function loadClasses(){
+
+    const {
+        data,
+        error
+    } =
+    await db
+        .from("classes")
+        .select("*")
+        .order("id",{ascending:true});
+
+    if(error){
+
+        console.error(
+            "Class Load Error:",
+            error
+        );
+
+        classes = [];
+
+        showMessage(
+            "Class list load করা যায়নি: " +
+            error.message,
+            "error"
+        );
+
+        return;
+
+    }
+
+    classes = data || [];
+
+    buildClassFilters();
+
+}
+
+
+/* =====================================================
+   BUILD CLASS FILTER
+===================================================== */
+
+function buildClassFilters(){
+
+    const classFilter =
+        document.getElementById(
+            "classFilter"
+        );
+
+    const historyClass =
+        document.getElementById(
+            "historyClass"
+        );
+
+    const oldMain =
+        classFilter.value;
+
+    const oldHistory =
+        historyClass.value;
+
+    classFilter.innerHTML =
+        `<option value="">All Class / Department</option>`;
+
+    historyClass.innerHTML =
+        `<option value="">All Class / Department</option>`;
+
+    classes.forEach(c=>{
+
+        const id =
+            String(c.id);
+
+        const name =
+            c.name ||
+            c.class_name ||
+            c.title ||
+            id;
+
+        const option1 =
+            document.createElement("option");
+
+        option1.value = id;
+
+        option1.textContent = name;
+
+        classFilter.appendChild(
+            option1
+        );
+
+
+        const option2 =
+            document.createElement("option");
+
+        option2.value = id;
+
+        option2.textContent = name;
+
+        historyClass.appendChild(
+            option2
+        );
+
+    });
+
+    /*
+      If students contain class names but
+      classes table is empty, create fallback
+      options from student data.
+    */
+
+    if(!classes.length){
+
+        const unique = [];
+
+        students.forEach(s=>{
+
+            const value =
+                s.class_name ||
+                s.department ||
+                s.class ||
+                s.className;
+
+            if(
+                value &&
+                !unique.includes(value)
+            ){
+
+                unique.push(value);
+
+            }
+
+        });
+
+        unique.sort();
+
+        unique.forEach(name=>{
+
+            const option1 =
+                document.createElement("option");
+
+            option1.value =
+                name;
+
+            option1.textContent =
+                name;
+
+            classFilter.appendChild(
+                option1
+            );
+
+
+            const option2 =
+                document.createElement("option");
+
+            option2.value =
+                name;
+
+            option2.textContent =
+                name;
+
+            historyClass.appendChild(
+                option2
+            );
+
+        });
+
+    }
+
+    if(
+        [...classFilter.options]
+            .some(o=>o.value === oldMain)
+    ){
+
+        classFilter.value =
+            oldMain;
+
+    }
+
+    if(
+        [...historyClass.options]
+            .some(o=>o.value === oldHistory)
+    ){
+
+        historyClass.value =
+            oldHistory;
+
+    }
+
+}
+
+
+/* =====================================================
+   CLASS FILTER MATCH
+===================================================== */
+
+function matchesClass(student,filter){
+
+    if(!filter)
+        return true;
+
+    /*
+      If classes table is available,
+      filter by class_id.
+    */
+
+    if(
+        student.class_id !== undefined &&
+        student.class_id !== null
+    ){
+
+        if(
+            String(student.class_id) ===
+            String(filter)
+        ){
+
+            return true;
+
+        }
+
+    }
+
+    /*
+      Fallback to class name
+    */
+
+    const className =
+        String(
+            studentClass(student)
+        ).toLowerCase();
+
+    return (
+        className ===
+        String(filter).toLowerCase()
+    );
+
+}
+
+
+/* =====================================================
    LOAD STUDENTS
 ===================================================== */
 
 async function loadStudents(){
 
     const list =
-        document.getElementById("studentList");
+        document.getElementById(
+            "studentList"
+        );
 
     list.innerHTML =
-        `<div class="loading">Loading students...</div>`;
+        `<div class="loading">
+            Loading students...
+        </div>`;
 
     const {
         data,
@@ -1082,7 +1856,7 @@ async function loadStudents(){
 
         list.innerHTML = `
             <div class="message error">
-                ❌ Student Load Error:
+                Student Load Error:
                 ${escapeHtml(error.message)}
             </div>
         `;
@@ -1092,11 +1866,12 @@ async function loadStudents(){
             "error"
         );
 
-        return;
+        return false;
 
     }
 
-    students = data || [];
+    students =
+        data || [];
 
     buildClassFilters();
 
@@ -1106,59 +1881,7 @@ async function loadStudents(){
 
     renderStudents();
 
-}
-
-
-/* =====================================================
-   BUILD CLASS FILTER
-===================================================== */
-
-function buildClassFilters(){
-
-    const classes = [];
-
-    students.forEach(s=>{
-
-        const c = studentClass(s);
-
-        if(c && c!=="-" && !classes.includes(c)){
-
-            classes.push(c);
-
-        }
-
-    });
-
-    classes.sort();
-
-    const selects = [
-        document.getElementById("classFilter"),
-        document.getElementById("historyClass")
-    ];
-
-    selects.forEach(select=>{
-
-        const old = select.value;
-
-        select.innerHTML =
-            `<option value="">All Class / Department</option>`;
-
-        classes.forEach(c=>{
-
-            const option =
-                document.createElement("option");
-
-            option.value = c;
-
-            option.textContent = c;
-
-            select.appendChild(option);
-
-        });
-
-        select.value = old;
-
-    });
+    return true;
 
 }
 
@@ -1170,22 +1893,31 @@ function buildClassFilters(){
 function buildStudentReportFilter(){
 
     const select =
-        document.getElementById("reportStudent");
+        document.getElementById(
+            "reportStudent"
+        );
 
     select.innerHTML =
-        `<option value="">সকল শিক্ষার্থী</option>`;
+        `<option value="">
+            সকল শিক্ষার্থী
+        </option>`;
 
     students.forEach(s=>{
 
         const option =
-            document.createElement("option");
+            document.createElement(
+                "option"
+            );
 
-        option.value = String(studentId(s));
+        option.value =
+            String(studentId(s));
 
         option.textContent =
             `${studentRoll(s)} — ${studentName(s)}`;
 
-        select.appendChild(option);
+        select.appendChild(
+            option
+        );
 
     });
 
@@ -1199,7 +1931,12 @@ function buildStudentReportFilter(){
 async function loadTodayAttendance(){
 
     const date =
-        document.getElementById("attendanceDate").value;
+        document.getElementById(
+            "attendanceDate"
+        ).value;
+
+    if(!date)
+        return;
 
     const {
         data,
@@ -1208,14 +1945,22 @@ async function loadTodayAttendance(){
     await db
         .from("student_attendance")
         .select("*")
-        .eq("attendance_date",date);
+        .eq(
+            "attendance_date",
+            date
+        );
 
     if(error){
 
         attendanceRecords = [];
 
+        /*
+          If there is a column mismatch,
+          show exact database error.
+        */
+
         showMessage(
-            "❌ Attendance load error: " +
+            "Attendance load error: " +
             error.message,
             "error"
         );
@@ -1224,16 +1969,26 @@ async function loadTodayAttendance(){
 
     }
 
-    attendanceRecords = data || [];
+    attendanceRecords =
+        data || [];
 
     currentAttendance = {};
 
     attendanceRecords.forEach(r=>{
 
-        currentAttendance[String(r.student_id)] = {
-            status:r.status || "Present",
-            note:r.note || "",
-            id:r.id
+        currentAttendance[
+            String(r.student_id)
+        ] = {
+
+            status:
+                r.status || "Present",
+
+            note:
+                r.note || "",
+
+            id:
+                r.id
+
         };
 
     });
@@ -1250,70 +2005,104 @@ async function loadTodayAttendance(){
 function renderStudents(){
 
     const list =
-        document.getElementById("studentList");
+        document.getElementById(
+            "studentList"
+        );
 
-    const classValue =
-        document.getElementById("classFilter").value
-        .toLowerCase();
+    const classFilter =
+        document.getElementById(
+            "classFilter"
+        ).value;
 
     const search =
-        document.getElementById("studentSearch").value
+        document.getElementById(
+            "studentSearch"
+        ).value
         .toLowerCase()
         .trim();
 
-    let filtered =
+    const filtered =
         students.filter(s=>{
 
-            const c =
-                String(studentClass(s)).toLowerCase();
-
             const name =
-                String(studentName(s)).toLowerCase();
+                String(
+                    studentName(s)
+                ).toLowerCase();
 
             const roll =
-                String(studentRoll(s)).toLowerCase();
+                String(
+                    studentRoll(s)
+                ).toLowerCase();
 
             const id =
-                String(studentId(s)).toLowerCase();
+                String(
+                    studentId(s)
+                ).toLowerCase();
+
+            const className =
+                String(
+                    studentClass(s)
+                ).toLowerCase();
 
             const classMatch =
-                !classValue ||
-                c===classValue;
+                matchesClass(
+                    s,
+                    classFilter
+                );
 
             const searchMatch =
                 !search ||
                 name.includes(search) ||
                 roll.includes(search) ||
-                id.includes(search);
+                id.includes(search) ||
+                className.includes(search);
 
-            return classMatch && searchMatch;
+            return (
+                classMatch &&
+                searchMatch
+            );
 
         });
 
+
     document.getElementById(
         "totalStudents"
-    ).textContent = students.length;
+    ).textContent =
+        filtered.length;
+
 
     if(!filtered.length){
 
         list.innerHTML =
-            `<div class="empty">কোনো শিক্ষার্থী পাওয়া যায়নি।</div>`;
+            `<div class="empty">
+                কোনো শিক্ষার্থী পাওয়া যায়নি।
+            </div>`;
+
+        updateSummary();
 
         return;
 
     }
 
+
     list.innerHTML =
         filtered.map(s=>{
 
             const id =
-                String(studentId(s));
+                String(
+                    studentId(s)
+                );
 
             const record =
-                currentAttendance[id] || {};
+                currentAttendance[id] ||
+                {};
 
             const status =
-                record.status || "Present";
+                record.status ||
+                document.getElementById(
+                    "defaultStatus"
+                ).value ||
+                "Present";
 
             return `
 
@@ -1323,15 +2112,21 @@ function renderStudents(){
             >
 
                 <div class="roll">
-                    ${escapeHtml(studentRoll(s))}
+                    ${escapeHtml(
+                        studentRoll(s)
+                    )}
                 </div>
 
                 <div class="student-name">
-                    ${escapeHtml(studentName(s))}
+                    ${escapeHtml(
+                        studentName(s)
+                    )}
                 </div>
 
                 <div class="student-class">
-                    ${escapeHtml(studentClass(s))}
+                    ${escapeHtml(
+                        studentClass(s)
+                    )}
                 </div>
 
                 <select
@@ -1339,24 +2134,32 @@ function renderStudents(){
                     data-student-id="${escapeHtml(id)}"
                 >
 
-                    <option value="Present"
-                        ${status==="Present"?"selected":""}>
-                        ✅ উপস্থিত
+                    <option
+                        value="Present"
+                        ${status==="Present" ? "selected" : ""}
+                    >
+                        উপস্থিত
                     </option>
 
-                    <option value="Absent"
-                        ${status==="Absent"?"selected":""}>
-                        ❌ অনুপস্থিত
+                    <option
+                        value="Absent"
+                        ${status==="Absent" ? "selected" : ""}
+                    >
+                        অনুপস্থিত
                     </option>
 
-                    <option value="Late"
-                        ${status==="Late"?"selected":""}>
-                        ⏰ দেরি
+                    <option
+                        value="Late"
+                        ${status==="Late" ? "selected" : ""}
+                    >
+                        দেরি
                     </option>
 
-                    <option value="Leave"
-                        ${status==="Leave"?"selected":""}>
-                        🟡 ছুটি
+                    <option
+                        value="Leave"
+                        ${status==="Leave" ? "selected" : ""}
+                    >
+                        ছুটি
                     </option>
 
                 </select>
@@ -1374,8 +2177,11 @@ function renderStudents(){
 
         }).join("");
 
+
     document
-        .querySelectorAll(".student-status")
+        .querySelectorAll(
+            ".student-status"
+        )
         .forEach(select=>{
 
             select.addEventListener(
@@ -1395,8 +2201,11 @@ function renderStudents(){
 
         });
 
+
     document
-        .querySelectorAll(".note-input")
+        .querySelectorAll(
+            ".note-input"
+        )
         .forEach(input=>{
 
             input.addEventListener(
@@ -1406,12 +2215,18 @@ function renderStudents(){
                     const id =
                         this.dataset.noteId;
 
-                    if(!currentAttendance[id]){
+                    if(
+                        !currentAttendance[id]
+                    ){
 
                         currentAttendance[id] = {
+
                             status:"Present",
+
                             note:"",
+
                             id:null
+
                         };
 
                     }
@@ -1424,6 +2239,7 @@ function renderStudents(){
 
         });
 
+
     updateSummary();
 
 }
@@ -1433,14 +2249,22 @@ function renderStudents(){
    SET STATUS
 ===================================================== */
 
-function setAttendanceStatus(id,status){
+function setAttendanceStatus(
+    id,
+    status
+){
 
     if(!currentAttendance[id]){
 
         currentAttendance[id] = {
-            status:status,
+
+            status:
+                status,
+
             note:"",
+
             id:null
+
         };
 
     }else{
@@ -1450,10 +2274,12 @@ function setAttendanceStatus(id,status){
 
     }
 
+
     const row =
         document.querySelector(
             `[data-student-row="${CSS.escape(id)}"]`
         );
+
 
     if(row){
 
@@ -1476,32 +2302,91 @@ function setAttendanceStatus(id,status){
 
 
 /* =====================================================
-   SET ALL
+   SET ALL STATUS
 ===================================================== */
 
 function setAllStatus(status){
 
-    students.forEach(s=>{
+    const classFilter =
+        document.getElementById(
+            "classFilter"
+        ).value;
 
-        const id =
-            String(studentId(s));
+    const search =
+        document.getElementById(
+            "studentSearch"
+        ).value
+        .toLowerCase()
+        .trim();
 
-        if(!currentAttendance[id]){
 
-            currentAttendance[id] = {
-                status:status,
-                note:"",
-                id:null
-            };
+    students
+        .filter(s=>{
 
-        }else{
+            const name =
+                String(
+                    studentName(s)
+                ).toLowerCase();
 
-            currentAttendance[id].status =
-                status;
+            const roll =
+                String(
+                    studentRoll(s)
+                ).toLowerCase();
 
-        }
+            const id =
+                String(
+                    studentId(s)
+                ).toLowerCase();
 
-    });
+            const className =
+                String(
+                    studentClass(s)
+                ).toLowerCase();
+
+            return (
+                matchesClass(
+                    s,
+                    classFilter
+                ) &&
+                (
+                    !search ||
+                    name.includes(search) ||
+                    roll.includes(search) ||
+                    id.includes(search) ||
+                    className.includes(search)
+                )
+            );
+
+        })
+        .forEach(s=>{
+
+            const id =
+                String(
+                    studentId(s)
+                );
+
+            if(!currentAttendance[id]){
+
+                currentAttendance[id] = {
+
+                    status:
+                        status,
+
+                    note:"",
+
+                    id:null
+
+                };
+
+            }else{
+
+                currentAttendance[id].status =
+                    status;
+
+            }
+
+        });
+
 
     renderStudents();
 
@@ -1519,44 +2404,58 @@ function updateSummary(){
     let late = 0;
     let leave = 0;
 
+
     students.forEach(s=>{
 
         const id =
-            String(studentId(s));
+            String(
+                studentId(s)
+            );
 
         const status =
             currentAttendance[id]?.status ||
             "Present";
 
-        if(status==="Present")
+
+        if(status === "Present")
             present++;
 
-        else if(status==="Absent")
+        else if(status === "Absent")
             absent++;
 
-        else if(status==="Late")
+        else if(status === "Late")
             late++;
 
-        else if(status==="Leave")
+        else if(status === "Leave")
             leave++;
 
     });
 
+
+    document.getElementById(
+        "totalStudents"
+    ).textContent =
+        students.length;
+
     document.getElementById(
         "presentCount"
-    ).textContent = present;
+    ).textContent =
+        present;
 
     document.getElementById(
         "absentCount"
-    ).textContent = absent;
+    ).textContent =
+        absent;
 
     document.getElementById(
         "lateCount"
-    ).textContent = late;
+    ).textContent =
+        late;
 
     document.getElementById(
         "leaveCount"
-    ).textContent = leave;
+    ).textContent =
+        leave;
 
 }
 
@@ -1570,7 +2469,7 @@ async function saveAttendance(){
     if(!students.length){
 
         showMessage(
-            "❌ কোনো student পাওয়া যায়নি।",
+            "কোনো student পাওয়া যায়নি।",
             "error"
         );
 
@@ -1578,28 +2477,36 @@ async function saveAttendance(){
 
     }
 
+
     const date =
-        document.getElementById("attendanceDate").value;
+        document.getElementById(
+            "attendanceDate"
+        ).value;
+
 
     if(!date){
 
         showMessage(
-            "❌ Attendance Date নির্বাচন করুন।",
+            "Attendance Date নির্বাচন করুন।",
             "error"
         );
 
         return;
 
     }
+
 
     const btn =
         document.getElementById(
             "saveAttendanceBtn"
         );
 
+
     btn.disabled = true;
 
-    btn.textContent = "⏳ Saving...";
+    btn.textContent =
+        "Saving...";
+
 
     try{
 
@@ -1607,10 +2514,13 @@ async function saveAttendance(){
             students.map(s=>{
 
                 const id =
-                    String(studentId(s));
+                    String(
+                        studentId(s)
+                    );
 
                 const record =
-                    currentAttendance[id] || {};
+                    currentAttendance[id] ||
+                    {};
 
                 return {
 
@@ -1621,19 +2531,21 @@ async function saveAttendance(){
                         date,
 
                     status:
-                        record.status || "Present",
+                        record.status ||
+                        "Present",
 
                     note:
-                        record.note || null
+                        record.note ||
+                        null
 
                 };
 
             });
 
+
         /*
-          Existing records are deleted for this date
-          and fresh records are inserted.
-          This prevents duplicate attendance.
+          Delete old records for this date
+          so duplicate attendance is avoided.
         */
 
         const {
@@ -1642,13 +2554,18 @@ async function saveAttendance(){
         await db
             .from("student_attendance")
             .delete()
-            .eq("attendance_date",date);
+            .eq(
+                "attendance_date",
+                date
+            );
+
 
         if(deleteError){
 
             throw deleteError;
 
         }
+
 
         const {
             error:insertError
@@ -1657,16 +2574,19 @@ async function saveAttendance(){
             .from("student_attendance")
             .insert(rows);
 
+
         if(insertError){
 
             throw insertError;
 
         }
 
+
         showMessage(
-            "✅ Attendance successfully saved.",
+            "Attendance successfully saved.",
             "success"
         );
+
 
         await loadTodayAttendance();
 
@@ -1678,7 +2598,7 @@ async function saveAttendance(){
     catch(error){
 
         showMessage(
-            "❌ Attendance Save Error: " +
+            "Attendance Save Error: " +
             error.message,
             "error"
         );
@@ -1689,7 +2609,7 @@ async function saveAttendance(){
         btn.disabled = false;
 
         btn.textContent =
-            "💾 Save Attendance";
+            "Save Attendance";
 
     }
 
@@ -1703,23 +2623,39 @@ async function saveAttendance(){
 async function loadHistory(){
 
     const tbody =
-        document.getElementById("historyList");
+        document.getElementById(
+            "historyList"
+        );
+
 
     tbody.innerHTML =
-        `<tr><td colspan="7" class="loading">
-            Loading...
-        </td></tr>`;
+        `<tr>
+            <td colspan="7" class="loading">
+                Loading...
+            </td>
+        </tr>`;
+
 
     let query =
         db
             .from("student_attendance")
             .select("*")
-            .order("attendance_date",{ascending:false})
-            .order("id",{ascending:false})
+            .order(
+                "attendance_date",
+                {ascending:false}
+            )
+            .order(
+                "id",
+                {ascending:false}
+            )
             .limit(500);
 
+
     const date =
-        document.getElementById("historyDate").value;
+        document.getElementById(
+            "historyDate"
+        ).value;
+
 
     if(date){
 
@@ -1731,17 +2667,25 @@ async function loadHistory(){
 
     }
 
+
     const {
         data,
         error
-    } = await query;
+    } =
+    await query;
+
 
     if(error){
 
         tbody.innerHTML = `
             <tr>
-                <td colspan="7" class="message error">
-                    ❌ ${escapeHtml(error.message)}
+                <td
+                    colspan="7"
+                    class="message error"
+                >
+                    ${escapeHtml(
+                        error.message
+                    )}
                 </td>
             </tr>
         `;
@@ -1750,61 +2694,99 @@ async function loadHistory(){
 
     }
 
-    let records = data || [];
+
+    let records =
+        data || [];
+
 
     const classFilter =
-        document.getElementById("historyClass")
-        .value
-        .toLowerCase();
+        document.getElementById(
+            "historyClass"
+        ).value;
+
 
     const search =
-        document.getElementById("historySearch")
-        .value
+        document.getElementById(
+            "historySearch"
+        ).value
         .toLowerCase()
         .trim();
+
 
     records =
         records.filter(r=>{
 
             const student =
                 students.find(
-                    s=>String(studentId(s))===
-                    String(r.student_id)
+                    s =>
+                        String(
+                            studentId(s)
+                        ) ===
+                        String(
+                            r.student_id
+                        )
                 );
+
 
             if(!student)
                 return false;
 
-            const cls =
-                String(studentClass(student))
-                .toLowerCase();
 
             const name =
-                String(studentName(student))
-                .toLowerCase();
+                String(
+                    studentName(student)
+                ).toLowerCase();
+
 
             const roll =
-                String(studentRoll(student))
-                .toLowerCase();
+                String(
+                    studentRoll(student)
+                ).toLowerCase();
+
+
+            const id =
+                String(
+                    studentId(student)
+                ).toLowerCase();
+
+
+            const className =
+                String(
+                    studentClass(student)
+                ).toLowerCase();
+
 
             const classMatch =
-                !classFilter ||
-                cls===classFilter;
+                matchesClass(
+                    student,
+                    classFilter
+                );
+
 
             const searchMatch =
                 !search ||
                 name.includes(search) ||
-                roll.includes(search);
+                roll.includes(search) ||
+                id.includes(search) ||
+                className.includes(search);
 
-            return classMatch && searchMatch;
+
+            return (
+                classMatch &&
+                searchMatch
+            );
 
         });
+
 
     if(!records.length){
 
         tbody.innerHTML = `
             <tr>
-                <td colspan="7" class="empty">
+                <td
+                    colspan="7"
+                    class="empty"
+                >
                     কোনো attendance record নেই
                 </td>
             </tr>
@@ -1814,32 +2796,44 @@ async function loadHistory(){
 
     }
 
+
     tbody.innerHTML =
         records.map(r=>{
 
             const student =
                 students.find(
-                    s=>String(studentId(s))===
-                    String(r.student_id)
+                    s =>
+                        String(
+                            studentId(s)
+                        ) ===
+                        String(
+                            r.student_id
+                        )
                 );
+
 
             const name =
                 student ?
                 studentName(student) :
                 "Unknown";
 
+
             const roll =
                 student ?
                 studentRoll(student) :
                 "-";
+
 
             const cls =
                 student ?
                 studentClass(student) :
                 "-";
 
+
             const status =
-                r.status || "Present";
+                r.status ||
+                "Present";
+
 
             return `
 
@@ -1858,31 +2852,41 @@ async function loadHistory(){
                 </td>
 
                 <td>
-                    ${escapeHtml(r.attendance_date)}
+                    ${escapeHtml(
+                        r.attendance_date
+                    )}
                 </td>
 
                 <td>
-                    <span class="status ${statusClass(status)}">
-                        ${statusBangla(status)}
+                    <span
+                        class="status ${statusClass(status)}"
+                    >
+                        ${escapeHtml(
+                            statusBangla(status)
+                        )}
                     </span>
                 </td>
 
                 <td>
-                    ${escapeHtml(r.note || "-")}
+                    ${escapeHtml(
+                        r.note || "-"
+                    )}
                 </td>
 
                 <td class="action">
 
                     <button
+                        type="button"
                         class="btn-blue"
-                        onclick="editAttendance('${escapeHtml(String(r.id))}')"
+                        onclick="editAttendance('${encodeURIComponent(String(r.id))}')"
                     >
                         Edit
                     </button>
 
                     <button
+                        type="button"
                         class="btn-danger"
-                        onclick="deleteAttendance('${escapeHtml(String(r.id))}')"
+                        onclick="deleteAttendance('${encodeURIComponent(String(r.id))}')"
                     >
                         Delete
                     </button>
@@ -1899,10 +2903,18 @@ async function loadHistory(){
 
 
 /* =====================================================
-   EDIT ATTENDANCE
+   EDIT
 ===================================================== */
 
-async function editAttendance(id){
+async function editAttendance(
+    encodedId
+){
+
+    const id =
+        decodeURIComponent(
+            encodedId
+        );
+
 
     const {
         data,
@@ -1914,79 +2926,107 @@ async function editAttendance(id){
         .eq("id",id)
         .maybeSingle();
 
+
     if(error){
 
         alert(
-            "❌ " + error.message
+            "Edit Error: " +
+            error.message
         );
 
         return;
 
     }
+
 
     if(!data){
 
         alert(
-            "❌ Attendance record পাওয়া যায়নি।"
+            "Attendance record পাওয়া যায়নি।"
         );
 
         return;
 
     }
 
+
     const student =
         students.find(
-            s=>String(studentId(s))===
-            String(data.student_id)
+            s =>
+                String(
+                    studentId(s)
+                ) ===
+                String(
+                    data.student_id
+                )
         );
+
 
     if(!student){
 
         alert(
-            "❌ Student record পাওয়া যায়নি।"
+            "Student record পাওয়া যায়নি।"
         );
 
         return;
 
     }
+
 
     document.getElementById(
         "attendanceDate"
     ).value =
         data.attendance_date;
 
-    document.getElementById(
-        "classFilter"
-    ).value =
-        studentClass(student);
 
-    currentAttendance =
-        {};
+    const classSelect =
+        document.getElementById(
+            "classFilter"
+        );
+
+
+    if(student.class_id !== undefined){
+
+        classSelect.value =
+            String(
+                student.class_id
+            );
+
+    }
+
+
+    currentAttendance = {};
+
 
     currentAttendance[
         String(data.student_id)
     ] = {
 
         status:
-            data.status || "Present",
+            data.status ||
+            "Present",
 
         note:
-            data.note || "",
+            data.note ||
+            "",
 
         id:
             data.id
 
     };
 
+
     renderStudents();
+
 
     window.scrollTo({
         top:0,
         behavior:"smooth"
     });
 
+
     showMessage(
-        "✏️ Record edit mode-এ load হয়েছে।",
+        "Record edit mode-এ load হয়েছে। Save Attendance চাপুন।",
         "info"
     );
 
@@ -1994,10 +3034,18 @@ async function editAttendance(id){
 
 
 /* =====================================================
-   DELETE ATTENDANCE
+   DELETE
 ===================================================== */
 
-async function deleteAttendance(id){
+async function deleteAttendance(
+    encodedId
+){
+
+    const id =
+        decodeURIComponent(
+            encodedId
+        );
+
 
     if(!confirm(
         "এই attendance record delete করতে চান?"
@@ -2007,18 +3055,23 @@ async function deleteAttendance(id){
 
     }
 
+
     const {
         error
     } =
     await db
         .from("student_attendance")
         .delete()
-        .eq("id",id);
+        .eq(
+            "id",
+            id
+        );
+
 
     if(error){
 
         alert(
-            "❌ Delete failed:\n" +
+            "Delete failed:\n" +
             error.message
         );
 
@@ -2026,15 +3079,18 @@ async function deleteAttendance(id){
 
     }
 
-    alert(
-        "✅ Attendance deleted successfully."
-    );
 
     await loadHistory();
 
     await loadTodayAttendance();
 
     renderStudents();
+
+
+    showMessage(
+        "Attendance record deleted successfully.",
+        "success"
+    );
 
 }
 
@@ -2046,29 +3102,39 @@ async function deleteAttendance(id){
 async function generateReport(){
 
     const from =
-        document.getElementById("reportFrom").value;
+        document.getElementById(
+            "reportFrom"
+        ).value;
+
 
     const to =
-        document.getElementById("reportTo").value;
+        document.getElementById(
+            "reportTo"
+        ).value;
+
 
     const studentIdFilter =
-        document.getElementById("reportStudent").value;
+        document.getElementById(
+            "reportStudent"
+        ).value;
+
 
     if(!from || !to){
 
         showReportMessage(
-            "❌ From Date এবং To Date নির্বাচন করুন।",
+            "From Date এবং To Date নির্বাচন করুন।",
             "error"
         );
 
         return;
 
     }
+
 
     if(from > to){
 
         showReportMessage(
-            "❌ From Date অবশ্যই To Date-এর আগে হতে হবে।",
+            "From Date অবশ্যই To Date-এর আগে হতে হবে।",
             "error"
         );
 
@@ -2076,19 +3142,34 @@ async function generateReport(){
 
     }
 
+
     showReportMessage(
-        "⏳ Report তৈরি হচ্ছে...",
+        "Report তৈরি হচ্ছে...",
         "info"
     );
+
 
     let query =
         db
             .from("student_attendance")
             .select("*")
-            .gte("attendance_date",from)
-            .lte("attendance_date",to)
-            .order("attendance_date",{ascending:true})
-            .order("id",{ascending:true});
+            .gte(
+                "attendance_date",
+                from
+            )
+            .lte(
+                "attendance_date",
+                to
+            )
+            .order(
+                "attendance_date",
+                {ascending:true}
+            )
+            .order(
+                "id",
+                {ascending:true}
+            );
+
 
     if(studentIdFilter){
 
@@ -2100,15 +3181,18 @@ async function generateReport(){
 
     }
 
+
     const {
         data,
         error
-    } = await query;
+    } =
+    await query;
+
 
     if(error){
 
         showReportMessage(
-            "❌ Report Error: " +
+            "Report Error: " +
             error.message,
             "error"
         );
@@ -2117,84 +3201,203 @@ async function generateReport(){
 
     }
 
+
     const records =
         data || [];
+
 
     let present = 0;
     let absent = 0;
     let late = 0;
     let leave = 0;
 
+
     records.forEach(r=>{
 
-        if(r.status==="Present")
+        if(r.status === "Present")
             present++;
 
-        else if(r.status==="Absent")
+        else if(r.status === "Absent")
             absent++;
 
-        else if(r.status==="Late")
+        else if(r.status === "Late")
             late++;
 
-        else if(r.status==="Leave")
+        else if(r.status === "Leave")
             leave++;
 
     });
 
+
     const total =
         records.length;
 
-    const countForPercentage =
-        present + absent + late;
+
+    /*
+      Attendance percentage:
+      Present + Late are considered attended.
+      Leave is excluded.
+    */
+
+    const attendanceBase =
+        present +
+        absent +
+        late;
+
 
     const percentage =
-        countForPercentage ?
-        ((present + late) / countForPercentage * 100)
-            .toFixed(2)
-        : "0.00";
+        attendanceBase > 0
+        ?
+        (
+            (
+                (present + late) /
+                attendanceBase
+            ) * 100
+        ).toFixed(2)
+        :
+        "0.00";
+
 
     document.getElementById(
         "reportTotal"
-    ).textContent = total;
+    ).textContent =
+        total;
+
 
     document.getElementById(
         "reportPresent"
-    ).textContent = present;
+    ).textContent =
+        present;
+
 
     document.getElementById(
         "reportAbsent"
-    ).textContent = absent;
+    ).textContent =
+        absent;
+
 
     document.getElementById(
         "reportLate"
-    ).textContent = late;
+    ).textContent =
+        late;
+
 
     document.getElementById(
         "reportLeave"
-    ).textContent = leave;
+    ).textContent =
+        leave;
+
 
     document.getElementById(
         "reportPercentage"
     ).textContent =
         percentage + "%";
 
+
+    /*
+      PRINT SUMMARY
+    */
+
+    document.getElementById(
+        "printFrom"
+    ).textContent =
+        from;
+
+
+    document.getElementById(
+        "printTo"
+    ).textContent =
+        to;
+
+
+    const selectedStudent =
+        students.find(
+            s =>
+                String(
+                    studentId(s)
+                ) ===
+                String(
+                    studentIdFilter
+                )
+        );
+
+
+    document.getElementById(
+        "printStudent"
+    ).textContent =
+        selectedStudent
+        ?
+        studentName(selectedStudent)
+        :
+        "সকল শিক্ষার্থী";
+
+
+    document.getElementById(
+        "printGenerated"
+    ).textContent =
+        new Date().toLocaleString(
+            "en-GB"
+        );
+
+
+    document.getElementById(
+        "printTotal"
+    ).textContent =
+        total;
+
+
+    document.getElementById(
+        "printPresent"
+    ).textContent =
+        present;
+
+
+    document.getElementById(
+        "printAbsent"
+    ).textContent =
+        absent;
+
+
+    document.getElementById(
+        "printLate"
+    ).textContent =
+        late;
+
+
+    document.getElementById(
+        "printLeave"
+    ).textContent =
+        leave;
+
+
+    document.getElementById(
+        "printPercentage"
+    ).textContent =
+        percentage + "%";
+
+
     const tbody =
         document.getElementById(
             "reportList"
         );
 
+
     if(!records.length){
 
         tbody.innerHTML = `
             <tr>
-                <td colspan="6" class="empty">
+                <td
+                    colspan="6"
+                    class="empty"
+                >
                     এই সময়ের মধ্যে কোনো attendance record নেই।
                 </td>
             </tr>
         `;
 
+
         showReportMessage(
-            "⚠️ কোনো record পাওয়া যায়নি।",
+            "কোনো record পাওয়া যায়নি।",
             "info"
         );
 
@@ -2202,41 +3405,65 @@ async function generateReport(){
 
     }
 
+
     tbody.innerHTML =
         records.map(r=>{
 
             const student =
                 students.find(
-                    s=>String(studentId(s))===
-                    String(r.student_id)
+                    s =>
+                        String(
+                            studentId(s)
+                        ) ===
+                        String(
+                            r.student_id
+                        )
                 );
+
+
+            const roll =
+                student
+                ?
+                studentRoll(student)
+                :
+                "-";
+
+
+            const name =
+                student
+                ?
+                studentName(student)
+                :
+                "Unknown";
+
+
+            const cls =
+                student
+                ?
+                studentClass(student)
+                :
+                "-";
+
+
+            const status =
+                r.status ||
+                "Present";
+
 
             return `
 
             <tr>
 
                 <td>
-                    ${escapeHtml(
-                        student ?
-                        studentRoll(student) :
-                        "-"
-                    )}
+                    ${escapeHtml(roll)}
                 </td>
 
                 <td>
-                    ${escapeHtml(
-                        student ?
-                        studentName(student) :
-                        "Unknown"
-                    )}
+                    ${escapeHtml(name)}
                 </td>
 
                 <td>
-                    ${escapeHtml(
-                        student ?
-                        studentClass(student) :
-                        "-"
-                    )}
+                    ${escapeHtml(cls)}
                 </td>
 
                 <td>
@@ -2246,13 +3473,19 @@ async function generateReport(){
                 </td>
 
                 <td>
-                    <span class="status ${statusClass(r.status)}">
-                        ${statusBangla(r.status)}
+                    <span
+                        class="status ${statusClass(status)}"
+                    >
+                        ${escapeHtml(
+                            statusBangla(status)
+                        )}
                     </span>
                 </td>
 
                 <td>
-                    ${escapeHtml(r.note || "-")}
+                    ${escapeHtml(
+                        r.note || "-"
+                    )}
                 </td>
 
             </tr>
@@ -2261,8 +3494,9 @@ async function generateReport(){
 
         }).join("");
 
+
     showReportMessage(
-        `✅ Report তৈরি হয়েছে — ${total} টি record।`,
+        `Report তৈরি হয়েছে — ${total} টি record।`,
         "success"
     );
 
@@ -2270,18 +3504,67 @@ async function generateReport(){
 
 
 /* =====================================================
-   PRINT / PDF
+   PRINT
 ===================================================== */
 
-function printReport(){
+async function printReport(){
 
-    window.print();
+    /*
+      If report table is empty,
+      generate it first.
+    */
+
+    const rows =
+        document.querySelectorAll(
+            "#reportList tr"
+        );
+
+
+    if(!rows.length){
+
+        await generateReport();
+
+    }
+
+
+    /*
+      Small delay allows the browser
+      to finish rendering before print.
+    */
+
+    setTimeout(()=>{
+
+        window.print();
+
+    },300);
 
 }
 
 
 /* =====================================================
-   EVENTS
+   DEFAULT STATUS CHANGE
+===================================================== */
+
+document.getElementById(
+    "defaultStatus"
+).addEventListener(
+    "change",
+    function(){
+
+        /*
+          Default status only affects
+          students that do not have
+          an existing attendance record.
+        */
+
+        renderStudents();
+
+    }
+);
+
+
+/* =====================================================
+   DATE CHANGE
 ===================================================== */
 
 document.getElementById(
@@ -2298,6 +3581,10 @@ document.getElementById(
 );
 
 
+/* =====================================================
+   CLASS FILTER
+===================================================== */
+
 document.getElementById(
     "classFilter"
 ).addEventListener(
@@ -2305,6 +3592,10 @@ document.getElementById(
     renderStudents
 );
 
+
+/* =====================================================
+   SEARCH
+===================================================== */
 
 document.getElementById(
     "studentSearch"
@@ -2314,6 +3605,10 @@ document.getElementById(
 );
 
 
+/* =====================================================
+   HISTORY DATE
+===================================================== */
+
 document.getElementById(
     "historyDate"
 ).addEventListener(
@@ -2321,6 +3616,10 @@ document.getElementById(
     loadHistory
 );
 
+
+/* =====================================================
+   HISTORY CLASS
+===================================================== */
 
 document.getElementById(
     "historyClass"
@@ -2330,6 +3629,10 @@ document.getElementById(
 );
 
 
+/* =====================================================
+   HISTORY SEARCH
+===================================================== */
+
 document.getElementById(
     "historySearch"
 ).addEventListener(
@@ -2338,37 +3641,65 @@ document.getElementById(
 );
 
 
+/* =====================================================
+   ALL PRESENT
+===================================================== */
+
 document.getElementById(
     "allPresentBtn"
 ).addEventListener(
     "click",
-    ()=>setAllStatus("Present")
+    ()=>{
+        setAllStatus("Present");
+    }
 );
 
+
+/* =====================================================
+   ALL ABSENT
+===================================================== */
 
 document.getElementById(
     "allAbsentBtn"
 ).addEventListener(
     "click",
-    ()=>setAllStatus("Absent")
+    ()=>{
+        setAllStatus("Absent");
+    }
 );
 
+
+/* =====================================================
+   ALL LEAVE
+===================================================== */
 
 document.getElementById(
     "allLeaveBtn"
 ).addEventListener(
     "click",
-    ()=>setAllStatus("Leave")
+    ()=>{
+        setAllStatus("Leave");
+    }
 );
 
+
+/* =====================================================
+   ALL LATE
+===================================================== */
 
 document.getElementById(
     "allLateBtn"
 ).addEventListener(
     "click",
-    ()=>setAllStatus("Late")
+    ()=>{
+        setAllStatus("Late");
+    }
 );
 
+
+/* =====================================================
+   REFRESH
+===================================================== */
 
 document.getElementById(
     "refreshBtn"
@@ -2376,18 +3707,24 @@ document.getElementById(
     "click",
     async ()=>{
 
+        await loadClasses();
+
         await loadStudents();
 
         await loadHistory();
 
         showMessage(
-            "🔄 Attendance data refreshed.",
+            "Attendance data refreshed.",
             "success"
         );
 
     }
 );
 
+
+/* =====================================================
+   SAVE
+===================================================== */
 
 document.getElementById(
     "saveAttendanceBtn"
@@ -2397,6 +3734,10 @@ document.getElementById(
 );
 
 
+/* =====================================================
+   GENERATE REPORT
+===================================================== */
+
 document.getElementById(
     "generateReportBtn"
 ).addEventListener(
@@ -2404,6 +3745,10 @@ document.getElementById(
     generateReport
 );
 
+
+/* =====================================================
+   PRINT REPORT
+===================================================== */
 
 document.getElementById(
     "printReportBtn"
@@ -2425,24 +3770,42 @@ async function start(){
     if(!auth)
         return;
 
+
     const current =
         today();
 
+
     document.getElementById(
         "attendanceDate"
-    ).value = current;
+    ).value =
+        current;
+
 
     document.getElementById(
         "historyDate"
-    ).value = current;
+    ).value =
+        current;
+
 
     document.getElementById(
         "reportFrom"
-    ).value = current;
+    ).value =
+        current;
+
 
     document.getElementById(
         "reportTo"
-    ).value = current;
+    ).value =
+        current;
+
+
+    /*
+      Important:
+      Classes first, then students.
+      This fixes class_id -> class name mapping.
+    */
+
+    await loadClasses();
 
     await loadStudents();
 
