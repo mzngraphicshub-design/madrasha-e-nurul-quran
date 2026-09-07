@@ -106,7 +106,7 @@ tr:hover td{background:#f8fbff}.sl{text-align:center;width:48px}.eid{font:bold 1
 
  <section class="card">
   <div class="title">Attendance Selection</div>
-  <div class="desc">Choose the date and Employee ID. No department selection is required.</div>
+  <div class="desc">Choose the date and Employee ID. Employee ID is displayed to you, while the system safely uses the employee database ID for attendance records. No department selection is required.</div>
 
   <div class="grid">
    <div class="field">
@@ -278,7 +278,11 @@ function saveMsg(text,ok=false){
 }
 
 function employeeId(e){
- return e.employee_id??e.id;
+ return e.employee_id??"";
+}
+
+function attendanceEmployeeKey(e){
+ return e.id;
 }
 
 function employeeName(e){
@@ -294,7 +298,7 @@ function phone(e){
 }
 
 function findEmployee(id){
- return employees.find(e=>String(employeeId(e))===String(id));
+ return employees.find(e=>String(e.id)===String(id) || String(employeeId(e))===String(id));
 }
 
 function populateEmployeeSelects(){
@@ -303,7 +307,7 @@ function populateEmployeeSelects(){
  );
 
  const options=sorted.map(e=>
-  `<option value="${esc(employeeId(e))}">${esc(employeeId(e))} — ${esc(employeeName(e)||"-")}</option>`
+  `<option value="${esc(e.id)}">${esc(employeeId(e))} — ${esc(employeeName(e)||"-")}</option>`
  ).join("");
 
  $("employeeSelect").innerHTML='<option value="">Select Employee ID</option>'+options;
@@ -386,12 +390,12 @@ async function loadSelectedAttendance(){
  const {data,error}=await db
   .from(ATTENDANCE_TABLE)
   .select("employee_id,attendance_date,status")
-  .eq("employee_id",employeeId(selectedEmployee))
+  .eq("employee_id",attendanceEmployeeKey(selectedEmployee))
   .eq("attendance_date",$("date").value)
   .limit(1);
 
  if(error){
-  msg(error.message);
+  msg("Attendance load failed: "+error.message);
   return;
  }
 
@@ -460,7 +464,7 @@ async function saveAttendance(){
  $("saveBtn").disabled=true;
 
  try{
-  const id=employeeId(selectedEmployee);
+  const id=attendanceEmployeeKey(selectedEmployee);
   const date=$("date").value;
 
   const del=await db
@@ -506,7 +510,7 @@ function searchEmployeeId(){
 }
 
 async function loadHistory(){
- const id=$("historyEmployee").value || (selectedEmployee?employeeId(selectedEmployee):"");
+ const id=$("historyEmployee").value || (selectedEmployee?selectedEmployee.id:"");
  if(!id)return msg("Please select an Employee ID for history.");
 
  const e=findEmployee(id);
@@ -515,7 +519,7 @@ async function loadHistory(){
  let q=db
   .from(ATTENDANCE_TABLE)
   .select("employee_id,attendance_date,status")
-  .eq("employee_id",id)
+  .eq("employee_id",attendanceEmployeeKey(e))
   .order("attendance_date",{ascending:false});
 
  if($("historyFrom").value)q=q.gte("attendance_date",$("historyFrom").value);
@@ -540,7 +544,7 @@ async function loadHistory(){
 }
 
 async function loadReport(){
- const id=$("reportEmployee").value || (selectedEmployee?employeeId(selectedEmployee):"");
+ const id=$("reportEmployee").value || (selectedEmployee?selectedEmployee.id:"");
  if(!id)return msg("Please select an Employee ID for report.");
 
  const e=findEmployee(id);
@@ -549,7 +553,7 @@ async function loadReport(){
  let q=db
   .from(ATTENDANCE_TABLE)
   .select("employee_id,attendance_date,status")
-  .eq("employee_id",id);
+  .eq("employee_id",attendanceEmployeeKey(e));
 
  if($("reportFrom").value)q=q.gte("attendance_date",$("reportFrom").value);
  if($("reportTo").value)q=q.lte("attendance_date",$("reportTo").value);
@@ -685,12 +689,12 @@ $("saveBtn").onclick=saveAttendance;
 
 $("historyBtn").onclick=()=>{
  $("historySection").classList.toggle("hidden");
- if(selectedEmployee)$("historyEmployee").value=String(employeeId(selectedEmployee));
+ if(selectedEmployee)$("historyEmployee").value=String(selectedEmployee.id);
 };
 
 $("reportBtn").onclick=()=>{
  $("reportSection").classList.toggle("hidden");
- if(selectedEmployee)$("reportEmployee").value=String(employeeId(selectedEmployee));
+ if(selectedEmployee)$("reportEmployee").value=String(selectedEmployee.id);
 };
 
 $("loadHistoryBtn").onclick=loadHistory;
