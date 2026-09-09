@@ -37,7 +37,7 @@ button{border:0;border-radius:8px;padding:9px 14px;font-family:"Bornomala",Arial
 button:disabled{opacity:.55;cursor:not-allowed}.primary{background:linear-gradient(135deg,#0d47a1,#1976d2);color:#fff}
 .secondary{background:#eef2f7;color:#334155}.green{background:#dcfce7;color:#15803d}.red{background:#fee2e2;color:#b91c1c}
 .yellow{background:#fef3c7;color:#92400e}.blue{background:#e0f2fe;color:#075985}.purple{background:#ede9fe;color:#6d28d9}
-.info{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:12px}
+.info{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:12px}
 .info-box{background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:10px}
 .info-box small{display:block;color:var(--muted);font-size:10px}.info-box strong{font-size:14px}
 .stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:18px}
@@ -128,13 +128,15 @@ tr:hover td{background:#f8fbff}.sl{text-align:center;width:48px}.eid{font:bold 1
   </div>
 
   <div class="info">
+   <div class="info-box"><small>Employee ID</small><strong id="autoId">—</strong></div>
    <div class="info-box"><small>Employee Name</small><strong id="autoName">—</strong></div>
    <div class="info-box"><small>Designation</small><strong id="autoDesignation">—</strong></div>
    <div class="info-box"><small>Phone</small><strong id="autoPhone">—</strong></div>
   </div>
 
   <div class="actions">
-   <button class="primary" id="loadBtn">Load Attendance</button>
+   <button class="primary" id="addEmployeeBtn">Add Employee</button>
+   <button class="primary" id="loadSavedBtn">Load Saved Attendance</button>
    <button class="secondary" id="refreshBtn">Refresh Employees</button>
    <button class="purple" id="historyBtn">Attendance History</button>
    <button class="blue" id="reportBtn">Attendance Report</button>
@@ -153,14 +155,15 @@ tr:hover td{background:#f8fbff}.sl{text-align:center;width:48px}.eid{font:bold 1
 
  <section class="card">
   <div class="title">Selected Employee Attendance</div>
-  <div class="desc">Only the selected Employee ID will be saved.</div>
+  <div class="desc">Select an Employee ID and click Add Employee. You can add multiple employees, edit status, or delete a row before saving.</div>
 
   <div class="tools">
-   <button class="green" id="presentBtn">Present</button>
-   <button class="red" id="absentBtn">Absent</button>
-   <button class="yellow" id="lateBtn">Late</button>
-   <button class="blue" id="leaveBtn">Leave</button>
-   <button class="secondary" id="clearBtn">Clear Status</button>
+   <button class="green" id="allPresentBtn">All Present</button>
+   <button class="red" id="allAbsentBtn">All Absent</button>
+   <button class="yellow" id="allLateBtn">All Late</button>
+   <button class="blue" id="allLeaveBtn">All Leave</button>
+   <button class="secondary" id="clearStatusBtn">Clear Status</button>
+   <button class="secondary" id="clearListBtn">Clear Added List</button>
   </div>
 
   <div class="table-wrap">
@@ -173,10 +176,11 @@ tr:hover td{background:#f8fbff}.sl{text-align:center;width:48px}.eid{font:bold 1
       <th>Designation</th>
       <th>Phone</th>
       <th>Attendance Status</th>
+      <th>Action</th>
      </tr>
     </thead>
     <tbody id="attendanceList">
-     <tr><td colspan="6" style="text-align:center;padding:30px">Select an Employee ID first.</td></tr>
+     <tr><td colspan="7" style="text-align:center;padding:30px">No employee added yet. Select an Employee ID and click Add Employee.</td></tr>
     </tbody>
    </table>
   </div>
@@ -238,16 +242,16 @@ tr:hover td{background:#f8fbff}.sl{text-align:center;width:48px}.eid{font:bold 1
 <div id="printArea"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
 const SUPABASE_URL="https://qavublwhqiqsgpcmfyft.supabase.co";
 const SUPABASE_KEY="sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
 const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
-
 const ATTENDANCE_TABLE="employee_attendance";
 
 let employees=[];
 let selectedEmployee=null;
-let currentStatus="";
+let addedEmployees=[];
 
 const $=id=>document.getElementById(id);
 const today=new Date().toISOString().slice(0,10);
@@ -259,152 +263,18 @@ $("reportFrom").value=today;
 $("reportTo").value=today;
 
 function esc(v){
- return String(v??"")
-  .replaceAll("&","&amp;")
-  .replaceAll("<","&lt;")
-  .replaceAll(">","&gt;")
-  .replaceAll('"',"&quot;")
-  .replaceAll("'","&#039;");
+ return String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;")
+  .replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
 }
-
-function msg(text,ok=false){
- $("msg").className="msg "+(ok?"ok":"err");
- $("msg").textContent=text;
-}
-
-function saveMsg(text,ok=false){
- $("saveMsg").className="msg "+(ok?"ok":"err");
- $("saveMsg").textContent=text;
-}
-
-function employeeId(e){
- return e.employee_id??"";
-}
-
-function attendanceEmployeeKey(e){
- return e.id;
-}
-
-function employeeName(e){
- return e.name??"";
-}
-
-function designation(e){
- return e.designation??"";
-}
-
-function phone(e){
- return e.phone??"";
-}
-
-function findEmployee(id){
- return employees.find(e=>String(e.id)===String(id) || String(employeeId(e))===String(id));
-}
-
-function populateEmployeeSelects(){
- const sorted=[...employees].sort((a,b)=>
-  String(employeeId(a)||"").localeCompare(String(employeeId(b)||""),undefined,{numeric:true})
- );
-
- const options=sorted.map(e=>
-  `<option value="${esc(e.id)}">${esc(employeeId(e))} — ${esc(employeeName(e)||"-")}</option>`
- ).join("");
-
- $("employeeSelect").innerHTML='<option value="">Select Employee ID</option>'+options;
- $("historyEmployee").innerHTML='<option value="">Select Employee ID</option>'+options;
- $("reportEmployee").innerHTML='<option value="">Select Employee ID</option>'+options;
-}
-
-async function start(){
- try{
-  const {data:{session},error}=await db.auth.getSession();
-  if(error)throw error;
-  if(!session){
-   location.href="admin.html";
-   return;
-  }
-  await loadEmployees();
- }catch(e){
-  msg(e.message);
- }
-}
-
-db.auth.onAuthStateChange((event,session)=>{
- if(!session)location.href="admin.html";
-});
-
-async function loadEmployees(){
- const {data,error}=await db
-  .from("employees")
-  .select("id,employee_id,name,phone,designation,address,created_at")
-  .order("employee_id",{ascending:true});
-
- if(error)throw error;
-
- employees=data||[];
- populateEmployeeSelects();
-
- $("attendanceList").innerHTML=
-  '<tr><td colspan="6" style="text-align:center;padding:30px">Select an Employee ID first.</td></tr>';
-
- selectedEmployee=null;
- currentStatus="";
- updateAutoInfo();
- updateStats();
-}
-
-function updateAutoInfo(){
- if(!selectedEmployee){
-  $("autoName").textContent="—";
-  $("autoDesignation").textContent="—";
-  $("autoPhone").textContent="—";
-  $("total").textContent="0";
-  return;
- }
-
- $("autoName").textContent=employeeName(selectedEmployee)||"—";
- $("autoDesignation").textContent=designation(selectedEmployee)||"—";
- $("autoPhone").textContent=phone(selectedEmployee)||"—";
- $("total").textContent="1";
-}
-
-async function selectEmployee(id,load=true){
- selectedEmployee=findEmployee(id);
- currentStatus="";
- updateAutoInfo();
-
- if(!selectedEmployee){
-  $("attendanceList").innerHTML=
-   '<tr><td colspan="6" style="text-align:center;padding:30px">Employee not found.</td></tr>';
-  updateStats();
-  return;
- }
-
- if(load)await loadSelectedAttendance();
- else renderAttendance();
-}
-
-async function loadSelectedAttendance(){
- if(!selectedEmployee)return;
-
- const {data,error}=await db
-  .from(ATTENDANCE_TABLE)
-  .select("employee_id,attendance_date,status")
-  .eq("employee_id",attendanceEmployeeKey(selectedEmployee))
-  .eq("attendance_date",$("date").value)
-  .limit(1);
-
- if(error){
-  msg("Attendance load failed: "+error.message);
-  return;
- }
-
- currentStatus=data&&data[0] ? normalizeStatus(data[0].status) : "";
- renderAttendance();
- updateStats();
-}
-
-function normalizeStatus(v){
+function eid(e){return e.employee_id??""}
+function dbid(e){return e.id}
+function ename(e){return e.name??""}
+function edes(e){return e.designation??""}
+function ephone(e){return e.phone??""}
+function findByDbId(id){return employees.find(e=>String(e.id)===String(id))}
+function findByDisplayId(id){return employees.find(e=>String(eid(e))===String(id))}
+function findAdded(id){return addedEmployees.find(x=>String(x.employee.id)===String(id))}
+function norm(v){
  const s=String(v||"").toLowerCase().trim();
  if(s==="present")return"Present";
  if(s==="absent")return"Absent";
@@ -412,293 +282,217 @@ function normalizeStatus(v){
  if(s==="leave")return"Leave";
  return"";
 }
-
-function renderAttendance(){
- if(!selectedEmployee){
-  $("attendanceList").innerHTML=
-   '<tr><td colspan="6" style="text-align:center;padding:30px">Select an Employee ID first.</td></tr>';
-  return;
- }
-
- $("attendanceList").innerHTML=`
- <tr>
-  <td class="sl">1</td>
-  <td class="eid">${esc(employeeId(selectedEmployee))}</td>
-  <td class="name">${esc(employeeName(selectedEmployee)||"-")}</td>
-  <td>${esc(designation(selectedEmployee)||"-")}</td>
-  <td>${esc(phone(selectedEmployee)||"-")}</td>
-  <td>
-   <div class="status">
-    ${statusButton("Present","p")}
-    ${statusButton("Absent","a")}
-    ${statusButton("Late","l")}
-    ${statusButton("Leave","v")}
-   </div>
-  </td>
- </tr>`;
+function setMsg(t,ok=false){
+ $("msg").className="msg "+(ok?"ok":"err");$("msg").textContent=t;
+}
+function setSaveMsg(t,ok=false){
+ $("saveMsg").className="msg "+(ok?"ok":"err");$("saveMsg").textContent=t;
 }
 
-function statusButton(text,cls){
- return `<button type="button" class="sbtn ${cls} ${currentStatus===text?"on":""}" onclick="setStatus('${esc(text)}')">${text}</button>`;
-}
-
-window.setStatus=function(status){
- if(!selectedEmployee)return;
- currentStatus=status;
- renderAttendance();
- updateStats();
-};
-
-function updateStats(){
- $("present").textContent=currentStatus==="Present"?"1":"0";
- $("absent").textContent=currentStatus==="Absent"?"1":"0";
- $("late").textContent=currentStatus==="Late"?"1":"0";
- $("leave").textContent=currentStatus==="Leave"?"1":"0";
- $("total").textContent=selectedEmployee?"1":"0";
-}
-
-async function saveAttendance(){
- if(!selectedEmployee)return saveMsg("Please select an Employee ID.");
- if(!currentStatus)return saveMsg("Please select an attendance status.");
-
- $("saveBtn").disabled=true;
-
- try{
-  const id=attendanceEmployeeKey(selectedEmployee);
-  const date=$("date").value;
-
-  const del=await db
-   .from(ATTENDANCE_TABLE)
-   .delete()
-   .eq("employee_id",id)
-   .eq("attendance_date",date);
-
-  if(del.error)throw del.error;
-
-  const ins=await db
-   .from(ATTENDANCE_TABLE)
-   .insert({
-    employee_id:id,
-    attendance_date:date,
-    status:currentStatus
-   });
-
-  if(ins.error)throw ins.error;
-
-  saveMsg("Attendance saved successfully.",true);
- }catch(e){
-  saveMsg(e.message);
- }finally{
-  $("saveBtn").disabled=false;
- }
-}
-
-function searchEmployeeId(){
- const q=$("searchId").value.toLowerCase().trim();
- if(!q)return;
-
- const found=employees.find(e=>
-  String(employeeId(e)).toLowerCase().includes(q)
+function populate(){
+ const list=[...employees].sort((a,b)=>
+  String(eid(a)).localeCompare(String(eid(b)),undefined,{numeric:true})
  );
+ const opts=list.map(e=>`<option value="${esc(e.id)}">${esc(eid(e))} — ${esc(ename(e)||"-")}</option>`).join("");
+ $("employeeSelect").innerHTML='<option value="">Select Employee ID</option>'+opts;
+ $("historyEmployee").innerHTML='<option value="">All Employees</option>'+opts;
+ $("reportEmployee").innerHTML='<option value="">All Employees</option>'+opts;
+}
 
- if(found){
-  $("employeeSelect").value=String(employeeId(found));
-  selectEmployee(employeeId(found));
- }else{
-  msg("No Employee ID found.");
+function autoInfo(){
+ if(!selectedEmployee){
+  $("autoId").textContent="—";$("autoName").textContent="—";
+  $("autoDesignation").textContent="—";$("autoPhone").textContent="—";return;
  }
+ $("autoId").textContent=eid(selectedEmployee)||"—";
+ $("autoName").textContent=ename(selectedEmployee)||"—";
+ $("autoDesignation").textContent=edes(selectedEmployee)||"—";
+ $("autoPhone").textContent=ephone(selectedEmployee)||"—";
 }
 
-async function loadHistory(){
- const id=$("historyEmployee").value || (selectedEmployee?selectedEmployee.id:"");
- if(!id)return msg("Please select an Employee ID for history.");
-
- const e=findEmployee(id);
- if(!e)return msg("Employee not found.");
-
- let q=db
-  .from(ATTENDANCE_TABLE)
-  .select("employee_id,attendance_date,status")
-  .eq("employee_id",attendanceEmployeeKey(e))
-  .order("attendance_date",{ascending:false});
-
- if($("historyFrom").value)q=q.gte("attendance_date",$("historyFrom").value);
- if($("historyTo").value)q=q.lte("attendance_date",$("historyTo").value);
-
- const {data,error}=await q;
- if(error)return msg(error.message);
-
- const rows=data||[];
-
- $("historyList").innerHTML=rows.length
- ?rows.map((r,i)=>`
-  <tr>
-   <td>${i+1}</td>
-   <td>${esc(r.attendance_date)}</td>
-   <td class="eid">${esc(employeeId(e))}</td>
-   <td class="name">${esc(employeeName(e))}</td>
-   <td>${esc(designation(e)||"-")}</td>
-   <td>${esc(normalizeStatus(r.status)||"-")}</td>
-  </tr>`).join("")
- :'<tr><td colspan="6" style="text-align:center;padding:25px">No attendance records found.</td></tr>';
+async function start(){
+ try{
+  const {data:{session},error}=await db.auth.getSession();
+  if(error)throw error;
+  if(!session){location.href="admin.html";return}
+  await loadEmployees();
+ }catch(e){setMsg(e.message)}
 }
+db.auth.onAuthStateChange((event,session)=>{if(!session)location.href="admin.html"});
 
-async function loadReport(){
- const id=$("reportEmployee").value || (selectedEmployee?selectedEmployee.id:"");
- if(!id)return msg("Please select an Employee ID for report.");
-
- const e=findEmployee(id);
- if(!e)return msg("Employee not found.");
-
- let q=db
-  .from(ATTENDANCE_TABLE)
-  .select("employee_id,attendance_date,status")
-  .eq("employee_id",attendanceEmployeeKey(e));
-
- if($("reportFrom").value)q=q.gte("attendance_date",$("reportFrom").value);
- if($("reportTo").value)q=q.lte("attendance_date",$("reportTo").value);
-
- const {data,error}=await q;
- if(error)return msg(error.message);
-
- const rows=data||[];
- let p=0,a=0,l=0,v=0;
-
- rows.forEach(r=>{
-  const s=normalizeStatus(r.status);
-  if(s==="Present")p++;
-  else if(s==="Absent")a++;
-  else if(s==="Late")l++;
-  else if(s==="Leave")v++;
- });
-
- const total=rows.length;
- const percent=total?((p/total)*100).toFixed(1):"0.0";
-
- $("reportTotal").textContent=total;
- $("reportPresent").textContent=p;
- $("reportAbsent").textContent=a;
- $("reportPercent").textContent=percent+"%";
-
- $("reportList").innerHTML=total
- ?`<tr>
-   <td>1</td>
-   <td class="eid">${esc(employeeId(e))}</td>
-   <td class="name">${esc(employeeName(e))}</td>
-   <td>${esc(designation(e)||"-")}</td>
-   <td>${p}</td><td>${a}</td><td>${l}</td><td>${v}</td>
-   <td><b>${percent}%</b></td>
-  </tr>`
- :'<tr><td colspan="9" style="text-align:center;padding:25px">No report data found.</td></tr>';
-}
-
-function printSheet(){
- if(!selectedEmployee)return msg("Please select an Employee ID.");
- if(!currentStatus)return msg("Please mark attendance before printing.");
-
- $("printArea").innerHTML=`
- <div class="print-sheet">
-  <div class="print-header">
-   <img src="img/logo.png" onerror="this.style.display='none'">
-   <h1>Madrasa-e Nurul Quran</h1>
-   <h2>EMPLOYEE DAILY ATTENDANCE SHEET</h2>
-  </div>
-
-  <div class="print-meta">
-   <span><b>Employee ID:</b> ${esc(employeeId(selectedEmployee))}</span>
-   <span><b>Employee Name:</b> ${esc(employeeName(selectedEmployee))}</span>
-   <span><b>Date:</b> ${esc($("date").value)}</span>
-  </div>
-
-  <div class="print-summary">
-   Attendance Status: ${esc(currentStatus)}
-  </div>
-
-  <table class="print-table">
-   <thead>
-    <tr>
-     <th>SL</th>
-     <th>Employee ID</th>
-     <th>Employee Name</th>
-     <th>Designation</th>
-     <th>Phone</th>
-     <th>Attendance Status</th>
-    </tr>
-   </thead>
-   <tbody>
-    <tr>
-     <td>1</td>
-     <td>${esc(employeeId(selectedEmployee))}</td>
-     <td>${esc(employeeName(selectedEmployee)||"-")}</td>
-     <td>${esc(designation(selectedEmployee)||"-")}</td>
-     <td>${esc(phone(selectedEmployee)||"-")}</td>
-     <td>${esc(currentStatus)}</td>
-    </tr>
-   </tbody>
-  </table>
-
-  <div class="print-footer">
-   <span>Prepared by: __________________</span>
-   <span>Madrasa Management</span>
-   <span>Authorized Signature: __________________</span>
-  </div>
- </div>`;
-
- window.print();
+async function loadEmployees(){
+ const {data,error}=await db.from("employees")
+  .select("id,employee_id,name,phone,designation,address,created_at")
+  .order("employee_id",{ascending:true});
+ if(error)throw error;
+ employees=data||[];
+ populate();
+ selectedEmployee=null;addedEmployees=[];
+ autoInfo();render();stats();
 }
 
 $("employeeSelect").addEventListener("change",()=>{
- const id=$("employeeSelect").value;
- selectEmployee(id);
+ selectedEmployee=findByDbId($("employeeSelect").value);autoInfo();
 });
 
-$("date").addEventListener("change",()=>{
- if(selectedEmployee)loadSelectedAttendance();
-});
+function searchEmployee(){
+ const q=$("searchId").value.trim().toLowerCase();
+ if(!q)return;
+ const f=employees.find(e=>String(eid(e)).toLowerCase().includes(q)||String(ename(e)).toLowerCase().includes(q));
+ if(!f){setMsg("No employee found.");return}
+ $("employeeSelect").value=String(f.id);selectedEmployee=f;autoInfo();setMsg("Employee selected.",true);
+}
+$("searchId").addEventListener("keydown",e=>{if(e.key==="Enter")searchEmployee()});
 
-$("searchId").addEventListener("keydown",e=>{
- if(e.key==="Enter")searchEmployeeId();
-});
+function addEmployee(){
+ if(!selectedEmployee){setMsg("Please select an Employee ID first.");return}
+ if(findAdded(selectedEmployee.id)){setMsg("This employee is already added.");return}
+ addedEmployees.push({employee:selectedEmployee,status:""});
+ render();stats();setMsg(eid(selectedEmployee)+" added successfully.",true);
+}
 
-$("loadBtn").onclick=()=>{
- const id=$("employeeSelect").value;
- if(!id)return msg("Please select an Employee ID.");
- selectEmployee(id);
-};
+function removeEmployee(id){
+ addedEmployees=addedEmployees.filter(x=>String(x.employee.id)!==String(id));
+ render();stats();
+}
+function editEmployee(id){
+ const x=findAdded(id);if(!x)return;
+ $("employeeSelect").value=String(x.employee.id);selectedEmployee=x.employee;autoInfo();
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+function setStatus(id,status){
+ const x=findAdded(id);if(!x)return;x.status=status;render();stats();
+}
+function allStatus(status){addedEmployees.forEach(x=>x.status=status);render();stats()}
+function clearStatus(){addedEmployees.forEach(x=>x.status="");render();stats()}
 
-$("refreshBtn").onclick=async()=>{
+function statusButton(x,text,cls){
+ return `<button class="sbtn ${cls} ${x.status===text?"on":""}" onclick="setStatus('${esc(x.employee.id)}','${text}')">${text}</button>`;
+}
+function render(){
+ if(!addedEmployees.length){
+  $("attendanceList").innerHTML='<tr><td colspan="7" style="text-align:center;padding:30px">No employee added yet. Select an Employee ID and click Add Employee.</td></tr>';return;
+ }
+ $("attendanceList").innerHTML=addedEmployees.map((x,i)=>`
+  <tr>
+   <td class="sl">${i+1}</td>
+   <td class="eid">${esc(eid(x.employee))}</td>
+   <td class="name">${esc(ename(x.employee)||"-")}</td>
+   <td>${esc(edes(x.employee)||"-")}</td>
+   <td>${esc(ephone(x.employee)||"-")}</td>
+   <td><div class="status">
+    ${statusButton(x,"Present","p")}${statusButton(x,"Absent","a")}
+    ${statusButton(x,"Late","l")}${statusButton(x,"Leave","v")}
+   </div></td>
+   <td><button class="mini blue" onclick="editEmployee('${esc(x.employee.id)}')">Edit</button>
+       <button class="mini red" onclick="removeEmployee('${esc(x.employee.id)}')">Delete</button></td>
+  </tr>`).join("");
+}
+function stats(){
+ $("total").textContent=addedEmployees.length;
+ $("present").textContent=addedEmployees.filter(x=>x.status==="Present").length;
+ $("absent").textContent=addedEmployees.filter(x=>x.status==="Absent").length;
+ $("late").textContent=addedEmployees.filter(x=>x.status==="Late").length;
+ $("leave").textContent=addedEmployees.filter(x=>x.status==="Leave").length;
+}
+window.setStatus=setStatus;window.removeEmployee=removeEmployee;window.editEmployee=editEmployee;
+
+async function loadSaved(){
+ if(!addedEmployees.length){setMsg("Add employees first.");return}
+ const ids=addedEmployees.map(x=>dbid(x.employee));
+ const {data,error}=await db.from(ATTENDANCE_TABLE)
+  .select("employee_id,attendance_date,status").in("employee_id",ids)
+  .eq("attendance_date",$("date").value);
+ if(error){setMsg("Load failed: "+error.message);return}
+ addedEmployees.forEach(x=>{
+  const r=(data||[]).find(a=>String(a.employee_id)===String(dbid(x.employee)));
+  x.status=r?norm(r.status):"";
+ });
+ render();stats();setMsg("Saved attendance loaded.",true);
+}
+
+async function save(){
+ if(!addedEmployees.length){setSaveMsg("Please add at least one employee.");return}
+ if(addedEmployees.some(x=>!x.status)){setSaveMsg("Please select status for every employee.");return}
+ $("saveBtn").disabled=true;
  try{
-  await loadEmployees();
-  msg("Employee list refreshed.",true);
- }catch(e){msg(e.message);}
+  const date=$("date").value;
+  const ids=addedEmployees.map(x=>dbid(x.employee));
+  const del=await db.from(ATTENDANCE_TABLE).delete().in("employee_id",ids).eq("attendance_date",date);
+  if(del.error)throw del.error;
+  const rows=addedEmployees.map(x=>({employee_id:dbid(x.employee),attendance_date:date,status:x.status}));
+  const ins=await db.from(ATTENDANCE_TABLE).insert(rows);
+  if(ins.error)throw ins.error;
+  setSaveMsg("Attendance saved successfully for "+rows.length+" employee(s).",true);
+ }catch(e){setSaveMsg("Save failed: "+e.message)}
+ finally{$("saveBtn").disabled=false}
+}
+
+async function history(){
+ let q=db.from(ATTENDANCE_TABLE).select("employee_id,attendance_date,status").order("attendance_date",{ascending:false});
+ if($("historyEmployee").value)q=q.eq("employee_id",$("historyEmployee").value);
+ if($("historyFrom").value)q=q.gte("attendance_date",$("historyFrom").value);
+ if($("historyTo").value)q=q.lte("attendance_date",$("historyTo").value);
+ const {data,error}=await q;if(error){setMsg(error.message);return}
+ $("historyList").innerHTML=(data||[]).map((r,i)=>{
+  const e=findByDbId(r.employee_id);
+  return `<tr><td>${i+1}</td><td>${esc(r.attendance_date)}</td><td class="eid">${esc(e?eid(e):r.employee_id)}</td>
+  <td class="name">${esc(e?ename(e):"-")}</td><td>${esc(e?edes(e):"-")}</td><td>${esc(norm(r.status)||"-")}</td>
+  <td><button class="mini blue" onclick="editHistory('${esc(r.employee_id)}','${esc(r.attendance_date)}','${esc(r.status)}')">Edit</button>
+  <button class="mini red" onclick="deleteHistory('${esc(r.employee_id)}','${esc(r.attendance_date)}')">Delete</button></td></tr>`
+ }).join("")||'<tr><td colspan="7" style="text-align:center;padding:25px">No attendance records found.</td></tr>';
+}
+window.editHistory=async function(id,date,status){
+ const ns=prompt("Enter: Present, Absent, Late or Leave",norm(status));
+ if(ns===null)return;const s=norm(ns);if(!s){alert("Invalid status.");return}
+ const {error}=await db.from(ATTENDANCE_TABLE).update({status:s}).eq("employee_id",id).eq("attendance_date",date);
+ if(error){setMsg("Edit failed: "+error.message);return}setMsg("Attendance updated.",true);history();
+};
+window.deleteHistory=async function(id,date){
+ if(!confirm("Delete this attendance record?"))return;
+ const {error}=await db.from(ATTENDANCE_TABLE).delete().eq("employee_id",id).eq("attendance_date",date);
+ if(error){setMsg("Delete failed: "+error.message);return}setMsg("Attendance deleted.",true);history();
 };
 
-$("presentBtn").onclick=()=>setStatus("Present");
-$("absentBtn").onclick=()=>setStatus("Absent");
-$("lateBtn").onclick=()=>setStatus("Late");
-$("leaveBtn").onclick=()=>setStatus("Leave");
+async function report(){
+ let q=db.from(ATTENDANCE_TABLE).select("employee_id,attendance_date,status");
+ if($("reportEmployee").value)q=q.eq("employee_id",$("reportEmployee").value);
+ if($("reportFrom").value)q=q.gte("attendance_date",$("reportFrom").value);
+ if($("reportTo").value)q=q.lte("attendance_date",$("reportTo").value);
+ const {data,error}=await q;if(error){setMsg(error.message);return}
+ const rows=data||[];let p=0,a=0,l=0,v=0;
+ rows.forEach(r=>{const s=norm(r.status);if(s==="Present")p++;else if(s==="Absent")a++;else if(s==="Late")l++;else if(s==="Leave")v++});
+ const total=rows.length,pc=total?((p/total)*100).toFixed(1):"0.0";
+ $("reportTotal").textContent=total;$("reportPresent").textContent=p;$("reportAbsent").textContent=a;$("reportPercent").textContent=pc+"%";
+ const groups={};rows.forEach(r=>{const k=r.employee_id;if(!groups[k])groups[k]={p:0,a:0,l:0,v:0};const s=norm(r.status);if(s==="Present")groups[k].p++;else if(s==="Absent")groups[k].a++;else if(s==="Late")groups[k].l++;else if(s==="Leave")groups[k].v++});
+ $("reportList").innerHTML=Object.keys(groups).map((k,i)=>{const g=groups[k],e=findByDbId(k),t=g.p+g.a+g.l+g.v,x=t?((g.p/t)*100).toFixed(1):"0.0";return `<tr><td>${i+1}</td><td class="eid">${esc(e?eid(e):k)}</td><td class="name">${esc(e?ename(e):"-")}</td><td>${esc(e?edes(e):"-")}</td><td>${g.p}</td><td>${g.a}</td><td>${g.l}</td><td>${g.v}</td><td>${x}%</td></tr>`}).join("")||'<tr><td colspan="9" style="text-align:center;padding:25px">No report data found.</td></tr>';
+}
 
-$("clearBtn").onclick=()=>{
- currentStatus="";
- renderAttendance();
- updateStats();
- saveMsg("");
-};
+function printSheet(){
+ if(!addedEmployees.length){setMsg("Add employees before printing.");return}
+ if(addedEmployees.some(x=>!x.status)){setMsg("Please mark every added employee before printing.");return}
+ const rows=addedEmployees.map((x,i)=>`<tr><td>${i+1}</td><td>${esc(eid(x.employee))}</td><td>${esc(ename(x.employee))}</td><td>${esc(edes(x.employee)||"-")}</td><td>${esc(ephone(x.employee)||"-")}</td><td>${esc(x.status)}</td></tr>`).join("");
+ $("printArea").innerHTML=`<div class="print-sheet"><div class="print-header"><img src="img/logo.png" onerror="this.style.display='none'"><h1>Madrasa-e Nurul Quran</h1><h2>EMPLOYEE DAILY ATTENDANCE SHEET</h2></div>
+ <div class="print-meta"><span><b>Date:</b> ${esc($("date").value)}</span><span><b>Total:</b> ${addedEmployees.length}</span><span><b>Present:</b> ${addedEmployees.filter(x=>x.status==="Present").length}</span><span><b>Absent:</b> ${addedEmployees.filter(x=>x.status==="Absent").length}</span><span><b>Late:</b> ${addedEmployees.filter(x=>x.status==="Late").length}</span><span><b>Leave:</b> ${addedEmployees.filter(x=>x.status==="Leave").length}</span></div>
+ <table class="print-table"><thead><tr><th>SL</th><th>Employee ID</th><th>Employee Name</th><th>Designation</th><th>Phone</th><th>Attendance Status</th></tr></thead><tbody>${rows}</tbody></table>
+ <div class="print-footer"><span>Prepared by: __________________</span><span>Madrasa Management</span><span>Authorized Signature: __________________</span></div></div>`;
+ window.print();
+}
 
-$("saveBtn").onclick=saveAttendance;
-
-$("historyBtn").onclick=()=>{
- $("historySection").classList.toggle("hidden");
- if(selectedEmployee)$("historyEmployee").value=String(selectedEmployee.id);
-};
-
-$("reportBtn").onclick=()=>{
- $("reportSection").classList.toggle("hidden");
- if(selectedEmployee)$("reportEmployee").value=String(selectedEmployee.id);
-};
-
-$("loadHistoryBtn").onclick=loadHistory;
-$("loadReportBtn").onclick=loadReport;
+$("addEmployeeBtn").onclick=addEmployee;
+$("loadSavedBtn").onclick=loadSaved;
+$("refreshBtn").onclick=async()=>{try{await loadEmployees();setMsg("Employee list refreshed.",true)}catch(e){setMsg(e.message)}};
+$("saveBtn").onclick=save;
+$("allPresentBtn").onclick=()=>allStatus("Present");
+$("allAbsentBtn").onclick=()=>allStatus("Absent");
+$("allLateBtn").onclick=()=>allStatus("Late");
+$("allLeaveBtn").onclick=()=>allStatus("Leave");
+$("clearStatusBtn").onclick=clearStatus;
+$("clearListBtn").onclick=()=>{addedEmployees=[];render();stats();setSaveMsg("")};
+$("historyBtn").onclick=()=>{$("historySection").classList.toggle("hidden");if(!$("historySection").classList.contains("hidden")){history();$("historySection").scrollIntoView({behavior:"smooth"})}};
+$("reportBtn").onclick=()=>{$("reportSection").classList.toggle("hidden");if(!$("reportSection").classList.contains("hidden")){report();$("reportSection").scrollIntoView({behavior:"smooth"})}};
+$("loadHistoryBtn").onclick=history;
+$("loadReportBtn").onclick=report;
 $("printBtn").onclick=printSheet;
 
 start();
