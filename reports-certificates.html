@@ -1,3318 +1,608 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Education Certificate | Madrasa-e Nurul Quran</title>
 
-<title>Reports & Certificates | Madrasa-e Nurul Quran</title>
-
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Great+Vibes&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://banglawebfonts.pages.dev/css/bornomala.css" rel="stylesheet">
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <style>
-
-/* =========================================================
-   GLOBAL
-========================================================= */
-
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-
+*{box-sizing:border-box}
 :root{
-    --green:#145c46;
-    --green2:#247c5d;
-    --light-green:#54b96b;
-    --lime:#c8df3c;
-    --gold:#c9a227;
-
-    --bg:#f3f7f5;
-    --card:#ffffff;
-
-    --text:#17372c;
-    --muted:#71817b;
-
-    --border:#dbe8e2;
-
-    --shadow:
-        0 15px 40px rgba(20,92,70,.10);
+  --navy:#083d4a;
+  --teal:#126d68;
+  --teal2:#0d5d59;
+  --gold:#d5a928;
+  --gold2:#f1d36b;
+  --cream:#fffaf0;
+  --ink:#17201f;
 }
-
-html{
-    scroll-behavior:smooth;
-}
-
 body{
-    font-family:Bornomala,Arial,sans-serif;
-    background:
-        radial-gradient(
-            circle at 10% 0%,
-            rgba(84,185,107,.12),
-            transparent 28%
-        ),
-        radial-gradient(
-            circle at 90% 0%,
-            rgba(200,223,60,.10),
-            transparent 28%
-        ),
-        var(--bg);
-
-    color:var(--text);
-    min-height:100vh;
+  margin:0;
+  background:#eef2f4;
+  color:var(--ink);
+  font-family:"Playfair Display",Georgia,serif;
 }
-
-
-/* =========================================================
-   TOP BAR
-========================================================= */
-
 .topbar{
-    position:sticky;
-    top:0;
-    z-index:100;
-
-    background:rgba(255,255,255,.94);
-    backdrop-filter:blur(18px);
-
-    border-bottom:1px solid var(--border);
-
-    padding:13px 18px;
+  height:58px;
+  background:linear-gradient(90deg,#075b75,#126d68,#075b75);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 22px;
+  box-shadow:0 3px 15px rgba(0,0,0,.16);
 }
-
-.topbar-inner{
-    max-width:1450px;
-    margin:auto;
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    gap:15px;
-}
-
 .brand{
-    display:flex;
-    align-items:center;
-    gap:12px;
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
-
-.brand-logo{
-    width:48px;
-    height:48px;
-
-    border-radius:13px;
-
-    background:#fff;
-
-    border:1px solid var(--border);
-
-    padding:5px;
-
-    object-fit:contain;
-
-    box-shadow:0 6px 18px rgba(20,92,70,.10);
+.brand img{
+  width:39px;height:39px;object-fit:contain;border-radius:50%;
+  background:#fff;
 }
-
-.brand h1{
-    font-size:20px;
-    line-height:1.1;
+.brand-title{font-size:15px;font-weight:700}
+.brand-sub{font-size:8px;letter-spacing:1.2px;opacity:.85}
+.top-actions{display:flex;gap:8px}
+.top-actions button{
+  border:1px solid rgba(255,255,255,.28);
+  background:rgba(255,255,255,.10);
+  color:#fff;
+  padding:9px 13px;border-radius:8px;cursor:pointer;
 }
-
-.brand p{
-    color:var(--muted);
-    font-size:12px;
-    margin-top:4px;
-}
-
-.top-actions{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-}
-
-
-/* =========================================================
-   BUTTONS
-========================================================= */
-
-.btn{
-    border:0;
-
-    border-radius:10px;
-
-    padding:10px 15px;
-
-    font-family:inherit;
-
-    font-size:14px;
-
-    cursor:pointer;
-
-    transition:.2s;
-
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-
-    gap:7px;
-}
-
-.btn:hover{
-    transform:translateY(-1px);
-}
-
-.btn-primary{
-    color:#fff;
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--green),
-            var(--green2)
-        );
-
-    box-shadow:
-        0 7px 18px rgba(20,92,70,.18);
-}
-
-.btn-secondary{
-    background:#edf5f1;
-    color:var(--green);
-}
-
-.btn-gold{
-    background:#fff7df;
-    color:#826300;
-
-    border:1px solid #e8d28b;
-}
-
-.btn-danger{
-    background:#fff0f1;
-    color:#bd2937;
-}
-
-
-/* =========================================================
-   CONTAINER
-========================================================= */
-
-.container{
-    max-width:1450px;
-
-    margin:auto;
-
-    padding:
-        22px 18px 50px;
-}
-
-
-/* =========================================================
-   PAGE HEADER
-========================================================= */
-
-.page-head{
-    display:flex;
-
-    justify-content:space-between;
-    align-items:flex-end;
-
-    gap:15px;
-
-    margin-bottom:20px;
-}
-
-.page-head h2{
-    font-size:27px;
-}
-
-.page-head p{
-    color:var(--muted);
-    font-size:13px;
-    margin-top:4px;
-}
-
-
-/* =========================================================
-   MAIN GRID
-========================================================= */
-
-.main-grid{
-    display:grid;
-
-    grid-template-columns:
-        390px
-        minmax(0,1fr);
-
-    gap:20px;
-
-    align-items:start;
-}
-
-
-/* =========================================================
-   PANEL
-========================================================= */
+.container{max-width:1320px;margin:auto;padding:22px}
+.page-title{font-size:28px;margin:0 0 4px;color:#132e35}
+.page-sub{margin:0 0 18px;color:#667477;font-size:12px}
 
 .panel{
-    background:#fff;
-
-    border:1px solid var(--border);
-
-    border-radius:18px;
-
-    box-shadow:var(--shadow);
-
-    overflow:hidden;
+  background:#fff;border-radius:15px;padding:18px;
+  box-shadow:0 5px 24px rgba(12,45,55,.09);
+  margin-bottom:18px;
 }
-
-.panel-head{
-    padding:16px 18px;
-
-    border-bottom:1px solid var(--border);
-
-    background:
-        linear-gradient(
-            180deg,
-            #fff,
-            #fbfdfc
-        );
+.panel h2{font-size:17px;color:#135c65;margin:0 0 13px}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px;
 }
-
-.panel-title{
-    font-size:18px;
-    font-weight:bold;
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:11px;font-weight:700;color:#405256}
+.field input,.field select,.field textarea{
+  width:100%;border:1px solid #d5dfe1;background:#fbfcfc;
+  border-radius:8px;padding:10px 11px;font-family:inherit;font-size:13px;
+  outline:none;
 }
-
-.panel-sub{
-    color:var(--muted);
-    font-size:12px;
-    margin-top:3px;
+.field textarea{min-height:88px;resize:vertical;line-height:1.6}
+.field input:focus,.field select:focus,.field textarea:focus{
+  border-color:#16807a;box-shadow:0 0 0 3px rgba(22,128,122,.09)
 }
-
-.panel-body{
-    padding:17px;
+.full{grid-column:1/-1}
+.two{grid-column:span 2}
+.buttons{display:flex;flex-wrap:wrap;gap:8px;margin-top:13px}
+.btn{
+  border:0;border-radius:8px;padding:10px 14px;cursor:pointer;
+  font-family:inherit;font-weight:700;font-size:12px;
 }
+.primary{background:#096a70;color:#fff}
+.gold{background:#d0a52a;color:#fff}
+.light{background:#eaf3f3;color:#195d60}
+.danger{background:#f9e4e1;color:#9d3c30}
+.status{font-size:11px;margin-top:8px;color:#9d3c30}
+.status.ok{color:#14704c}
 
-
-/* =========================================================
-   FORM
-========================================================= */
-
-.field{
-    margin-bottom:13px;
+/* Certificate */
+.preview-wrap{
+  background:#d9dfe1;
+  border-radius:15px;
+  padding:24px;
+  overflow:auto;
 }
-
-.field label{
-    display:block;
-
-    font-size:13px;
-
-    font-weight:bold;
-
-    color:#4c625a;
-
-    margin-bottom:6px;
-}
-
-.field input,
-.field select,
-.field textarea{
-
-    width:100%;
-
-    border:1px solid var(--border);
-
-    background:#fbfdfc;
-
-    border-radius:10px;
-
-    padding:10px 11px;
-
-    font-family:inherit;
-
-    font-size:14px;
-
-    color:var(--text);
-
-    outline:none;
-}
-
-.field textarea{
-    min-height:100px;
-    resize:vertical;
-}
-
-.field input:focus,
-.field select:focus,
-.field textarea:focus{
-
-    border-color:var(--green2);
-
-    box-shadow:
-        0 0 0 3px
-        rgba(36,124,93,.08);
-}
-
-
-/* =========================================================
-   SEARCH
-========================================================= */
-
-.search-box{
-    display:flex;
-    gap:8px;
-}
-
-.search-box input{
-    flex:1;
-}
-
-.student-info{
-
-    display:none;
-
-    margin-top:15px;
-
-    border:1px solid var(--border);
-
-    border-radius:13px;
-
-    overflow:hidden;
-
-    background:#fbfdfc;
-}
-
-.student-info-head{
-
-    padding:11px 13px;
-
-    background:#eef7f2;
-
-    border-bottom:1px solid var(--border);
-
-    font-weight:bold;
-
-    font-size:14px;
-}
-
-.student-info-body{
-    padding:12px;
-}
-
-.info-row{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    gap:10px;
-
-    padding:6px 0;
-
-    border-bottom:1px dashed #dfe9e4;
-
-    font-size:13px;
-}
-
-.info-row:last-child{
-    border-bottom:0;
-}
-
-.info-row span:first-child{
-    color:var(--muted);
-}
-
-.info-row strong{
-    text-align:right;
-}
-
-
-/* =========================================================
-   CERTIFICATE PREVIEW AREA
-========================================================= */
-
-.preview-panel{
-    min-width:0;
-}
-
-.preview-toolbar{
-
-    padding:13px 16px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    gap:10px;
-
-    border-bottom:1px solid var(--border);
-
-    background:#fff;
-}
-
-.preview-toolbar-title{
-    font-weight:bold;
-    font-size:15px;
-}
-
-.preview-actions{
-    display:flex;
-    gap:8px;
-    flex-wrap:wrap;
-}
-
-
-/* =========================================================
-   CERTIFICATE
-========================================================= */
-
-.certificate-stage{
-
-    padding:35px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #edf3ef,
-            #f7f9f7
-        );
-
-    overflow:auto;
-}
-
-
-/*
-   16:11 certificate ratio
-*/
-
 .certificate{
-
-    position:relative;
-
-    width:1100px;
-
-    max-width:none;
-
-    aspect-ratio:1.55 / 1;
-
-    margin:auto;
-
-    overflow:hidden;
-
-    background:#fff;
-
-    box-shadow:
-        0 25px 60px
-        rgba(0,0,0,.22);
-
-    color:#1b3b30;
-
-    isolation:isolate;
+  position:relative;
+  width:1120px;
+  height:790px;
+  margin:auto;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 80% 20%,rgba(255,255,255,.7),transparent 30%),
+    linear-gradient(135deg,#fffdf7,#fbf3e3);
+  box-shadow:0 15px 45px rgba(0,0,0,.18);
+  border:1px solid #d8c78e;
 }
 
-
-/* =========================================================
-   CERTIFICATE BORDER
-========================================================= */
-
-.certificate::before{
-
-    content:"";
-
-    position:absolute;
-
-    inset:14px;
-
-    border:1px solid
-        rgba(20,92,70,.20);
-
-    z-index:20;
-
-    pointer-events:none;
+/* Elegant outer frame */
+.certificate:before{
+  content:"";
+  position:absolute;inset:16px;
+  border:2px solid var(--gold);
+  pointer-events:none;z-index:5;
+}
+.certificate:after{
+  content:"";
+  position:absolute;inset:23px;
+  border:1px solid rgba(18,109,104,.55);
+  pointer-events:none;z-index:5;
 }
 
-.certificate::after{
-
-    content:"";
-
-    position:absolute;
-
-    inset:20px;
-
-    border:1px solid
-        rgba(201,162,39,.35);
-
-    z-index:20;
-
-    pointer-events:none;
+/* Left ribbon */
+.ribbon{
+  position:absolute;left:150px;top:0;width:82px;height:560px;
+  background:linear-gradient(90deg,#07524f,#19736d,#07524f);
+  z-index:1;
+  box-shadow:8px 0 15px rgba(0,0,0,.08);
 }
-
-
-/* =========================================================
-   LEFT GREEN SHAPE
-========================================================= */
-
-.shape-left{
-
-    position:absolute;
-
-    left:0;
-    bottom:0;
-
-    width:31%;
-
-    height:61%;
-
-    background:
-        linear-gradient(
-            145deg,
-            #175e48,
-            #236b50
-        );
-
-    clip-path:
-        polygon(
-            0 0,
-            100% 13%,
-            73% 100%,
-            0 100%
-        );
-
-    z-index:1;
+.ribbon:before,.ribbon:after{
+  content:"";position:absolute;left:0;right:0;height:2px;background:var(--gold2)
 }
-
-
-/* =========================================================
-   TOP GREEN SHAPE
-========================================================= */
-
-.shape-top{
-
-    position:absolute;
-
-    top:0;
-    right:0;
-
-    width:57%;
-
-    height:20%;
-
-    background:
-        linear-gradient(
-            160deg,
-            #4bb762,
-            #5fbd58
-        );
-
-    clip-path:
-        polygon(
-            20% 0,
-            100% 0,
-            100% 100%,
-            52% 82%
-        );
-
-    z-index:1;
+.ribbon:before{top:0}.ribbon:after{bottom:0}
+.ribbon-tail{
+  position:absolute;left:140px;top:495px;width:105px;height:145px;z-index:2;
 }
-
-
-/* =========================================================
-   TOP LIME CORNER
-========================================================= */
-
-.shape-top-lime{
-
-    position:absolute;
-
-    top:0;
-    right:0;
-
-    width:10%;
-
-    height:22%;
-
-    background:#c7dd38;
-
-    clip-path:
-        polygon(
-            48% 0,
-            100% 0,
-            100% 100%,
-            0 84%
-        );
-
-    z-index:2;
+.ribbon-tail:before,.ribbon-tail:after{
+  content:"";position:absolute;top:0;width:52px;height:145px;
+  background:linear-gradient(90deg,#07524f,#19736d);
+  border:1px solid var(--gold);
 }
+.ribbon-tail:before{left:0;clip-path:polygon(0 0,100% 0,72% 100%,50% 87%,28% 100%)}
+.ribbon-tail:after{right:0;clip-path:polygon(0 0,100% 0,72% 100%,50% 87%,28% 100%)}
 
-
-/* =========================================================
-   BOTTOM LEFT LIME
-========================================================= */
-
-.shape-bottom-lime{
-
-    position:absolute;
-
-    left:18%;
-
-    bottom:0;
-
-    width:8%;
-
-    height:26%;
-
-    background:#c6df35;
-
-    clip-path:
-        polygon(
-            30% 0,
-            100% 10%,
-            48% 100%,
-            0 100%
-        );
-
-    z-index:2;
+/* Medal */
+.medal{
+  position:absolute;left:76px;top:235px;width:230px;height:230px;z-index:4;
 }
-
-
-/* =========================================================
-   DECORATIVE CIRCLE
-========================================================= */
-
-.decor-circle{
-
-    position:absolute;
-
-    width:115px;
-    height:115px;
-
-    border-radius:50%;
-
-    border:2px solid
-        rgba(255,255,255,.20);
-
-    left:17%;
-
-    top:37%;
-
-    z-index:2;
+.medal-star{
+  width:205px;height:205px;margin:auto;
+  background:linear-gradient(145deg,#e9ca56,#b88b1c 52%,#f3d878);
+  clip-path:polygon(50% 0%,61% 12%,76% 8%,82% 22%,96% 29%,89% 43%,100% 55%,88% 66%,92% 82%,76% 82%,68% 96%,54% 88%,42% 100%,34% 87%,18% 91%,19% 75%,4% 67%,12% 52%,0 40%,14% 31%,10% 15%,28% 17%,38% 3%);
+  display:grid;place-items:center;
+  filter:drop-shadow(0 6px 6px rgba(0,0,0,.2));
 }
-
-
-/* =========================================================
-   LOGO
-========================================================= */
-
-.certificate-logo{
-
-    position:absolute;
-
-    left:8%;
-
-    top:9%;
-
-    width:76px;
-
-    height:76px;
-
-    object-fit:contain;
-
-    z-index:10;
-
-    background:#fff;
-
-    border-radius:50%;
-
-    padding:6px;
-
+.medal-inner{
+  width:145px;height:145px;border-radius:50%;
+  background:linear-gradient(145deg,#176f69,#07514e);
+  border:8px solid #e4c34d;
+  outline:2px solid #f5df83;
+  display:flex;align-items:center;justify-content:center;
+  color:#f7e49a;text-align:center;
+  font-family:Cinzel,serif;font-weight:700;font-size:20px;line-height:1.15;
 }
+.medal-inner span{font-size:12px;display:block;letter-spacing:2px;margin-top:5px}
 
-
-/* =========================================================
-   CERTIFICATE CONTENT
-========================================================= */
-
-.certificate-content{
-
-    position:absolute;
-
-    z-index:10;
-
-    left:30%;
-
-    right:7%;
-
-    top:13%;
-
-    bottom:7%;
-
-    text-align:center;
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
+/* Main text */
+.cert-content{
+  position:absolute;left:315px;right:35px;top:72px;bottom:55px;
+  text-align:center;z-index:3;
 }
-
-
-/* =========================================================
-   MADRASA NAME
-========================================================= */
-
-.certificate-school{
-
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-    font-size:18px;
-
-    letter-spacing:2px;
-
-    color:#225e48;
-
-    font-weight:bold;
-
-    margin-bottom:3px;
+.kicker{
+  font-family:Cinzel,serif;font-size:13px;letter-spacing:4px;color:#245d59;
+  font-weight:700;margin-bottom:7px;
 }
-
-
-/* =========================================================
-   CERTIFICATE TITLE
-========================================================= */
-
-.certificate-title{
-
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-    font-size:42px;
-
-    letter-spacing:1px;
-
-    color:#4aab59;
-
-    line-height:1.1;
-
-    margin-top:7px;
+.cert-title{
+  font-family:Cinzel,serif;
+  font-size:48px;line-height:1.05;margin:0;color:#141a19;
+  letter-spacing:2px;
 }
-
-.certificate-subtitle{
-
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-    font-size:18px;
-
-    color:#2c332f;
-
-    margin-top:2px;
-
-    letter-spacing:1px;
+.subtitle{
+  margin-top:10px;font-family:Georgia,serif;font-style:italic;
+  font-weight:700;font-size:17px;color:#303b39;
 }
-
-
-/* =========================================================
-   AWARD SEAL
-========================================================= */
-
-.award-seal{
-
-    position:absolute;
-
-    left:-8%;
-
-    top:30%;
-
-    width:105px;
-
-    height:105px;
-
-    border-radius:50%;
-
-    background:
-        radial-gradient(
-            circle,
-            #fff 57%,
-            #58b86a 58%,
-            #58b86a 63%,
-            #fff 64%,
-            #fff 67%,
-            #59b86b 68%
-        );
-
-    border:4px solid #58b86b;
-
-    box-shadow:
-        0 4px 12px rgba(0,0,0,.13);
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    z-index:12;
+.name{
+  display:inline-block;
+  margin-top:24px;
+  padding:0 28px 7px;
+  min-width:500px;
+  border-bottom:2px solid #b7afa0;
+  font-family:"Great Vibes",cursive;
+  font-size:57px;
+  color:#111;
+  line-height:1.05;
 }
-
-.award-seal-inner{
-
-    text-align:center;
-
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-    color:#2f7650;
-
-    line-height:1.05;
-
-    font-size:13px;
-
-    font-weight:bold;
+.meta-line{
+  margin-top:10px;font-size:11px;letter-spacing:1.4px;color:#5b625f;
 }
-
-.award-seal-inner span{
-
-    display:block;
-
-    font-size:21px;
-
-    margin-top:3px;
+.body-copy{
+  max-width:700px;margin:27px auto 0;
+  font-family:Georgia,serif;font-size:16px;line-height:1.8;color:#3d4644;
 }
-
-
-/* =========================================================
-   PRESENTED
-========================================================= */
-
+.achievement{
+  margin:22px auto 0;
+  font-family:Cinzel,serif;font-size:21px;font-weight:700;
+  letter-spacing:2px;color:#111;
+}
 .presented{
+  margin-top:4px;font-size:10px;letter-spacing:2px;color:#777;
+}
+.info-row{
+  display:flex;justify-content:center;gap:26px;margin-top:18px;
+  font-size:11px;color:#555;
+}
+.info-chip{
+  border-bottom:1px solid #c5bda9;padding:0 8px 5px;min-width:135px;
+}
+.info-chip b{color:#234f4b}
+.signature{
+  position:absolute;right:52px;bottom:10px;width:180px;text-align:center;
+  font-family:Georgia,serif;color:#343d3b;
+}
+.signature-line{border-top:1px solid #55716e;padding-top:7px;font-size:12px}
+.signature-name{font-size:11px;font-weight:700}
+.signature-role{font-size:9px;color:#777;margin-top:2px}
 
-    margin-top:32px;
-
-    font-family:
-        Arial,
-        sans-serif;
-
-    font-size:12px;
-
-    font-weight:bold;
-
-    letter-spacing:2px;
-
-    color:#343a37;
+/* Gold/teal wave bottom */
+.wave{
+  position:absolute;left:-30px;right:-30px;bottom:-110px;height:270px;
+  background:#0b625e;
+  border-top:7px solid #d3a72c;
+  border-radius:50% 50% 0 0/38% 38% 0 0;
+  transform:rotate(-3deg);z-index:2;
+}
+.wave:before{
+  content:"";position:absolute;left:-20px;right:-20px;top:-17px;height:30px;
+  background:#f1d36b;border-top:2px solid #b88c20;
+  border-radius:50%;
+}
+.wave:after{
+  content:"";position:absolute;left:-20px;right:-20px;top:-8px;height:18px;
+  background:#126d68;border-radius:50%;
+}
+.corner-ornament{
+  position:absolute;left:36px;bottom:27px;color:#e9cf72;font-family:Cinzel,serif;
+  font-size:10px;letter-spacing:2px;z-index:7;
 }
 
-
-/* =========================================================
-   STUDENT NAME
-========================================================= */
-
-.student-name{
-
-    margin-top:10px;
-
-    width:75%;
-
-    min-height:55px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    padding:4px 10px;
-
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-    font-size:36px;
-
-    color:#55a960;
-
-    border-bottom:1px solid
-        rgba(85,169,96,.18);
+/* Print */
+#printArea{display:none}
+@media(max-width:1000px){
+ .grid{grid-template-columns:repeat(2,1fr)}
+ .two{grid-column:span 2}
 }
-
-
-/* =========================================================
-   CERTIFICATE TEXT
-========================================================= */
-
-.certificate-description{
-
-    max-width:78%;
-
-    margin-top:15px;
-
-    font-family:
-        Arial,
-        sans-serif;
-
-    font-size:12px;
-
-    line-height:1.55;
-
-    color:#5e6662;
-}
-
-
-/* =========================================================
-   DETAILS
-========================================================= */
-
-.certificate-details{
-
-    display:flex;
-
-    justify-content:center;
-
-    gap:28px;
-
-    margin-top:9px;
-
-    font-family:Arial,sans-serif;
-
-    font-size:10px;
-
-    color:#707774;
-}
-
-.certificate-details strong{
-
-    color:#31463d;
-}
-
-
-/* =========================================================
-   FOOTER SIGNATURE
-========================================================= */
-
-.certificate-footer{
-
-    width:76%;
-
-    margin-top:auto;
-
-    display:grid;
-
-    grid-template-columns:
-        1fr
-        1fr
-        1fr;
-
-    gap:30px;
-
-    align-items:end;
-
-    font-family:Arial,sans-serif;
-
-    font-size:10px;
-
-    color:#3d4944;
-}
-
-.signature-box{
-
-    text-align:center;
-}
-
-.signature-line{
-
-    height:22px;
-
-    border-bottom:1px solid #777;
-
-    margin-bottom:5px;
-}
-
-.signature-label{
-
-    font-weight:bold;
-
-    letter-spacing:.5px;
-}
-
-.signature-small{
-
-    font-size:8px;
-
-    color:#7a817e;
-
-    margin-top:2px;
-}
-
-
-/* =========================================================
-   CERTIFICATE NUMBER
-========================================================= */
-
-.certificate-number{
-
-    position:absolute;
-
-    right:7%;
-
-    bottom:5%;
-
-    z-index:12;
-
-    font-family:Arial,sans-serif;
-
-    font-size:8px;
-
-    color:#737b77;
-
-}
-
-
-/* =========================================================
-   REPORT SECTION
-========================================================= */
-
-.report-panel{
-
-    margin-top:20px;
-}
-
-.report-grid{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap:12px;
-
-    padding:16px;
-}
-
-.report-card{
-
-    border:1px solid var(--border);
-
-    border-radius:13px;
-
-    padding:13px;
-
-    background:#fbfdfc;
-}
-
-.report-card h4{
-
-    font-size:14px;
-
-    margin-bottom:6px;
-}
-
-.report-card p{
-
-    color:var(--muted);
-
-    font-size:12px;
-
-    margin-top:3px;
-}
-
-.progress{
-
-    height:7px;
-
-    background:#e7efeb;
-
-    border-radius:20px;
-
-    overflow:hidden;
-
-    margin-top:8px;
-}
-
-.progress span{
-
-    display:block;
-
-    height:100%;
-
-    background:
-        linear-gradient(
-            90deg,
-            var(--green),
-            var(--light-green)
-        );
-}
-
-
-/* =========================================================
-   MESSAGE
-========================================================= */
-
-.message{
-
-    display:none;
-
-    margin-top:12px;
-
-    padding:10px 12px;
-
-    border-radius:9px;
-
-    font-size:13px;
-}
-
-.message.success{
-
-    display:block;
-
-    background:#e6f7ed;
-
-    color:#167044;
-}
-
-.message.error{
-
-    display:block;
-
-    background:#fdebed;
-
-    color:#b72c39;
-}
-
-
-/* =========================================================
-   FOOTER
-========================================================= */
-
-.footer{
-
-    text-align:center;
-
-    color:var(--muted);
-
-    font-size:12px;
-
-    padding:20px;
-}
-
-
-/* =========================================================
-   RESPONSIVE
-========================================================= */
-
-@media(max-width:1100px){
-
-    .main-grid{
-
-        grid-template-columns:1fr;
-    }
-
-    .certificate-stage{
-
-        overflow:auto;
-    }
-
-}
-
 @media(max-width:700px){
-
-    .topbar-inner{
-
-        flex-direction:column;
-
-        align-items:flex-start;
-    }
-
-    .page-head{
-
-        flex-direction:column;
-
-        align-items:flex-start;
-    }
-
-    .certificate-stage{
-
-        padding:15px;
-    }
-
-    .report-grid{
-
-        grid-template-columns:
-            repeat(2,1fr);
-    }
-
+ .container{padding:12px}
+ .grid{grid-template-columns:1fr}
+ .two,.full{grid-column:1}
+ .topbar{padding:0 12px}
+ .preview-wrap{padding:8px}
 }
-
-@media(max-width:500px){
-
-    .report-grid{
-
-        grid-template-columns:1fr;
-    }
-
-}
-
-
-/* =========================================================
-   PRINT
-========================================================= */
-
 @media print{
-
-    @page{
-
-        size:A4 landscape;
-
-        margin:0;
-    }
-
-    html,
-    body{
-
-        width:297mm;
-
-        height:210mm;
-
-        background:#fff!important;
-
-        margin:0;
-
-        padding:0;
-
-        overflow:hidden;
-    }
-
-    body > *:not(#printCertificate){
-
-        display:none!important;
-    }
-
-    #printCertificate{
-
-        display:block!important;
-
-        width:297mm;
-
-        height:210mm;
-
-        position:relative;
-    }
-
-    #printCertificate .certificate{
-
-        width:297mm;
-
-        height:210mm;
-
-        aspect-ratio:auto;
-
-        box-shadow:none;
-
-        margin:0;
-
-        transform:none;
-    }
-
+ @page{size:A4 landscape;margin:0}
+ body{background:#fff}
+ .topbar,.container>.page-title,.container>.page-sub,.panel{display:none!important}
+ .preview-wrap{display:block;padding:0;background:#fff;overflow:visible}
+ .certificate{
+   width:297mm;height:210mm;margin:0;box-shadow:none;border:0;
+   transform:none;
+ }
+ #printArea{display:block}
+ .container{display:block;padding:0}
 }
-
-
-/* Hidden print container */
-
-#printCertificate{
-
-    display:none;
-}
-
 </style>
 </head>
 
-
 <body>
 
-
-<!-- =====================================================
-     TOPBAR
-===================================================== -->
-
 <header class="topbar">
-
-    <div class="topbar-inner">
-
-        <div class="brand">
-
-            <img
-                src="img/logo.png"
-                class="brand-logo"
-                alt="Madrasa Logo"
-                onerror="this.style.display='none'"
-            >
-
-            <div>
-
-                <h1>
-                    Reports & Certificates
-                </h1>
-
-                <p>
-                    Madrasa-e Nurul Quran
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="top-actions">
-
-            <button
-                class="btn btn-secondary"
-                onclick="location.href='admin.html'">
-
-                Dashboard
-
-            </button>
-
-            <button
-                class="btn btn-secondary"
-                onclick="location.href='students.html'">
-
-                Students
-
-            </button>
-
-            <button
-                class="btn btn-gold"
-                onclick="printCertificate()">
-
-                Print Certificate
-
-            </button>
-
-        </div>
-
+  <div class="brand">
+    <img src="img/logo.png" onerror="this.style.display='none'">
+    <div>
+      <div class="brand-title">Madrasa-e Nurul Quran</div>
+      <div class="brand-sub">EDUCATIONAL MANAGEMENT SYSTEM</div>
     </div>
-
+  </div>
+  <div class="top-actions">
+    <button onclick="location.href='dashboard.html'">Dashboard</button>
+    <button onclick="window.print()">Print</button>
+  </div>
 </header>
 
-
-
-<!-- =====================================================
-     MAIN
-===================================================== -->
-
 <main class="container">
+  <h1 class="page-title">Education Certificate</h1>
+  <p class="page-sub">Select a student to automatically load the Student ID, Name and Class. All certificate text can be edited before printing.</p>
 
+  <section class="panel">
+    <h2>Certificate Information</h2>
 
-    <div class="page-head">
+    <div class="grid">
+      <div class="field">
+        <label>Student</label>
+        <select id="studentSelect">
+          <option value="">Loading students...</option>
+        </select>
+      </div>
 
-        <div>
+      <div class="field">
+        <label>Student ID</label>
+        <input id="studentId" placeholder="Auto from student">
+      </div>
 
-            <h2>
-                Reports & Certificates
-            </h2>
+      <div class="field">
+        <label>Student Name</label>
+        <input id="studentName" placeholder="Auto from student">
+      </div>
 
-            <p>
-                Generate a professional student achievement certificate.
-            </p>
+      <div class="field">
+        <label>Class</label>
+        <input id="studentClass" placeholder="Auto from student">
+      </div>
 
-        </div>
+      <div class="field">
+        <label>Certificate Title</label>
+        <input id="certificateTitle" value="CERTIFICATE OF EDUCATION">
+      </div>
 
+      <div class="field">
+        <label>Achievement / Subject</label>
+        <input id="achievement" value="ACADEMIC ACHIEVEMENT">
+      </div>
+
+      <div class="field">
+        <label>Certificate Date</label>
+        <input id="certificateDate" type="date">
+      </div>
+
+      <div class="field">
+        <label>Academic Session</label>
+        <input id="session" placeholder="e.g. 2026">
+      </div>
+
+      <div class="field full">
+        <label>Certificate Description</label>
+        <textarea id="description">This certificate is proudly presented to the above-named student in recognition of successfully completing the academic requirements of the stated class and demonstrating commitment, discipline and dedication to education at Madrasa-e Nurul Quran.</textarea>
+      </div>
+
+      <div class="field">
+        <label>Presented By</label>
+        <input id="presentedBy" value="Madrasa-e Nurul Quran">
+      </div>
+
+      <div class="field">
+        <label>Signature Name</label>
+        <input id="signatureName" value="Principal">
+      </div>
+
+      <div class="field">
+        <label>Signature Role</label>
+        <input id="signatureRole" value="Principal">
+      </div>
+
+      <div class="field">
+        <label>Medal Text</label>
+        <input id="medalText" value="EDUCATION">
+      </div>
     </div>
 
-
-
-    <div class="main-grid">
-
-
-        <!-- =================================================
-             CONTROL PANEL
-        ================================================= -->
-
-        <section class="panel">
-
-            <div class="panel-head">
-
-                <div class="panel-title">
-                    Certificate Information
-                </div>
-
-                <div class="panel-sub">
-                    Search student and generate certificate
-                </div>
-
-            </div>
-
-
-            <div class="panel-body">
-
-
-                <!-- SEARCH -->
-
-                <div class="field">
-
-                    <label>
-                        Student ID / Roll Number
-                    </label>
-
-                    <div class="search-box">
-
-                        <input
-                            id="studentSearch"
-                            type="text"
-                            placeholder="Enter Student ID or Roll Number"
-                        >
-
-                        <button
-                            class="btn btn-primary"
-                            onclick="searchStudent()">
-
-                            Search
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-                <div
-                    id="message"
-                    class="message">
-                </div>
-
-
-                <!-- STUDENT INFO -->
-
-                <div
-                    id="studentInfo"
-                    class="student-info">
-
-                    <div class="student-info-head">
-
-                        Student Information
-
-                    </div>
-
-                    <div
-                        id="studentInfoBody"
-                        class="student-info-body">
-                    </div>
-
-                </div>
-
-
-                <hr
-                    style="
-                        border:0;
-                        border-top:1px solid var(--border);
-                        margin:18px 0;
-                    "
-                >
-
-
-                <!-- CERTIFICATE TYPE -->
-
-                <div class="field">
-
-                    <label>
-                        Certificate Type
-                    </label>
-
-                    <select id="certificateType">
-
-                        <option value="Certificate of Achievement">
-                            Certificate of Achievement
-                        </option>
-
-                        <option value="Certificate of Excellence">
-                            Certificate of Excellence
-                        </option>
-
-                        <option value="Certificate of Completion">
-                            Certificate of Completion
-                        </option>
-
-                        <option value="Certificate of Participation">
-                            Certificate of Participation
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <!-- TITLE -->
-
-                <div class="field">
-
-                    <label>
-                        Certificate Subtitle
-                    </label>
-
-                    <input
-                        id="certificateSubtitle"
-                        value="OF ACHIEVEMENT"
-                    >
-
-                </div>
-
-
-                <!-- DESCRIPTION -->
-
-                <div class="field">
-
-                    <label>
-                        Certificate Description
-                    </label>
-
-                    <textarea id="certificateDescription">This certificate is proudly presented in recognition of outstanding academic achievement, dedication, discipline, and sincere effort during the academic session.</textarea>
-
-                </div>
-
-
-                <!-- CERTIFICATE NUMBER -->
-
-                <div class="field">
-
-                    <label>
-                        Certificate Number
-                    </label>
-
-                    <input
-                        id="certificateNumber"
-                        value=""
-                        placeholder="Auto generated"
-                    >
-
-                </div>
-
-
-                <!-- ISSUE DATE -->
-
-                <div class="field">
-
-                    <label>
-                        Issue Date
-                    </label>
-
-                    <input
-                        id="issueDate"
-                        type="date"
-                    >
-
-                </div>
-
-
-                <!-- PRINCIPAL -->
-
-                <div class="field">
-
-                    <label>
-                        Authorized Person
-                    </label>
-
-                    <input
-                        id="authorizedName"
-                        value="Principal"
-                        placeholder="Principal / Authorized Person"
-                    >
-
-                </div>
-
-
-                <!-- BUTTONS -->
-
-                <div
-                    style="
-                        display:flex;
-                        flex-wrap:wrap;
-                        gap:8px;
-                        margin-top:15px;
-                    ">
-
-                    <button
-                        class="btn btn-primary"
-                        onclick="updateCertificate()">
-
-                        Update Certificate
-
-                    </button>
-
-                    <button
-                        class="btn btn-secondary"
-                        onclick="clearStudent()">
-
-                        Clear
-
-                    </button>
-
-                    <button
-                        class="btn btn-gold"
-                        onclick="printCertificate()">
-
-                        Print / Save PDF
-
-                    </button>
-
-                </div>
-
-
-            </div>
-
-        </section>
-
-
-
-        <!-- =================================================
-             CERTIFICATE PREVIEW
-        ================================================= -->
-
-        <section class="panel preview-panel">
-
-            <div class="preview-toolbar">
-
-                <div>
-
-                    <div class="preview-toolbar-title">
-                        Certificate Preview
-                    </div>
-
-                </div>
-
-
-                <div class="preview-actions">
-
-                    <button
-                        class="btn btn-primary"
-                        onclick="printCertificate()">
-
-                        Print / PDF
-
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            <div class="certificate-stage">
-
-
-                <!-- CERTIFICATE -->
-
-                <div
-                    id="certificate"
-                    class="certificate">
-
-
-                    <!-- SHAPES -->
-
-                    <div class="shape-left"></div>
-
-                    <div class="shape-top"></div>
-
-                    <div class="shape-top-lime"></div>
-
-                    <div class="shape-bottom-lime"></div>
-
-                    <div class="decor-circle"></div>
-
-
-                    <!-- LOGO -->
-
-                    <img
-                        src="img/logo.png"
-                        class="certificate-logo"
-                        alt="Madrasa Logo"
-                        onerror="this.style.display='none'"
-                    >
-
-
-                    <!-- AWARD SEAL -->
-
-                    <div class="award-seal">
-
-                        <div class="award-seal-inner">
-
-                            BEST
-
-                            <span>
-                                AWARD
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- MAIN CONTENT -->
-
-                    <div class="certificate-content">
-
-
-                        <div class="certificate-school">
-
-                            MADRASA-E NURUL QURAN
-
-                        </div>
-
-
-                        <div
-                            id="certificateTitle"
-                            class="certificate-title">
-
-                            CERTIFICATE
-
-                        </div>
-
-
-                        <div
-                            id="certificateSubtitlePreview"
-                            class="certificate-subtitle">
-
-                            OF ACHIEVEMENT
-
-                        </div>
-
-
-                        <div class="presented">
-
-                            PROUDLY PRESENTED TO
-
-                        </div>
-
-
-                        <div
-                            id="certificateStudentName"
-                            class="student-name">
-
-                            STUDENT NAME
-
-                        </div>
-
-
-                        <div
-                            id="certificateDescriptionPreview"
-                            class="certificate-description">
-
-                            This certificate is proudly presented in recognition of outstanding academic achievement, dedication, discipline, and sincere effort during the academic session.
-
-                        </div>
-
-
-                        <div
-                            id="certificateDetails"
-                            class="certificate-details">
-
-                            <div>
-                                Student ID:
-                                <strong id="certStudentId">
-                                    —
-                                </strong>
-                            </div>
-
-                            <div>
-                                Roll:
-                                <strong id="certRoll">
-                                    —
-                                </strong>
-                            </div>
-
-                            <div>
-                                Class:
-                                <strong id="certClass">
-                                    —
-                                </strong>
-                            </div>
-
-                            <div>
-                                Session:
-                                <strong id="certSession">
-                                    —
-                                </strong>
-                            </div>
-
-                        </div>
-
-
-                        <!-- SIGNATURES -->
-
-                        <div class="certificate-footer">
-
-
-                            <div class="signature-box">
-
-                                <div class="signature-line"></div>
-
-                                <div class="signature-label">
-
-                                    Date
-
-                                </div>
-
-                                <div
-                                    id="certDateSmall"
-                                    class="signature-small">
-
-                                    —
-
-                                </div>
-
-                            </div>
-
-
-                            <div class="signature-box">
-
-                                <div class="signature-line"></div>
-
-                                <div class="signature-label">
-
-                                    Principal
-
-                                </div>
-
-                                <div
-                                    id="certPrincipalSmall"
-                                    class="signature-small">
-
-                                    Principal
-
-                                </div>
-
-                            </div>
-
-
-                            <div class="signature-box">
-
-                                <div class="signature-line"></div>
-
-                                <div class="signature-label">
-
-                                    Authorized Signature
-
-                                </div>
-
-                                <div class="signature-small">
-
-                                    Madrasa-e Nurul Quran
-
-                                </div>
-
-                            </div>
-
-
-                        </div>
-
-                    </div>
-
-
-                    <div
-                        id="certNumberPreview"
-                        class="certificate-number">
-
-                        Certificate No: —
-
-                    </div>
-
-
-                </div>
-
-            </div>
-
-        </section>
-
+    <div class="buttons">
+      <button class="btn primary" id="loadBtn">Load Student</button>
+      <button class="btn light" id="refreshBtn">Refresh Students</button>
+      <button class="btn gold" id="printBtn">Print A4 Certificate</button>
+      <button class="btn danger" id="resetBtn">Reset</button>
     </div>
+    <div id="status" class="status"></div>
+  </section>
 
+  <section class="panel">
+    <h2>Certificate Preview</h2>
+    <div class="preview-wrap">
+      <div id="certificate" class="certificate">
 
+        <div class="ribbon"></div>
+        <div class="ribbon-tail"></div>
 
-    <!-- =================================================
-         STUDENT REPORT
-    ================================================= -->
-
-    <section
-        class="panel report-panel">
-
-        <div class="panel-head">
-
-            <div class="panel-title">
-                Academic Summary
+        <div class="medal">
+          <div class="medal-star">
+            <div class="medal-inner">
+              <div>
+                <div id="medalPreview">EDUCATION</div>
+                <span>CERTIFICATE</span>
+              </div>
             </div>
-
-            <div class="panel-sub">
-                Automatically loaded from student records
-            </div>
-
+          </div>
         </div>
 
+        <div class="cert-content">
+          <div class="kicker" id="presentedPreview">MADRASA-E NURUL QURAN</div>
+          <h1 class="cert-title" id="titlePreview">CERTIFICATE OF EDUCATION</h1>
+          <div class="subtitle">This Certificate is Proudly Presented to</div>
 
-        <div
-            id="reportContainer"
-            class="report-grid">
+          <div class="name" id="namePreview">Student Name</div>
 
-            <div class="report-card">
+          <div class="meta-line">
+            STUDENT ID: <span id="idPreview">—</span>
+            &nbsp;&nbsp; | &nbsp;&nbsp;
+            CLASS: <span id="classPreview">—</span>
+            &nbsp;&nbsp; | &nbsp;&nbsp;
+            SESSION: <span id="sessionPreview">—</span>
+          </div>
 
-                <h4>
-                    Result
-                </h4>
+          <div class="body-copy" id="descriptionPreview">
+            This certificate is proudly presented to the above-named student in recognition of successfully completing the academic requirements of the stated class and demonstrating commitment, discipline and dedication to education at Madrasa-e Nurul Quran.
+          </div>
 
-                <p>
-                    Search for a student to view academic summary.
-                </p>
+          <div class="achievement" id="achievementPreview">ACADEMIC ACHIEVEMENT</div>
+          <div class="presented">PRESENTED ON <span id="datePreview">—</span></div>
 
-            </div>
+          <div class="info-row">
+            <div class="info-chip"><b>Student ID:</b> <span id="smallId">—</span></div>
+            <div class="info-chip"><b>Class:</b> <span id="smallClass">—</span></div>
+          </div>
 
-
-            <div class="report-card">
-
-                <h4>
-                    Attendance
-                </h4>
-
-                <p>
-                    —
-                </p>
-
-            </div>
-
-
-            <div class="report-card">
-
-                <h4>
-                    Academic Session
-                </h4>
-
-                <p>
-                    —
-                </p>
-
-            </div>
-
-
-            <div class="report-card">
-
-                <h4>
-                    Certificate Status
-                </h4>
-
-                <p>
-                    Ready to generate
-                </p>
-
-            </div>
-
+          <div class="signature">
+            <div class="signature-line" id="signaturePreview">Principal</div>
+            <div class="signature-name" id="signatureNamePreview">Principal</div>
+            <div class="signature-role" id="signatureRolePreview">Principal</div>
+          </div>
         </div>
 
-    </section>
-
-
+        <div class="corner-ornament">MADRASA-E NURUL QURAN • EDUCATION</div>
+        <div class="wave"></div>
+      </div>
+    </div>
+  </section>
 </main>
 
+<div id="printArea"></div>
 
-<footer class="footer">
-
-    Madrasa-e Nurul Quran | Reports & Certificates
-
-</footer>
-
-
-
-<!-- =====================================================
-     PRINT CERTIFICATE
-===================================================== -->
-
-<div id="printCertificate"></div>
-
-
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+const SUPABASE_URL="https://qavublwhqiqsgpcmfyft.supabase.co";
+const SUPABASE_KEY="sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
+const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
-/* =========================================================
-   SUPABASE
-========================================================= */
+let students=[];
+let classMap={};
 
-const SUPABASE_URL =
-    "https://qavublwhqiqsgpcmfyft.supabase.co";
+const $=id=>document.getElementById(id);
 
-const SUPABASE_KEY =
-    "sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
+function esc(v){
+  return String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;")
+    .replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
+}
+function text(v){return String(v??"").trim()}
+function setStatus(message,ok=false){
+  $("status").textContent=message;
+  $("status").className="status"+(ok?" ok":"");
+}
 
-const db =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-    );
+function formatDate(v){
+  if(!v)return"—";
+  const d=new Date(v+"T00:00:00");
+  if(isNaN(d))return v;
+  return String(d.getDate()).padStart(2,"0")+" "+
+    d.toLocaleString("en-US",{month:"long"})+" "+d.getFullYear();
+}
 
+function resolveClass(s){
+  if(s.class_id!=null && classMap[String(s.class_id)]) return classMap[String(s.class_id)];
+  return s.class_name || s.class || s.className || "—";
+}
 
-/* =========================================================
-   GLOBAL
-========================================================= */
+function populateStudents(){
+  const sorted=[...students].sort((a,b)=>
+    String(a.student_id??"").localeCompare(String(b.student_id??""),undefined,{numeric:true})
+  );
+  $("studentSelect").innerHTML=
+    '<option value="">Select Student</option>'+
+    sorted.map(s=>`<option value="${esc(s.id)}">${esc(s.student_id||"")} — ${esc(s.name||"")}</option>`).join("");
+}
 
-let currentStudent = null;
+function loadSelectedStudent(){
+  const id=$("studentSelect").value;
+  const s=students.find(x=>String(x.id)===String(id));
+  if(!s)return;
 
-let currentResults = [];
+  $("studentId").value=s.student_id??"";
+  $("studentName").value=s.name??"";
+  $("studentClass").value=resolveClass(s);
+  if(s.session) $("session").value=s.session;
+  updatePreview();
+  setStatus("Student information loaded.",true);
+}
 
-let currentAttendance = [];
-
-
-/* =========================================================
-   DOM
-========================================================= */
-
-const studentSearch =
-    document.getElementById(
-        "studentSearch"
-    );
-
-const message =
-    document.getElementById(
-        "message"
-    );
-
-const studentInfo =
-    document.getElementById(
-        "studentInfo"
-    );
-
-const studentInfoBody =
-    document.getElementById(
-        "studentInfoBody"
-    );
-
-
-/* =========================================================
-   INITIAL
-========================================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
-
-        const today =
-            new Date()
-                .toISOString()
-                .slice(0,10);
-
-        document.getElementById(
-            "issueDate"
-        ).value = today;
-
-
-        generateCertificateNumber();
-
-
-        studentSearch.addEventListener(
-            "keydown",
-            e => {
-
-                if(e.key === "Enter"){
-
-                    searchStudent();
-
-                }
-
-            }
-        );
-
-
-        updateCertificate();
-
-    }
-);
-
-
-/* =========================================================
-   SEARCH STUDENT
-========================================================= */
-
-async function searchStudent(){
-
-    const key =
-        studentSearch.value
-            .trim();
-
-    if(!key){
-
-        showMessage(
-            "Please enter Student ID or Roll Number.",
-            true
-        );
-
-        return;
+async function loadData(){
+  try{
+    const {data:classes,error:ce}=await supabaseClient
+      .from("classes").select("id,name").order("id",{ascending:true});
+    if(!ce){
+      classMap={};
+      (classes||[]).forEach(c=>classMap[String(c.id)]=c.name);
     }
 
-
-    showMessage(
-        "Searching student...",
-        false
-    );
-
-
-    /*
-       Load all students because
-       existing project has used different
-       student ID / roll column naming
-       across previous pages.
-    */
-
-    const {data,error} =
-        await db
-            .from("students")
-            .select("*");
-
-
-    if(error){
-
-        console.error(error);
-
-        showMessage(
-            error.message,
-            true
-        );
-
-        return;
-    }
-
-
-    const normalized =
-        key.toLowerCase();
-
-
-    const student =
-        (data || []).find(
-            s => {
-
-                const values = [
-
-                    s.student_id,
-
-                    s.studentId,
-
-                    s.id,
-
-                    s.roll_number,
-
-                    s.roll_no,
-
-                    s.roll,
-
-                    s.rollNumber
-
-                ];
-
-
-                return values.some(
-                    value =>
-                        value !== null &&
-                        value !== undefined &&
-                        String(value)
-                            .toLowerCase() === normalized
-                );
-
-            }
-        );
-
-
-    if(!student){
-
-        currentStudent = null;
-
-        studentInfo.style.display =
-            "none";
-
-        showMessage(
-            "Student not found.",
-            true
-        );
-
-        return;
-    }
-
-
-    currentStudent =
-        student;
-
-
-    showStudentInfo(
-        student
-    );
-
-
-    await loadStudentReport(
-        student
-    );
-
-
-    updateCertificate();
-
-
-    showMessage(
-        "Student found successfully.",
-        false,
-        true
-    );
-
-}
-
-
-/* =========================================================
-   STUDENT FIELD HELPERS
-========================================================= */
-
-function getStudentId(student){
-
-    return (
-        student.student_id ??
-        student.studentId ??
-        student.id ??
-        ""
-    );
-}
-
-
-function getStudentName(student){
-
-    return (
-        student.student_name ??
-        student.studentName ??
-        student.name ??
-        ""
-    );
-}
-
-
-function getRoll(student){
-
-    return (
-        student.roll_number ??
-        student.roll_no ??
-        student.roll ??
-        student.rollNumber ??
-        ""
-    );
-}
-
-
-function getClass(student){
-
-    return (
-        student.class_name ??
-        student.className ??
-        student.class ??
-        ""
-    );
-}
-
-
-function getSession(student){
-
-    return (
-        student.session ??
-        student.year_session ??
-        student.year ??
-        ""
-    );
-}
-
-
-function getFather(student){
-
-    return (
-        student.father_name ??
-        student.fatherName ??
-        student.father ??
-        ""
-    );
-}
-
-
-function getMother(student){
-
-    return (
-        student.mother_name ??
-        student.motherName ??
-        student.mother ??
-        ""
-    );
-}
-
-
-/* =========================================================
-   SHOW STUDENT INFO
-========================================================= */
-
-function showStudentInfo(student){
-
-    studentInfo.style.display =
-        "block";
-
-
-    studentInfoBody.innerHTML = `
-
-        <div class="info-row">
-
-            <span>
-                Name
-            </span>
-
-            <strong>
-                ${escapeHtml(
-                    getStudentName(student)
-                )}
-            </strong>
-
-        </div>
-
-
-        <div class="info-row">
-
-            <span>
-                Student ID
-            </span>
-
-            <strong>
-                ${escapeHtml(
-                    getStudentId(student)
-                )}
-            </strong>
-
-        </div>
-
-
-        <div class="info-row">
-
-            <span>
-                Roll Number
-            </span>
-
-            <strong>
-                ${escapeHtml(
-                    getRoll(student) || "—"
-                )}
-            </strong>
-
-        </div>
-
-
-        <div class="info-row">
-
-            <span>
-                Class
-            </span>
-
-            <strong>
-                ${escapeHtml(
-                    getClass(student) || "—"
-                )}
-            </strong>
-
-        </div>
-
-
-        <div class="info-row">
-
-            <span>
-                Session
-            </span>
-
-            <strong>
-                ${escapeHtml(
-                    getSession(student) || "—"
-                )}
-            </strong>
-
-        </div>
-
-
-        <div class="info-row">
-
-            <span>
-                Father
-            </span>
-
-            <strong>
-                ${escapeHtml(
-                    getFather(student) || "—"
-                )}
-            </strong>
-
-        </div>
-
-    `;
-
-}
-
-
-/* =========================================================
-   LOAD REPORT
-========================================================= */
-
-async function loadStudentReport(
-    student
-){
-
-    const id =
-        String(
-            getStudentId(student)
-        );
-
-
-    /*
-       RESULTS
-    */
-
-    const resultResponse =
-        await db
-            .from("results")
-            .select("*")
-            .eq(
-                "student_id",
-                id
-            );
-
-
-    if(!resultResponse.error){
-
-        currentResults =
-            resultResponse.data || [];
-
+    const {data,error}=await supabaseClient
+      .from("students")
+      .select("id,student_id,name,class_id,session,created_at")
+      .order("student_id",{ascending:true});
+
+    if(error)throw error;
+    students=data||[];
+    populateStudents();
+
+    if(students.length){
+      $("studentSelect").value=String(students[0].id);
+      loadSelectedStudent();
     }else{
-
-        currentResults = [];
-
+      setStatus("No students found in the students table.");
     }
-
-
-    /*
-       ATTENDANCE
-
-       Try employee-independent student
-       attendance table.
-    */
-
-    const attendanceResponse =
-        await db
-            .from("student_attendance")
-            .select("*")
-            .eq(
-                "student_id",
-                id
-            );
-
-
-    if(!attendanceResponse.error){
-
-        currentAttendance =
-            attendanceResponse.data || [];
-
-    }else{
-
-        currentAttendance = [];
-
-    }
-
-
-    renderReport();
-
+  }catch(e){
+    setStatus("Could not load students: "+e.message);
+  }
 }
 
-
-/* =========================================================
-   RENDER REPORT
-========================================================= */
-
-function renderReport(){
-
-    if(!currentStudent){
-
-        return;
-    }
-
-
-    const totalResults =
-        currentResults.length;
-
-
-    let totalMarks = 0;
-
-    let passed = 0;
-
-    currentResults.forEach(
-        r => {
-
-            const marks =
-                Number(
-                    r.marks ?? 0
-                );
-
-            totalMarks += marks;
-
-            if(marks >= 33){
-
-                passed++;
-
-            }
-
-        }
-    );
-
-
-    const average =
-        totalResults
-            ? Math.round(
-                totalMarks /
-                totalResults
-              )
-            : 0;
-
-
-    let present = 0;
-
-    let absent = 0;
-
-    let late = 0;
-
-    let leave = 0;
-
-
-    currentAttendance.forEach(
-        row => {
-
-            const status =
-                String(
-                    row.status ?? ""
-                ).toLowerCase();
-
-
-            if(
-                status === "present" ||
-                status === "p" ||
-                status === "উপস্থিত"
-            ){
-
-                present++;
-
-            }
-
-
-            if(
-                status === "absent" ||
-                status === "a" ||
-                status === "অনুপস্থিত"
-            ){
-
-                absent++;
-
-            }
-
-
-            if(
-                status === "late" ||
-                status === "l"
-            ){
-
-                late++;
-
-            }
-
-
-            if(
-                status === "leave" ||
-                status === "lv"
-            ){
-
-                leave++;
-
-            }
-
-        }
-    );
-
-
-    const totalAttendance =
-        present +
-        absent +
-        late +
-        leave;
-
-
-    const attendancePercentage =
-        totalAttendance
-            ? Math.round(
-                (
-                    (present + late)
-                    /
-                    totalAttendance
-                ) * 100
-              )
-            : 0;
-
-
-    document.getElementById(
-        "reportContainer"
-    ).innerHTML = `
-
-        <div class="report-card">
-
-            <h4>
-                Academic Results
-            </h4>
-
-            <p>
-                Recorded Subjects:
-                <strong>
-                    ${totalResults}
-                </strong>
-            </p>
-
-            <p>
-                Average Marks:
-                <strong>
-                    ${average}
-                </strong>
-            </p>
-
-            <p>
-                Passed:
-                <strong>
-                    ${passed}
-                </strong>
-            </p>
-
-        </div>
-
-
-        <div class="report-card">
-
-            <h4>
-                Attendance
-            </h4>
-
-            <p>
-                Present:
-                <strong>
-                    ${present}
-                </strong>
-            </p>
-
-            <p>
-                Absent:
-                <strong>
-                    ${absent}
-                </strong>
-            </p>
-
-            <p>
-                Attendance:
-                <strong>
-                    ${attendancePercentage}%
-                </strong>
-            </p>
-
-            <div class="progress">
-
-                <span
-                    style="
-                        width:${attendancePercentage}%
-                    ">
-                </span>
-
-            </div>
-
-        </div>
-
-
-        <div class="report-card">
-
-            <h4>
-                Academic Session
-            </h4>
-
-            <p>
-                Session:
-                <strong>
-                    ${escapeHtml(
-                        getSession(
-                            currentStudent
-                        ) || "—"
-                    )}
-                </strong>
-            </p>
-
-            <p>
-                Class:
-                <strong>
-                    ${escapeHtml(
-                        getClass(
-                            currentStudent
-                        ) || "—"
-                    )}
-                </strong>
-            </p>
-
-            <p>
-                Roll:
-                <strong>
-                    ${escapeHtml(
-                        getRoll(
-                            currentStudent
-                        ) || "—"
-                    )}
-                </strong>
-            </p>
-
-        </div>
-
-
-        <div class="report-card">
-
-            <h4>
-                Certificate Status
-            </h4>
-
-            <p>
-                Student:
-                <strong>
-                    Ready
-                </strong>
-            </p>
-
-            <p>
-                Certificate:
-                <strong>
-                    Generated
-                </strong>
-            </p>
-
-            <p>
-                Format:
-                <strong>
-                    A4 Landscape
-                </strong>
-            </p>
-
-        </div>
-
-    `;
-
+function updatePreview(){
+  $("titlePreview").textContent=text($("certificateTitle").value)||"CERTIFICATE OF EDUCATION";
+  $("presentedPreview").textContent=text($("presentedBy").value)||"MADRASA-E NURUL QURAN";
+  $("namePreview").textContent=text($("studentName").value)||"Student Name";
+  $("idPreview").textContent=text($("studentId").value)||"—";
+  $("classPreview").textContent=text($("studentClass").value)||"—";
+  $("sessionPreview").textContent=text($("session").value)||"—";
+  $("descriptionPreview").textContent=text($("description").value)||"";
+  $("achievementPreview").textContent=text($("achievement").value)||"ACADEMIC ACHIEVEMENT";
+  $("datePreview").textContent=formatDate($("certificateDate").value);
+  $("smallId").textContent=text($("studentId").value)||"—";
+  $("smallClass").textContent=text($("studentClass").value)||"—";
+  $("signaturePreview").textContent=text($("signatureName").value)||"Principal";
+  $("signatureNamePreview").textContent=text($("signatureName").value)||"Principal";
+  $("signatureRolePreview").textContent=text($("signatureRole").value)||"Principal";
+  $("medalPreview").textContent=text($("medalText").value)||"EDUCATION";
 }
 
-
-/* =========================================================
-   UPDATE CERTIFICATE
-========================================================= */
-
-function updateCertificate(){
-
-    const type =
-        document.getElementById(
-            "certificateType"
-        ).value;
-
-
-    const subtitle =
-        document.getElementById(
-            "certificateSubtitle"
-        ).value
-        .trim()
-        .toUpperCase();
-
-
-    const description =
-        document.getElementById(
-            "certificateDescription"
-        ).value
-        .trim();
-
-
-    const date =
-        document.getElementById(
-            "issueDate"
-        ).value;
-
-
-    const principal =
-        document.getElementById(
-            "authorizedName"
-        ).value
-        .trim();
-
-
-    const number =
-        document.getElementById(
-            "certificateNumber"
-        ).value
-        .trim();
-
-
-    /*
-       Main title
-    */
-
-    document.getElementById(
-        "certificateTitle"
-    ).textContent =
-        type
-            .replace(
-                /^Certificate of /i,
-                "CERTIFICATE"
-            );
-
-
-    /*
-       Better title logic
-    */
-
-    document.getElementById(
-        "certificateTitle"
-    ).textContent =
-        "CERTIFICATE";
-
-
-    document.getElementById(
-        "certificateSubtitlePreview"
-    ).textContent =
-        subtitle ||
-        "OF ACHIEVEMENT";
-
-
-    document.getElementById(
-        "certificateDescriptionPreview"
-    ).textContent =
-        description ||
-        "This certificate is proudly presented in recognition of outstanding academic achievement, dedication, discipline, and sincere effort during the academic session.";
-
-
-    document.getElementById(
-        "certificateNumber"
-    ).value =
-        number ||
-        generateCertificateNumber();
-
-
-    const finalNumber =
-        document.getElementById(
-            "certificateNumber"
-        ).value;
-
-
-    document.getElementById(
-        "certNumberPreview"
-    ).textContent =
-        "Certificate No: " +
-        finalNumber;
-
-
-    /*
-       Date
-    */
-
-    const displayDate =
-        formatDateEnglish(date);
-
-
-    document.getElementById(
-        "certDateSmall"
-    ).textContent =
-        displayDate;
-
-
-    /*
-       Principal
-    */
-
-    document.getElementById(
-        "certPrincipalSmall"
-    ).textContent =
-        principal ||
-        "Principal";
-
-
-    /*
-       Student
-    */
-
-    if(currentStudent){
-
-        document.getElementById(
-            "certificateStudentName"
-        ).textContent =
-            getStudentName(
-                currentStudent
-            ) ||
-            "STUDENT NAME";
-
-
-        document.getElementById(
-            "certStudentId"
-        ).textContent =
-            getStudentId(
-                currentStudent
-            ) ||
-            "—";
-
-
-        document.getElementById(
-            "certRoll"
-        ).textContent =
-            getRoll(
-                currentStudent
-            ) ||
-            "—";
-
-
-        document.getElementById(
-            "certClass"
-        ).textContent =
-            getClass(
-                currentStudent
-            ) ||
-            "—";
-
-
-        document.getElementById(
-            "certSession"
-        ).textContent =
-            getSession(
-                currentStudent
-            ) ||
-            "—";
-
-    }
-
+function resetForm(){
+  $("certificateTitle").value="CERTIFICATE OF EDUCATION";
+  $("achievement").value="ACADEMIC ACHIEVEMENT";
+  $("certificateDate").value=new Date().toISOString().slice(0,10);
+  $("session").value="";
+  $("description").value="This certificate is proudly presented to the above-named student in recognition of successfully completing the academic requirements of the stated class and demonstrating commitment, discipline and dedication to education at Madrasa-e Nurul Quran.";
+  $("presentedBy").value="Madrasa-e Nurul Quran";
+  $("signatureName").value="Principal";
+  $("signatureRole").value="Principal";
+  $("medalText").value="EDUCATION";
+  if(students.length){
+    $("studentSelect").value=String(students[0].id);
+    loadSelectedStudent();
+  }else updatePreview();
+  setStatus("Certificate fields reset.",true);
 }
-
-
-/* =========================================================
-   CERTIFICATE NUMBER
-========================================================= */
-
-function generateCertificateNumber(){
-
-    const year =
-        new Date()
-            .getFullYear();
-
-    const random =
-        Math.floor(
-            100000 +
-            Math.random() * 900000
-        );
-
-
-    const number =
-        "MNQ-" +
-        year +
-        "-" +
-        random;
-
-
-    const input =
-        document.getElementById(
-            "certificateNumber"
-        );
-
-
-    if(input){
-
-        if(!input.value){
-
-            input.value =
-                number;
-
-        }
-
-    }
-
-
-    return number;
-
-}
-
-
-/* =========================================================
-   PRINT
-========================================================= */
 
 function printCertificate(){
+  if(!text($("studentName").value)){
+    setStatus("Please select a student first.");
+    return;
+  }
+  updatePreview();
+  window.print();
+}
 
-    if(!currentStudent){
+$("studentSelect").addEventListener("change",loadSelectedStudent);
+$("loadBtn").addEventListener("click",loadSelectedStudent);
+$("refreshBtn").addEventListener("click",loadData);
+$("resetBtn").addEventListener("click",resetForm);
+$("printBtn").addEventListener("click",printCertificate);
 
-        showMessage(
-            "Please search and select a student before printing the certificate.",
-            true
-        );
+[
+ "studentId","studentName","studentClass","certificateTitle","achievement",
+ "certificateDate","session","description","presentedBy",
+ "signatureName","signatureRole","medalText"
+].forEach(id=>{
+  $(id).addEventListener("input",updatePreview);
+  $(id).addEventListener("change",updatePreview);
+});
 
-        return;
+$("certificateDate").value=new Date().toISOString().slice(0,10);
+
+(async function(){
+  try{
+    const {data:{session},error}=await supabaseClient.auth.getSession();
+    if(error)throw error;
+    if(!session){
+      location.href="admin.html";
+      return;
     }
-
-
-    updateCertificate();
-
-
-    const original =
-        document.getElementById(
-            "certificate"
-        );
-
-
-    const printContainer =
-        document.getElementById(
-            "printCertificate"
-        );
-
-
-    printContainer.innerHTML =
-        original.outerHTML;
-
-
-    setTimeout(
-        () => {
-
-            window.print();
-
-        },
-        250
-    );
-
-}
-
-
-/* =========================================================
-   CLEAR STUDENT
-========================================================= */
-
-function clearStudent(){
-
-    currentStudent = null;
-
-    currentResults = [];
-
-    currentAttendance = [];
-
-
-    studentSearch.value =
-        "";
-
-
-    studentInfo.style.display =
-        "none";
-
-
-    document.getElementById(
-        "certificateStudentName"
-    ).textContent =
-        "STUDENT NAME";
-
-
-    document.getElementById(
-        "certStudentId"
-    ).textContent =
-        "—";
-
-
-    document.getElementById(
-        "certRoll"
-    ).textContent =
-        "—";
-
-
-    document.getElementById(
-        "certClass"
-    ).textContent =
-        "—";
-
-
-    document.getElementById(
-        "certSession"
-    ).textContent =
-        "—";
-
-
-    document.getElementById(
-        "reportContainer"
-    ).innerHTML = `
-
-        <div class="report-card">
-
-            <h4>
-                Result
-            </h4>
-
-            <p>
-                Search for a student to view academic summary.
-            </p>
-
-        </div>
-
-
-        <div class="report-card">
-
-            <h4>
-                Attendance
-            </h4>
-
-            <p>
-                —
-            </p>
-
-        </div>
-
-
-        <div class="report-card">
-
-            <h4>
-                Academic Session
-            </h4>
-
-            <p>
-                —
-            </p>
-
-        </div>
-
-
-        <div class="report-card">
-
-            <h4>
-                Certificate Status
-            </h4>
-
-            <p>
-                Ready to generate
-            </p>
-
-        </div>
-
-    `;
-
-
-    updateCertificate();
-
-
-    hideMessage();
-
-}
-
-
-/* =========================================================
-   MESSAGE
-========================================================= */
-
-function showMessage(
-    text,
-    error=false,
-    success=false
-){
-
-    message.textContent =
-        text;
-
-
-    message.className =
-        "message " +
-        (
-            error
-                ? "error"
-                : "success"
-        );
-
-}
-
-
-function hideMessage(){
-
-    message.style.display =
-        "none";
-
-    message.className =
-        "message";
-
-}
-
-
-/* =========================================================
-   DATE
-========================================================= */
-
-function formatDateEnglish(
-    date
-){
-
-    if(!date){
-
-        return "—";
-
-    }
-
-
-    const d =
-        new Date(
-            date + "T00:00:00"
-        );
-
-
-    return d.toLocaleDateString(
-        "en-US",
-        {
-            month:"long",
-            day:"numeric",
-            year:"numeric"
-        }
-    );
-
-}
-
-
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
-
-function escapeHtml(
-    value
-){
-
-    return String(
-        value ?? ""
-    )
-    .replace(
-        /&/g,
-        "&amp;"
-    )
-    .replace(
-        /</g,
-        "&lt;"
-    )
-    .replace(
-        />/g,
-        "&gt;"
-    )
-    .replace(
-        /"/g,
-        "&quot;"
-    )
-    .replace(
-        /'/g,
-        "&#039;"
-    );
-
-}
-
+    await loadData();
+  }catch(e){
+    setStatus(e.message);
+  }
+})();
 </script>
-
-
 </body>
 </html>
