@@ -2,500 +2,1300 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Employee Attendance | Madrasa-e Nurul Quran</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://banglawebfonts.pages.dev/css/bornomala.css" rel="stylesheet">
 
 <style>
 *{box-sizing:border-box}
-:root{
- --primary:#0d47a1;--primary2:#1976d2;--dark:#083b82;
- --bg:#f4f7fb;--white:#fff;--text:#1e293b;--muted:#64748b;
- --border:#dbe4ef;--green:#15803d;--red:#b91c1c;
- --yellow:#92400e;--blue:#075985;
+html,body{margin:0;padding:0}
+body{
+  margin:0;
+  background:#f2f6fa;
+  color:#172331;
+  font-family:"Bornomala","Playfair Display",Georgia,serif;
 }
-body{margin:0;background:var(--bg);color:var(--text);font-family:"Bornomala",Arial,sans-serif}
+button,input,select{font:inherit}
+button{cursor:pointer}
+
 .topbar{
- background:linear-gradient(135deg,#0d47a1,#1976d2);color:#fff;
- min-height:72px;padding:13px 25px;display:flex;justify-content:space-between;
- align-items:center;position:sticky;top:0;z-index:20;box-shadow:0 3px 15px #0002
+  height:58px;
+  background:linear-gradient(90deg,#075b7c,#08739b,#075b7c);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 18px;
+  box-shadow:0 3px 14px rgba(0,0,0,.16);
 }
-.brand{font-size:21px;font-weight:800}.sub{font:10px Arial;letter-spacing:1px;opacity:.82}
-.dashboard{color:#fff;text-decoration:none;border:1px solid #ffffff45;background:#ffffff15;
- padding:9px 14px;border-radius:8px;font-weight:700}
-.container{max-width:1350px;margin:24px auto;padding:0 16px 60px}
-.heading h1{margin:0 0 5px;font-size:29px;color:#0f172a}.heading p{margin:0;color:var(--muted);font-size:13px}
-.card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px;margin-top:18px;box-shadow:0 4px 18px #0d47a10c}
-.title{font-size:20px;font-weight:800;color:var(--primary)}.desc{font-size:12px;color:var(--muted);margin:3px 0 15px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
-.field label{display:block;font-size:13px;font-weight:800;margin-bottom:6px}
-input,select{width:100%;height:43px;border:1px solid #cbd5e1;border-radius:8px;padding:8px 11px;
- background:#fff;color:#1e293b;outline:none;font-family:"Bornomala",Arial,sans-serif}
-input:focus,select:focus{border-color:#1976d2;box-shadow:0 0 0 3px #1976d218}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
-button{border:0;border-radius:8px;padding:9px 14px;font-family:"Bornomala",Arial,sans-serif;font-weight:800;cursor:pointer}
-button:disabled{opacity:.55;cursor:not-allowed}.primary{background:linear-gradient(135deg,#0d47a1,#1976d2);color:#fff}
-.secondary{background:#eef2f7;color:#334155}.green{background:#dcfce7;color:#15803d}.red{background:#fee2e2;color:#b91c1c}
-.yellow{background:#fef3c7;color:#92400e}.blue{background:#e0f2fe;color:#075985}.purple{background:#ede9fe;color:#6d28d9}
-.info{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:12px}
-.info-box{background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:10px}
-.info-box small{display:block;color:var(--muted);font-size:10px}.info-box strong{font-size:14px}
-.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:18px}
-.stat{background:#fff;border:1px solid var(--border);border-radius:12px;padding:14px;position:relative}
-.stat:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:#1976d2}
-.stat small{color:var(--muted);font-size:11px}.num{font:bold 23px Arial;color:var(--dark);margin-top:5px}
-.tools{display:flex;gap:7px;flex-wrap:wrap;background:#f8fafc;border:1px solid var(--border);padding:10px;border-radius:9px;margin-bottom:13px}
-.tools button{font-size:11px;padding:7px 10px}
-.table-wrap{overflow:auto;border:1px solid var(--border);border-radius:10px}
-table{width:100%;border-collapse:collapse;min-width:920px}
-th{background:linear-gradient(135deg,#0d47a1,#1976d2);color:#fff;padding:11px 9px;text-align:left;font-size:12px;white-space:nowrap}
-td{padding:9px;border-bottom:1px solid #edf1f5;font-size:12px;vertical-align:middle}
-tr:hover td{background:#f8fbff}.sl{text-align:center;width:48px}.eid{font:bold 12px Arial;color:#083b82}.name{font-weight:800}
-.badge{display:inline-block;background:#e8f0fe;color:#0d47a1;border-radius:14px;padding:4px 8px;font-size:10px;font-weight:800}
-.status{display:flex;gap:4px;flex-wrap:wrap}
-.sbtn{background:#fff;border:1px solid #d5dce6;padding:5px 8px;font-size:10px;border-radius:6px}
-.sbtn.on.p{background:#dcfce7;color:#15803d;border-color:#86efac}
-.sbtn.on.a{background:#fee2e2;color:#b91c1c;border-color:#fca5a5}
-.sbtn.on.l{background:#fef3c7;color:#92400e;border-color:#fcd34d}
-.sbtn.on.v{background:#e0f2fe;color:#075985;border-color:#7dd3fc}
-.msg{min-height:20px;margin-top:9px;font-size:12px;font-weight:700}.ok{color:#15803d}.err{color:#b91c1c}
-.hidden{display:none}.report-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}
-.report-box{background:#f8fafc;border:1px solid var(--border);border-radius:9px;padding:11px}
-.report-box small{color:var(--muted)}.report-box strong{display:block;font:bold 21px Arial;color:#083b82;margin-top:3px}
-#printArea{display:none}
-
-@media(max-width:1000px){.grid{grid-template-columns:1fr 1fr}.stats{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:650px){
- .topbar{flex-direction:column;align-items:flex-start;gap:10px}.container{padding:0 10px 40px}
- .grid,.stats,.info,.report-grid{grid-template-columns:1fr}.heading h1{font-size:25px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand img{
+  width:38px;height:38px;border-radius:50%;object-fit:contain;background:#fff
+}
+.brand-title{font-size:15px;font-weight:700;line-height:1.1}
+.brand-sub{font-family:Arial,sans-serif;font-size:8px;letter-spacing:1px;opacity:.8}
+.top-actions{display:flex;gap:7px}
+.top-btn{
+  border:1px solid rgba(255,255,255,.3);
+  background:rgba(255,255,255,.09);
+  color:#fff;border-radius:7px;padding:8px 12px;font-size:11px
 }
 
+.container{max-width:1300px;margin:auto;padding:20px 14px 40px}
+.page-title{margin:0;color:#172331;font-size:25px}
+.page-sub{margin:3px 0 17px;color:#687783;font-size:11px}
+
+.panel{
+  background:#fff;
+  border:1px solid #e4ebf0;
+  border-radius:13px;
+  padding:16px;
+  margin-bottom:15px;
+  box-shadow:0 5px 20px rgba(15,49,70,.07)
+}
+.panel h2{margin:0 0 4px;color:#135875;font-size:17px}
+.panel-desc{margin:0 0 12px;color:#75828a;font-size:10px}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px
+}
+.field{display:flex;flex-direction:column;gap:5px}
+.field label{font-size:10px;font-weight:700;color:#465963}
+.field input,.field select{
+  height:39px;
+  width:100%;
+  border:1px solid #d6e0e6;
+  border-radius:8px;
+  background:#fbfdfe;
+  padding:0 10px;
+  color:#1d2d35;
+  outline:none;
+  font-family:Arial,sans-serif;
+  font-size:12px
+}
+.field input:focus,.field select:focus{
+  border-color:#1480a6;
+  box-shadow:0 0 0 3px rgba(20,128,166,.08)
+}
+.full{grid-column:1/-1}
+
+.info-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-top:10px
+}
+.info-box{
+  background:#f7fafc;
+  border:1px solid #e4ebef;
+  border-radius:7px;
+  padding:8px 10px
+}
+.info-label{font-size:8px;color:#849099}
+.info-value{font-family:Arial,sans-serif;font-size:12px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.buttons{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}
+.btn{
+  border:0;border-radius:7px;
+  padding:9px 13px;
+  font-family:Arial,sans-serif;
+  font-size:11px;font-weight:700
+}
+.btn-primary{background:#096f9e;color:#fff}
+.btn-green{background:#0d765f;color:#fff}
+.btn-light{background:#eaf2f6;color:#1b5f78}
+.btn-gold{background:#c59622;color:#fff}
+.btn-red{background:#f7e3e0;color:#9a392f}
+.btn-gray{background:#edf0f2;color:#394951}
+
+.status-msg{
+  min-height:17px;
+  margin-top:8px;
+  font-family:Arial,sans-serif;
+  font-size:10px;color:#a33b31
+}
+.status-msg.ok{color:#13704f}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:9px;
+  margin-bottom:15px
+}
+.stat{
+  background:#fff;border:1px solid #e1e8ed;border-radius:9px;
+  padding:10px 12px;border-left:3px solid #1681aa
+}
+.stat-label{font-size:9px;color:#6c7980}
+.stat-value{font-family:Georgia,serif;font-size:20px;color:#1b536b;margin-top:2px}
+
+.table-wrap{
+  overflow:auto;
+  border:1px solid #e1e7eb;
+  border-radius:8px;
+  background:#fff
+}
+table{width:100%;border-collapse:collapse;min-width:800px}
+thead th{
+  background:linear-gradient(90deg,#075c9c,#117bc0);
+  color:#fff;
+  padding:9px 7px;
+  font-size:9px;
+  text-align:left;
+  border-right:1px solid rgba(255,255,255,.2);
+  white-space:nowrap
+}
+tbody td{
+  padding:8px 7px;
+  border-bottom:1px solid #e8edf0;
+  font-family:Arial,sans-serif;
+  font-size:10px;
+  vertical-align:middle
+}
+tbody tr:nth-child(even){background:#f8fbfd}
+.empty{
+  text-align:center!important;
+  padding:18px!important;
+  color:#7a858c!important
+}
+
+.status-buttons{display:flex;gap:4px;flex-wrap:wrap}
+.status-btn{
+  border:1px solid #d8e0e5;background:#fff;border-radius:5px;
+  padding:5px 7px;font-family:Arial,sans-serif;font-size:8px
+}
+.status-btn.present.active{background:#ccefdc;border-color:#72c99b;color:#075c36}
+.status-btn.absent.active{background:#f8d9d6;border-color:#e39b94;color:#8e2923}
+.status-btn.late.active{background:#faeab8;border-color:#e2c363;color:#755300}
+.status-btn.leave.active{background:#d8eef5;border-color:#8fc8db;color:#0b5d73}
+
+.row-remove{
+  border:0;background:#f7e3e0;color:#9a392f;border-radius:5px;
+  padding:5px 7px;font-size:9px
+}
+
+.action-bar{
+  display:flex;flex-wrap:wrap;gap:7px;
+  padding:10px;background:#f6f9fb;border:1px solid #e2e8ec;
+  border-radius:8px;margin-bottom:10px
+}
+
+.report-cards{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px
+}
+.report-card{
+  border:1px solid #e1e7eb;border-radius:8px;padding:9px;background:#fafcfd
+}
+.report-card small{display:block;font-size:8px;color:#7d898f}
+.report-card b{display:block;font-family:Arial,sans-serif;font-size:16px;color:#155c76;margin-top:2px}
+
+.note{
+  font-family:Arial,sans-serif;
+  font-size:9px;color:#76838a;margin-top:7px
+}
+
+/* Print area is hidden on screen */
+#printRoot{display:none}
+
+/* PRINT: only generated print sheet is visible */
 @media print{
- @page{size:A4 landscape;margin:7mm}
- body>*:not(#printArea){display:none!important}
- #printArea{display:block!important;background:#fff;color:#000}
- .print-sheet{min-height:calc(100vh - 14mm);display:flex;flex-direction:column}
- .print-header{text-align:center;border-bottom:2px solid #000;padding-bottom:7px}
- .print-header img{width:52px;height:52px;object-fit:contain}
- .print-header h1{margin:2px 0;font:800 21px Arial,sans-serif}
- .print-header h2{margin:2px 0;font:700 11px Arial,sans-serif}
- .print-meta{display:flex;justify-content:space-between;margin:8px 0;font:10px Arial,sans-serif}
- .print-summary{text-align:center;font:700 10px Arial,sans-serif;margin-bottom:7px}
- .print-table{width:100%;border-collapse:collapse;font:9px Arial,sans-serif}
- .print-table th,.print-table td{border:1px solid #000;padding:5px}
- .print-table th{background:#eee!important;color:#000!important;text-align:center}
- .print-footer{margin-top:auto;border-top:1px solid #000;padding-top:12px;display:flex;justify-content:space-between;font:9px Arial,sans-serif}
+  @page{
+    size:A4 landscape;
+    margin:7mm
+  }
+  html,body{
+    margin:0!important;
+    padding:0!important;
+    background:#fff!important;
+    width:auto!important;
+    height:auto!important;
+  }
+  body > *:not(#printRoot){display:none!important}
+  #printRoot{
+    display:block!important;
+    width:100%!important;
+    color:#111!important;
+    background:#fff!important;
+    font-family:Arial,sans-serif!important
+  }
+  .print-page{
+    width:100%;
+    min-height:196mm;
+    display:flex;
+    flex-direction:column
+  }
+  .print-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:2px solid #08739b;
+    padding-bottom:5mm;
+    margin-bottom:4mm
+  }
+  .print-brand{
+    display:flex;align-items:center;gap:9px
+  }
+  .print-brand img{width:15mm;height:15mm;object-fit:contain}
+  .print-title{
+    font-size:18pt;font-weight:700;color:#075b7c
+  }
+  .print-sub{font-size:8pt;color:#66737b;margin-top:1mm}
+  .print-meta{text-align:right;font-size:8pt;line-height:1.7}
+  .print-summary{
+    display:grid;grid-template-columns:repeat(5,1fr);
+    gap:3mm;margin-bottom:4mm
+  }
+  .print-summary-box{
+    border:1px solid #bfc9cf;padding:2.5mm;text-align:center
+  }
+  .print-summary-box b{display:block;font-size:13pt}
+  .print-summary-box span{font-size:7pt;color:#65727a}
+  .print-table{
+    width:100%;border-collapse:collapse;table-layout:fixed
+  }
+  .print-table th{
+    background:#08739b!important;color:#fff!important;
+    border:1px solid #075b7c!important;
+    padding:2.5mm 2mm;font-size:7.5pt;text-align:left
+  }
+  .print-table td{
+    border:1px solid #aebbc2!important;
+    padding:2.5mm 2mm;font-size:8pt
+  }
+  .print-table .center{text-align:center}
+  .print-footer{
+    margin-top:auto;
+    padding-top:5mm;
+    border-top:1px solid #cbd3d7;
+    display:flex;justify-content:space-between;
+    font-size:7pt;color:#657078
+  }
+}
+
+@media(max-width:760px){
+  .grid{grid-template-columns:1fr}
+  .full{grid-column:1}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .report-cards{grid-template-columns:repeat(2,1fr)}
+  .info-grid{grid-template-columns:1fr}
+  .topbar{padding:0 10px}
+  .brand-sub{display:none}
+  .top-actions .top-btn:first-child{display:none}
 }
 </style>
 </head>
 
 <body>
+
 <header class="topbar">
- <div>
-  <div class="brand">Madrasa-e Nurul Quran</div>
-  <div class="sub">EMPLOYEE ATTENDANCE MANAGEMENT SYSTEM</div>
- </div>
- <a href="dashboard.html" class="dashboard">Dashboard</a>
+  <div class="brand">
+    <img src="img/logo.png" onerror="this.style.display='none'">
+    <div>
+      <div class="brand-title">Madrasa-e Nurul Quran</div>
+      <div class="brand-sub">EMPLOYEE ATTENDANCE MANAGEMENT</div>
+    </div>
+  </div>
+  <div class="top-actions">
+    <button class="top-btn" onclick="location.href='dashboard.html'">Dashboard</button>
+    <button class="top-btn" onclick="printAttendance()">Print A4</button>
+  </div>
 </header>
 
 <main class="container">
- <div class="heading">
-  <h1>Employee Attendance</h1>
-  <p>Select an Employee ID. Employee information will appear automatically from the employees table.</p>
- </div>
 
- <section class="card">
-  <div class="title">Attendance Selection</div>
-  <div class="desc">Choose the date and Employee ID. Employee ID is displayed to you, while the system safely uses the employee database ID for attendance records. No department selection is required.</div>
+  <h1 class="page-title">Employee Attendance</h1>
+  <p class="page-sub">Select an Employee ID. Employee Name, Designation and Phone are automatically loaded from the employees table.</p>
 
-  <div class="grid">
-   <div class="field">
-    <label>Attendance Date</label>
-    <input id="date" type="date">
-   </div>
+  <section class="panel">
+    <h2>Attendance Selection</h2>
+    <p class="panel-desc">Only the employee IDs added to the selected list will be saved for the selected date.</p>
 
-   <div class="field">
-    <label>Employee ID</label>
-    <select id="employeeSelect">
-     <option value="">Select Employee ID</option>
-    </select>
-   </div>
+    <div class="grid">
+      <div class="field">
+        <label>Attendance Date</label>
+        <input type="date" id="attendanceDate">
+      </div>
 
-   <div class="field">
-    <label>Search Employee ID</label>
-    <input id="searchId" placeholder="Type Employee ID">
-   </div>
-  </div>
+      <div class="field">
+        <label>Employee ID</label>
+        <select id="employeeSelect">
+          <option value="">Loading employees...</option>
+        </select>
+      </div>
 
-  <div class="info">
-   <div class="info-box"><small>Employee ID</small><strong id="autoId">—</strong></div>
-   <div class="info-box"><small>Employee Name</small><strong id="autoName">—</strong></div>
-   <div class="info-box"><small>Designation</small><strong id="autoDesignation">—</strong></div>
-   <div class="info-box"><small>Phone</small><strong id="autoPhone">—</strong></div>
-  </div>
+      <div class="field">
+        <label>Search Employee ID</label>
+        <input id="searchEmployee" type="text" placeholder="Type Employee ID">
+      </div>
 
-  <div class="actions">
-   <button class="primary" id="addEmployeeBtn">Add Employee</button>
-   <button class="primary" id="loadSavedBtn">Load Saved Attendance</button>
-   <button class="secondary" id="refreshBtn">Refresh Employees</button>
-   <button class="purple" id="historyBtn">Attendance History</button>
-   <button class="blue" id="reportBtn">Attendance Report</button>
-   <button class="primary" id="printBtn">Print A4 Sheet</button>
-  </div>
-  <div id="msg" class="msg"></div>
- </section>
+      <div class="field">
+        <label>Selected Employee</label>
+        <input id="selectedEmployeeText" value="No employee selected" readonly>
+      </div>
+    </div>
 
- <section class="stats">
-  <div class="stat"><small>Selected Employees</small><div class="num" id="total">0</div></div>
-  <div class="stat"><small>Present</small><div class="num" id="present">0</div></div>
-  <div class="stat"><small>Absent</small><div class="num" id="absent">0</div></div>
-  <div class="stat"><small>Late</small><div class="num" id="late">0</div></div>
-  <div class="stat"><small>Leave</small><div class="num" id="leave">0</div></div>
- </section>
+    <div class="info-grid">
+      <div class="info-box">
+        <div class="info-label">Employee ID</div>
+        <div class="info-value" id="infoId">—</div>
+      </div>
+      <div class="info-box">
+        <div class="info-label">Employee Name</div>
+        <div class="info-value" id="infoName">—</div>
+      </div>
+      <div class="info-box">
+        <div class="info-label">Designation</div>
+        <div class="info-value" id="infoDesignation">—</div>
+      </div>
+    </div>
 
- <section class="card">
-  <div class="title">Selected Employee Attendance</div>
-  <div class="desc">Select an Employee ID and click Add Employee. You can add multiple employees, edit status, or delete a row before saving.</div>
+    <div class="buttons">
+      <button class="btn btn-primary" id="addEmployeeBtn">Add Employee</button>
+      <button class="btn btn-light" id="loadSavedBtn">Load Saved Attendance</button>
+      <button class="btn btn-light" id="refreshEmployeesBtn">Refresh Employees</button>
+      <button class="btn btn-gold" id="historyJumpBtn">Attendance History</button>
+      <button class="btn btn-light" id="reportJumpBtn">Attendance Report</button>
+      <button class="btn btn-green" id="printTopBtn">Print / Save PDF</button>
+    </div>
 
-  <div class="tools">
-   <button class="green" id="allPresentBtn">All Present</button>
-   <button class="red" id="allAbsentBtn">All Absent</button>
-   <button class="yellow" id="allLateBtn">All Late</button>
-   <button class="blue" id="allLeaveBtn">All Leave</button>
-   <button class="secondary" id="clearStatusBtn">Clear Status</button>
-   <button class="secondary" id="clearListBtn">Clear Added List</button>
-  </div>
+    <div id="mainStatus" class="status-msg"></div>
+  </section>
 
-  <div class="table-wrap">
-   <table>
-    <thead>
-     <tr>
-      <th>SL</th>
-      <th>Employee ID</th>
-      <th>Employee Name</th>
-      <th>Designation</th>
-      <th>Phone</th>
-      <th>Attendance Status</th>
-      <th>Action</th>
-     </tr>
-    </thead>
-    <tbody id="attendanceList">
-     <tr><td colspan="7" style="text-align:center;padding:30px">No employee added yet. Select an Employee ID and click Add Employee.</td></tr>
-    </tbody>
-   </table>
-  </div>
+  <section class="stats">
+    <div class="stat"><div class="stat-label">Selected Employees</div><div class="stat-value" id="statSelected">0</div></div>
+    <div class="stat"><div class="stat-label">Present</div><div class="stat-value" id="statPresent">0</div></div>
+    <div class="stat"><div class="stat-label">Absent</div><div class="stat-value" id="statAbsent">0</div></div>
+    <div class="stat"><div class="stat-label">Late</div><div class="stat-value" id="statLate">0</div></div>
+    <div class="stat"><div class="stat-label">Leave</div><div class="stat-value" id="statLeave">0</div></div>
+  </section>
 
-  <div class="actions">
-   <button class="primary" id="saveBtn">Save Attendance</button>
-  </div>
-  <div id="saveMsg" class="msg"></div>
- </section>
+  <section class="panel">
+    <h2>Selected Employee Attendance</h2>
+    <p class="panel-desc">Add one or more Employee IDs. Name and other details appear automatically. Remove or edit any selected employee before saving.</p>
 
- <section class="card hidden" id="historySection">
-  <div class="title">Attendance History</div>
-  <div class="desc">History is shown only for the selected Employee ID.</div>
+    <div class="action-bar">
+      <button class="btn status-btn present" onclick="setAllStatus('Present')">Present All</button>
+      <button class="btn status-btn absent" onclick="setAllStatus('Absent')">Absent All</button>
+      <button class="btn status-btn late" onclick="setAllStatus('Late')">Late All</button>
+      <button class="btn status-btn leave" onclick="setAllStatus('Leave')">Leave All</button>
+      <button class="btn btn-gray" onclick="clearAllStatus()">Clear Status</button>
+      <button class="btn btn-red" onclick="clearSelectedEmployees()">Clear Employees</button>
+    </div>
 
-  <div class="grid">
-   <div class="field"><label>From Date</label><input id="historyFrom" type="date"></div>
-   <div class="field"><label>To Date</label><input id="historyTo" type="date"></div>
-   <div class="field"><label>Employee ID</label><select id="historyEmployee"><option value="">Select Employee ID</option></select></div>
-  </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:45px">SL</th>
+            <th>Employee ID</th>
+            <th>Employee Name</th>
+            <th>Designation</th>
+            <th>Phone</th>
+            <th>Attendance Status</th>
+            <th style="width:65px">Action</th>
+          </tr>
+        </thead>
+        <tbody id="selectedBody">
+          <tr><td class="empty" colspan="7">Select an Employee ID and click Add Employee.</td></tr>
+        </tbody>
+      </table>
+    </div>
 
-  <div class="actions"><button class="primary" id="loadHistoryBtn">Load History</button></div>
+    <div class="buttons">
+      <button class="btn btn-green" id="saveBtn">Save Attendance</button>
+      <button class="btn btn-primary" id="printBtn">Print A4 Sheet</button>
+    </div>
 
-  <div class="table-wrap" style="margin-top:13px">
-   <table>
-    <thead><tr><th>SL</th><th>Date</th><th>Employee ID</th><th>Name</th><th>Designation</th><th>Status</th></tr></thead>
-    <tbody id="historyList"></tbody>
-   </table>
-  </div>
- </section>
+    <div id="saveStatus" class="status-msg"></div>
+  </section>
 
- <section class="card hidden" id="reportSection">
-  <div class="title">Employee Attendance Report</div>
-  <div class="desc">Generate attendance statistics for one Employee ID.</div>
+  <section class="panel" id="historySection">
+    <h2>Attendance History</h2>
+    <p class="panel-desc">History for the selected employee or all employees in the selected date range.</p>
 
-  <div class="grid">
-   <div class="field"><label>From Date</label><input id="reportFrom" type="date"></div>
-   <div class="field"><label>To Date</label><input id="reportTo" type="date"></div>
-   <div class="field"><label>Employee ID</label><select id="reportEmployee"><option value="">Select Employee ID</option></select></div>
-  </div>
+    <div class="grid">
+      <div class="field">
+        <label>From Date</label>
+        <input type="date" id="historyFrom">
+      </div>
+      <div class="field">
+        <label>To Date</label>
+        <input type="date" id="historyTo">
+      </div>
+      <div class="field">
+        <label>Employee ID</label>
+        <select id="historyEmployee">
+          <option value="">All Employees</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Search</label>
+        <input id="historySearch" placeholder="Search ID or name">
+      </div>
+    </div>
 
-  <div class="actions"><button class="primary" id="loadReportBtn">Generate Report</button></div>
+    <div class="buttons">
+      <button class="btn btn-primary" id="historyLoadBtn">Load History</button>
+      <button class="btn btn-light" id="historyPrintBtn">Print History</button>
+    </div>
 
-  <div class="report-grid">
-   <div class="report-box"><small>Total Records</small><strong id="reportTotal">0</strong></div>
-   <div class="report-box"><small>Present</small><strong id="reportPresent">0</strong></div>
-   <div class="report-box"><small>Absent</small><strong id="reportAbsent">0</strong></div>
-   <div class="report-box"><small>Attendance</small><strong id="reportPercent">0%</strong></div>
-  </div>
+    <div id="historyStatus" class="status-msg"></div>
 
-  <div class="table-wrap">
-   <table>
-    <thead><tr><th>SL</th><th>Employee ID</th><th>Name</th><th>Designation</th><th>Present</th><th>Absent</th><th>Late</th><th>Leave</th><th>Attendance %</th></tr></thead>
-    <tbody id="reportList"></tbody>
-   </table>
-  </div>
- </section>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>SL</th>
+            <th>Date</th>
+            <th>Employee ID</th>
+            <th>Name</th>
+            <th>Designation</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="historyBody">
+          <tr><td class="empty" colspan="7">No history loaded.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel" id="reportSection">
+    <h2>Employee Attendance Report</h2>
+    <p class="panel-desc">Generate date-range statistics for one employee or all employees.</p>
+
+    <div class="grid">
+      <div class="field">
+        <label>From Date</label>
+        <input type="date" id="reportFrom">
+      </div>
+      <div class="field">
+        <label>To Date</label>
+        <input type="date" id="reportTo">
+      </div>
+      <div class="field">
+        <label>Employee ID</label>
+        <select id="reportEmployee">
+          <option value="">All Employees</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Report Search</label>
+        <input id="reportSearch" placeholder="Search ID or name">
+      </div>
+    </div>
+
+    <div class="buttons">
+      <button class="btn btn-primary" id="reportBtn">Generate Report</button>
+      <button class="btn btn-green" id="reportPrintBtn">Print Report / PDF</button>
+    </div>
+
+    <div id="reportStatus" class="status-msg"></div>
+
+    <div class="report-cards">
+      <div class="report-card"><small>Total Records</small><b id="rTotal">0</b></div>
+      <div class="report-card"><small>Present</small><b id="rPresent">0</b></div>
+      <div class="report-card"><small>Absent</small><b id="rAbsent">0</b></div>
+      <div class="report-card"><small>Late</small><b id="rLate">0</b></div>
+    </div>
+
+    <div class="table-wrap" style="margin-top:10px">
+      <table>
+        <thead>
+          <tr>
+            <th>SL</th>
+            <th>Employee ID</th>
+            <th>Name</th>
+            <th>Designation</th>
+            <th>Present</th>
+            <th>Absent</th>
+            <th>Late</th>
+            <th>Leave</th>
+            <th>Attendance %</th>
+          </tr>
+        </thead>
+        <tbody id="reportBody">
+          <tr><td class="empty" colspan="9">No report data.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
 </main>
 
-<div id="printArea"></div>
+<div id="printRoot"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 const SUPABASE_URL="https://qavublwhqiqsgpcmfyft.supabase.co";
 const SUPABASE_KEY="sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
-const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
-const ATTENDANCE_TABLE="employee_attendance";
+const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
+/*
+  employees table supplied by the project:
+  id, employee_id, name, phone, designation, address, created_at
+
+  employee_attendance:
+  employee_id, attendance_date, status
+
+  IMPORTANT:
+  The attendance table stores the internal employees.id.
+  The visible Employee ID is employees.employee_id.
+*/
 
 let employees=[];
-let selectedEmployee=null;
-let addedEmployees=[];
+let selectedEmployees=[];
+let historyRows=[];
+let reportRows=[];
+let currentPrintRows=[];
 
 const $=id=>document.getElementById(id);
 const today=new Date().toISOString().slice(0,10);
 
-$("date").value=today;
+function esc(v){
+  return String(v??"").replace(/[&<>"']/g,m=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+  }[m]));
+}
+
+function msg(el,text,ok=false){
+  $(el).textContent=text;
+  $(el).className="status-msg"+(ok?" ok":"");
+}
+
+function findEmployeeByInternalId(id){
+  return employees.find(e=>String(e.id)===String(id));
+}
+
+function findEmployeeByVisibleId(id){
+  return employees.find(e=>String(e.employee_id).toLowerCase()===String(id).toLowerCase());
+}
+
+function renderEmployeeOptions(){
+  const search=($("searchEmployee").value||"").trim().toLowerCase();
+
+  const filtered=employees.filter(e=>{
+    if(!search)return true;
+    return String(e.employee_id||"").toLowerCase().includes(search);
+  });
+
+  const options=filtered.map(e=>
+    `<option value="${esc(e.id)}">${esc(e.employee_id)} — ${esc(e.name)}</option>`
+  ).join("");
+
+  $("employeeSelect").innerHTML='<option value="">Select Employee ID</option>'+options;
+
+  const all='<option value="">All Employees</option>'+
+    employees.map(e=>`<option value="${esc(e.id)}">${esc(e.employee_id)} — ${esc(e.name)}</option>`).join("");
+
+  const oldH=$("historyEmployee").value;
+  const oldR=$("reportEmployee").value;
+
+  $("historyEmployee").innerHTML=all;
+  $("reportEmployee").innerHTML=all;
+
+  if(employees.some(e=>String(e.id)===oldH))$("historyEmployee").value=oldH;
+  if(employees.some(e=>String(e.id)===oldR))$("reportEmployee").value=oldR;
+}
+
+function updateSelectedInfo(){
+  const e=findEmployeeByInternalId($("employeeSelect").value);
+
+  if(!e){
+    $("selectedEmployeeText").value="No employee selected";
+    $("infoId").textContent="—";
+    $("infoName").textContent="—";
+    $("infoDesignation").textContent="—";
+    return;
+  }
+
+  $("selectedEmployeeText").value=`${e.employee_id} — ${e.name}`;
+  $("infoId").textContent=e.employee_id||"—";
+  $("infoName").textContent=e.name||"—";
+  $("infoDesignation").textContent=e.designation||"—";
+}
+
+function updateStats(){
+  $("statSelected").textContent=selectedEmployees.length;
+  $("statPresent").textContent=selectedEmployees.filter(x=>x.status==="Present").length;
+  $("statAbsent").textContent=selectedEmployees.filter(x=>x.status==="Absent").length;
+  $("statLate").textContent=selectedEmployees.filter(x=>x.status==="Late").length;
+  $("statLeave").textContent=selectedEmployees.filter(x=>x.status==="Leave").length;
+}
+
+function renderSelected(){
+  updateStats();
+
+  if(!selectedEmployees.length){
+    $("selectedBody").innerHTML=
+      '<tr><td class="empty" colspan="7">Select an Employee ID and click Add Employee.</td></tr>';
+    return;
+  }
+
+  $("selectedBody").innerHTML=selectedEmployees.map((x,i)=>`
+    <tr>
+      <td>${i+1}</td>
+      <td><b>${esc(x.employee_id)}</b></td>
+      <td>${esc(x.name)}</td>
+      <td>${esc(x.designation||"—")}</td>
+      <td>${esc(x.phone||"—")}</td>
+      <td>
+        <div class="status-buttons">
+          ${["Present","Absent","Late","Leave"].map(s=>
+            `<button class="status-btn ${s.toLowerCase()} ${x.status===s?"active":""}"
+              onclick="setStatus(${i},'${s}')">${s}</button>`
+          ).join("")}
+        </div>
+      </td>
+      <td><button class="row-remove" onclick="removeSelected(${i})">Remove</button></td>
+    </tr>
+  `).join("");
+}
+
+window.setStatus=function(index,status){
+  if(selectedEmployees[index]){
+    selectedEmployees[index].status=status;
+    renderSelected();
+  }
+};
+
+window.removeSelected=function(index){
+  selectedEmployees.splice(index,1);
+  renderSelected();
+};
+
+window.setAllStatus=function(status){
+  selectedEmployees.forEach(x=>x.status=status);
+  renderSelected();
+};
+
+window.clearAllStatus=function(){
+  selectedEmployees.forEach(x=>x.status=null);
+  renderSelected();
+};
+
+window.clearSelectedEmployees=function(){
+  selectedEmployees=[];
+  renderSelected();
+  msg("saveStatus","Selected employee list cleared.",true);
+};
+
+function addSelectedEmployee(){
+  const id=$("employeeSelect").value;
+
+  if(!id){
+    msg("mainStatus","Please select an Employee ID.");
+    return;
+  }
+
+  const e=findEmployeeByInternalId(id);
+  if(!e){
+    msg("mainStatus","Employee information could not be found.");
+    return;
+  }
+
+  if(selectedEmployees.some(x=>String(x.id)===String(e.id))){
+    msg("mainStatus","This Employee ID is already added.");
+    return;
+  }
+
+  selectedEmployees.push({
+    id:e.id,
+    employee_id:e.employee_id,
+    name:e.name,
+    phone:e.phone,
+    designation:e.designation,
+    status:null
+  });
+
+  renderSelected();
+  $("employeeSelect").value="";
+  updateSelectedInfo();
+  msg("mainStatus",`${e.employee_id} — ${e.name} added successfully.`,true);
+}
+
+async function loadEmployees(){
+  msg("mainStatus","Loading employees...");
+
+  try{
+    const {data,error}=await supabaseClient
+      .from("employees")
+      .select("id,employee_id,name,phone,designation,address,created_at")
+      .order("employee_id",{ascending:true});
+
+    if(error)throw error;
+
+    employees=data||[];
+    renderEmployeeOptions();
+
+    msg("mainStatus",`${employees.length} employee(s) loaded.`,true);
+    updateSelectedInfo();
+
+  }catch(error){
+    console.error(error);
+    msg("mainStatus","Could not load employees: "+error.message);
+  }
+}
+
+async function loadSavedAttendance(){
+  if(!selectedEmployees.length){
+    msg("saveStatus","Add at least one Employee ID first.");
+    return;
+  }
+
+  const date=$("attendanceDate").value;
+  if(!date){
+    msg("saveStatus","Please select an attendance date.");
+    return;
+  }
+
+  const ids=selectedEmployees.map(x=>x.id);
+
+  try{
+    const {data,error}=await supabaseClient
+      .from("employee_attendance")
+      .select("employee_id,attendance_date,status")
+      .eq("attendance_date",date)
+      .in("employee_id",ids);
+
+    if(error)throw error;
+
+    const map={};
+    (data||[]).forEach(r=>map[String(r.employee_id)]=r.status);
+
+    selectedEmployees.forEach(x=>{
+      x.status=map[String(x.id)]||null;
+    });
+
+    renderSelected();
+    msg("saveStatus",`${data?.length||0} saved attendance record(s) loaded.`,true);
+
+  }catch(error){
+    console.error(error);
+    msg("saveStatus","Could not load saved attendance: "+error.message);
+  }
+}
+
+async function saveAttendance(){
+  if(!selectedEmployees.length){
+    msg("saveStatus","Please add Employee ID(s) before saving.");
+    return;
+  }
+
+  const date=$("attendanceDate").value;
+  if(!date){
+    msg("saveStatus","Please select an attendance date.");
+    return;
+  }
+
+  const missing=selectedEmployees.filter(x=>!x.status);
+  if(missing.length){
+    msg("saveStatus","Please select attendance status for every selected employee.");
+    return;
+  }
+
+  const ids=selectedEmployees.map(x=>x.id);
+
+  try{
+    /*
+      Delete ONLY selected employee records for the selected date.
+      Other employees are never touched.
+    */
+    const del=await supabaseClient
+      .from("employee_attendance")
+      .delete()
+      .eq("attendance_date",date)
+      .in("employee_id",ids);
+
+    if(del.error)throw del.error;
+
+    const payload=selectedEmployees.map(x=>({
+      employee_id:x.id,
+      attendance_date:date,
+      status:x.status
+    }));
+
+    const ins=await supabaseClient
+      .from("employee_attendance")
+      .insert(payload);
+
+    if(ins.error)throw ins.error;
+
+    msg("saveStatus",`${payload.length} employee attendance record(s) saved for ${date}.`,true);
+    await loadHistory();
+
+  }catch(error){
+    console.error(error);
+    msg("saveStatus","Save failed: "+error.message);
+  }
+}
+
+function dateToPretty(d){
+  if(!d)return"—";
+  const x=new Date(d+"T00:00:00");
+  if(isNaN(x))return d;
+  return String(x.getDate()).padStart(2,"0")+" "+
+    x.toLocaleString("en-US",{month:"short"})+" "+x.getFullYear();
+}
+
+function filteredHistoryRows(){
+  const q=($("historySearch").value||"").trim().toLowerCase();
+  return historyRows.filter(r=>{
+    if(!q)return true;
+    const e=findEmployeeByInternalId(r.employee_id);
+    return String(e?.employee_id||"").toLowerCase().includes(q) ||
+           String(e?.name||"").toLowerCase().includes(q);
+  });
+}
+
+function renderHistory(){
+  const rows=filteredHistoryRows();
+
+  if(!rows.length){
+    $("historyBody").innerHTML='<tr><td class="empty" colspan="7">No attendance records found.</td></tr>';
+    return;
+  }
+
+  $("historyBody").innerHTML=rows.map((r,i)=>{
+    const e=findEmployeeByInternalId(r.employee_id);
+    return `
+      <tr>
+        <td>${i+1}</td>
+        <td>${dateToPretty(r.attendance_date)}</td>
+        <td><b>${esc(e?.employee_id||r.employee_id)}</b></td>
+        <td>${esc(e?.name||"—")}</td>
+        <td>${esc(e?.designation||"—")}</td>
+        <td>${esc(r.status||"—")}</td>
+        <td>
+          <button class="row-remove" onclick="deleteHistory('${esc(r.employee_id)}','${esc(r.attendance_date)}')">Delete</button>
+        </td>
+      </tr>
+    `;
+  }).join("");
+}
+
+window.deleteHistory=async function(employeeInternalId,date){
+  if(!confirm("Delete this attendance record?"))return;
+
+  try{
+    const {error}=await supabaseClient
+      .from("employee_attendance")
+      .delete()
+      .eq("employee_id",employeeInternalId)
+      .eq("attendance_date",date);
+
+    if(error)throw error;
+
+    msg("historyStatus","Attendance record deleted.",true);
+    await loadHistory();
+
+  }catch(error){
+    console.error(error);
+    msg("historyStatus","Delete failed: "+error.message);
+  }
+};
+
+async function loadHistory(){
+  const from=$("historyFrom").value;
+  const to=$("historyTo").value;
+  const emp=$("historyEmployee").value;
+
+  if(!from||!to){
+    msg("historyStatus","Please select From Date and To Date.");
+    return;
+  }
+
+  if(from>to){
+    msg("historyStatus","From Date cannot be after To Date.");
+    return;
+  }
+
+  try{
+    let q=supabaseClient
+      .from("employee_attendance")
+      .select("employee_id,attendance_date,status")
+      .gte("attendance_date",from)
+      .lte("attendance_date",to)
+      .order("attendance_date",{ascending:false});
+
+    if(emp)q=q.eq("employee_id",emp);
+
+    const {data,error}=await q;
+    if(error)throw error;
+
+    historyRows=data||[];
+    renderHistory();
+    msg("historyStatus",`${historyRows.length} attendance record(s) found.`,true);
+
+  }catch(error){
+    console.error(error);
+    msg("historyStatus","History failed: "+error.message);
+  }
+}
+
+function buildReportRows(data){
+  const map={};
+
+  (data||[]).forEach(r=>{
+    const id=String(r.employee_id);
+    if(!map[id]){
+      const e=findEmployeeByInternalId(r.employee_id);
+      map[id]={
+        id:r.employee_id,
+        employee_id:e?.employee_id||r.employee_id,
+        name:e?.name||"—",
+        designation:e?.designation||"—",
+        Present:0,Absent:0,Late:0,Leave:0,total:0
+      };
+    }
+
+    if(map[id][r.status]!==undefined)map[id][r.status]++;
+    map[id].total++;
+  });
+
+  return Object.values(map);
+}
+
+function renderReport(){
+  let rows=reportRows;
+  const q=($("reportSearch").value||"").trim().toLowerCase();
+
+  if(q){
+    rows=rows.filter(r=>
+      String(r.employee_id).toLowerCase().includes(q) ||
+      String(r.name).toLowerCase().includes(q)
+    );
+  }
+
+  const total=rows.reduce((a,r)=>a+r.total,0);
+  const present=rows.reduce((a,r)=>a+r.Present,0);
+  const absent=rows.reduce((a,r)=>a+r.Absent,0);
+  const late=rows.reduce((a,r)=>a+r.Late,0);
+
+  $("rTotal").textContent=total;
+  $("rPresent").textContent=present;
+  $("rAbsent").textContent=absent;
+  $("rLate").textContent=late;
+
+  if(!rows.length){
+    $("reportBody").innerHTML='<tr><td class="empty" colspan="9">No report data.</td></tr>';
+    return;
+  }
+
+  $("reportBody").innerHTML=rows.map((r,i)=>{
+    const attendance=r.total?(((r.Present+r.Late)/r.total)*100).toFixed(1):"0.0";
+    return `
+      <tr>
+        <td>${i+1}</td>
+        <td><b>${esc(r.employee_id)}</b></td>
+        <td>${esc(r.name)}</td>
+        <td>${esc(r.designation)}</td>
+        <td>${r.Present}</td>
+        <td>${r.Absent}</td>
+        <td>${r.Late}</td>
+        <td>${r.Leave}</td>
+        <td>${attendance}%</td>
+      </tr>
+    `;
+  }).join("");
+}
+
+async function generateReport(){
+  const from=$("reportFrom").value;
+  const to=$("reportTo").value;
+  const emp=$("reportEmployee").value;
+
+  if(!from||!to){
+    msg("reportStatus","Please select From Date and To Date.");
+    return;
+  }
+
+  if(from>to){
+    msg("reportStatus","From Date cannot be after To Date.");
+    return;
+  }
+
+  try{
+    let q=supabaseClient
+      .from("employee_attendance")
+      .select("employee_id,attendance_date,status")
+      .gte("attendance_date",from)
+      .lte("attendance_date",to);
+
+    if(emp)q=q.eq("employee_id",emp);
+
+    const {data,error}=await q;
+    if(error)throw error;
+
+    reportRows=buildReportRows(data||[]);
+    renderReport();
+    msg("reportStatus",`Report generated from ${from} to ${to}.`,true);
+
+  }catch(error){
+    console.error(error);
+    msg("reportStatus","Report failed: "+error.message);
+  }
+}
+
+function setPrintRoot(rows,title,subtitle,summary){
+  const root=$("printRoot");
+
+  const total=summary.total;
+  const present=summary.present;
+  const absent=summary.absent;
+  const late=summary.late;
+  const leave=summary.leave;
+
+  root.innerHTML=`
+    <div class="print-page">
+      <div class="print-head">
+        <div class="print-brand">
+          <img src="img/logo.png" onerror="this.style.display='none'">
+          <div>
+            <div class="print-title">Madrasa-e Nurul Quran</div>
+            <div class="print-sub">Employee Attendance Management</div>
+          </div>
+        </div>
+        <div class="print-meta">
+          <b>${esc(title)}</b><br>
+          ${esc(subtitle)}
+        </div>
+      </div>
+
+      <div class="print-summary">
+        <div class="print-summary-box"><b>${total}</b><span>Total Records</span></div>
+        <div class="print-summary-box"><b>${present}</b><span>Present</span></div>
+        <div class="print-summary-box"><b>${absent}</b><span>Absent</span></div>
+        <div class="print-summary-box"><b>${late}</b><span>Late</span></div>
+        <div class="print-summary-box"><b>${leave}</b><span>Leave</span></div>
+      </div>
+
+      <table class="print-table">
+        <thead>
+          <tr>
+            <th style="width:9mm">SL</th>
+            <th style="width:34mm">Employee ID</th>
+            <th>Employee Name</th>
+            <th>Designation</th>
+            <th style="width:35mm">Phone</th>
+            <th style="width:30mm">Date</th>
+            <th style="width:28mm">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rows.length?rows.map((r,i)=>`
+            <tr>
+              <td class="center">${i+1}</td>
+              <td>${esc(r.employee_id)}</td>
+              <td>${esc(r.name)}</td>
+              <td>${esc(r.designation||"—")}</td>
+              <td>${esc(r.phone||"—")}</td>
+              <td>${esc(dateToPretty(r.attendance_date))}</td>
+              <td>${esc(r.status||"—")}</td>
+            </tr>
+          `).join(""):`<tr><td colspan="7" style="text-align:center">No attendance records found.</td></tr>`}
+        </tbody>
+      </table>
+
+      <div class="print-footer">
+        <span>Madrasa-e Nurul Quran</span>
+        <span>Employee Attendance Record</span>
+        <span>Printed: ${dateToPretty(today)}</span>
+      </div>
+    </div>
+  `;
+}
+
+function getSelectedPrintRows(){
+  return selectedEmployees.map(x=>({
+    employee_id:x.employee_id,
+    name:x.name,
+    designation:x.designation,
+    phone:x.phone,
+    attendance_date:$("attendanceDate").value,
+    status:x.status||"Not Marked"
+  }));
+}
+
+window.printAttendance=function(){
+  const rows=getSelectedPrintRows();
+
+  if(!rows.length){
+    msg("mainStatus","Please add at least one Employee ID before printing.");
+    return;
+  }
+
+  const marked=rows.filter(r=>r.status!=="Not Marked").length;
+  if(!marked){
+    msg("mainStatus","Please mark attendance before printing.");
+    return;
+  }
+
+  const summary={
+    total:rows.length,
+    present:rows.filter(r=>r.status==="Present").length,
+    absent:rows.filter(r=>r.status==="Absent").length,
+    late:rows.filter(r=>r.status==="Late").length,
+    leave:rows.filter(r=>r.status==="Leave").length
+  };
+
+  setPrintRoot(
+    rows,
+    "Daily Employee Attendance",
+    "Date: "+dateToPretty($("attendanceDate").value),
+    summary
+  );
+
+  /*
+    Give the browser a moment to build the print DOM.
+    This fixes mobile Chrome where calling print immediately
+    after replacing hidden print content can result in no PDF.
+  */
+  setTimeout(()=>window.print(),250);
+};
+
+function printHistory(){
+  const rows=filteredHistoryRows().map(r=>{
+    const e=findEmployeeByInternalId(r.employee_id);
+    return {
+      employee_id:e?.employee_id||r.employee_id,
+      name:e?.name||"—",
+      designation:e?.designation||"—",
+      phone:e?.phone||"—",
+      attendance_date:r.attendance_date,
+      status:r.status
+    };
+  });
+
+  if(!rows.length){
+    msg("historyStatus","Load history first.");
+    return;
+  }
+
+  const summary={
+    total:rows.length,
+    present:rows.filter(r=>r.status==="Present").length,
+    absent:rows.filter(r=>r.status==="Absent").length,
+    late:rows.filter(r=>r.status==="Late").length,
+    leave:rows.filter(r=>r.status==="Leave").length
+  };
+
+  setPrintRoot(
+    rows,
+    "Employee Attendance History",
+    `From: ${dateToPretty($("historyFrom").value)}  To: ${dateToPretty($("historyTo").value)}`,
+    summary
+  );
+
+  setTimeout(()=>window.print(),250);
+}
+
+function printReport(){
+  let rows=reportRows;
+  const q=($("reportSearch").value||"").trim().toLowerCase();
+  if(q){
+    rows=rows.filter(r=>
+      String(r.employee_id).toLowerCase().includes(q) ||
+      String(r.name).toLowerCase().includes(q)
+    );
+  }
+
+  if(!rows.length){
+    msg("reportStatus","Generate a report first.");
+    return;
+  }
+
+  const printRows=[];
+  rows.forEach(r=>{
+    ["Present","Absent","Late","Leave"].forEach(status=>{
+      for(let i=0;i<r[status];i++){
+        printRows.push({
+          employee_id:r.employee_id,
+          name:r.name,
+          designation:r.designation,
+          phone:"—",
+          attendance_date:"",
+          status:status
+        });
+      }
+    });
+  });
+
+  const summary={
+    total:rows.reduce((a,r)=>a+r.total,0),
+    present:rows.reduce((a,r)=>a+r.Present,0),
+    absent:rows.reduce((a,r)=>a+r.Absent,0),
+    late:rows.reduce((a,r)=>a+r.Late,0),
+    leave:rows.reduce((a,r)=>a+r.Leave,0)
+  };
+
+  setPrintRoot(
+    printRows,
+    "Employee Attendance Report",
+    `From: ${dateToPretty($("reportFrom").value)}  To: ${dateToPretty($("reportTo").value)}`,
+    summary
+  );
+
+  setTimeout(()=>window.print(),250);
+}
+
+$("employeeSelect").addEventListener("change",updateSelectedInfo);
+$("searchEmployee").addEventListener("input",()=>{
+  renderEmployeeOptions();
+  updateSelectedInfo();
+});
+$("addEmployeeBtn").addEventListener("click",addSelectedEmployee);
+$("saveBtn").addEventListener("click",saveAttendance);
+$("loadSavedBtn").addEventListener("click",loadSavedAttendance);
+$("refreshEmployeesBtn").addEventListener("click",loadEmployees);
+$("printBtn").addEventListener("click",printAttendance);
+$("printTopBtn").addEventListener("click",printAttendance);
+
+$("historyLoadBtn").addEventListener("click",loadHistory);
+$("historyPrintBtn").addEventListener("click",printHistory);
+$("historySearch").addEventListener("input",renderHistory);
+
+$("reportBtn").addEventListener("click",generateReport);
+$("reportPrintBtn").addEventListener("click",printReport);
+$("reportSearch").addEventListener("input",renderReport);
+
+$("historyJumpBtn").addEventListener("click",()=>{
+  $("historySection").scrollIntoView({behavior:"smooth"});
+});
+$("reportJumpBtn").addEventListener("click",()=>{
+  $("reportSection").scrollIntoView({behavior:"smooth"});
+});
+
+$("attendanceDate").value=today;
 $("historyFrom").value=today;
 $("historyTo").value=today;
 $("reportFrom").value=today;
 $("reportTo").value=today;
 
-function esc(v){
- return String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;")
-  .replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
-}
-function eid(e){return e.employee_id??""}
-function dbid(e){return e.id}
-function ename(e){return e.name??""}
-function edes(e){return e.designation??""}
-function ephone(e){return e.phone??""}
-function findByDbId(id){return employees.find(e=>String(e.id)===String(id))}
-function findByDisplayId(id){return employees.find(e=>String(eid(e))===String(id))}
-function findAdded(id){return addedEmployees.find(x=>String(x.employee.id)===String(id))}
-function norm(v){
- const s=String(v||"").toLowerCase().trim();
- if(s==="present")return"Present";
- if(s==="absent")return"Absent";
- if(s==="late")return"Late";
- if(s==="leave")return"Leave";
- return"";
-}
-function setMsg(t,ok=false){
- $("msg").className="msg "+(ok?"ok":"err");$("msg").textContent=t;
-}
-function setSaveMsg(t,ok=false){
- $("saveMsg").className="msg "+(ok?"ok":"err");$("saveMsg").textContent=t;
-}
+(async function(){
+  try{
+    const {data:{session},error}=await supabaseClient.auth.getSession();
+    if(error)throw error;
 
-function populate(){
- const list=[...employees].sort((a,b)=>
-  String(eid(a)).localeCompare(String(eid(b)),undefined,{numeric:true})
- );
- const opts=list.map(e=>`<option value="${esc(e.id)}">${esc(eid(e))} — ${esc(ename(e)||"-")}</option>`).join("");
- $("employeeSelect").innerHTML='<option value="">Select Employee ID</option>'+opts;
- $("historyEmployee").innerHTML='<option value="">All Employees</option>'+opts;
- $("reportEmployee").innerHTML='<option value="">All Employees</option>'+opts;
-}
+    if(!session){
+      location.href="admin.html";
+      return;
+    }
 
-function autoInfo(){
- if(!selectedEmployee){
-  $("autoId").textContent="—";$("autoName").textContent="—";
-  $("autoDesignation").textContent="—";$("autoPhone").textContent="—";return;
- }
- $("autoId").textContent=eid(selectedEmployee)||"—";
- $("autoName").textContent=ename(selectedEmployee)||"—";
- $("autoDesignation").textContent=edes(selectedEmployee)||"—";
- $("autoPhone").textContent=ephone(selectedEmployee)||"—";
-}
+    await loadEmployees();
 
-async function start(){
- try{
-  const {data:{session},error}=await db.auth.getSession();
-  if(error)throw error;
-  if(!session){location.href="admin.html";return}
-  await loadEmployees();
- }catch(e){setMsg(e.message)}
-}
-db.auth.onAuthStateChange((event,session)=>{if(!session)location.href="admin.html"});
-
-async function loadEmployees(){
- const {data,error}=await db.from("employees")
-  .select("id,employee_id,name,phone,designation,address,created_at")
-  .order("employee_id",{ascending:true});
- if(error)throw error;
- employees=data||[];
- populate();
- selectedEmployee=null;addedEmployees=[];
- autoInfo();render();stats();
-}
-
-$("employeeSelect").addEventListener("change",()=>{
- selectedEmployee=findByDbId($("employeeSelect").value);autoInfo();
-});
-
-function searchEmployee(){
- const q=$("searchId").value.trim().toLowerCase();
- if(!q)return;
- const f=employees.find(e=>String(eid(e)).toLowerCase().includes(q)||String(ename(e)).toLowerCase().includes(q));
- if(!f){setMsg("No employee found.");return}
- $("employeeSelect").value=String(f.id);selectedEmployee=f;autoInfo();setMsg("Employee selected.",true);
-}
-$("searchId").addEventListener("keydown",e=>{if(e.key==="Enter")searchEmployee()});
-
-function addEmployee(){
- if(!selectedEmployee){setMsg("Please select an Employee ID first.");return}
- if(findAdded(selectedEmployee.id)){setMsg("This employee is already added.");return}
- addedEmployees.push({employee:selectedEmployee,status:""});
- render();stats();setMsg(eid(selectedEmployee)+" added successfully.",true);
-}
-
-function removeEmployee(id){
- addedEmployees=addedEmployees.filter(x=>String(x.employee.id)!==String(id));
- render();stats();
-}
-function editEmployee(id){
- const x=findAdded(id);if(!x)return;
- $("employeeSelect").value=String(x.employee.id);selectedEmployee=x.employee;autoInfo();
- window.scrollTo({top:0,behavior:"smooth"});
-}
-function setStatus(id,status){
- const x=findAdded(id);if(!x)return;x.status=status;render();stats();
-}
-function allStatus(status){addedEmployees.forEach(x=>x.status=status);render();stats()}
-function clearStatus(){addedEmployees.forEach(x=>x.status="");render();stats()}
-
-function statusButton(x,text,cls){
- return `<button class="sbtn ${cls} ${x.status===text?"on":""}" onclick="setStatus('${esc(x.employee.id)}','${text}')">${text}</button>`;
-}
-function render(){
- if(!addedEmployees.length){
-  $("attendanceList").innerHTML='<tr><td colspan="7" style="text-align:center;padding:30px">No employee added yet. Select an Employee ID and click Add Employee.</td></tr>';return;
- }
- $("attendanceList").innerHTML=addedEmployees.map((x,i)=>`
-  <tr>
-   <td class="sl">${i+1}</td>
-   <td class="eid">${esc(eid(x.employee))}</td>
-   <td class="name">${esc(ename(x.employee)||"-")}</td>
-   <td>${esc(edes(x.employee)||"-")}</td>
-   <td>${esc(ephone(x.employee)||"-")}</td>
-   <td><div class="status">
-    ${statusButton(x,"Present","p")}${statusButton(x,"Absent","a")}
-    ${statusButton(x,"Late","l")}${statusButton(x,"Leave","v")}
-   </div></td>
-   <td><button class="mini blue" onclick="editEmployee('${esc(x.employee.id)}')">Edit</button>
-       <button class="mini red" onclick="removeEmployee('${esc(x.employee.id)}')">Delete</button></td>
-  </tr>`).join("");
-}
-function stats(){
- $("total").textContent=addedEmployees.length;
- $("present").textContent=addedEmployees.filter(x=>x.status==="Present").length;
- $("absent").textContent=addedEmployees.filter(x=>x.status==="Absent").length;
- $("late").textContent=addedEmployees.filter(x=>x.status==="Late").length;
- $("leave").textContent=addedEmployees.filter(x=>x.status==="Leave").length;
-}
-window.setStatus=setStatus;window.removeEmployee=removeEmployee;window.editEmployee=editEmployee;
-
-async function loadSaved(){
- if(!addedEmployees.length){setMsg("Add employees first.");return}
- const ids=addedEmployees.map(x=>dbid(x.employee));
- const {data,error}=await db.from(ATTENDANCE_TABLE)
-  .select("employee_id,attendance_date,status").in("employee_id",ids)
-  .eq("attendance_date",$("date").value);
- if(error){setMsg("Load failed: "+error.message);return}
- addedEmployees.forEach(x=>{
-  const r=(data||[]).find(a=>String(a.employee_id)===String(dbid(x.employee)));
-  x.status=r?norm(r.status):"";
- });
- render();stats();setMsg("Saved attendance loaded.",true);
-}
-
-async function save(){
- if(!addedEmployees.length){setSaveMsg("Please add at least one employee.");return}
- if(addedEmployees.some(x=>!x.status)){setSaveMsg("Please select status for every employee.");return}
- $("saveBtn").disabled=true;
- try{
-  const date=$("date").value;
-  const ids=addedEmployees.map(x=>dbid(x.employee));
-  const del=await db.from(ATTENDANCE_TABLE).delete().in("employee_id",ids).eq("attendance_date",date);
-  if(del.error)throw del.error;
-  const rows=addedEmployees.map(x=>({employee_id:dbid(x.employee),attendance_date:date,status:x.status}));
-  const ins=await db.from(ATTENDANCE_TABLE).insert(rows);
-  if(ins.error)throw ins.error;
-  setSaveMsg("Attendance saved successfully for "+rows.length+" employee(s).",true);
- }catch(e){setSaveMsg("Save failed: "+e.message)}
- finally{$("saveBtn").disabled=false}
-}
-
-async function history(){
- let q=db.from(ATTENDANCE_TABLE).select("employee_id,attendance_date,status").order("attendance_date",{ascending:false});
- if($("historyEmployee").value)q=q.eq("employee_id",$("historyEmployee").value);
- if($("historyFrom").value)q=q.gte("attendance_date",$("historyFrom").value);
- if($("historyTo").value)q=q.lte("attendance_date",$("historyTo").value);
- const {data,error}=await q;if(error){setMsg(error.message);return}
- $("historyList").innerHTML=(data||[]).map((r,i)=>{
-  const e=findByDbId(r.employee_id);
-  return `<tr><td>${i+1}</td><td>${esc(r.attendance_date)}</td><td class="eid">${esc(e?eid(e):r.employee_id)}</td>
-  <td class="name">${esc(e?ename(e):"-")}</td><td>${esc(e?edes(e):"-")}</td><td>${esc(norm(r.status)||"-")}</td>
-  <td><button class="mini blue" onclick="editHistory('${esc(r.employee_id)}','${esc(r.attendance_date)}','${esc(r.status)}')">Edit</button>
-  <button class="mini red" onclick="deleteHistory('${esc(r.employee_id)}','${esc(r.attendance_date)}')">Delete</button></td></tr>`
- }).join("")||'<tr><td colspan="7" style="text-align:center;padding:25px">No attendance records found.</td></tr>';
-}
-window.editHistory=async function(id,date,status){
- const ns=prompt("Enter: Present, Absent, Late or Leave",norm(status));
- if(ns===null)return;const s=norm(ns);if(!s){alert("Invalid status.");return}
- const {error}=await db.from(ATTENDANCE_TABLE).update({status:s}).eq("employee_id",id).eq("attendance_date",date);
- if(error){setMsg("Edit failed: "+error.message);return}setMsg("Attendance updated.",true);history();
-};
-window.deleteHistory=async function(id,date){
- if(!confirm("Delete this attendance record?"))return;
- const {error}=await db.from(ATTENDANCE_TABLE).delete().eq("employee_id",id).eq("attendance_date",date);
- if(error){setMsg("Delete failed: "+error.message);return}setMsg("Attendance deleted.",true);history();
-};
-
-async function report(){
- let q=db.from(ATTENDANCE_TABLE).select("employee_id,attendance_date,status");
- if($("reportEmployee").value)q=q.eq("employee_id",$("reportEmployee").value);
- if($("reportFrom").value)q=q.gte("attendance_date",$("reportFrom").value);
- if($("reportTo").value)q=q.lte("attendance_date",$("reportTo").value);
- const {data,error}=await q;if(error){setMsg(error.message);return}
- const rows=data||[];let p=0,a=0,l=0,v=0;
- rows.forEach(r=>{const s=norm(r.status);if(s==="Present")p++;else if(s==="Absent")a++;else if(s==="Late")l++;else if(s==="Leave")v++});
- const total=rows.length,pc=total?((p/total)*100).toFixed(1):"0.0";
- $("reportTotal").textContent=total;$("reportPresent").textContent=p;$("reportAbsent").textContent=a;$("reportPercent").textContent=pc+"%";
- const groups={};rows.forEach(r=>{const k=r.employee_id;if(!groups[k])groups[k]={p:0,a:0,l:0,v:0};const s=norm(r.status);if(s==="Present")groups[k].p++;else if(s==="Absent")groups[k].a++;else if(s==="Late")groups[k].l++;else if(s==="Leave")groups[k].v++});
- $("reportList").innerHTML=Object.keys(groups).map((k,i)=>{const g=groups[k],e=findByDbId(k),t=g.p+g.a+g.l+g.v,x=t?((g.p/t)*100).toFixed(1):"0.0";return `<tr><td>${i+1}</td><td class="eid">${esc(e?eid(e):k)}</td><td class="name">${esc(e?ename(e):"-")}</td><td>${esc(e?edes(e):"-")}</td><td>${g.p}</td><td>${g.a}</td><td>${g.l}</td><td>${g.v}</td><td>${x}%</td></tr>`}).join("")||'<tr><td colspan="9" style="text-align:center;padding:25px">No report data found.</td></tr>';
-}
-
-function printSheet(){
- if(!addedEmployees.length){setMsg("Add employees before printing.");return}
- if(addedEmployees.some(x=>!x.status)){setMsg("Please mark every added employee before printing.");return}
- const rows=addedEmployees.map((x,i)=>`<tr><td>${i+1}</td><td>${esc(eid(x.employee))}</td><td>${esc(ename(x.employee))}</td><td>${esc(edes(x.employee)||"-")}</td><td>${esc(ephone(x.employee)||"-")}</td><td>${esc(x.status)}</td></tr>`).join("");
- $("printArea").innerHTML=`<div class="print-sheet"><div class="print-header"><img src="img/logo.png" onerror="this.style.display='none'"><h1>Madrasa-e Nurul Quran</h1><h2>EMPLOYEE DAILY ATTENDANCE SHEET</h2></div>
- <div class="print-meta"><span><b>Date:</b> ${esc($("date").value)}</span><span><b>Total:</b> ${addedEmployees.length}</span><span><b>Present:</b> ${addedEmployees.filter(x=>x.status==="Present").length}</span><span><b>Absent:</b> ${addedEmployees.filter(x=>x.status==="Absent").length}</span><span><b>Late:</b> ${addedEmployees.filter(x=>x.status==="Late").length}</span><span><b>Leave:</b> ${addedEmployees.filter(x=>x.status==="Leave").length}</span></div>
- <table class="print-table"><thead><tr><th>SL</th><th>Employee ID</th><th>Employee Name</th><th>Designation</th><th>Phone</th><th>Attendance Status</th></tr></thead><tbody>${rows}</tbody></table>
- <div class="print-footer"><span>Prepared by: __________________</span><span>Madrasa Management</span><span>Authorized Signature: __________________</span></div></div>`;
- window.print();
-}
-
-$("addEmployeeBtn").onclick=addEmployee;
-$("loadSavedBtn").onclick=loadSaved;
-$("refreshBtn").onclick=async()=>{try{await loadEmployees();setMsg("Employee list refreshed.",true)}catch(e){setMsg(e.message)}};
-$("saveBtn").onclick=save;
-$("allPresentBtn").onclick=()=>allStatus("Present");
-$("allAbsentBtn").onclick=()=>allStatus("Absent");
-$("allLateBtn").onclick=()=>allStatus("Late");
-$("allLeaveBtn").onclick=()=>allStatus("Leave");
-$("clearStatusBtn").onclick=clearStatus;
-$("clearListBtn").onclick=()=>{addedEmployees=[];render();stats();setSaveMsg("")};
-$("historyBtn").onclick=()=>{$("historySection").classList.toggle("hidden");if(!$("historySection").classList.contains("hidden")){history();$("historySection").scrollIntoView({behavior:"smooth"})}};
-$("reportBtn").onclick=()=>{$("reportSection").classList.toggle("hidden");if(!$("reportSection").classList.contains("hidden")){report();$("reportSection").scrollIntoView({behavior:"smooth"})}};
-$("loadHistoryBtn").onclick=history;
-$("loadReportBtn").onclick=report;
-$("printBtn").onclick=printSheet;
-
-start();
+  }catch(error){
+    console.error(error);
+    msg("mainStatus",error.message);
+  }
+})();
 </script>
+
 </body>
 </html>
