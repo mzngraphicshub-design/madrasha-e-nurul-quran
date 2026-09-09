@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Education Certificate | Madrasa-e Nurul Quran</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Great+Vibes&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -10,273 +10,421 @@
 
 <style>
 *{box-sizing:border-box}
-:root{
-  --navy:#083d4a;
-  --teal:#126d68;
-  --teal2:#0d5d59;
-  --gold:#d5a928;
-  --gold2:#f1d36b;
-  --cream:#fffaf0;
-  --ink:#17201f;
-}
+html,body{margin:0;padding:0}
 body{
-  margin:0;
-  background:#eef2f4;
-  color:var(--ink);
+  background:#edf1f3;
+  color:#17201f;
   font-family:"Playfair Display",Georgia,serif;
+  -webkit-print-color-adjust:exact!important;
+  print-color-adjust:exact!important;
 }
+button,input,select,textarea{font:inherit}
+
 .topbar{
   height:58px;
-  background:linear-gradient(90deg,#075b75,#126d68,#075b75);
+  background:linear-gradient(90deg,#07556a,#126d68,#07556a);
   color:#fff;
   display:flex;
   align-items:center;
   justify-content:space-between;
   padding:0 22px;
-  box-shadow:0 3px 15px rgba(0,0,0,.16);
+  box-shadow:0 3px 14px rgba(0,0,0,.15);
 }
-.brand{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
+.brand{display:flex;align-items:center;gap:10px}
 .brand img{
   width:39px;height:39px;object-fit:contain;border-radius:50%;
-  background:#fff;
+  background:#fff
 }
 .brand-title{font-size:15px;font-weight:700}
 .brand-sub{font-size:8px;letter-spacing:1.2px;opacity:.85}
 .top-actions{display:flex;gap:8px}
 .top-actions button{
-  border:1px solid rgba(255,255,255,.28);
-  background:rgba(255,255,255,.10);
-  color:#fff;
-  padding:9px 13px;border-radius:8px;cursor:pointer;
+  color:#fff;background:rgba(255,255,255,.10);
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:8px;padding:9px 13px;cursor:pointer
 }
+
 .container{max-width:1320px;margin:auto;padding:22px}
-.page-title{font-size:28px;margin:0 0 4px;color:#132e35}
-.page-sub{margin:0 0 18px;color:#667477;font-size:12px}
+.page-title{margin:0 0 4px;font-size:28px;color:#173238}
+.page-sub{margin:0 0 18px;color:#687477;font-size:12px}
 
 .panel{
   background:#fff;border-radius:15px;padding:18px;
   box-shadow:0 5px 24px rgba(12,45,55,.09);
-  margin-bottom:18px;
+  margin-bottom:18px
 }
 .panel h2{font-size:17px;color:#135c65;margin:0 0 13px}
 .grid{
   display:grid;
   grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:12px;
+  gap:12px
 }
 .field{display:flex;flex-direction:column;gap:6px}
 .field label{font-size:11px;font-weight:700;color:#405256}
 .field input,.field select,.field textarea{
   width:100%;border:1px solid #d5dfe1;background:#fbfcfc;
-  border-radius:8px;padding:10px 11px;font-family:inherit;font-size:13px;
-  outline:none;
+  border-radius:8px;padding:10px 11px;font-size:13px;
+  outline:none;color:#263235
 }
-.field textarea{min-height:88px;resize:vertical;line-height:1.6}
+.field textarea{min-height:90px;resize:vertical;line-height:1.55}
 .field input:focus,.field select:focus,.field textarea:focus{
-  border-color:#16807a;box-shadow:0 0 0 3px rgba(22,128,122,.09)
+  border-color:#16807a;box-shadow:0 0 0 3px rgba(22,128,122,.08)
 }
 .full{grid-column:1/-1}
-.two{grid-column:span 2}
-.buttons{display:flex;flex-wrap:wrap;gap:8px;margin-top:13px}
+.buttons{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .btn{
   border:0;border-radius:8px;padding:10px 14px;cursor:pointer;
-  font-family:inherit;font-weight:700;font-size:12px;
+  font-size:12px;font-weight:700
 }
 .primary{background:#096a70;color:#fff}
-.gold{background:#d0a52a;color:#fff}
+.gold{background:#c79a20;color:#fff}
 .light{background:#eaf3f3;color:#195d60}
 .danger{background:#f9e4e1;color:#9d3c30}
-.status{font-size:11px;margin-top:8px;color:#9d3c30}
-.status.ok{color:#14704c}
+.status{font-size:11px;color:#a13d32;margin-top:9px}
+.status.ok{color:#13704e}
 
-/* Certificate */
+/* =========================
+   CERTIFICATE DESIGN
+   ========================= */
 .preview-wrap{
-  background:#d9dfe1;
-  border-radius:15px;
+  background:#d7dde0;
   padding:24px;
-  overflow:auto;
+  border-radius:13px;
+  overflow:auto
 }
+
 .certificate{
   position:relative;
   width:1120px;
   height:790px;
   margin:auto;
   overflow:hidden;
+  background:#fffaf0;
+  box-shadow:0 14px 40px rgba(0,0,0,.18);
+  border:1px solid #d2c082;
+  isolation:isolate;
+  -webkit-print-color-adjust:exact!important;
+  print-color-adjust:exact!important;
+}
+
+/* Paper texture */
+.paper-glow{
+  position:absolute;inset:0;z-index:0;
   background:
-    radial-gradient(circle at 80% 20%,rgba(255,255,255,.7),transparent 30%),
-    linear-gradient(135deg,#fffdf7,#fbf3e3);
-  box-shadow:0 15px 45px rgba(0,0,0,.18);
-  border:1px solid #d8c78e;
+    radial-gradient(circle at 78% 17%,rgba(255,255,255,.85),transparent 29%),
+    linear-gradient(135deg,rgba(255,255,255,.45),rgba(246,235,211,.22));
+  pointer-events:none
 }
 
-/* Elegant outer frame */
-.certificate:before{
-  content:"";
-  position:absolute;inset:16px;
-  border:2px solid var(--gold);
-  pointer-events:none;z-index:5;
+/* Elegant double frame */
+.frame1,.frame2{
+  position:absolute;pointer-events:none;z-index:20
 }
-.certificate:after{
+.frame1{inset:16px;border:2px solid #c99f27}
+.frame2{inset:23px;border:1px solid #2d746e}
+
+/* Left vertical ribbon exactly like reference */
+.ribbon-main{
+  position:absolute;
+  z-index:5;
+  left:151px;top:-8px;
+  width:82px;height:555px;
+  background:linear-gradient(90deg,#07534f 0%,#18726b 50%,#07534f 100%);
+  border-left:3px solid #d9b83d;
+  border-right:3px solid #d9b83d;
+  box-shadow:5px 0 10px rgba(0,0,0,.12)
+}
+.ribbon-main:before{
   content:"";
-  position:absolute;inset:23px;
-  border:1px solid rgba(18,109,104,.55);
-  pointer-events:none;z-index:5;
+  position:absolute;left:0;right:0;top:0;height:7px;
+  background:#f0d16c
 }
 
-/* Left ribbon */
-.ribbon{
-  position:absolute;left:150px;top:0;width:82px;height:560px;
-  background:linear-gradient(90deg,#07524f,#19736d,#07524f);
-  z-index:1;
-  box-shadow:8px 0 15px rgba(0,0,0,.08);
+/* Ribbon tails */
+.tail-left,.tail-right{
+  position:absolute;z-index:6;top:492px;width:53px;height:148px;
+  background:linear-gradient(90deg,#07534f,#18726b);
+  border:2px solid #d9b83d
 }
-.ribbon:before,.ribbon:after{
-  content:"";position:absolute;left:0;right:0;height:2px;background:var(--gold2)
-}
-.ribbon:before{top:0}.ribbon:after{bottom:0}
-.ribbon-tail{
-  position:absolute;left:140px;top:495px;width:105px;height:145px;z-index:2;
-}
-.ribbon-tail:before,.ribbon-tail:after{
-  content:"";position:absolute;top:0;width:52px;height:145px;
-  background:linear-gradient(90deg,#07524f,#19736d);
-  border:1px solid var(--gold);
-}
-.ribbon-tail:before{left:0;clip-path:polygon(0 0,100% 0,72% 100%,50% 87%,28% 100%)}
-.ribbon-tail:after{right:0;clip-path:polygon(0 0,100% 0,72% 100%,50% 87%,28% 100%)}
+.tail-left{left:140px;clip-path:polygon(0 0,100% 0,76% 100%,50% 86%,24% 100%)}
+.tail-right{left:191px;clip-path:polygon(0 0,100% 0,76% 100%,50% 86%,24% 100%)}
 
 /* Medal */
 .medal{
-  position:absolute;left:76px;top:235px;width:230px;height:230px;z-index:4;
+  position:absolute;
+  left:63px;top:232px;
+  width:258px;height:258px;
+  z-index:12;
+  display:grid;place-items:center
 }
-.medal-star{
-  width:205px;height:205px;margin:auto;
-  background:linear-gradient(145deg,#e9ca56,#b88b1c 52%,#f3d878);
-  clip-path:polygon(50% 0%,61% 12%,76% 8%,82% 22%,96% 29%,89% 43%,100% 55%,88% 66%,92% 82%,76% 82%,68% 96%,54% 88%,42% 100%,34% 87%,18% 91%,19% 75%,4% 67%,12% 52%,0 40%,14% 31%,10% 15%,28% 17%,38% 3%);
+.medal-burst{
+  width:232px;height:232px;
   display:grid;place-items:center;
-  filter:drop-shadow(0 6px 6px rgba(0,0,0,.2));
+  background:#d7af32;
+  clip-path:polygon(
+    50% 0%,61% 10%,74% 5%,80% 19%,95% 24%,88% 39%,
+    100% 50%,89% 62%,94% 77%,79% 81%,73% 95%,59% 89%,
+    50% 100%,40% 90%,25% 95%,19% 81%,5% 76%,11% 61%,
+    0 50%,11% 39%,5% 24%,20% 19%,26% 5%,39% 10%
+  );
+  filter:drop-shadow(0 7px 8px rgba(0,0,0,.22))
 }
-.medal-inner{
-  width:145px;height:145px;border-radius:50%;
-  background:linear-gradient(145deg,#176f69,#07514e);
-  border:8px solid #e4c34d;
-  outline:2px solid #f5df83;
-  display:flex;align-items:center;justify-content:center;
-  color:#f7e49a;text-align:center;
-  font-family:Cinzel,serif;font-weight:700;font-size:20px;line-height:1.15;
+.medal-ring{
+  width:171px;height:171px;border-radius:50%;
+  background:linear-gradient(145deg,#16736c,#07534f);
+  border:10px solid #efcf61;
+  outline:2px solid #fff0a5;
+  display:grid;place-items:center;
+  color:#f4dd85;text-align:center
 }
-.medal-inner span{font-size:12px;display:block;letter-spacing:2px;margin-top:5px}
+.medal-ring:before{
+  content:"";
+  position:absolute;
+  width:145px;height:145px;border:1px solid rgba(245,224,139,.8);
+  border-radius:50%
+}
+.medal-title{
+  font-family:Cinzel,serif;font-size:25px;font-weight:700;
+  letter-spacing:1px;line-height:1.05
+}
+.medal-sub{
+  font-family:Cinzel,serif;font-size:10px;letter-spacing:2px;
+  margin-top:8px
+}
 
-/* Main text */
+/* Main content */
 .cert-content{
-  position:absolute;left:315px;right:35px;top:72px;bottom:55px;
-  text-align:center;z-index:3;
+  position:absolute;
+  z-index:10;
+  left:315px;right:45px;top:68px;bottom:55px;
+  text-align:center
 }
-.kicker{
-  font-family:Cinzel,serif;font-size:13px;letter-spacing:4px;color:#245d59;
-  font-weight:700;margin-bottom:7px;
+.presented-by{
+  font-family:Cinzel,serif;
+  font-size:12px;font-weight:700;
+  letter-spacing:3px;color:#1d5d58;
+  text-transform:uppercase;
+  margin-bottom:9px
 }
 .cert-title{
+  margin:0;
   font-family:Cinzel,serif;
-  font-size:48px;line-height:1.05;margin:0;color:#141a19;
-  letter-spacing:2px;
+  font-size:48px;line-height:1.05;
+  letter-spacing:1px;color:#111716;
+  text-shadow:0 1px 0 #fff
 }
-.subtitle{
-  margin-top:10px;font-family:Georgia,serif;font-style:italic;
-  font-weight:700;font-size:17px;color:#303b39;
+.cert-subtitle{
+  margin-top:9px;
+  font-family:Georgia,serif;
+  font-size:16px;font-style:italic;
+  font-weight:700;color:#303937
 }
-.name{
+.student-name{
   display:inline-block;
-  margin-top:24px;
-  padding:0 28px 7px;
-  min-width:500px;
-  border-bottom:2px solid #b7afa0;
+  min-width:505px;
+  max-width:760px;
+  margin-top:23px;
+  padding:0 25px 8px;
+  border-bottom:2px solid #b9b2a5;
   font-family:"Great Vibes",cursive;
   font-size:57px;
-  color:#111;
   line-height:1.05;
+  color:#121514
 }
-.meta-line{
-  margin-top:10px;font-size:11px;letter-spacing:1.4px;color:#5b625f;
+.student-meta{
+  margin-top:9px;
+  font-family:Georgia,serif;
+  font-size:10px;letter-spacing:1.2px;color:#626966
 }
-.body-copy{
-  max-width:700px;margin:27px auto 0;
-  font-family:Georgia,serif;font-size:16px;line-height:1.8;color:#3d4644;
+.description{
+  max-width:700px;
+  margin:25px auto 0;
+  font-family:Georgia,serif;
+  font-size:15px;
+  line-height:1.75;
+  color:#3e4745
 }
 .achievement{
-  margin:22px auto 0;
-  font-family:Cinzel,serif;font-size:21px;font-weight:700;
-  letter-spacing:2px;color:#111;
+  margin-top:21px;
+  font-family:Cinzel,serif;
+  font-size:20px;
+  font-weight:700;
+  letter-spacing:1.5px;
+  color:#151a19
 }
-.presented{
-  margin-top:4px;font-size:10px;letter-spacing:2px;color:#777;
+.presented-date{
+  margin-top:4px;
+  font-family:Georgia,serif;
+  font-size:9px;
+  letter-spacing:1.6px;
+  color:#777
 }
 .info-row{
-  display:flex;justify-content:center;gap:26px;margin-top:18px;
-  font-size:11px;color:#555;
+  margin-top:15px;
+  display:flex;
+  justify-content:center;
+  gap:25px
 }
-.info-chip{
-  border-bottom:1px solid #c5bda9;padding:0 8px 5px;min-width:135px;
+.info{
+  min-width:145px;
+  padding-bottom:5px;
+  border-bottom:1px solid #c9c0ad;
+  font-size:10px;color:#4e5855
 }
-.info-chip b{color:#234f4b}
+.info b{color:#225d58}
+
+/* Bottom shape: multiple smooth gold/cream/teal waves like reference */
+.bottom-shape{
+  position:absolute;
+  left:0;right:0;bottom:0;
+  height:260px;
+  z-index:4;
+  overflow:hidden;
+  pointer-events:none
+}
+.wave-svg{
+  position:absolute;
+  left:0;top:0;
+  width:100%;height:100%
+}
+
+/* Signature is above the teal wave */
 .signature{
-  position:absolute;right:52px;bottom:10px;width:180px;text-align:center;
-  font-family:Georgia,serif;color:#343d3b;
+  position:absolute;
+  z-index:16;
+  right:82px;
+  bottom:55px;
+  width:190px;
+  text-align:center;
+  color:#f5f2e8
 }
-.signature-line{border-top:1px solid #55716e;padding-top:7px;font-size:12px}
-.signature-name{font-size:11px;font-weight:700}
-.signature-role{font-size:9px;color:#777;margin-top:2px}
+.signature-line{
+  border-top:1px solid rgba(240,246,238,.9);
+  padding-top:7px;
+  font-family:Cinzel,serif;
+  font-size:13px;
+  letter-spacing:1px
+}
+.signature-name{
+  margin-top:2px;
+  font-family:Georgia,serif;
+  font-size:11px;
+  font-weight:700
+}
+.signature-role{
+  margin-top:2px;
+  font-family:Georgia,serif;
+  font-size:9px;
+  opacity:.86
+}
 
-/* Gold/teal wave bottom */
-.wave{
-  position:absolute;left:-30px;right:-30px;bottom:-110px;height:270px;
-  background:#0b625e;
-  border-top:7px solid #d3a72c;
-  border-radius:50% 50% 0 0/38% 38% 0 0;
-  transform:rotate(-3deg);z-index:2;
-}
-.wave:before{
-  content:"";position:absolute;left:-20px;right:-20px;top:-17px;height:30px;
-  background:#f1d36b;border-top:2px solid #b88c20;
-  border-radius:50%;
-}
-.wave:after{
-  content:"";position:absolute;left:-20px;right:-20px;top:-8px;height:18px;
-  background:#126d68;border-radius:50%;
-}
-.corner-ornament{
-  position:absolute;left:36px;bottom:27px;color:#e9cf72;font-family:Cinzel,serif;
-  font-size:10px;letter-spacing:2px;z-index:7;
+/* Left footer text above teal shape */
+.footer-mark{
+  position:absolute;z-index:16;
+  left:43px;bottom:31px;
+  color:#f2d36d;
+  font-family:Cinzel,serif;
+  font-size:9px;letter-spacing:2px
 }
 
-/* Print */
-#printArea{display:none}
+.print-only{display:none}
+
+/* Responsive */
 @media(max-width:1000px){
- .grid{grid-template-columns:repeat(2,1fr)}
- .two{grid-column:span 2}
+  .grid{grid-template-columns:repeat(2,1fr)}
 }
-@media(max-width:700px){
- .container{padding:12px}
- .grid{grid-template-columns:1fr}
- .two,.full{grid-column:1}
- .topbar{padding:0 12px}
- .preview-wrap{padding:8px}
+@media(max-width:650px){
+  .container{padding:12px}
+  .grid{grid-template-columns:1fr}
+  .full{grid-column:1}
+  .topbar{padding:0 12px}
+  .brand-sub{display:none}
+  .preview-wrap{padding:8px}
 }
+
+/* =========================
+   PRINT FIX
+   ========================= */
 @media print{
- @page{size:A4 landscape;margin:0}
- body{background:#fff}
- .topbar,.container>.page-title,.container>.page-sub,.panel{display:none!important}
- .preview-wrap{display:block;padding:0;background:#fff;overflow:visible}
- .certificate{
-   width:297mm;height:210mm;margin:0;box-shadow:none;border:0;
-   transform:none;
- }
- #printArea{display:block}
- .container{display:block;padding:0}
+  @page{
+    size:A4 landscape;
+    margin:0
+  }
+
+  html,body{
+    width:297mm;
+    height:210mm;
+    margin:0!important;
+    padding:0!important;
+    background:#fff!important;
+    overflow:hidden!important
+  }
+
+  body{
+    -webkit-print-color-adjust:exact!important;
+    print-color-adjust:exact!important
+  }
+
+  .topbar,
+  .page-title,
+  .page-sub,
+  .editor-panel,
+  .preview-heading{
+    display:none!important
+  }
+
+  .container{
+    display:block!important;
+    width:297mm!important;
+    max-width:none!important;
+    height:210mm!important;
+    padding:0!important;
+    margin:0!important
+  }
+
+  .preview-panel{
+    display:block!important;
+    padding:0!important;
+    margin:0!important;
+    background:transparent!important;
+    box-shadow:none!important;
+    border:0!important
+  }
+
+  .preview-wrap{
+    display:block!important;
+    width:297mm!important;
+    height:210mm!important;
+    padding:0!important;
+    margin:0!important;
+    background:#fff!important;
+    overflow:hidden!important;
+    border-radius:0!important
+  }
+
+  .certificate{
+    display:block!important;
+    width:297mm!important;
+    height:210mm!important;
+    margin:0!important;
+    box-shadow:none!important;
+    border:0!important;
+    transform:none!important
+  }
+
+  .frame1{inset:4.2mm}
+  .frame2{inset:6.1mm}
+
+  .paper-glow,.ribbon-main,.tail-left,.tail-right,
+  .medal,.bottom-shape,.wave-svg,.signature,.footer-mark{
+    -webkit-print-color-adjust:exact!important;
+    print-color-adjust:exact!important
+  }
+}
+
+/* Screen only */
+@media screen{
+  .editor-panel{display:block}
 }
 </style>
 </head>
@@ -293,18 +441,20 @@ body{
   </div>
   <div class="top-actions">
     <button onclick="location.href='dashboard.html'">Dashboard</button>
-    <button onclick="window.print()">Print</button>
+    <button onclick="printCertificate()">Print Certificate</button>
   </div>
 </header>
 
 <main class="container">
-  <h1 class="page-title">Education Certificate</h1>
-  <p class="page-sub">Select a student to automatically load the Student ID, Name and Class. All certificate text can be edited before printing.</p>
 
-  <section class="panel">
+  <h1 class="page-title">Education Certificate</h1>
+  <p class="page-sub">Select a student. Student ID, Name and Class are loaded automatically. Certificate content remains editable.</p>
+
+  <section class="panel editor-panel">
     <h2>Certificate Information</h2>
 
     <div class="grid">
+
       <div class="field">
         <label>Student</label>
         <select id="studentSelect">
@@ -333,7 +483,7 @@ body{
       </div>
 
       <div class="field">
-        <label>Achievement / Subject</label>
+        <label>Achievement Name</label>
         <input id="achievement" value="ACADEMIC ACHIEVEMENT">
       </div>
 
@@ -344,7 +494,7 @@ body{
 
       <div class="field">
         <label>Academic Session</label>
-        <input id="session" placeholder="e.g. 2026">
+        <input id="session" placeholder="2026">
       </div>
 
       <div class="field full">
@@ -371,6 +521,7 @@ body{
         <label>Medal Text</label>
         <input id="medalText" value="EDUCATION">
       </div>
+
     </div>
 
     <div class="buttons">
@@ -379,36 +530,46 @@ body{
       <button class="btn gold" id="printBtn">Print A4 Certificate</button>
       <button class="btn danger" id="resetBtn">Reset</button>
     </div>
+
     <div id="status" class="status"></div>
   </section>
 
-  <section class="panel">
-    <h2>Certificate Preview</h2>
+  <section class="panel preview-panel">
+    <h2 class="preview-heading">Certificate Preview</h2>
+
     <div class="preview-wrap">
       <div id="certificate" class="certificate">
 
-        <div class="ribbon"></div>
-        <div class="ribbon-tail"></div>
+        <div class="paper-glow"></div>
+        <div class="frame1"></div>
+        <div class="frame2"></div>
+
+        <div class="ribbon-main"></div>
+        <div class="tail-left"></div>
+        <div class="tail-right"></div>
 
         <div class="medal">
-          <div class="medal-star">
-            <div class="medal-inner">
+          <div class="medal-burst">
+            <div class="medal-ring">
               <div>
-                <div id="medalPreview">EDUCATION</div>
-                <span>CERTIFICATE</span>
+                <div class="medal-title" id="medalPreview">EDUCATION</div>
+                <div class="medal-sub">CERTIFICATE</div>
               </div>
             </div>
           </div>
         </div>
 
         <div class="cert-content">
-          <div class="kicker" id="presentedPreview">MADRASA-E NURUL QURAN</div>
+
+          <div class="presented-by" id="presentedPreview">MADRASA-E NURUL QURAN</div>
+
           <h1 class="cert-title" id="titlePreview">CERTIFICATE OF EDUCATION</h1>
-          <div class="subtitle">This Certificate is Proudly Presented to</div>
 
-          <div class="name" id="namePreview">Student Name</div>
+          <div class="cert-subtitle">This Certificate is Proudly Presented to</div>
 
-          <div class="meta-line">
+          <div class="student-name" id="namePreview">Student Name</div>
+
+          <div class="student-meta">
             STUDENT ID: <span id="idPreview">—</span>
             &nbsp;&nbsp; | &nbsp;&nbsp;
             CLASS: <span id="classPreview">—</span>
@@ -416,35 +577,86 @@ body{
             SESSION: <span id="sessionPreview">—</span>
           </div>
 
-          <div class="body-copy" id="descriptionPreview">
+          <div class="description" id="descriptionPreview">
             This certificate is proudly presented to the above-named student in recognition of successfully completing the academic requirements of the stated class and demonstrating commitment, discipline and dedication to education at Madrasa-e Nurul Quran.
           </div>
 
           <div class="achievement" id="achievementPreview">ACADEMIC ACHIEVEMENT</div>
-          <div class="presented">PRESENTED ON <span id="datePreview">—</span></div>
+
+          <div class="presented-date">
+            PRESENTED ON <span id="datePreview">—</span>
+          </div>
 
           <div class="info-row">
-            <div class="info-chip"><b>Student ID:</b> <span id="smallId">—</span></div>
-            <div class="info-chip"><b>Class:</b> <span id="smallClass">—</span></div>
+            <div class="info">
+              <b>Student ID:</b> <span id="smallId">—</span>
+            </div>
+            <div class="info">
+              <b>Class:</b> <span id="smallClass">—</span>
+            </div>
           </div>
 
-          <div class="signature">
-            <div class="signature-line" id="signaturePreview">Principal</div>
-            <div class="signature-name" id="signatureNamePreview">Principal</div>
-            <div class="signature-role" id="signatureRolePreview">Principal</div>
-          </div>
         </div>
 
-        <div class="corner-ornament">MADRASA-E NURUL QURAN • EDUCATION</div>
-        <div class="wave"></div>
+        <!-- Reference-style bottom wave -->
+        <div class="bottom-shape">
+          <svg class="wave-svg" viewBox="0 0 1120 260" preserveAspectRatio="none" aria-hidden="true">
+            <!-- deep teal base -->
+            <path d="M0 188
+                     C150 250 275 258 430 226
+                     C600 191 685 91 820 76
+                     C930 64 1020 73 1120 28
+                     L1120 260 L0 260 Z"
+                  fill="#07534f"/>
+            <!-- outer gold band -->
+            <path d="M0 164
+                     C150 226 280 242 438 207
+                     C600 172 687 76 822 61
+                     C930 49 1023 59 1120 15
+                     L1120 36
+                     C1021 80 929 70 819 82
+                     C685 98 599 195 432 229
+                     C276 261 148 243 0 181 Z"
+                  fill="#c89f2c"/>
+            <!-- light gold band -->
+            <path d="M0 151
+                     C150 213 280 229 441 195
+                     C603 160 691 64 825 50
+                     C932 39 1024 48 1120 5
+                     L1120 19
+                     C1023 63 932 53 822 65
+                     C687 81 600 177 437 211
+                     C278 245 149 229 0 166 Z"
+                  fill="#f0d16b"/>
+            <!-- teal highlight band -->
+            <path d="M0 139
+                     C151 199 282 216 444 183
+                     C607 149 695 52 828 39
+                     C934 29 1027 38 1120 -3
+                     L1120 8
+                     C1027 48 935 40 826 51
+                     C692 65 604 161 441 196
+                     C280 229 150 214 0 153 Z"
+                  fill="#1b746d"/>
+          </svg>
+        </div>
+
+        <div class="footer-mark">MADRASA-E NURUL QURAN</div>
+
+        <div class="signature">
+          <div class="signature-line" id="signaturePreview">Principal</div>
+          <div class="signature-name" id="signatureNamePreview">Principal</div>
+          <div class="signature-role" id="signatureRolePreview">Principal</div>
+        </div>
+
       </div>
     </div>
   </section>
+
 </main>
 
-<div id="printArea"></div>
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
 const SUPABASE_URL="https://qavublwhqiqsgpcmfyft.supabase.co";
 const SUPABASE_KEY="sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
@@ -455,11 +667,10 @@ let classMap={};
 
 const $=id=>document.getElementById(id);
 
-function esc(v){
-  return String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;")
-    .replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
+function clean(v){
+  return String(v??"").trim();
 }
-function text(v){return String(v??"").trim()}
+
 function setStatus(message,ok=false){
   $("status").textContent=message;
   $("status").className="status"+(ok?" ok":"");
@@ -473,49 +684,69 @@ function formatDate(v){
     d.toLocaleString("en-US",{month:"long"})+" "+d.getFullYear();
 }
 
-function resolveClass(s){
-  if(s.class_id!=null && classMap[String(s.class_id)]) return classMap[String(s.class_id)];
-  return s.class_name || s.class || s.className || "—";
+function resolveClass(student){
+  if(student.class_id!=null && classMap[String(student.class_id)]){
+    return classMap[String(student.class_id)];
+  }
+  return student.class_name || student.class || student.className || "—";
 }
 
 function populateStudents(){
   const sorted=[...students].sort((a,b)=>
-    String(a.student_id??"").localeCompare(String(b.student_id??""),undefined,{numeric:true})
+    clean(a.student_id).localeCompare(clean(b.student_id),undefined,{numeric:true})
   );
+
   $("studentSelect").innerHTML=
     '<option value="">Select Student</option>'+
-    sorted.map(s=>`<option value="${esc(s.id)}">${esc(s.student_id||"")} — ${esc(s.name||"")}</option>`).join("");
+    sorted.map(s=>
+      `<option value="${String(s.id)}">${clean(s.student_id)} — ${clean(s.name)}</option>`
+    ).join("");
 }
 
 function loadSelectedStudent(){
   const id=$("studentSelect").value;
-  const s=students.find(x=>String(x.id)===String(id));
-  if(!s)return;
+  const student=students.find(s=>String(s.id)===String(id));
 
-  $("studentId").value=s.student_id??"";
-  $("studentName").value=s.name??"";
-  $("studentClass").value=resolveClass(s);
-  if(s.session) $("session").value=s.session;
+  if(!student){
+    return;
+  }
+
+  $("studentId").value=student.student_id||"";
+  $("studentName").value=student.name||"";
+  $("studentClass").value=resolveClass(student);
+
+  if(student.session!=null && clean(student.session)){
+    $("session").value=student.session;
+  }
+
   updatePreview();
-  setStatus("Student information loaded.",true);
+  setStatus("Student information loaded successfully.",true);
 }
 
 async function loadData(){
+  setStatus("Loading students...");
+
   try{
-    const {data:classes,error:ce}=await supabaseClient
-      .from("classes").select("id,name").order("id",{ascending:true});
-    if(!ce){
+    const classResult=await supabaseClient
+      .from("classes")
+      .select("id,name")
+      .order("id",{ascending:true});
+
+    if(!classResult.error){
       classMap={};
-      (classes||[]).forEach(c=>classMap[String(c.id)]=c.name);
+      (classResult.data||[]).forEach(c=>{
+        classMap[String(c.id)]=c.name;
+      });
     }
 
-    const {data,error}=await supabaseClient
+    const result=await supabaseClient
       .from("students")
       .select("id,student_id,name,class_id,session,created_at")
       .order("student_id",{ascending:true});
 
-    if(error)throw error;
-    students=data||[];
+    if(result.error)throw result.error;
+
+    students=result.data||[];
     populateStudents();
 
     if(students.length){
@@ -524,27 +755,59 @@ async function loadData(){
     }else{
       setStatus("No students found in the students table.");
     }
-  }catch(e){
-    setStatus("Could not load students: "+e.message);
+
+  }catch(error){
+    console.error(error);
+    setStatus("Could not load students: "+error.message);
   }
 }
 
 function updatePreview(){
-  $("titlePreview").textContent=text($("certificateTitle").value)||"CERTIFICATE OF EDUCATION";
-  $("presentedPreview").textContent=text($("presentedBy").value)||"MADRASA-E NURUL QURAN";
-  $("namePreview").textContent=text($("studentName").value)||"Student Name";
-  $("idPreview").textContent=text($("studentId").value)||"—";
-  $("classPreview").textContent=text($("studentClass").value)||"—";
-  $("sessionPreview").textContent=text($("session").value)||"—";
-  $("descriptionPreview").textContent=text($("description").value)||"";
-  $("achievementPreview").textContent=text($("achievement").value)||"ACADEMIC ACHIEVEMENT";
-  $("datePreview").textContent=formatDate($("certificateDate").value);
-  $("smallId").textContent=text($("studentId").value)||"—";
-  $("smallClass").textContent=text($("studentClass").value)||"—";
-  $("signaturePreview").textContent=text($("signatureName").value)||"Principal";
-  $("signatureNamePreview").textContent=text($("signatureName").value)||"Principal";
-  $("signatureRolePreview").textContent=text($("signatureRole").value)||"Principal";
-  $("medalPreview").textContent=text($("medalText").value)||"EDUCATION";
+
+  $("titlePreview").textContent=
+    clean($("certificateTitle").value)||"CERTIFICATE OF EDUCATION";
+
+  $("presentedPreview").textContent=
+    clean($("presentedBy").value)||"MADRASA-E NURUL QURAN";
+
+  $("namePreview").textContent=
+    clean($("studentName").value)||"Student Name";
+
+  $("idPreview").textContent=
+    clean($("studentId").value)||"—";
+
+  $("classPreview").textContent=
+    clean($("studentClass").value)||"—";
+
+  $("sessionPreview").textContent=
+    clean($("session").value)||"—";
+
+  $("descriptionPreview").textContent=
+    clean($("description").value)||"";
+
+  $("achievementPreview").textContent=
+    clean($("achievement").value)||"ACADEMIC ACHIEVEMENT";
+
+  $("datePreview").textContent=
+    formatDate($("certificateDate").value);
+
+  $("smallId").textContent=
+    clean($("studentId").value)||"—";
+
+  $("smallClass").textContent=
+    clean($("studentClass").value)||"—";
+
+  $("signaturePreview").textContent=
+    clean($("signatureName").value)||"Principal";
+
+  $("signatureNamePreview").textContent=
+    clean($("signatureName").value)||"Principal";
+
+  $("signatureRolePreview").textContent=
+    clean($("signatureRole").value)||"Principal";
+
+  $("medalPreview").textContent=
+    clean($("medalText").value)||"EDUCATION";
 }
 
 function resetForm(){
@@ -552,24 +815,38 @@ function resetForm(){
   $("achievement").value="ACADEMIC ACHIEVEMENT";
   $("certificateDate").value=new Date().toISOString().slice(0,10);
   $("session").value="";
-  $("description").value="This certificate is proudly presented to the above-named student in recognition of successfully completing the academic requirements of the stated class and demonstrating commitment, discipline and dedication to education at Madrasa-e Nurul Quran.";
+  $("description").value=
+    "This certificate is proudly presented to the above-named student in recognition of successfully completing the academic requirements of the stated class and demonstrating commitment, discipline and dedication to education at Madrasa-e Nurul Quran.";
   $("presentedBy").value="Madrasa-e Nurul Quran";
   $("signatureName").value="Principal";
   $("signatureRole").value="Principal";
   $("medalText").value="EDUCATION";
+
   if(students.length){
     $("studentSelect").value=String(students[0].id);
     loadSelectedStudent();
-  }else updatePreview();
+  }else{
+    updatePreview();
+  }
+
   setStatus("Certificate fields reset.",true);
 }
 
 function printCertificate(){
-  if(!text($("studentName").value)){
-    setStatus("Please select a student first.");
+
+  if(!clean($("studentName").value)){
+    setStatus("Please select a student before printing.");
     return;
   }
+
   updatePreview();
+
+  /*
+    Important:
+    We print the actual certificate directly.
+    No empty print container is used, so mobile Chrome will not
+    produce a blank first page.
+  */
   window.print();
 }
 
@@ -580,9 +857,10 @@ $("resetBtn").addEventListener("click",resetForm);
 $("printBtn").addEventListener("click",printCertificate);
 
 [
- "studentId","studentName","studentClass","certificateTitle","achievement",
- "certificateDate","session","description","presentedBy",
- "signatureName","signatureRole","medalText"
+  "studentId","studentName","studentClass",
+  "certificateTitle","achievement","certificateDate",
+  "session","description","presentedBy",
+  "signatureName","signatureRole","medalText"
 ].forEach(id=>{
   $(id).addEventListener("input",updatePreview);
   $(id).addEventListener("change",updatePreview);
@@ -591,18 +869,26 @@ $("printBtn").addEventListener("click",printCertificate);
 $("certificateDate").value=new Date().toISOString().slice(0,10);
 
 (async function(){
+
   try{
     const {data:{session},error}=await supabaseClient.auth.getSession();
+
     if(error)throw error;
+
     if(!session){
       location.href="admin.html";
       return;
     }
+
     await loadData();
-  }catch(e){
-    setStatus(e.message);
+
+  }catch(error){
+    console.error(error);
+    setStatus(error.message);
   }
+
 })();
 </script>
+
 </body>
 </html>
