@@ -3,12 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Education Certificate | Madrasa-e Nurul Quran</title>
+
+<title>Education Certificate | Madrasha E Nurul Quran</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&display=swap');
+
+@font-face{
+    font-family:Bornomala;
+    src:url("fonts/Bornomala-Regular.ttf") format("truetype");
+}
+
+:root{
+    --blue:#075f7f;
+    --blue2:#087da4;
+    --gold:#c69a24;
+    --gold2:#e2c45b;
+    --cream:#fff9e9;
+    --cream2:#fffdf4;
+    --red:#a80f0f;
+    --red2:#d22a17;
+    --green:#145f42;
+    --text:#29251d;
+}
 
 *{
     box-sizing:border-box;
@@ -17,28 +39,28 @@
 html,body{
     margin:0;
     padding:0;
-    background:#edf2f5;
-    color:#17352d;
-    font-family:Georgia,"Times New Roman",serif;
+    min-height:100%;
 }
 
 body{
-    min-height:100vh;
+    background:#edf3f6;
+    color:#222;
+    font-family:Bornomala,"Times New Roman",serif;
 }
 
 /* =========================
-   ADMIN HEADER
+   TOP NAVIGATION
 ========================= */
 
 .topbar{
-    height:62px;
-    background:linear-gradient(90deg,#075b7c,#08739b,#0d83b4);
+    height:54px;
+    background:linear-gradient(90deg,#075879,#0b89b5);
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:0 20px;
+    padding:0 18px;
     color:#fff;
-    box-shadow:0 3px 12px rgba(0,0,0,.18);
+    box-shadow:0 2px 10px rgba(0,0,0,.18);
 }
 
 .brand{
@@ -48,45 +70,42 @@ body{
 }
 
 .brand img{
-    width:42px;
-    height:42px;
+    width:34px;
+    height:34px;
     object-fit:contain;
-    background:#fff;
     border-radius:50%;
-    padding:2px;
+    background:#fff;
 }
 
-.brand-text strong{
-    display:block;
-    font-size:15px;
-    letter-spacing:.2px;
+.brand-title{
+    font-family:Georgia,serif;
+    font-size:14px;
+    font-weight:600;
 }
 
-.brand-text span{
-    display:block;
-    font-size:9px;
-    opacity:.8;
+.brand-sub{
+    font-family:Georgia,serif;
+    font-size:8px;
+    opacity:.82;
     letter-spacing:.7px;
-    text-transform:uppercase;
 }
 
-.top-actions{
+.nav-actions{
     display:flex;
-    gap:8px;
+    gap:6px;
 }
 
-.top-btn{
+.nav-btn{
     border:1px solid rgba(255,255,255,.25);
     background:rgba(255,255,255,.12);
-    color:white;
+    color:#fff;
     border-radius:5px;
-    padding:9px 13px;
+    padding:8px 12px;
+    font-size:11px;
     cursor:pointer;
-    font-family:Georgia,"Times New Roman",serif;
-    font-size:12px;
 }
 
-.top-btn:hover{
+.nav-btn:hover{
     background:rgba(255,255,255,.22);
 }
 
@@ -95,528 +114,571 @@ body{
 ========================= */
 
 .page{
-    max-width:1250px;
+    max-width:1400px;
     margin:0 auto;
-    padding:22px 15px 45px;
+    padding:18px;
 }
 
 .page-title{
-    margin:0 0 4px;
-    font-size:27px;
-    color:#173c48;
+    margin:0 0 3px;
+    font-family:Georgia,serif;
+    color:#173e4b;
+    font-size:24px;
 }
 
 .page-subtitle{
-    margin:0 0 18px;
-    color:#71818a;
-    font-size:12px;
+    margin:0 0 14px;
+    color:#6b7478;
+    font-size:11px;
 }
 
 /* =========================
-   FORM CARD
+   CARD
 ========================= */
 
 .card{
     background:#fff;
     border-radius:12px;
-    box-shadow:0 3px 18px rgba(20,54,70,.10);
-    padding:17px;
-    margin-bottom:16px;
+    padding:14px;
+    margin-bottom:14px;
+    box-shadow:0 3px 14px rgba(0,0,0,.08);
 }
 
 .card-title{
-    margin:0 0 13px;
-    color:#245468;
-    font-size:17px;
+    margin:0 0 12px;
+    color:#24566a;
+    font-family:Georgia,serif;
+    font-size:15px;
 }
+
+/* =========================
+   FORM
+========================= */
 
 .form-grid{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:10px;
+    gap:9px;
 }
 
 .field{
     display:flex;
     flex-direction:column;
-    gap:5px;
 }
 
 .field.full{
-    grid-column:1/-1;
+    grid-column:1 / -1;
 }
 
 .field label{
-    font-size:11px;
-    color:#394c53;
+    font-size:10px;
+    margin-bottom:4px;
+    color:#333;
     font-weight:600;
 }
 
-input,
-select,
-textarea{
+.field input,
+.field select,
+.field textarea{
     width:100%;
-    border:1px solid #d9e1e5;
+    border:1px solid #dce3e6;
     background:#fbfcfd;
-    border-radius:5px;
-    padding:10px 11px;
-    font-family:Georgia,"Times New Roman",serif;
-    font-size:12px;
-    color:#25373d;
+    border-radius:6px;
+    padding:8px 9px;
+    min-height:34px;
     outline:none;
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:11px;
+    color:#222;
 }
 
-input:focus,
-select:focus,
-textarea:focus{
-    border-color:#087da6;
-    box-shadow:0 0 0 2px rgba(8,125,166,.08);
-}
-
-textarea{
+.field textarea{
     min-height:72px;
     resize:vertical;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus{
+    border-color:#1590b8;
+    box-shadow:0 0 0 2px rgba(21,144,184,.08);
 }
 
 .action-row{
     display:flex;
     flex-wrap:wrap;
     gap:7px;
-    margin-top:11px;
+    margin-top:10px;
 }
 
 .btn{
     border:0;
-    border-radius:5px;
-    padding:9px 13px;
+    border-radius:6px;
+    padding:8px 13px;
+    font-family:Georgia,serif;
+    font-size:10px;
     cursor:pointer;
-    font-family:Georgia,"Times New Roman",serif;
-    font-size:11px;
-    font-weight:600;
+    color:#fff;
 }
 
 .btn-blue{
-    background:#087db0;
-    color:white;
+    background:#087db1;
+}
+
+.btn-blue:hover{
+    background:#066c98;
 }
 
 .btn-gold{
-    background:#b98915;
-    color:white;
-}
-
-.btn-gray{
-    background:#e8eef1;
-    color:#3f5057;
+    background:#bd8e12;
 }
 
 .btn-red{
-    background:#c44c4c;
-    color:white;
+    background:#bf4c4c;
+}
+
+.btn-gray{
+    background:#e9eef0;
+    color:#26353b;
 }
 
 .status{
-    margin-top:8px;
-    font-size:11px;
-    color:#51706d;
-    min-height:15px;
+    margin-top:7px;
+    font-size:10px;
+    color:#557078;
 }
 
 /* =========================
-   PREVIEW AREA
+   CERTIFICATE PREVIEW
 ========================= */
 
 .preview-card{
-    background:#fff;
-    border-radius:12px;
-    box-shadow:0 3px 18px rgba(20,54,70,.10);
+    overflow:hidden;
+}
+
+.preview-wrap{
+    background:#d8dde0;
+    border-radius:9px;
     padding:12px;
-}
-
-.preview-title{
-    margin:3px 10px 10px;
-    color:#245468;
-    font-size:17px;
-}
-
-.preview-scroll{
-    width:100%;
     overflow:auto;
-    background:#cfd6da;
-    padding:12px;
-    border-radius:8px;
 }
 
-/* =========================
-   CERTIFICATE
-========================= */
+/*
+  The actual certificate.
+  Ratio is close to A4 landscape.
+*/
 
 .certificate{
     position:relative;
     width:1120px;
-    height:790px;
+    height:792px;
     margin:0 auto;
-    background:#fff8df;
     overflow:hidden;
-    color:#203d32;
-}
-
-/* outer frame */
-
-.cert-outer{
-    position:absolute;
-    inset:28px;
-    border:3px solid #c79b25;
-}
-
-.cert-outer:before{
-    content:"";
-    position:absolute;
-    inset:7px;
-    border:1px solid #d5af45;
-}
-
-.cert-outer:after{
-    content:"";
-    position:absolute;
-    inset:13px;
-    border:1px solid #b98718;
-}
-
-/* decorative corner patterns */
-
-.corner{
-    position:absolute;
-    width:75px;
-    height:75px;
-    border-color:#c79b25;
-    z-index:2;
-}
-
-.corner.tl{
-    top:18px;
-    left:18px;
-    border-top:4px double #c79b25;
-    border-left:4px double #c79b25;
-}
-
-.corner.tr{
-    top:18px;
-    right:18px;
-    border-top:4px double #c79b25;
-    border-right:4px double #c79b25;
-}
-
-.corner.bl{
-    bottom:18px;
-    left:18px;
-    border-bottom:4px double #c79b25;
-    border-left:4px double #c79b25;
-}
-
-.corner.br{
-    bottom:18px;
-    right:18px;
-    border-bottom:4px double #c79b25;
-    border-right:4px double #c79b25;
-}
-
-/* subtle paper pattern */
-
-.certificate:before{
-    content:"";
-    position:absolute;
-    inset:45px;
     background:
-      linear-gradient(45deg,rgba(199,155,37,.035) 25%,transparent 25%),
-      linear-gradient(-45deg,rgba(199,155,37,.035) 25%,transparent 25%);
-    background-size:24px 24px;
+        radial-gradient(circle at center,rgba(221,193,99,.10) 0 2px,transparent 3px),
+        linear-gradient(135deg,rgba(198,154,36,.025) 25%,transparent 25%,transparent 50%,rgba(198,154,36,.025) 50%,rgba(198,154,36,.025) 75%,transparent 75%);
+    background-size:10px 10px,24px 24px;
+    background-color:var(--cream);
+    color:var(--text);
+}
+
+/* =========================
+   OUTER GOLD ORNAMENT BORDER
+========================= */
+
+.certificate::before{
+    content:"";
+    position:absolute;
+    inset:22px;
+    border:4px double var(--gold);
     pointer-events:none;
-}
-
-/* top decorative lines */
-
-.top-decoration{
-    position:absolute;
-    top:51px;
-    left:83px;
-    right:83px;
-    height:32px;
-    border-top:2px solid #c69b2c;
-    border-bottom:1px solid #d9b759;
-}
-
-.top-decoration:before,
-.top-decoration:after{
-    content:"◆  ◇  ◆";
-    position:absolute;
-    top:5px;
-    color:#c69b2c;
-    font-size:13px;
-    letter-spacing:8px;
-}
-
-.top-decoration:before{
-    left:46%;
-    transform:translateX(-50%);
-}
-
-.top-decoration:after{
-    display:none;
-}
-
-/* header */
-
-.cert-header{
-    position:absolute;
-    top:88px;
-    left:100px;
-    right:100px;
-    text-align:center;
-}
-
-.institution{
-    font-family:"Cormorant Garamond",Georgia,serif;
-    font-size:29px;
-    font-weight:700;
-    letter-spacing:2.3px;
-    color:#145e47;
-    text-transform:uppercase;
-}
-
-.arabic-line{
-    margin-top:3px;
-    font-size:18px;
-    color:#1e7556;
-    direction:rtl;
-}
-
-.header-rule{
-    width:76%;
-    height:1px;
-    background:#d4b24d;
-    margin:12px auto 0;
-}
-
-/* logo */
-
-.cert-logo{
-    position:absolute;
-    top:78px;
-    left:50%;
-    transform:translateX(-50%);
-    width:64px;
-    height:64px;
-    object-fit:contain;
-    background:#fff9e9;
-    border-radius:50%;
     z-index:5;
 }
 
-/* certificate ribbon */
-
-.ribbon-area{
+.certificate::after{
+    content:"";
     position:absolute;
-    top:185px;
-    left:50%;
-    transform:translateX(-50%);
-    width:480px;
-    height:78px;
+    inset:30px;
+    border:1px solid rgba(198,154,36,.85);
+    pointer-events:none;
+    z-index:5;
+}
+
+/* decorative corner elements */
+
+.corner{
+    position:absolute;
+    width:105px;
+    height:105px;
+    border-color:var(--gold);
     z-index:6;
 }
 
-.ribbon-left,
-.ribbon-right{
+.corner.tl{
+    top:39px;
+    left:39px;
+    border-top:3px solid;
+    border-left:3px solid;
+}
+
+.corner.tr{
+    top:39px;
+    right:39px;
+    border-top:3px solid;
+    border-right:3px solid;
+}
+
+.corner.bl{
+    bottom:39px;
+    left:39px;
+    border-bottom:3px solid;
+    border-left:3px solid;
+}
+
+.corner.br{
+    bottom:39px;
+    right:39px;
+    border-bottom:3px solid;
+    border-right:3px solid;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.cert-header{
     position:absolute;
-    top:17px;
-    width:115px;
-    height:43px;
-    background:#9d160f;
+    top:65px;
+    left:80px;
+    right:80px;
+    text-align:center;
+    z-index:10;
 }
 
-.ribbon-left{
-    left:0;
-    clip-path:polygon(0 0,100% 0,84% 50%,100% 100%,0 100%,20% 50%);
+.cert-org{
+    font-family:"Cormorant Garamond",Georgia,serif;
+    font-size:28px;
+    font-weight:700;
+    letter-spacing:1.5px;
+    color:#17603e;
+    text-transform:uppercase;
 }
 
-.ribbon-right{
-    right:0;
-    clip-path:polygon(0 0,100% 0,80% 50%,100% 100%,0 100%,16% 50%);
+.cert-arabic{
+    font-family:Georgia,serif;
+    color:#17603e;
+    font-size:17px;
+    margin-top:2px;
 }
 
-.ribbon-main{
+.header-line{
+    width:76%;
+    height:1px;
+    margin:14px auto 0;
+    background:linear-gradient(
+        90deg,
+        transparent,
+        var(--gold),
+        var(--gold),
+        transparent
+    );
+}
+
+/* =========================
+   RIBBON
+========================= */
+
+.ribbon{
     position:absolute;
-    top:8px;
-    left:65px;
-    right:65px;
-    height:58px;
-    background:linear-gradient(#bd291d,#94120d);
+    top:184px;
+    left:50%;
+    transform:translateX(-50%);
+    width:405px;
+    height:70px;
+    background:linear-gradient(
+        180deg,
+        #d92718 0%,
+        #a70e0e 48%,
+        #8c0909 100%
+    );
+    z-index:12;
+    box-shadow:
+        0 5px 7px rgba(90,0,0,.18),
+        inset 0 1px rgba(255,255,255,.25);
+}
+
+.ribbon::before{
+    content:"";
+    position:absolute;
+    left:-55px;
+    top:9px;
+    width:75px;
+    height:52px;
+    background:#a50d0d;
+    clip-path:polygon(100% 0,65% 25%,100% 50%,65% 75%,100% 100%,0 100%,35% 50%,0 0);
+}
+
+.ribbon::after{
+    content:"";
+    position:absolute;
+    right:-55px;
+    top:9px;
+    width:75px;
+    height:52px;
+    background:#a50d0d;
+    transform:scaleX(-1);
+    clip-path:polygon(100% 0,65% 25%,100% 50%,65% 75%,100% 100%,0 100%,35% 50%,0 0);
+}
+
+.ribbon-text{
+    position:relative;
+    z-index:3;
+    height:70px;
     display:flex;
     align-items:center;
     justify-content:center;
-    color:#f8df79;
-    font-family:Georgia,"Times New Roman",serif;
-    font-size:28px;
+    color:#f8e7a2;
+    font-family:"Cormorant Garamond",Georgia,serif;
     font-weight:700;
-    letter-spacing:2px;
-    box-shadow:0 4px 7px rgba(90,20,10,.18);
+    font-size:29px;
+    letter-spacing:3px;
 }
 
-.ribbon-main:before,
-.ribbon-main:after{
-    content:"";
-    position:absolute;
-    width:35px;
-    height:35px;
-    background:#8b100b;
-    top:11px;
-}
-
-.ribbon-main:before{
-    left:-17px;
-    transform:skewY(28deg);
-}
-
-.ribbon-main:after{
-    right:-17px;
-    transform:skewY(-28deg);
-}
-
-/* certificate number / date */
+/* =========================
+   CERTIFICATE DETAILS
+========================= */
 
 .cert-meta{
     position:absolute;
-    top:275px;
-    left:100px;
-    right:100px;
+    top:278px;
+    left:115px;
+    right:115px;
     display:flex;
     justify-content:space-between;
-    font-size:13px;
-    color:#354c43;
+    z-index:10;
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:11px;
 }
 
 .meta-item{
-    min-width:230px;
-    border-bottom:1px dotted #8f8872;
-    padding-bottom:5px;
+    min-width:250px;
+    border-bottom:1px dotted #777;
+    padding-bottom:4px;
 }
 
-.meta-item.right{
-    text-align:right;
-}
-
-/* main statement */
-
-.cert-body{
+.cert-intro{
     position:absolute;
-    top:328px;
+    top:322px;
     left:110px;
     right:110px;
     text-align:center;
+    z-index:10;
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:13px;
+    color:#474137;
 }
 
 .presented{
+    margin-bottom:10px;
     font-style:italic;
-    font-size:16px;
-    color:#5b5e57;
-    margin-bottom:4px;
 }
 
 .student-name{
     font-family:"Great Vibes","Brush Script MT",cursive;
-    font-size:52px;
-    color:#1c2923;
+    font-size:48px;
     line-height:1.1;
-    min-height:65px;
+    color:#171717;
+    margin:2px 0 8px;
+}
+
+.student-line{
+    width:65%;
+    height:1px;
+    margin:0 auto 8px;
+    background:#8e846f;
 }
 
 .student-info{
-    display:inline-block;
-    border-top:1px solid #b6aa87;
-    border-bottom:1px solid #b6aa87;
-    padding:7px 22px;
-    margin-top:5px;
-    font-size:12px;
+    font-size:10px;
     letter-spacing:.7px;
-    color:#4d554f;
+    text-transform:uppercase;
 }
 
-.description{
-    max-width:800px;
-    margin:19px auto 0;
-    font-size:13px;
+.student-info span{
+    margin:0 8px;
+}
+
+/* =========================
+   DESCRIPTION
+========================= */
+
+.cert-description{
+    position:absolute;
+    top:460px;
+    left:155px;
+    right:155px;
+    text-align:center;
+    z-index:10;
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:12px;
     line-height:1.55;
-    color:#4b504b;
+    color:#4e493f;
 }
 
 .achievement{
     margin-top:18px;
-    font-size:20px;
+    font-family:"Cormorant Garamond",Georgia,serif;
     font-weight:700;
-    letter-spacing:1.7px;
-    color:#29483b;
+    font-size:21px;
+    letter-spacing:1.4px;
+    color:#302d26;
 }
 
 .achievement-sub{
-    margin-top:3px;
-    font-size:9px;
-    letter-spacing:1.6px;
-    color:#8b8064;
+    font-size:8px;
+    letter-spacing:1.5px;
+    margin-top:0;
+    color:#7b7465;
 }
 
-/* bottom decoration */
+/*
+  Light watermark UNDER achievement.
+*/
 
-.bottom-decoration{
+.watermark{
     position:absolute;
-    left:83px;
-    right:83px;
-    bottom:51px;
-    height:37px;
-    border-top:1px solid #d9b759;
-    border-bottom:2px solid #c69b2c;
-}
-
-.bottom-decoration:before{
-    content:"◆  ◇  ◆";
-    position:absolute;
-    top:7px;
     left:50%;
+    top:520px;
     transform:translateX(-50%);
-    color:#c69b2c;
-    font-size:12px;
-    letter-spacing:8px;
+    font-family:"Cormorant Garamond",Georgia,serif;
+    font-size:72px;
+    font-weight:700;
+    letter-spacing:4px;
+    white-space:nowrap;
+    color:rgba(172,135,33,.065);
+    z-index:1;
+    pointer-events:none;
 }
 
-/* signature */
+/* =========================
+   FOOTER
+========================= */
 
-.signature{
+.cert-footer{
     position:absolute;
-    right:105px;
-    bottom:79px;
-    width:190px;
+    left:92px;
+    right:92px;
+    bottom:64px;
+    height:86px;
+    z-index:20;
+}
+
+/*
+ left footer text
+*/
+
+.footer-left{
+    position:absolute;
+    left:5px;
+    bottom:4px;
+    font-family:Georgia,serif;
+    font-size:9px;
+    color:#5d574d;
+    letter-spacing:.4px;
+}
+
+/*
+ center logo
+*/
+
+.footer-logo{
+    position:absolute;
+    left:50%;
+    bottom:0;
+    transform:translateX(-50%);
+    width:65px;
+    height:65px;
+    object-fit:contain;
+    z-index:30;
+}
+
+/*
+ Principal signature:
+ line ABOVE,
+ text BELOW.
+*/
+
+.principal{
+    position:absolute;
+    right:5px;
+    bottom:0;
+    width:155px;
     text-align:center;
+    font-family:Georgia,"Times New Roman",serif;
+    color:#34302a;
 }
 
 .signature-line{
-    width:160px;
+    width:100%;
     height:1px;
-    background:#3f403b;
-    margin:0 auto 5px;
+    background:#625c50;
+    margin-bottom:6px;
 }
 
 .signature-label{
-    font-size:12px;
-    color:#383a36;
+    font-size:10px;
+    font-weight:600;
 }
 
-/* left footer */
+.signature-sub{
+    font-size:7px;
+    color:#777063;
+    margin-top:2px;
+}
 
-.cert-footer-left{
-    position:absolute;
-    left:105px;
-    bottom:79px;
-    font-size:9px;
-    color:#766f5c;
+/* =========================
+   MOBILE PREVIEW
+========================= */
+
+@media(max-width:700px){
+
+    .page{
+        padding:10px;
+    }
+
+    .topbar{
+        padding:0 10px;
+    }
+
+    .brand-title{
+        font-size:11px;
+    }
+
+    .brand-sub{
+        display:none;
+    }
+
+    .nav-btn{
+        padding:7px 8px;
+        font-size:9px;
+    }
+
+    .page-title{
+        font-size:20px;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .preview-wrap{
+        padding:8px;
+        overflow-x:auto;
+    }
+
+    .certificate{
+        transform-origin:top left;
+    }
 }
 
 /* =========================
@@ -634,135 +696,157 @@ textarea{
     body{
         width:297mm;
         height:210mm;
-        margin:0!important;
-        padding:0!important;
-        background:white!important;
+        margin:0 !important;
+        padding:0 !important;
+        background:#fff9e9 !important;
+        -webkit-print-color-adjust:exact !important;
+        print-color-adjust:exact !important;
     }
 
     body *{
-        visibility:hidden!important;
+        visibility:hidden !important;
     }
 
-    #printArea,
-    #printArea *{
-        visibility:visible!important;
-    }
-
-    #printArea{
-        position:absolute;
-        left:0;
-        top:0;
-        width:297mm;
-        height:210mm;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        background:#fff;
+    .certificate,
+    .certificate *{
+        visibility:visible !important;
     }
 
     .certificate{
-        width:277mm;
-        height:195mm;
-        transform:none!important;
-        margin:0!important;
-        box-shadow:none!important;
-        page-break-inside:avoid;
+        position:absolute !important;
+        left:0 !important;
+        top:0 !important;
+
+        width:297mm !important;
+        height:210mm !important;
+
+        margin:0 !important;
+        padding:0 !important;
+
+        transform:none !important;
+
+        background-color:#fff9e9 !important;
+
+        -webkit-print-color-adjust:exact !important;
+        print-color-adjust:exact !important;
+
+        overflow:hidden !important;
     }
 
-    .no-print{
-        display:none!important;
+    .certificate::before{
+        -webkit-print-color-adjust:exact !important;
+        print-color-adjust:exact !important;
+    }
+
+    .certificate::after{
+        -webkit-print-color-adjust:exact !important;
+        print-color-adjust:exact !important;
+    }
+
+    .corner{
+        -webkit-print-color-adjust:exact !important;
+        print-color-adjust:exact !important;
+    }
+
+    .ribbon,
+    .ribbon::before,
+    .ribbon::after{
+        -webkit-print-color-adjust:exact !important;
+        print-color-adjust:exact !important;
+    }
+
+    .watermark{
+        color:rgba(172,135,33,.065) !important;
+        -webkit-print-color-adjust:exact !important;
+        print-color-adjust:exact !important;
+    }
+
+    /*
+      Prevent accidental second page.
+    */
+
+    .certificate{
+        page-break-after:avoid !important;
+        break-after:avoid !important;
+    }
+
+    @page{
+        margin:0 !important;
     }
 }
 
 /* =========================
-   RESPONSIVE
+   PRINT SCALE
 ========================= */
 
-@media(max-width:700px){
-
-    .topbar{
-        padding:0 10px;
-    }
-
-    .brand-text strong{
-        font-size:12px;
-    }
-
-    .top-btn{
-        padding:7px 9px;
-        font-size:10px;
-    }
-
-    .page{
-        padding:14px 8px 30px;
-    }
-
-    .page-title{
-        font-size:22px;
-    }
-
-    .form-grid{
-        grid-template-columns:1fr;
-    }
-
-    .field.full{
-        grid-column:auto;
-    }
-
-    .preview-scroll{
-        padding:8px;
-    }
-
-    .certificate{
-        transform-origin:top left;
-    }
+.print-only{
+    display:none;
 }
+
 </style>
 </head>
 
 <body>
 
 <!-- =========================
-     HEADER
+     TOP BAR
 ========================= -->
 
-<header class="topbar no-print">
+<div class="topbar">
 
     <div class="brand">
 
-        <img src="img/logo.png" alt="Madrasa Logo"
-             onerror="this.style.display='none'">
+        <img
+            src="img/logo.png"
+            alt="Madrasha Logo"
+            onerror="this.style.display='none'"
+        >
 
-        <div class="brand-text">
-            <strong>Madrasa-e Nurul Quran</strong>
-            <span>Educational Management System</span>
+        <div>
+            <div class="brand-title">
+                Madrasha-e Nurul Quran
+            </div>
+
+            <div class="brand-sub">
+                EDUCATIONAL MANAGEMENT SYSTEM
+            </div>
         </div>
 
     </div>
 
-    <div class="top-actions">
+    <div class="nav-actions">
 
-        <button class="top-btn"
-                onclick="window.location.href='dashboard.html'">
+        <button
+            class="nav-btn"
+            onclick="location.href='dashboard.html'"
+        >
             Dashboard
         </button>
 
-        <button class="top-btn"
-                onclick="printCertificate()">
+        <button
+            class="nav-btn"
+            onclick="printCertificate()"
+        >
             Print / Save PDF
         </button>
 
     </div>
 
-</header>
+</div>
 
 
-<main class="page no-print">
+<!-- =========================
+     MAIN
+========================= -->
 
-    <h1 class="page-title">Education Certificate</h1>
+<div class="page">
+
+    <h1 class="page-title">
+        Education Certificate
+    </h1>
 
     <p class="page-subtitle">
-        Select a student. Student ID, name and class are loaded automatically and remain editable before printing.
+        Select a student. Student ID, name, class and session are loaded automatically, but every certificate field remains editable before printing.
     </p>
 
 
@@ -770,7 +854,7 @@ textarea{
          CERTIFICATE INFORMATION
     ========================= -->
 
-    <section class="card">
+    <div class="card">
 
         <h2 class="card-title">
             Certificate Information
@@ -778,20 +862,30 @@ textarea{
 
         <div class="form-grid">
 
+            <!-- STUDENT -->
+
             <div class="field">
 
-                <label>Student</label>
+                <label>
+                    Student
+                </label>
 
                 <select id="studentSelect">
-                    <option value="">Loading students...</option>
+                    <option value="">
+                        Loading students...
+                    </option>
                 </select>
 
             </div>
 
 
+            <!-- STUDENT ID -->
+
             <div class="field">
 
-                <label>Student ID</label>
+                <label>
+                    Student ID
+                </label>
 
                 <input
                     type="text"
@@ -802,9 +896,13 @@ textarea{
             </div>
 
 
+            <!-- STUDENT NAME -->
+
             <div class="field">
 
-                <label>Student Name</label>
+                <label>
+                    Student Name
+                </label>
 
                 <input
                     type="text"
@@ -815,9 +913,13 @@ textarea{
             </div>
 
 
+            <!-- CLASS -->
+
             <div class="field">
 
-                <label>Class</label>
+                <label>
+                    Class
+                </label>
 
                 <input
                     type="text"
@@ -828,22 +930,30 @@ textarea{
             </div>
 
 
+            <!-- CERTIFICATE TITLE -->
+
             <div class="field">
 
-                <label>Certificate Title</label>
+                <label>
+                    Certificate Title
+                </label>
 
                 <input
                     type="text"
                     id="certificateTitle"
-                    value="CERTIFICATE"
+                    value="Certificate"
                 >
 
             </div>
 
 
+            <!-- ACHIEVEMENT -->
+
             <div class="field">
 
-                <label>Achievement</label>
+                <label>
+                    Achievement
+                </label>
 
                 <input
                     type="text"
@@ -854,22 +964,30 @@ textarea{
             </div>
 
 
+            <!-- CERTIFICATE NO -->
+
             <div class="field">
 
-                <label>Certificate No.</label>
+                <label>
+                    Certificate No.
+                </label>
 
                 <input
                     type="text"
                     id="certificateNo"
-                    placeholder="Auto generated"
+                    readonly
                 >
 
             </div>
 
 
+            <!-- DATE -->
+
             <div class="field">
 
-                <label>Certificate Date</label>
+                <label>
+                    Certificate Date
+                </label>
 
                 <input
                     type="date"
@@ -879,22 +997,29 @@ textarea{
             </div>
 
 
+            <!-- SESSION -->
+
             <div class="field">
 
-                <label>Academic Session</label>
+                <label>
+                    Academic Session
+                </label>
 
                 <input
                     type="text"
                     id="academicSession"
-                    placeholder="Academic Session"
                 >
 
             </div>
 
 
+            <!-- PRINCIPAL -->
+
             <div class="field">
 
-                <label>Principal Name</label>
+                <label>
+                    Principal Name
+                </label>
 
                 <input
                     type="text"
@@ -905,11 +1030,15 @@ textarea{
             </div>
 
 
+            <!-- DESCRIPTION -->
+
             <div class="field full">
 
-                <label>Certificate Description</label>
+                <label>
+                    Certificate Description
+                </label>
 
-                <textarea id="certificateDescription">This is to certify that the above-named student has successfully completed the prescribed educational requirements of the stated class at Madrasa-e Nurul Quran, Lakshmipur. The student has demonstrated sincere effort, good conduct, discipline and dedication to learning. We wish the student continued success in education and in life.</textarea>
+                <textarea id="certificateDescription">This is to certify that the above-named student has successfully completed the prescribed educational requirements of the stated class at Madrasha E Nurul Quran, Lakshmipur. The student has demonstrated sincere effort, good conduct, discipline and dedication to learning. We wish the student continued success in education and in life.</textarea>
 
             </div>
 
@@ -918,53 +1047,64 @@ textarea{
 
         <div class="action-row">
 
-            <button class="btn btn-blue"
-                    onclick="loadSelectedStudent()">
+            <button
+                class="btn btn-blue"
+                onclick="loadSelectedStudent()"
+            >
                 Load Student
             </button>
 
-            <button class="btn btn-gray"
-                    onclick="loadStudents()">
+            <button
+                class="btn btn-gray"
+                onclick="loadStudents()"
+            >
                 Refresh Students
             </button>
 
-            <button class="btn btn-gold"
-                    onclick="printCertificate()">
+            <button
+                class="btn btn-gold"
+                onclick="printCertificate()"
+            >
                 Print A4 / Save PDF
             </button>
 
-            <button class="btn btn-red"
-                    onclick="resetCertificate()">
+            <button
+                class="btn btn-red"
+                onclick="resetCertificate()"
+            >
                 Reset
             </button>
 
         </div>
 
-        <div id="statusMessage" class="status">
-            Loading student information...
+        <div
+            class="status"
+            id="status"
+        >
+            Ready.
         </div>
 
-    </section>
+    </div>
 
 
     <!-- =========================
          PREVIEW
     ========================= -->
 
-    <section class="preview-card">
+    <div class="card preview-card">
 
-        <h2 class="preview-title">
+        <h2 class="card-title">
             Certificate Preview
         </h2>
 
-        <div class="preview-scroll">
+        <div class="preview-wrap">
 
-            <div id="previewCertificate"
-                 class="certificate">
+            <div
+                class="certificate"
+                id="certificate"
+            >
 
-                <!-- OUTER FRAME -->
-
-                <div class="cert-outer"></div>
+                <!-- Decorative corners -->
 
                 <div class="corner tl"></div>
                 <div class="corner tr"></div>
@@ -972,51 +1112,36 @@ textarea{
                 <div class="corner br"></div>
 
 
-                <!-- TOP DECORATION -->
-
-                <div class="top-decoration"></div>
-
-
-                <!-- LOGO -->
-
-                <img
-                    id="previewLogo"
-                    class="cert-logo"
-                    src="img/logo.png"
-                    alt="Madrasa Logo"
-                    onerror="this.style.display='none'"
-                >
-
-
                 <!-- HEADER -->
 
                 <div class="cert-header">
 
-                    <div class="institution">
-                        MADRASA-E NURUL QURAN, LAKSHMIPUR
+                    <div
+                        class="cert-org"
+                        id="previewOrg"
+                    >
+                        MADRASHA E NURUL QURAN, LAKSHMIPUR
                     </div>
 
-                    <div class="arabic-line">
-                        مَدْرَسَةُ نُورِ الْقُرْآنِ
+                    <div class="cert-arabic">
+                        مدرسة نور القرآن
                     </div>
 
-                    <div class="header-rule"></div>
+                    <div class="header-line"></div>
 
                 </div>
 
 
-                <!-- RIBBON -->
+                <!-- SINGLE CERTIFICATE RIBBON -->
 
-                <div class="ribbon-area">
+                <div class="ribbon">
 
-                    <div class="ribbon-left"></div>
-
-                    <div class="ribbon-main"
-                         id="previewCertificateTitle">
+                    <div
+                        class="ribbon-text"
+                        id="previewTitle"
+                    >
                         CERTIFICATE
                     </div>
-
-                    <div class="ribbon-right"></div>
 
                 </div>
 
@@ -1027,30 +1152,39 @@ textarea{
 
                     <div class="meta-item">
                         Certificate No.
-                        <strong id="previewCertificateNo">MNQ-26-A7K42</strong>
+                        &nbsp;
+                        <strong id="previewCertificateNo">
+                            MNQ-CERT-000000
+                        </strong>
                     </div>
 
-                    <div class="meta-item right">
+                    <div class="meta-item" style="text-align:right;">
                         Date
-                        <strong id="previewDate">11/09/2026</strong>
+                        &nbsp;
+                        <strong id="previewDate">
+                            00/00/0000
+                        </strong>
                     </div>
 
                 </div>
 
 
-                <!-- BODY -->
+                <!-- STUDENT -->
 
-                <div class="cert-body">
+                <div class="cert-intro">
 
                     <div class="presented">
                         This Certificate is Proudly Presented to
                     </div>
 
-                    <div class="student-name"
-                         id="previewStudentName">
+                    <div
+                        class="student-name"
+                        id="previewStudentName"
+                    >
                         Student Name
                     </div>
 
+                    <div class="student-line"></div>
 
                     <div class="student-info">
 
@@ -1061,16 +1195,16 @@ textarea{
                             </strong>
                         </span>
 
-                        <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+                        <span>|</span>
 
                         <span>
                             CLASS:
-                            <strong id="previewStudentClass">
+                            <strong id="previewClass">
                                 —
                             </strong>
                         </span>
 
-                        <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+                        <span>|</span>
 
                         <span>
                             SESSION:
@@ -1081,17 +1215,21 @@ textarea{
 
                     </div>
 
+                </div>
 
-                    <div class="description"
-                         id="previewDescription">
 
-                        This is to certify that the above-named student has successfully completed the prescribed educational requirements of the stated class at Madrasa-e Nurul Quran, Lakshmipur. The student has demonstrated sincere effort, good conduct, discipline and dedication to learning. We wish the student continued success in education and in life.
+                <!-- DESCRIPTION -->
 
+                <div class="cert-description">
+
+                    <div id="previewDescription">
+                        This is to certify that the above-named student has successfully completed the prescribed educational requirements of the stated class at Madrasha E Nurul Quran, Lakshmipur. The student has demonstrated sincere effort, good conduct, discipline and dedication to learning. We wish the student continued success in education and in life.
                     </div>
 
-
-                    <div class="achievement"
-                         id="previewAchievement">
+                    <div
+                        class="achievement"
+                        id="previewAchievement"
+                    >
                         ACADEMIC ACHIEVEMENT
                     </div>
 
@@ -1102,27 +1240,51 @@ textarea{
                 </div>
 
 
-                <!-- BOTTOM DECORATION -->
+                <!-- LOW OPACITY WATERMARK -->
 
-                <div class="bottom-decoration"></div>
-
-
-                <!-- LEFT FOOTER -->
-
-                <div class="cert-footer-left">
-                    Madrasa-e Nurul Quran, Lakshmipur
+                <div class="watermark">
+                    ACADEMIC ACHIEVEMENT
                 </div>
 
 
-                <!-- PRINCIPAL SIGNATURE -->
+                <!-- FOOTER -->
 
-                <div class="signature">
+                <div class="cert-footer">
 
-                    <div class="signature-line"></div>
+                    <!-- LEFT -->
 
-                    <div class="signature-label"
-                         id="previewPrincipalName">
-                        Principal Signature
+                    <div class="footer-left">
+                        MADRASHA E NURUL QURAN, LAKSHMIPUR
+                    </div>
+
+
+                    <!-- CENTER LOGO -->
+
+                    <img
+                        src="img/logo.png"
+                        alt="Madrasha Logo"
+                        class="footer-logo"
+                        onerror="this.style.display='none'"
+                    >
+
+
+                    <!-- PRINCIPAL -->
+
+                    <div class="principal">
+
+                        <div class="signature-line"></div>
+
+                        <div
+                            class="signature-label"
+                            id="previewPrincipal"
+                        >
+                            Principal Signature
+                        </div>
+
+                        <div class="signature-sub">
+                            Madrasha E Nurul Quran, Lakshmipur
+                        </div>
+
                     </div>
 
                 </div>
@@ -1131,19 +1293,7 @@ textarea{
 
         </div>
 
-    </section>
-
-</main>
-
-
-<!-- =========================
-     PRINT AREA
-========================= -->
-
-<div id="printArea"
-     style="display:none;">
-
-    <div id="printCertificateHolder"></div>
+    </div>
 
 </div>
 
@@ -1151,7 +1301,7 @@ textarea{
 <script>
 
 /* =========================================================
-   SUPABASE CONFIG
+   SUPABASE
 ========================================================= */
 
 const SUPABASE_URL =
@@ -1160,69 +1310,119 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
     "sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
 
-let supabaseClient = null;
-
-try {
-
-    supabaseClient =
-        window.supabase.createClient(
-            SUPABASE_URL,
-            SUPABASE_KEY
-        );
-
-} catch(error){
-
-    console.error(
-        "Supabase initialization error:",
-        error
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
     );
-
-}
 
 
 /* =========================================================
-   GLOBAL DATA
+   GLOBAL
 ========================================================= */
 
 let students = [];
 
-let currentStudent = null;
-
 
 /* =========================================================
-   ELEMENT HELPER
+   ELEMENTS
 ========================================================= */
 
-function $(id){
+const studentSelect =
+    document.getElementById("studentSelect");
 
-    return document.getElementById(id);
+const studentId =
+    document.getElementById("studentId");
 
-}
+const studentName =
+    document.getElementById("studentName");
+
+const studentClass =
+    document.getElementById("studentClass");
+
+const certificateTitle =
+    document.getElementById("certificateTitle");
+
+const achievement =
+    document.getElementById("achievement");
+
+const certificateNo =
+    document.getElementById("certificateNo");
+
+const certificateDate =
+    document.getElementById("certificateDate");
+
+const academicSession =
+    document.getElementById("academicSession");
+
+const principalName =
+    document.getElementById("principalName");
+
+const certificateDescription =
+    document.getElementById("certificateDescription");
+
+const statusBox =
+    document.getElementById("status");
 
 
 /* =========================================================
-   DATE
+   DEFAULT DATE
 ========================================================= */
 
 function setToday(){
 
-    const date =
+    const now =
         new Date();
 
     const year =
-        date.getFullYear();
+        now.getFullYear();
 
     const month =
-        String(date.getMonth()+1).padStart(2,"0");
+        String(
+            now.getMonth()+1
+        ).padStart(2,"0");
 
     const day =
-        String(date.getDate()).padStart(2,"0");
+        String(
+            now.getDate()
+        ).padStart(2,"0");
 
-    $("certificateDate").value =
+    certificateDate.value =
         `${year}-${month}-${day}`;
+}
 
-    updatePreview();
 
+/* =========================================================
+   AUTO CERTIFICATE NUMBER
+========================================================= */
+
+function generateCertificateNumber(){
+
+    const chars =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+    let random =
+        "";
+
+    for(let i=0;i<6;i++){
+
+        random +=
+            chars.charAt(
+                Math.floor(
+                    Math.random() *
+                    chars.length
+                )
+            );
+
+    }
+
+    const year =
+        new Date()
+            .getFullYear()
+            .toString()
+            .slice(-2);
+
+    return `MNQ-CERT-${year}${random}`;
 }
 
 
@@ -1233,93 +1433,17 @@ function setToday(){
 function formatDate(dateValue){
 
     if(!dateValue){
-
-        return "";
-
+        return "00/00/0000";
     }
 
     const parts =
         dateValue.split("-");
 
     if(parts.length !== 3){
-
         return dateValue;
-
     }
 
     return `${parts[2]}/${parts[1]}/${parts[0]}`;
-
-}
-
-
-/* =========================================================
-   CERTIFICATE NUMBER
-========================================================= */
-
-function generateCertificateNumber(){
-
-    const year =
-        String(
-            new Date().getFullYear()
-        ).slice(-2);
-
-    const letters =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-    let code = "";
-
-    for(let i=0;i<2;i++){
-
-        code +=
-            letters[
-                Math.floor(
-                    Math.random() *
-                    letters.length
-                )
-            ];
-
-    }
-
-    let numbers = "";
-
-    for(let i=0;i<3;i++){
-
-        numbers +=
-            Math.floor(
-                Math.random()*10
-            );
-
-    }
-
-    const finalLetter =
-        letters[
-            Math.floor(
-                Math.random() *
-                letters.length
-            )
-        ];
-
-    return `MNQ-${year}-${code}${numbers}${finalLetter}`;
-
-}
-
-
-/* =========================================================
-   GENERATE UNIQUE-LOOKING NUMBER
-========================================================= */
-
-function ensureCertificateNumber(){
-
-    const input =
-        $("certificateNo");
-
-    if(!input.value.trim()){
-
-        input.value =
-            generateCertificateNumber();
-
-    }
-
 }
 
 
@@ -1329,80 +1453,96 @@ function ensureCertificateNumber(){
 
 async function loadStudents(){
 
-    const select =
-        $("studentSelect");
+    statusBox.textContent =
+        "Loading students...";
 
-    const status =
-        $("statusMessage");
-
-    select.innerHTML =
+    studentSelect.innerHTML =
         `<option value="">Loading students...</option>`;
-
-    status.textContent =
-        "Loading student information...";
 
     try{
 
-        if(!supabaseClient){
+        const {
+            data,
+            error
+        } = await supabaseClient
+            .from("students")
+            .select(`
+                id,
+                student_id,
+                roll_number,
+                name,
+                class_id,
+                session
+            `)
+            .order("student_id",{
+                ascending:true
+            });
 
-            throw new Error(
-                "Supabase is not initialized."
-            );
-
-        }
-
-        const result =
-            await supabaseClient
-                .from("students")
-                .select(`
-                    id,
-                    student_id,
-                    roll_number,
-                    name,
-                    father_name,
-                    mother_name,
-                    phone,
-                    class_id,
-                    session,
-                    admission_date,
-                    address,
-                    photo_url,
-                    created_at
-                `)
-                .order(
-                    "name",
-                    {
-                        ascending:true
-                    }
-                );
-
-        if(result.error){
-
-            throw result.error;
-
+        if(error){
+            throw error;
         }
 
         students =
-            result.data || [];
+            data || [];
 
-        if(!students.length){
+        /*
+          Load class names separately.
+        */
 
-            select.innerHTML =
-                `<option value="">
-                    No students found
-                </option>`;
+        let classMap = {};
 
-            status.textContent =
-                "No students found in the students table.";
+        try{
 
-            return;
+            const {
+                data: classes
+            } = await supabaseClient
+                .from("classes")
+                .select("id,name");
 
+            (classes || [])
+                .forEach(c => {
+
+                    classMap[
+                        String(c.id)
+                    ] = c.name;
+
+                });
+
+        }catch(e){
+            console.warn(
+                "Classes could not be loaded",
+                e
+            );
         }
 
-        select.innerHTML =
+
+        /*
+          Attach class name.
+        */
+
+        students =
+            students.map(s => {
+
+                return {
+                    ...s,
+
+                    class_name:
+                        classMap[
+                            String(s.class_id)
+                        ] ||
+                        s.class_name ||
+                        ""
+
+                };
+
+            });
+
+
+        studentSelect.innerHTML =
             `<option value="">
                 Select Student
             </option>`;
+
 
         students.forEach(student => {
 
@@ -1412,60 +1552,44 @@ async function loadStudents(){
             option.value =
                 student.id;
 
-            const id =
-                student.student_id || "";
+            const idText =
+                student.student_id ||
+                "NO-ID";
 
-            const name =
-                student.name || "";
-
-            const roll =
-                student.roll_number
-                ? ` — Roll ${student.roll_number}`
-                : "";
+            const nameText =
+                student.name ||
+                "Unnamed Student";
 
             option.textContent =
-                `${id} — ${name}${roll}`;
+                `${idText} — ${nameText}`;
 
-            select.appendChild(option);
+            studentSelect.appendChild(
+                option
+            );
 
         });
 
-        status.textContent =
+
+        statusBox.textContent =
             `${students.length} student(s) loaded.`;
+
 
     }catch(error){
 
-        console.error(
-            "Student loading error:",
-            error
-        );
+        console.error(error);
 
-        select.innerHTML =
+        studentSelect.innerHTML =
             `<option value="">
                 Unable to load students
             </option>`;
 
-        status.textContent =
-            "Could not load students. Check Supabase connection and students table.";
+        statusBox.textContent =
+            "Could not load students: " +
+            (error.message || error);
 
     }
 
 }
-
-
-/* =========================================================
-   STUDENT SELECT CHANGE
-========================================================= */
-
-$("studentSelect")
-    .addEventListener(
-        "change",
-        function(){
-
-            loadSelectedStudent();
-
-        }
-    );
 
 
 /* =========================================================
@@ -1475,124 +1599,180 @@ $("studentSelect")
 function loadSelectedStudent(){
 
     const selectedId =
-        $("studentSelect").value;
+        studentSelect.value;
 
     if(!selectedId){
 
-        currentStudent = null;
+        statusBox.textContent =
+            "Please select a student.";
 
         return;
-
     }
 
     const student =
         students.find(
-            item =>
-                String(item.id) ===
+            s =>
+                String(s.id) ===
                 String(selectedId)
         );
 
     if(!student){
 
-        return;
+        statusBox.textContent =
+            "Student information not found.";
 
+        return;
     }
 
-    currentStudent =
-        student;
 
-    $("studentId").value =
+    /*
+      Auto-fill.
+      Every field remains editable.
+    */
+
+    studentId.value =
         student.student_id || "";
 
-    $("studentName").value =
+    studentName.value =
         student.name || "";
 
-    $("studentClass").value =
-        getStudentClass(student);
+    studentClass.value =
+        student.class_name ||
+        student.class ||
+        "";
 
-    $("academicSession").value =
-        student.session || "";
+    academicSession.value =
+        student.session ||
+        new Date()
+            .getFullYear()
+            .toString();
 
-    ensureCertificateNumber();
+
+    /*
+      Generate certificate number
+      independently from Student ID.
+    */
+
+    certificateNo.value =
+        generateCertificateNumber();
+
 
     updatePreview();
 
-    $("statusMessage").textContent =
-        "Student information loaded. All certificate fields remain editable.";
+
+    statusBox.textContent =
+        "Student information loaded.";
 
 }
 
 
 /* =========================================================
-   CLASS RESOLUTION
+   PREVIEW UPDATE
 ========================================================= */
 
-function getStudentClass(student){
+function updatePreview(){
 
-    if(!student){
+    document.getElementById(
+        "previewTitle"
+    ).textContent =
+        (
+            certificateTitle.value ||
+            "Certificate"
+        ).toUpperCase();
 
-        return "";
 
-    }
+    document.getElementById(
+        "previewCertificateNo"
+    ).textContent =
+        certificateNo.value ||
+        "MNQ-CERT-000000";
 
-    /*
-      Most installations keep the class relation
-      in class_id. If a class name is directly available
-      in the returned object, use it first.
-    */
 
-    if(student.class_name){
+    document.getElementById(
+        "previewDate"
+    ).textContent =
+        formatDate(
+            certificateDate.value
+        );
 
-        return student.class_name;
 
-    }
+    document.getElementById(
+        "previewStudentName"
+    ).textContent =
+        studentName.value ||
+        "Student Name";
 
-    if(student.class){
 
-        return student.class;
+    document.getElementById(
+        "previewStudentId"
+    ).textContent =
+        studentId.value ||
+        "—";
 
-    }
 
-    /*
-      If only class_id exists, display the ID.
-      This keeps the page working even when the
-      classes relation is not loaded.
-    */
+    document.getElementById(
+        "previewClass"
+    ).textContent =
+        studentClass.value ||
+        "—";
 
-    if(student.class_id){
 
-        return String(student.class_id);
+    document.getElementById(
+        "previewSession"
+    ).textContent =
+        academicSession.value ||
+        "—";
 
-    }
 
-    return "";
+    document.getElementById(
+        "previewDescription"
+    ).textContent =
+        certificateDescription.value ||
+        "";
+
+
+    document.getElementById(
+        "previewAchievement"
+    ).textContent =
+        (
+            achievement.value ||
+            "ACADEMIC ACHIEVEMENT"
+        ).toUpperCase();
+
+
+    document.getElementById(
+        "previewPrincipal"
+    ).textContent =
+        principalName.value ||
+        "Principal Signature";
 
 }
 
 
 /* =========================================================
-   INPUT EVENTS
+   LIVE PREVIEW
 ========================================================= */
 
 [
-    "studentId",
-    "studentName",
-    "studentClass",
-    "certificateTitle",
-    "achievement",
-    "certificateNo",
-    "certificateDate",
-    "academicSession",
-    "principalName",
-    "certificateDescription"
-].forEach(id => {
+    studentId,
+    studentName,
+    studentClass,
+    certificateTitle,
+    achievement,
+    certificateNo,
+    certificateDate,
+    academicSession,
+    principalName,
+    certificateDescription
 
-    $(id).addEventListener(
+].forEach(element => {
+
+    element.addEventListener(
         "input",
         updatePreview
     );
 
-    $(id).addEventListener(
+    element.addEventListener(
         "change",
         updatePreview
     );
@@ -1601,178 +1781,94 @@ function getStudentClass(student){
 
 
 /* =========================================================
-   UPDATE PREVIEW
-========================================================= */
-
-function updatePreview(){
-
-    ensureCertificateNumber();
-
-    $("previewStudentId").textContent =
-        $("studentId").value.trim() || "—";
-
-    $("previewStudentName").textContent =
-        $("studentName").value.trim()
-        || "Student Name";
-
-    $("previewStudentClass").textContent =
-        $("studentClass").value.trim()
-        || "—";
-
-    $("previewSession").textContent =
-        $("academicSession").value.trim()
-        || "—";
-
-    $("previewCertificateTitle").textContent =
-        $("certificateTitle").value.trim()
-        || "CERTIFICATE";
-
-    $("previewCertificateNo").textContent =
-        $("certificateNo").value.trim()
-        || "—";
-
-    $("previewDate").textContent =
-        formatDate(
-            $("certificateDate").value
-        ) || "—";
-
-    $("previewDescription").textContent =
-        $("certificateDescription").value.trim()
-        || "";
-
-    $("previewAchievement").textContent =
-        $("achievement").value.trim()
-        || "ACADEMIC ACHIEVEMENT";
-
-    const principal =
-        $("principalName").value.trim();
-
-    $("previewPrincipalName").textContent =
-        principal
-        ? principal
-        : "Principal Signature";
-
-}
-
-
-/* =========================================================
    RESET
 ========================================================= */
 
 function resetCertificate(){
 
-    $("studentSelect").value = "";
+    studentSelect.value = "";
 
-    $("studentId").value = "";
+    studentId.value = "";
 
-    $("studentName").value = "";
+    studentName.value = "";
 
-    $("studentClass").value = "";
+    studentClass.value = "";
 
-    $("certificateTitle").value =
-        "CERTIFICATE";
+    certificateTitle.value =
+        "Certificate";
 
-    $("achievement").value =
+    achievement.value =
         "ACADEMIC ACHIEVEMENT";
 
-    $("certificateNo").value =
+    certificateNo.value =
         generateCertificateNumber();
-
-    $("academicSession").value =
-        new Date().getFullYear();
-
-    $("principalName").value =
-        "Principal";
-
-    $("certificateDescription").value =
-        "This is to certify that the above-named student has successfully completed the prescribed educational requirements of the stated class at Madrasa-e Nurul Quran, Lakshmipur. The student has demonstrated sincere effort, good conduct, discipline and dedication to learning. We wish the student continued success in education and in life.";
-
-    currentStudent = null;
 
     setToday();
 
-    $("statusMessage").textContent =
-        "Certificate has been reset.";
+    academicSession.value =
+        new Date()
+            .getFullYear()
+            .toString();
+
+    principalName.value =
+        "Principal";
+
+    certificateDescription.value =
+        "This is to certify that the above-named student has successfully completed the prescribed educational requirements of the stated class at Madrasha E Nurul Quran, Lakshmipur. The student has demonstrated sincere effort, good conduct, discipline and dedication to learning. We wish the student continued success in education and in life.";
 
     updatePreview();
+
+    statusBox.textContent =
+        "Certificate form reset.";
 
 }
 
 
 /* =========================================================
-   PRINT / SAVE PDF
+   PRINT
 ========================================================= */
 
 function printCertificate(){
 
     updatePreview();
 
-    const original =
-        $("previewCertificate");
-
-    const printHolder =
-        $("printCertificateHolder");
-
-    printHolder.innerHTML = "";
-
-    const clone =
-        original.cloneNode(true);
-
-    clone.id =
-        "printCertificate";
-
-    printHolder.appendChild(clone);
-
-    $("printArea").style.display =
-        "flex";
-
     /*
-      Give browser enough time to paint the
-      certificate before opening print dialog.
+      Browser print dialog.
+      User should select:
+      - Paper: A4
+      - Layout: Landscape
+      - Margins: None
+      - Background graphics: ON
     */
 
-    setTimeout(() => {
-
-        window.print();
-
-        setTimeout(() => {
-
-            $("printArea").style.display =
-                "none";
-
-            printHolder.innerHTML = "";
-
-        },700);
-
-    },250);
+    window.print();
 
 }
 
 
 /* =========================================================
-   INITIALIZATION
-========================================================= */
-
-async function initialize(){
-
-    ensureCertificateNumber();
-
-    setToday();
-
-    updatePreview();
-
-    await loadStudents();
-
-}
-
-
-/* =========================================================
-   START
+   INITIALIZE
 ========================================================= */
 
 document.addEventListener(
     "DOMContentLoaded",
-    initialize
+    async function(){
+
+        setToday();
+
+        certificateNo.value =
+            generateCertificateNumber();
+
+        academicSession.value =
+            new Date()
+                .getFullYear()
+                .toString();
+
+        updatePreview();
+
+        await loadStudents();
+
+    }
 );
 
 </script>
