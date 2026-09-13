@@ -1,23 +1,15 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="bn">
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#071225">
 
-<title>Admin Dashboard | মাদরাসায়ে নূরুল কুরআন</title>
+<title>Dashboard | মাদরাসায়ে নূরুল কুরআন</title>
 
 <link rel="stylesheet"
 href="https://banglawebfonts.pages.dev/css/bornomala.css">
-
-<style>
-html,body,button,input,textarea,select{
-    font-family:"Bornomala",serif!important;
-}
-body{
-    font-family:"Bornomala",serif!important;
-}
-</style>
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -27,990 +19,1692 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 <style>
 
 :root{
-    --primary:#54b3d0;
-    --primary-dark:#08739b;
-    --primary-deep:#075b7c;
-    --primary-light:#eaf8fc;
-    --bg:#f1f7f9;
-    --card:#ffffff;
-    --text:#18323d;
-    --muted:#71818a;
-    --border:rgba(8,115,155,.12);
-    --shadow:0 8px 28px rgba(15,72,92,.09);
-    --radius:20px;
+    --navy:#071225;
+    --navy2:#0b1932;
+    --navy3:#102544;
+
+    --glass:rgba(255,255,255,.055);
+    --glass2:rgba(255,255,255,.085);
+    --line:rgba(255,255,255,.10);
+
+    --white:#f6f9ff;
+    --muted:#96a4ba;
+
+    --cyan:#79d7ee;
+    --gold:#e6bd69;
+
+    --success:#69d3a0;
+    --danger:#ff8795;
+
+    --shadow:0 18px 55px rgba(0,0,0,.18);
 }
 
 *{
+    box-sizing:border-box;
     margin:0;
     padding:0;
-    box-sizing:border-box;
 }
 
 html{
     scroll-behavior:smooth;
 }
 
+html,
+body,
+button,
+input,
+select,
+textarea{
+    font-family:"Bornomala",serif!important;
+}
+
 body{
-    font-family:"Bornomala","Noto Sans Bengali",sans-serif;
-    background:var(--bg);
-    color:var(--text);
+
+    min-height:100vh;
+
+    color:var(--white);
+
+    background:
+
+        radial-gradient(
+            circle at 10% 0%,
+            #122c51 0,
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 100% 20%,
+            rgba(230,189,105,.08),
+            transparent 25%
+        ),
+
+        linear-gradient(
+            145deg,
+            #040b18,
+            #08152b 55%,
+            #050d1c
+        );
+
     overflow-x:hidden;
 }
 
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+    opacity:.16;
+
+    background-image:
+
+        linear-gradient(
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        ),
+
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        );
+
+    background-size:44px 44px;
+
+}
+
 a{
-    text-decoration:none;
     color:inherit;
+    text-decoration:none;
 }
 
 button{
-    font-family:inherit;
-}
-
-
-/* TOP BAR */
-
-.topbar{
-    height:76px;
-    background:
-        linear-gradient(
-            135deg,
-            #58b8d4,
-            #4caecb 55%,
-            #42a5c5
-        );
-    color:#fff;
-    display:flex;
-    align-items:center;
-    position:sticky;
-    top:0;
-    z-index:1000;
-    box-shadow:0 4px 18px rgba(0,90,120,.16);
-}
-
-.topbar-inner{
-    width:100%;
-    max-width:1400px;
-    margin:auto;
-    padding:0 22px;
-    display:flex;
-    align-items:center;
-    gap:20px;
-}
-
-.menu-btn{
-    width:48px;
-    height:48px;
-    border:0;
-    background:transparent;
-    color:#fff;
-    font-size:28px;
     cursor:pointer;
+}
+
+
+/* =========================
+   TOP BAR
+========================= */
+
+.top{
+
+    height:76px;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
+
+    background:
+        rgba(5,13,28,.82);
+
+    backdrop-filter:blur(22px);
+
+    border-bottom:
+        1px solid var(--line);
+
+}
+
+.topin{
+
+    width:100%;
+
+    max-width:1500px;
+
+    height:100%;
+
+    margin:auto;
+
+    padding:0 20px;
+
     display:flex;
+
     align-items:center;
-    justify-content:center;
+
+    gap:12px;
+
+}
+
+.menu,
+.ib,
+.lang{
+
+    height:44px;
+
+    border:
+        1px solid var(--line);
+
+    background:
+        var(--glass);
+
+    color:#fff;
+
+    border-radius:14px;
+
+    display:grid;
+
+    place-items:center;
+
+}
+
+.menu,
+.ib{
+
+    width:44px;
+
+}
+
+.menu:hover,
+.ib:hover{
+
+    background:
+        rgba(121,215,238,.10);
+
+    border-color:
+        rgba(121,215,238,.25);
+
 }
 
 .brand{
+
     display:flex;
+
     align-items:center;
-    gap:12px;
+
+    gap:11px;
+
     flex:1;
+
+    min-width:0;
+
 }
 
-.brand-icon{
-    width:46px;
-    height:46px;
+.logo{
+
+    width:44px;
+
+    height:44px;
+
     border-radius:14px;
-    background:rgba(255,255,255,.16);
-    backdrop-filter:blur(10px);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:21px;
+
+    display:grid;
+
+    place-items:center;
+
+    color:var(--cyan);
+
+    background:
+        rgba(121,215,238,.08);
+
+    border:
+        1px solid rgba(121,215,238,.16);
+
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.3),
-        0 5px 15px rgba(0,0,0,.08);
+        inset 0 1px 0 rgba(255,255,255,.08);
+
 }
 
-.brand-text{
-    font-size:20px;
+.bt{
+
+    font-size:19px;
+
     font-weight:800;
-    line-height:1.3;
+
+    white-space:nowrap;
+
 }
 
-.brand-text small{
+.bt small{
+
     display:block;
-    font-family:Arial,sans-serif;
-    font-size:10px;
-    font-weight:600;
-    letter-spacing:1px;
-    opacity:.85;
+
+    font:
+        700 9px Arial;
+
+    color:#718198;
+
+    letter-spacing:2px;
+
+    margin-top:3px;
+
 }
 
-.top-actions{
+.actions{
+
     display:flex;
+
     align-items:center;
-    gap:10px;
+
+    gap:7px;
+
 }
 
-.top-action{
-    width:43px;
-    height:43px;
+.lang{
+
+    padding:0 12px;
+
+    font-size:11px;
+
+}
+
+.lang.active{
+
+    color:var(--gold);
+
+    border-color:
+        rgba(230,189,105,.45);
+
+    background:
+        rgba(230,189,105,.07);
+
+}
+
+.logout{
+
+    height:44px;
+
+    padding:0 14px;
+
     border-radius:14px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:#fff;
-    background:rgba(255,255,255,.13);
-    border:1px solid rgba(255,255,255,.25);
-    backdrop-filter:blur(10px);
-    cursor:pointer;
-    transition:.3s;
+
+    color:#ffb0ba;
+
+    background:
+        rgba(255,135,149,.06);
+
+    border:
+        1px solid rgba(255,135,149,.2);
+
 }
 
-.top-action:hover{
-    transform:translateY(-3px);
-    background:rgba(255,255,255,.25);
-}
+.logout:hover{
 
-.logout-btn{
-    padding:10px 17px;
-    border:1px solid rgba(255,255,255,.55);
-    border-radius:12px;
-    color:#fff;
-    background:transparent;
-    cursor:pointer;
-    font-family:Arial,sans-serif;
+    background:
+        rgba(255,135,149,.12);
+
 }
 
 
-/* SIDEBAR */
+/* =========================
+   SIDEBAR
+========================= */
 
-.sidebar{
+.side{
+
     position:fixed;
+
+    left:0;
+
     top:76px;
-    left:0;
+
     bottom:0;
-    width:275px;
-    background:#fff;
-    border-right:1px solid var(--border);
-    box-shadow:10px 0 30px rgba(0,70,90,.05);
-    padding:20px 14px;
+
+    width:280px;
+
+    z-index:950;
+
+    padding:16px 12px;
+
     overflow-y:auto;
-    z-index:900;
-    transform:translateX(0);
-    transition:.35s;
+
+    background:
+        rgba(6,15,31,.94);
+
+    backdrop-filter:blur(24px);
+
+    border-right:
+        1px solid var(--line);
+
+    transition:.3s;
+
 }
 
-.sidebar-header{
-    padding:10px 12px 18px;
-    font-family:Arial,sans-serif;
-    font-size:11px;
-    font-weight:700;
-    letter-spacing:1px;
-    color:var(--muted);
+.sidehead{
+
+    padding:
+        7px 12px;
+
+    color:#69778d;
+
+    font:
+        700 10px Arial;
+
+    letter-spacing:2px;
+
 }
 
-.nav-item{
-    position:relative;
+.gt{
+
+    padding:
+        12px 12px 5px;
+
+    color:#5f6d83;
+
+    font-size:10px;
+
+}
+
+.nav{
+
     display:flex;
+
     align-items:center;
-    gap:13px;
-    padding:12px 14px;
-    margin-bottom:5px;
+
+    gap:11px;
+
+    padding:10px 13px;
+
     border-radius:14px;
-    color:#415761;
-    font-size:14px;
-    font-weight:600;
-    transition:.25s;
-}
 
-.nav-item i{
-    width:28px;
-    color:var(--primary-dark);
-    font-size:17px;
-    text-align:center;
-}
+    margin:3px 0;
 
-.nav-item:hover{
-    background:var(--primary-light);
-    color:var(--primary-dark);
-    transform:translateX(4px);
-}
+    color:#b8c3d4;
 
-.nav-item.active{
-    background:
-        linear-gradient(
-            135deg,
-            rgba(84,179,208,.18),
-            rgba(8,115,155,.08)
-        );
-    color:var(--primary-dark);
-}
-
-.nav-item.active::before{
-    content:"";
-    position:absolute;
-    left:0;
-    top:9px;
-    bottom:9px;
-    width:4px;
-    background:var(--primary-dark);
-    border-radius:0 5px 5px 0;
-}
-
-
-/* MAIN */
-
-.main{
-    margin-left:275px;
-    min-height:calc(100vh - 76px);
-    padding:25px;
-    transition:.35s;
-}
-
-.container{
-    width:100%;
-    max-width:1400px;
-    margin:auto;
-}
-
-
-/* WELCOME */
-
-.welcome{
-    position:relative;
-    overflow:hidden;
-    border-radius:26px;
-    padding:34px;
-    min-height:220px;
-    color:#fff;
-    background:
-        radial-gradient(
-            circle at 90% 10%,
-            rgba(255,255,255,.12),
-            transparent 35%
-        ),
-        linear-gradient(
-            135deg,
-            #075b7c,
-            #08739b 55%,
-            #168bad
-        );
-    box-shadow:var(--shadow);
-}
-
-.welcome::before{
-    content:"";
-    position:absolute;
-    width:300px;
-    height:300px;
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:50%;
-    right:-100px;
-    top:-150px;
-}
-
-.welcome::after{
-    content:"";
-    position:absolute;
-    width:400px;
-    height:400px;
-    border:1px solid rgba(255,255,255,.06);
-    border-radius:50%;
-    left:30%;
-    bottom:-340px;
-}
-
-.welcome-content{
-    position:relative;
-    z-index:2;
-}
-
-.portal-label{
-    display:inline-flex;
-    padding:8px 18px;
-    border-radius:30px;
-    background:rgba(255,255,255,.13);
-    border:1px solid rgba(255,255,255,.2);
-    backdrop-filter:blur(10px);
-    font-family:Arial,sans-serif;
-    font-size:11px;
-    font-weight:700;
-    letter-spacing:.5px;
-    margin-bottom:18px;
-}
-
-.welcome h1{
-    font-size:34px;
-    margin-bottom:8px;
-}
-
-.welcome p{
-    opacity:.9;
-    max-width:650px;
-    font-size:15px;
-}
-
-
-/* SECTION */
-
-.section{
-    margin-top:28px;
-}
-
-.section-title{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    margin-bottom:15px;
-}
-
-.section-title-left{
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
-
-.section-title-left i{
-    width:40px;
-    height:40px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:13px;
-    background:var(--primary-light);
-    color:var(--primary-dark);
-}
-
-.section-title h2{
-    font-size:21px;
-    font-weight:800;
-}
-
-.section-title span{
-    color:var(--muted);
-    font-size:12px;
-}
-
-
-/* STAT CARDS */
-
-.stats{
-    display:grid;
-    grid-template-columns:repeat(4,minmax(0,1fr));
-    gap:16px;
-}
-
-.stat-card{
-    position:relative;
-    overflow:hidden;
-    background:#fff;
-    border:1px solid var(--border);
-    border-radius:18px;
-    padding:19px;
-    box-shadow:var(--shadow);
-    transition:.3s;
-}
-
-.stat-card:hover{
-    transform:translateY(-5px);
-}
-
-.stat-card::after{
-    content:"";
-    position:absolute;
-    width:100px;
-    height:100px;
-    right:-40px;
-    top:-45px;
-    border-radius:50%;
-    background:rgba(84,179,208,.07);
-}
-
-.stat-icon{
-    width:48px;
-    height:48px;
-    border-radius:15px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:#fff;
-    background:
-        linear-gradient(
-            135deg,
-            var(--primary-dark),
-            var(--primary)
-        );
-    font-size:20px;
-    margin-bottom:12px;
-    box-shadow:0 8px 18px rgba(8,115,155,.2);
-}
-
-.stat-value{
-    font-size:28px;
-    font-weight:800;
-    color:var(--primary-dark);
-}
-
-.stat-label{
-    color:var(--muted);
     font-size:13px;
+
+    border:
+        1px solid transparent;
+
+    transition:.2s;
+
 }
 
+.nav i{
 
-/* QUICK ACCESS */
+    width:22px;
 
-.quick-grid{
-    display:grid;
-    grid-template-columns:repeat(4,minmax(0,1fr));
-    gap:16px;
-}
-
-.quick-card{
-    position:relative;
-    min-height:140px;
-    overflow:hidden;
-    border-radius:20px;
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.92),
-            rgba(238,248,251,.78)
-        );
-    border:1px solid rgba(255,255,255,.85);
-    box-shadow:
-        0 9px 25px rgba(25,95,115,.08),
-        inset 0 1px 0 rgba(255,255,255,.9);
-    backdrop-filter:blur(12px);
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    gap:12px;
-    transition:
-        transform .35s ease,
-        box-shadow .35s ease,
-        border-color .35s ease;
-}
-
-.quick-card::before{
-    content:"";
-    position:absolute;
-    width:130px;
-    height:130px;
-    border-radius:50%;
-    background:
-        radial-gradient(
-            circle,
-            rgba(84,179,208,.18),
-            transparent 65%
-        );
-    left:-45px;
-    bottom:-65px;
-    transition:.4s;
-}
-
-.quick-card::after{
-    content:"";
-    position:absolute;
-    width:55px;
-    height:170%;
-    top:-40%;
-    left:-100px;
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(255,255,255,.5),
-            transparent
-        );
-    transform:rotate(25deg);
-    transition:.55s;
-}
-
-.quick-card:hover{
-    transform:translateY(-7px) scale(1.015);
-    box-shadow:
-        0 18px 35px rgba(16,92,115,.15),
-        inset 0 1px 0 rgba(255,255,255,.95);
-    border-color:rgba(84,179,208,.3);
-}
-
-.quick-card:hover::after{
-    left:120%;
-}
-
-.quick-icon{
-    position:relative;
-    z-index:2;
-    width:58px;
-    height:58px;
-    border-radius:18px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:var(--primary-dark);
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.8),
-            rgba(84,179,208,.13)
-        );
-    border:1px solid rgba(84,179,208,.22);
-    box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.95),
-        0 7px 18px rgba(8,115,155,.09);
-    backdrop-filter:blur(10px);
-    font-size:22px;
-    transition:.35s;
-}
-
-.quick-card:hover .quick-icon{
-    transform:translateY(-3px) rotate(-4deg);
-    color:#fff;
-    background:
-        linear-gradient(
-            135deg,
-            var(--primary-dark),
-            var(--primary)
-        );
-    box-shadow:0 10px 22px rgba(8,115,155,.25);
-}
-
-.quick-name{
-    position:relative;
-    z-index:2;
-    font-size:14px;
-    font-weight:700;
-    color:#344e58;
     text-align:center;
+
+    color:#7d8ba2;
+
 }
 
-.quick-card:hover .quick-name{
-    color:var(--primary-dark);
-}
+.nav:hover{
 
-@keyframes glassFloat{
-    0%,100%{transform:translateY(0);}
-    50%{transform:translateY(-4px);}
-}
+    background:
+        var(--glass);
 
-.quick-icon{
-    animation:glassFloat 3.5s ease-in-out infinite;
-}
+    border-color:
+        var(--line);
 
-.quick-card:nth-child(2) .quick-icon{animation-delay:.3s;}
-.quick-card:nth-child(3) .quick-icon{animation-delay:.6s;}
-.quick-card:nth-child(4) .quick-icon{animation-delay:.9s;}
-.quick-card:nth-child(5) .quick-icon{animation-delay:1.2s;}
-.quick-card:nth-child(6) .quick-icon{animation-delay:1.5s;}
-.quick-card:nth-child(7) .quick-icon{animation-delay:1.8s;}
-.quick-card:nth-child(8) .quick-icon{animation-delay:2.1s;}
-
-
-/* INFO */
-
-.info-grid{
-    display:grid;
-    grid-template-columns:repeat(4,minmax(0,1fr));
-    gap:14px;
-}
-
-.info-card{
-    border-radius:17px;
-    padding:18px;
     color:#fff;
-    min-height:105px;
-    position:relative;
-    overflow:hidden;
-    box-shadow:0 7px 18px rgba(0,0,0,.07);
-    transition:.3s;
+
 }
 
-.info-card:hover{
-    transform:translateY(-4px);
+.nav:hover i{
+
+    color:var(--cyan);
+
 }
 
-.info-card::after{
-    content:"";
-    position:absolute;
-    width:120px;
-    height:120px;
-    right:-50px;
-    top:-55px;
-    border-radius:50%;
-    background:rgba(255,255,255,.08);
-}
+.nav.active{
 
-.info-card.green{
-    background:linear-gradient(135deg,#079447,#12a957);
-}
+    background:
+        linear-gradient(
+            100deg,
+            rgba(121,215,238,.13),
+            rgba(230,189,105,.05)
+        );
 
-.info-card.blue{
-    background:linear-gradient(135deg,#075b9a,#1578bd);
-}
+    border-color:
+        rgba(121,215,238,.14);
 
-.info-card.teal{
-    background:linear-gradient(135deg,#008c91,#14a6a8);
-}
+    box-shadow:
+        inset 3px 0 var(--cyan);
 
-.info-card.orange{
-    background:linear-gradient(135deg,#d56600,#ef7a09);
-}
-
-.info-card.red{
-    background:linear-gradient(135deg,#c90000,#e11212);
-}
-
-.info-card.purple{
-    background:linear-gradient(135deg,#5f0b96,#7914b5);
-}
-
-.info-value{
-    position:relative;
-    z-index:2;
-    font-size:24px;
-    font-weight:800;
-}
-
-.info-label{
-    position:relative;
-    z-index:2;
-    font-size:12px;
-    opacity:.9;
-}
-
-
-/* CHART */
-
-.chart-grid{
-    display:grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:18px;
-}
-
-.chart-card{
-    background:#fff;
-    border-radius:20px;
-    border:1px solid var(--border);
-    box-shadow:var(--shadow);
-    overflow:hidden;
-}
-
-.chart-header{
-    padding:17px 20px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    border-bottom:1px solid #edf1f3;
-}
-
-.chart-title{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    font-size:15px;
-    font-weight:800;
-}
-
-.chart-title i{
-    color:var(--primary-dark);
-}
-
-.year-badge{
-    background:var(--primary-dark);
     color:#fff;
-    padding:5px 11px;
-    border-radius:9px;
-    font-family:Arial,sans-serif;
-    font-size:11px;
-    font-weight:700;
+
 }
 
-.chart-body{
-    padding:18px;
-    height:310px;
-}
+.nav.active i{
 
+    color:var(--cyan);
 
-/* FOOTER */
-
-.footer{
-    text-align:center;
-    padding:35px 15px;
-    margin-top:35px;
-    color:#75858d;
-    font-size:12px;
-}
-
-.footer strong{
-    color:var(--primary-dark);
 }
 
 
 /* OVERLAY */
 
-.overlay{
+.ov{
+
     display:none;
+
     position:fixed;
+
     inset:0;
-    background:rgba(0,30,40,.35);
+
+    background:
+        rgba(0,0,0,.55);
+
+    z-index:900;
+
     backdrop-filter:blur(2px);
-    z-index:850;
-}
-
-
-/* MOBILE */
-
-@media(max-width:1100px){
-
-    .stats{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .quick-grid{
-        grid-template-columns:repeat(3,1fr);
-    }
-
-    .info-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-}
-
-@media(max-width:800px){
-
-    .sidebar{
-        transform:translateX(-100%);
-    }
-
-    .sidebar.open{
-        transform:translateX(0);
-    }
-
-    .overlay.show{
-        display:block;
-    }
-
-    .main{
-        margin-left:0;
-        padding:17px;
-    }
-
-    .brand-text{
-        font-size:16px;
-    }
-
-    .brand-text small{
-        display:none;
-    }
-
-    .topbar{
-        height:68px;
-    }
-
-    .sidebar{
-        top:68px;
-    }
-
-    .welcome{
-        padding:25px;
-        min-height:190px;
-    }
-
-    .welcome h1{
-        font-size:27px;
-    }
-
-    .quick-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .chart-grid{
-        grid-template-columns:1fr;
-    }
-
-    .chart-body{
-        height:280px;
-    }
-
-}
-
-@media(max-width:500px){
-
-    .topbar-inner{
-        padding:0 12px;
-        gap:8px;
-    }
-
-    .top-actions .search-action{
-        display:none;
-    }
-
-    .brand{
-        justify-content:center;
-    }
-
-    .brand-icon{
-        width:40px;
-        height:40px;
-    }
-
-    .brand-text{
-        font-size:14px;
-    }
-
-    .logout-btn{
-        padding:8px 10px;
-        font-size:11px;
-    }
-
-    .main{
-        padding:12px;
-    }
-
-    .stats{
-        grid-template-columns:repeat(2,1fr);
-        gap:10px;
-    }
-
-    .stat-card{
-        padding:14px;
-    }
-
-    .stat-icon{
-        width:42px;
-        height:42px;
-        font-size:17px;
-    }
-
-    .stat-value{
-        font-size:22px;
-    }
-
-    .stat-label{
-        font-size:11px;
-    }
-
-    .quick-grid{
-        gap:10px;
-    }
-
-    .quick-card{
-        min-height:125px;
-    }
-
-    .quick-icon{
-        width:52px;
-        height:52px;
-        font-size:20px;
-    }
-
-    .quick-name{
-        font-size:12px;
-    }
-
-    .info-grid{
-        grid-template-columns:repeat(2,1fr);
-        gap:10px;
-    }
-
-    .info-card{
-        padding:14px;
-        min-height:90px;
-    }
-
-    .info-value{
-        font-size:20px;
-    }
-
-    .info-label{
-        font-size:10px;
-    }
-
-    .section-title h2{
-        font-size:18px;
-    }
 
 }
 
 
-/* LOADING */
+/* =========================
+   MAIN
+========================= */
 
-.count-loading{
-    display:inline-block;
-    width:26px;
-    height:26px;
-    border:3px solid rgba(8,115,155,.15);
-    border-top-color:var(--primary-dark);
+main{
+
+    margin-left:280px;
+
+    padding:24px;
+
+}
+
+.wrap{
+
+    width:100%;
+
+    max-width:1500px;
+
+    margin:auto;
+
+}
+
+
+/* =========================
+   COMMON GLASS
+========================= */
+
+.hero,
+.card,
+.stat,
+.quick,
+.info{
+
+    border:
+        1px solid var(--line);
+
+    background:
+        rgba(255,255,255,.045);
+
+    backdrop-filter:
+        blur(14px);
+
+    box-shadow:
+        var(--shadow);
+
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+
+    min-height:220px;
+
+    border-radius:28px;
+
+    padding:29px;
+
+    overflow:hidden;
+
+    position:relative;
+
+    background:
+
+        radial-gradient(
+            circle at 90% 20%,
+            rgba(121,215,238,.15),
+            transparent 28%
+        ),
+
+        linear-gradient(
+            135deg,
+            rgba(18,43,77,.92),
+            rgba(7,18,37,.96)
+        );
+
+}
+
+.hero::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:240px;
+
+    height:240px;
+
     border-radius:50%;
-    animation:spin .8s linear infinite;
+
+    border:
+        1px solid rgba(121,215,238,.08);
+
+    right:-70px;
+
+    top:-130px;
+
+}
+
+.hero::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:300px;
+
+    height:300px;
+
+    border:
+        1px solid rgba(230,189,105,.07);
+
+    border-radius:50%;
+
+    right:-100px;
+
+    bottom:-190px;
+
+}
+
+.hero>*{
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+.badge{
+
+    display:inline-flex;
+
+    padding:7px 12px;
+
+    border-radius:30px;
+
+    color:var(--cyan);
+
+    background:
+        rgba(121,215,238,.07);
+
+    border:
+        1px solid rgba(121,215,238,.14);
+
+    font:
+        700 10px Arial;
+
+    letter-spacing:1.5px;
+
+}
+
+.hero h1{
+
+    font-size:34px;
+
+    margin:16px 0 6px;
+
+}
+
+.hero p{
+
+    max-width:780px;
+
+    color:#adbacd;
+
+    font-size:14px;
+
+    line-height:1.7;
+
+}
+
+.chips{
+
+    display:flex;
+
+    gap:8px;
+
+    flex-wrap:wrap;
+
+    margin-top:17px;
+
+}
+
+.chip{
+
+    padding:7px 11px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius:11px;
+
+    color:#a9b6c9;
+
+    background:
+        rgba(255,255,255,.025);
+
+    font-size:10px;
+
+}
+
+
+/* =========================
+   SECTION
+========================= */
+
+.section{
+
+    margin-top:25px;
+
+}
+
+.sh{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:end;
+
+    margin-bottom:12px;
+
+}
+
+.stitle{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+}
+
+.stitle .ico{
+
+    width:39px;
+
+    height:39px;
+
+    border-radius:13px;
+
+    display:grid;
+
+    place-items:center;
+
+    color:var(--cyan);
+
+    background:
+        rgba(121,215,238,.07);
+
+    border:
+        1px solid rgba(121,215,238,.12);
+
+}
+
+.stitle h2{
+
+    font-size:19px;
+
+}
+
+.sh>span{
+
+    font-size:10px;
+
+    color:#718097;
+
+}
+
+
+/* =========================
+   STAT CARDS
+========================= */
+
+.stats{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:13px;
+
+}
+
+.stat{
+
+    padding:17px;
+
+    border-radius:20px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    transition:.25s;
+
+}
+
+.stat::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:100px;
+
+    height:100px;
+
+    right:-50px;
+
+    top:-50px;
+
+    border-radius:50%;
+
+    background:
+        rgba(121,215,238,.045);
+
+}
+
+.stat:hover{
+
+    transform:
+        translateY(-4px);
+
+    border-color:
+        rgba(121,215,238,.18);
+
+}
+
+.stathead{
+
+    display:flex;
+
+    justify-content:space-between;
+
+}
+
+.sicon{
+
+    width:45px;
+
+    height:45px;
+
+    border-radius:14px;
+
+    display:grid;
+
+    place-items:center;
+
+    color:var(--cyan);
+
+    background:
+        rgba(121,215,238,.06);
+
+    border:
+        1px solid rgba(121,215,238,.12);
+
+}
+
+.statvalue{
+
+    font:
+        800 27px Arial;
+
+    margin-top:13px;
+
+}
+
+.statlabel{
+
+    font-size:11px;
+
+    color:#8997aa;
+
+    margin-top:3px;
+
+}
+
+
+/* =========================
+   QUICK ACCESS
+========================= */
+
+.quickgrid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(6,1fr);
+
+    gap:11px;
+
+}
+
+.quick{
+
+    min-height:112px;
+
+    border-radius:19px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:8px;
+
+    color:#c1ccdc;
+
+    transition:.25s;
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+.quick::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:120px;
+
+    height:120px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(121,215,238,.07),
+            transparent 70%
+        );
+
+    bottom:-70px;
+
+    right:-45px;
+
+}
+
+.quick:hover{
+
+    transform:
+        translateY(-4px);
+
+    border-color:
+        rgba(121,215,238,.24);
+
+    background:
+        rgba(121,215,238,.07);
+
+}
+
+.quick i{
+
+    width:47px;
+
+    height:47px;
+
+    border-radius:15px;
+
+    display:grid;
+
+    place-items:center;
+
+    color:var(--cyan);
+
+    background:
+        rgba(121,215,238,.06);
+
+    border:
+        1px solid rgba(121,215,238,.12);
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+.quick span{
+
+    font-size:11px;
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+
+/* =========================
+   CHART + FINANCE
+========================= */
+
+.grid2{
+
+    display:grid;
+
+    grid-template-columns:
+        1.35fr .85fr;
+
+    gap:15px;
+
+}
+
+.card{
+
+    border-radius:22px;
+
+    overflow:hidden;
+
+}
+
+.chead{
+
+    padding:
+        15px 17px;
+
+    border-bottom:
+        1px solid var(--line);
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+.chead h3{
+
+    font-size:14px;
+
+}
+
+.chead small{
+
+    color:#738198;
+
+    font-size:10px;
+
+}
+
+.cbody{
+
+    padding:16px;
+
+}
+
+.chart{
+
+    height:285px;
+
+}
+
+.balances{
+
+    display:grid;
+
+    gap:9px;
+
+}
+
+.bal{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:11px 12px;
+
+    border-radius:14px;
+
+    background:
+        rgba(255,255,255,.025);
+
+    border:
+        1px solid rgba(255,255,255,.055);
+
+}
+
+.bleft{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:9px;
+
+}
+
+.bic{
+
+    width:35px;
+
+    height:35px;
+
+    border-radius:11px;
+
+    display:grid;
+
+    place-items:center;
+
+    color:var(--cyan);
+
+    background:
+        rgba(255,255,255,.035);
+
+}
+
+.blabel{
+
+    font-size:10px;
+
+    color:#9ba8bb;
+
+}
+
+.bval{
+
+    font:
+        700 12px Arial;
+
+}
+
+
+/* =========================
+   DETAILED SUMMARY
+========================= */
+
+.infogrid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:11px;
+
+}
+
+.info{
+
+    padding:15px;
+
+    border-radius:18px;
+
+}
+
+.info small{
+
+    font-size:10px;
+
+    color:#8997aa;
+
+}
+
+.info strong{
+
+    display:block;
+
+    font:
+        800 20px Arial;
+
+    margin-top:6px;
+
+}
+
+.info em{
+
+    font-style:normal;
+
+    color:#65748b;
+
+    font-size:9px;
+
+}
+
+.gold strong{
+
+    color:var(--gold);
+
+}
+
+.ok strong{
+
+    color:var(--success);
+
+}
+
+.bad strong{
+
+    color:var(--danger);
+
+}
+
+.cyan strong{
+
+    color:var(--cyan);
+
+}
+
+
+/* =========================
+   MOBILE BOTTOM NAV
+========================= */
+
+.mobile{
+
+    display:none;
+
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1200px){
+
+    .stats{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
+    .quickgrid{
+
+        grid-template-columns:
+            repeat(4,1fr);
+
+    }
+
+    .infogrid{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
+}
+
+
+@media(max-width:900px){
+
+    .side{
+
+        transform:
+            translateX(-100%);
+
+    }
+
+    .side.open{
+
+        transform:
+            translateX(0);
+
+    }
+
+    .ov.show{
+
+        display:block;
+
+    }
+
+    main{
+
+        margin-left:0;
+
+        padding:
+            16px 14px 90px;
+
+    }
+
+    .top{
+
+        height:69px;
+
+    }
+
+    .side{
+
+        top:69px;
+
+    }
+
+    .grid2{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .mobile{
+
+        display:flex;
+
+        position:fixed;
+
+        left:8px;
+
+        right:8px;
+
+        bottom:8px;
+
+        height:67px;
+
+        z-index:1100;
+
+        border:
+            1px solid var(--line);
+
+        border-radius:23px;
+
+        background:
+            rgba(8,19,39,.92);
+
+        backdrop-filter:
+            blur(23px);
+
+        justify-content:
+            space-around;
+
+        align-items:center;
+
+        box-shadow:
+            0 15px 45px rgba(0,0,0,.45);
+
+    }
+
+    .mobile a{
+
+        width:20%;
+
+        text-align:center;
+
+        color:#718097;
+
+        font-size:8px;
+
+    }
+
+    .mobile i{
+
+        display:block;
+
+        font-size:17px;
+
+        margin-bottom:4px;
+
+    }
+
+    .mobile a.active{
+
+        color:var(--cyan);
+
+    }
+
+}
+
+
+@media(max-width:600px){
+
+    .topin{
+
+        padding:
+            0 10px;
+
+    }
+
+    .hideM{
+
+        display:none;
+
+    }
+
+    .bt{
+
+        font-size:14px;
+
+    }
+
+    .bt small{
+
+        display:none;
+
+    }
+
+    .logout{
+
+        width:43px;
+
+        padding:0;
+
+        font-size:0;
+
+    }
+
+    .logout i{
+
+        font-size:14px;
+
+    }
+
+    .hero{
+
+        padding:
+            22px 18px;
+
+        min-height:205px;
+
+    }
+
+    .hero h1{
+
+        font-size:26px;
+
+    }
+
+    .hero p{
+
+        font-size:12px;
+
+    }
+
+    .stats{
+
+        gap:9px;
+
+    }
+
+    .stat{
+
+        padding:13px;
+
+    }
+
+    .sicon{
+
+        width:39px;
+
+        height:39px;
+
+    }
+
+    .statvalue{
+
+        font-size:21px;
+
+    }
+
+    .statlabel{
+
+        font-size:9px;
+
+    }
+
+    .quickgrid{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+        gap:9px;
+
+    }
+
+    .quick{
+
+        min-height:108px;
+
+    }
+
+    .infogrid{
+
+        gap:9px;
+
+    }
+
+    .info{
+
+        padding:13px;
+
+    }
+
+    .info strong{
+
+        font-size:18px;
+
+    }
+
+    .chart{
+
+        height:235px;
+
+    }
+
+    .sh>span{
+
+        display:none;
+
+    }
+
+    .stitle h2{
+
+        font-size:16px;
+
+    }
+
+}
+
+
+/* =========================
+   RTL ARABIC
+========================= */
+
+html[dir="rtl"] .side{
+
+    left:auto;
+
+    right:0;
+
+    border-right:0;
+
+    border-left:
+        1px solid var(--line);
+
+}
+
+html[dir="rtl"] main{
+
+    margin-left:0;
+
+    margin-right:280px;
+
+}
+
+html[dir="rtl"] .nav.active{
+
+    box-shadow:
+        inset -3px 0 var(--cyan);
+
+}
+
+@media(max-width:900px){
+
+    html[dir="rtl"] .side{
+
+        transform:
+            translateX(100%);
+
+    }
+
+    html[dir="rtl"] .side.open{
+
+        transform:
+            translateX(0);
+
+    }
+
+    html[dir="rtl"] main{
+
+        margin-right:0;
+
+    }
+
+}
+
+
+/* =========================
+   LOADING
+========================= */
+
+.loading{
+
+    display:inline-block;
+
+    width:18px;
+
+    height:18px;
+
+    border:
+        2px solid rgba(121,215,238,.15);
+
+    border-top-color:
+        var(--cyan);
+
+    border-radius:50%;
+
+    animation:
+        spin .7s linear infinite;
+
 }
 
 @keyframes spin{
-    to{transform:rotate(360deg);}
+
+    to{
+        transform:rotate(360deg);
+    }
+
 }
 
 </style>
 
 </head>
 
+
 <body>
 
 
-<header class="topbar">
+<!-- =========================
+     TOP BAR
+========================= -->
 
-<div class="topbar-inner">
+<header class="top">
 
-<button class="menu-btn" id="menuBtn">
+<div class="topin">
+
+
+<button class="menu" id="menu">
+
 <i class="fa-solid fa-bars"></i>
+
 </button>
+
 
 <div class="brand">
 
-<div class="brand-icon">
-<i class="fa-solid fa-school"></i>
+<div class="logo">
+
+<i class="fa-solid fa-mosque"></i>
+
 </div>
 
-<div class="brand-text">
+
+<div class="bt">
+
+<span
+data-bn="মাদরাসায়ে নূরুল কুরআন"
+data-en="Madrasa-e Nurul Quran"
+data-ar="مدرسة نور القرآن">
 
 মাদরাসায়ে নূরুল কুরআন
 
+</span>
+
 <small>
-ADMINISTRATION PANEL
+ADMINISTRATION SYSTEM
 </small>
 
 </div>
 
 </div>
 
-<div class="top-actions">
+
+<div class="actions">
+
 
 <button
-class="top-action search-action"
-title="Search">
+class="lang active hideM"
+data-lang="bn">
 
-<i class="fa-solid fa-magnifying-glass"></i>
+বাংলা
 
 </button>
 
+
 <button
-class="top-action"
-id="homeBtn"
-title="Home">
+class="lang hideM"
+data-lang="en">
+
+EN
+
+</button>
+
+
+<button
+class="lang hideM"
+data-lang="ar">
+
+ع
+
+</button>
+
+
+<button
+class="ib"
+id="home">
 
 <i class="fa-solid fa-house"></i>
 
 </button>
 
-<button
-class="logout-btn"
-id="logoutBtn">
 
+<button
+class="logout"
+id="logout">
+
+<i class="fa-solid fa-right-from-bracket"></i>
+
+<span>
 Logout
+</span>
 
 </button>
+
 
 </div>
 
@@ -1019,213 +1713,656 @@ Logout
 </header>
 
 
-<div class="overlay" id="overlay"></div>
-
-
-<aside class="sidebar" id="sidebar">
-
-<div class="sidebar-header">
-ADMIN MENU
+<div
+class="ov"
+id="ov">
 </div>
 
-<a href="dashboard.html" class="nav-item active">
-<i class="fa-solid fa-gauge-high"></i>
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<aside
+class="side"
+id="side">
+
+
+<div class="sidehead">
+MNQ MANAGEMENT
+</div>
+
+
+<div
+class="gt"
+data-bn="মূল"
+data-en="Main"
+data-ar="الرئيسية">
+
+মূল
+
+</div>
+
+
+<a
+class="nav active"
+href="dashboard.html">
+
+<i class="fa-solid fa-house"></i>
+
+<span
+data-bn="ড্যাশবোর্ড"
+data-en="Dashboard"
+data-ar="لوحة التحكم">
+
 ড্যাশবোর্ড
+
+</span>
+
 </a>
 
-<a href="students.html" class="nav-item">
+
+<div
+class="gt"
+data-bn="শিক্ষার্থী ও একাডেমিক"
+data-en="Students & Academic"
+data-ar="الطلاب والدراسة">
+
+শিক্ষার্থী ও একাডেমিক
+
+</div>
+
+
+<a class="nav" href="students.html">
+
 <i class="fa-solid fa-user-graduate"></i>
+
+<span
+data-bn="শিক্ষার্থী"
+data-en="Students"
+data-ar="الطلاب">
+
 শিক্ষার্থী
+
+</span>
+
 </a>
 
-<a href="teachers.html" class="nav-item">
-<i class="fa-solid fa-chalkboard-user"></i>
-শিক্ষক
-</a>
 
-<a href="employees.html" class="nav-item">
-<i class="fa-solid fa-users"></i>
-কর্মচারী
-</a>
+<a class="nav" href="online-admission.html">
 
-<a href="members.html" class="nav-item">
-<i class="fa-solid fa-user-tie"></i>
-সদস্য
-</a>
-
-<a href="classes.html" class="nav-item">
-<i class="fa-solid fa-layer-group"></i>
-ক্লাস
-</a>
-
-<a href="subjects.html" class="nav-item">
-<i class="fa-solid fa-book"></i>
-বিষয়
-</a>
-
-<a href="session.html" class="nav-item">
-<i class="fa-solid fa-calendar-days"></i>
-সেশন
-</a>
-
-<a href="results.html" class="nav-item">
-<i class="fa-solid fa-graduation-cap"></i>
-ফলাফল
-</a>
-
-<a href="fees.html" class="nav-item">
-<i class="fa-solid fa-money-bill-wave"></i>
-ফি সংগ্রহ
-</a>
-
-<a href="salary.html" class="nav-item">
-<i class="fa-solid fa-money-check-dollar"></i>
-বেতন
-</a>
-
-<a href="income.html" class="nav-item">
-<i class="fa-solid fa-arrow-trend-up"></i>
-দৈনন্দিন আয়
-</a>
-
-<a href="expenses.html" class="nav-item">
-<i class="fa-solid fa-arrow-trend-down"></i>
-দৈনন্দিন ব্যয়
-</a>
-
-<a href="attendance-students.html" class="nav-item">
-<i class="fa-solid fa-user-check"></i>
-শিক্ষার্থীদের উপস্থিতি
-</a>
-
-<a href="attendance-teachers.html" class="nav-item">
-<i class="fa-solid fa-person-chalkboard"></i>
-শিক্ষকদের উপস্থিতি
-</a>
-
-<a href="attendance-employees.html" class="nav-item">
-<i class="fa-solid fa-user-clock"></i>
-কর্মচারীদের উপস্থিতি
-</a>
-
-<a href="sms.html" class="nav-item">
-<i class="fa-solid fa-envelope"></i>
-SMS সিস্টেম
-</a>
-
-<a href="notices.html" class="nav-item">
-<i class="fa-solid fa-bullhorn"></i>
-নোটিশ
-</a>
-
-<a href="gallery.html" class="nav-item">
-<i class="fa-solid fa-images"></i>
-ফটো গ্যালারি
-</a>
-
-<a href="videos.html" class="nav-item">
-<i class="fa-solid fa-video"></i>
-ভিডিও গ্যালারি
-</a>
-
-<a href="reports.html" class="nav-item">
-<i class="fa-solid fa-file-lines"></i>
-রিপোর্ট
-</a>
-
-<a href="online-admission.html" class="nav-item">
 <i class="fa-solid fa-user-plus"></i>
+
+<span
+data-bn="অনলাইন ভর্তি"
+data-en="Online Admission"
+data-ar="القبول الإلكتروني">
+
 অনলাইন ভর্তি
+
+</span>
+
 </a>
 
-<a href="reports-certificates.html" class="nav-item">
-<i class="fa-solid fa-file-certificate"></i>
-রিপোর্ট ও সার্টিফিকেট
+
+<a class="nav" href="classes.html">
+
+<i class="fa-solid fa-layer-group"></i>
+
+<span
+data-bn="ক্লাস"
+data-en="Classes"
+data-ar="الفصول">
+
+ক্লাস
+
+</span>
+
 </a>
 
-<a href="nazera-progress.html" class="nav-item">
+
+<a class="nav" href="subjects.html">
+
+<i class="fa-solid fa-book"></i>
+
+<span
+data-bn="বিষয়"
+data-en="Subjects"
+data-ar="المواد">
+
+বিষয়
+
+</span>
+
+</a>
+
+
+<a class="nav" href="session.html">
+
+<i class="fa-solid fa-calendar-days"></i>
+
+<span
+data-bn="সেশন"
+data-en="Sessions"
+data-ar="السنوات">
+
+সেশন
+
+</span>
+
+</a>
+
+
+<a class="nav" href="teachers.html">
+
+<i class="fa-solid fa-chalkboard-user"></i>
+
+<span
+data-bn="শিক্ষক"
+data-en="Teachers"
+data-ar="المعلمون">
+
+শিক্ষক
+
+</span>
+
+</a>
+
+
+<a class="nav" href="employees.html">
+
+<i class="fa-solid fa-users"></i>
+
+<span
+data-bn="কর্মচারী"
+data-en="Employees"
+data-ar="الموظفون">
+
+কর্মচারী
+
+</span>
+
+</a>
+
+
+<a class="nav" href="members.html">
+
+<i class="fa-solid fa-user-tie"></i>
+
+<span
+data-bn="সদস্য"
+data-en="Members"
+data-ar="الأعضاء">
+
+সদস্য
+
+</span>
+
+</a>
+
+
+<a class="nav" href="results.html">
+
+<i class="fa-solid fa-graduation-cap"></i>
+
+<span
+data-bn="ফলাফল"
+data-en="Results"
+data-ar="النتائج">
+
+ফলাফল
+
+</span>
+
+</a>
+
+
+<div
+class="gt"
+data-bn="হাজিরা ও অগ্রগতি"
+data-en="Attendance & Progress"
+data-ar="الحضور والتقدم">
+
+হাজিরা ও অগ্রগতি
+
+</div>
+
+
+<a class="nav" href="attendance-students.html">
+
+<i class="fa-solid fa-user-check"></i>
+
+<span
+data-bn="শিক্ষার্থীদের উপস্থিতি"
+data-en="Student Attendance"
+data-ar="حضور الطلاب">
+
+শিক্ষার্থীদের উপস্থিতি
+
+</span>
+
+</a>
+
+
+<a class="nav" href="attendance-teachers.html">
+
+<i class="fa-solid fa-person-chalkboard"></i>
+
+<span
+data-bn="শিক্ষকদের উপস্থিতি"
+data-en="Teacher Attendance"
+data-ar="حضور المعلمين">
+
+শিক্ষকদের উপস্থিতি
+
+</span>
+
+</a>
+
+
+<a class="nav" href="attendance-employees.html">
+
+<i class="fa-solid fa-user-clock"></i>
+
+<span
+data-bn="কর্মচারীদের উপস্থিতি"
+data-en="Employee Attendance"
+data-ar="حضور الموظفين">
+
+কর্মচারীদের উপস্থিতি
+
+</span>
+
+</a>
+
+
+<a class="nav" href="nazera-progress.html">
+
 <i class="fa-solid fa-book-quran"></i>
+
+<span
+data-bn="নাজেরা অগ্রগতি"
+data-en="Nazera Progress"
+data-ar="تقدم الناظرة">
+
 নাজেরা অগ্রগতি
+
+</span>
+
 </a>
 
-<a href="hifz-progress.html" class="nav-item">
+
+<a class="nav" href="hifz-progress.html">
+
 <i class="fa-solid fa-quran"></i>
+
+<span
+data-bn="হিফজ অগ্রগতি"
+data-en="Hifz Progress"
+data-ar="تقدم الحفظ">
+
 হিফজ অগ্রগতি
+
+</span>
+
 </a>
 
-<a href="quran-ampara-tracking.html" class="nav-item">
+
+<a class="nav" href="quran-ampara-tracking.html">
+
 <i class="fa-solid fa-book-open"></i>
-কুরআন/আমপারা ট্র্যাকিং
+
+<span
+data-bn="কুরআন/আমপারা"
+data-en="Quran / Ampara"
+data-ar="القرآن والأجزاء">
+
+কুরআন/আমপারা
+
+</span>
+
 </a>
 
-<a href="dua-hadith-record.html" class="nav-item">
+
+<a class="nav" href="dua-hadith-record.html">
+
 <i class="fa-solid fa-book-bookmark"></i>
-দোয়া ও হাদিস মুখস্থের রেকর্ড
+
+<span
+data-bn="দোয়া ও হাদিস"
+data-en="Dua & Hadith"
+data-ar="الأدعية والأحاديث">
+
+দোয়া ও হাদিস
+
+</span>
+
 </a>
 
-<a href="behavior-discipline.html" class="nav-item">
-<i class="fa-solid fa-user-shield"></i>
-আচরণ ও শৃঙ্খলা মূল্যায়ন
+
+<div
+class="gt"
+data-bn="আর্থিক ব্যবস্থাপনা"
+data-en="Finance"
+data-ar="المالية">
+
+আর্থিক ব্যবস্থাপনা
+
+</div>
+
+
+<a class="nav" href="fees.html">
+
+<i class="fa-solid fa-wallet"></i>
+
+<span
+data-bn="ফি সংগ্রহ"
+data-en="Fees"
+data-ar="الرسوم">
+
+ফি সংগ্রহ
+
+</span>
+
 </a>
 
-<a href="parent-daily-report.html" class="nav-item">
-<i class="fa-solid fa-people-roof"></i>
-অভিভাবকের জন্য দৈনিক রিপোর্ট
+
+<a class="nav" href="salary.html">
+
+<i class="fa-solid fa-money-check-dollar"></i>
+
+<span
+data-bn="বেতন"
+data-en="Salary"
+data-ar="الرواتب">
+
+বেতন
+
+</span>
+
 </a>
 
-<a href="complaints.html" class="nav-item">
+
+<a class="nav" href="income.html">
+
+<i class="fa-solid fa-arrow-trend-up"></i>
+
+<span
+data-bn="দৈনন্দিন আয়"
+data-en="Income"
+data-ar="الدخل">
+
+দৈনন্দিন আয়
+
+</span>
+
+</a>
+
+
+<a class="nav" href="expenses.html">
+
+<i class="fa-solid fa-arrow-trend-down"></i>
+
+<span
+data-bn="দৈনন্দিন ব্যয়"
+data-en="Expenses"
+data-ar="المصروفات">
+
+দৈনন্দিন ব্যয়
+
+</span>
+
+</a>
+
+
+<div
+class="gt"
+data-bn="যোগাযোগ ও রিপোর্ট"
+data-en="Communication & Reports"
+data-ar="الاتصال والتقارير">
+
+যোগাযোগ ও রিপোর্ট
+
+</div>
+
+
+<a class="nav" href="sms.html">
+
+<i class="fa-solid fa-message"></i>
+
+<span
+data-bn="SMS সিস্টেম"
+data-en="SMS System"
+data-ar="نظام الرسائل">
+
+SMS সিস্টেম
+
+</span>
+
+</a>
+
+
+<a class="nav" href="notices.html">
+
+<i class="fa-solid fa-bullhorn"></i>
+
+<span
+data-bn="নোটিশ"
+data-en="Notices"
+data-ar="الإعلانات">
+
+নোটিশ
+
+</span>
+
+</a>
+
+
+<a class="nav" href="reports.html">
+
+<i class="fa-solid fa-chart-pie"></i>
+
+<span
+data-bn="রিপোর্ট"
+data-en="Reports"
+data-ar="التقارير">
+
+রিপোর্ট
+
+</span>
+
+</a>
+
+
+<a class="nav" href="reports-certificates.html">
+
+<i class="fa-solid fa-certificate"></i>
+
+<span
+data-bn="সার্টিফিকেট"
+data-en="Certificates"
+data-ar="الشهادات">
+
+সার্টিফিকেট
+
+</span>
+
+</a>
+
+
+<a class="nav" href="gallery.html">
+
+<i class="fa-solid fa-images"></i>
+
+<span
+data-bn="ফটো গ্যালারি"
+data-en="Photo Gallery"
+data-ar="معرض الصور">
+
+ফটো গ্যালারি
+
+</span>
+
+</a>
+
+
+<a class="nav" href="videos.html">
+
+<i class="fa-solid fa-video"></i>
+
+<span
+data-bn="ভিডিও গ্যালারি"
+data-en="Video Gallery"
+data-ar="معرض الفيديو">
+
+ভিডিও গ্যালারি
+
+</span>
+
+</a>
+
+
+<a class="nav" href="complaints.html">
+
 <i class="fa-solid fa-comments"></i>
+
+<span
+data-bn="অভিযোগ বক্স"
+data-en="Complaints"
+data-ar="الشكاوى">
+
 অভিযোগ বক্স
+
+</span>
+
 </a>
 
-<a href="settings.html" class="nav-item">
-<i class="fa-solid fa-gear"></i>
+
+<div
+class="gt"
+data-bn="সেটিংস"
+data-en="System"
+data-ar="النظام">
+
 সেটিংস
+
+</div>
+
+
+<a class="nav" href="settings.html">
+
+<i class="fa-solid fa-gear"></i>
+
+<span
+data-bn="সেটিংস"
+data-en="Settings"
+data-ar="الإعدادات">
+
+সেটিংস
+
+</span>
+
 </a>
+
 
 </aside>
 
 
-<main class="main">
+<!-- =========================
+     MAIN
+========================= -->
 
-<div class="container">
+<main>
+
+<div class="wrap">
 
 
-<section class="welcome">
+<!-- HERO -->
 
-<div class="welcome-content">
+<section class="hero">
 
-<div class="portal-label">
-ADMIN PORTAL
+<div class="badge">
+MNQ DIGITAL MANAGEMENT
 </div>
 
-<h1>
+
+<h1
+data-bn="আসসালামু আলাইকুম"
+data-en="Assalamu Alaikum"
+data-ar="السلام عليكم">
+
 আসসালামু আলাইকুম
+
 </h1>
 
-<p>
-মাদরাসায়ে নূরুল কুরআনের প্রশাসনিক ব্যবস্থাপনা
-এক জায়গা থেকে পরিচালনা করুন।
+
+<p
+data-bn="মাদরাসায়ে নূরুল কুরআনের সম্পূর্ণ প্রশাসনিক ব্যবস্থাপনা এক জায়গা থেকে পরিচালনা করুন। শিক্ষার্থী, শিক্ষক, হাজিরা, ফলাফল, ফি, হিসাব, কুরআন শিক্ষা ও রিপোর্ট—সবকিছু এখন একটি আধুনিক ডিজিটাল সিস্টেমে।"
+data-en="Manage the complete administration of Madrasa-e Nurul Quran from one place. Students, teachers, attendance, results, fees, accounts, Quran learning and reports are all connected in one modern digital system."
+data-ar="إدارة جميع أعمال مدرسة نور القرآن من مكان واحد. الطلاب والمعلمون والحضور والنتائج والرسوم والحسابات وتقارير القرآن في نظام رقمي حديث.">
+
+মাদরাসায়ে নূরুল কুরআনের সম্পূর্ণ প্রশাসনিক ব্যবস্থাপনা এক জায়গা থেকে পরিচালনা করুন। শিক্ষার্থী, শিক্ষক, হাজিরা, ফলাফল, ফি, হিসাব, কুরআন শিক্ষা ও রিপোর্ট—সবকিছু এখন একটি আধুনিক ডিজিটাল সিস্টেমে।
+
 </p>
+
+
+<div class="chips">
+
+<div class="chip">
+Live Management
+</div>
+
+<div class="chip">
+Academic
+</div>
+
+<div class="chip">
+Finance
+</div>
+
+<div class="chip">
+Attendance
+</div>
+
+<div class="chip">
+Quran Progress
+</div>
 
 </div>
 
 </section>
 
 
+<!-- =========================
+     COUNTS
+========================= -->
+
 <section class="section">
 
-<div class="section-title">
+<div class="sh">
 
-<div class="section-title-left">
+<div class="stitle">
+
+<div class="ico">
 
 <i class="fa-solid fa-chart-simple"></i>
 
-<h2>
-সারসংক্ষেপ
+</div>
+
+<h2
+data-bn="প্রধান সারসংক্ষেপ"
+data-en="Main Overview"
+data-ar="نظرة عامة">
+
+প্রধান সারসংক্ষেপ
+
 </h2>
 
 </div>
+
+<span>
+LIVE DATA
+</span>
 
 </div>
 
@@ -1233,69 +2370,125 @@ ADMIN PORTAL
 <div class="stats">
 
 
-<div class="stat-card">
+<div class="stat">
 
-<div class="stat-icon">
-<i class="fa-solid fa-chalkboard-user"></i>
-</div>
+<div class="stathead">
 
-<div class="stat-value" id="teacherCount">
-<span class="count-loading"></span>
-</div>
-
-<div class="stat-label">
-সর্বমোট শিক্ষক
-</div>
-
-</div>
-
-
-<div class="stat-card">
-
-<div class="stat-icon">
+<div class="sicon">
 <i class="fa-solid fa-user-graduate"></i>
 </div>
 
-<div class="stat-value" id="studentCount">
-<span class="count-loading"></span>
 </div>
 
-<div class="stat-label">
+<div
+class="statvalue"
+id="studentCount">
+
+<span class="loading"></span>
+
+</div>
+
+<div
+class="statlabel"
+data-bn="সর্বমোট শিক্ষার্থী"
+data-en="Total Students"
+data-ar="إجمالي الطلاب">
+
 সর্বমোট শিক্ষার্থী
+
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stathead">
+
+<div class="sicon">
+<i class="fa-solid fa-chalkboard-user"></i>
+</div>
+
+</div>
+
+<div
+class="statvalue"
+id="teacherCount">
+
+<span class="loading"></span>
+
+</div>
+
+<div
+class="statlabel"
+data-bn="সর্বমোট শিক্ষক"
+data-en="Total Teachers"
+data-ar="إجمالي المعلمين">
+
+সর্বমোট শিক্ষক
+
 </div>
 
 </div>
 
 
-<div class="stat-card">
+<div class="stat">
 
-<div class="stat-icon">
+<div class="stathead">
+
+<div class="sicon">
 <i class="fa-solid fa-users"></i>
 </div>
 
-<div class="stat-value" id="employeeCount">
-<span class="count-loading"></span>
 </div>
 
-<div class="stat-label">
+<div
+class="statvalue"
+id="employeeCount">
+
+<span class="loading"></span>
+
+</div>
+
+<div
+class="statlabel"
+data-bn="সর্বমোট কর্মচারী"
+data-en="Total Employees"
+data-ar="إجمالي الموظفين">
+
 সর্বমোট কর্মচারী
-</div>
 
 </div>
 
+</div>
 
-<div class="stat-card">
 
-<div class="stat-icon">
+<div class="stat">
+
+<div class="stathead">
+
+<div class="sicon">
 <i class="fa-solid fa-user-tie"></i>
 </div>
 
-<div class="stat-value" id="memberCount">
-<span class="count-loading"></span>
 </div>
 
-<div class="stat-label">
+<div
+class="statvalue"
+id="memberCount">
+
+<span class="loading"></span>
+
+</div>
+
+<div
+class="statlabel"
+data-bn="সর্বমোট সদস্য"
+data-en="Total Members"
+data-ar="إجمالي الأعضاء">
+
 সর্বমোট সদস্য
+
 </div>
 
 </div>
@@ -1306,267 +2499,333 @@ ADMIN PORTAL
 </section>
 
 
+<!-- =========================
+     QUICK ACCESS
+========================= -->
+
 <section class="section">
 
-<div class="section-title">
+<div class="sh">
 
-<div class="section-title-left">
+<div class="stitle">
+
+<div class="ico">
 
 <i class="fa-solid fa-bolt"></i>
 
-<h2>
-কুইক এক্সেস
+</div>
+
+<h2
+data-bn="দ্রুত ব্যবস্থাপনা"
+data-en="Quick Management"
+data-ar="الوصول السريع">
+
+দ্রুত ব্যবস্থাপনা
+
 </h2>
 
 </div>
 
-<span>
-প্রয়োজনীয় পেজগুলো দ্রুত খুলুন
+<span
+data-bn="প্রয়োজনীয় মডিউল দ্রুত খুলুন"
+data-en="Open important modules quickly"
+data-ar="فتح الوحدات المهمة بسرعة">
+
+প্রয়োজনীয় মডিউল দ্রুত খুলুন
+
 </span>
 
 </div>
 
 
-<div class="quick-grid">
+<div class="quickgrid">
 
 
-<a href="students.html" class="quick-card">
-<div class="quick-icon">
+<a
+class="quick"
+href="students.html">
+
 <i class="fa-solid fa-user-graduate"></i>
-</div>
-<div class="quick-name">শিক্ষার্থী</div>
+
+<span
+data-bn="শিক্ষার্থী"
+data-en="Students"
+data-ar="الطلاب">
+
+শিক্ষার্থী
+
+</span>
+
 </a>
 
 
-<a href="teachers.html" class="quick-card">
-<div class="quick-icon">
+<a
+class="quick"
+href="teachers.html">
+
 <i class="fa-solid fa-chalkboard-user"></i>
-</div>
-<div class="quick-name">শিক্ষক</div>
+
+<span
+data-bn="শিক্ষক"
+data-en="Teachers"
+data-ar="المعلمون">
+
+শিক্ষক
+
+</span>
+
 </a>
 
 
-<a href="employees.html" class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-users"></i>
-</div>
-<div class="quick-name">কর্মচারী</div>
-</a>
+<a
+class="quick"
+href="attendance-students.html">
 
-
-<a href="members.html" class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-user-tie"></i>
-</div>
-<div class="quick-name">সদস্য</div>
-</a>
-
-
-<a href="classes.html" class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-layer-group"></i>
-</div>
-<div class="quick-name">ক্লাস</div>
-</a>
-
-
-<a href="session.html" class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-calendar-days"></i>
-</div>
-<div class="quick-name">সেশন</div>
-</a>
-
-
-<a href="subjects.html" class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-book"></i>
-</div>
-<div class="quick-name">বিষয়</div>
-</a>
-
-
-<a href="results.html" class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-graduation-cap"></i>
-</div>
-<div class="quick-name">ফলাফল</div>
-</a>
-
-
-<a href="fees.html" class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-money-bill-wave"></i>
-</div>
-<div class="quick-name">ফি সংগ্রহ</div>
-</a>
-
-
-<a href="salary.html" class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-money-check-dollar"></i>
-</div>
-<div class="quick-name">বেতন</div>
-</a>
-
-
-<a href="income.html" class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-arrow-trend-up"></i>
-</div>
-<div class="quick-name">দৈনন্দিন আয়</div>
-</a>
-
-
-<a href="expenses.html" class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-arrow-trend-down"></i>
-</div>
-<div class="quick-name">দৈনন্দিন ব্যয়</div>
-</a>
-
-
-<a href="attendance-students.html" class="quick-card">
-<div class="quick-icon">
 <i class="fa-solid fa-user-check"></i>
-</div>
-<div class="quick-name">শিক্ষার্থীদের উপস্থিতি</div>
+
+<span
+data-bn="হাজিরা"
+data-en="Attendance"
+data-ar="الحضور">
+
+হাজিরা
+
+</span>
+
 </a>
 
 
-<a href="attendance-teachers.html" class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-person-chalkboard"></i>
-</div>
-<div class="quick-name">শিক্ষকদের উপস্থিতি</div>
+<a
+class="quick"
+href="results.html">
+
+<i class="fa-solid fa-graduation-cap"></i>
+
+<span
+data-bn="ফলাফল"
+data-en="Results"
+data-ar="النتائج">
+
+ফলাফল
+
+</span>
+
 </a>
 
 
-<a href="attendance-employees.html" class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-user-clock"></i>
-</div>
-<div class="quick-name">কর্মচারীদের উপস্থিতি</div>
+<a
+class="quick"
+href="fees.html">
+
+<i class="fa-solid fa-wallet"></i>
+
+<span
+data-bn="ফি"
+data-en="Fees"
+data-ar="الرسوم">
+
+ফি
+
+</span>
+
 </a>
 
 
-<a href="sms.html" class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-envelope"></i>
-</div>
-<div class="quick-name">SMS সিস্টেম</div>
+<a
+class="quick"
+href="salary.html">
+
+<i class="fa-solid fa-money-check-dollar"></i>
+
+<span
+data-bn="বেতন"
+data-en="Salary"
+data-ar="الرواتب">
+
+বেতন
+
+</span>
+
 </a>
 
 
-<a href="notices.html" class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-bullhorn"></i>
-</div>
-<div class="quick-name">নোটিশ</div>
-</a>
+<a
+class="quick"
+href="nazera-progress.html">
 
-
-<a href="gallery.html" class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-images"></i>
-</div>
-<div class="quick-name">ফটো</div>
-</a>
-
-
-<a href="videos.html" class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-video"></i>
-</div>
-<div class="quick-name">ভিডিও</div>
-</a>
-
-
-<a href="reports.html" class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-file-lines"></i>
-</div>
-<div class="quick-name">রিপোর্ট</div>
-</a>
-
-
-<a href="online-admission.html" class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-user-plus"></i>
-</div>
-<div class="quick-name">অনলাইন ভর্তি</div>
-</a>
-
-
-<a href="reports-certificates.html" class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-file-certificate"></i>
-</div>
-<div class="quick-name">রিপোর্ট ও সার্টিফিকেট</div>
-</a>
-
-
-<a href="nazera-progress.html" class="quick-card">
-<div class="quick-icon">
 <i class="fa-solid fa-book-quran"></i>
-</div>
-<div class="quick-name">নাজেরা অগ্রগতি</div>
+
+<span
+data-bn="নাজেরা"
+data-en="Nazera"
+data-ar="الناظرة">
+
+নাজেরা
+
+</span>
+
 </a>
 
 
-<a href="hifz-progress.html" class="quick-card">
-<div class="quick-icon">
+<a
+class="quick"
+href="hifz-progress.html">
+
 <i class="fa-solid fa-quran"></i>
-</div>
-<div class="quick-name">হিফজ অগ্রগতি</div>
+
+<span
+data-bn="হিফজ"
+data-en="Hifz"
+data-ar="الحفظ">
+
+হিফজ
+
+</span>
+
 </a>
 
 
-<a href="quran-ampara-tracking.html" class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-book-open"></i>
-</div>
-<div class="quick-name">কুরআন/আমপারা ট্র্যাকিং</div>
+<a
+class="quick"
+href="sms.html">
+
+<i class="fa-solid fa-message"></i>
+
+<span
+data-bn="SMS"
+data-en="SMS"
+data-ar="الرسائل">
+
+SMS
+
+</span>
+
 </a>
 
 
-<a href="dua-hadith-record.html" class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-book-bookmark"></i>
-</div>
-<div class="quick-name">দোয়া ও হাদিস মুখস্থের রেকর্ড</div>
+<a
+class="quick"
+href="notices.html">
+
+<i class="fa-solid fa-bullhorn"></i>
+
+<span
+data-bn="নোটিশ"
+data-en="Notices"
+data-ar="الإعلانات">
+
+নোটিশ
+
+</span>
+
 </a>
 
 
-<a href="behavior-discipline.html" class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-user-shield"></i>
-</div>
-<div class="quick-name">আচরণ ও শৃঙ্খলা মূল্যায়ন</div>
+<a
+class="quick"
+href="income.html">
+
+<i class="fa-solid fa-arrow-trend-up"></i>
+
+<span
+data-bn="আয়"
+data-en="Income"
+data-ar="الدخل">
+
+আয়
+
+</span>
+
 </a>
 
 
-<a href="parent-daily-report.html" class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-people-roof"></i>
-</div>
-<div class="quick-name">অভিভাবকের জন্য দৈনিক রিপোর্ট</div>
+<a
+class="quick"
+href="expenses.html">
+
+<i class="fa-solid fa-arrow-trend-down"></i>
+
+<span
+data-bn="ব্যয়"
+data-en="Expenses"
+data-ar="المصروفات">
+
+ব্যয়
+
+</span>
+
 </a>
 
 
-<a href="complaints.html" class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-comments"></i>
-</div>
-<div class="quick-name">অভিযোগ বক্স</div>
+<a
+class="quick"
+href="reports-certificates.html">
+
+<i class="fa-solid fa-certificate"></i>
+
+<span
+data-bn="সার্টিফিকেট"
+data-en="Certificates"
+data-ar="الشهادات">
+
+সার্টিফিকেট
+
+</span>
+
 </a>
 
 
-<a href="settings.html" class="quick-card">
-<div class="quick-icon">
+<a
+class="quick"
+href="reports.html">
+
+<i class="fa-solid fa-chart-pie"></i>
+
+<span
+data-bn="রিপোর্ট"
+data-en="Reports"
+data-ar="التقارير">
+
+রিপোর্ট
+
+</span>
+
+</a>
+
+
+<a
+class="quick"
+href="online-admission.html">
+
+<i class="fa-solid fa-user-plus"></i>
+
+<span
+data-bn="অনলাইন ভর্তি"
+data-en="Online Admission"
+data-ar="القبول الإلكتروني">
+
+অনলাইন ভর্তি
+
+</span>
+
+</a>
+
+
+<a
+class="quick"
+href="settings.html">
+
 <i class="fa-solid fa-gear"></i>
-</div>
-<div class="quick-name">সেটিংস</div>
+
+<span
+data-bn="সেটিংস"
+data-en="Settings"
+data-ar="الإعدادات">
+
+সেটিংস
+
+</span>
+
 </a>
 
 
@@ -1575,16 +2834,272 @@ ADMIN PORTAL
 </section>
 
 
+<!-- =========================
+     CHART + FINANCE
+========================= -->
+
 <section class="section">
 
-<div class="section-title">
+<div class="grid2">
 
-<div class="section-title-left">
+
+<div class="card">
+
+<div class="chead">
+
+<h3
+data-bn="আয় বনাম ব্যয়"
+data-en="Income vs Expense"
+data-ar="الدخل مقابل المصروفات">
+
+আয় বনাম ব্যয়
+
+</h3>
+
+<small id="year">
+</small>
+
+</div>
+
+
+<div class="cbody">
+
+<div class="chart">
+
+<canvas id="ledger"></canvas>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="chead">
+
+<h3
+data-bn="আর্থিক অবস্থান"
+data-en="Financial Position"
+data-ar="الوضع المالي">
+
+আর্থিক অবস্থান
+
+</h3>
+
+<small>
+LIVE
+</small>
+
+</div>
+
+
+<div class="cbody">
+
+<div class="balances">
+
+
+<div class="bal">
+
+<div class="bleft">
+
+<div class="bic">
+
+<i class="fa-solid fa-arrow-trend-up"></i>
+
+</div>
+
+<div
+class="blabel"
+data-bn="আজকের আয়"
+data-en="Today's Income"
+data-ar="دخل اليوم">
+
+আজকের আয়
+
+</div>
+
+</div>
+
+<div
+class="bval"
+id="todayIncome">
+
+৳ 0
+
+</div>
+
+</div>
+
+
+<div class="bal">
+
+<div class="bleft">
+
+<div class="bic">
+
+<i class="fa-solid fa-arrow-trend-down"></i>
+
+</div>
+
+<div
+class="blabel"
+data-bn="আজকের ব্যয়"
+data-en="Today's Expense"
+data-ar="مصروف اليوم">
+
+আজকের ব্যয়
+
+</div>
+
+</div>
+
+<div
+class="bval"
+id="todayExpense">
+
+৳ 0
+
+</div>
+
+</div>
+
+
+<div class="bal">
+
+<div class="bleft">
+
+<div class="bic">
+
+<i class="fa-solid fa-wallet"></i>
+
+</div>
+
+<div
+class="blabel"
+data-bn="মোট ফি সংগ্রহ"
+data-en="Total Fees Collected"
+data-ar="إجمالي الرسوم">
+
+মোট ফি সংগ্রহ
+
+</div>
+
+</div>
+
+<div
+class="bval"
+id="totalFees">
+
+৳ 0
+
+</div>
+
+</div>
+
+
+<div class="bal">
+
+<div class="bleft">
+
+<div class="bic">
+
+<i class="fa-solid fa-clock"></i>
+
+</div>
+
+<div
+class="blabel"
+data-bn="অপরিশোধিত ফি"
+data-en="Outstanding Fees"
+data-ar="الرسوم المستحقة">
+
+অপরিশোধিত ফি
+
+</div>
+
+</div>
+
+<div
+class="bval"
+id="dueFees">
+
+৳ 0
+
+</div>
+
+</div>
+
+
+<div class="bal">
+
+<div class="bleft">
+
+<div class="bic">
+
+<i class="fa-solid fa-scale-balanced"></i>
+
+</div>
+
+<div
+class="blabel"
+data-bn="বর্তমান ব্যালেন্স"
+data-en="Current Balance"
+data-ar="الرصيد الحالي">
+
+বর্তমান ব্যালেন্স
+
+</div>
+
+</div>
+
+<div
+class="bval"
+id="balance">
+
+৳ 0
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     DETAILED SUMMARY
+========================= -->
+
+<section class="section">
+
+<div class="sh">
+
+<div class="stitle">
+
+<div class="ico">
 
 <i class="fa-solid fa-chart-line"></i>
 
-<h2>
-আর্থিক সারসংক্ষেপ
+</div>
+
+<h2
+data-bn="বিস্তারিত আর্থিক সারসংক্ষেপ"
+data-en="Detailed Financial Summary"
+data-ar="الملخص المالي التفصيلي">
+
+বিস্তারিত আর্থিক সারসংক্ষেপ
+
 </h2>
 
 </div>
@@ -1592,107 +3107,93 @@ ADMIN PORTAL
 </div>
 
 
-<div class="info-grid">
+<div class="infogrid">
 
 
-<div class="info-card green">
-<div class="info-value" id="todayIncome">৳ 0</div>
-<div class="info-label">আজকের আয়</div>
-</div>
+<div class="info ok">
 
+<small
+data-bn="সর্বমোট আয়"
+data-en="Total Income"
+data-ar="إجمالي الدخل">
 
-<div class="info-card green">
-<div class="info-value" id="totalIncome">৳ 0</div>
-<div class="info-label">সর্বমোট আয়</div>
-</div>
+সর্বমোট আয়
 
+</small>
 
-<div class="info-card red">
-<div class="info-value" id="todayExpense">৳ 0</div>
-<div class="info-label">আজকের ব্যয়</div>
-</div>
+<strong id="totalIncome">
+৳ 0
+</strong>
 
-
-<div class="info-card red">
-<div class="info-value" id="totalExpense">৳ 0</div>
-<div class="info-label">সর্বমোট ব্যয়</div>
-</div>
-
-
-<div class="info-card blue">
-<div class="info-value" id="balance">৳ 0</div>
-<div class="info-label">বর্তমান ব্যালেন্স</div>
-</div>
-
-
-<div class="info-card teal">
-<div class="info-value" id="totalFees">৳ 0</div>
-<div class="info-label">মোট ফি সংগ্রহ</div>
-</div>
-
-
-<div class="info-card orange">
-<div class="info-value" id="dueFees">৳ 0</div>
-<div class="info-label">অপরিশোধিত ফি</div>
-</div>
-
-
-<div class="info-card blue">
-<div class="info-value" id="totalSalary">৳ 0</div>
-<div class="info-label">মোট বেতন দেওয়া</div>
-</div>
-
-
-</div>
-
-</section>
-
-
-<section class="section">
-
-<div class="chart-grid">
-
-
-<div class="chart-card">
-
-<div class="chart-header">
-
-<div class="chart-title">
-<i class="fa-solid fa-chart-column"></i>
-লেজার ওভারভিউ
-</div>
-
-<div class="year-badge" id="ledgerYear">
-2026
-</div>
-
-</div>
-
-<div class="chart-body">
-<canvas id="ledgerChart"></canvas>
-</div>
+<em>
+Income ledger
+</em>
 
 </div>
 
 
-<div class="chart-card">
+<div class="info bad">
 
-<div class="chart-header">
+<small
+data-bn="সর্বমোট ব্যয়"
+data-en="Total Expense"
+data-ar="إجمالي المصروفات">
 
-<div class="chart-title">
-<i class="fa-solid fa-user-graduate"></i>
-একাডেমিক ওভারভিউ
+সর্বমোট ব্যয়
+
+</small>
+
+<strong id="totalExpense">
+৳ 0
+</strong>
+
+<em>
+Expense ledger
+</em>
+
 </div>
 
-<div class="year-badge">
-2026
-</div>
+
+<div class="info gold">
+
+<small
+data-bn="মোট বেতন"
+data-en="Total Salary"
+data-ar="إجمالي الرواتب">
+
+মোট বেতন
+
+</small>
+
+<strong id="totalSalary">
+৳ 0
+</strong>
+
+<em>
+Salary paid
+</em>
 
 </div>
 
-<div class="chart-body">
-<canvas id="academicChart"></canvas>
-</div>
+
+<div class="info cyan">
+
+<small
+data-bn="ব্যালেন্স"
+data-en="Balance"
+data-ar="الرصيد">
+
+ব্যালেন্স
+
+</small>
+
+<strong id="balance2">
+৳ 0
+</strong>
+
+<em>
+Income − Expense − Salary
+</em>
 
 </div>
 
@@ -1702,88 +3203,15 @@ ADMIN PORTAL
 </section>
 
 
-<section class="section">
+<footer
+style="
+text-align:center;
+color:#65748b;
+font-size:10px;
+padding:30px 5px 12px;
+">
 
-<div class="section-title">
-
-<div class="section-title-left">
-
-<i class="fa-solid fa-graduation-cap"></i>
-
-<h2>
-একাডেমিক তথ্য
-</h2>
-
-</div>
-
-</div>
-
-
-<div class="info-grid">
-
-
-<div class="info-card green">
-<div class="info-value" id="activeStudents">0</div>
-<div class="info-label">সক্রিয় শিক্ষার্থী</div>
-</div>
-
-
-<div class="info-card blue">
-<div class="info-value" id="pendingStudents">0</div>
-<div class="info-label">অপেক্ষমাণ শিক্ষার্থী</div>
-</div>
-
-
-<div class="info-card purple">
-<div class="info-value" id="graduatedStudents">0</div>
-<div class="info-label">স্নাতক শিক্ষার্থী</div>
-</div>
-
-
-<div class="info-card teal">
-<div class="info-value" id="transferredStudents">0</div>
-<div class="info-label">স্থানান্তরিত শিক্ষার্থী</div>
-</div>
-
-
-<div class="info-card orange">
-<div class="info-value" id="withdrawnStudents">0</div>
-<div class="info-label">প্রত্যাহারকৃত শিক্ষার্থী</div>
-</div>
-
-
-<div class="info-card red">
-<div class="info-value" id="suspendedStudents">0</div>
-<div class="info-label">স্থগিত শিক্ষার্থী</div>
-</div>
-
-
-<div class="info-card purple">
-<div class="info-value" id="dismissedStudents">0</div>
-<div class="info-label">বরখাস্ত শিক্ষার্থী</div>
-</div>
-
-
-<div class="info-card blue">
-<div class="info-value" id="leaveStudents">0</div>
-<div class="info-label">ছুটিতে থাকা শিক্ষার্থী</div>
-</div>
-
-
-</div>
-
-</section>
-
-
-<footer class="footer">
-
-<div>
-<strong>মাদরাসায়ে নূরুল কুরআন</strong>
-</div>
-
-<div>
-প্রশাসনিক ব্যবস্থাপনা সিস্টেম
-</div>
+মাদরাসায়ে নূরুল কুরআন · Digital Management System
 
 </footer>
 
@@ -1793,6 +3221,106 @@ ADMIN PORTAL
 </main>
 
 
+<!-- =========================
+     MOBILE NAV
+========================= -->
+
+<nav class="mobile">
+
+
+<a
+class="active"
+href="dashboard.html">
+
+<i class="fa-solid fa-house"></i>
+
+<span
+data-bn="হোম"
+data-en="Home"
+data-ar="الرئيسية">
+
+হোম
+
+</span>
+
+</a>
+
+
+<a
+href="students.html">
+
+<i class="fa-solid fa-user-graduate"></i>
+
+<span
+data-bn="শিক্ষার্থী"
+data-en="Students"
+data-ar="الطلاب">
+
+শিক্ষার্থী
+
+</span>
+
+</a>
+
+
+<a
+href="attendance-students.html">
+
+<i class="fa-solid fa-user-check"></i>
+
+<span
+data-bn="হাজিরা"
+data-en="Attendance"
+data-ar="الحضور">
+
+হাজিরা
+
+</span>
+
+</a>
+
+
+<a
+href="fees.html">
+
+<i class="fa-solid fa-wallet"></i>
+
+<span
+data-bn="ফি"
+data-en="Fees"
+data-ar="الرسوم">
+
+ফি
+
+</span>
+
+</a>
+
+
+<a
+href="settings.html">
+
+<i class="fa-solid fa-gear"></i>
+
+<span
+data-bn="আরও"
+data-en="More"
+data-ar="المزيد">
+
+আরও
+
+</span>
+
+</a>
+
+
+</nav>
+
+
+<!-- =========================
+     SUPABASE
+========================= -->
+
 <script
 src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
 </script>
@@ -1800,18 +3328,21 @@ src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
 
 <script>
 
-/* =========================================================
-   SUPABASE CONNECTION
-========================================================= */
+
+/* =========================
+   SUPABASE
+========================= */
 
 const SUPABASE_URL =
 "https://qavublwhqiqsgpcmfyft.supabase.co";
 
+
 const SUPABASE_KEY =
 "sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
 
+
 const db =
-window.supabase.createClient(
+supabase.createClient(
     SUPABASE_URL,
     SUPABASE_KEY,
     {
@@ -1824,205 +3355,288 @@ window.supabase.createClient(
 );
 
 
-/* =========================================================
+/* =========================
    GLOBAL
-========================================================= */
+========================= */
 
-let ledgerChart=null;
-let academicChart=null;
+let chart = null;
 
-const CURRENT_SESSION="2026";
+let lang =
+localStorage.getItem(
+    "mnq_language"
+) || "bn";
 
-
-/* =========================================================
-   SIDEBAR
-========================================================= */
-
-const menuBtn=
-document.getElementById("menuBtn");
-
-const sidebar=
-document.getElementById("sidebar");
-
-const overlay=
-document.getElementById("overlay");
+let YEAR =
+new Date().getFullYear();
 
 
-menuBtn.addEventListener(
-    "click",
-    ()=>{
-        sidebar.classList.toggle("open");
-        overlay.classList.toggle("show");
-    }
-);
+/* =========================
+   LANGUAGE
+========================= */
+
+function setLang(language){
+
+    lang = language;
+
+    localStorage.setItem(
+        "mnq_language",
+        language
+    );
 
 
-overlay.addEventListener(
-    "click",
-    ()=>{
-        sidebar.classList.remove("open");
-        overlay.classList.remove("show");
-    }
-);
+    document.documentElement.lang =
+        language === "ar"
+            ? "ar"
+            : language === "en"
+                ? "en"
+                : "bn";
 
 
-document
-.querySelectorAll(".nav-item")
-.forEach(item=>{
+    document.documentElement.dir =
+        language === "ar"
+            ? "rtl"
+            : "ltr";
 
-    item.addEventListener(
-        "click",
-        ()=>{
 
-            if(window.innerWidth<=800){
+    document
+    .querySelectorAll(
+        "[data-bn]"
+    )
+    .forEach(
+        element=>{
 
-                sidebar.classList.remove("open");
-                overlay.classList.remove("show");
+            const value =
+                element.getAttribute(
+                    "data-" + language
+                );
+
+            if(value !== null){
+
+                element.textContent =
+                    value;
 
             }
 
         }
     );
 
-});
 
+    document
+    .querySelectorAll(
+        ".lang"
+    )
+    .forEach(
+        button=>{
 
-/* =========================================================
-   HOME
-========================================================= */
-
-document
-.getElementById("homeBtn")
-.addEventListener(
-    "click",
-    ()=>{
-        window.location.href="index.html";
-    }
-);
-
-
-/* =========================================================
-   LOGOUT
-========================================================= */
-
-document
-.getElementById("logoutBtn")
-.addEventListener(
-    "click",
-    async ()=>{
-
-        if(
-            !confirm(
-                "আপনি কি Logout করতে চান?"
-            )
-        ){
-            return;
-        }
-
-        try{
-
-            await db.auth.signOut();
-
-            window.location.href="admin.html";
-
-        }catch(error){
-
-            alert(
-                "Logout failed: "+
-                error.message
+            button.classList.toggle(
+                "active",
+                button.dataset.lang === language
             );
 
         }
+    );
+
+
+    const dateElement =
+        document.getElementById(
+            "currentDate"
+        );
+
+
+    if(dateElement){
+
+        dateElement.textContent =
+            new Date()
+            .toLocaleDateString(
+                language === "bn"
+                    ? "bn-BD"
+                    : language === "ar"
+                        ? "ar-SA"
+                        : "en-US",
+                {
+                    year:"numeric",
+                    month:"long",
+                    day:"numeric"
+                }
+            );
+
+    }
+
+}
+
+
+/* Language buttons */
+
+document
+.querySelectorAll(
+    ".lang"
+)
+.forEach(
+    button=>{
+
+        button.onclick =
+            ()=>{
+                setLang(
+                    button.dataset.lang
+                );
+            };
 
     }
 );
 
 
-/* =========================================================
-   AUTH
-========================================================= */
+/* =========================
+   SIDEBAR
+========================= */
 
-async function checkAuth(){
+const side =
+document.getElementById(
+    "side"
+);
+
+const ov =
+document.getElementById(
+    "ov"
+);
+
+
+document
+.getElementById(
+    "menu"
+)
+.onclick =
+()=>{
+
+    side.classList.toggle(
+        "open"
+    );
+
+    ov.classList.toggle(
+        "show"
+    );
+
+};
+
+
+ov.onclick =
+()=>{
+
+    side.classList.remove(
+        "open"
+    );
+
+    ov.classList.remove(
+        "show"
+    );
+
+};
+
+
+document
+.querySelectorAll(
+    ".nav"
+)
+.forEach(
+    link=>{
+
+        link.onclick =
+        ()=>{
+
+            if(
+                window.innerWidth <= 900
+            ){
+
+                side.classList.remove(
+                    "open"
+                );
+
+                ov.classList.remove(
+                    "show"
+                );
+
+            }
+
+        };
+
+    }
+);
+
+
+/* =========================
+   HOME
+========================= */
+
+document
+.getElementById(
+    "home"
+)
+.onclick =
+()=>{
+
+    location.href =
+        "index.html";
+
+};
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+document
+.getElementById(
+    "logout"
+)
+.onclick =
+async()=>{
+
+    const question =
+        lang === "bn"
+            ? "আপনি কি Logout করতে চান?"
+            : lang === "ar"
+                ? "هل تريد تسجيل الخروج؟"
+                : "Do you want to logout?";
+
+
+    if(
+        !confirm(question)
+    ){
+
+        return;
+
+    }
+
 
     try{
 
-        const {
-            data,
-            error
-        }=
-        await db.auth.getSession();
+        await db.auth.signOut();
 
-        if(error){
-
-            console.error(
-                "Auth error:",
-                error.message
-            );
-
-            return false;
-
-        }
-
-        if(!data.session){
-
-            window.location.href="admin.html";
-
-            return false;
-
-        }
-
-        return true;
+        location.href =
+            "admin.html";
 
     }catch(error){
 
         console.error(
-            "Auth:",
             error
         );
 
-        return false;
-
     }
 
-}
+};
 
 
-/* =========================================================
-   HELPERS
-========================================================= */
-
-function numberValue(value){
-
-    if(
-        value===null ||
-        value===undefined ||
-        value===""
-    ){
-
-        return 0;
-
-    }
-
-    const n=
-        Number(
-            String(value)
-            .replace(/,/g,"")
-            .replace(/[৳$]/g,"")
-            .trim()
-        );
-
-    return Number.isFinite(n)
-        ? n
-        : 0;
-
-}
-
+/* =========================
+   MONEY
+========================= */
 
 function money(value){
 
-    return "৳ "+
-        numberValue(value)
-        .toLocaleString(
+    const number =
+        Number(value || 0);
+
+
+    return "৳ " +
+        number.toLocaleString(
             "en-US",
             {
                 maximumFractionDigits:2
@@ -2032,88 +3646,120 @@ function money(value){
 }
 
 
-function todayString(){
+/* =========================
+   AMOUNT DETECTOR
+========================= */
 
-    const d=
-        new Date();
+function amt(row){
 
-    return [
-        d.getFullYear(),
-        String(
-            d.getMonth()+1
-        ).padStart(2,"0"),
-        String(
-            d.getDate()
-        ).padStart(2,"0")
-    ].join("-");
+    const fields = [
 
-}
-
-
-function getAmount(row){
-
-    const possible=[
         "amount",
+
         "total_amount",
+
         "paid_amount",
+
         "fee_amount",
+
         "salary_amount",
+
         "income_amount",
+
         "expense_amount",
+
         "price",
+
         "total",
+
         "paid",
+
         "tk"
+
     ];
 
+
     for(
-        const key of possible
+        const field of fields
     ){
 
         if(
             row &&
-            row[key]!==undefined &&
-            row[key]!==null &&
-            row[key]!==""
+            row[field] !== undefined &&
+            row[field] !== null &&
+            row[field] !== ""
         ){
 
-            return numberValue(
-                row[key]
-            );
+            const number =
+                Number(
+                    String(
+                        row[field]
+                    )
+                    .replace(/,/g,"")
+                    .replace(
+                        /[৳$]/g,
+                        ""
+                    )
+                );
+
+
+            if(
+                Number.isFinite(
+                    number
+                )
+            ){
+
+                return number;
+
+            }
 
         }
 
     }
+
 
     return 0;
 
 }
 
 
-function getDate(row){
+/* =========================
+   DATE DETECTOR
+========================= */
 
-    const possible=[
+function dateOf(row){
+
+    const fields = [
+
         "date",
+
         "income_date",
+
         "expense_date",
+
         "payment_date",
+
         "paid_date",
+
         "salary_date",
+
         "created_at"
+
     ];
 
+
     for(
-        const key of possible
+        const field of fields
     ){
 
         if(
             row &&
-            row[key]
+            row[field]
         ){
 
             return String(
-                row[key]
-            ).substring(
+                row[field]
+            ).slice(
                 0,
                 10
             );
@@ -2122,507 +3768,200 @@ function getDate(row){
 
     }
 
+
     return "";
 
 }
 
 
-/* =========================================================
-   BASIC COUNTS
-========================================================= */
+/* =========================
+   TODAY
+========================= */
 
-async function loadBasicCounts(){
+function today(){
 
-    const tables=[
-        {
-            table:"teachers",
-            element:"teacherCount"
-        },
-        {
-            table:"students",
-            element:"studentCount"
-        },
-        {
-            table:"employees",
-            element:"employeeCount"
-        },
-        {
-            table:"members",
-            element:"memberCount"
-        }
-    ];
+    const d =
+        new Date();
 
 
-    await Promise.all(
+    return [
 
-        tables.map(
-            async item=>{
+        d.getFullYear(),
 
-                try{
+        String(
+            d.getMonth()+1
+        )
+        .padStart(
+            2,
+            "0"
+        ),
 
-                    const {
-                        count,
-                        error
-                    }=
-                    await db
-                    .from(item.table)
-                    .select(
-                        "id",
-                        {
-                            count:"exact",
-                            head:true
-                        }
-                    );
-
-
-                    const element=
-                        document
-                        .getElementById(
-                            item.element
-                        );
-
-
-                    if(error){
-
-                        console.warn(
-                            item.table,
-                            error.message
-                        );
-
-                        element.textContent="0";
-
-                        return;
-
-                    }
-
-
-                    element.textContent=
-                        count || 0;
-
-                }catch(error){
-
-                    console.warn(
-                        item.table,
-                        error
-                    );
-
-                }
-
-            }
+        String(
+            d.getDate()
+        )
+        .padStart(
+            2,
+            "0"
         )
 
-    );
+    ].join("-");
 
 }
 
 
-/* =========================================================
-   STUDENT DATA
-   ONE QUERY ONLY
-========================================================= */
+/* =========================
+   COUNT
+========================= */
 
-async function loadStudentData(){
+async function count(
+    table
+){
 
     try{
 
         const {
-            data,
+            count,
             error
-        }=
-        await db
-        .from("students")
-        .select(`
-            id,
-            status,
-            student_status,
-            session,
-            class_id,
-            classes(name)
-        `);
+        } =
+            await db
+            .from(table)
+            .select(
+                "id",
+                {
+                    count:"exact",
+                    head:true
+                }
+            );
 
 
         if(error){
 
-            console.warn(
-                "Students:",
-                error.message
-            );
-
-            return [];
+            throw error;
 
         }
 
 
-        return data || [];
+        return count || 0;
 
     }catch(error){
 
         console.warn(
-            "Students:",
-            error
+            table,
+            error.message
         );
 
-        return [];
+        return 0;
 
     }
 
 }
 
 
-/* =========================================================
-   ACADEMIC COUNTS
-========================================================= */
+/* =========================
+   BASIC COUNTS
+========================= */
 
-function updateAcademicCounts(rows){
+async function counts(){
 
-    let active=0;
-    let pending=0;
-    let graduated=0;
-    let transferred=0;
-    let withdrawn=0;
-    let suspended=0;
-    let dismissed=0;
-    let leave=0;
+    const [
 
+        students,
 
-    rows.forEach(
-        student=>{
+        teachers,
 
-            const status=
-                String(
-                    student.status ||
-                    student.student_status ||
-                    "active"
-                )
-                .toLowerCase()
-                .trim();
+        employees,
 
+        members
 
-            if(
-                status==="active" ||
-                status==="approved" ||
-                status==="running"
-            ){
+    ] =
+        await Promise.all([
 
-                active++;
+            count(
+                "students"
+            ),
 
-            }else if(
-                status==="pending"
-            ){
+            count(
+                "teachers"
+            ),
 
-                pending++;
+            count(
+                "employees"
+            ),
 
-            }else if(
-                status==="graduated" ||
-                status==="graduate"
-            ){
+            count(
+                "members"
+            )
 
-                graduated++;
-
-            }else if(
-                status==="transferred" ||
-                status==="transfer"
-            ){
-
-                transferred++;
-
-            }else if(
-                status==="withdrawn" ||
-                status==="withdraw"
-            ){
-
-                withdrawn++;
-
-            }else if(
-                status==="suspended"
-            ){
-
-                suspended++;
-
-            }else if(
-                status==="dismissed"
-            ){
-
-                dismissed++;
-
-            }else if(
-                status==="leave" ||
-                status==="on_leave"
-            ){
-
-                leave++;
-
-            }
-
-        }
-    );
+        ]);
 
 
     document
     .getElementById(
-        "activeStudents"
+        "studentCount"
     )
-    .textContent=active;
+    .textContent =
+        students.toLocaleString();
 
 
     document
     .getElementById(
-        "pendingStudents"
+        "teacherCount"
     )
-    .textContent=pending;
+    .textContent =
+        teachers.toLocaleString();
 
 
     document
     .getElementById(
-        "graduatedStudents"
+        "employeeCount"
     )
-    .textContent=graduated;
+    .textContent =
+        employees.toLocaleString();
 
 
     document
     .getElementById(
-        "transferredStudents"
+        "memberCount"
     )
-    .textContent=transferred;
-
-
-    document
-    .getElementById(
-        "withdrawnStudents"
-    )
-    .textContent=withdrawn;
-
-
-    document
-    .getElementById(
-        "suspendedStudents"
-    )
-    .textContent=suspended;
-
-
-    document
-    .getElementById(
-        "dismissedStudents"
-    )
-    .textContent=dismissed;
-
-
-    document
-    .getElementById(
-        "leaveStudents"
-    )
-    .textContent=leave;
+    .textContent =
+        members.toLocaleString();
 
 }
 
 
-/* =========================================================
-   ACADEMIC CHART
-========================================================= */
+/* =========================
+   FINANCE
+========================= */
 
-function updateAcademicChart(rows){
+async function finance(){
 
-    const filtered=
-        rows.filter(
-            row=>
-                String(
-                    row.session || ""
-                )===CURRENT_SESSION
-        );
+    const [
 
+        incomeResult,
 
-    const map={};
+        expenseResult,
 
+        feesResult,
 
-    filtered.forEach(
-        row=>{
+        salaryResult
 
-            const className=
-                row.classes?.name ||
-                "অন্যান্য";
-
-
-            map[className]=
-                (map[className] || 0)+1;
-
-        }
-    );
-
-
-    const labels=
-        Object.keys(map);
-
-    const values=
-        Object.values(map);
-
-
-    createAcademicChart(
-        labels,
-        values
-    );
-
-}
-
-
-/* =========================================================
-   CREATE ACADEMIC CHART
-========================================================= */
-
-function createAcademicChart(
-    labels,
-    values
-){
-
-    const canvas=
-        document
-        .getElementById(
-            "academicChart"
-        );
-
-
-    if(!canvas){
-        return;
-    }
-
-
-    const ctx=
-        canvas.getContext("2d");
-
-
-    if(academicChart){
-
-        academicChart.destroy();
-
-    }
-
-
-    academicChart=
-        new Chart(
-            ctx,
-            {
-
-                type:"bar",
-
-                data:{
-
-                    labels:
-                        labels.length
-                        ? labels
-                        : ["কোনো তথ্য নেই"],
-
-                    datasets:[
-
-                        {
-
-                            label:"শিক্ষার্থী",
-
-                            data:
-                                values.length
-                                ? values
-                                : [0],
-
-                            backgroundColor:[
-                                "#08739b",
-                                "#54b3d0",
-                                "#0d8995",
-                                "#0a6e91",
-                                "#2d9eaa",
-                                "#126c9a",
-                                "#49a9c1",
-                                "#075b7c"
-                            ],
-
-                            borderRadius:8,
-
-                            borderSkipped:false
-
-                        }
-
-                    ]
-
-                },
-
-                options:{
-
-                    responsive:true,
-
-                    maintainAspectRatio:false,
-
-                    animation:false,
-
-                    plugins:{
-
-                        legend:{
-                            display:false
-                        }
-
-                    },
-
-                    scales:{
-
-                        y:{
-
-                            beginAtZero:true,
-
-                            ticks:{
-                                precision:0
-                            }
-
-                        },
-
-                        x:{
-
-                            ticks:{
-
-                                font:{
-                                    family:"Bornomala"
-                                }
-
-                            }
-
-                        }
-
-                    }
-
-                }
-
-            }
-        );
-
-}
-
-
-/* =========================================================
-   FINANCIAL DATA
-   ALL REQUESTS IN PARALLEL
-========================================================= */
-
-async function loadFinancialData(){
-
-    const today=
-        todayString();
-
-
-    let incomeRows=[];
-    let expenseRows=[];
-    let feeRows=[];
-    let salaryRows=[];
-
-
-    const results=
+    ] =
         await Promise.allSettled([
 
             db
             .from("income")
             .select("*"),
 
+
             db
             .from("expenses")
             .select("*"),
 
+
             db
             .from("fees")
             .select("*"),
+
 
             db
             .from("teacher_salaries")
@@ -2631,72 +3970,74 @@ async function loadFinancialData(){
         ]);
 
 
-    if(
-        results[0].status==="fulfilled" &&
-        !results[0].value.error
-    ){
-
-        incomeRows=
-            results[0].value.data || [];
-
-    }
+    const income =
+        incomeResult.status === "fulfilled" &&
+        !incomeResult.value.error
+            ? (
+                incomeResult.value.data || []
+            )
+            : [];
 
 
-    if(
-        results[1].status==="fulfilled" &&
-        !results[1].value.error
-    ){
-
-        expenseRows=
-            results[1].value.data || [];
-
-    }
+    const expense =
+        expenseResult.status === "fulfilled" &&
+        !expenseResult.value.error
+            ? (
+                expenseResult.value.data || []
+            )
+            : [];
 
 
-    if(
-        results[2].status==="fulfilled" &&
-        !results[2].value.error
-    ){
-
-        feeRows=
-            results[2].value.data || [];
-
-    }
+    const fees =
+        feesResult.status === "fulfilled" &&
+        !feesResult.value.error
+            ? (
+                feesResult.value.data || []
+            )
+            : [];
 
 
-    if(
-        results[3].status==="fulfilled" &&
-        !results[3].value.error
-    ){
-
-        salaryRows=
-            results[3].value.data || [];
-
-    }
+    const salary =
+        salaryResult.status === "fulfilled" &&
+        !salaryResult.value.error
+            ? (
+                salaryResult.value.data || []
+            )
+            : [];
 
 
-    let totalIncome=0;
-    let totalExpense=0;
-    let todayIncome=0;
-    let todayExpense=0;
-    let totalFees=0;
-    let totalSalary=0;
-    let dueFees=0;
+    let totalIncome = 0;
+
+    let totalExpense = 0;
+
+    let totalFees = 0;
+
+    let totalSalary = 0;
+
+    let todayIncome = 0;
+
+    let todayExpense = 0;
+
+    let dueFees = 0;
 
 
-    incomeRows.forEach(
+    income.forEach(
         row=>{
 
-            const amount=
-                getAmount(row);
+            const value =
+                amt(row);
 
-            totalIncome+=amount;
+            totalIncome +=
+                value;
+
 
             if(
-                getDate(row)===today
+                dateOf(row) ===
+                today()
             ){
 
-                todayIncome+=amount;
+                todayIncome +=
+                    value;
 
             }
 
@@ -2704,19 +4045,23 @@ async function loadFinancialData(){
     );
 
 
-    expenseRows.forEach(
+    expense.forEach(
         row=>{
 
-            const amount=
-                getAmount(row);
+            const value =
+                amt(row);
 
-            totalExpense+=amount;
+            totalExpense +=
+                value;
+
 
             if(
-                getDate(row)===today
+                dateOf(row) ===
+                today()
             ){
 
-                todayExpense+=amount;
+                todayExpense +=
+                    value;
 
             }
 
@@ -2724,34 +4069,41 @@ async function loadFinancialData(){
     );
 
 
-    feeRows.forEach(
+    fees.forEach(
         row=>{
 
-            totalFees+=
-                getAmount(row);
+            totalFees +=
+                amt(row);
 
 
-            const possible=[
+            const fields = [
+
                 "due_amount",
+
                 "due",
+
                 "remaining_amount",
+
                 "unpaid_amount"
+
             ];
 
 
             for(
-                const key of possible
+                const field of fields
             ){
 
                 if(
-                    row[key]!==undefined &&
-                    row[key]!==null
+                    row[field] !==
+                    undefined &&
+                    row[field] !==
+                    null
                 ){
 
-                    dueFees+=
-                        numberValue(
-                            row[key]
-                        );
+                    dueFees +=
+                        Number(
+                            row[field]
+                        ) || 0;
 
                     break;
 
@@ -2763,17 +4115,17 @@ async function loadFinancialData(){
     );
 
 
-    salaryRows.forEach(
+    salary.forEach(
         row=>{
 
-            totalSalary+=
-                getAmount(row);
+            totalSalary +=
+                amt(row);
 
         }
     );
 
 
-    const balance=
+    const balance =
         totalIncome -
         totalExpense -
         totalSalary;
@@ -2783,131 +4135,175 @@ async function loadFinancialData(){
     .getElementById(
         "todayIncome"
     )
-    .textContent=
-        money(todayIncome);
-
-
-    document
-    .getElementById(
-        "totalIncome"
-    )
-    .textContent=
-        money(totalIncome);
+    .textContent =
+        money(
+            todayIncome
+        );
 
 
     document
     .getElementById(
         "todayExpense"
     )
-    .textContent=
-        money(todayExpense);
-
-
-    document
-    .getElementById(
-        "totalExpense"
-    )
-    .textContent=
-        money(totalExpense);
-
-
-    document
-    .getElementById(
-        "balance"
-    )
-    .textContent=
-        money(balance);
+    .textContent =
+        money(
+            todayExpense
+        );
 
 
     document
     .getElementById(
         "totalFees"
     )
-    .textContent=
-        money(totalFees);
+    .textContent =
+        money(
+            totalFees
+        );
 
 
     document
     .getElementById(
         "dueFees"
     )
-    .textContent=
-        money(dueFees);
+    .textContent =
+        money(
+            dueFees
+        );
+
+
+    document
+    .getElementById(
+        "balance"
+    )
+    .textContent =
+        money(
+            balance
+        );
+
+
+    document
+    .getElementById(
+        "totalIncome"
+    )
+    .textContent =
+        money(
+            totalIncome
+        );
+
+
+    document
+    .getElementById(
+        "totalExpense"
+    )
+    .textContent =
+        money(
+            totalExpense
+        );
 
 
     document
     .getElementById(
         "totalSalary"
     )
-    .textContent=
-        money(totalSalary);
+    .textContent =
+        money(
+            totalSalary
+        );
 
 
-    updateLedgerChart(
-        incomeRows,
-        expenseRows
+    document
+    .getElementById(
+        "balance2"
+    )
+    .textContent =
+        money(
+            balance
+        );
+
+
+    makeChart(
+        income,
+        expense
     );
 
 }
 
 
-/* =========================================================
-   LEDGER CHART
-========================================================= */
+/* =========================
+   CHART
+========================= */
 
-function updateLedgerChart(
+function makeChart(
     incomeRows,
     expenseRows
 ){
 
-    const labels=[
-        "জানুয়ারি",
-        "ফেব্রুয়ারি",
-        "মার্চ",
-        "এপ্রিল",
-        "মে",
-        "জুন",
-        "জুলাই",
-        "আগস্ট",
-        "সেপ্টেম্বর",
-        "অক্টোবর",
-        "নভেম্বর",
-        "ডিসেম্বর"
+    const income =
+        Array(12).fill(0);
+
+    const expense =
+        Array(12).fill(0);
+
+
+    const labels = [
+
+        "Jan",
+
+        "Feb",
+
+        "Mar",
+
+        "Apr",
+
+        "May",
+
+        "Jun",
+
+        "Jul",
+
+        "Aug",
+
+        "Sep",
+
+        "Oct",
+
+        "Nov",
+
+        "Dec"
+
     ];
-
-
-    const income=
-        Array(12).fill(0);
-
-    const expense=
-        Array(12).fill(0);
 
 
     incomeRows.forEach(
         row=>{
 
-            const date=
-                getDate(row);
+            const date =
+                dateOf(row);
+
 
             if(!date){
+
                 return;
+
             }
 
 
-            const d=
+            const d =
                 new Date(date);
 
 
             if(
-                !isNaN(d.getTime()) &&
-                d.getFullYear()===
-                Number(CURRENT_SESSION)
+                !isNaN(
+                    d.getTime()
+                ) &&
+                d.getFullYear() ===
+                YEAR
             ){
 
                 income[
                     d.getMonth()
-                ]+=
-                    getAmount(row);
+                ] +=
+                    amt(row);
 
             }
 
@@ -2918,28 +4314,33 @@ function updateLedgerChart(
     expenseRows.forEach(
         row=>{
 
-            const date=
-                getDate(row);
+            const date =
+                dateOf(row);
+
 
             if(!date){
+
                 return;
+
             }
 
 
-            const d=
+            const d =
                 new Date(date);
 
 
             if(
-                !isNaN(d.getTime()) &&
-                d.getFullYear()===
-                Number(CURRENT_SESSION)
+                !isNaN(
+                    d.getTime()
+                ) &&
+                d.getFullYear() ===
+                YEAR
             ){
 
                 expense[
                     d.getMonth()
-                ]+=
-                    getAmount(row);
+                ] +=
+                    amt(row);
 
             }
 
@@ -2947,32 +4348,29 @@ function updateLedgerChart(
     );
 
 
-    const canvas=
-        document
-        .getElementById(
-            "ledgerChart"
+    const canvas =
+        document.getElementById(
+            "ledger"
         );
 
 
     if(!canvas){
+
         return;
-    }
-
-
-    const ctx=
-        canvas.getContext("2d");
-
-
-    if(ledgerChart){
-
-        ledgerChart.destroy();
 
     }
 
 
-    ledgerChart=
+    if(chart){
+
+        chart.destroy();
+
+    }
+
+
+    chart =
         new Chart(
-            ctx,
+            canvas,
             {
 
                 type:"line",
@@ -2985,53 +4383,51 @@ function updateLedgerChart(
 
                         {
 
-                            label:"আয়",
+                            label:"Income",
 
-                            data:income,
+                            data:
+                                income,
 
-                            borderColor:"#08739b",
+                            borderColor:
+                                "#79d7ee",
 
                             backgroundColor:
-                                "rgba(8,115,155,.10)",
-
-                            borderWidth:3,
+                                "rgba(121,215,238,.08)",
 
                             fill:true,
 
-                            tension:.35,
+                            tension:.4,
 
-                            pointRadius:3,
-
-                            pointHoverRadius:5
+                            borderWidth:2
 
                         },
 
+
                         {
 
-                            label:"ব্যয়",
+                            label:"Expense",
 
-                            data:expense,
+                            data:
+                                expense,
 
-                            borderColor:"#d20b0b",
+                            borderColor:
+                                "#ff8795",
 
                             backgroundColor:
-                                "rgba(210,11,11,.06)",
-
-                            borderWidth:3,
+                                "rgba(255,135,149,.06)",
 
                             fill:true,
 
-                            tension:.35,
+                            tension:.4,
 
-                            pointRadius:3,
-
-                            pointHoverRadius:5
+                            borderWidth:2
 
                         }
 
                     ]
 
                 },
+
 
                 options:{
 
@@ -3042,20 +4438,28 @@ function updateLedgerChart(
                     animation:false,
 
                     interaction:{
+
                         mode:"index",
+
                         intersect:false
+
                     },
+
 
                     plugins:{
 
                         legend:{
 
-                            position:"top",
-
                             labels:{
 
+                                color:
+                                    "#aab7ca",
+
                                 font:{
-                                    family:"Bornomala"
+
+                                    family:
+                                        "Bornomala"
+
                                 }
 
                             }
@@ -3064,30 +4468,51 @@ function updateLedgerChart(
 
                     },
 
+
                     scales:{
 
-                        y:{
+                        x:{
 
-                            beginAtZero:true,
+                            grid:{
+
+                                color:
+                                    "rgba(255,255,255,.04)"
+
+                            },
 
                             ticks:{
 
-                                callback:value=>
-                                    "৳ "+
-                                    Number(value)
-                                    .toLocaleString()
+                                color:
+                                    "#78869d"
 
                             }
 
                         },
 
-                        x:{
+
+                        y:{
+
+                            beginAtZero:true,
+
+                            grid:{
+
+                                color:
+                                    "rgba(255,255,255,.04)"
+
+                            },
 
                             ticks:{
 
-                                font:{
-                                    family:"Bornomala"
-                                }
+                                color:
+                                    "#78869d",
+
+                                callback:
+                                    value=>
+                                        "৳ "+
+                                        Number(
+                                            value
+                                        )
+                                        .toLocaleString()
 
                             }
 
@@ -3103,64 +4528,73 @@ function updateLedgerChart(
 }
 
 
-/* =========================================================
-   DASHBOARD LOAD
-========================================================= */
+/* =========================
+   INIT
+========================= */
 
-async function loadDashboard(){
+async function init(){
 
-    const authenticated=
-        await checkAuth();
+    setLang(
+        lang
+    );
 
 
-    if(!authenticated){
+    document
+    .getElementById(
+        "year"
+    )
+    .textContent =
+        YEAR;
+
+
+    const {
+        data,
+        error
+    } =
+        await db.auth.getSession();
+
+
+    if(
+        error ||
+        !data.session
+    ){
+
+        location.href =
+            "admin.html";
+
         return;
+
     }
 
 
-    /*
-       Independent requests start together.
-       Students are fetched only once.
-    */
-
-    const [
-        ,
-        studentRows
-    ]=
     await Promise.all([
 
-        Promise.all([
-            loadBasicCounts(),
-            loadFinancialData()
-        ]),
+        counts(),
 
-        loadStudentData()
+        finance()
 
     ]);
-
-
-    updateAcademicCounts(
-        studentRows
-    );
-
-
-    updateAcademicChart(
-        studentRows
-    );
 
 }
 
 
-/* =========================================================
+/* =========================
    AUTH STATE
-========================================================= */
+========================= */
 
 db.auth.onAuthStateChange(
-    (event,session)=>{
+    (
+        event,
+        session
+    )=>{
 
-        if(!session){
+        if(
+            event ===
+            "SIGNED_OUT" ||
+            !session
+        ){
 
-            window.location.href=
+            location.href =
                 "admin.html";
 
         }
@@ -3169,11 +4603,11 @@ db.auth.onAuthStateChange(
 );
 
 
-/* =========================================================
+/* =========================
    START
-========================================================= */
+========================= */
 
-loadDashboard();
+init();
 
 </script>
 
