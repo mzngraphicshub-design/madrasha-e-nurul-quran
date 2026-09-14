@@ -3,11 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login | মাদরাসায়ে নূরুল কুরআন</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>Login | মাদরাসায়ে নূরুল কুরআন</title>
 
 <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -17,8 +13,8 @@
 <style>
 @font-face{
     font-family:'Bornomala';
-    src:url('https://fonts.gstatic.com/s/bornomala/v1/6xKydSBYKcSV-LCoeQqfX1RYOo3ik4zwlxdu.woff2')
-    format('woff2');
+    src:url('./fonts/Bornomala-Regular.ttf') format('truetype');
+    font-display:swap;
 }
 
 *{
@@ -40,7 +36,7 @@
 
 body{
     min-height:100vh;
-    font-family:'Bornomala','Noto Serif Bengali',serif;
+    font-family:'Bornomala',sans-serif;
     background:
         radial-gradient(circle at 20% 20%,rgba(8,117,223,.18),transparent 35%),
         radial-gradient(circle at 80% 80%,rgba(0,196,255,.12),transparent 35%),
@@ -386,7 +382,7 @@ body::after{
             <img src="img/logo.png" alt="Madrasa Logo">
         </div>
 
-        <h1>মাদরাসায়ে নূরুল কুরআন</h1>
+        <h1>মাদরাসায়ে নূরুল কুরআন</h1>
         <p>Madrasa-e Nurul Quran</p>
     </div>
 
@@ -446,7 +442,7 @@ body::after{
 
             <div class="form-group">
 
-                <label>পাসওয়ার্ড</label>
+                <label>পাসওয়ার্ড</label>
 
                 <div class="input-wrap">
 
@@ -455,7 +451,7 @@ body::after{
                     <input
                         type="password"
                         id="password"
-                        placeholder="পাসওয়ার্ড লিখুন"
+                        placeholder="পাসওয়ার্ড লিখুন"
                         autocomplete="current-password">
 
                     <span class="password-toggle"
@@ -485,7 +481,7 @@ body::after{
                 onclick="biometricLogin()">
 
                 <i class="fa-solid fa-fingerprint"></i>
-                Fingerprint / Passkey দিয়ে লগইন
+                Fingerprint / Passkey দিয়ে লগইন
 
             </button>
 
@@ -552,7 +548,7 @@ body::after{
         <div class="info">
             আপনার অ্যাকাউন্টের তথ্য ব্যবহার করে লগইন করুন।
             <br>
-            Student/Guardian Login-এর জন্য Student ID ও Roll Number প্রয়োজন।
+            Student/Guardian Login-এর জন্য Student ID ও Roll Number প্রয়োজন।
         </div>
 
     </div>
@@ -704,7 +700,7 @@ function switchRole(role){
             "অভিভাবক / শিক্ষার্থী লগইন";
 
         subheading.textContent =
-            "Student ID ও Roll Number দিয়ে প্রবেশ করুন";
+            "Student ID ও Roll Number দিয়ে প্রবেশ করুন";
 
     }
 
@@ -808,7 +804,7 @@ async function staffLogin(){
     if(!password){
 
         showMessage(
-            "পাসওয়ার্ড লিখুন।"
+            "পাসওয়ার্ড লিখুন।"
         );
 
         return;
@@ -851,7 +847,7 @@ async function staffLogin(){
         if(!data.session){
 
             throw new Error(
-                "Login session পাওয়া যায়নি।"
+                "Login session পাওয়া যায়নি।"
             );
 
         }
@@ -909,7 +905,7 @@ async function staffLogin(){
                 await supabaseClient.auth.signOut();
 
                 throw new Error(
-                    "শিক্ষক অ্যাকাউন্ট দিয়ে অ্যাডমিন প্যানেলে প্রবেশ করা যাবে না।"
+                    "শিক্ষক অ্যাকাউন্ট দিয়ে অ্যাডমিন প্যানেলে প্রবেশ করা যাবে না।"
                 );
 
             }
@@ -918,7 +914,7 @@ async function staffLogin(){
 
 
         showMessage(
-            "লগইন সফল হয়েছে। Dashboard-এ নেওয়া হচ্ছে...",
+            "লগইন সফল হয়েছে। Dashboard-এ নেওয়া হচ্ছে...",
             "success"
         );
 
@@ -937,7 +933,7 @@ async function staffLogin(){
 
         showMessage(
             error.message ||
-            "লগইন ব্যর্থ হয়েছে। ইমেইল ও পাসওয়ার্ড যাচাই করুন।"
+            "লগইন ব্যর্থ হয়েছে। ইমেইল ও পাসওয়ার্ড যাচাই করুন।"
         );
 
 
@@ -1044,7 +1040,7 @@ async function studentLogin(){
         if(!data){
 
             throw new Error(
-                "Student ID অথবা Roll Number সঠিক নয়।"
+                "Student ID অথবা Roll Number সঠিক নয়।"
             );
 
         }
@@ -1068,7 +1064,7 @@ async function studentLogin(){
 
 
         showMessage(
-            `স্বাগতম ${data.name || "Student"}। Dashboard-এ নেওয়া হচ্ছে...`,
+            `স্বাগতম ${data.name || "Student"}। Dashboard-এ নেওয়া হচ্ছে...`,
             "success"
         );
 
@@ -1087,7 +1083,7 @@ async function studentLogin(){
 
         showMessage(
             error.message ||
-            "Student login ব্যর্থ হয়েছে।"
+            "Student login ব্যর্থ হয়েছে।"
         );
 
 
@@ -1157,7 +1153,7 @@ async function biometricLogin(){
         if(!data){
 
             throw new Error(
-                "Passkey login সম্পন্ন হয়নি।"
+                "Passkey login সম্পন্ন হয়নি।"
             );
 
         }
@@ -1211,7 +1207,7 @@ async function biometricLogin(){
                 await supabaseClient.auth.signOut();
 
                 throw new Error(
-                    "Teacher Passkey দিয়ে Admin Panel-এ প্রবেশ করা যাবে না।"
+                    "Teacher Passkey দিয়ে Admin Panel-এ প্রবেশ করা যাবে না।"
                 );
 
             }
@@ -1220,7 +1216,7 @@ async function biometricLogin(){
 
 
         showMessage(
-            "Fingerprint / Passkey Login সফল হয়েছে।",
+            "Fingerprint / Passkey Login সফল হয়েছে।",
             "success"
         );
 
@@ -1239,71 +1235,7 @@ async function biometricLogin(){
 
         showMessage(
             error.message ||
-            "Fingerprint / Passkey login ব্যর্থ হয়েছে।"
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   EXISTING SESSION CHECK
-========================================================= */
-
-async function checkExistingSession(){
-
-    try{
-
-        const {
-            data
-        } =
-        await supabaseClient.auth.getSession();
-
-
-        const session =
-            data?.session;
-
-
-        if(!session)
-            return;
-
-
-        const user =
-            session.user;
-
-
-        const role =
-            user?.app_metadata?.role ||
-            user?.user_metadata?.role ||
-            "";
-
-
-        /*
-         * Existing admin/teacher session
-         */
-
-        if(role.toLowerCase() === "teacher"){
-
-            currentRole = "teacher";
-
-            window.location.href =
-                "dashboard.html";
-
-            return;
-
-        }
-
-
-        window.location.href =
-            "dashboard.html";
-
-
-    }catch(error){
-
-        console.error(
-            "Session check error:",
-            error
+            "Fingerprint / Passkey login ব্যর্থ হয়েছে।"
         );
 
     }
@@ -1339,11 +1271,16 @@ document.addEventListener(
 
 /* =========================================================
    INITIALIZE
+
+   NOTE: আগে এখানে checkExistingSession() কল করা হতো, যেটা
+   পেজ লোড হলেই পুরনো সেভ করা সেশন খুঁজে পেয়ে কোনো ইমেইল/
+   পাসওয়ার্ড ছাড়াই dashboard.html-এ নিয়ে যেত। সেই কারণেই
+   লগইন পেজে গেলে মনে হতো "এমনিই লগইন হয়ে যাচ্ছে"। এখন সেই
+   অটো-রিডাইরেক্ট বাদ দেওয়া হয়েছে, তাই প্রতিবারই সঠিক তথ্য
+   দিয়ে লগইন করতে হবে।
 ========================================================= */
 
 switchRole("admin");
-
-checkExistingSession();
 
 </script>
 
