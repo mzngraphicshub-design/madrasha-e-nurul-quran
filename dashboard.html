@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Admin Dashboard | মাদরাসায়ে নূরুল কুরআন</title>
 
 <link rel="stylesheet"
@@ -14,1941 +16,3008 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
-html,body,button,input,textarea,select,option{
-font-family:"Bornomala",serif!important;
+
+/* =========================================================
+   FONT
+========================================================= */
+
+html,
+body,
+button,
+input,
+textarea,
+select,
+option{
+    font-family:"Bornomala",serif!important;
 }
 
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
 html{
-scroll-behavior:smooth;
+    scroll-behavior:smooth;
 }
 
 body{
-background:var(--bg);
-color:var(--text);
-overflow-x:hidden;
-transition:background .35s ease,color .35s ease;
+    background:var(--bg);
+    color:var(--text);
+    overflow-x:hidden;
+    transition:
+        background .35s ease,
+        color .35s ease;
 }
 
 a{
-text-decoration:none;
-color:inherit;
+    text-decoration:none;
+    color:inherit;
 }
 
 button{
-font-family:inherit;
+    font-family:inherit;
 }
+
+
+/* =========================================================
+   THEME VARIABLES
+========================================================= */
 
 :root{
---primary:#54b3d0;
---primary-dark:#08739b;
---primary-deep:#075b7c;
---bg:#071426;
---bg-soft:#0b1b30;
---card:#101f34;
---card-2:#14263d;
---text:#edf8ff;
---text-soft:#d5e5ed;
---muted:#91a7b5;
---border:rgba(120,205,230,.13);
---glass:rgba(255,255,255,.055);
---glass-border:rgba(255,255,255,.10);
---shadow:0 12px 35px rgba(0,0,0,.18);
---radius:20px;
 
---topbar-bg:
-linear-gradient(
-135deg,
-#071426,
-#0a1c31 60%,
-#0b263a
-);
+    /* DEFAULT = NAVY GLASS */
 
---sidebar-bg:rgba(6,18,34,.96);
+    --primary:#54b3d0;
+    --primary-dark:#08739b;
+    --primary-deep:#075b7c;
 
---welcome-bg:
-radial-gradient(
-circle at 90% 10%,
-rgba(84,179,208,.18),
-transparent 35%
-),
-linear-gradient(
-135deg,
-#071426,
-#0a2740 55%,
-#075b7c
-);
+    --bg:#071426;
+    --bg-soft:#0b1b30;
 
---quick-bg:
-linear-gradient(
-145deg,
-rgba(255,255,255,.065),
-rgba(84,179,208,.035)
-);
+    --card:#101f34;
+    --card-2:#14263d;
 
---quick-name:#dcecf3;
---section-icon:rgba(84,179,208,.12);
---table-line:rgba(255,255,255,.08);
+    --text:#edf8ff;
+    --text-soft:#d5e5ed;
+
+    --muted:#91a7b5;
+
+    --border:rgba(120,205,230,.13);
+
+    --glass:rgba(255,255,255,.055);
+    --glass-border:rgba(255,255,255,.10);
+
+    --shadow:
+        0 12px 35px rgba(0,0,0,.18);
+
+    --radius:20px;
+
+    --topbar-bg:
+        linear-gradient(
+            135deg,
+            #071426,
+            #0a1c31 60%,
+            #0b263a
+        );
+
+    --sidebar-bg:
+        rgba(6,18,34,.96);
+
+    --welcome-bg:
+        radial-gradient(
+            circle at 90% 10%,
+            rgba(84,179,208,.18),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #071426,
+            #0a2740 55%,
+            #075b7c
+        );
+
+    --quick-bg:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.065),
+            rgba(84,179,208,.035)
+        );
+
+    --quick-name:#dcecf3;
+
+    --section-icon:
+        rgba(84,179,208,.12);
+
+    --table-line:rgba(255,255,255,.08);
+
 }
+
+
+/* =========================================================
+   WHITE / OFFICIAL LIGHT
+========================================================= */
 
 body.theme-light{
---primary:#08739b;
---primary-dark:#075b7c;
---primary-deep:#043b54;
---bg:#f3f7fa;
---bg-soft:#ffffff;
---card:#ffffff;
---card-2:#f7fafc;
---text:#18323d;
---text-soft:#405862;
---muted:#71818a;
---border:rgba(7,91,124,.12);
---glass:rgba(255,255,255,.82);
---glass-border:rgba(7,91,124,.10);
---shadow:0 10px 28px rgba(20,65,85,.09);
---topbar-bg:#ffffff;
---sidebar-bg:#ffffff;
 
---welcome-bg:
-radial-gradient(
-circle at 90% 10%,
-rgba(84,179,208,.12),
-transparent 35%
-),
-linear-gradient(
-135deg,
-#06233b,
-#075b7c 58%,
-#08739b
-);
+    --primary:#08739b;
+    --primary-dark:#075b7c;
+    --primary-deep:#043b54;
 
---quick-bg:
-linear-gradient(
-145deg,
-#06223a,
-#0a4260
-);
+    --bg:#f3f7fa;
+    --bg-soft:#ffffff;
 
---quick-name:#ffffff;
---section-icon:#e9f7fb;
---table-line:rgba(7,91,124,.09);
+    --card:#ffffff;
+    --card-2:#f7fafc;
+
+    --text:#18323d;
+    --text-soft:#405862;
+
+    --muted:#71818a;
+
+    --border:rgba(7,91,124,.12);
+
+    --glass:rgba(255,255,255,.82);
+    --glass-border:rgba(7,91,124,.10);
+
+    --shadow:
+        0 10px 28px rgba(20,65,85,.09);
+
+    --topbar-bg:#ffffff;
+
+    --sidebar-bg:#ffffff;
+
+    --welcome-bg:
+        radial-gradient(
+            circle at 90% 10%,
+            rgba(84,179,208,.12),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #06233b,
+            #075b7c 58%,
+            #08739b
+        );
+
+    --quick-bg:
+        linear-gradient(
+            145deg,
+            #06223a,
+            #0a4260
+        );
+
+    --quick-name:#ffffff;
+
+    --section-icon:
+        #e9f7fb;
+
+    --table-line:rgba(7,91,124,.09);
+
 }
+
+
+/* =========================================================
+   NURUL AQUA
+   UNIQUE WATER / GLASS / AI STYLE
+========================================================= */
 
 body.theme-aqua{
---primary:#17b8bd;
---primary-dark:#087b7e;
---primary-deep:#075653;
---bg:#edf8f6;
---bg-soft:#ffffff;
---card:rgba(255,255,255,.80);
---card-2:rgba(241,252,250,.88);
---text:#123c3b;
---text-soft:#315c5a;
---muted:#718987;
---border:rgba(8,123,126,.13);
---glass:rgba(255,255,255,.68);
---glass-border:rgba(255,255,255,.88);
---shadow:0 12px 32px rgba(15,104,104,.10);
 
---topbar-bg:
-linear-gradient(
-90deg,
-#ffffff,
-#f5fffd,
-#ffffff
-);
+    --primary:#17b8bd;
+    --primary-dark:#087b7e;
+    --primary-deep:#075653;
 
---sidebar-bg:rgba(255,255,255,.91);
+    --bg:#edf8f6;
+    --bg-soft:#ffffff;
 
---welcome-bg:
-radial-gradient(
-circle at 90% 15%,
-rgba(255,212,71,.24),
-transparent 25%
-),
-radial-gradient(
-circle at 15% 100%,
-rgba(23,184,189,.22),
-transparent 32%
-),
-linear-gradient(
-135deg,
-#063f3c,
-#087b7e 58%,
-#10a7a7
-);
+    --card:rgba(255,255,255,.80);
+    --card-2:rgba(241,252,250,.88);
 
---quick-bg:
-linear-gradient(
-145deg,
-rgba(255,255,255,.92),
-rgba(226,249,246,.80)
-);
+    --text:#123c3b;
+    --text-soft:#315c5a;
 
---quick-name:#245451;
---section-icon:#e2f8f5;
---table-line:rgba(8,123,126,.10);
+    --muted:#718987;
+
+    --border:rgba(8,123,126,.13);
+
+    --glass:rgba(255,255,255,.68);
+    --glass-border:rgba(255,255,255,.88);
+
+    --shadow:
+        0 12px 32px rgba(15,104,104,.10);
+
+    --topbar-bg:
+        linear-gradient(
+            90deg,
+            #ffffff,
+            #f5fffd,
+            #ffffff
+        );
+
+    --sidebar-bg:
+        rgba(255,255,255,.91);
+
+    --welcome-bg:
+        radial-gradient(
+            circle at 90% 15%,
+            rgba(255,212,71,.24),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 15% 100%,
+            rgba(23,184,189,.22),
+            transparent 32%
+        ),
+        linear-gradient(
+            135deg,
+            #063f3c,
+            #087b7e 58%,
+            #10a7a7
+        );
+
+    --quick-bg:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.92),
+            rgba(226,249,246,.80)
+        );
+
+    --quick-name:#245451;
+
+    --section-icon:
+        #e2f8f5;
+
+    --table-line:rgba(8,123,126,.10);
+
 }
 
+
+/* =========================================================
+   BODY WATER BACKGROUND
+========================================================= */
+
 body.theme-aqua::before{
-content:"";
-position:fixed;
-width:420px;
-height:420px;
-right:-180px;
-top:120px;
-border-radius:50%;
-background:
-radial-gradient(
-circle,
-rgba(23,184,189,.12),
-transparent 68%
-);
-pointer-events:none;
-z-index:-1;
+
+    content:"";
+
+    position:fixed;
+
+    width:420px;
+    height:420px;
+
+    right:-180px;
+    top:120px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(23,184,189,.12),
+            transparent 68%
+        );
+
+    pointer-events:none;
+
+    z-index:-1;
+
 }
 
 body.theme-aqua::after{
-content:"";
-position:fixed;
-width:360px;
-height:360px;
-left:-180px;
-bottom:50px;
-border-radius:50%;
-background:
-radial-gradient(
-circle,
-rgba(255,212,71,.08),
-transparent 68%
-);
-pointer-events:none;
-z-index:-1;
+
+    content:"";
+
+    position:fixed;
+
+    width:360px;
+    height:360px;
+
+    left:-180px;
+    bottom:50px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,212,71,.08),
+            transparent 68%
+        );
+
+    pointer-events:none;
+
+    z-index:-1;
+
 }
 
+
+/* =========================================================
+   TOP BAR
+========================================================= */
+
 .topbar{
-height:76px;
-background:var(--topbar-bg);
-color:var(--text);
-display:flex;
-align-items:center;
-position:sticky;
-top:0;
-z-index:1000;
-border-bottom:1px solid var(--border);
-box-shadow:0 5px 20px rgba(0,0,0,.08);
-transition:.35s;
+
+    height:76px;
+
+    background:var(--topbar-bg);
+
+    color:
+        var(--text);
+
+    display:flex;
+
+    align-items:center;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
+
+    border-bottom:
+        1px solid var(--border);
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,.08);
+
+    transition:.35s;
+
 }
 
 .topbar-inner{
-width:100%;
-max-width:1500px;
-margin:auto;
-padding:0 20px;
-display:flex;
-align-items:center;
-gap:14px;
+
+    width:100%;
+
+    max-width:1500px;
+
+    margin:auto;
+
+    padding:
+        0 20px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
 }
 
 .menu-btn{
-width:48px;
-height:48px;
-border:1px solid var(--border);
-border-radius:15px;
-background:var(--glass);
-color:var(--text);
-font-size:21px;
-cursor:pointer;
-display:flex;
-align-items:center;
-justify-content:center;
-transition:.3s;
+
+    width:48px;
+    height:48px;
+
+    border:1px solid var(--border);
+
+    border-radius:15px;
+
+    background:
+        var(--glass);
+
+    color:
+        var(--text);
+
+    font-size:21px;
+
+    cursor:pointer;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    transition:.3s;
+
 }
 
 .menu-btn:hover{
-background:rgba(84,179,208,.15);
-transform:translateY(-2px);
+
+    background:
+        rgba(84,179,208,.15);
+
+    transform:
+        translateY(-2px);
+
 }
 
+
+/* =========================================================
+   BRAND
+========================================================= */
+
 .brand{
-display:flex;
-align-items:center;
-gap:12px;
-flex:1;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    flex:1;
+
 }
 
 .brand-icon{
-width:46px;
-height:46px;
-border-radius:15px;
-background:
-linear-gradient(
-145deg,
-rgba(84,179,208,.22),
-rgba(8,115,155,.08)
-);
-border:1px solid var(--border);
-display:flex;
-align-items:center;
-justify-content:center;
-color:var(--primary-dark);
-font-size:20px;
+
+    width:46px;
+    height:46px;
+
+    border-radius:15px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(84,179,208,.22),
+            rgba(8,115,155,.08)
+        );
+
+    border:
+        1px solid
+        var(--border);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:
+        var(--primary-dark);
+
+    font-size:20px;
+
 }
 
 .theme-aqua .brand-icon{
-background:
-linear-gradient(
-145deg,
-rgba(23,184,189,.18),
-rgba(255,212,71,.10)
-);
-color:#087b7e;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(23,184,189,.18),
+            rgba(255,212,71,.10)
+        );
+
+    color:
+        #087b7e;
+
 }
 
 .brand-text{
-font-size:19px;
-font-weight:800;
-line-height:1.25;
+
+    font-size:19px;
+
+    font-weight:800;
+
+    line-height:1.25;
+
 }
 
 .brand-text small{
-display:block;
-font-family:Arial,sans-serif;
-font-size:9px;
-font-weight:700;
-letter-spacing:1px;
-opacity:.65;
-margin-top:2px;
+
+    display:block;
+
+    font-family:Arial,sans-serif;
+
+    font-size:9px;
+
+    font-weight:700;
+
+    letter-spacing:1px;
+
+    opacity:.65;
+
+    margin-top:2px;
+
 }
 
+
+/* =========================================================
+   TOP ACTIONS
+========================================================= */
+
 .top-actions{
-display:flex;
-align-items:center;
-gap:8px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
 }
 
 .top-action{
-width:43px;
-height:43px;
-border-radius:14px;
-display:flex;
-align-items:center;
-justify-content:center;
-color:var(--text);
-background:var(--glass);
-border:1px solid var(--border);
-backdrop-filter:blur(12px);
-cursor:pointer;
-transition:.3s;
+
+    width:43px;
+    height:43px;
+
+    border-radius:14px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:
+        var(--text);
+
+    background:
+        var(--glass);
+
+    border:
+        1px solid
+        var(--border);
+
+    backdrop-filter:
+        blur(12px);
+
+    cursor:pointer;
+
+    transition:.3s;
+
 }
 
 .top-action:hover{
-transform:translateY(-3px);
-background:rgba(84,179,208,.14);
+
+    transform:
+        translateY(-3px);
+
+    background:
+        rgba(84,179,208,.14);
+
 }
 
+
+/* =========================================================
+   DROPDOWN
+========================================================= */
+
 .dropdown{
-position:relative;
+
+    position:relative;
+
 }
 
 .dropdown-menu{
-position:absolute;
-top:52px;
-right:0;
-min-width:185px;
-padding:8px;
-border-radius:17px;
-background:var(--card);
-border:1px solid var(--border);
-box-shadow:0 18px 45px rgba(0,0,0,.18);
-display:none;
-z-index:2000;
-backdrop-filter:blur(20px);
+
+    position:absolute;
+
+    top:52px;
+
+    right:0;
+
+    min-width:185px;
+
+    padding:8px;
+
+    border-radius:17px;
+
+    background:
+        var(--card);
+
+    border:
+        1px solid
+        var(--border);
+
+    box-shadow:
+        0 18px 45px rgba(0,0,0,.18);
+
+    display:none;
+
+    z-index:2000;
+
+    backdrop-filter:
+        blur(20px);
+
 }
 
 .dropdown-menu.show{
-display:block;
-animation:dropIn .18s ease;
+
+    display:block;
+
+    animation:
+        dropIn .18s ease;
+
 }
 
 @keyframes dropIn{
-from{
-opacity:0;
-transform:translateY(-7px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
+
+    from{
+        opacity:0;
+        transform:translateY(-7px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
 }
 
 .dropdown-title{
-padding:8px 10px;
-font-size:11px;
-color:var(--muted);
-font-weight:700;
+
+    padding:
+        8px 10px;
+
+    font-size:11px;
+
+    color:
+        var(--muted);
+
+    font-weight:700;
+
 }
 
 .dropdown-option{
-width:100%;
-border:0;
-background:transparent;
-color:var(--text);
-padding:10px 12px;
-border-radius:11px;
-text-align:left;
-cursor:pointer;
-display:flex;
-align-items:center;
-gap:10px;
-font-size:13px;
-transition:.2s;
+
+    width:100%;
+
+    border:0;
+
+    background:transparent;
+
+    color:
+        var(--text);
+
+    padding:
+        10px 12px;
+
+    border-radius:11px;
+
+    text-align:left;
+
+    cursor:pointer;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    font-size:13px;
+
+    transition:.2s;
+
 }
 
 .dropdown-option:hover{
-background:rgba(84,179,208,.13);
-color:var(--primary-dark);
+
+    background:
+        rgba(84,179,208,.13);
+
+    color:
+        var(--primary-dark);
+
 }
 
 .dropdown-option.active{
-background:rgba(84,179,208,.15);
-color:var(--primary-dark);
+
+    background:
+        rgba(84,179,208,.15);
+
+    color:
+        var(--primary-dark);
+
 }
 
 .dropdown-option i{
-width:18px;
-text-align:center;
+
+    width:18px;
+
+    text-align:center;
+
 }
 
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
 .logout-btn{
-padding:10px 15px;
-border:1px solid var(--border);
-border-radius:13px;
-color:var(--text);
-background:var(--glass);
-cursor:pointer;
-font-size:12px;
-transition:.3s;
+
+    padding:
+        10px 15px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:13px;
+
+    color:
+        var(--text);
+
+    background:
+        var(--glass);
+
+    cursor:pointer;
+
+    font-size:12px;
+
+    transition:.3s;
+
 }
 
 .logout-btn:hover{
-background:rgba(220,30,30,.10);
-color:#d20b0b;
+
+    background:
+        rgba(220,30,30,.10);
+
+    color:#d20b0b;
+
 }
 
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
 .sidebar{
-position:fixed;
-top:76px;
-left:0;
-bottom:0;
-width:275px;
-background:var(--sidebar-bg);
-border-right:1px solid var(--border);
-box-shadow:10px 0 30px rgba(0,0,0,.06);
-padding:18px 13px;
-overflow-y:auto;
-z-index:900;
-transform:translateX(0);
-transition:.35s;
-backdrop-filter:blur(18px);
+
+    position:fixed;
+
+    top:76px;
+
+    left:0;
+
+    bottom:0;
+
+    width:275px;
+
+    background:
+        var(--sidebar-bg);
+
+    border-right:
+        1px solid
+        var(--border);
+
+    box-shadow:
+        10px 0 30px rgba(0,0,0,.06);
+
+    padding:
+        18px 13px;
+
+    overflow-y:auto;
+
+    z-index:900;
+
+    transform:
+        translateX(0);
+
+    transition:.35s;
+
+    backdrop-filter:
+        blur(18px);
+
 }
 
 .sidebar::-webkit-scrollbar{
-width:5px;
+
+    width:5px;
+
 }
 
 .sidebar::-webkit-scrollbar-thumb{
-background:rgba(84,179,208,.22);
-border-radius:10px;
+
+    background:
+        rgba(84,179,208,.22);
+
+    border-radius:10px;
+
 }
 
 .sidebar-header{
-padding:9px 12px 17px;
-font-family:Arial,sans-serif;
-font-size:9px;
-font-weight:700;
-letter-spacing:1.4px;
-color:var(--muted);
+
+    padding:
+        9px 12px 17px;
+
+    font-family:Arial,sans-serif;
+
+    font-size:9px;
+
+    font-weight:700;
+
+    letter-spacing:1.4px;
+
+    color:
+        var(--muted);
+
 }
 
 .nav-item{
-position:relative;
-display:flex;
-align-items:center;
-gap:12px;
-padding:11px 13px;
-margin-bottom:4px;
-border-radius:13px;
-color:var(--text-soft);
-font-size:13px;
-font-weight:600;
-transition:.25s;
+
+    position:relative;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:
+        11px 13px;
+
+    margin-bottom:4px;
+
+    border-radius:13px;
+
+    color:
+        var(--text-soft);
+
+    font-size:13px;
+
+    font-weight:600;
+
+    transition:.25s;
+
 }
 
 .nav-item i{
-width:27px;
-color:var(--primary);
-font-size:15px;
-text-align:center;
+
+    width:27px;
+
+    color:
+        var(--primary);
+
+    font-size:15px;
+
+    text-align:center;
+
 }
 
 .nav-item:hover{
-background:rgba(84,179,208,.10);
-color:var(--primary-dark);
-transform:translateX(4px);
+
+    background:
+        rgba(84,179,208,.10);
+
+    color:
+        var(--primary-dark);
+
+    transform:
+        translateX(4px);
+
 }
 
 .nav-item.active{
-background:
-linear-gradient(
-135deg,
-rgba(84,179,208,.17),
-rgba(8,115,155,.08)
-);
-color:var(--primary-dark);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(84,179,208,.17),
+            rgba(8,115,155,.08)
+        );
+
+    color:
+        var(--primary-dark);
+
 }
 
 .nav-item.active::before{
-content:"";
-position:absolute;
-left:0;
-top:8px;
-bottom:8px;
-width:4px;
-background:var(--primary);
-border-radius:0 5px 5px 0;
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    top:8px;
+
+    bottom:8px;
+
+    width:4px;
+
+    background:
+        var(--primary);
+
+    border-radius:
+        0 5px 5px 0;
+
 }
 
+
+/* =========================================================
+   MAIN
+========================================================= */
+
 .main{
-margin-left:275px;
-min-height:calc(100vh - 76px);
-padding:25px;
-transition:.35s;
+
+    margin-left:275px;
+
+    min-height:
+        calc(100vh - 76px);
+
+    padding:25px;
+
+    transition:.35s;
+
 }
 
 .container{
-width:100%;
-max-width:1450px;
-margin:auto;
+
+    width:100%;
+
+    max-width:1450px;
+
+    margin:auto;
+
 }
 
+
+/* =========================================================
+   WELCOME
+========================================================= */
+
 .welcome{
-position:relative;
-overflow:hidden;
-border-radius:27px;
-padding:32px;
-min-height:205px;
-color:#fff;
-background:var(--welcome-bg);
-box-shadow:var(--shadow);
-border:1px solid rgba(255,255,255,.08);
+
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:27px;
+
+    padding:32px;
+
+    min-height:205px;
+
+    color:#fff;
+
+    background:
+        var(--welcome-bg);
+
+    box-shadow:
+        var(--shadow);
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
 }
 
 .welcome::before{
-content:"";
-position:absolute;
-width:310px;
-height:310px;
-border:1px solid rgba(255,255,255,.09);
-border-radius:50%;
-right:-105px;
-top:-160px;
+
+    content:"";
+
+    position:absolute;
+
+    width:310px;
+    height:310px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.09);
+
+    border-radius:50%;
+
+    right:-105px;
+
+    top:-160px;
+
 }
 
 .welcome::after{
-content:"";
-position:absolute;
-width:190px;
-height:190px;
-border:1px solid rgba(255,255,255,.07);
-border-radius:50%;
-right:30px;
-bottom:-120px;
+
+    content:"";
+
+    position:absolute;
+
+    width:420px;
+    height:420px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.055);
+
+    border-radius:50%;
+
+    left:34%;
+
+    bottom:-350px;
+
+}
+
+.theme-aqua .welcome{
+
+    box-shadow:
+        0 18px 42px
+        rgba(5,93,88,.13);
+
 }
 
 .welcome-content{
-position:relative;
-z-index:2;
-max-width:850px;
+
+    position:relative;
+
+    z-index:2;
+
 }
 
-.welcome small{
-font-family:Arial,sans-serif;
-font-size:10px;
-letter-spacing:1.4px;
-opacity:.72;
-font-weight:700;
+.portal-label{
+
+    display:inline-flex;
+
+    padding:
+        7px 17px;
+
+    border-radius:30px;
+
+    background:
+        rgba(255,255,255,.12);
+
+    border:
+        1px solid
+        rgba(255,255,255,.20);
+
+    backdrop-filter:
+        blur(10px);
+
+    font-family:Arial,sans-serif;
+
+    font-size:9px;
+
+    font-weight:700;
+
+    letter-spacing:.8px;
+
+    margin-bottom:15px;
+
 }
 
 .welcome h1{
-font-size:30px;
-margin-top:9px;
-margin-bottom:8px;
+
+    font-size:32px;
+
+    margin-bottom:8px;
+
 }
 
 .welcome p{
-font-size:14px;
-line-height:1.8;
-opacity:.9;
+
+    opacity:.90;
+
+    max-width:760px;
+
+    font-size:14px;
+
+    line-height:1.8;
+
 }
 
-.support{
-display:inline-flex;
-margin-top:17px;
-padding:8px 13px;
-border:1px solid rgba(255,255,255,.16);
-border-radius:12px;
-background:rgba(255,255,255,.07);
-font-size:11px;
+.support-line{
+
+    margin-top:17px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    font-size:12px;
+
+    opacity:.95;
+
 }
+
+.support-line i{
+
+    width:27px;
+    height:27px;
+
+    border-radius:9px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:
+        rgba(255,255,255,.13);
+
+}
+
+
+/* =========================================================
+   SECTION
+========================================================= */
 
 .section{
-margin-top:25px;
+
+    margin-top:27px;
+
 }
 
 .section-title{
-display:flex;
-align-items:center;
-justify-content:space-between;
-margin-bottom:14px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin-bottom:14px;
+
 }
 
 .section-title-left{
-display:flex;
-align-items:center;
-gap:10px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
 }
 
 .section-title-left i{
-width:39px;
-height:39px;
-border-radius:12px;
-background:var(--section-icon);
-color:var(--primary-dark);
-display:flex;
-align-items:center;
-justify-content:center;
+
+    width:39px;
+    height:39px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:13px;
+
+    background:
+        var(--section-icon);
+
+    color:
+        var(--primary-dark);
+
 }
 
 .section-title h2{
-font-size:19px;
+
+    font-size:20px;
+
+    font-weight:800;
+
 }
 
-.section-title>span{
-font-family:Arial,sans-serif;
-font-size:8px;
-letter-spacing:1.2px;
-color:var(--muted);
+.section-title span{
+
+    color:
+        var(--muted);
+
+    font-size:11px;
+
 }
+
+
+/* =========================================================
+   STAT CARDS
+========================================================= */
+
+.stats{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,minmax(0,1fr));
+
+    gap:15px;
+
+}
+
+.stat-card{
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:
+        var(--card);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:18px;
+
+    padding:18px;
+
+    box-shadow:
+        var(--shadow);
+
+    transition:.3s;
+
+}
+
+.stat-card:hover{
+
+    transform:
+        translateY(-5px);
+
+}
+
+.stat-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:100px;
+    height:100px;
+
+    right:-42px;
+    top:-45px;
+
+    border-radius:50%;
+
+    background:
+        rgba(84,179,208,.08);
+
+}
+
+.stat-icon{
+
+    width:46px;
+    height:46px;
+
+    border-radius:14px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:#fff;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary-dark),
+            var(--primary)
+        );
+
+    font-size:18px;
+
+    margin-bottom:11px;
+
+    box-shadow:
+        0 8px 18px
+        rgba(8,115,155,.18);
+
+}
+
+.stat-value{
+
+    font-size:27px;
+
+    font-weight:800;
+
+    color:
+        var(--primary);
+
+}
+
+.theme-light .stat-value,
+.theme-aqua .stat-value{
+
+    color:
+        var(--primary-dark);
+
+}
+
+.stat-label{
+
+    color:
+        var(--muted);
+
+    font-size:12px;
+
+}
+
+
+/* =========================================================
+   QUICK ACCESS
+========================================================= */
 
 .quick-grid{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:13px;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,minmax(0,1fr));
+
+    gap:15px;
+
 }
 
 .quick-card{
-min-height:116px;
-border-radius:18px;
-padding:17px;
-background:var(--quick-bg);
-border:1px solid var(--border);
-box-shadow:var(--shadow);
-transition:.28s;
+
+    position:relative;
+
+    min-height:135px;
+
+    overflow:hidden;
+
+    border-radius:19px;
+
+    background:
+        var(--quick-bg);
+
+    border:
+        1px solid
+        var(--border);
+
+    box-shadow:
+        var(--shadow);
+
+    backdrop-filter:
+        blur(14px);
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:11px;
+
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease,
+        border-color .35s ease;
+
+}
+
+.quick-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:140px;
+    height:140px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(84,179,208,.16),
+            transparent 65%
+        );
+
+    left:-48px;
+
+    bottom:-72px;
+
+}
+
+.quick-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:55px;
+    height:180%;
+
+    top:-42%;
+
+    left:-110px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.35),
+            transparent
+        );
+
+    transform:
+        rotate(25deg);
+
+    transition:.6s;
+
 }
 
 .quick-card:hover{
-transform:translateY(-5px);
-border-color:rgba(84,179,208,.25);
+
+    transform:
+        translateY(-7px)
+        scale(1.012);
+
+    box-shadow:
+        0 18px 38px
+        rgba(8,115,155,.14);
+
+}
+
+.quick-card:hover::after{
+
+    left:120%;
+
 }
 
 .quick-icon{
-width:40px;
-height:40px;
-border-radius:13px;
-display:flex;
-align-items:center;
-justify-content:center;
-background:var(--section-icon);
-color:var(--primary-dark);
-margin-bottom:12px;
+
+    position:relative;
+
+    z-index:2;
+
+    width:55px;
+    height:55px;
+
+    border-radius:17px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:
+        var(--primary-dark);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.15),
+            rgba(84,179,208,.10)
+        );
+
+    border:
+        1px solid
+        rgba(84,179,208,.20);
+
+    font-size:21px;
+
+    transition:.35s;
+
+}
+
+.theme-light .quick-icon,
+.theme-aqua .quick-icon{
+
+    background:
+        rgba(255,255,255,.10);
+
+}
+
+.quick-card:hover .quick-icon{
+
+    transform:
+        translateY(-3px)
+        rotate(-4deg);
+
+    color:#fff;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary-dark),
+            var(--primary)
+        );
+
 }
 
 .quick-name{
-font-size:13px;
-font-weight:700;
-color:var(--quick-name);
+
+    position:relative;
+
+    z-index:2;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    color:
+        var(--quick-name);
+
+    text-align:center;
+
+    padding:
+        0 6px;
+
 }
 
+.quick-card:hover .quick-name{
+
+    color:
+        var(--primary-dark);
+
+}
+
+@keyframes glassFloat{
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-4px);
+    }
+
+}
+
+.quick-icon{
+
+    animation:
+        glassFloat 3.5s
+        ease-in-out infinite;
+
+}
+
+
+/* =========================================================
+   INFO CARDS
+========================================================= */
+
 .info-grid{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:13px;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,minmax(0,1fr));
+
+    gap:14px;
+
 }
 
 .info-card{
-position:relative;
-overflow:hidden;
-min-height:118px;
-padding:19px;
-border-radius:18px;
-background:var(--card);
-border:1px solid var(--border);
-box-shadow:var(--shadow);
+
+    border-radius:17px;
+
+    padding:17px;
+
+    color:#fff;
+
+    min-height:102px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 8px 22px
+        rgba(0,0,0,.08);
+
+    transition:.3s;
+
+}
+
+.info-card:hover{
+
+    transform:
+        translateY(-4px);
+
 }
 
 .info-card::after{
-content:"";
-position:absolute;
-width:85px;
-height:85px;
-right:-30px;
-bottom:-40px;
-border-radius:50%;
-background:currentColor;
-opacity:.04;
-}
 
-.info-value{
-font-size:25px;
-font-weight:800;
-margin-bottom:8px;
-}
+    content:"";
 
-.info-label{
-font-size:12px;
-color:var(--muted);
+    position:absolute;
+
+    width:120px;
+    height:120px;
+
+    right:-50px;
+    top:-55px;
+
+    border-radius:50%;
+
+    background:
+        rgba(255,255,255,.08);
+
 }
 
 .info-card.green{
-color:#35b879;
+
+    background:
+        linear-gradient(
+            135deg,
+            #079447,
+            #12a957
+        );
+
 }
 
 .info-card.blue{
-color:var(--primary);
-}
 
-.info-card.red{
-color:#e04d4d;
-}
+    background:
+        linear-gradient(
+            135deg,
+            #075b9a,
+            #1578bd
+        );
 
-.info-card.orange{
-color:#e79b32;
-}
-
-.info-card.purple{
-color:#9c75db;
 }
 
 .info-card.teal{
-color:#22aaa0;
+
+    background:
+        linear-gradient(
+            135deg,
+            #008c91,
+            #14a6a8
+        );
+
 }
 
-.info-card .info-label{
-color:var(--muted);
+.info-card.orange{
+
+    background:
+        linear-gradient(
+            135deg,
+            #d56600,
+            #ef7a09
+        );
+
 }
+
+.info-card.red{
+
+    background:
+        linear-gradient(
+            135deg,
+            #c90000,
+            #e11212
+        );
+
+}
+
+.info-card.purple{
+
+    background:
+        linear-gradient(
+            135deg,
+            #5f0b96,
+            #7914b5
+        );
+
+}
+
+.info-value{
+
+    position:relative;
+
+    z-index:2;
+
+    font-size:23px;
+
+    font-weight:800;
+
+}
+
+.info-label{
+
+    position:relative;
+
+    z-index:2;
+
+    font-size:11px;
+
+    opacity:.90;
+
+}
+
+
+/* =========================================================
+   CHART
+========================================================= */
 
 .chart-grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:16px;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,minmax(0,1fr));
+
+    gap:18px;
+
 }
 
 .chart-card{
-background:var(--card);
-border:1px solid var(--border);
-border-radius:20px;
-box-shadow:var(--shadow);
-overflow:hidden;
+
+    background:
+        var(--card);
+
+    border-radius:20px;
+
+    border:
+        1px solid
+        var(--border);
+
+    box-shadow:
+        var(--shadow);
+
+    overflow:hidden;
+
 }
 
 .chart-header{
-padding:16px 18px;
-display:flex;
-align-items:center;
-justify-content:space-between;
-border-bottom:1px solid var(--table-line);
+
+    padding:
+        16px 19px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    border-bottom:
+        1px solid
+        var(--table-line);
+
 }
 
 .chart-title{
-display:flex;
-align-items:center;
-gap:9px;
-font-size:14px;
-font-weight:800;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    font-size:14px;
+
+    font-weight:800;
+
 }
 
 .chart-title i{
-color:var(--primary);
+
+    color:
+        var(--primary);
+
 }
 
 .year-badge{
-font-family:Arial,sans-serif;
-font-size:9px;
-padding:5px 9px;
-border-radius:8px;
-background:var(--section-icon);
-color:var(--primary-dark);
+
+    background:
+        var(--primary-dark);
+
+    color:#fff;
+
+    padding:
+        5px 10px;
+
+    border-radius:8px;
+
+    font-family:Arial,sans-serif;
+
+    font-size:10px;
+
+    font-weight:700;
+
 }
 
 .chart-body{
-height:300px;
-padding:12px;
+
+    padding:17px;
+
+    height:300px;
+
 }
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer{
+
+    text-align:center;
+
+    padding:
+        34px 15px;
+
+    margin-top:32px;
+
+    color:
+        var(--muted);
+
+    font-size:11px;
+
+}
+
+.footer strong{
+
+    color:
+        var(--primary);
+
+}
+
+
+/* =========================================================
+   OVERLAY
+========================================================= */
+
+.overlay{
+
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+        rgba(0,20,30,.38);
+
+    backdrop-filter:
+        blur(3px);
+
+    z-index:850;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
 
 @media(max-width:1100px){
-.quick-grid{
-grid-template-columns:repeat(3,1fr);
-}
 
-.info-grid{
-grid-template-columns:repeat(2,1fr);
-}
+    .stats{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
+    .quick-grid{
+
+        grid-template-columns:
+            repeat(3,1fr);
+
+    }
+
+    .info-grid{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
 }
 
 @media(max-width:800px){
-.topbar{
-height:68px;
-}
 
-.sidebar{
-top:68px;
-transform:translateX(-100%);
-}
+    .sidebar{
 
-.sidebar.open{
-transform:translateX(0);
-}
+        transform:
+            translateX(-100%);
 
-.main{
-margin-left:0;
-padding:17px;
-}
+    }
 
-.quick-grid{
-grid-template-columns:repeat(2,1fr);
-}
+    .sidebar.open{
 
-.chart-grid{
-grid-template-columns:1fr;
-}
+        transform:
+            translateX(0);
 
-.menu-btn{
-width:44px;
-height:44px;
-}
+    }
 
-.brand-text{
-font-size:15px;
-}
+    .overlay.show{
 
-.welcome{
-padding:24px;
-}
+        display:block;
 
-.welcome h1{
-font-size:24px;
-}
+    }
+
+    .main{
+
+        margin-left:0;
+
+        padding:16px;
+
+    }
+
+    .topbar{
+
+        height:68px;
+
+    }
+
+    .sidebar{
+
+        top:68px;
+
+    }
+
+    .brand-text{
+
+        font-size:16px;
+
+    }
+
+    .brand-text small{
+
+        display:none;
+
+    }
+
+    .welcome{
+
+        padding:25px;
+
+        min-height:190px;
+
+    }
+
+    .welcome h1{
+
+        font-size:27px;
+
+    }
+
+    .quick-grid{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
+    .chart-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
 }
 
 @media(max-width:520px){
-.quick-grid,
-.info-grid{
-grid-template-columns:1fr;
+
+    .topbar-inner{
+
+        padding:
+            0 10px;
+
+        gap:6px;
+
+    }
+
+    .top-actions{
+
+        gap:5px;
+
+    }
+
+    .search-action{
+
+        display:none;
+
+    }
+
+    .top-action{
+
+        width:39px;
+        height:39px;
+
+    }
+
+    .logout-btn{
+
+        padding:
+            8px 9px;
+
+        font-size:10px;
+
+    }
+
+    .brand{
+
+        gap:7px;
+
+    }
+
+    .brand-icon{
+
+        width:39px;
+        height:39px;
+
+    }
+
+    .brand-text{
+
+        font-size:13px;
+
+    }
+
+    .main{
+
+        padding:11px;
+
+    }
+
+    .stats{
+
+        gap:9px;
+
+    }
+
+    .stat-card{
+
+        padding:13px;
+
+    }
+
+    .stat-icon{
+
+        width:40px;
+        height:40px;
+
+        font-size:16px;
+
+    }
+
+    .stat-value{
+
+        font-size:21px;
+
+    }
+
+    .stat-label{
+
+        font-size:10px;
+
+    }
+
+    .quick-grid{
+
+        gap:9px;
+
+    }
+
+    .quick-card{
+
+        min-height:118px;
+
+    }
+
+    .quick-icon{
+
+        width:49px;
+        height:49px;
+
+        font-size:18px;
+
+    }
+
+    .quick-name{
+
+        font-size:11px;
+
+    }
+
+    .info-grid{
+
+        gap:9px;
+
+    }
+
+    .info-card{
+
+        padding:13px;
+
+        min-height:87px;
+
+    }
+
+    .info-value{
+
+        font-size:19px;
+
+    }
+
+    .info-label{
+
+        font-size:9px;
+
+    }
+
+    .section-title h2{
+
+        font-size:17px;
+
+    }
+
+    .section-title span{
+
+        display:none;
+
+    }
+
+    .welcome{
+
+        padding:21px;
+
+    }
+
+    .welcome h1{
+
+        font-size:24px;
+
+    }
+
+    .welcome p{
+
+        font-size:12px;
+
+    }
+
+    .support-line{
+
+        font-size:10px;
+
+    }
+
 }
 
-.top-action{
-width:39px;
-height:39px;
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.count-loading{
+
+    display:inline-block;
+
+    width:25px;
+    height:25px;
+
+    border:
+        3px solid
+        rgba(84,179,208,.18);
+
+    border-top-color:
+        var(--primary);
+
+    border-radius:50%;
+
+    animation:
+        spin .8s linear infinite;
+
 }
 
-.logout-btn{
-padding:8px 10px;
-font-size:11px;
+@keyframes spin{
+
+    to{
+        transform:rotate(360deg);
+    }
+
 }
 
-.welcome h1{
-font-size:21px;
-}
+
+/* =========================================================
+   LANGUAGE RTL
+========================================================= */
+
+body.rtl .sidebar{
+
+    left:auto;
+    right:0;
+
+    border-right:0;
+
+    border-left:
+        1px solid
+        var(--border);
+
 }
 
-.overlay{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.38);
-z-index:850;
-display:none;
+body.rtl .main{
+
+    margin-left:0;
+
+    margin-right:275px;
+
 }
 
-.overlay.show{
-display:block;
+body.rtl .nav-item.active::before{
+
+    left:auto;
+    right:0;
+
+    border-radius:
+        5px 0 0 5px;
+
 }
+
+@media(max-width:800px){
+
+    body.rtl .sidebar{
+
+        transform:
+            translateX(100%);
+
+    }
+
+    body.rtl .sidebar.open{
+
+        transform:
+            translateX(0);
+
+    }
+
+    body.rtl .main{
+
+        margin-right:0;
+
+    }
+
+}
+
+
+/* =========================================================
+   THEME AQUA EXTRA WATER EFFECT
+========================================================= */
+
+.theme-aqua .quick-card{
+
+    backdrop-filter:
+        blur(16px);
+
+}
+
+.theme-aqua .stat-card,
+.theme-aqua .chart-card{
+
+    backdrop-filter:
+        blur(15px);
+
+}
+
+.theme-aqua .chart-card{
+
+    background:
+        rgba(255,255,255,.80);
+
+}
+
+.theme-aqua .section-title-left i{
+
+    box-shadow:
+        inset 0 1px 0 #fff;
+
+}
+
+
+/* =========================================================
+   LIGHT THEME NAVY CARDS
+========================================================= */
+
+.theme-light .quick-card{
+
+    color:#fff;
+
+    box-shadow:
+        0 12px 28px
+        rgba(5,45,70,.13);
+
+}
+
+.theme-light .quick-name{
+
+    color:#fff;
+
+}
+
+.theme-light .quick-card:hover .quick-name{
+
+    color:#8edff4;
+
+}
+
+
+/* =========================================================
+   NAVY THEME CHART
+========================================================= */
+
+.theme-navy .chart-card{
+
+    background:
+        var(--card);
+
+}
+
 </style>
+
 </head>
 
-<body>
+<body class="theme-navy">
+
+
+<!-- =======================================================
+     TOPBAR
+======================================================= -->
 
 <header class="topbar">
+
 <div class="topbar-inner">
 
-<button class="menu-btn" id="menuBtn">
+<button
+class="menu-btn"
+id="menuBtn"
+title="Menu">
+
 <i class="fa-solid fa-bars"></i>
+
 </button>
 
+
 <div class="brand">
+
 <div class="brand-icon">
-<i class="fa-solid fa-mosque"></i>
+
+<i class="fa-solid fa-school"></i>
+
 </div>
 
 <div class="brand-text">
+
 মাদরাসায়ে নূরুল কুরআন
-<small>MADRASA-E NURUL QURAN</small>
+
+<small>
+ADMINISTRATION PANEL
+</small>
+
 </div>
+
 </div>
+
 
 <div class="top-actions">
 
-<div class="dropdown">
-<button class="top-action" id="languageBtn">
-<i class="fa-solid fa-language"></i>
+
+<!-- SEARCH -->
+
+<button
+class="top-action search-action"
+title="Search">
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
 </button>
 
-<div class="dropdown-menu" id="languageMenu">
-<div class="dropdown-title">
-Language
-</div>
 
-<button class="dropdown-option"
-data-lang="bn">
-<i class="fa-solid fa-bangla"></i>
-বাংলা
-</button>
-
-<button class="dropdown-option"
-data-lang="en">
-<i class="fa-solid fa-a"></i>
-English
-</button>
-
-<button class="dropdown-option"
-data-lang="ar">
-<i class="fa-solid fa-language"></i>
-العربية
-</button>
-</div>
-</div>
+<!-- LANGUAGE -->
 
 <div class="dropdown">
-<button class="top-action" id="themeBtn">
-<i class="fa-solid fa-palette"></i>
+
+<button
+class="top-action"
+id="languageBtn"
+title="Language">
+
+<i class="fa-solid fa-globe"></i>
+
 </button>
 
-<div class="dropdown-menu" id="themeMenu">
-
-<div class="dropdown-title">
-Theme
-</div>
-
-<button class="dropdown-option"
-data-theme="navy">
-<i class="fa-solid fa-moon"></i>
-Classic Navy
-</button>
-
-<button class="dropdown-option"
-data-theme="light">
-<i class="fa-solid fa-sun"></i>
-White + Navy
-</button>
-
-<button class="dropdown-option"
-data-theme="aqua">
-<i class="fa-solid fa-droplet"></i>
-Nurul Aqua
-</button>
-
-</div>
-</div>
-
-<button class="logout-btn" id="logoutBtn">
-Logout
-</button>
-
-</div>
-</div>
-</header>
-
-<div class="overlay" id="overlay"></div>
-
-<aside class="sidebar" id="sidebar">
-
-<div class="sidebar-header">
-ADMINISTRATION
-</div>
-
-<a href="dashboard.html"
-class="nav-item active">
-<i class="fa-solid fa-gauge-high"></i>
-<span data-i18n="dashboard">ড্যাশবোর্ড</span>
-</a>
-
-<a href="students.html"
-class="nav-item">
-<i class="fa-solid fa-user-graduate"></i>
-<span data-i18n="students">শিক্ষার্থী</span>
-</a>
-
-<a href="teachers.html"
-class="nav-item">
-<i class="fa-solid fa-chalkboard-user"></i>
-<span data-i18n="teachers">শিক্ষক</span>
-</a>
-
-<a href="employees.html"
-class="nav-item">
-<i class="fa-solid fa-users-gear"></i>
-<span data-i18n="employees">কর্মচারী</span>
-</a>
-
-<a href="members.html"
-class="nav-item">
-<i class="fa-solid fa-user-group"></i>
-<span data-i18n="members">সদস্য</span>
-</a>
-
-<a href="classes.html"
-class="nav-item">
-<i class="fa-solid fa-school"></i>
-<span data-i18n="classes">শ্রেণি</span>
-</a>
-
-<a href="subjects.html"
-class="nav-item">
-<i class="fa-solid fa-book"></i>
-<span data-i18n="subjects">বিষয়</span>
-</a>
-
-<a href="sessions.html"
-class="nav-item">
-<i class="fa-solid fa-calendar-days"></i>
-<span data-i18n="session">শিক্ষাবর্ষ</span>
-</a>
-
-<a href="results.html"
-class="nav-item">
-<i class="fa-solid fa-square-poll-vertical"></i>
-<span data-i18n="results">ফলাফল</span>
-</a>
-
-<a href="fees.html"
-class="nav-item">
-<i class="fa-solid fa-money-bill-wave"></i>
-<span data-i18n="fees">ফি সংগ্রহ</span>
-</a>
-
-<a href="salary.html"
-class="nav-item">
-<i class="fa-solid fa-wallet"></i>
-<span data-i18n="salary">বেতন</span>
-</a>
-
-<a href="income.html"
-class="nav-item">
-<i class="fa-solid fa-arrow-trend-up"></i>
-<span data-i18n="income">দৈনিক আয়</span>
-</a>
-
-<a href="expenses.html"
-class="nav-item">
-<i class="fa-solid fa-arrow-trend-down"></i>
-<span data-i18n="expenses">দৈনিক ব্যয়</span>
-</a>
-
-<a href="attendance.html"
-class="nav-item">
-<i class="fa-solid fa-user-check"></i>
-<span data-i18n="studentAttendance">শিক্ষার্থী উপস্থিতি</span>
-</a>
-
-<a href="attendance-teachers.html"
-class="nav-item">
-<i class="fa-solid fa-person-chalkboard"></i>
-<span data-i18n="teacherAttendance">শিক্ষক উপস্থিতি</span>
-</a>
-
-<a href="attendance-employees.html"
-class="nav-item">
-<i class="fa-solid fa-id-badge"></i>
-<span data-i18n="employeeAttendance">কর্মচারী উপস্থিতি</span>
-</a>
-
-<a href="sms.html"
-class="nav-item">
-<i class="fa-solid fa-comment-sms"></i>
-<span data-i18n="sms">SMS System</span>
-</a>
-
-<a href="notices.html"
-class="nav-item">
-<i class="fa-solid fa-bullhorn"></i>
-<span data-i18n="notices">নোটিশ</span>
-</a>
-
-<a href="gallery.html"
-class="nav-item">
-<i class="fa-solid fa-images"></i>
-<span data-i18n="gallery">ফটো গ্যালারি</span>
-</a>
-
-<a href="videos.html"
-class="nav-item">
-<i class="fa-solid fa-video"></i>
-<span data-i18n="videos">ভিডিও গ্যালারি</span>
-</a>
-
-<a href="reports.html"
-class="nav-item">
-<i class="fa-solid fa-chart-pie"></i>
-<span data-i18n="reports">রিপোর্ট</span>
-</a>
-
-<a href="admission-applications.html"
-class="nav-item">
-<i class="fa-solid fa-file-signature"></i>
-<span data-i18n="onlineAdmission">অনলাইন ভর্তি</span>
-</a>
-
-<a href="certificates.html"
-class="nav-item">
-<i class="fa-solid fa-certificate"></i>
-<span data-i18n="certificates">রিপোর্ট ও সার্টিফিকেট</span>
-</a>
-
-<a href="nazera.html"
-class="nav-item">
-<i class="fa-solid fa-book-quran"></i>
-<span data-i18n="nazera">নাজেরা অগ্রগতি</span>
-</a>
-
-<a href="hifz.html"
-class="nav-item">
-<i class="fa-solid fa-quran"></i>
-<span data-i18n="hifz">হিফজ অগ্রগতি</span>
-</a>
-
-<a href="quran.html"
-class="nav-item">
-<i class="fa-solid fa-book-open"></i>
-<span data-i18n="quran">কুরআন / আমপারা</span>
-</a>
-
-<a href="dua-hadith.html"
-class="nav-item">
-<i class="fa-solid fa-hands-praying"></i>
-<span data-i18n="dua">দোয়া ও হাদিস</span>
-</a>
-
-<a href="behavior.html"
-class="nav-item">
-<i class="fa-solid fa-user-shield"></i>
-<span data-i18n="behavior">আচরণ ও শৃঙ্খলা</span>
-</a>
-
-<a href="parent-report.html"
-class="nav-item">
-<i class="fa-solid fa-file-lines"></i>
-<span data-i18n="parentReport">অভিভাবক দৈনিক রিপোর্ট</span>
-</a>
-
-<a href="complaints.html"
-class="nav-item">
-<i class="fa-solid fa-comments"></i>
-<span data-i18n="complaints">অভিযোগ বক্স</span>
-</a>
-
-<!-- Settings শুধু Dashboard-এর Admin Sidebar-এ থাকবে -->
-<a href="settings.html"
-class="nav-item">
-<i class="fa-solid fa-gear"></i>
-<span data-i18n="settings">সেটিংস</span>
-</a>
-
-</aside>
-
-<main class="main">
-<div class="container">
-
-<section class="welcome">
-
-<div class="welcome-content">
-
-<small>
-ADMIN DASHBOARD
-</small>
-
-<h1 data-i18n="welcome">
-আসসালামু আলাইকুম
-</h1>
-
-<p data-i18n="welcomeText">
-এক জায়গা থেকে মাদরাসায়ে নূরুল কুরআনের প্রশাসনিক কার্যক্রম পরিচালনা করুন।
-</p>
-
-<div class="support"
-data-i18n="support">
-সাপোর্ট সময়: প্রতিদিন সকাল ১০টা – সন্ধ্যা ৭টা
-</div>
-
-</div>
-
-</section>
-
-<section class="section">
-
-<div class="section-title">
-
-<div class="section-title-left">
-<i class="fa-solid fa-bolt"></i>
-
-<div>
-<h2 data-i18n="quickAccess">
-দ্রুত অ্যাক্সেস
-</h2>
-</div>
-</div>
-
-</div>
-
-<div class="quick-grid">
-
-<a href="students.html"
-class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-user-graduate"></i>
-</div>
-<div class="quick-name"
-data-i18n="students">
-শিক্ষার্থী
-</div>
-</a>
-
-<a href="teachers.html"
-class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-chalkboard-user"></i>
-</div>
-<div class="quick-name"
-data-i18n="teachers">
-শিক্ষক
-</div>
-</a>
-
-<a href="employees.html"
-class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-users-gear"></i>
-</div>
-<div class="quick-name"
-data-i18n="employees">
-কর্মচারী
-</div>
-</a>
-
-<a href="classes.html"
-class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-school"></i>
-</div>
-<div class="quick-name"
-data-i18n="classes">
-শ্রেণি
-</div>
-</a>
-
-<a href="subjects.html"
-class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-book"></i>
-</div>
-<div class="quick-name"
-data-i18n="subjects">
-বিষয়
-</div>
-</a>
-
-<a href="sessions.html"
-class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-calendar-days"></i>
-</div>
-<div class="quick-name"
-data-i18n="session">
-শিক্ষাবর্ষ
-</div>
-</a>
-
-<a href="results.html"
-class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-square-poll-vertical"></i>
-</div>
-<div class="quick-name"
-data-i18n="results">
-ফলাফল
-</div>
-</a>
-
-<a href="fees.html"
-class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-money-bill-wave"></i>
-</div>
-<div class="quick-name"
-data-i18n="fees">
-ফি সংগ্রহ
-</div>
-</a>
-
-<a href="salary.html"
-class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-wallet"></i>
-</div>
-<div class="quick-name"
-data-i18n="salary">
-বেতন
-</div>
-</a>
-
-<a href="income.html"
-class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-arrow-trend-up"></i>
-</div>
-<div class="quick-name"
-data-i18n="income">
-দৈনিক আয়
-</div>
-</a>
-
-<a href="expenses.html"
-class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-arrow-trend-down"></i>
-</div>
-<div class="quick-name"
-data-i18n="expenses">
-দৈনিক ব্যয়
-</div>
-</a>
-
-<a href="attendance.html"
-class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-user-check"></i>
-</div>
-<div class="quick-name"
-data-i18n="studentAttendance">
-শিক্ষার্থী উপস্থিতি
-</div>
-</a>
-
-<a href="attendance-teachers.html"
-class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-person-chalkboard"></i>
-</div>
-<div class="quick-name"
-data-i18n="teacherAttendance">
-শিক্ষক উপস্থিতি
-</div>
-</a>
-
-<a href="attendance-employees.html"
-class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-id-badge"></i>
-</div>
-<div class="quick-name"
-data-i18n="employeeAttendance">
-কর্মচারী উপস্থিতি
-</div>
-</a>
-
-<a href="sms.html"
-class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-comment-sms"></i>
-</div>
-<div class="quick-name"
-data-i18n="sms">
-SMS System
-</div>
-</a>
-
-<a href="notices.html"
-class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-bullhorn"></i>
-</div>
-<div class="quick-name"
-data-i18n="notices">
-নোটিশ
-</div>
-</a>
-
-<a href="gallery.html"
-class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-images"></i>
-</div>
-<div class="quick-name"
-data-i18n="gallery">
-ফটো গ্যালারি
-</div>
-</a>
-
-<a href="videos.html"
-class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-video"></i>
-</div>
-<div class="quick-name"
-data-i18n="videos">
-ভিডিও গ্যালারি
-</div>
-</a>
-
-<a href="reports.html"
-class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-chart-pie"></i>
-</div>
-<div class="quick-name"
-data-i18n="reports">
-রিপোর্ট
-</div>
-</a>
-
-<a href="admission-applications.html"
-class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-file-signature"></i>
-</div>
-<div class="quick-name"
-data-i18n="onlineAdmission">
-অনলাইন ভর্তি
-</div>
-</a>
-
-<a href="certificates.html"
-class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-certificate"></i>
-</div>
-<div class="quick-name"
-data-i18n="certificates">
-রিপোর্ট ও সার্টিফিকেট
-</div>
-</a>
-
-<a href="nazera.html"
-class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-book-quran"></i>
-</div>
-<div class="quick-name"
-data-i18n="nazera">
-নাজেরা অগ্রগতি
-</div>
-</a>
-
-<a href="hifz.html"
-class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-quran"></i>
-</div>
-<div class="quick-name"
-data-i18n="hifz">
-হিফজ অগ্রগতি
-</div>
-</a>
-
-<a href="quran.html"
-class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-book-open"></i>
-</div>
-<div class="quick-name"
-data-i18n="quran">
-কুরআন / আমপারা
-</div>
-</a>
-
-<a href="dua-hadith.html"
-class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-hands-praying"></i>
-</div>
-<div class="quick-name"
-data-i18n="dua">
-দোয়া ও হাদিস
-</div>
-</a>
-
-<a href="behavior.html"
-class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-user-shield"></i>
-</div>
-<div class="quick-name"
-data-i18n="behavior">
-আচরণ ও শৃঙ্খলা
-</div>
-</a>
-
-<a href="parent-report.html"
-class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-file-lines"></i>
-</div>
-<div class="quick-name"
-data-i18n="parentReport">
-অভিভাবকের জন্য দৈনিক রিপোর্ট
-</div>
-</a>
-
-<a href="complaints.html"
-class="quick-card">
-<div class="quick-icon">
-<i class="fa-solid fa-comments"></i>
-</div>
-<div class="quick-name"
-data-i18n="complaints">
-অভিযোগ বক্স
-</div>
-</a>
-
-</div>
-</section>
-<a
-href="session.html"
-class="quick-card">
-
-<div class="quick-icon">
-<i class="fa-solid fa-calendar-days"></i>
-</div>
 
 <div
-class="quick-name"
-data-i18n="session">
-সেশন
+class="dropdown-menu"
+id="languageMenu">
+
+<div class="dropdown-title">
+ভাষা নির্বাচন
 </div>
+
+
+<button
+class="dropdown-option active"
+data-lang="bn">
+
+<i class="fa-solid fa-language"></i>
+
+বাংলা
+
+</button>
+
+
+<button
+class="dropdown-option"
+data-lang="en">
+
+<i class="fa-solid fa-font"></i>
+
+English
+
+</button>
+
+
+<button
+class="dropdown-option"
+data-lang="ar">
+
+<i class="fa-solid fa-mosque"></i>
+
+العربية
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- THEME -->
+
+<div class="dropdown">
+
+<button
+class="top-action"
+id="themeBtn"
+title="Theme">
+
+<i class="fa-solid fa-palette"></i>
+
+</button>
+
+
+<div
+class="dropdown-menu"
+id="themeMenu">
+
+<div class="dropdown-title">
+থিম নির্বাচন
+</div>
+
+
+<button
+class="dropdown-option"
+data-theme="navy">
+
+<i class="fa-solid fa-moon"></i>
+
+Navy Glass
+
+</button>
+
+
+<button
+class="dropdown-option"
+data-theme="light">
+
+<i class="fa-solid fa-sun"></i>
+
+Official Light
+
+</button>
+
+
+<button
+class="dropdown-option"
+data-theme="aqua">
+
+<i class="fa-solid fa-droplet"></i>
+
+Nurul Aqua
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- HOME -->
+
+<button
+class="top-action"
+id="homeBtn"
+title="Home">
+
+<i class="fa-solid fa-house"></i>
+
+</button>
+
+
+<!-- LOGOUT -->
+
+<button
+class="logout-btn"
+id="logoutBtn">
+
+Logout
+
+</button>
+
+
+</div>
+
+</div>
+
+</header>
+
+
+
+<div
+class="overlay"
+id="overlay">
+</div>
+
+
+
+<!-- =======================================================
+     SIDEBAR
+======================================================= -->
+
+<aside
+class="sidebar"
+id="sidebar">
+
+
+<div class="sidebar-header">
+ADMIN MENU
+</div>
+
+
+<a
+href="dashboard.html"
+class="nav-item active">
+
+<i class="fa-solid fa-gauge-high"></i>
+
+<span data-i18n="dashboard">
+ড্যাশবোর্ড
+</span>
+
+</a>
+
+
+<a
+href="students.html"
+class="nav-item">
+
+<i class="fa-solid fa-user-graduate"></i>
+
+<span data-i18n="students">
+শিক্ষার্থী
+</span>
+
+</a>
+
+
+<a
+href="teachers.html"
+class="nav-item">
+
+<i class="fa-solid fa-chalkboard-user"></i>
+
+<span data-i18n="teachers">
+শিক্ষক
+</span>
+
+</a>
+
+
+<a
+href="employees.html"
+class="nav-item">
+
+<i class="fa-solid fa-users"></i>
+
+<span data-i18n="employees">
+কর্মচারী
+</span>
+
+</a>
+
+
+<a
+href="members.html"
+class="nav-item">
+
+<i class="fa-solid fa-user-tie"></i>
+
+<span data-i18n="members">
+সদস্য
+</span>
+
+</a>
+
+
+<a
+href="classes.html"
+class="nav-item">
+
+<i class="fa-solid fa-layer-group"></i>
+
+<span data-i18n="classes">
+ক্লাস
+</span>
 
 </a>
 
 
 <a
 href="subjects.html"
-class="quick-card">
+class="nav-item">
 
-<div class="quick-icon">
 <i class="fa-solid fa-book"></i>
-</div>
 
-<div
-class="quick-name"
-data-i18n="subjects">
+<span data-i18n="subjects">
 বিষয়
-</div>
+</span>
+
+</a>
+
+
+<a
+href="session.html"
+class="nav-item">
+
+<i class="fa-solid fa-calendar-days"></i>
+
+<span data-i18n="session">
+সেশন
+</span>
 
 </a>
 
 
 <a
 href="results.html"
-class="quick-card">
+class="nav-item">
 
-<div class="quick-icon">
 <i class="fa-solid fa-graduation-cap"></i>
-</div>
 
-<div
-class="quick-name"
-data-i18n="results">
+<span data-i18n="results">
 ফলাফল
-</div>
+</span>
 
 </a>
 
 
 <a
 href="fees.html"
-class="quick-card">
+class="nav-item">
 
-<div class="quick-icon">
 <i class="fa-solid fa-money-bill-wave"></i>
-</div>
 
-<div
-class="quick-name"
-data-i18n="fees">
+<span data-i18n="fees">
 ফি সংগ্রহ
-</div>
+</span>
 
 </a>
 
 
 <a
 href="salary.html"
-class="quick-card">
+class="nav-item">
 
-<div class="quick-icon">
 <i class="fa-solid fa-money-check-dollar"></i>
-</div>
 
-<div
-class="quick-name"
-data-i18n="salary">
+<span data-i18n="salary">
 বেতন
-</div>
+</span>
 
 </a>
 
 
 <a
 href="income.html"
-class="quick-card">
+class="nav-item">
 
-<div class="quick-icon">
 <i class="fa-solid fa-arrow-trend-up"></i>
-</div>
 
-<div
-class="quick-name"
-data-i18n="income">
+<span data-i18n="income">
 দৈনন্দিন আয়
-</div>
+</span>
 
 </a>
 
 
 <a
 href="expenses.html"
-class="quick-card">
+class="nav-item">
 
-<div class="quick-icon">
 <i class="fa-solid fa-arrow-trend-down"></i>
-</div>
 
-<div
-class="quick-name"
-data-i18n="expenses">
+<span data-i18n="expenses">
 দৈনন্দিন ব্যয়
-</div>
+</span>
 
 </a>
 
 
 <a
 href="attendance-students.html"
-class="quick-card">
+class="nav-item">
 
-<div class="quick-icon">
 <i class="fa-solid fa-user-check"></i>
-</div>
 
-<div
-class="quick-name"
-data-i18n="studentAttendance">
+<span data-i18n="studentAttendance">
 শিক্ষার্থীদের উপস্থিতি
-</div>
+</span>
 
 </a>
 
 
 <a
 href="attendance-teachers.html"
-class="quick-card">
+class="nav-item">
 
-<div class="quick-icon">
 <i class="fa-solid fa-person-chalkboard"></i>
-</div>
 
-<div
-class="quick-name"
-data-i18n="teacherAttendance">
+<span data-i18n="teacherAttendance">
 শিক্ষকদের উপস্থিতি
-</div>
+</span>
 
 </a>
 
 
 <a
 href="attendance-employees.html"
-class="quick-card">
+class="nav-item">
 
-<div class="quick-icon">
 <i class="fa-solid fa-user-clock"></i>
-</div>
 
-<div
-class="quick-name"
-data-i18n="employeeAttendance">
+<span data-i18n="employeeAttendance">
 কর্মচারীদের উপস্থিতি
-</div>
+</span>
 
 </a>
 
 
 <a
 href="sms.html"
-class="quick-card">
+class="nav-item">
 
-<div class="quick-icon">
 <i class="fa-solid fa-envelope"></i>
-</div>
 
-<div
-class="quick-name"
-data-i18n="sms">
+<span data-i18n="sms">
 SMS সিস্টেম
-</div>
+</span>
 
 </a>
 
 
 <a
 href="notices.html"
-class="quick-card">
+class="nav-item">
 
-<div class="quick-icon">
 <i class="fa-solid fa-bullhorn"></i>
-</div>
 
-<div
-class="quick-name"
-data-i18n="notices">
+<span data-i18n="notices">
 নোটিশ
-</div>
+</span>
 
 </a>
 
 
 <a
 href="gallery.html"
-class="quick-card">
+class="nav-item">
 
-<div class="quick-icon">
 <i class="fa-solid fa-images"></i>
-</div>
 
-<div
-class="quick-name"
-data-i18n="gallery">
+<span data-i18n="gallery">
 ফটো গ্যালারি
-</div>
+</span>
 
 </a>
 
 
 <a
 href="videos.html"
-class="quick-card">
+class="nav-item">
 
-<div class="quick-icon">
 <i class="fa-solid fa-video"></i>
-</div>
 
-<div
-class="quick-name"
-data-i18n="videos">
+<span data-i18n="videos">
 ভিডিও গ্যালারি
-</div>
+</span>
 
 </a>
 
 
 <a
 href="reports.html"
-class="quick-card">
+class="nav-item">
 
-<div class="quick-icon">
 <i class="fa-solid fa-file-lines"></i>
-</div>
 
-<div
-class="quick-name"
-data-i18n="reports">
+<span data-i18n="reports">
 রিপোর্ট
-</div>
+</span>
 
 </a>
 
 
 <a
 href="online-admission.html"
-class="quick-card">
+class="nav-item">
 
-<div class="quick-icon">
 <i class="fa-solid fa-user-plus"></i>
-</div>
 
-<div
-class="quick-name"
-data-i18n="onlineAdmission">
+<span data-i18n="onlineAdmission">
 অনলাইন ভর্তি
-</div>
+</span>
 
 </a>
 
 
 <a
 href="reports-certificates.html"
-class="quick-card">
+class="nav-item">
 
-<div class="quick-icon">
 <i class="fa-solid fa-certificate"></i>
-</div>
 
-<div
-class="quick-name"
-data-i18n="certificates">
+<span data-i18n="certificates">
 রিপোর্ট ও সার্টিফিকেট
-</div>
+</span>
 
 </a>
 
 
 <a
 href="nazera-progress.html"
-class="quick-card">
+class="nav-item">
 
-<div class="quick-icon">
 <i class="fa-solid fa-book-quran"></i>
-</div>
 
-<div
-class="quick-name"
-data-i18n="nazera">
+<span data-i18n="nazera">
 নাজেরা অগ্রগতি
-</div>
+</span>
 
 </a>
 
 
 <a
 href="hifz-progress.html"
-class="quick-card">
+class="nav-item">
 
-<div class="quick-icon">
 <i class="fa-solid fa-quran"></i>
-</div>
 
-<div
-class="quick-name"
-data-i18n="hifz">
+<span data-i18n="hifz">
 হিফজ অগ্রগতি
-</div>
+</span>
 
 </a>
 
 
 <a
 href="quran-ampara-tracking.html"
-class="quick-card">
+class="nav-item">
 
-<div class="quick-icon">
 <i class="fa-solid fa-book-open"></i>
-</div>
 
-<div
-class="quick-name"
-data-i18n="quran">
+<span data-i18n="quran">
 কুরআন/আমপারা ট্র্যাকিং
-</div>
+</span>
 
 </a>
 
 
 <a
 href="dua-hadith-record.html"
-class="quick-card">
+class="nav-item">
 
-<div class="quick-icon">
 <i class="fa-solid fa-book-bookmark"></i>
-</div>
 
-<div
-class="quick-name"
-data-i18n="dua">
+<span data-i18n="dua">
 দোয়া ও হাদিস মুখস্থের রেকর্ড
-</div>
+</span>
 
 </a>
 
 
 <a
 href="behavior-discipline.html"
-class="quick-card">
+class="nav-item">
 
-<div class="quick-icon">
 <i class="fa-solid fa-user-shield"></i>
-</div>
 
-<div
-class="quick-name"
-data-i18n="behavior">
+<span data-i18n="behavior">
 আচরণ ও শৃঙ্খলা মূল্যায়ন
-</div>
+</span>
 
 </a>
 
 
 <a
 href="parent-daily-report.html"
-class="quick-card">
+class="nav-item">
 
-<div class="quick-icon">
 <i class="fa-solid fa-people-roof"></i>
-</div>
 
-<div
-class="quick-name"
-data-i18n="parentReport">
+<span data-i18n="parentReport">
 অভিভাবকের জন্য দৈনিক রিপোর্ট
-</div>
+</span>
 
 </a>
 
 
 <a
 href="complaints.html"
-class="quick-card">
+class="nav-item">
 
-<div class="quick-icon">
 <i class="fa-solid fa-comments"></i>
-</div>
 
-<div
-class="quick-name"
-data-i18n="complaints">
+<span data-i18n="complaints">
 অভিযোগ বক্স
-</div>
+</span>
 
 </a>
 
-</div>
-</section>
+
+<a
+href="settings.html"
+class="nav-item">
+
+<i class="fa-solid fa-gear"></i>
+
+<span data-i18n="settings">
+সেটিংস
+</span>
+
+</a>
+
+
+</aside>
+
+
+
+<!-- =======================================================
+     MAIN
+======================================================= -->
+
+<main class="main">
+
+<div class="container">
 
 
 <!-- =====================================================
-     ACADEMIC SUMMARY
+     WELCOME
+===================================================== -->
+
+<section class="welcome">
+
+<div class="welcome-content">
+
+
+<div class="portal-label">
+ADMIN PORTAL
+</div>
+
+
+<h1 data-i18n="welcome">
+আসসালামু আলাইকুম
+</h1>
+
+
+<p data-i18n="welcomeText">
+
+মাদরাসায়ে নূরুল কুরআনের প্রশাসনিক ব্যবস্থাপনা
+এক জায়গা থেকে পরিচালনা করুন।
+
+</p>
+
+
+<div class="support-line">
+
+<i class="fa-solid fa-headset"></i>
+
+<span data-i18n="support">
+সাপোর্ট সময়: প্রতিদিন সকাল ১০টা থেকে সন্ধ্যা ৭টা
+</span>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+<!-- =====================================================
+     SUMMARY
 ===================================================== -->
 
 <section class="section">
@@ -1957,13 +3026,14 @@ data-i18n="complaints">
 
 <div class="section-title-left">
 
-<i class="fa-solid fa-graduation-cap"></i>
+<i class="fa-solid fa-chart-simple"></i>
 
-<h2 data-i18n="academicInfo">
-একাডেমিক তথ্য
+<h2 data-i18n="summary">
+সারসংক্ষেপ
 </h2>
 
 </div>
+
 
 <span>
 LIVE DATA
@@ -1972,151 +3042,819 @@ LIVE DATA
 </div>
 
 
-<div class="info-grid">
 
-<div class="info-card green">
-
-<div
-class="info-value"
-id="activeStudents">
-0
-</div>
-
-<div
-class="info-label"
-data-i18n="active">
-সক্রিয় শিক্ষার্থী
-</div>
-
-</div>
+<div class="stats">
 
 
-<div class="info-card blue">
+<div class="stat-card">
 
-<div
-class="info-value"
-id="pendingStudents">
-0
+<div class="stat-icon">
+
+<i class="fa-solid fa-chalkboard-user"></i>
+
 </div>
 
 <div
-class="info-label"
-data-i18n="pending">
-অপেক্ষমাণ শিক্ষার্থী
-</div>
+class="stat-value"
+id="teacherCount">
 
-</div>
+<span class="count-loading"></span>
 
-
-<div class="info-card purple">
-
-<div
-class="info-value"
-id="graduatedStudents">
-0
 </div>
 
 <div
-class="info-label"
-data-i18n="graduated">
-স্নাতক শিক্ষার্থী
-</div>
+class="stat-label"
+data-i18n="totalTeachers">
+
+সর্বমোট শিক্ষক
 
 </div>
 
+</div>
 
-<div class="info-card teal">
+
+
+<div class="stat-card">
+
+<div class="stat-icon">
+
+<i class="fa-solid fa-user-graduate"></i>
+
+</div>
 
 <div
-class="info-value"
-id="transferredStudents">
-0
+class="stat-value"
+id="studentCount">
+
+<span class="count-loading"></span>
+
 </div>
 
 <div
-class="info-label"
-data-i18n="transferred">
-স্থানান্তরিত শিক্ষার্থী
+class="stat-label"
+data-i18n="totalStudents">
+
+সর্বমোট শিক্ষার্থী
+
 </div>
 
 </div>
+
+
+
+<div class="stat-card">
+
+<div class="stat-icon">
+
+<i class="fa-solid fa-users"></i>
+
+</div>
+
+<div
+class="stat-value"
+id="employeeCount">
+
+<span class="count-loading"></span>
+
+</div>
+
+<div
+class="stat-label"
+data-i18n="totalEmployees">
+
+সর্বমোট কর্মচারী
+
+</div>
+
+</div>
+
+
+
+<div class="stat-card">
+
+<div class="stat-icon">
+
+<i class="fa-solid fa-user-tie"></i>
+
+</div>
+
+<div
+class="stat-value"
+id="memberCount">
+
+<span class="count-loading"></span>
+
+</div>
+
+<div
+class="stat-label"
+data-i18n="totalMembers">
+
+সর্বমোট সদস্য
+
+</div>
+
+</div>
+
 
 </div>
 
 </section>
 
 
+
 <!-- =====================================================
-     CHARTS
+     QUICK ACCESS
 ===================================================== -->
 
 <section class="section">
 
-<div class="chart-grid">
+<div class="section-title">
 
+<div class="section-title-left">
 
-<div class="chart-card">
+<i class="fa-solid fa-bolt"></i>
 
-<div class="chart-header">
+<h2 data-i18n="quickAccess">
+কুইক এক্সেস
+</h2>
 
-<div class="chart-title">
+</div>
 
-<i class="fa-solid fa-chart-column"></i>
-
-<span data-i18n="ledger">
-লেজার ওভারভিউ
+<span data-i18n="quickSub">
+প্রয়োজনীয় পেজগুলো দ্রুত খুলুন
 </span>
+
+</div>
+
+
+
+<div class="quick-grid">
+
+
+<a
+href="students.html"
+class="quick-card">
+
+<div class="quick-icon">
+
+<i class="fa-solid fa-user-graduate"></i>
 
 </div>
 
 <div
-class="year-badge"
-id="ledgerYear">
-2026
-</div>
+class="quick-name"
+data-i18n="students">
+
+শিক্ষার্থী
 
 </div>
 
-<div class="chart-body">
-
-<canvas id="ledgerChart"></canvas>
-
-</div>
-
-</div>
+</a>
 
 
-<div class="chart-card">
 
-<div class="chart-header">
+<a
+href="teachers.html"
+class="quick-card">
 
-<div class="chart-title">
+<div class="quick-icon">
 
-<i class="fa-solid fa-user-graduate"></i>
-
-<span data-i18n="academic">
-একাডেমিক ওভারভিউ
-</span>
+<i class="fa-solid fa-chalkboard-user"></i>
 
 </div>
 
-<div class="year-badge">
-2026
-</div>
+<div
+class="quick-name"
+data-i18n="teachers">
+
+শিক্ষক
 
 </div>
 
-<div class="chart-body">
+</a>
 
-<canvas id="academicChart"></canvas>
+
+
+<a
+href="employees.html"
+class="quick-card">
+
+<div class="quick-icon">
+
+<i class="fa-solid fa-users"></i>
 
 </div>
 
+<div
+class="quick-name"
+data-i18n="employees">
+
+কর্মচারী
+
 </div>
+
+</a>
+
+
+
+<a
+href="members.html"
+class="quick-card">
+
+<div class="quick-icon">
+
+<i class="fa-solid fa-user-tie"></i>
+
+</div>
+
+<div
+class="quick-name"
+data-i18n="members">
+
+সদস্য
+
+</div>
+
+</a>
+
+
+
+<a
+href="classes.html"
+class="quick-card">
+
+<div class="quick-icon">
+
+<i class="fa-solid fa-layer-group"></i>
+
+</div>
+
+<div
+class="quick-name"
+data-i18n="classes">
+
+ক্লাস
+
+</div>
+
+</a>
+
+
+
+<a
+href="session.html"
+class="quick-card">
+
+<div class="quick-icon">
+
+<i class="fa-solid fa-calendar-days"></i>
+
+</div>
+
+<div
+class="quick-name"
+data-i18n="session">
+
+সেশন
+
+</div>
+
+</a>
+
+
+
+<a
+href="subjects.html"
+class="quick-card">
+
+<div class="quick-icon">
+
+<i class="fa-solid fa-book"></i>
+
+</div>
+
+<div
+class="quick-name"
+data-i18n="subjects">
+
+বিষয়
+
+</div>
+
+</a>
+
+
+
+<a
+href="results.html"
+class="quick-card">
+
+<div class="quick-icon">
+
+<i class="fa-solid fa-graduation-cap"></i>
+
+</div>
+
+<div
+class="quick-name"
+data-i18n="results">
+
+ফলাফল
+
+</div>
+
+</a>
+
+
+
+<a
+href="fees.html"
+class="quick-card">
+
+<div class="quick-icon">
+
+<i class="fa-solid fa-money-bill-wave"></i>
+
+</div>
+
+<div
+class="quick-name"
+data-i18n="fees">
+
+ফি সংগ্রহ
+
+</div>
+
+</a>
+
+
+
+<a
+href="salary.html"
+class="quick-card">
+
+<div class="quick-icon">
+
+<i class="fa-solid fa-money-check-dollar"></i>
+
+</div>
+
+<div
+class="quick-name"
+data-i18n="salary">
+
+বেতন
+
+</div>
+
+</a>
+
+
+
+<a
+href="income.html"
+class="quick-card">
+
+<div class="quick-icon">
+
+<i class="fa-solid fa-arrow-trend-up"></i>
+
+</div>
+
+<div
+class="quick-name"
+data-i18n="income">
+
+দৈনন্দিন আয়
+
+</div>
+
+</a>
+
+
+
+<a
+href="expenses.html"
+class="quick-card">
+
+<div class="quick-icon">
+
+<i class="fa-solid fa-arrow-trend-down"></i>
+
+</div>
+
+<div
+class="quick-name"
+data-i18n="expenses">
+
+দৈনন্দিন ব্যয়
+
+</div>
+
+</a>
+
+
+
+<a
+href="attendance-students.html"
+class="quick-card">
+
+<div class="quick-icon">
+
+<i class="fa-solid fa-user-check"></i>
+
+</div>
+
+<div
+class="quick-name"
+data-i18n="studentAttendance">
+
+শিক্ষার্থীদের উপস্থিতি
+
+</div>
+
+</a>
+
+
+
+<a
+href="attendance-teachers.html"
+class="quick-card">
+
+<div class="quick-icon">
+
+<i class="fa-solid fa-person-chalkboard"></i>
+
+</div>
+
+<div
+class="quick-name"
+data-i18n="teacherAttendance">
+
+শিক্ষকদের উপস্থিতি
+
+</div>
+
+</a>
+
+
+
+<a
+href="attendance-employees.html"
+class="quick-card">
+
+<div class="quick-icon">
+
+<i class="fa-solid fa-user-clock"></i>
+
+</div>
+
+<div
+class="quick-name"
+data-i18n="employeeAttendance">
+
+কর্মচারীদের উপস্থিতি
+
+</div>
+
+</a>
+
+
+
+<a
+href="sms.html"
+class="quick-card">
+
+<div class="quick-icon">
+
+<i class="fa-solid fa-envelope"></i>
+
+</div>
+
+<div
+class="quick-name"
+data-i18n="sms">
+
+SMS সিস্টেম
+
+</div>
+
+</a>
+
+
+
+<a
+href="notices.html"
+class="quick-card">
+
+<div class="quick-icon">
+
+<i class="fa-solid fa-bullhorn"></i>
+
+</div>
+
+<div
+class="quick-name"
+data-i18n="notices">
+
+নোটিশ
+
+</div>
+
+</a>
+
+
+
+<a
+href="gallery.html"
+class="quick-card">
+
+<div class="quick-icon">
+
+<i class="fa-solid fa-images"></i>
+
+</div>
+
+<div
+class="quick-name"
+data-i18n="photo">
+
+ফটো
+
+</div>
+
+</a>
+
+
+
+<a
+href="videos.html"
+class="quick-card">
+
+<div class="quick-icon">
+
+<i class="fa-solid fa-video"></i>
+
+</div>
+
+<div
+class="quick-name"
+data-i18n="video">
+
+ভিডিও
+
+</div>
+
+</a>
+
+
+
+<a
+href="reports.html"
+class="quick-card">
+
+<div class="quick-icon">
+
+<i class="fa-solid fa-file-lines"></i>
+
+</div>
+
+<div
+class="quick-name"
+data-i18n="reports">
+
+রিপোর্ট
+
+</div>
+
+</a>
+
+
+
+<a
+href="online-admission.html"
+class="quick-card">
+
+<div class="quick-icon">
+
+<i class="fa-solid fa-user-plus"></i>
+
+</div>
+
+<div
+class="quick-name"
+data-i18n="onlineAdmission">
+
+অনলাইন ভর্তি
+
+</div>
+
+</a>
+
+
+
+<a
+href="reports-certificates.html"
+class="quick-card">
+
+<div class="quick-icon">
+
+<i class="fa-solid fa-certificate"></i>
+
+</div>
+
+<div
+class="quick-name"
+data-i18n="certificates">
+
+রিপোর্ট ও সার্টিফিকেট
+
+</div>
+
+</a>
+
+
+
+<a
+href="nazera-progress.html"
+class="quick-card">
+
+<div class="quick-icon">
+
+<i class="fa-solid fa-book-quran"></i>
+
+</div>
+
+<div
+class="quick-name"
+data-i18n="nazera">
+
+নাজেরা অগ্রগতি
+
+</div>
+
+</a>
+
+
+
+<a
+href="hifz-progress.html"
+class="quick-card">
+
+<div class="quick-icon">
+
+<i class="fa-solid fa-quran"></i>
+
+</div>
+
+<div
+class="quick-name"
+data-i18n="hifz">
+
+হিফজ অগ্রগতি
+
+</div>
+
+</a>
+
+
+
+<a
+href="quran-ampara-tracking.html"
+class="quick-card">
+
+<div class="quick-icon">
+
+<i class="fa-solid fa-book-open"></i>
+
+</div>
+
+<div
+class="quick-name"
+data-i18n="quran">
+
+কুরআন/আমপারা ট্র্যাকিং
+
+</div>
+
+</a>
+
+
+
+<a
+href="dua-hadith-record.html"
+class="quick-card">
+
+<div class="quick-icon">
+
+<i class="fa-solid fa-book-bookmark"></i>
+
+</div>
+
+<div
+class="quick-name"
+data-i18n="dua">
+
+দোয়া ও হাদিস মুখস্থের রেকর্ড
+
+</div>
+
+</a>
+
+
+
+<a
+href="behavior-discipline.html"
+class="quick-card">
+
+<div class="quick-icon">
+
+<i class="fa-solid fa-user-shield"></i>
+
+</div>
+
+<div
+class="quick-name"
+data-i18n="behavior">
+
+আচরণ ও শৃঙ্খলা মূল্যায়ন
+
+</div>
+
+</a>
+
+
+
+<a
+href="parent-daily-report.html"
+class="quick-card">
+
+<div class="quick-icon">
+
+<i class="fa-solid fa-people-roof"></i>
+
+</div>
+
+<div
+class="quick-name"
+data-i18n="parentReport">
+
+অভিভাবকের জন্য দৈনিক রিপোর্ট
+
+</div>
+
+</a>
+
+
+
+<a
+href="complaints.html"
+class="quick-card">
+
+<div class="quick-icon">
+
+<i class="fa-solid fa-comments"></i>
+
+</div>
+
+<div
+class="quick-name"
+data-i18n="complaints">
+
+অভিযোগ বক্স
+
+</div>
+
+</a>
+
+
+
+<a
+href="settings.html"
+class="quick-card">
+
+<div class="quick-icon">
+
+<i class="fa-solid fa-gear"></i>
+
+</div>
+
+<div
+class="quick-name"
+data-i18n="settings">
+
+সেটিংস
+
+</div>
+
+</a>
+
 
 </div>
 
 </section>
+
 
 
 <!-- =====================================================
@@ -2152,16 +3890,21 @@ LIVE DATA
 <div
 class="info-value"
 id="todayIncome">
+
 ৳ 0
+
 </div>
 
 <div
 class="info-label"
 data-i18n="todayIncome">
+
 আজকের আয়
+
 </div>
 
 </div>
+
 
 
 <div class="info-card green">
@@ -2169,16 +3912,21 @@ data-i18n="todayIncome">
 <div
 class="info-value"
 id="totalIncome">
+
 ৳ 0
+
 </div>
 
 <div
 class="info-label"
 data-i18n="totalIncome">
+
 সর্বমোট আয়
+
 </div>
 
 </div>
+
 
 
 <div class="info-card red">
@@ -2186,16 +3934,21 @@ data-i18n="totalIncome">
 <div
 class="info-value"
 id="todayExpense">
+
 ৳ 0
+
 </div>
 
 <div
 class="info-label"
 data-i18n="todayExpense">
+
 আজকের ব্যয়
+
 </div>
 
 </div>
+
 
 
 <div class="info-card red">
@@ -2203,16 +3956,21 @@ data-i18n="todayExpense">
 <div
 class="info-value"
 id="totalExpense">
+
 ৳ 0
+
 </div>
 
 <div
 class="info-label"
 data-i18n="totalExpense">
+
 সর্বমোট ব্যয়
+
 </div>
 
 </div>
+
 
 
 <div class="info-card blue">
@@ -2220,16 +3978,21 @@ data-i18n="totalExpense">
 <div
 class="info-value"
 id="balance">
+
 ৳ 0
+
 </div>
 
 <div
 class="info-label"
 data-i18n="balance">
+
 বর্তমান ব্যালেন্স
+
 </div>
 
 </div>
+
 
 
 <div class="info-card teal">
@@ -2237,16 +4000,21 @@ data-i18n="balance">
 <div
 class="info-value"
 id="totalFees">
+
 ৳ 0
+
 </div>
 
 <div
 class="info-label"
 data-i18n="totalFees">
+
 মোট ফি সংগ্রহ
+
 </div>
 
 </div>
+
 
 
 <div class="info-card orange">
@@ -2254,16 +4022,21 @@ data-i18n="totalFees">
 <div
 class="info-value"
 id="dueFees">
+
 ৳ 0
+
 </div>
 
 <div
 class="info-label"
 data-i18n="dueFees">
+
 অপরিশোধিত ফি
+
 </div>
 
 </div>
+
 
 
 <div class="info-card blue">
@@ -2271,20 +4044,309 @@ data-i18n="dueFees">
 <div
 class="info-value"
 id="totalSalary">
+
 ৳ 0
+
 </div>
 
 <div
 class="info-label"
 data-i18n="totalSalary">
+
 মোট বেতন দেওয়া
+
 </div>
 
 </div>
+
 
 </div>
 
 </section>
+
+
+
+<!-- =====================================================
+     CHARTS
+===================================================== -->
+
+<section class="section">
+
+<div class="chart-grid">
+
+
+<div class="chart-card">
+
+<div class="chart-header">
+
+<div class="chart-title">
+
+<i class="fa-solid fa-chart-column"></i>
+
+<span data-i18n="ledger">
+লেজার ওভারভিউ
+</span>
+
+</div>
+
+<div
+class="year-badge"
+id="ledgerYear">
+
+2026
+
+</div>
+
+</div>
+
+<div class="chart-body">
+
+<canvas id="ledgerChart"></canvas>
+
+</div>
+
+</div>
+
+
+
+<div class="chart-card">
+
+<div class="chart-header">
+
+<div class="chart-title">
+
+<i class="fa-solid fa-user-graduate"></i>
+
+<span data-i18n="academic">
+একাডেমিক ওভারভিউ
+</span>
+
+</div>
+
+<div class="year-badge">
+2026
+</div>
+
+</div>
+
+<div class="chart-body">
+
+<canvas id="academicChart"></canvas>
+
+</div>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+<!-- =====================================================
+     ACADEMIC INFORMATION
+===================================================== -->
+
+<section class="section">
+
+<div class="section-title">
+
+<div class="section-title-left">
+
+<i class="fa-solid fa-graduation-cap"></i>
+
+<h2 data-i18n="academicInfo">
+একাডেমিক তথ্য
+</h2>
+
+</div>
+
+</div>
+
+
+<div class="info-grid">
+
+
+<div class="info-card green">
+
+<div
+class="info-value"
+id="activeStudents">
+
+0
+
+</div>
+
+<div
+class="info-label"
+data-i18n="active">
+
+সক্রিয় শিক্ষার্থী
+
+</div>
+
+</div>
+
+
+
+<div class="info-card blue">
+
+<div
+class="info-value"
+id="pendingStudents">
+
+0
+
+</div>
+
+<div
+class="info-label"
+data-i18n="pending">
+
+অপেক্ষমাণ শিক্ষার্থী
+
+</div>
+
+</div>
+
+
+
+<div class="info-card purple">
+
+<div
+class="info-value"
+id="graduatedStudents">
+
+0
+
+</div>
+
+<div
+class="info-label"
+data-i18n="graduated">
+
+স্নাতক শিক্ষার্থী
+
+</div>
+
+</div>
+
+
+
+<div class="info-card teal">
+
+<div
+class="info-value"
+id="transferredStudents">
+
+0
+
+</div>
+
+<div
+class="info-label"
+data-i18n="transferred">
+
+স্থানান্তরিত শিক্ষার্থী
+
+</div>
+
+</div>
+
+
+
+<div class="info-card orange">
+
+<div
+class="info-value"
+id="withdrawnStudents">
+
+0
+
+</div>
+
+<div
+class="info-label"
+data-i18n="withdrawn">
+
+প্রত্যাহারকৃত শিক্ষার্থী
+
+</div>
+
+</div>
+
+
+
+<div class="info-card red">
+
+<div
+class="info-value"
+id="suspendedStudents">
+
+0
+
+</div>
+
+<div
+class="info-label"
+data-i18n="suspended">
+
+স্থগিত শিক্ষার্থী
+
+</div>
+
+</div>
+
+
+
+<div class="info-card purple">
+
+<div
+class="info-value"
+id="dismissedStudents">
+
+0
+
+</div>
+
+<div
+class="info-label"
+data-i18n="dismissed">
+
+বরখাস্ত শিক্ষার্থী
+
+</div>
+
+</div>
+
+
+
+<div class="info-card blue">
+
+<div
+class="info-value"
+id="leaveStudents">
+
+0
+
+</div>
+
+<div
+class="info-label"
+data-i18n="leave">
+
+ছুটিতে থাকা শিক্ষার্থী
+
+</div>
+
+</div>
+
+
+</div>
+
+</section>
+
 
 
 <!-- =====================================================
@@ -2293,24 +4355,42 @@ data-i18n="totalSalary">
 
 <footer class="footer">
 
-মাদরাসায়ে নূরুল কুরআন —
-<span data-i18n="footerText">
-ডিজিটাল প্রশাসনিক ব্যবস্থাপনা
-</span>
-
-<br>
+<div>
 
 <strong>
-Madrasa-e Nurul Quran
+মাদরাসায়ে নূরুল কুরআন
 </strong>
+
+</div>
+
+<div data-i18n="footer">
+প্রশাসনিক ব্যবস্থাপনা সিস্টেম
+</div>
 
 </footer>
 
+
 </div>
+
 </main>
 
 
+
+<!-- =======================================================
+     SUPABASE
+======================================================= -->
+
+<script
+src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+</script>
+
+
+
 <script>
+
+/* =========================================================
+   SUPABASE
+========================================================= */
 
 const SUPABASE_URL =
 "https://qavublwhqiqsgpcmfyft.supabase.co";
@@ -2318,1268 +4398,2333 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
 
-const supabaseClient =
+const db =
 window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
+    SUPABASE_URL,
+    SUPABASE_KEY,
+    {
+        auth:{
+            persistSession:true,
+            autoRefreshToken:true,
+            detectSessionInUrl:true
+        }
+    }
 );
 
 
-/* =====================================================
-   AUTH
-===================================================== */
+/* =========================================================
+   GLOBAL
+========================================================= */
 
-async function checkAuth(){
+let ledgerChart=null;
+let academicChart=null;
 
-const {
-data:{
-session
-}
-}=await supabaseClient.auth.getSession();
-
-if(!session){
-
-window.location.href="login.html";
-
-return false;
-}
-
-return true;
-
-}
+const CURRENT_SESSION =
+String(new Date().getFullYear());
 
 
-/* =====================================================
-   LOGOUT
-===================================================== */
-
-document
-.getElementById("logoutBtn")
-.addEventListener(
-"click",
-async()=>{
-
-await supabaseClient.auth.signOut();
-
-window.location.href="login.html";
-
-}
-);
-
-
-/* =====================================================
-   HOME
-===================================================== */
-
-document
-.getElementById("homeBtn")
-.addEventListener(
-"click",
-()=>{
-
-window.location.href="index.html";
-
-}
-);
-
-
-/* =====================================================
-   MOBILE SIDEBAR
-===================================================== */
-
-const sidebar =
-document.getElementById("sidebar");
-
-const menuBtn =
-document.getElementById("menuBtn");
-
-const overlay =
-document.getElementById("overlay");
-
-menuBtn.addEventListener(
-"click",
-()=>{
-
-sidebar.classList.toggle("open");
-
-overlay.classList.toggle("show");
-
-}
-);
-
-overlay.addEventListener(
-"click",
-()=>{
-
-sidebar.classList.remove("open");
-
-overlay.classList.remove("show");
-
-}
-);
-
-
-/* =====================================================
-   LANGUAGE
-===================================================== */
-
-const languageBtn =
-document.getElementById("languageBtn");
-
-const languageMenu =
-document.getElementById("languageMenu");
-
-languageBtn.addEventListener(
-"click",
-e=>{
-
-e.stopPropagation();
-
-languageMenu.classList.toggle("show");
-
-document
-.getElementById("themeMenu")
-.classList.remove("show");
-
-}
-);
-
-
-/* =====================================================
+/* =========================================================
    THEME
-===================================================== */
-
-const themeBtn =
-document.getElementById("themeBtn");
-
-const themeMenu =
-document.getElementById("themeMenu");
-
-themeBtn.addEventListener(
-"click",
-e=>{
-
-e.stopPropagation();
-
-themeMenu.classList.toggle("show");
-
-languageMenu.classList.remove("show");
-
-}
-);
-
-
-document.addEventListener(
-"click",
-()=>{
-
-languageMenu.classList.remove("show");
-
-themeMenu.classList.remove("show");
-
-}
-);
-
-
-/* =====================================================
-   THEME SAVE
-===================================================== */
-
-function applyTheme(theme){
-
-document.body.classList.remove(
-"theme-navy",
-"theme-light",
-"theme-aqua"
-);
-
-document.body.classList.add(
-"theme-"+theme
-);
-
-localStorage.setItem(
-"madrasa_dashboard_theme",
-theme
-);
-
-}
-
+========================================================= */
 
 const savedTheme =
 localStorage.getItem(
-"madrasa_dashboard_theme"
+    "nurul_dashboard_theme"
 ) || "navy";
 
-applyTheme(savedTheme);
 
-
-document
-.querySelectorAll("[data-theme]")
-.forEach(btn=>{
-
-btn.addEventListener(
-"click",
-e=>{
-
-e.stopPropagation();
-
-applyTheme(
-btn.dataset.theme
-);
-
-themeMenu.classList.remove("show");
-
-}
-});
-
-
-/* =====================================================
-   LANGUAGE DATA
-===================================================== */
-
-const translations={
-
-bn:{
-
-dashboard:"ড্যাশবোর্ড",
-students:"শিক্ষার্থী",
-teachers:"শিক্ষক",
-employees:"কর্মচারী",
-members:"সদস্য",
-classes:"ক্লাস",
-subjects:"বিষয়",
-session:"সেশন",
-results:"ফলাফল",
-fees:"ফি সংগ্রহ",
-salary:"বেতন",
-income:"দৈনন্দিন আয়",
-expenses:"দৈনন্দিন ব্যয়",
-studentAttendance:"শিক্ষার্থীদের উপস্থিতি",
-teacherAttendance:"শিক্ষকদের উপস্থিতি",
-employeeAttendance:"কর্মচারীদের উপস্থিতি",
-sms:"SMS সিস্টেম",
-notices:"নোটিশ",
-gallery:"ফটো গ্যালারি",
-videos:"ভিডিও গ্যালারি",
-reports:"রিপোর্ট",
-onlineAdmission:"অনলাইন ভর্তি",
-certificates:"রিপোর্ট ও সার্টিফিকেট",
-nazera:"নাজেরা অগ্রগতি",
-hifz:"হিফজ অগ্রগতি",
-quran:"কুরআন/আমপারা ট্র্যাকিং",
-dua:"দোয়া ও হাদিস মুখস্থের রেকর্ড",
-behavior:"আচরণ ও শৃঙ্খলা মূল্যায়ন",
-parentReport:"অভিভাবকের জন্য দৈনিক রিপোর্ট",
-complaints:"অভিযোগ বক্স",
-settings:"সেটিংস",
-
-welcome:"আসসালামু আলাইকুম",
-welcomeText:
-"মাদরাসায়ে নূরুল কুরআনের প্রশাসনিক ব্যবস্থাপনা এক জায়গা থেকে পরিচালনা করুন।",
-
-support:
-"সাপোর্ট সময়: প্রতিদিন সকাল ১০টা থেকে সন্ধ্যা ৭টা",
-
-summary:"সারসংক্ষেপ",
-quickAccess:"কুইক এক্সেস",
-quickSub:"প্রয়োজনীয় পেজগুলো দ্রুত খুলুন",
-
-totalTeachers:"সর্বমোট শিক্ষক",
-totalStudents:"সর্বমোট শিক্ষার্থী",
-totalEmployees:"সর্বমোট কর্মচারী",
-totalMembers:"সর্বমোট সদস্য",
-
-academicInfo:"একাডেমিক তথ্য",
-active:"সক্রিয় শিক্ষার্থী",
-pending:"অপেক্ষমাণ শিক্ষার্থী",
-graduated:"স্নাতক শিক্ষার্থী",
-transferred:"স্থানান্তরিত শিক্ষার্থী",
-
-ledger:"লেজার ওভারভিউ",
-academic:"একাডেমিক ওভারভিউ",
-
-financial:"আর্থিক সারসংক্ষেপ",
-todayIncome:"আজকের আয়",
-totalIncome:"সর্বমোট আয়",
-todayExpense:"আজকের ব্যয়",
-totalExpense:"সর্বমোট ব্যয়",
-balance:"বর্তমান ব্যালেন্স",
-totalFees:"মোট ফি সংগ্রহ",
-dueFees:"অপরিশোধিত ফি",
-totalSalary:"মোট বেতন দেওয়া",
-
-footerText:
-"ডিজিটাল প্রশাসনিক ব্যবস্থাপনা"
-
-},
-
-en:{
-
-dashboard:"Dashboard",
-students:"Students",
-teachers:"Teachers",
-employees:"Employees",
-members:"Members",
-classes:"Classes",
-subjects:"Subjects",
-session:"Session",
-results:"Results",
-fees:"Fees Collection",
-salary:"Salary",
-income:"Daily Income",
-expenses:"Daily Expense",
-studentAttendance:"Student Attendance",
-teacherAttendance:"Teacher Attendance",
-employeeAttendance:"Employee Attendance",
-sms:"SMS System",
-notices:"Notices",
-gallery:"Photo Gallery",
-videos:"Video Gallery",
-reports:"Reports",
-onlineAdmission:"Online Admission",
-certificates:"Reports & Certificates",
-nazera:"Nazera Progress",
-hifz:"Hifz Progress",
-quran:"Quran / Ampara Tracking",
-dua:"Dua & Hadith Records",
-behavior:"Behavior & Discipline",
-parentReport:"Parent Daily Report",
-complaints:"Complaint Box",
-settings:"Settings",
-
-welcome:"Assalamu Alaikum",
-welcomeText:
-"Manage Madrasa-e Nurul Quran administration from one place.",
-
-support:
-"Support Time: Every day 10 AM – 7 PM",
-
-summary:"Summary",
-quickAccess:"Quick Access",
-quickSub:"Open important pages quickly",
-
-totalTeachers:"Total Teachers",
-totalStudents:"Total Students",
-totalEmployees:"Total Employees",
-totalMembers:"Total Members",
-
-academicInfo:"Academic Information",
-active:"Active Students",
-pending:"Pending Students",
-graduated:"Graduated Students",
-transferred:"Transferred Students",
-
-ledger:"Ledger Overview",
-academic:"Academic Overview",
-
-financial:"Financial Summary",
-todayIncome:"Today's Income",
-totalIncome:"Total Income",
-todayExpense:"Today's Expense",
-totalExpense:"Total Expense",
-balance:"Current Balance",
-totalFees:"Total Fees Collected",
-dueFees:"Due Fees",
-totalSalary:"Total Salary Paid",
-
-footerText:
-"Digital Administrative Management"
-
-},
-
-ar:{
-
-dashboard:"لوحة التحكم",
-students:"الطلاب",
-teachers:"المعلمون",
-employees:"الموظفون",
-members:"الأعضاء",
-classes:"الفصول",
-subjects:"المواد",
-session:"الجلسة",
-results:"النتائج",
-fees:"تحصيل الرسوم",
-salary:"الرواتب",
-income:"الدخل اليومي",
-expenses:"المصروفات اليومية",
-studentAttendance:"حضور الطلاب",
-teacherAttendance:"حضور المعلمين",
-employeeAttendance:"حضور الموظفين",
-sms:"نظام الرسائل",
-notices:"الإشعارات",
-gallery:"معرض الصور",
-videos:"معرض الفيديو",
-reports:"التقارير",
-onlineAdmission:"القبول الإلكتروني",
-certificates:"التقارير والشهادات",
-nazera:"تقدم الناظرة",
-hifz:"تقدم الحفظ",
-quran:"تتبع القرآن والأجزاء",
-dua:"سجلات الأدعية والأحاديث",
-behavior:"السلوك والانضباط",
-parentReport:"التقرير اليومي لولي الأمر",
-complaints:"صندوق الشكاوى",
-settings:"الإعدادات",
-
-welcome:"السلام عليكم",
-welcomeText:
-"إدارة شؤون مدرسة نور القرآن من مكان واحد.",
-
-support:
-"وقت الدعم: يومياً من 10 صباحاً إلى 7 مساءً",
-
-summary:"الملخص",
-quickAccess:"الوصول السريع",
-quickSub:"فتح الصفحات المهمة بسرعة",
-
-totalTeachers:"إجمالي المعلمين",
-totalStudents:"إجمالي الطلاب",
-totalEmployees:"إجمالي الموظفين",
-totalMembers:"إجمالي الأعضاء",
-
-academicInfo:"المعلومات الأكاديمية",
-active:"الطلاب النشطون",
-pending:"الطلاب المنتظرون",
-graduated:"الطلاب المتخرجون",
-transferred:"الطلاب المنقولون",
-
-ledger:"نظرة عامة على الحسابات",
-academic:"النظرة الأكاديمية",
-
-financial:"الملخص المالي",
-todayIncome:"دخل اليوم",
-totalIncome:"إجمالي الدخل",
-todayExpense:"مصروف اليوم",
-totalExpense:"إجمالي المصروفات",
-balance:"الرصيد الحالي",
-totalFees:"إجمالي الرسوم المحصلة",
-dueFees:"الرسوم المستحقة",
-totalSalary:"إجمالي الرواتب المدفوعة",
-
-footerText:
-"الإدارة الرقمية"
-
-}
-
-};
-
-
-function setLanguage(lang){
-
-const data =
-translations[lang] ||
-translations.bn;
-
-document
-.querySelectorAll("[data-i18n]")
-.forEach(el=>{
-
-const key =
-el.dataset.i18n;
-
-if(data[key]){
-el.textContent =
-data[key];
-}
-
-});
-
-document
-.querySelectorAll("[data-lang]")
-.forEach(btn=>{
-
-btn.classList.toggle(
-"active",
-btn.dataset.lang===lang
-);
-
-});
-
-document.documentElement.lang =
-lang;
-
-document.body.classList.toggle(
-"rtl",
-lang==="ar"
-);
-
-localStorage.setItem(
-"madrasa_dashboard_language",
-lang
-);
-
-}
-
-
-const savedLanguage =
-localStorage.getItem(
-"madrasa_dashboard_language"
-) || "bn";
-
-setLanguage(savedLanguage);
-
-
-document
-.querySelectorAll("[data-lang]")
-.forEach(btn=>{
-
-btn.addEventListener(
-"click",
-e=>{
-
-e.stopPropagation();
-
-setLanguage(
-btn.dataset.lang
-);
-
-languageMenu.classList.remove(
-"show"
-);
-
-}
-);
-
-
-/* =====================================================
-   DASHBOARD DATA
-===================================================== */
-
-async function loadDashboardData(){
-
-/* Teachers */
-
-const teacherResult =
-await supabaseClient
-.from("teachers")
-.select("id",{
-count:"exact",
-head:true
-});
-
-document.getElementById(
-"teacherCount"
-).textContent =
-teacherResult.count || 0;
-
-
-/* Students */
-
-const studentResult =
-await supabaseClient
-.from("students")
-.select(
-"id,student_id,roll_number,name,father_name,mother_name,phone,class_id,session,admission_date,address,photo_url,created_at",
-{
-count:"exact"
-}
-);
-
-const students =
-studentResult.data || [];
-
-document.getElementById(
-"studentCount"
-).textContent =
-studentResult.count ||
-students.length ||
-0;
-
-document.getElementById(
-"activeStudents"
-).textContent =
-students.length;
-
-
-/* Employees */
-
-const employeeResult =
-await supabaseClient
-.from("employees")
-.select("id",{
-count:"exact",
-head:true
-});
-
-document.getElementById(
-"employeeCount"
-).textContent =
-employeeResult.count || 0;
-
-
-/* Members */
-
-const memberResult =
-await supabaseClient
-.from("members")
-.select("id",{
-count:"exact",
-head:true
-});
-
-document.getElementById(
-"memberCount"
-).textContent =
-memberResult.count || 0;
-
-
-/* Pending admission */
-
-const pendingResult =
-await supabaseClient
-.from("admission_applications")
-.select("id",{
-count:"exact",
-head:true
-})
-.eq(
-"status",
-"pending"
-);
-
-document.getElementById(
-"pendingStudents"
-).textContent =
-pendingResult.count || 0;
-
-
-/* Fees */
-
-const feesResult =
-await supabaseClient
-.from("fees")
-.select(
-"amount,paid_amount,due_amount"
-);
-
-const fees =
-feesResult.data || [];
-
-let totalFees=0;
-let dueFees=0;
-
-fees.forEach(row=>{
-
-totalFees +=
-Number(row.paid_amount || 0);
-
-dueFees +=
-Number(
-row.due_amount ??
-(
-Number(row.amount || 0) -
-Number(row.paid_amount || 0)
-)
-);
-
-});
-
-document.getElementById(
-"totalFees"
-).textContent =
-"৳ "+totalFees.toLocaleString();
-
-document.getElementById(
-"dueFees"
-).textContent =
-"৳ "+dueFees.toLocaleString();
-
-
-/* Income */
-
-let incomeData=[];
-
-const incomeResult =
-await supabaseClient
-.from("income")
-.select("*");
-
-if(!incomeResult.error){
-incomeData =
-incomeResult.data || [];
-}
-
-let totalIncome=0;
-
-incomeData.forEach(row=>{
-
-totalIncome +=
-Number(
-row.amount ||
-row.total_amount ||
-0
-);
-
-});
-
-document.getElementById(
-"totalIncome"
-).textContent =
-"৳ "+totalIncome.toLocaleString();
-
-
-/* Expense */
-
-let expenseData=[];
-
-const expenseResult =
-await supabaseClient
-.from("expenses")
-.select("*");
-
-if(!expenseResult.error){
-expenseData =
-expenseResult.data || [];
-}
-
-let totalExpense=0;
-
-expenseData.forEach(row=>{
-
-totalExpense +=
-Number(
-row.amount ||
-row.total_amount ||
-0
-);
-
-});
-
-document.getElementById(
-"totalExpense"
-).textContent =
-"৳ "+totalExpense.toLocaleString();
-
-
-document.getElementById(
-"balance"
-).textContent =
-"৳ "+
-(
-totalIncome-totalExpense
-).toLocaleString();
-
-
-/* Salary */
-
-let salaryTotal=0;
-
-const salaryResult =
-await supabaseClient
-.from("teacher_salaries")
-.select("*");
-
-if(!salaryResult.error){
-
-(salaryResult.data || [])
-.forEach(row=>{
-
-salaryTotal +=
-Number(
-row.amount ||
-row.salary ||
-row.paid_amount ||
-0
-);
-
-});
-
-}
-
-document.getElementById(
-"totalSalary"
-).textContent =
-"৳ "+
-salaryTotal.toLocaleString();
-
-
-/* Today's income */
-
-const today =
-new Date()
-.toISOString()
-.split("T")[0];
-
-let todayIncome=0;
-
-incomeData.forEach(row=>{
-
-const date =
-row.date ||
-row.income_date ||
-row.created_at?.split("T")[0];
-
-if(date===today){
-
-todayIncome +=
-Number(
-row.amount ||
-row.total_amount ||
-0
-);
-
-}
-
-});
-
-document.getElementById(
-"todayIncome"
-).textContent =
-"৳ "+
-todayIncome.toLocaleString();
-
-
-/* Today's expense */
-
-let todayExpense=0;
-
-expenseData.forEach(row=>{
-
-const date =
-row.date ||
-row.expense_date ||
-row.created_at?.split("T")[0];
-
-if(date===today){
-
-todayExpense +=
-Number(
-row.amount ||
-row.total_amount ||
-0
-);
-
-}
-
-});
-
-document.getElementById(
-"todayExpense"
-).textContent =
-"৳ "+
-todayExpense.toLocaleString();
-
-
-/* Academic Chart */
-
-await buildAcademicChart(
-students
-);
-
-}
-   async function buildAcademicChart(students){
-
-    const classResult =
-        await supabaseClient
-        .from("classes")
-        .select("id,name");
-
-    const classMap = {};
-
-    (classResult.data || []).forEach(c=>{
-        classMap[String(c.id)] = c.name;
-    });
-
-    students.forEach(student=>{
-        student.class_name =
-            classMap[String(student.class_id)] ||
-            student.class_id ||
-            "";
-    });
-
-    updateAcademicChart(students);
-}
-
-
-/* =====================================================
-   ACADEMIC CHART
-===================================================== */
-
-function updateAcademicChart(rows){
-
-    const order = [
-        "নূরানী",
-        "১ম",
-        "২য়",
-        "৩য়",
-        "৪র্থ",
-        "৫ম",
-        "নাজেরা",
-        "হিফয"
-    ];
-
-    const aliases = {
-        "হিফজ":"হিফয",
-        "হিফজ বিভাগ":"হিফয",
-        "হিফয বিভাগ":"হিফয",
-        "নূরানী বিভাগ":"নূরানী",
-        "নাজেরা বিভাগ":"নাজেরা",
-        "১ম শ্রেণি":"১ম",
-        "২য় শ্রেণি":"২য়",
-        "৩য় শ্রেণি":"৩য়",
-        "৪র্থ শ্রেণি":"৪র্থ",
-        "৫ম শ্রেণি":"৫ম",
-        "ক্লাস ১":"১ম",
-        "ক্লাস ২":"২য়",
-        "ক্লাস ৩":"৩য়",
-        "ক্লাস ৪":"৪র্থ",
-        "ক্লাস ৫":"৫ম",
-        "Class 1":"১ম",
-        "Class 2":"২য়",
-        "Class 3":"৩য়",
-        "Class 4":"৪র্থ",
-        "Class 5":"৫ম"
-    };
-
-    const map = {};
-
-    order.forEach(name=>{
-        map[name] = 0;
-    });
-
-    rows.forEach(row=>{
-
-        let className =
-            String(
-                row.class_name ||
-                ""
-            ).trim();
-
-        className =
-            aliases[className] ||
-            className;
-
-        if(
-            Object.prototype.hasOwnProperty
-            .call(map,className)
-        ){
-
-            map[className]++;
+function applyTheme(theme){
+
+    document.body.classList.remove(
+        "theme-navy",
+        "theme-light",
+        "theme-aqua"
+    );
+
+    document.body.classList.add(
+        "theme-" + theme
+    );
+
+    localStorage.setItem(
+        "nurul_dashboard_theme",
+        theme
+    );
+
+    document
+    .querySelectorAll(
+        "#themeMenu .dropdown-option"
+    )
+    .forEach(
+        option=>{
+
+            option.classList.toggle(
+                "active",
+                option.dataset.theme===theme
+            );
 
         }
+    );
 
-    });
+    setTimeout(
+        ()=>{
 
-    createAcademicChart(
-        order,
-        order.map(name=>map[name])
+            if(
+                window.Chart &&
+                ledgerChart
+            ){
+
+                updateChartTheme();
+
+            }
+
+        },
+        50
     );
 
 }
 
 
-/* =====================================================
-   ACADEMIC CHART CREATE
-===================================================== */
+function updateChartTheme(){
 
-let academicChartInstance = null;
+    const textColor =
+        document.body.classList.contains(
+            "theme-navy"
+        )
+        ? "#d5e5ed"
+        : "#405862";
 
-function createAcademicChart(labels,data){
+
+    if(
+        ledgerChart
+    ){
+
+        ledgerChart.options.scales.x.ticks.color =
+            textColor;
+
+        ledgerChart.options.scales.y.ticks.color =
+            textColor;
+
+        ledgerChart.options.plugins.legend.labels.color =
+            textColor;
+
+        ledgerChart.update();
+
+    }
+
+
+    if(
+        academicChart
+    ){
+
+        academicChart.options.scales.x.ticks.color =
+            textColor;
+
+        academicChart.options.scales.y.ticks.color =
+            textColor;
+
+        academicChart.update();
+
+    }
+
+}
+
+
+applyTheme(savedTheme);
+
+
+/* =========================================================
+   DROPDOWNS
+========================================================= */
+
+const languageBtn =
+document.getElementById(
+    "languageBtn"
+);
+
+const languageMenu =
+document.getElementById(
+    "languageMenu"
+);
+
+const themeBtn =
+document.getElementById(
+    "themeBtn"
+);
+
+const themeMenu =
+document.getElementById(
+    "themeMenu"
+);
+
+
+languageBtn.addEventListener(
+    "click",
+    event=>{
+
+        event.stopPropagation();
+
+        themeMenu.classList.remove("show");
+
+        languageMenu.classList.toggle(
+            "show"
+        );
+
+    }
+);
+
+
+themeBtn.addEventListener(
+    "click",
+    event=>{
+
+        event.stopPropagation();
+
+        languageMenu.classList.remove("show");
+
+        themeMenu.classList.toggle(
+            "show"
+        );
+
+    }
+);
+
+
+document.addEventListener(
+    "click",
+    ()=>{
+
+        languageMenu.classList.remove(
+            "show"
+        );
+
+        themeMenu.classList.remove(
+            "show"
+        );
+
+    }
+);
+
+
+themeMenu.addEventListener(
+    "click",
+    event=>{
+        event.stopPropagation();
+    }
+);
+
+
+languageMenu.addEventListener(
+    "click",
+    event=>{
+        event.stopPropagation();
+    }
+);
+
+
+/* =========================================================
+   THEME EVENTS
+========================================================= */
+
+document
+.querySelectorAll(
+    "#themeMenu .dropdown-option"
+)
+.forEach(
+    option=>{
+
+        option.addEventListener(
+            "click",
+            ()=>{
+
+                applyTheme(
+                    option.dataset.theme
+                );
+
+                themeMenu.classList.remove(
+                    "show"
+                );
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   LANGUAGE DATA
+========================================================= */
+
+const translations = {
+
+    bn:{
+
+        dashboard:"ড্যাশবোর্ড",
+        students:"শিক্ষার্থী",
+        teachers:"শিক্ষক",
+        employees:"কর্মচারী",
+        members:"সদস্য",
+        classes:"ক্লাস",
+        subjects:"বিষয়",
+        session:"সেশন",
+        results:"ফলাফল",
+        fees:"ফি সংগ্রহ",
+        salary:"বেতন",
+        income:"দৈনন্দিন আয়",
+        expenses:"দৈনন্দিন ব্যয়",
+
+        studentAttendance:
+            "শিক্ষার্থীদের উপস্থিতি",
+
+        teacherAttendance:
+            "শিক্ষকদের উপস্থিতি",
+
+        employeeAttendance:
+            "কর্মচারীদের উপস্থিতি",
+
+        sms:"SMS সিস্টেম",
+        notices:"নোটিশ",
+        gallery:"ফটো গ্যালারি",
+        videos:"ভিডিও গ্যালারি",
+        reports:"রিপোর্ট",
+
+        onlineAdmission:
+            "অনলাইন ভর্তি",
+
+        certificates:
+            "রিপোর্ট ও সার্টিফিকেট",
+
+        nazera:
+            "নাজেরা অগ্রগতি",
+
+        hifz:
+            "হিফজ অগ্রগতি",
+
+        quran:
+            "কুরআন/আমপারা ট্র্যাকিং",
+
+        dua:
+            "দোয়া ও হাদিস মুখস্থের রেকর্ড",
+
+        behavior:
+            "আচরণ ও শৃঙ্খলা মূল্যায়ন",
+
+        parentReport:
+            "অভিভাবকের জন্য দৈনিক রিপোর্ট",
+
+        complaints:
+            "অভিযোগ বক্স",
+
+        settings:
+            "সেটিংস",
+
+        welcome:
+            "আসসালামু আলাইকুম",
+
+        welcomeText:
+            "মাদরাসায়ে নূরুল কুরআনের প্রশাসনিক ব্যবস্থাপনা এক জায়গা থেকে পরিচালনা করুন।",
+
+        support:
+            "সাপোর্ট সময়: প্রতিদিন সকাল ১০টা থেকে সন্ধ্যা ৭টা",
+
+        summary:
+            "সারসংক্ষেপ",
+
+        quickAccess:
+            "কুইক এক্সেস",
+
+        quickSub:
+            "প্রয়োজনীয় পেজগুলো দ্রুত খুলুন",
+
+        totalTeachers:
+            "সর্বমোট শিক্ষক",
+
+        totalStudents:
+            "সর্বমোট শিক্ষার্থী",
+
+        totalEmployees:
+            "সর্বমোট কর্মচারী",
+
+        totalMembers:
+            "সর্বমোট সদস্য",
+
+        financial:
+            "আর্থিক সারসংক্ষেপ",
+
+        todayIncome:
+            "আজকের আয়",
+
+        totalIncome:
+            "সর্বমোট আয়",
+
+        todayExpense:
+            "আজকের ব্যয়",
+
+        totalExpense:
+            "সর্বমোট ব্যয়",
+
+        balance:
+            "বর্তমান ব্যালেন্স",
+
+        totalFees:
+            "মোট ফি সংগ্রহ",
+
+        dueFees:
+            "অপরিশোধিত ফি",
+
+        totalSalary:
+            "মোট বেতন দেওয়া",
+
+        ledger:
+            "লেজার ওভারভিউ",
+
+        academic:
+            "একাডেমিক ওভারভিউ",
+
+        academicInfo:
+            "একাডেমিক তথ্য",
+
+        active:
+            "সক্রিয় শিক্ষার্থী",
+
+        pending:
+            "অপেক্ষমাণ শিক্ষার্থী",
+
+        graduated:
+            "স্নাতক শিক্ষার্থী",
+
+        transferred:
+            "স্থানান্তরিত শিক্ষার্থী",
+
+        withdrawn:
+            "প্রত্যাহারকৃত শিক্ষার্থী",
+
+        suspended:
+            "স্থগিত শিক্ষার্থী",
+
+        dismissed:
+            "বরখাস্ত শিক্ষার্থী",
+
+        leave:
+            "ছুটিতে থাকা শিক্ষার্থী",
+
+        footer:
+            "প্রশাসনিক ব্যবস্থাপনা সিস্টেম"
+
+    },
+
+
+    en:{
+
+        dashboard:"Dashboard",
+        students:"Students",
+        teachers:"Teachers",
+        employees:"Employees",
+        members:"Members",
+        classes:"Classes",
+        subjects:"Subjects",
+        session:"Session",
+        results:"Results",
+        fees:"Fee Collection",
+        salary:"Salary",
+        income:"Daily Income",
+        expenses:"Daily Expenses",
+
+        studentAttendance:
+            "Student Attendance",
+
+        teacherAttendance:
+            "Teacher Attendance",
+
+        employeeAttendance:
+            "Employee Attendance",
+
+        sms:"SMS System",
+        notices:"Notices",
+        gallery:"Photo Gallery",
+        videos:"Video Gallery",
+        reports:"Reports",
+
+        onlineAdmission:
+            "Online Admission",
+
+        certificates:
+            "Reports & Certificates",
+
+        nazera:
+            "Nazera Progress",
+
+        hifz:
+            "Hifz Progress",
+
+        quran:
+            "Quran / Ampara Tracking",
+
+        dua:
+            "Dua & Hadith Records",
+
+        behavior:
+            "Behavior & Discipline",
+
+        parentReport:
+            "Parent Daily Report",
+
+        complaints:
+            "Complaints Box",
+
+        settings:
+            "Settings",
+
+        welcome:
+            "Assalamu Alaikum",
+
+        welcomeText:
+            "Manage Madrasa-e Nurul Quran administration from one place.",
+
+        support:
+            "Support Time: Every day 10:00 AM – 7:00 PM",
+
+        summary:
+            "Summary",
+
+        quickAccess:
+            "Quick Access",
+
+        quickSub:
+            "Open essential pages quickly",
+
+        totalTeachers:
+            "Total Teachers",
+
+        totalStudents:
+            "Total Students",
+
+        totalEmployees:
+            "Total Employees",
+
+        totalMembers:
+            "Total Members",
+
+        financial:
+            "Financial Summary",
+
+        todayIncome:
+            "Today's Income",
+
+        totalIncome:
+            "Total Income",
+
+        todayExpense:
+            "Today's Expense",
+
+        totalExpense:
+            "Total Expense",
+
+        balance:
+            "Current Balance",
+
+        totalFees:
+            "Total Fee Collection",
+
+        dueFees:
+            "Outstanding Fees",
+
+        totalSalary:
+            "Total Salary Paid",
+
+        ledger:
+            "Ledger Overview",
+
+        academic:
+            "Academic Overview",
+
+        academicInfo:
+            "Academic Information",
+
+        active:
+            "Active Students",
+
+        pending:
+            "Pending Students",
+
+        graduated:
+            "Graduated Students",
+
+        transferred:
+            "Transferred Students",
+
+        withdrawn:
+            "Withdrawn Students",
+
+        suspended:
+            "Suspended Students",
+
+        dismissed:
+            "Dismissed Students",
+
+        leave:
+            "Students on Leave",
+
+        footer:
+            "Administrative Management System"
+
+    },
+
+
+    ar:{
+
+        dashboard:"لوحة التحكم",
+        students:"الطلاب",
+        teachers:"المعلمون",
+        employees:"الموظفون",
+        members:"الأعضاء",
+        classes:"الفصول",
+        subjects:"المواد",
+        session:"الجلسة",
+        results:"النتائج",
+        fees:"تحصيل الرسوم",
+        salary:"الرواتب",
+        income:"الدخل اليومي",
+        expenses:"المصروفات اليومية",
+
+        studentAttendance:
+            "حضور الطلاب",
+
+        teacherAttendance:
+            "حضور المعلمين",
+
+        employeeAttendance:
+            "حضور الموظفين",
+
+        sms:"نظام SMS",
+        notices:"الإشعارات",
+        gallery:"معرض الصور",
+        videos:"معرض الفيديو",
+        reports:"التقارير",
+
+        onlineAdmission:
+            "القبول الإلكتروني",
+
+        certificates:
+            "التقارير والشهادات",
+
+        nazera:
+            "تقدم الناظرة",
+
+        hifz:
+            "تقدم الحفظ",
+
+        quran:
+            "تتبع القرآن والأجزاء",
+
+        dua:
+            "سجلات الدعاء والحديث",
+
+        behavior:
+            "السلوك والانضباط",
+
+        parentReport:
+            "التقرير اليومي لولي الأمر",
+
+        complaints:
+            "صندوق الشكاوى",
+
+        settings:
+            "الإعدادات",
+
+        welcome:
+            "السلام عليكم",
+
+        welcomeText:
+            "إدارة نظام مدرسة نور القرآن من مكان واحد.",
+
+        support:
+            "وقت الدعم: يومياً من الساعة 10 صباحاً حتى 7 مساءً",
+
+        summary:
+            "الملخص",
+
+        quickAccess:
+            "الوصول السريع",
+
+        quickSub:
+            "فتح الصفحات المهمة بسرعة",
+
+        totalTeachers:
+            "إجمالي المعلمين",
+
+        totalStudents:
+            "إجمالي الطلاب",
+
+        totalEmployees:
+            "إجمالي الموظفين",
+
+        totalMembers:
+            "إجمالي الأعضاء",
+
+        financial:
+            "الملخص المالي",
+
+        todayIncome:
+            "دخل اليوم",
+
+        totalIncome:
+            "إجمالي الدخل",
+
+        todayExpense:
+            "مصروف اليوم",
+
+        totalExpense:
+            "إجمالي المصروفات",
+
+        balance:
+            "الرصيد الحالي",
+
+        totalFees:
+            "إجمالي تحصيل الرسوم",
+
+        dueFees:
+            "الرسوم المستحقة",
+
+        totalSalary:
+            "إجمالي الرواتب المدفوعة",
+
+        ledger:
+            "نظرة عامة على الحسابات",
+
+        academic:
+            "نظرة عامة أكاديمية",
+
+        academicInfo:
+            "المعلومات الأكاديمية",
+
+        active:
+            "الطلاب النشطون",
+
+        pending:
+            "الطلاب قيد الانتظار",
+
+        graduated:
+            "الطلاب المتخرجون",
+
+        transferred:
+            "الطلاب المنقولون",
+
+        withdrawn:
+            "الطلاب المنسحبون",
+
+        suspended:
+            "الطلاب الموقوفون",
+
+        dismissed:
+            "الطلاب المفصولون",
+
+        leave:
+            "الطلاب في إجازة",
+
+        footer:
+            "نظام الإدارة"
+
+    }
+
+};
+
+
+/* =========================================================
+   APPLY LANGUAGE
+========================================================= */
+
+let currentLanguage =
+localStorage.getItem(
+    "nurul_dashboard_language"
+) || "bn";
+
+
+function applyLanguage(lang){
+
+    const dictionary =
+        translations[lang] ||
+        translations.bn;
+
+
+    document
+    .querySelectorAll(
+        "[data-i18n]"
+    )
+    .forEach(
+        element=>{
+
+            const key =
+                element.dataset.i18n;
+
+            if(
+                dictionary[key]
+            ){
+
+                element.textContent =
+                    dictionary[key];
+
+            }
+
+        }
+    );
+
+
+    document.documentElement.lang =
+        lang;
+
+
+    if(lang==="ar"){
+
+        document.body.classList.add(
+            "rtl"
+        );
+
+        document.documentElement.dir =
+            "rtl";
+
+    }else{
+
+        document.body.classList.remove(
+            "rtl"
+        );
+
+        document.documentElement.dir =
+            "ltr";
+
+    }
+
+
+    currentLanguage =
+        lang;
+
+
+    localStorage.setItem(
+        "nurul_dashboard_language",
+        lang
+    );
+
+
+    document
+    .querySelectorAll(
+        "#languageMenu .dropdown-option"
+    )
+    .forEach(
+        option=>{
+
+            option.classList.toggle(
+                "active",
+                option.dataset.lang===lang
+            );
+
+        }
+    );
+
+}
+
+
+applyLanguage(
+    currentLanguage
+);
+
+
+/* =========================================================
+   LANGUAGE EVENTS
+========================================================= */
+
+document
+.querySelectorAll(
+    "#languageMenu .dropdown-option"
+)
+.forEach(
+    option=>{
+
+        option.addEventListener(
+            "click",
+            ()=>{
+
+                applyLanguage(
+                    option.dataset.lang
+                );
+
+                languageMenu.classList.remove(
+                    "show"
+                );
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+const menuBtn =
+document.getElementById(
+    "menuBtn"
+);
+
+const sidebar =
+document.getElementById(
+    "sidebar"
+);
+
+const overlay =
+document.getElementById(
+    "overlay"
+);
+
+
+menuBtn.addEventListener(
+    "click",
+    ()=>{
+
+        sidebar.classList.toggle(
+            "open"
+        );
+
+        overlay.classList.toggle(
+            "show"
+        );
+
+    }
+);
+
+
+overlay.addEventListener(
+    "click",
+    ()=>{
+
+        sidebar.classList.remove(
+            "open"
+        );
+
+        overlay.classList.remove(
+            "show"
+        );
+
+    }
+);
+
+
+document
+.querySelectorAll(
+    ".nav-item"
+)
+.forEach(
+    item=>{
+
+        item.addEventListener(
+            "click",
+            ()=>{
+
+                if(
+                    window.innerWidth<=800
+                ){
+
+                    sidebar.classList.remove(
+                        "open"
+                    );
+
+                    overlay.classList.remove(
+                        "show"
+                    );
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   HOME
+========================================================= */
+
+document
+.getElementById(
+    "homeBtn"
+)
+.addEventListener(
+    "click",
+    ()=>{
+
+        window.location.href =
+            "index.html";
+
+    }
+);
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+document
+.getElementById(
+    "logoutBtn"
+)
+.addEventListener(
+    "click",
+    async ()=>{
+
+        if(
+            !confirm(
+                currentLanguage==="en"
+                ? "Do you want to logout?"
+                : currentLanguage==="ar"
+                ? "هل تريد تسجيل الخروج؟"
+                : "আপনি কি Logout করতে চান?"
+            )
+        ){
+
+            return;
+
+        }
+
+
+        try{
+
+            await db.auth.signOut();
+
+            window.location.href =
+                "admin.html";
+
+        }catch(error){
+
+            alert(
+                "Logout failed: "+
+                error.message
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   AUTH
+========================================================= */
+
+async function checkAuth(){
+
+    try{
+
+        const {
+            data,
+            error
+        } =
+        await db.auth.getSession();
+
+
+        if(error){
+
+            console.error(
+                "Auth error:",
+                error.message
+            );
+
+            return false;
+
+        }
+
+
+        if(
+            !data.session
+        ){
+
+            window.location.href =
+                "admin.html";
+
+            return false;
+
+        }
+
+
+        return true;
+
+    }catch(error){
+
+        console.error(
+            "Auth:",
+            error
+        );
+
+        return false;
+
+    }
+
+}
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function numberValue(value){
+
+    if(
+        value===null ||
+        value===undefined ||
+        value===""
+    ){
+
+        return 0;
+
+    }
+
+
+    const n =
+        Number(
+            String(value)
+            .replace(/,/g,"")
+            .replace(/[৳$]/g,"")
+            .trim()
+        );
+
+
+    return Number.isFinite(n)
+        ? n
+        : 0;
+
+}
+
+
+function money(value){
+
+    return "৳ "+
+        numberValue(value)
+        .toLocaleString(
+            "en-US",
+            {
+                maximumFractionDigits:2
+            }
+        );
+
+}
+
+
+function todayString(){
+
+    const d =
+        new Date();
+
+
+    return [
+
+        d.getFullYear(),
+
+        String(
+            d.getMonth()+1
+        ).padStart(2,"0"),
+
+        String(
+            d.getDate()
+        ).padStart(2,"0")
+
+    ].join("-");
+
+}
+
+
+function getAmount(row){
+
+    const possible = [
+
+        "amount",
+        "total_amount",
+        "paid_amount",
+        "fee_amount",
+        "salary_amount",
+        "income_amount",
+        "expense_amount",
+        "price",
+        "total",
+        "paid",
+        "tk"
+
+    ];
+
+
+    for(
+        const key of possible
+    ){
+
+        if(
+            row &&
+            row[key]!==undefined &&
+            row[key]!==null &&
+            row[key]!==""
+        ){
+
+            return numberValue(
+                row[key]
+            );
+
+        }
+
+    }
+
+
+    return 0;
+
+}
+
+
+function getDate(row){
+
+    const possible = [
+
+        "date",
+        "income_date",
+        "expense_date",
+        "payment_date",
+        "paid_date",
+        "salary_date",
+        "created_at"
+
+    ];
+
+
+    for(
+        const key of possible
+    ){
+
+        if(
+            row &&
+            row[key]
+        ){
+
+            return String(
+                row[key]
+            ).substring(
+                0,
+                10
+            );
+
+        }
+
+    }
+
+
+    return "";
+
+}
+
+
+/* =========================================================
+   BASIC COUNTS
+========================================================= */
+
+async function loadBasicCounts(){
+
+    const tables = [
+
+        {
+            table:"teachers",
+            element:"teacherCount"
+        },
+
+        {
+            table:"students",
+            element:"studentCount"
+        },
+
+        {
+            table:"employees",
+            element:"employeeCount"
+        },
+
+        {
+            table:"members",
+            element:"memberCount"
+        }
+
+    ];
+
+
+    await Promise.all(
+
+        tables.map(
+            async item=>{
+
+                try{
+
+                    const {
+                        count,
+                        error
+                    } =
+                    await db
+                    .from(item.table)
+                    .select(
+                        "id",
+                        {
+                            count:"exact",
+                            head:true
+                        }
+                    );
+
+
+                    const element =
+                        document
+                        .getElementById(
+                            item.element
+                        );
+
+
+                    if(error){
+
+                        console.warn(
+                            item.table,
+                            error.message
+                        );
+
+                        element.textContent =
+                            "0";
+
+                        return;
+
+                    }
+
+
+                    element.textContent =
+                        count || 0;
+
+                }catch(error){
+
+                    console.warn(
+                        item.table,
+                        error
+                    );
+
+                }
+
+            }
+        )
+
+    );
+
+}
+
+
+/* =========================================================
+   STUDENT DATA
+   SAFE SCHEMA
+========================================================= */
+
+async function loadStudentData(){
+
+    try{
+
+        const {
+            data,
+            error
+        } =
+        await db
+        .from("students")
+        .select(`
+            id,
+            student_id,
+            roll_number,
+            name,
+            class_id,
+            session
+        `);
+
+
+        if(error){
+
+            console.warn(
+                "Students:",
+                error.message
+            );
+
+            return [];
+
+        }
+
+
+        return data || [];
+
+    }catch(error){
+
+        console.warn(
+            "Students:",
+            error
+        );
+
+        return [];
+
+    }
+
+}
+
+
+/* =========================================================
+   ACADEMIC COUNTS
+========================================================= */
+
+function updateAcademicCounts(rows){
+
+    /*
+       Current students table does not have a
+       confirmed status column.
+
+       Therefore all students in current session
+       are counted as active.
+    */
+
+    const current =
+        rows.filter(
+            student =>
+                String(
+                    student.session || ""
+                ) === CURRENT_SESSION
+        );
+
+
+    const active =
+        current.length;
+
+
+    document
+    .getElementById(
+        "activeStudents"
+    )
+    .textContent =
+        active;
+
+
+    /*
+       These status fields are kept visually
+       for future status module integration.
+    */
+
+    document
+    .getElementById(
+        "pendingStudents"
+    )
+    .textContent = 0;
+
+
+    document
+    .getElementById(
+        "graduatedStudents"
+    )
+    .textContent = 0;
+
+
+    document
+    .getElementById(
+        "transferredStudents"
+    )
+    .textContent = 0;
+
+
+    document
+    .getElementById(
+        "withdrawnStudents"
+    )
+    .textContent = 0;
+
+
+    document
+    .getElementById(
+        "suspendedStudents"
+    )
+    .textContent = 0;
+
+
+    document
+    .getElementById(
+        "dismissedStudents"
+    )
+    .textContent = 0;
+
+
+    document
+    .getElementById(
+        "leaveStudents"
+    )
+    .textContent = 0;
+
+}
+
+
+/* =========================================================
+   ACADEMIC CHART
+========================================================= */
+
+function updateAcademicChart(rows){
+
+    const filtered =
+        rows.filter(
+            row =>
+                String(
+                    row.session || ""
+                ) === CURRENT_SESSION
+        );
+
+
+    const map = {};
+
+
+    /*
+       Since dashboard should remain independent
+       from a missing classes relationship,
+       use class_id when available.
+    */
+
+    filtered.forEach(
+        row=>{
+
+            const className =
+                row.class_id
+                ? "Class "+row.class_id
+                : "অন্যান্য";
+
+
+            map[className] =
+                (
+                    map[className] || 0
+                ) + 1;
+
+        }
+    );
+
+
+    const labels =
+        Object.keys(map);
+
+
+    const values =
+        Object.values(map);
+
+
+    createAcademicChart(
+        labels,
+        values
+    );
+
+}
+
+
+/* =========================================================
+   ACADEMIC CHART
+========================================================= */
+
+function createAcademicChart(
+    labels,
+    values
+){
 
     const canvas =
         document.getElementById(
             "academicChart"
         );
 
-    if(!canvas) return;
 
-    const ctx =
-        canvas.getContext("2d");
-
-    if(academicChartInstance){
-
-        academicChartInstance.destroy();
-
-    }
-
-    academicChartInstance =
-        new Chart(
-            ctx,
-            {
-                type:"bar",
-
-                data:{
-                    labels:labels,
-
-                    datasets:[
-                        {
-                            label:
-                            "শিক্ষার্থী",
-
-                            data:data,
-
-                            borderWidth:1,
-
-                            borderRadius:8,
-
-                            maxBarThickness:38
-                        }
-                    ]
-                },
-
-                options:{
-
-                    responsive:true,
-
-                    maintainAspectRatio:false,
-
-                    plugins:{
-                        legend:{
-                            display:false
-                        }
-                    },
-
-                    scales:{
-
-                        y:{
-                            beginAtZero:true,
-
-                            ticks:{
-                                precision:0
-                            }
-                        },
-
-                        x:{
-                            grid:{
-                                display:false
-                            }
-                        }
-
-                    }
-
-                }
-
-            }
-        );
-
-}
-
-
-/* =====================================================
-   LEDGER CHART
-===================================================== */
-
-let ledgerChartInstance = null;
-
-function createLedgerChart(){
-
-    const canvas =
-        document.getElementById(
-            "ledgerChart"
-        );
-
-    if(!canvas) return;
-
-    const ctx =
-        canvas.getContext("2d");
-
-    if(ledgerChartInstance){
-
-        ledgerChartInstance.destroy();
-
-    }
-
-    const labels = [
-        "আয়",
-        "ব্যয়",
-        "ফি",
-        "বেতন"
-    ];
-
-    const values = [
-        getNumberFromText(
-            document.getElementById(
-                "totalIncome"
-            )?.textContent
-        ),
-
-        getNumberFromText(
-            document.getElementById(
-                "totalExpense"
-            )?.textContent
-        ),
-
-        getNumberFromText(
-            document.getElementById(
-                "totalFees"
-            )?.textContent
-        ),
-
-        getNumberFromText(
-            document.getElementById(
-                "totalSalary"
-            )?.textContent
-        )
-    ];
-
-    ledgerChartInstance =
-        new Chart(
-            ctx,
-            {
-                type:"doughnut",
-
-                data:{
-                    labels:labels,
-
-                    datasets:[
-                        {
-                            data:values,
-
-                            borderWidth:2
-                        }
-                    ]
-                },
-
-                options:{
-                    responsive:true,
-
-                    maintainAspectRatio:false,
-
-                    plugins:{
-                        legend:{
-                            position:"bottom"
-                        }
-                    }
-                }
-            }
-        );
-
-}
-
-
-/* =====================================================
-   NUMBER HELPER
-===================================================== */
-
-function getNumberFromText(value){
-
-    if(!value) return 0;
-
-    const cleaned =
-        String(value)
-        .replace(/[৳,\s]/g,"")
-        .replace(/[^\d.-]/g,"");
-
-    return Number(cleaned) || 0;
-
-}
-
-
-/* =====================================================
-   UPDATE LEDGER
-===================================================== */
-
-function updateLedgerChart(){
-
-    if(
-        typeof Chart ===
-        "undefined"
-    ){
+    if(!canvas){
 
         return;
 
     }
 
-    createLedgerChart();
+
+    const ctx =
+        canvas.getContext("2d");
+
+
+    if(academicChart){
+
+        academicChart.destroy();
+
+    }
+
+
+    const isDark =
+        document.body.classList.contains(
+            "theme-navy"
+        );
+
+
+    const textColor =
+        isDark
+        ? "#d5e5ed"
+        : "#405862";
+
+
+    academicChart =
+        new Chart(
+            ctx,
+            {
+
+                type:"bar",
+
+                data:{
+
+                    labels:
+                        labels.length
+                        ? labels
+                        : ["কোনো তথ্য নেই"],
+
+                    datasets:[
+
+                        {
+
+                            label:
+                                currentLanguage==="en"
+                                ? "Students"
+                                : currentLanguage==="ar"
+                                ? "الطلاب"
+                                : "শিক্ষার্থী",
+
+                            data:
+                                values.length
+                                ? values
+                                : [0],
+
+                            backgroundColor:
+
+                                document.body
+                                .classList
+                                .contains(
+                                    "theme-aqua"
+                                )
+
+                                ?
+
+                                [
+                                    "#087b7e",
+                                    "#17b8bd",
+                                    "#0b9699",
+                                    "#4ac7c7",
+                                    "#075653"
+                                ]
+
+                                :
+
+                                [
+                                    "#08739b",
+                                    "#54b3d0",
+                                    "#0d8995",
+                                    "#0a6e91",
+                                    "#2d9eaa",
+                                    "#126c9a"
+                                ],
+
+                            borderRadius:8,
+
+                            borderSkipped:false
+
+                        }
+
+                    ]
+
+                },
+
+                options:{
+
+                    responsive:true,
+
+                    maintainAspectRatio:false,
+
+                    animation:false,
+
+                    plugins:{
+
+                        legend:{
+                            display:false
+                        }
+
+                    },
+
+                    scales:{
+
+                        y:{
+
+                            beginAtZero:true,
+
+                            ticks:{
+
+                                precision:0,
+
+                                color:
+                                    textColor
+
+                            },
+
+                            grid:{
+
+                                color:
+                                    isDark
+                                    ? "rgba(255,255,255,.06)"
+                                    : "rgba(7,91,124,.08)"
+
+                            }
+
+                        },
+
+                        x:{
+
+                            ticks:{
+
+                                color:
+                                    textColor,
+
+                                font:{
+
+                                    family:
+                                        "Bornomala"
+
+                                }
+
+                            },
+
+                            grid:{
+
+                                color:
+                                    isDark
+                                    ? "rgba(255,255,255,.04)"
+                                    : "rgba(7,91,124,.06)"
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+        );
 
 }
 
 
-/* =====================================================
-   SEARCH
-===================================================== */
+/* =========================================================
+   FINANCIAL DATA
+========================================================= */
 
-const searchAction =
-    document.querySelector(
-        ".search-action"
-    );
+async function loadFinancialData(){
 
-if(searchAction){
+    const today =
+        todayString();
 
-    searchAction.addEventListener(
-        "click",
-        ()=>{
 
-            const keyword =
-                prompt(
-                    "শিক্ষার্থী/শিক্ষক/কর্মচারীর নাম লিখুন"
-                );
+    let incomeRows=[];
+    let expenseRows=[];
+    let feeRows=[];
+    let salaryRows=[];
+
+
+    const results =
+        await Promise.allSettled([
+
+            db
+            .from("income")
+            .select("*"),
+
+            db
+            .from("expenses")
+            .select("*"),
+
+            db
+            .from("fees")
+            .select("*"),
+
+            db
+            .from("teacher_salaries")
+            .select("*")
+
+        ]);
+
+
+    if(
+        results[0].status==="fulfilled" &&
+        !results[0].value.error
+    ){
+
+        incomeRows =
+            results[0].value.data || [];
+
+    }
+
+
+    if(
+        results[1].status==="fulfilled" &&
+        !results[1].value.error
+    ){
+
+        expenseRows =
+            results[1].value.data || [];
+
+    }
+
+
+    if(
+        results[2].status==="fulfilled" &&
+        !results[2].value.error
+    ){
+
+        feeRows =
+            results[2].value.data || [];
+
+    }
+
+
+    if(
+        results[3].status==="fulfilled" &&
+        !results[3].value.error
+    ){
+
+        salaryRows =
+            results[3].value.data || [];
+
+    }
+
+
+    let totalIncome=0;
+    let totalExpense=0;
+    let todayIncome=0;
+    let todayExpense=0;
+    let totalFees=0;
+    let totalSalary=0;
+    let dueFees=0;
+
+
+    incomeRows.forEach(
+        row=>{
+
+            const amount =
+                getAmount(row);
+
+
+            totalIncome +=
+                amount;
+
 
             if(
-                !keyword ||
-                !keyword.trim()
+                getDate(row)===today
             ){
 
-                return;
-
-            }
-
-            const query =
-                keyword
-                .trim()
-                .toLowerCase();
-
-            document
-            .querySelectorAll(
-                ".quick-card"
-            )
-            .forEach(card=>{
-
-                card.style.display =
-                    "block";
-
-            });
-
-            const studentMatch =
-                document.querySelector(
-                    "#studentCount"
-                );
-
-            if(studentMatch){
-
-                studentMatch.scrollIntoView({
-                    behavior:"smooth",
-                    block:"center"
-                });
+                todayIncome +=
+                    amount;
 
             }
 
         }
     );
 
+
+    expenseRows.forEach(
+        row=>{
+
+            const amount =
+                getAmount(row);
+
+
+            totalExpense +=
+                amount;
+
+
+            if(
+                getDate(row)===today
+            ){
+
+                todayExpense +=
+                    amount;
+
+            }
+
+        }
+    );
+
+
+    feeRows.forEach(
+        row=>{
+
+            totalFees +=
+                getAmount(row);
+
+
+            const possible = [
+
+                "due_amount",
+                "due",
+                "remaining_amount",
+                "unpaid_amount"
+
+            ];
+
+
+            for(
+                const key of possible
+            ){
+
+                if(
+                    row[key]!==undefined &&
+                    row[key]!==null
+                ){
+
+                    dueFees +=
+                        numberValue(
+                            row[key]
+                        );
+
+                    break;
+
+                }
+
+            }
+
+        }
+    );
+
+
+    salaryRows.forEach(
+        row=>{
+
+            totalSalary +=
+                getAmount(row);
+
+        }
+    );
+
+
+    const balance =
+        totalIncome -
+        totalExpense -
+        totalSalary;
+
+
+    document
+    .getElementById(
+        "todayIncome"
+    )
+    .textContent =
+        money(todayIncome);
+
+
+    document
+    .getElementById(
+        "totalIncome"
+    )
+    .textContent =
+        money(totalIncome);
+
+
+    document
+    .getElementById(
+        "todayExpense"
+    )
+    .textContent =
+        money(todayExpense);
+
+
+    document
+    .getElementById(
+        "totalExpense"
+    )
+    .textContent =
+        money(totalExpense);
+
+
+    document
+    .getElementById(
+        "balance"
+    )
+    .textContent =
+        money(balance);
+
+
+    document
+    .getElementById(
+        "totalFees"
+    )
+    .textContent =
+        money(totalFees);
+
+
+    document
+    .getElementById(
+        "dueFees"
+    )
+    .textContent =
+        money(dueFees);
+
+
+    document
+    .getElementById(
+        "totalSalary"
+    )
+    .textContent =
+        money(totalSalary);
+
+
+    updateLedgerChart(
+        incomeRows,
+        expenseRows
+    );
+
 }
 
 
-/* =====================================================
-   AUTH STATE
-===================================================== */
+/* =========================================================
+   LEDGER CHART
+========================================================= */
 
-supabaseClient
-.auth
-.onAuthStateChange(
-(event,session)=>{
+function updateLedgerChart(
+    incomeRows,
+    expenseRows
+){
 
-    if(
-        event==="SIGNED_OUT" ||
-        !session
-    ){
+    const labels = [
 
-        window.location.href =
-            "login.html";
+        "জানুয়ারি",
+        "ফেব্রুয়ারি",
+        "মার্চ",
+        "এপ্রিল",
+        "মে",
+        "জুন",
+        "জুলাই",
+        "আগস্ট",
+        "সেপ্টেম্বর",
+        "অক্টোবর",
+        "নভেম্বর",
+        "ডিসেম্বর"
+
+    ];
+
+
+    const income =
+        Array(12).fill(0);
+
+
+    const expense =
+        Array(12).fill(0);
+
+
+    incomeRows.forEach(
+        row=>{
+
+            const date =
+                getDate(row);
+
+
+            if(!date){
+
+                return;
+
+            }
+
+
+            const d =
+                new Date(date);
+
+
+            if(
+                !isNaN(d.getTime()) &&
+                d.getFullYear() ===
+                Number(CURRENT_SESSION)
+            ){
+
+                income[
+                    d.getMonth()
+                ] +=
+                    getAmount(row);
+
+            }
+
+        }
+    );
+
+
+    expenseRows.forEach(
+        row=>{
+
+            const date =
+                getDate(row);
+
+
+            if(!date){
+
+                return;
+
+            }
+
+
+            const d =
+                new Date(date);
+
+
+            if(
+                !isNaN(d.getTime()) &&
+                d.getFullYear() ===
+                Number(CURRENT_SESSION)
+            ){
+
+                expense[
+                    d.getMonth()
+                ] +=
+                    getAmount(row);
+
+            }
+
+        }
+    );
+
+
+    const canvas =
+        document.getElementById(
+            "ledgerChart"
+        );
+
+
+    if(!canvas){
+
+        return;
 
     }
 
-});
+
+    const ctx =
+        canvas.getContext("2d");
 
 
-/* =====================================================
-   INITIALIZE
-===================================================== */
+    if(ledgerChart){
 
-(async function(){
+        ledgerChart.destroy();
+
+    }
+
+
+    const isDark =
+        document.body.classList.contains(
+            "theme-navy"
+        );
+
+
+    const textColor =
+        isDark
+        ? "#d5e5ed"
+        : "#405862";
+
+
+    const incomeColor =
+        document.body.classList.contains(
+            "theme-aqua"
+        )
+        ? "#087b7e"
+        : "#08739b";
+
+
+    const expenseColor =
+        "#d20b0b";
+
+
+    ledgerChart =
+        new Chart(
+            ctx,
+            {
+
+                type:"line",
+
+                data:{
+
+                    labels,
+
+                    datasets:[
+
+                        {
+
+                            label:
+                                currentLanguage==="en"
+                                ? "Income"
+                                : currentLanguage==="ar"
+                                ? "الدخل"
+                                : "আয়",
+
+                            data:income,
+
+                            borderColor:
+                                incomeColor,
+
+                            backgroundColor:
+                                document.body.classList.contains(
+                                    "theme-aqua"
+                                )
+                                ? "rgba(8,123,126,.10)"
+                                : "rgba(8,115,155,.10)",
+
+                            borderWidth:3,
+
+                            fill:true,
+
+                            tension:.35,
+
+                            pointRadius:3,
+
+                            pointHoverRadius:5
+
+                        },
+
+
+                        {
+
+                            label:
+                                currentLanguage==="en"
+                                ? "Expense"
+                                : currentLanguage==="ar"
+                                ? "المصروفات"
+                                : "ব্যয়",
+
+                            data:expense,
+
+                            borderColor:
+                                expenseColor,
+
+                            backgroundColor:
+                                "rgba(210,11,11,.06)",
+
+                            borderWidth:3,
+
+                            fill:true,
+
+                            tension:.35,
+
+                            pointRadius:3,
+
+                            pointHoverRadius:5
+
+                        }
+
+                    ]
+
+                },
+
+                options:{
+
+                    responsive:true,
+
+                    maintainAspectRatio:false,
+
+                    animation:false,
+
+                    interaction:{
+
+                        mode:"index",
+
+                        intersect:false
+
+                    },
+
+                    plugins:{
+
+                        legend:{
+
+                            position:"top",
+
+                            labels:{
+
+                                color:
+                                    textColor,
+
+                                font:{
+
+                                    family:
+                                        "Bornomala"
+
+                                }
+
+                            }
+
+                        }
+
+                    },
+
+                    scales:{
+
+                        y:{
+
+                            beginAtZero:true,
+
+                            ticks:{
+
+                                color:
+                                    textColor,
+
+                                callback:value=>
+
+                                    "৳ "+
+                                    Number(value)
+                                    .toLocaleString()
+
+                            },
+
+                            grid:{
+
+                                color:
+                                    isDark
+                                    ? "rgba(255,255,255,.06)"
+                                    : "rgba(7,91,124,.08)"
+
+                            }
+
+                        },
+
+                        x:{
+
+                            ticks:{
+
+                                color:
+                                    textColor,
+
+                                font:{
+
+                                    family:
+                                        "Bornomala"
+
+                                }
+
+                            },
+
+                            grid:{
+
+                                color:
+                                    isDark
+                                    ? "rgba(255,255,255,.04)"
+                                    : "rgba(7,91,124,.06)"
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+        );
+
+}
+
+
+/* =========================================================
+   DASHBOARD LOAD
+========================================================= */
+
+async function loadDashboard(){
 
     const authenticated =
         await checkAuth();
+
 
     if(!authenticated){
 
@@ -3587,30 +6732,60 @@ supabaseClient
 
     }
 
-    try{
 
-        await loadDashboardData();
+    const [
+        basicResult,
+        studentRows
+    ] =
+    await Promise.all([
 
-        setTimeout(
-            ()=>{
-                updateLedgerChart();
-            },
-            300
-        );
+        Promise.all([
+            loadBasicCounts(),
+            loadFinancialData()
+        ]),
 
-    }catch(error){
+        loadStudentData()
 
-        console.error(
-            "Dashboard loading error:",
-            error
-        );
+    ]);
+
+
+    updateAcademicCounts(
+        studentRows
+    );
+
+
+    updateAcademicChart(
+        studentRows
+    );
+
+}
+
+
+/* =========================================================
+   AUTH STATE
+========================================================= */
+
+db.auth.onAuthStateChange(
+    (event,session)=>{
+
+        if(!session){
+
+            window.location.href =
+                "admin.html";
+
+        }
 
     }
+);
 
-})();
+
+/* =========================================================
+   START
+========================================================= */
+
+loadDashboard();
 
 </script>
 
 </body>
 </html>
-   
