@@ -305,6 +305,33 @@ body::after{
     color:#9ff0c8;
 }
 
+.mini-actions{
+    display:flex;
+    gap:8px;
+    margin-top:12px;
+}
+
+.mini-btn{
+    flex:1;
+    height:38px;
+    border-radius:10px;
+    border:0;
+    cursor:pointer;
+    font-family:inherit;
+    font-size:12.5px;
+}
+
+.mini-btn.primary{
+    background:linear-gradient(135deg,var(--primary),var(--primary2));
+    color:#fff;
+}
+
+.mini-btn.ghost{
+    background:rgba(255,255,255,.10);
+    color:#dce8f4;
+    border:1px solid rgba(255,255,255,.18);
+}
+
 .info{
     margin-top:20px;
     padding-top:18px;
@@ -430,7 +457,7 @@ body::after{
                 <label id="emailLabel">ইমেইল</label>
 
                 <div class="input-wrap">
-                    <i class="fa-solid fa-envelope"></i>
+                    <i id="emailIcon" class="fa-solid fa-envelope"></i>
 
                     <input
                         type="email"
@@ -481,7 +508,7 @@ body::after{
                 onclick="biometricLogin()">
 
                 <i class="fa-solid fa-fingerprint"></i>
-                Fingerprint / Passkey দিয়ে লগইন
+                Fingerprint / Face দিয়ে লগইন
 
             </button>
 
@@ -545,7 +572,7 @@ body::after{
         </div>
 
 
-        <div class="info">
+        <div class="info" id="infoText">
             আপনার অ্যাকাউন্টের তথ্য ব্যবহার করে লগইন করুন।
             <br>
             Student/Guardian Login-এর জন্য Student ID ও Roll Number প্রয়োজন।
@@ -564,6 +591,27 @@ body::after{
 
 /* =========================================================
    SUPABASE CONFIG
+
+   NOTE ON TEACHER LOGIN:
+   Teacher login does NOT use Supabase Auth (no email/password
+   auth user). It authenticates against a "teachers" table via
+   the "verify_teacher_login" Postgres function (RPC), so the
+   teacher's stored password is never sent back to the browser.
+   See the setup SQL provided separately for the required table
+   + function + RLS policies.
+
+   NOTE ON BIOMETRIC LOGIN:
+   Supabase's own passkey API requires the "Passkeys" feature to
+   be turned on for this project (that's why you saw "Passkeys
+   are disabled") — that is a Supabase project setting, not
+   something this page can change. Instead, this page implements
+   its own device-level biometric using the browser's WebAuthn
+   platform authenticator (fingerprint / Face ID / Windows
+   Hello). After a normal password login, the user can enable
+   biometric for that device; the fingerprint then unlocks a
+   securely-stored session locally so the password isn't needed
+   again on that device/browser. This must be set up once per
+   device/browser.
 ========================================================= */
 
 const SUPABASE_URL =
@@ -576,14 +624,7 @@ const SUPABASE_KEY =
 const supabaseClient =
     window.supabase.createClient(
         SUPABASE_URL,
-        SUPABASE_KEY,
-        {
-            auth:{
-                experimental:{
-                    passkey:true
-                }
-            }
-        }
+        SUPABASE_KEY
     );
 
 
@@ -650,6 +691,15 @@ function switchRole(role){
     const biometricBtn =
         document.getElementById("biometricBtn");
 
+    const emailInput =
+        document.getElementById("email");
+
+    const emailLabel =
+        document.getElementById("emailLabel");
+
+    const emailIcon =
+        document.getElementById("emailIcon");
+
 
     if(role === "admin"){
 
@@ -662,10 +712,15 @@ function switchRole(role){
         subheading.textContent =
             "মাদরাসার প্রশাসনিক প্যানেলে প্রবেশ করুন";
 
+        emailLabel.textContent = "ইমেইল";
+        emailInput.type = "email";
+        emailInput.placeholder = "আপনার ইমেইল লিখুন";
+        emailInput.autocomplete = "username";
+        emailIcon.className = "fa-solid fa-envelope";
+
         biometricBtn.classList.toggle(
             "hidden",
-            settings.biometricAdmin === false ||
-            settings.adminBiometric === false
+            settings.biometricAdmin === false
         );
 
     }
@@ -682,10 +737,15 @@ function switchRole(role){
         subheading.textContent =
             "শিক্ষক প্যানেলে প্রবেশ করুন";
 
+        emailLabel.textContent = "Teacher ID";
+        emailInput.type = "text";
+        emailInput.placeholder = "আপনার Teacher ID লিখুন";
+        emailInput.autocomplete = "off";
+        emailIcon.className = "fa-solid fa-id-badge";
+
         biometricBtn.classList.toggle(
             "hidden",
-            settings.biometricTeacher === false ||
-            settings.teacherBiometric === false
+            settings.biometricTeacher === false
         );
 
     }
@@ -770,7 +830,55 @@ function togglePassword(){
 
 
 /* =========================================================
-   STAFF LOGIN
+   TEACHER TABLE LOGIN (via RPC, password never returned)
+========================================================= */
+
+async function verifyTeacherLogin(teacherId,password){
+
+    const { data, error } =
+        await supabaseClient.rpc(
+            "verify_teacher_login",
+            {
+                p_teacher_id: teacherId,
+                p_password: password
+            }
+        );
+
+    if(error){
+
+        console.error(error);
+        return null;
+
+    }
+
+    if(!data || data.length === 0){
+
+        return null;
+
+    }
+
+    return data[0];
+
+}
+
+
+function startTeacherSession(teacher){
+
+    sessionStorage.setItem(
+        "teacher_login",
+        "true"
+    );
+
+    sessionStorage.setItem(
+        "teacher_data",
+        JSON.stringify(teacher)
+    );
+
+}
+
+
+/* =========================================================
+   STAFF LOGIN (Admin via Supabase Auth, Teacher via table)
 ========================================================= */
 
 async function staffLogin(){
@@ -778,7 +886,7 @@ async function staffLogin(){
     clearMessage();
 
 
-    const email =
+    const idValue =
         document
             .getElementById("email")
             .value
@@ -790,10 +898,12 @@ async function staffLogin(){
             .value;
 
 
-    if(!email){
+    if(!idValue){
 
         showMessage(
-            "ইমেইল লিখুন।"
+            currentRole === "teacher"
+                ? "Teacher ID লিখুন।"
+                : "ইমেইল লিখুন।"
         );
 
         return;
@@ -830,66 +940,59 @@ async function staffLogin(){
 
     try{
 
-        const {
-            data,
-            error
-        } =
-        await supabaseClient.auth.signInWithPassword({
-            email:email,
-            password:password
-        });
-
-
-        if(error)
-            throw error;
-
-
-        if(!data.session){
-
-            throw new Error(
-                "Login session পাওয়া যায়নি।"
-            );
-
-        }
-
-
-        const user =
-            data.user;
-
-
-        /* -----------------------------------------
-           TEACHER ROLE CHECK
-        ----------------------------------------- */
-
         if(currentRole === "teacher"){
 
-            const role =
-                user?.app_metadata?.role ||
-                user?.user_metadata?.role ||
-                "";
+            const teacher =
+                await verifyTeacherLogin(idValue,password);
 
-
-            if(
-                role &&
-                role.toLowerCase() !== "teacher"
-            ){
-
-                await supabaseClient.auth.signOut();
+            if(!teacher){
 
                 throw new Error(
-                    "এই অ্যাকাউন্টের শিক্ষক প্যানেলে প্রবেশের অনুমতি নেই।"
+                    "Teacher ID অথবা পাসওয়ার্ড সঠিক নয়, অথবা এই আইডির লগইন এখনো Allow করা হয়নি।"
                 );
 
             }
 
-        }
+            startTeacherSession(teacher);
+
+            showMessage(
+                `স্বাগতম ${teacher.name || "Teacher"}। Dashboard-এ নেওয়া হচ্ছে...`,
+                "success"
+            );
+
+            await maybeOfferBiometric(
+                "teacher",
+                idValue,
+                password
+            );
+
+        }else{
+
+            const {
+                data,
+                error
+            } =
+            await supabaseClient.auth.signInWithPassword({
+                email:idValue,
+                password:password
+            });
 
 
-        /* -----------------------------------------
-           ADMIN ROLE CHECK
-        ----------------------------------------- */
+            if(error)
+                throw error;
 
-        if(currentRole === "admin"){
+
+            if(!data.session){
+
+                throw new Error(
+                    "Login session পাওয়া যায়নি।"
+                );
+
+            }
+
+
+            const user =
+                data.user;
 
             const role =
                 user?.app_metadata?.role ||
@@ -910,21 +1013,19 @@ async function staffLogin(){
 
             }
 
+
+            showMessage(
+                "লগইন সফল হয়েছে। Dashboard-এ নেওয়া হচ্ছে...",
+                "success"
+            );
+
+            await maybeOfferBiometric(
+                "admin",
+                idValue,
+                data.session.refresh_token
+            );
+
         }
-
-
-        showMessage(
-            "লগইন সফল হয়েছে। Dashboard-এ নেওয়া হচ্ছে...",
-            "success"
-        );
-
-
-        setTimeout(() => {
-
-            window.location.href =
-                "dashboard.html";
-
-        },500);
 
 
     }catch(error){
@@ -933,7 +1034,7 @@ async function staffLogin(){
 
         showMessage(
             error.message ||
-            "লগইন ব্যর্থ হয়েছে। ইমেইল ও পাসওয়ার্ড যাচাই করুন।"
+            "লগইন ব্যর্থ হয়েছে।"
         );
 
 
@@ -1099,8 +1200,255 @@ async function studentLogin(){
 
 
 /* =========================================================
-   BIOMETRIC / PASSKEY LOGIN
+   DEVICE BIOMETRIC (WebAuthn platform authenticator)
+
+   This is a device-local convenience, not a server-verified
+   passkey. It stores a "secret" (the admin's Supabase refresh
+   token, or the teacher's password) locally, gated behind a
+   fingerprint/Face ID prompt. Anyone who could already read
+   this browser's storage could already read the normal saved
+   session, so this does not weaken existing security — it adds
+   a biometric gate in front of it for convenience.
 ========================================================= */
+
+const BIOMETRIC_KEY = "madrasa_biometric_v1";
+
+function getBiometricStore(){
+
+    try{
+
+        return JSON.parse(
+            localStorage.getItem(BIOMETRIC_KEY) || "{}"
+        );
+
+    }catch(e){
+
+        return {};
+
+    }
+
+}
+
+function setBiometricStore(store){
+
+    localStorage.setItem(
+        BIOMETRIC_KEY,
+        JSON.stringify(store)
+    );
+
+}
+
+function clearBiometricEntry(role){
+
+    const store = getBiometricStore();
+    delete store[role];
+    setBiometricStore(store);
+
+}
+
+function bufferToBase64(buf){
+
+    return btoa(
+        String.fromCharCode(...new Uint8Array(buf))
+    );
+
+}
+
+function base64ToBuffer(b64){
+
+    const bin = atob(b64);
+    const bytes = new Uint8Array(bin.length);
+
+    for(let i=0;i<bin.length;i++){
+        bytes[i]=bin.charCodeAt(i);
+    }
+
+    return bytes.buffer;
+
+}
+
+function randomChallenge(){
+
+    const arr = new Uint8Array(32);
+    crypto.getRandomValues(arr);
+    return arr;
+
+}
+
+function encodeSecret(text){
+
+    return btoa(unescape(encodeURIComponent(text)));
+
+}
+
+function decodeSecret(text){
+
+    return decodeURIComponent(escape(atob(text)));
+
+}
+
+async function isBiometricAvailable(){
+
+    if(!window.PublicKeyCredential){
+        return false;
+    }
+
+    try{
+
+        return await PublicKeyCredential
+            .isUserVerifyingPlatformAuthenticatorAvailable();
+
+    }catch(e){
+
+        return false;
+
+    }
+
+}
+
+
+async function enrollDeviceBiometric(role,identity,secret){
+
+    try{
+
+        const credential =
+            await navigator.credentials.create({
+                publicKey:{
+                    challenge: randomChallenge(),
+                    rp:{
+                        name:"মাদরাসায়ে নূরুল কুরআন",
+                        id: location.hostname
+                    },
+                    user:{
+                        id: new TextEncoder().encode(role+":"+identity),
+                        name: identity,
+                        displayName: identity
+                    },
+                    pubKeyCredParams:[
+                        {type:"public-key",alg:-7},
+                        {type:"public-key",alg:-257}
+                    ],
+                    authenticatorSelection:{
+                        authenticatorAttachment:"platform",
+                        userVerification:"required"
+                    },
+                    timeout:60000
+                }
+            });
+
+        if(!credential){
+            throw new Error("Credential তৈরি করা যায়নি।");
+        }
+
+        const store = getBiometricStore();
+
+        store[role] = {
+            identity: identity,
+            credentialId: bufferToBase64(credential.rawId),
+            secret: encodeSecret(secret)
+        };
+
+        setBiometricStore(store);
+
+        return true;
+
+    }catch(error){
+
+        console.error(error);
+        return false;
+
+    }
+
+}
+
+
+async function maybeOfferBiometric(role,identity,secret){
+
+    const roleEnabled =
+        role === "admin"
+            ? settings.biometricAdmin !== false
+            : settings.biometricTeacher !== false;
+
+    const alreadyEnrolled =
+        !!getBiometricStore()[role];
+
+    const available =
+        await isBiometricAvailable();
+
+
+    if(roleEnabled && available && !alreadyEnrolled){
+
+        offerBiometricEnroll(role,identity,secret);
+
+    }else{
+
+        setTimeout(() => {
+
+            window.location.href = "dashboard.html";
+
+        },500);
+
+    }
+
+}
+
+
+function offerBiometricEnroll(role,identity,secret){
+
+    window.__pendingBiometric = { role, identity, secret };
+
+    const box =
+        document.getElementById("message");
+
+    box.className = "message success";
+
+    box.innerHTML =
+        `লগইন সফল হয়েছে। এই ডিভাইসে Fingerprint / Face দিয়ে পরবর্তীতে লগইন চালু করবেন?
+         <div class="mini-actions">
+            <button type="button" class="mini-btn primary" onclick="confirmBiometricEnroll()">
+                হ্যাঁ, চালু করুন
+            </button>
+            <button type="button" class="mini-btn ghost" onclick="window.location.href='dashboard.html'">
+                এখন না
+            </button>
+         </div>`;
+
+}
+
+
+async function confirmBiometricEnroll(){
+
+    const pending = window.__pendingBiometric;
+
+    if(!pending){
+
+        window.location.href = "dashboard.html";
+        return;
+
+    }
+
+    const ok =
+        await enrollDeviceBiometric(
+            pending.role,
+            pending.identity,
+            pending.secret
+        );
+
+    showMessage(
+        ok
+            ? "বায়োমেট্রিক লগইন এই ডিভাইসে চালু হয়েছে। Dashboard-এ নেওয়া হচ্ছে..."
+            : "বায়োমেট্রিক চালু করা যায়নি। Dashboard-এ নেওয়া হচ্ছে...",
+        "success"
+    );
+
+    setTimeout(() => {
+
+        window.location.href = "dashboard.html";
+
+    },700);
+
+}
+
 
 async function biometricLogin(){
 
@@ -1117,12 +1465,27 @@ async function biometricLogin(){
     }
 
 
-    if(
-        !window.PublicKeyCredential
-    ){
+    if(!window.PublicKeyCredential){
 
         showMessage(
-            "এই ডিভাইস বা ব্রাউজারে Fingerprint / Passkey support নেই।"
+            "এই ডিভাইস বা ব্রাউজারে Fingerprint / Face support নেই।"
+        );
+
+        return;
+
+    }
+
+
+    const store = getBiometricStore();
+    const entry = store[currentRole];
+
+
+    if(!entry){
+
+        showMessage(
+            currentRole === "admin"
+                ? "এই ডিভাইসে এখনো বায়োমেট্রিক সেটআপ করা হয়নি। প্রথমে ইমেইল ও পাসওয়ার্ড দিয়ে লগইন করুন, তারপর বায়োমেট্রিক চালু করার অপশন আসবে।"
+                : "এই ডিভাইসে এখনো বায়োমেট্রিক সেটআপ করা হয়নি। প্রথমে Teacher ID ও পাসওয়ার্ড দিয়ে লগইন করুন, তারপর বায়োমেট্রিক চালু করার অপশন আসবে।"
         );
 
         return;
@@ -1133,71 +1496,56 @@ async function biometricLogin(){
     try{
 
         showMessage(
-            "Fingerprint / Passkey যাচাই করা হচ্ছে...",
+            "Fingerprint / Face যাচাই করা হচ্ছে...",
             "success"
         );
 
+        const assertion =
+            await navigator.credentials.get({
+                publicKey:{
+                    challenge: randomChallenge(),
+                    allowCredentials:[{
+                        id: base64ToBuffer(entry.credentialId),
+                        type:"public-key"
+                    }],
+                    userVerification:"required",
+                    timeout:60000
+                }
+            });
 
-        const {
-            data,
-            error
-        } =
-        await supabaseClient.auth
-            .signInWithPasskey();
-
-
-        if(error)
-            throw error;
-
-
-        if(!data){
-
-            throw new Error(
-                "Passkey login সম্পন্ন হয়নি।"
-            );
-
+        if(!assertion){
+            throw new Error("যাচাই ব্যর্থ হয়েছে।");
         }
 
-
-        const user =
-            data.user;
+        const secret = decodeSecret(entry.secret);
 
 
-        /* Teacher role verification */
+        if(currentRole === "admin"){
 
-        if(currentRole === "teacher"){
+            const {
+                data,
+                error
+            } =
+            await supabaseClient.auth.refreshSession({
+                refresh_token: secret
+            });
 
-            const role =
-                user?.app_metadata?.role ||
-                user?.user_metadata?.role ||
-                "";
+            if(error || !data.session){
 
-
-            if(
-                role &&
-                role.toLowerCase() !== "teacher"
-            ){
-
-                await supabaseClient.auth.signOut();
+                clearBiometricEntry("admin");
 
                 throw new Error(
-                    "এই Passkey-এর শিক্ষক প্যানেলে প্রবেশের অনুমতি নেই।"
+                    "সংরক্ষিত সেশনের মেয়াদ শেষ হয়ে গেছে। পাসওয়ার্ড দিয়ে আবার লগইন করে বায়োমেট্রিক পুনরায় চালু করুন।"
                 );
 
             }
 
-        }
-
-
-        /* Admin role verification */
-
-        if(currentRole === "admin"){
+            const user = data.user;
 
             const role =
                 user?.app_metadata?.role ||
                 user?.user_metadata?.role ||
                 "";
-
 
             if(
                 role &&
@@ -1207,27 +1555,51 @@ async function biometricLogin(){
                 await supabaseClient.auth.signOut();
 
                 throw new Error(
-                    "Teacher Passkey দিয়ে Admin Panel-এ প্রবেশ করা যাবে না।"
+                    "এই ডিভাইসে সংরক্ষিত অ্যাকাউন্ট Admin Panel-এর জন্য নয়।"
                 );
 
             }
 
+            showMessage(
+                "বায়োমেট্রিক লগইন সফল হয়েছে। Dashboard-এ নেওয়া হচ্ছে...",
+                "success"
+            );
+
+            setTimeout(() => {
+
+                window.location.href = "dashboard.html";
+
+            },400);
+
+        }else{
+
+            const teacher =
+                await verifyTeacherLogin(entry.identity,secret);
+
+            if(!teacher){
+
+                clearBiometricEntry("teacher");
+
+                throw new Error(
+                    "সংরক্ষিত তথ্য দিয়ে লগইন করা যায়নি (পাসওয়ার্ড বদলানো হয়ে থাকতে পারে)। Teacher ID/পাসওয়ার্ড দিয়ে আবার লগইন করুন।"
+                );
+
+            }
+
+            startTeacherSession(teacher);
+
+            showMessage(
+                `বায়োমেট্রিক লগইন সফল হয়েছে। স্বাগতম ${teacher.name || "Teacher"}।`,
+                "success"
+            );
+
+            setTimeout(() => {
+
+                window.location.href = "dashboard.html";
+
+            },400);
+
         }
-
-
-        showMessage(
-            "Fingerprint / Passkey Login সফল হয়েছে।",
-            "success"
-        );
-
-
-        setTimeout(() => {
-
-            window.location.href =
-                "dashboard.html";
-
-        },500);
-
 
     }catch(error){
 
@@ -1235,7 +1607,7 @@ async function biometricLogin(){
 
         showMessage(
             error.message ||
-            "Fingerprint / Passkey login ব্যর্থ হয়েছে।"
+            "Fingerprint / Face login ব্যর্থ হয়েছে।"
         );
 
     }
@@ -1272,12 +1644,9 @@ document.addEventListener(
 /* =========================================================
    INITIALIZE
 
-   NOTE: আগে এখানে checkExistingSession() কল করা হতো, যেটা
-   পেজ লোড হলেই পুরনো সেভ করা সেশন খুঁজে পেয়ে কোনো ইমেইল/
-   পাসওয়ার্ড ছাড়াই dashboard.html-এ নিয়ে যেত। সেই কারণেই
-   লগইন পেজে গেলে মনে হতো "এমনিই লগইন হয়ে যাচ্ছে"। এখন সেই
-   অটো-রিডাইরেক্ট বাদ দেওয়া হয়েছে, তাই প্রতিবারই সঠিক তথ্য
-   দিয়ে লগইন করতে হবে।
+   NOTE: পেজ লোড হলেই পুরনো সেশন খুঁজে অটো-রিডাইরেক্ট করার
+   কোনো কোড এখানে ইচ্ছাকৃতভাবে রাখা হয়নি — প্রতিবারই সঠিক
+   তথ্য দিয়ে (অথবা বায়োমেট্রিক দিয়ে) লগইন করতে হবে।
 ========================================================= */
 
 switchRole("admin");
