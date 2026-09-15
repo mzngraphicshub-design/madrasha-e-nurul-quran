@@ -3,2204 +3,1845 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>লগইন | মাদরাসায়ে নূরুল কুরআন</title>
 
-<title>Login | মাদরাসায়ে নূরুল কুরআন</title>
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.105.0"></script>
 
 <style>
 @font-face{
-    font-family:'Bornomala';
-    src:url('./fonts/Bornomala-Regular.ttf') format('truetype');
-    font-display:swap;
-}
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+  font-family:"Bornomala";
+  src:url("./fonts/Bornomala-Regular.ttf") format("truetype");
+  font-display:swap;
 }
 
 :root{
-    --bg:#020d1d;
-    --bg2:#061a32;
-    --card:rgba(255,255,255,.075);
-    --border:rgba(255,255,255,.14);
-    --primary:#0875df;
-    --primary2:#2098ff;
-    --text:#fff;
-    --muted:#a9b8ca;
+  --navy:#061633;
+  --navy2:#0b2146;
+  --blue:#1767ff;
+  --blue2:#4a9cff;
+  --line:rgba(155,195,255,.20);
+  --muted:#9eacc5;
+  --white:#fff;
+  --danger:#ff7888;
+  --success:#74e6aa;
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html,
+body{
+  min-height:100%;
 }
 
 body{
-    min-height:100vh;
-    font-family:'Bornomala',sans-serif;
-    background:
-        radial-gradient(circle at 20% 20%,rgba(8,117,223,.18),transparent 35%),
-        radial-gradient(circle at 80% 80%,rgba(0,196,255,.12),transparent 35%),
-        linear-gradient(135deg,var(--bg),var(--bg2));
-    color:var(--text);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    overflow-x:hidden;
-    padding:25px;
+  font-family:"Bornomala","Noto Serif Bengali",serif;
+  background:
+    radial-gradient(circle at 18% 12%,rgba(41,112,255,.18),transparent 24%),
+    radial-gradient(circle at 86% 30%,rgba(63,142,255,.12),transparent 25%),
+    linear-gradient(145deg,#07172f 0%,#0b2146 48%,#06142c 100%);
+  color:#fff;
+  min-height:100vh;
+  overflow-x:hidden;
 }
 
-body::before{
-    content:"";
-    position:fixed;
-    width:420px;
-    height:420px;
-    border-radius:50%;
-    background:rgba(8,117,223,.10);
-    filter:blur(90px);
-    top:-180px;
-    left:-160px;
-    pointer-events:none;
+body:before,
+body:after{
+  content:"";
+  position:fixed;
+  border-radius:50%;
+  pointer-events:none;
+  filter:blur(2px);
+  opacity:.55;
 }
 
-body::after{
-    content:"";
-    position:fixed;
-    width:400px;
-    height:400px;
-    border-radius:50%;
-    background:rgba(0,180,255,.08);
-    filter:blur(100px);
-    right:-160px;
-    bottom:-180px;
-    pointer-events:none;
+body:before{
+  width:190px;
+  height:190px;
+  left:-80px;
+  top:120px;
+  border:1px solid rgba(70,139,255,.12);
+  box-shadow:0 0 80px rgba(20,91,220,.10);
 }
 
-.login-wrapper{
-    width:100%;
-    max-width:470px;
-    position:relative;
-    z-index:2;
+body:after{
+  width:260px;
+  height:260px;
+  right:-140px;
+  bottom:60px;
+  border:1px solid rgba(255,255,255,.06);
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+.page{
+  width:min(100%,520px);
+  margin:auto;
+  padding:34px 18px 26px;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
 }
 
 .brand{
-    text-align:center;
-    margin-bottom:25px;
+  text-align:center;
+  margin-top:6px;
 }
 
-.logo-box{
-    width:92px;
-    height:92px;
-    margin:0 auto 15px;
-    border-radius:25px;
-    padding:8px;
-    background:rgba(255,255,255,.09);
-    border:1px solid rgba(255,255,255,.16);
-    backdrop-filter:blur(18px);
-    box-shadow:
-        0 20px 50px rgba(0,0,0,.35),
-        inset 0 1px rgba(255,255,255,.12);
+.logo-wrap{
+  width:126px;
+  height:126px;
+  margin:0 auto 22px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,.045);
+  border:1px solid rgba(160,200,255,.28);
+  box-shadow:
+    inset 0 0 35px rgba(90,160,255,.08),
+    0 20px 55px rgba(0,0,0,.20);
 }
 
-.logo-box img{
-    width:100%;
-    height:100%;
-    object-fit:contain;
-    border-radius:18px;
+.logo{
+  width:78px;
+  height:78px;
+  object-fit:contain;
+  border-radius:50%;
 }
 
 .brand h1{
-    font-size:27px;
-    font-weight:700;
-    line-height:1.4;
+  font-size:31px;
+  line-height:1.2;
+  font-weight:700;
+  letter-spacing:.2px;
 }
 
 .brand p{
-    color:var(--muted);
-    font-size:14px;
-    margin-top:5px;
+  color:#4d96ff;
+  font-family:Arial,sans-serif;
+  font-size:10px;
+  letter-spacing:5px;
+  margin-top:10px;
 }
 
-.login-card{
-    background:rgba(255,255,255,.075);
-    border:1px solid var(--border);
-    border-radius:28px;
-    padding:28px;
-    backdrop-filter:blur(25px);
-    -webkit-backdrop-filter:blur(25px);
-    box-shadow:
-        0 30px 80px rgba(0,0,0,.38),
-        inset 0 1px rgba(255,255,255,.10);
+.login-shell{
+  width:100%;
+  margin-top:48px;
+  padding:26px 22px 25px;
+  border:1px solid var(--line);
+  border-radius:34px;
+  background:rgba(7,22,48,.60);
+  box-shadow:
+    0 28px 90px rgba(0,0,0,.28),
+    inset 0 1px 0 rgba(255,255,255,.04);
+  backdrop-filter:blur(24px);
 }
 
 .tabs{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:7px;
-    padding:6px;
-    background:rgba(0,0,0,.22);
-    border-radius:15px;
-    margin-bottom:25px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:4px;
+  padding:5px;
+  background:rgba(0,0,0,.28);
+  border-radius:21px;
+  margin-bottom:26px;
 }
 
 .tab{
-    border:0;
-    background:transparent;
-    color:#aebdce;
-    padding:12px 6px;
-    border-radius:11px;
-    cursor:pointer;
-    font-family:inherit;
-    font-size:14px;
-    transition:.25s;
+  border:0;
+  background:transparent;
+  color:#9aa7be;
+  min-height:56px;
+  border-radius:17px;
+  font:inherit;
+  font-size:17px;
+  font-weight:600;
+  cursor:pointer;
+  transition:.25s;
 }
 
 .tab.active{
-    color:#fff;
-    background:linear-gradient(135deg,var(--primary),var(--primary2));
-    box-shadow:0 8px 22px rgba(8,117,223,.28);
+  color:#fff;
+  background:linear-gradient(135deg,#1c6aff,#1458ef);
+  box-shadow:0 8px 22px rgba(23,103,255,.28);
 }
 
-.login-title{
-    text-align:center;
-    margin-bottom:22px;
+.panel{
+  display:none;
 }
 
-.login-title h2{
-    font-size:23px;
-    margin-bottom:4px;
+.panel.active{
+  display:block;
 }
 
-.login-title p{
-    color:var(--muted);
-    font-size:13px;
+.panel-title{
+  text-align:center;
+  margin:0 0 20px;
 }
 
-.form-group{
-    margin-bottom:17px;
+.panel-title h2{
+  font-size:25px;
 }
 
-.form-group label{
-    display:block;
-    font-size:14px;
-    margin-bottom:8px;
-    color:#d9e4ef;
+.panel-title p{
+  font-size:13px;
+  color:var(--muted);
+  margin-top:4px;
 }
 
-.input-wrap{
-    position:relative;
+.field{
+  position:relative;
+  margin-bottom:13px;
 }
 
-.input-wrap i{
-    position:absolute;
-    left:15px;
-    top:50%;
-    transform:translateY(-50%);
-    color:#8fa4bb;
-    font-size:15px;
+.field i{
+  position:absolute;
+  left:20px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#4f9dff;
+  font-size:19px;
+  pointer-events:none;
 }
 
-.input-wrap input{
-    width:100%;
-    height:52px;
-    padding:0 45px;
-    border-radius:14px;
-    border:1px solid rgba(255,255,255,.13);
-    outline:none;
-    background:rgba(0,0,0,.22);
-    color:#fff;
-    font-family:inherit;
-    font-size:15px;
-    transition:.25s;
+.field input{
+  width:100%;
+  height:64px;
+  padding:0 18px 0 58px;
+  border:1px solid rgba(152,190,245,.18);
+  border-radius:19px;
+  outline:none;
+  background:rgba(255,255,255,.055);
+  color:#fff;
+  font:inherit;
+  font-size:17px;
+  transition:.2s;
 }
 
-.input-wrap input::placeholder{
-    color:#73869a;
+.field input::placeholder{
+  color:#8f9bb0;
 }
 
-.input-wrap input:focus{
-    border-color:rgba(32,152,255,.75);
-    box-shadow:0 0 0 3px rgba(32,152,255,.10);
+.field input:focus{
+  border-color:rgba(68,143,255,.65);
+  box-shadow:0 0 0 3px rgba(30,103,255,.10);
 }
 
-.password-toggle{
-    position:absolute;
-    right:15px;
-    top:50%;
-    transform:translateY(-50%);
-    cursor:pointer;
-    color:#8095aa;
+.primary{
+  width:100%;
+  min-height:64px;
+  border:0;
+  border-radius:19px;
+  background:linear-gradient(135deg,#1767ff,#246eff);
+  color:#fff;
+  font:inherit;
+  font-size:20px;
+  font-weight:700;
+  cursor:pointer;
+  box-shadow:0 14px 35px rgba(23,103,255,.25);
+  margin-top:3px;
 }
 
-.login-btn{
-    width:100%;
-    height:53px;
-    border:0;
-    border-radius:15px;
-    background:linear-gradient(135deg,var(--primary),var(--primary2));
-    color:#fff;
-    font-family:inherit;
-    font-size:16px;
-    font-weight:600;
-    cursor:pointer;
-    box-shadow:0 12px 30px rgba(8,117,223,.27);
-    transition:.25s;
-    margin-top:5px;
+.primary:disabled{
+  opacity:.65;
+  cursor:wait;
 }
 
-.login-btn:hover{
-    transform:translateY(-1px);
-    box-shadow:0 16px 35px rgba(8,117,223,.35);
+.passkey{
+  width:100%;
+  min-height:54px;
+  border:1px solid rgba(80,153,255,.34);
+  border-radius:17px;
+  background:rgba(34,103,210,.10);
+  color:#d9e8ff;
+  font:inherit;
+  font-size:16px;
+  cursor:pointer;
+  margin-top:11px;
 }
 
-.login-btn:disabled{
-    opacity:.6;
-    cursor:not-allowed;
-    transform:none;
+.passkey i{
+  color:#63a9ff;
+  margin-right:7px;
 }
 
-.biometric-btn{
-    width:100%;
-    height:50px;
-    margin-top:11px;
-    border:1px solid rgba(255,255,255,.13);
-    border-radius:14px;
-    background:rgba(255,255,255,.055);
-    color:#dce8f4;
-    font-family:inherit;
-    font-size:14px;
-    cursor:pointer;
-    transition:.25s;
+.divider{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:#64738c;
+  font-size:12px;
+  margin:16px 0 2px;
 }
 
-.biometric-btn:hover{
-    background:rgba(255,255,255,.10);
-    border-color:rgba(32,152,255,.45);
-}
-
-.biometric-btn i{
-    margin-right:7px;
-    color:#49b3ff;
+.divider:before,
+.divider:after{
+  content:"";
+  height:1px;
+  flex:1;
+  background:rgba(255,255,255,.08);
 }
 
 .message{
-    display:none;
-    margin-bottom:17px;
-    padding:12px 14px;
-    border-radius:12px;
-    font-size:13px;
-    line-height:1.6;
+  min-height:23px;
+  text-align:center;
+  font-size:13px;
+  margin-top:12px;
+  color:var(--muted);
 }
 
 .message.error{
-    display:block;
-    background:rgba(255,70,70,.10);
-    border:1px solid rgba(255,90,90,.25);
-    color:#ffb5b5;
+  color:var(--danger);
 }
 
 .message.success{
-    display:block;
-    background:rgba(40,200,120,.10);
-    border:1px solid rgba(40,200,120,.25);
-    color:#9ff0c8;
-}
-
-.mini-actions{
-    display:flex;
-    gap:8px;
-    margin-top:12px;
-}
-
-.mini-btn{
-    flex:1;
-    height:38px;
-    border-radius:10px;
-    border:0;
-    cursor:pointer;
-    font-family:inherit;
-    font-size:12.5px;
-}
-
-.mini-btn.primary{
-    background:linear-gradient(135deg,var(--primary),var(--primary2));
-    color:#fff;
-}
-
-.mini-btn.ghost{
-    background:rgba(255,255,255,.10);
-    color:#dce8f4;
-    border:1px solid rgba(255,255,255,.18);
+  color:var(--success);
 }
 
 .info{
-    margin-top:20px;
-    padding-top:18px;
-    border-top:1px solid rgba(255,255,255,.09);
-    text-align:center;
-    color:#8195a9;
-    font-size:12px;
-    line-height:1.8;
+  text-align:center;
+  color:#7e8da6;
+  font-size:11px;
+  line-height:1.7;
+  margin-top:16px;
 }
 
 .footer{
-    text-align:center;
-    color:#63778c;
-    font-size:11px;
-    margin-top:20px;
+  margin-top:auto;
+  padding-top:30px;
+  text-align:center;
+  color:#64748a;
+  font-family:Arial,sans-serif;
+  font-size:9px;
+  letter-spacing:3px;
+}
+
+.back{
+  position:fixed;
+  top:16px;
+  left:16px;
+  width:42px;
+  height:42px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:14px;
+  background:rgba(255,255,255,.04);
+  color:#b8c7dd;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
 .hidden{
-    display:none!important;
+  display:none!important;
 }
 
-.loading{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-}
+@media(max-width:430px){
+  .page{
+    padding:26px 13px 22px;
+  }
 
-.spinner{
-    width:15px;
-    height:15px;
-    border:2px solid rgba(255,255,255,.3);
-    border-top-color:#fff;
-    border-radius:50%;
-    animation:spin .7s linear infinite;
-}
+  .logo-wrap{
+    width:112px;
+    height:112px;
+    margin-bottom:18px;
+  }
 
-@keyframes spin{
-    to{transform:rotate(360deg)}
-}
+  .logo{
+    width:70px;
+    height:70px;
+  }
 
-@media(max-width:520px){
+  .brand h1{
+    font-size:27px;
+  }
 
-    body{
-        padding:15px;
-    }
+  .login-shell{
+    margin-top:38px;
+    padding:22px 14px 20px;
+    border-radius:30px;
+  }
 
-    .login-card{
-        padding:21px 17px;
-        border-radius:23px;
-    }
+  .tab{
+    font-size:15px;
+    min-height:52px;
+  }
 
-    .brand h1{
-        font-size:23px;
-    }
-
-    .logo-box{
-        width:78px;
-        height:78px;
-        border-radius:21px;
-    }
-
-    .tab{
-        font-size:12px;
-        padding:11px 3px;
-    }
+  .field input{
+    height:60px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div class="login-wrapper">
+<a class="back" href="index.html" aria-label="Back to home">
+  <i class="fa-solid fa-arrow-left"></i>
+</a>
 
-    <div class="brand">
+<div class="page">
 
-        <div class="logo-box">
-            <img src="img/logo.png" alt="Madrasa Logo">
-        </div>
+  <div class="brand">
 
-        <h1>মাদরাসায়ে নূরুল কুরআন</h1>
+    <div class="logo-wrap">
+      <img
+        src="img/logo.png"
+        class="logo"
+        alt="মাদরাসায়ে নূরুল কুরআন"
+      >
+    </div>
 
-        <p>Madrasa-e Nurul Quran</p>
+    <h1>মাদরাসায়ে নূরুল কুরআন</h1>
+
+    <p>DIGITAL PORTAL LOGIN</p>
+
+  </div>
+
+
+  <main class="login-shell">
+
+    <div class="tabs">
+
+      <button
+        class="tab active"
+        data-role="admin"
+        type="button"
+      >
+        অ্যাডমিন
+      </button>
+
+      <button
+        class="tab"
+        data-role="teacher"
+        type="button"
+      >
+        শিক্ষক
+      </button>
+
+      <button
+        class="tab"
+        data-role="student"
+        type="button"
+      >
+        অভিভাবক
+      </button>
 
     </div>
 
 
-    <div class="login-card">
+    <!-- =========================
+         ADMIN LOGIN
+    ========================== -->
 
-        <div class="tabs">
+    <section
+      class="panel active"
+      id="adminPanel"
+    >
 
-            <button
-                class="tab active"
-                data-role="admin"
-                onclick="switchRole('admin')">
+      <div class="panel-title">
 
-                <i class="fa-solid fa-user-shield"></i>
-                অ্যাডমিন
+        <h2>অ্যাডমিন লগইন</h2>
 
-            </button>
+        <p>
+          মাদরাসার প্রশাসনিক অ্যাকাউন্ট
+        </p>
 
-
-            <button
-                class="tab"
-                data-role="teacher"
-                onclick="switchRole('teacher')">
-
-                <i class="fa-solid fa-chalkboard-user"></i>
-                শিক্ষক
-
-            </button>
+      </div>
 
 
-            <button
-                class="tab"
-                data-role="guardian"
-                onclick="switchRole('guardian')">
+      <form id="adminForm">
 
-                <i class="fa-solid fa-user-group"></i>
-                অভিভাবক
+        <div class="field">
 
-            </button>
+          <i class="fa-regular fa-envelope"></i>
+
+          <input
+            id="adminEmail"
+            type="email"
+            placeholder="ইমেইল এড্রেস"
+            autocomplete="username"
+            required
+          >
 
         </div>
 
 
-        <div class="login-title">
+        <div class="field">
 
-            <h2 id="loginHeading">
-                অ্যাডমিন লগইন
-            </h2>
+          <i class="fa-solid fa-lock"></i>
 
-            <p id="loginSubheading">
-                মাদরাসার প্রশাসনিক প্যানেলে প্রবেশ করুন
-            </p>
-
-        </div>
-
-
-        <div id="message" class="message"></div>
-
-
-        <!-- STAFF LOGIN -->
-
-        <div id="staffLogin">
-
-            <div class="form-group">
-
-                <label id="identityLabel">
-                    ইমেইল
-                </label>
-
-                <div class="input-wrap">
-
-                    <i
-                        id="identityIcon"
-                        class="fa-solid fa-envelope">
-                    </i>
-
-                    <input
-                        type="email"
-                        id="identity"
-                        placeholder="আপনার ইমেইল লিখুন"
-                        autocomplete="username">
-
-                </div>
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>
-                    পাসওয়ার্ড
-                </label>
-
-                <div class="input-wrap">
-
-                    <i class="fa-solid fa-lock"></i>
-
-                    <input
-                        type="password"
-                        id="password"
-                        placeholder="পাসওয়ার্ড লিখুন"
-                        autocomplete="current-password">
-
-                    <span
-                        class="password-toggle"
-                        onclick="togglePassword()">
-
-                        <i
-                            id="passwordIcon"
-                            class="fa-solid fa-eye">
-                        </i>
-
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <button
-                class="login-btn"
-                id="loginBtn"
-                onclick="staffLogin()">
-
-                <span id="loginBtnText">
-
-                    <i class="fa-solid fa-right-to-bracket"></i>
-                    লগইন করুন
-
-                </span>
-
-            </button>
-
-
-            <button
-                class="biometric-btn hidden"
-                id="biometricBtn"
-                onclick="biometricLogin()">
-
-                <i class="fa-solid fa-fingerprint"></i>
-
-                Fingerprint / Face দিয়ে লগইন
-
-            </button>
+          <input
+            id="adminPassword"
+            type="password"
+            placeholder="পাসওয়ার্ড"
+            autocomplete="current-password"
+            required
+          >
 
         </div>
 
 
-        <!-- STUDENT / GUARDIAN LOGIN -->
+        <button
+          class="primary"
+          type="submit"
+        >
+          লগইন করুন
+        </button>
 
-        <div
-            id="guardianLogin"
-            class="hidden">
-
-            <div class="form-group">
-
-                <label>
-                    Student ID
-                </label>
-
-                <div class="input-wrap">
-
-                    <i class="fa-solid fa-id-card"></i>
-
-                    <input
-                        type="text"
-                        id="studentId"
-                        placeholder="Student ID লিখুন"
-                        autocomplete="off">
-
-                </div>
-
-            </div>
+      </form>
 
 
-            <div class="form-group">
-
-                <label>
-                    Roll Number
-                </label>
-
-                <div class="input-wrap">
-
-                    <i class="fa-solid fa-hashtag"></i>
-
-                    <input
-                        type="text"
-                        id="rollNumber"
-                        placeholder="Roll Number লিখুন"
-                        autocomplete="off">
-
-                </div>
-
-            </div>
+      <div class="divider">
+        অথবা
+      </div>
 
 
-            <button
-                class="login-btn"
-                id="studentLoginBtn"
-                onclick="studentLogin()">
+      <button
+        class="passkey"
+        id="adminPasskey"
+        type="button"
+      >
+        <i class="fa-solid fa-fingerprint"></i>
+        Fingerprint / Passkey দিয়ে লগইন
+      </button>
 
-                <span id="studentLoginBtnText">
 
-                    <i class="fa-solid fa-right-to-bracket"></i>
-                    লগইন করুন
+      <div
+        class="message"
+        id="adminMessage"
+      ></div>
 
-                </span>
+    </section>
 
-            </button>
+
+    <!-- =========================
+         TEACHER LOGIN
+    ========================== -->
+
+    <section
+      class="panel"
+      id="teacherPanel"
+    >
+
+      <div class="panel-title">
+
+        <h2>শিক্ষক লগইন</h2>
+
+        <p>
+          মোবাইল নম্বর ও পাসওয়ার্ড দিয়ে প্রবেশ করুন
+        </p>
+
+      </div>
+
+
+      <form id="teacherForm">
+
+        <div class="field">
+
+          <i class="fa-solid fa-phone"></i>
+
+          <input
+            id="teacherMobile"
+            type="tel"
+            inputmode="numeric"
+            placeholder="শিক্ষকের মোবাইল নম্বর"
+            autocomplete="username"
+            required
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <i class="fa-solid fa-lock"></i>
+
+          <input
+            id="teacherPassword"
+            type="password"
+            placeholder="পাসওয়ার্ড"
+            autocomplete="current-password"
+            required
+          >
 
         </div>
 
 
-        <div
-            class="info"
-            id="infoText">
+        <button
+          class="primary"
+          type="submit"
+        >
+          লগইন করুন
+        </button>
 
-            আপনার অ্যাকাউন্টের তথ্য ব্যবহার করে লগইন করুন।
+      </form>
 
-            <br>
 
-            Student/Guardian Login-এর জন্য Student ID ও Roll Number প্রয়োজন।
+      <div class="divider">
+        অথবা
+      </div>
+
+
+      <button
+        class="passkey"
+        id="teacherPasskey"
+        type="button"
+      >
+        <i class="fa-solid fa-fingerprint"></i>
+        Fingerprint / Passkey দিয়ে লগইন
+      </button>
+
+
+      <div
+        class="message"
+        id="teacherMessage"
+      ></div>
+
+    </section>
+
+
+    <!-- =========================
+         STUDENT LOGIN
+    ========================== -->
+
+    <section
+      class="panel"
+      id="studentPanel"
+    >
+
+      <div class="panel-title">
+
+        <h2>
+          অভিভাবক / শিক্ষার্থী লগইন
+        </h2>
+
+        <p>
+          Roll Number ও Student ID দিয়ে প্রবেশ করুন
+        </p>
+
+      </div>
+
+
+      <form id="studentForm">
+
+        <div class="field">
+
+          <i class="fa-solid fa-hashtag"></i>
+
+          <input
+            id="studentRoll"
+            type="text"
+            placeholder="রোল নম্বর"
+            autocomplete="username"
+            required
+          >
 
         </div>
 
-    </div>
+
+        <div class="field">
+
+          <i class="fa-solid fa-id-card"></i>
+
+          <input
+            id="studentId"
+            type="text"
+            placeholder="Student ID"
+            autocomplete="current-password"
+            required
+          >
+
+        </div>
 
 
-    <div class="footer">
+        <button
+          class="primary"
+          type="submit"
+        >
+          লগইন করুন
+        </button>
 
-        © 2026 Madrasa-e Nurul Quran. All Rights Reserved.
+      </form>
 
-    </div>
+
+      <div
+        class="message"
+        id="studentMessage"
+      ></div>
+
+    </section>
+
+
+    <p class="info">
+
+      অ্যাডমিন ও শিক্ষক Passkey চালু থাকলে
+      ডিভাইসের Fingerprint / Face / PIN ব্যবহার করে
+      দ্রুত লগইন করতে পারবেন।
+
+    </p>
+
+  </main>
+
+
+  <footer class="footer">
+    MADRASA-E NURUL QURAN • DIGITAL MANAGEMENT SYSTEM
+  </footer>
 
 </div>
 
 
 <script>
 
-/* =========================================================
+/* =====================================================
    SUPABASE
-========================================================= */
+===================================================== */
 
 const SUPABASE_URL =
-    "https://qavublwhqiqsgpcmfyft.supabase.co";
+  "https://qavublwhqiqsgpcmfyft.supabase.co";
 
 const SUPABASE_KEY =
-    "sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
+  "sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
 
-const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
+
+const db = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY,
+  {
+    auth:{
+      persistSession:true,
+      autoRefreshToken:true,
+      detectSessionInUrl:true,
+      experimental:{
+        passkey:true
+      }
+    }
+  }
+);
+
+
+/* =====================================================
+   SETTINGS
+===================================================== */
+
+const SETTINGS_KEY =
+  "madrasa_system_settings_v1";
+
+
+function settings(){
+
+  try{
+
+    return JSON.parse(
+      localStorage.getItem(SETTINGS_KEY) || "{}"
     );
 
+  }catch(error){
 
-/* =========================================================
-   SETTINGS
-========================================================= */
+    return {};
 
-let settings = {};
-
-try{
-
-    settings =
-        JSON.parse(
-            localStorage.getItem(
-                "madrasa_system_settings_v1"
-            ) || "{}"
-        );
-
-}catch(error){
-
-    settings = {};
+  }
 
 }
 
 
-/* =========================================================
-   CURRENT ROLE
-========================================================= */
-
-let currentRole = "admin";
-
-
-/* =========================================================
-   ROLE SWITCH
-========================================================= */
-
-function switchRole(role){
-
-    currentRole = role;
-
-    document
-        .querySelectorAll(".tab")
-        .forEach(tab => {
-
-            tab.classList.toggle(
-                "active",
-                tab.dataset.role === role
-            );
-
-        });
-
-
-    clearMessage();
-
-
-    const staffLogin =
-        document.getElementById("staffLogin");
-
-    const guardianLogin =
-        document.getElementById("guardianLogin");
-
-    const heading =
-        document.getElementById("loginHeading");
-
-    const subheading =
-        document.getElementById("loginSubheading");
-
-    const biometricBtn =
-        document.getElementById("biometricBtn");
-
-    const identityInput =
-        document.getElementById("identity");
-
-    const identityLabel =
-        document.getElementById("identityLabel");
-
-    const identityIcon =
-        document.getElementById("identityIcon");
-
-
-    if(role === "admin"){
-
-        staffLogin.classList.remove("hidden");
-        guardianLogin.classList.add("hidden");
-
-        heading.textContent =
-            "অ্যাডমিন লগইন";
-
-        subheading.textContent =
-            "মাদরাসার প্রশাসনিক প্যানেলে প্রবেশ করুন";
-
-        identityLabel.textContent =
-            "ইমেইল";
-
-        identityInput.type =
-            "email";
-
-        identityInput.placeholder =
-            "আপনার ইমেইল লিখুন";
-
-        identityInput.autocomplete =
-            "username";
-
-        identityIcon.className =
-            "fa-solid fa-envelope";
-
-
-        biometricBtn.classList.toggle(
-            "hidden",
-            settings.biometricAdmin === false
-        );
-
-    }
-
-
-    else if(role === "teacher"){
-
-        staffLogin.classList.remove("hidden");
-        guardianLogin.classList.add("hidden");
-
-        heading.textContent =
-            "শিক্ষক লগইন";
-
-        subheading.textContent =
-            "মোবাইল নম্বর ও পাসওয়ার্ড দিয়ে প্রবেশ করুন";
-
-        identityLabel.textContent =
-            "মোবাইল নম্বর";
-
-        identityInput.type =
-            "tel";
-
-        identityInput.placeholder =
-            "আপনার মোবাইল নম্বর লিখুন";
-
-        identityInput.autocomplete =
-            "tel";
-
-        identityIcon.className =
-            "fa-solid fa-mobile-screen-button";
-
-
-        biometricBtn.classList.toggle(
-            "hidden",
-            settings.biometricTeacher === false
-        );
-
-    }
-
-
-    else{
-
-        staffLogin.classList.add("hidden");
-        guardianLogin.classList.remove("hidden");
-
-        heading.textContent =
-            "অভিভাবক / শিক্ষার্থী লগইন";
-
-        subheading.textContent =
-            "Student ID ও Roll Number দিয়ে প্রবেশ করুন";
-
-    }
-
-}
-
-
-/* =========================================================
-   MESSAGE
-========================================================= */
-
-function showMessage(text,type="error"){
-
-    const box =
-        document.getElementById("message");
-
-    box.className =
-        "message " + type;
-
-    box.innerHTML =
-        text;
-
-}
-
-
-function clearMessage(){
-
-    const box =
-        document.getElementById("message");
-
-    box.className =
-        "message";
-
-    box.innerHTML =
-        "";
-
-}
-
-
-/* =========================================================
-   PASSWORD TOGGLE
-========================================================= */
-
-function togglePassword(){
-
-    const input =
-        document.getElementById("password");
-
-    const icon =
-        document.getElementById("passwordIcon");
-
-
-    if(input.type === "password"){
-
-        input.type =
-            "text";
-
-        icon.className =
-            "fa-solid fa-eye-slash";
-
-    }
-
-    else{
-
-        input.type =
-            "password";
-
-        icon.className =
-            "fa-solid fa-eye";
-
-    }
-
-}
-
-
-/* =========================================================
-   NORMALIZE MOBILE
-========================================================= */
-
-function normalizeMobile(value){
-
-    let mobile =
-        String(value || "")
-        .trim()
-        .replace(/[\s\-().]/g,"");
-
-
-    if(mobile.startsWith("+880")){
-
-        mobile =
-            "0" + mobile.substring(4);
-
-    }
-
-    else if(mobile.startsWith("880")){
-
-        mobile =
-            "0" + mobile.substring(3);
-
-    }
-
-
-    return mobile;
-
-}
-
-
-/* =========================================================
-   TEACHER LOGIN
-   Mobile Number + Password
-========================================================= */
-
-async function verifyTeacherLogin(
-    mobile,
-    password
+function flag(
+  obj,
+  names,
+  fallback=true
 ){
 
-    const normalizedMobile =
-        normalizeMobile(mobile);
+  for(const name of names){
+
+    if(
+      typeof obj[name] === "boolean"
+    ){
+
+      return obj[name];
+
+    }
+
+  }
+
+  return fallback;
+
+}
 
 
-    const { data, error } =
-        await supabaseClient.rpc(
-            "verify_teacher_login",
-            {
-                p_mobile: normalizedMobile,
-                p_password: password
-            }
-        );
+function isEnabled(role){
+
+  const s = settings();
+
+
+  if(role === "admin"){
+
+    return flag(
+      s,
+      [
+        "adminLogin",
+        "admin_login",
+        "adminAccess"
+      ],
+      true
+    );
+
+  }
+
+
+  if(role === "teacher"){
+
+    return flag(
+      s,
+      [
+        "teacherLogin",
+        "teacher_login",
+        "teacherAccess"
+      ],
+      true
+    );
+
+  }
+
+
+  return flag(
+    s,
+    [
+      "studentLogin",
+      "guardianLogin",
+      "student_login",
+      "guardian_login"
+    ],
+    true
+  );
+
+}
+
+
+function biometricEnabled(role){
+
+  const s = settings();
+
+
+  if(role === "admin"){
+
+    return flag(
+      s,
+      [
+        "biometricAdmin",
+        "adminBiometric",
+        "adminPasskey",
+        "admin_passkey"
+      ],
+      true
+    );
+
+  }
+
+
+  return flag(
+    s,
+    [
+      "biometricTeacher",
+      "teacherBiometric",
+      "teacherPasskey",
+      "teacher_passkey"
+    ],
+    true
+  );
+
+}
+
+
+/* =====================================================
+   UI HELPERS
+===================================================== */
+
+function msg(
+  id,
+  text,
+  type=""
+){
+
+  const el =
+    document.getElementById(id);
+
+  if(!el) return;
+
+  el.textContent = text;
+
+  el.className =
+    "message " + type;
+
+}
+
+
+function busy(form, yes){
+
+  if(!form) return;
+
+  form
+    .querySelectorAll("input,button")
+    .forEach(x=>{
+      x.disabled = yes;
+    });
+
+}
+
+
+/* =====================================================
+   ADMIN / TEACHER DASHBOARD
+===================================================== */
+
+function goDashboard(
+  role,
+  user=null,
+  teacher=null
+){
+
+  sessionStorage.setItem(
+    "madrasa_login_role",
+    role
+  );
+
+
+  if(user){
+
+    sessionStorage.setItem(
+      "madrasa_auth_user",
+      JSON.stringify({
+
+        id:user.id || "",
+
+        email:user.email || "",
+
+        role:role
+
+      })
+    );
+
+  }
+
+
+  if(teacher){
+
+    sessionStorage.setItem(
+      "madrasa_teacher_login",
+      JSON.stringify({
+
+        id:teacher.id || "",
+
+        teacher_id:teacher.teacher_id || "",
+
+        name:teacher.name || "",
+
+        phone:teacher.phone || "",
+
+        role:"teacher",
+
+        at:Date.now()
+
+      })
+    );
+
+  }
+
+
+  location.href =
+    "dashboard.html";
+
+}
+
+
+/* =====================================================
+   STUDENT
+===================================================== */
+
+function goStudent(student){
+
+  sessionStorage.setItem(
+    "madrasa_student_login",
+    JSON.stringify({
+
+      id:student.id,
+
+      student_id:student.student_id,
+
+      roll_number:
+        String(student.roll_number),
+
+      at:Date.now()
+
+    })
+  );
+
+
+  location.href =
+    "students-login.html";
+
+}
+
+
+/* =====================================================
+   ADMIN LOGIN
+   IMPORTANT:
+   NO ROLE CHECK HERE.
+   Successful Supabase login = dashboard.
+===================================================== */
+
+async function adminLogin(){
+
+  const form =
+    document.getElementById(
+      "adminForm"
+    );
+
+  const email =
+    document
+      .getElementById("adminEmail")
+      .value
+      .trim();
+
+  const password =
+    document
+      .getElementById("adminPassword")
+      .value;
+
+
+  if(!isEnabled("admin")){
+
+    msg(
+      "adminMessage",
+      "Admin Login Settings থেকে বন্ধ করা হয়েছে।",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  busy(form,true);
+
+  msg(
+    "adminMessage",
+    "লগইন যাচাই করা হচ্ছে..."
+  );
+
+
+  try{
+
+    const {
+      data,
+      error
+    } =
+      await db.auth.signInWithPassword({
+
+        email:email,
+
+        password:password
+
+      });
 
 
     if(error){
 
-        console.error(
-            "Teacher Login RPC Error:",
-            error
-        );
+      throw error;
 
-        throw error;
+    }
+
+
+    if(!data?.user){
+
+      throw new Error(
+        "Login সফল হলেও user পাওয়া যায়নি।"
+      );
+
+    }
+
+
+    msg(
+      "adminMessage",
+      "লগইন সফল হয়েছে। Dashboard খোলা হচ্ছে...",
+      "success"
+    );
+
+
+    setTimeout(()=>{
+
+      goDashboard(
+        "admin",
+        data.user
+      );
+
+    },300);
+
+
+  }catch(error){
+
+    console.error(
+      "Admin login error:",
+      error
+    );
+
+
+    msg(
+      "adminMessage",
+      error?.message ||
+      "ইমেইল অথবা পাসওয়ার্ড সঠিক নয়।",
+      "error"
+    );
+
+
+    busy(form,false);
+
+  }
+
+}
+
+
+/* =====================================================
+   TEACHER LOGIN
+   MOBILE + PASSWORD
+   Uses existing RPC:
+   verify_teacher_login
+===================================================== */
+
+async function teacherLogin(){
+
+  const form =
+    document.getElementById(
+      "teacherForm"
+    );
+
+
+  const mobile =
+    document
+      .getElementById("teacherMobile")
+      .value
+      .trim();
+
+
+  const password =
+    document
+      .getElementById("teacherPassword")
+      .value;
+
+
+  if(!isEnabled("teacher")){
+
+    msg(
+      "teacherMessage",
+      "Teacher Login Settings থেকে বন্ধ করা হয়েছে।",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  if(!mobile || !password){
+
+    msg(
+      "teacherMessage",
+      "মোবাইল নম্বর ও পাসওয়ার্ড দিন।",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  busy(form,true);
+
+  msg(
+    "teacherMessage",
+    "শিক্ষকের তথ্য যাচাই করা হচ্ছে..."
+  );
+
+
+  try{
+
+    /*
+      Existing RPC should verify:
+      mobile + password
+
+      Expected function:
+      verify_teacher_login(p_mobile, p_password)
+    */
+
+    const {
+      data,
+      error
+    } =
+      await db.rpc(
+        "verify_teacher_login",
+        {
+          p_mobile:mobile,
+          p_password:password
+        }
+      );
+
+
+    if(error){
+
+      throw error;
+
+    }
+
+
+    /*
+      RPC may return:
+      - object
+      - array containing one object
+      - boolean
+    */
+
+    let teacher = null;
+
+
+    if(Array.isArray(data)){
+
+      teacher = data[0] || null;
+
+    }else if(
+      data &&
+      typeof data === "object"
+    ){
+
+      teacher = data;
+
+    }
+
+
+    /*
+      If RPC returns false / empty:
+      login failed.
+    */
+
+    if(
+      data === false ||
+      data === null ||
+      data === undefined ||
+      (
+        Array.isArray(data) &&
+        data.length === 0
+      )
+    ){
+
+      msg(
+        "teacherMessage",
+        "মোবাইল নম্বর অথবা পাসওয়ার্ড সঠিক নয়।",
+        "error"
+      );
+
+      busy(form,false);
+
+      return;
+
+    }
+
+
+    /*
+      Some RPCs return:
+      {
+        success:false,
+        message:"..."
+      }
+    */
+
+    if(
+      teacher &&
+      (
+        teacher.success === false ||
+        teacher.ok === false ||
+        teacher.valid === false
+      )
+    ){
+
+      msg(
+        "teacherMessage",
+        teacher.message ||
+        "মোবাইল নম্বর অথবা পাসওয়ার্ড সঠিক নয়।",
+        "error"
+      );
+
+      busy(form,false);
+
+      return;
+
+    }
+
+
+    msg(
+      "teacherMessage",
+      "লগইন সফল হয়েছে। Dashboard খোলা হচ্ছে...",
+      "success"
+    );
+
+
+    setTimeout(()=>{
+
+      goDashboard(
+        "teacher",
+        null,
+        teacher || {
+          phone:mobile
+        }
+      );
+
+    },300);
+
+
+  }catch(error){
+
+    console.error(
+      "Teacher login error:",
+      error
+    );
+
+
+    msg(
+      "teacherMessage",
+      error?.message ||
+      "Teacher Login করতে সমস্যা হয়েছে।",
+      "error"
+    );
+
+
+    busy(form,false);
+
+  }
+
+}
+
+
+/* =====================================================
+   STUDENT LOGIN
+===================================================== */
+
+async function studentLogin(){
+
+  const form =
+    document.getElementById(
+      "studentForm"
+    );
+
+
+  const roll =
+    document
+      .getElementById("studentRoll")
+      .value
+      .trim();
+
+
+  const studentId =
+    document
+      .getElementById("studentId")
+      .value
+      .trim();
+
+
+  if(!isEnabled("student")){
+
+    msg(
+      "studentMessage",
+      "Student Login Settings থেকে বন্ধ করা হয়েছে।",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  if(!roll || !studentId){
+
+    msg(
+      "studentMessage",
+      "Roll Number ও Student ID দিন।",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  busy(form,true);
+
+  msg(
+    "studentMessage",
+    "Student তথ্য যাচাই করা হচ্ছে..."
+  );
+
+
+  try{
+
+    const {
+      data,
+      error
+    } =
+      await db
+        .from("students")
+        .select(
+          "id,student_id,roll_number,name,class_id,session"
+        )
+        .eq(
+          "roll_number",
+          roll
+        )
+        .eq(
+          "student_id",
+          studentId
+        )
+        .maybeSingle();
+
+
+    if(error){
+
+      throw error;
 
     }
 
 
     if(!data){
 
-        return null;
+      msg(
+        "studentMessage",
+        "ভুল Roll Number অথবা Student ID।",
+        "error"
+      );
+
+      busy(form,false);
+
+      return;
 
     }
 
 
-    /*
-     * RPC may return either:
-     * 1. one object
-     * 2. an array with one object
-     */
-
-    if(Array.isArray(data)){
-
-        if(data.length === 0)
-            return null;
-
-        return data[0];
-
-    }
+    msg(
+      "studentMessage",
+      "লগইন সফল হয়েছে। Student Dashboard খোলা হচ্ছে...",
+      "success"
+    );
 
 
-    return data;
+    setTimeout(()=>{
+
+      goStudent(data);
+
+    },300);
+
+
+  }catch(error){
+
+    console.error(
+      "Student login error:",
+      error
+    );
+
+
+    msg(
+      "studentMessage",
+      "Student Login করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।",
+      "error"
+    );
+
+
+    busy(form,false);
+
+  }
 
 }
 
 
-/* =========================================================
-   START TEACHER SESSION
-========================================================= */
+/* =====================================================
+   PASSKEY
+===================================================== */
 
-function startTeacherSession(teacher){
+async function passkeyLogin(
+  role,
+  messageId
+){
 
-    sessionStorage.setItem(
-        "teacher_login",
-        "true"
+  if(!isEnabled(role)){
+
+    msg(
+      messageId,
+      "এই লগইন অপশনটি Settings থেকে বন্ধ করা হয়েছে।",
+      "error"
     );
 
+    return;
 
-    sessionStorage.setItem(
-        "madrasa_login_role",
-        "teacher"
+  }
+
+
+  if(!biometricEnabled(role)){
+
+    msg(
+      messageId,
+      "এই Role-এর Fingerprint / Passkey Settings থেকে বন্ধ করা হয়েছে।",
+      "error"
     );
 
+    return;
 
-    sessionStorage.setItem(
-        "madrasa_teacher_id",
-        String(
-            teacher.teacher_id ||
-            teacher.id ||
-            ""
-        )
+  }
+
+
+  if(
+    !window.PublicKeyCredential ||
+    !db.auth.signInWithPasskey
+  ){
+
+    msg(
+      messageId,
+      "এই ব্রাউজারে Passkey/Fingerprint support পাওয়া যায়নি।",
+      "error"
     );
 
+    return;
 
-    sessionStorage.setItem(
-        "madrasa_teacher_name",
-        teacher.name || ""
-    );
+  }
 
 
-    sessionStorage.setItem(
-        "teacher_data",
-        JSON.stringify(teacher)
-    );
+  msg(
+    messageId,
+    "Fingerprint / Passkey যাচাই করুন..."
+  );
 
 
-    /*
-     * Permission data returned by RPC.
-     * Supports both "pages" and "permissions".
-     */
+  try{
 
-    const pages =
-        teacher.pages ||
-        teacher.permissions ||
-        [];
+    const {
+      data,
+      error
+    } =
+      await db.auth.signInWithPasskey();
 
 
-    sessionStorage.setItem(
-        "madrasa_teacher_permissions",
-        JSON.stringify(pages)
-    );
+    if(error){
 
-
-    /*
-     * Keep a compatibility copy.
-     */
-
-    sessionStorage.setItem(
-        "teacher_permissions",
-        JSON.stringify(pages)
-    );
-
-}
-
-
-/* =========================================================
-   ADMIN SESSION MARKER
-========================================================= */
-
-async function startAdminSession(user){
-
-    sessionStorage.setItem(
-        "madrasa_login_role",
-        "admin"
-    );
-
-
-    sessionStorage.setItem(
-        "madrasa_auth_user",
-        JSON.stringify({
-            id:user?.id || "",
-            email:user?.email || "",
-            role:"admin"
-        })
-    );
-
-
-    /*
-     * Remove old teacher session
-     */
-
-    sessionStorage.removeItem(
-        "teacher_login"
-    );
-
-    sessionStorage.removeItem(
-        "teacher_data"
-    );
-
-    sessionStorage.removeItem(
-        "madrasa_teacher_id"
-    );
-
-    sessionStorage.removeItem(
-        "madrasa_teacher_name"
-    );
-
-    sessionStorage.removeItem(
-        "madrasa_teacher_permissions"
-    );
-
-}
-
-
-/* =========================================================
-   STAFF LOGIN
-========================================================= */
-
-async function staffLogin(){
-
-    clearMessage();
-
-
-    const identity =
-        document
-            .getElementById("identity")
-            .value
-            .trim();
-
-
-    const password =
-        document
-            .getElementById("password")
-            .value;
-
-
-    if(!identity){
-
-        showMessage(
-            currentRole === "teacher"
-                ? "মোবাইল নম্বর লিখুন।"
-                : "ইমেইল লিখুন।"
-        );
-
-        return;
+      throw error;
 
     }
 
 
-    if(!password){
+    const user =
+      data?.user;
 
-        showMessage(
-            "পাসওয়ার্ড লিখুন।"
-        );
 
-        return;
+    if(!user){
+
+      throw new Error(
+        "Passkey login হলেও user পাওয়া যায়নি।"
+      );
 
     }
 
 
-    const loginBtn =
-        document.getElementById("loginBtn");
+    /*
+      IMPORTANT:
+      এখানে আর কোনো role rejection নেই।
 
-    const btnText =
-        document.getElementById("loginBtnText");
-
-
-    loginBtn.disabled =
-        true;
+      Admin Passkey → Admin Dashboard
+      Teacher Passkey → Teacher Dashboard
+    */
 
 
-    btnText.innerHTML =
-        `<span class="loading">
-            <span class="spinner"></span>
-            লগইন হচ্ছে...
-        </span>`;
+    msg(
+      messageId,
+      "Passkey login সফল হয়েছে। Dashboard খোলা হচ্ছে...",
+      "success"
+    );
 
 
-    try{
+    setTimeout(()=>{
 
-        /* =================================================
-           TEACHER
-        ================================================= */
+      goDashboard(
+        role,
+        user
+      );
 
-        if(currentRole === "teacher"){
-
-            const teacher =
-                await verifyTeacherLogin(
-                    identity,
-                    password
-                );
+    },300);
 
 
-            if(!teacher){
+  }catch(error){
 
-                throw new Error(
-                    "মোবাইল নম্বর অথবা পাসওয়ার্ড সঠিক নয়।"
-                );
-
-            }
-
-
-            startTeacherSession(
-                teacher
-            );
+    console.error(
+      "Passkey error:",
+      error
+    );
 
 
-            showMessage(
-                `স্বাগতম ${teacher.name || "শিক্ষক"}। Dashboard-এ নেওয়া হচ্ছে...`,
-                "success"
-            );
+    msg(
+      messageId,
+      error?.message ||
+      "Passkey login ব্যর্থ হয়েছে। আগে Passkey register করুন।",
+      "error"
+    );
+
+  }
+
+}
 
 
-            await maybeOfferBiometric(
-                "teacher",
-                normalizeMobile(identity),
-                password
-            );
+/* =====================================================
+   TAB SWITCH
+===================================================== */
 
+document
+  .querySelectorAll(".tab")
+  .forEach(tab=>{
 
-            return;
-
-        }
-
-
-        /* =================================================
-           ADMIN
-        ================================================= */
-
-        const {
-            data,
-            error
-        } =
-        await supabaseClient.auth.signInWithPassword({
-
-            email:identity,
-
-            password:password
-
-        });
-
-
-        if(error)
-            throw error;
-
-
-        if(!data.session){
-
-            throw new Error(
-                "Login session পাওয়া যায়নি।"
-            );
-
-        }
-
-
-        const user =
-            data.user;
-
+    tab.addEventListener(
+      "click",
+      ()=>{
 
         const role =
-            user?.app_metadata?.role ||
-            user?.user_metadata?.role ||
-            "";
+          tab.dataset.role;
 
 
-        if(
-            role &&
-            role.toLowerCase() === "teacher"
-        ){
-
-            await supabaseClient.auth.signOut();
-
-            throw new Error(
-                "শিক্ষক অ্যাকাউন্ট দিয়ে Admin Panel-এ প্রবেশ করা যাবে না।"
-            );
-
-        }
-
-
-        await startAdminSession(
-            user
-        );
-
-
-        showMessage(
-            "লগইন সফল হয়েছে। Dashboard-এ নেওয়া হচ্ছে...",
-            "success"
-        );
-
-
-        await maybeOfferBiometric(
-            "admin",
-            identity,
-            data.session.refresh_token
-        );
-
-
-    }
-
-    catch(error){
-
-        console.error(
-            "Login Error:",
-            error
-        );
-
-
-        showMessage(
-            error.message ||
-            "লগইন ব্যর্থ হয়েছে।"
-        );
-
-
-        loginBtn.disabled =
-            false;
-
-
-        btnText.innerHTML =
-            `<i class="fa-solid fa-right-to-bracket"></i>
-             লগইন করুন`;
-
-    }
-
-}
-
-
-/* =========================================================
-   STUDENT LOGIN
-========================================================= */
-
-async function studentLogin(){
-
-    clearMessage();
-
-
-    const studentId =
         document
-            .getElementById("studentId")
-            .value
-            .trim();
+          .querySelectorAll(".tab")
+          .forEach(x=>{
+            x.classList.remove("active");
+          });
 
 
-    const rollNumber =
         document
-            .getElementById("rollNumber")
-            .value
-            .trim();
+          .querySelectorAll(".panel")
+          .forEach(x=>{
+            x.classList.remove("active");
+          });
 
 
-    if(!studentId){
-
-        showMessage(
-            "Student ID লিখুন।"
-        );
-
-        return;
-
-    }
+        tab.classList.add("active");
 
 
-    if(!rollNumber){
-
-        showMessage(
-            "Roll Number লিখুন।"
-        );
-
-        return;
-
-    }
+        const panel =
+          document.getElementById(
+            role + "Panel"
+          );
 
 
-    const btn =
-        document.getElementById(
-            "studentLoginBtn"
-        );
+        if(panel){
 
-
-    const btnText =
-        document.getElementById(
-            "studentLoginBtnText"
-        );
-
-
-    btn.disabled =
-        true;
-
-
-    btnText.innerHTML =
-        `<span class="loading">
-            <span class="spinner"></span>
-            যাচাই হচ্ছে...
-        </span>`;
-
-
-    try{
-
-        const {
-            data,
-            error
-        } =
-        await supabaseClient
-            .from("students")
-            .select(`
-                id,
-                student_id,
-                roll_number,
-                name,
-                class_id,
-                session
-            `)
-            .eq(
-                "student_id",
-                studentId
-            )
-            .eq(
-                "roll_number",
-                rollNumber
-            )
-            .maybeSingle();
-
-
-        if(error)
-            throw error;
-
-
-        if(!data){
-
-            throw new Error(
-                "Student ID অথবা Roll Number সঠিক নয়।"
-            );
+          panel.classList.add("active");
 
         }
 
-
-        sessionStorage.setItem(
-            "student_login",
-            "true"
-        );
-
-
-        sessionStorage.setItem(
-            "madrasa_login_role",
-            "student"
-        );
-
-
-        sessionStorage.setItem(
-            "student_data",
-            JSON.stringify(data)
-        );
-
-
-        showMessage(
-            `স্বাগতম ${data.name || "Student"}। Dashboard-এ নেওয়া হচ্ছে...`,
-            "success"
-        );
-
-
-        setTimeout(() => {
-
-            window.location.href =
-                "students-login.html";
-
-        },500);
-
-    }
-
-    catch(error){
-
-        console.error(
-            "Student Login Error:",
-            error
-        );
-
-
-        showMessage(
-            error.message ||
-            "Student login ব্যর্থ হয়েছে।"
-        );
-
-
-        btn.disabled =
-            false;
-
-
-        btnText.innerHTML =
-            `<i class="fa-solid fa-right-to-bracket"></i>
-             লগইন করুন`;
-
-    }
-
-}
-
-
-/* =========================================================
-   BIOMETRIC
-========================================================= */
-
-const BIOMETRIC_KEY =
-    "madrasa_biometric_v1";
-
-
-function getBiometricStore(){
-
-    try{
-
-        return JSON.parse(
-            localStorage.getItem(
-                BIOMETRIC_KEY
-            ) || "{}"
-        );
-
-    }
-
-    catch(error){
-
-        return {};
-
-    }
-
-}
-
-
-function setBiometricStore(store){
-
-    localStorage.setItem(
-        BIOMETRIC_KEY,
-        JSON.stringify(store)
+      }
     );
 
-}
+  });
 
 
-function clearBiometricEntry(role){
+/* =====================================================
+   ADMIN FORM
+===================================================== */
 
-    const store =
-        getBiometricStore();
+document
+  .getElementById("adminForm")
+  .addEventListener(
+    "submit",
+    e=>{
 
-    delete store[role];
+      e.preventDefault();
 
-    setBiometricStore(
-        store
-    );
-
-}
-
-
-function bufferToBase64(buf){
-
-    return btoa(
-        String.fromCharCode(
-            ...new Uint8Array(buf)
-        )
-    );
-
-}
-
-
-function base64ToBuffer(b64){
-
-    const bin =
-        atob(b64);
-
-    const bytes =
-        new Uint8Array(
-            bin.length
-        );
-
-
-    for(
-        let i=0;
-        i<bin.length;
-        i++
-    ){
-
-        bytes[i] =
-            bin.charCodeAt(i);
+      adminLogin();
 
     }
+  );
 
 
-    return bytes.buffer;
+/* =====================================================
+   TEACHER FORM
+===================================================== */
 
-}
+document
+  .getElementById("teacherForm")
+  .addEventListener(
+    "submit",
+    e=>{
 
+      e.preventDefault();
 
-function randomChallenge(){
-
-    const arr =
-        new Uint8Array(32);
-
-    crypto.getRandomValues(
-        arr
-    );
-
-    return arr;
-
-}
-
-
-function encodeSecret(text){
-
-    return btoa(
-        unescape(
-            encodeURIComponent(text)
-        )
-    );
-
-}
-
-
-function decodeSecret(text){
-
-    return decodeURIComponent(
-        escape(
-            atob(text)
-        )
-    );
-
-}
-
-
-async function isBiometricAvailable(){
-
-    if(!window.PublicKeyCredential){
-
-        return false;
+      teacherLogin();
 
     }
+  );
 
 
-    try{
+/* =====================================================
+   STUDENT FORM
+===================================================== */
 
-        return await
-            PublicKeyCredential
-            .isUserVerifyingPlatformAuthenticatorAvailable();
+document
+  .getElementById("studentForm")
+  .addEventListener(
+    "submit",
+    e=>{
 
-    }
+      e.preventDefault();
 
-    catch(error){
-
-        return false;
-
-    }
-
-}
-
-
-/* =========================================================
-   ENROLL
-========================================================= */
-
-async function enrollDeviceBiometric(
-    role,
-    identity,
-    secret
-){
-
-    try{
-
-        const credential =
-            await navigator.credentials.create({
-
-                publicKey:{
-
-                    challenge:
-                        randomChallenge(),
-
-                    rp:{
-
-                        name:
-                            "মাদরাসায়ে নূরুল কুরআন",
-
-                        id:
-                            location.hostname
-
-                    },
-
-                    user:{
-
-                        id:
-                            new TextEncoder()
-                            .encode(
-                                role +
-                                ":" +
-                                identity
-                            ),
-
-                        name:
-                            identity,
-
-                        displayName:
-                            identity
-
-                    },
-
-                    pubKeyCredParams:[
-
-                        {
-                            type:"public-key",
-                            alg:-7
-                        },
-
-                        {
-                            type:"public-key",
-                            alg:-257
-                        }
-
-                    ],
-
-                    authenticatorSelection:{
-
-                        authenticatorAttachment:
-                            "platform",
-
-                        userVerification:
-                            "required"
-
-                    },
-
-                    timeout:60000
-
-                }
-
-            });
-
-
-        if(!credential){
-
-            throw new Error(
-                "Credential তৈরি করা যায়নি।"
-            );
-
-        }
-
-
-        const store =
-            getBiometricStore();
-
-
-        store[role] = {
-
-            identity:
-                identity,
-
-            credentialId:
-                bufferToBase64(
-                    credential.rawId
-                ),
-
-            secret:
-                encodeSecret(secret)
-
-        };
-
-
-        setBiometricStore(
-            store
-        );
-
-
-        return true;
+      studentLogin();
 
     }
+  );
 
-    catch(error){
 
-        console.error(error);
+/* =====================================================
+   PASSKEY BUTTONS
+===================================================== */
 
-        return false;
-
+document
+  .getElementById("adminPasskey")
+  .addEventListener(
+    "click",
+    ()=>{
+      passkeyLogin(
+        "admin",
+        "adminMessage"
+      );
     }
-
-}
-
-
-/* =========================================================
-   OFFER BIOMETRIC
-========================================================= */
-
-async function maybeOfferBiometric(
-    role,
-    identity,
-    secret
-){
-
-    const roleEnabled =
-        role === "admin"
-            ? settings.biometricAdmin !== false
-            : settings.biometricTeacher !== false;
+  );
 
 
-    const alreadyEnrolled =
-        !!getBiometricStore()[role];
-
-
-    const available =
-        await isBiometricAvailable();
-
-
-    if(
-        roleEnabled &&
-        available &&
-        !alreadyEnrolled
-    ){
-
-        offerBiometricEnroll(
-            role,
-            identity,
-            secret
-        );
-
+document
+  .getElementById("teacherPasskey")
+  .addEventListener(
+    "click",
+    ()=>{
+      passkeyLogin(
+        "teacher",
+        "teacherMessage"
+      );
     }
+  );
 
-    else{
 
-        setTimeout(() => {
-
-            window.location.href =
-                "dashboard.html";
-
-        },500);
-
-    }
-
-}
-
-
-/* =========================================================
-   BIOMETRIC OFFER
-========================================================= */
-
-function offerBiometricEnroll(
-    role,
-    identity,
-    secret
-){
-
-    window.__pendingBiometric = {
-
-        role,
-        identity,
-        secret
-
-    };
-
-
-    const box =
-        document.getElementById(
-            "message"
-        );
-
-
-    box.className =
-        "message success";
-
-
-    box.innerHTML =
-        `লগইন সফল হয়েছে। এই ডিভাইসে Fingerprint / Face দিয়ে পরবর্তীতে লগইন চালু করবেন?
-
-        <div class="mini-actions">
-
-            <button
-                type="button"
-                class="mini-btn primary"
-                onclick="confirmBiometricEnroll()">
-
-                হ্যাঁ, চালু করুন
-
-            </button>
-
-            <button
-                type="button"
-                class="mini-btn ghost"
-                onclick="goDashboard()">
-
-                এখন না
-
-            </button>
-
-        </div>`;
-
-}
-
-
-/* =========================================================
-   DASHBOARD
-========================================================= */
-
-function goDashboard(){
-
-    window.location.href =
-        "dashboard.html";
-
-}
-
-
-/* =========================================================
-   CONFIRM BIOMETRIC
-========================================================= */
-
-async function confirmBiometricEnroll(){
-
-    const pending =
-        window.__pendingBiometric;
-
-
-    if(!pending){
-
-        goDashboard();
-
-        return;
-
-    }
-
-
-    const ok =
-        await enrollDeviceBiometric(
-            pending.role,
-            pending.identity,
-            pending.secret
-        );
-
-
-    showMessage(
-        ok
-            ? "বায়োমেট্রিক লগইন এই ডিভাইসে চালু হয়েছে। Dashboard-এ নেওয়া হচ্ছে..."
-            : "বায়োমেট্রিক চালু করা যায়নি। Dashboard-এ নেওয়া হচ্ছে...",
-        "success"
-    );
-
-
-    setTimeout(
-        goDashboard,
-        700
-    );
-
-}
-
-
-/* =========================================================
-   BIOMETRIC LOGIN
-========================================================= */
-
-async function biometricLogin(){
-
-    clearMessage();
-
-
-    if(
-        currentRole !== "admin" &&
-        currentRole !== "teacher"
-    ){
-
-        return;
-
-    }
-
-
-    if(!window.PublicKeyCredential){
-
-        showMessage(
-            "এই ডিভাইস বা ব্রাউজারে Fingerprint / Face support নেই।"
-        );
-
-        return;
-
-    }
-
-
-    const store =
-        getBiometricStore();
-
-
-    const entry =
-        store[currentRole];
-
-
-    if(!entry){
-
-        showMessage(
-
-            currentRole === "admin"
-
-                ? "এই ডিভাইসে এখনো বায়োমেট্রিক সেটআপ করা হয়নি। প্রথমে Email ও Password দিয়ে লগইন করুন।"
-
-                : "এই ডিভাইসে এখনো বায়োমেট্রিক সেটআপ করা হয়নি। প্রথমে Mobile Number ও Password দিয়ে লগইন করুন।"
-
-        );
-
-        return;
-
-    }
-
-
-    try{
-
-        showMessage(
-            "Fingerprint / Face যাচাই করা হচ্ছে...",
-            "success"
-        );
-
-
-        const assertion =
-            await navigator.credentials.get({
-
-                publicKey:{
-
-                    challenge:
-                        randomChallenge(),
-
-                    allowCredentials:[{
-
-                        id:
-                            base64ToBuffer(
-                                entry.credentialId
-                            ),
-
-                        type:
-                            "public-key"
-
-                    }],
-
-                    userVerification:
-                        "required",
-
-                    timeout:
-                        60000
-
-                }
-
-            });
-
-
-        if(!assertion){
-
-            throw new Error(
-                "যাচাই ব্যর্থ হয়েছে।"
-            );
-
-        }
-
-
-        const secret =
-            decodeSecret(
-                entry.secret
-            );
-
-
-        /* ADMIN */
-
-        if(currentRole === "admin"){
-
-            const {
-                data,
-                error
-            } =
-            await supabaseClient
-                .auth
-                .refreshSession({
-
-                    refresh_token:
-                        secret
-
-                });
-
-
-            if(
-                error ||
-                !data.session
-            ){
-
-                clearBiometricEntry(
-                    "admin"
-                );
-
-                throw new Error(
-                    "সংরক্ষিত Admin session-এর মেয়াদ শেষ হয়েছে। আবার Password দিয়ে লগইন করুন।"
-                );
-
-            }
-
-
-            await startAdminSession(
-                data.user
-            );
-
-
-            showMessage(
-                "বায়োমেট্রিক লগইন সফল হয়েছে। Dashboard-এ নেওয়া হচ্ছে...",
-                "success"
-            );
-
-
-            setTimeout(
-                goDashboard,
-                400
-            );
-
-        }
-
-
-        /* TEACHER */
-
-        else{
-
-            const teacher =
-                await verifyTeacherLogin(
-                    entry.identity,
-                    secret
-                );
-
-
-            if(!teacher){
-
-                clearBiometricEntry(
-                    "teacher"
-                );
-
-                throw new Error(
-                    "সংরক্ষিত Teacher তথ্য দিয়ে লগইন করা যায়নি। Mobile Number ও Password দিয়ে আবার লগইন করুন।"
-                );
-
-            }
-
-
-            startTeacherSession(
-                teacher
-            );
-
-
-            showMessage(
-                `বায়োমেট্রিক লগইন সফল হয়েছে। স্বাগতম ${teacher.name || "Teacher"}।`,
-                "success"
-            );
-
-
-            setTimeout(
-                goDashboard,
-                400
-            );
-
-        }
-
-    }
-
-    catch(error){
-
-        console.error(error);
-
-
-        showMessage(
-            error.message ||
-            "Fingerprint / Face login ব্যর্থ হয়েছে।"
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   ENTER KEY
-========================================================= */
-
-document.addEventListener(
-    "keydown",
-    function(event){
-
-        if(event.key !== "Enter")
-            return;
-
-
-        if(
-            currentRole ===
-            "guardian"
-        ){
-
-            studentLogin();
-
-        }
-
-        else{
-
-            staffLogin();
-
-        }
-
-    }
-);
-
-
-/* =========================================================
+/* =====================================================
    INITIALIZE
-========================================================= */
+===================================================== */
 
-switchRole(
-    "admin"
-);
+(async function init(){
+
+  try{
+
+    const {
+      data
+    } =
+      await db.auth.getSession();
+
+
+    /*
+      If a valid Supabase session already exists,
+      don't force the user to login again.
+    */
+
+    if(data?.session){
+
+      const user =
+        data.session.user;
+
+
+      const savedRole =
+        sessionStorage.getItem(
+          "madrasa_login_role"
+        );
+
+
+      /*
+        If user previously logged in as teacher
+        through the teacher system, keep teacher.
+      */
+
+      if(
+        savedRole === "teacher" &&
+        isEnabled("teacher")
+      ){
+
+        goDashboard(
+          "teacher",
+          user
+        );
+
+        return;
+
+      }
+
+
+      /*
+        Otherwise existing Supabase session
+        goes to Admin Dashboard.
+
+        No app_metadata role rejection.
+      */
+
+      if(isEnabled("admin")){
+
+        goDashboard(
+          "admin",
+          user
+        );
+
+        return;
+
+      }
+
+    }
+
+
+    /*
+      Hide Passkey buttons when disabled.
+    */
+
+    if(!biometricEnabled("admin")){
+
+      document
+        .getElementById("adminPasskey")
+        .classList
+        .add("hidden");
+
+    }
+
+
+    if(!biometricEnabled("teacher")){
+
+      document
+        .getElementById("teacherPasskey")
+        .classList
+        .add("hidden");
+
+    }
+
+
+  }catch(error){
+
+    console.error(
+      "Login initialization error:",
+      error
+    );
+
+  }
+
+})();
 
 </script>
 
