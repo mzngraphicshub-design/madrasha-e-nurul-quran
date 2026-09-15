@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Teacher Management | মাদরাসায়ে নূরুল কুরআন</title>
 
 <link rel="stylesheet" href="https://banglawebfonts.pages.dev/css/bornomala.css">
@@ -12,6 +13,7 @@
   --navy:#031a35;
   --blue:#0875df;
   --blue2:#54b3d0;
+  --deep:#075b7c;
   --gold:#ffd447;
   --bg:#f4f7fb;
   --card:#ffffff;
@@ -19,6 +21,7 @@
   --text:#102033;
   --muted:#6b7a8c;
   --danger:#ef4444;
+  --danger-dark:#c62828;
   --success:#0b8f62;
 }
 
@@ -28,23 +31,41 @@
 
 body{
   margin:0;
-  font-family:Bornomala, "Noto Sans Bengali", sans-serif;
+  font-family:Bornomala,"Noto Sans Bengali",sans-serif;
   background:
-    radial-gradient(circle at 10% 10%,rgba(84,179,208,.13),transparent 28%),
-    radial-gradient(circle at 90% 20%,rgba(8,117,223,.10),transparent 30%),
+    radial-gradient(
+      circle at 10% 10%,
+      rgba(84,179,208,.13),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 90% 20%,
+      rgba(8,117,223,.10),
+      transparent 30%
+    ),
     var(--bg);
   color:var(--text);
 }
 
+/* =========================
+   TOP BAR
+========================= */
+
 .top{
-  background:linear-gradient(135deg,var(--navy),#075b7c);
+  background:
+    linear-gradient(
+      135deg,
+      var(--navy),
+      var(--deep)
+    );
   color:#fff;
   padding:18px 25px;
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:15px;
-  box-shadow:0 8px 25px rgba(3,26,53,.15);
+  box-shadow:
+    0 8px 25px rgba(3,26,53,.15);
 }
 
 .top h2{
@@ -56,10 +77,23 @@ body{
   color:#fff;
   text-decoration:none;
   padding:9px 14px;
-  border:1px solid rgba(255,255,255,.25);
+  border:
+    1px solid
+    rgba(255,255,255,.25);
   border-radius:10px;
-  background:rgba(255,255,255,.08);
+  background:
+    rgba(255,255,255,.08);
+  transition:.2s;
 }
+
+.top a:hover{
+  background:
+    rgba(255,255,255,.16);
+}
+
+/* =========================
+   CONTAINER
+========================= */
 
 .container{
   max-width:1200px;
@@ -67,13 +101,22 @@ body{
   padding:0 18px;
 }
 
+/* =========================
+   BOX
+========================= */
+
 .box{
-  background:rgba(255,255,255,.94);
-  border:1px solid var(--line);
+  background:
+    rgba(255,255,255,.94);
+  border:
+    1px solid
+    var(--line);
   border-radius:20px;
   padding:24px;
   margin-bottom:22px;
-  box-shadow:0 10px 35px rgba(3,26,53,.07);
+  box-shadow:
+    0 10px 35px
+    rgba(3,26,53,.07);
 }
 
 .box h3{
@@ -82,9 +125,14 @@ body{
   color:var(--navy);
 }
 
+/* =========================
+   FORM
+========================= */
+
 .form{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
+  grid-template-columns:
+    repeat(2,1fr);
   gap:17px;
 }
 
@@ -102,7 +150,9 @@ label{
 input,
 textarea{
   width:100%;
-  border:1px solid #d5e1ec;
+  border:
+    1px solid
+    #d5e1ec;
   border-radius:11px;
   padding:12px 13px;
   font-family:inherit;
@@ -114,36 +164,62 @@ textarea{
 
 input:focus,
 textarea:focus{
-  border-color:var(--blue);
-  box-shadow:0 0 0 3px rgba(8,117,223,.10);
+  border-color:
+    var(--blue);
+
+  box-shadow:
+    0 0 0 3px
+    rgba(8,117,223,.10);
 }
 
 input[readonly]{
   background:#eef6fb;
-  color:#075b7c;
+  color:var(--deep);
   font-weight:800;
 }
+
+/* =========================
+   PASSWORD
+========================= */
 
 .password-wrap{
   position:relative;
 }
 
 .password-wrap input{
-  padding-right:45px;
+  padding-right:70px;
 }
 
 .toggle-password{
   position:absolute;
   right:8px;
   top:7px;
+
   height:36px;
-  width:36px;
+  width:55px;
+
   border:0;
   border-radius:8px;
+
   background:#edf5fa;
-  cursor:pointer;
   color:var(--navy);
+
+  cursor:pointer;
+
+  font-family:inherit;
+  font-size:12px;
+  font-weight:700;
 }
+
+.password-note{
+  margin-top:7px;
+  color:var(--muted);
+  font-size:12px;
+}
+
+/* =========================
+   BUTTON
+========================= */
 
 button{
   border:0;
@@ -152,13 +228,27 @@ button{
   font-family:inherit;
   font-weight:700;
   cursor:pointer;
-  background:linear-gradient(135deg,var(--blue),#075b7c);
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--blue),
+      var(--deep)
+    );
+
   color:#fff;
+
+  transition:.2s;
+}
+
+button:hover{
+  transform:translateY(-1px);
 }
 
 button:disabled{
   opacity:.6;
   cursor:not-allowed;
+  transform:none;
 }
 
 .cancel{
@@ -177,14 +267,28 @@ button:disabled{
   background:var(--danger);
 }
 
+.action.delete:hover{
+  background:var(--danger-dark);
+}
+
+/* =========================
+   SEARCH
+========================= */
+
 .search{
   margin-bottom:16px;
 }
 
+/* =========================
+   TABLE
+========================= */
+
 .table-wrap{
   overflow-x:auto;
   border-radius:15px;
-  border:1px solid var(--line);
+  border:
+    1px solid
+    var(--line);
 }
 
 table{
@@ -197,13 +301,22 @@ table{
 th,
 td{
   padding:13px 10px;
-  border-bottom:1px solid #e9f0f7;
+  border-bottom:
+    1px solid
+    #e9f0f7;
+
   text-align:left;
   font-size:14px;
 }
 
 th{
-  background:linear-gradient(135deg,var(--navy),#08739b);
+  background:
+    linear-gradient(
+      135deg,
+      var(--navy),
+      #08739b
+    );
+
   color:#fff;
   white-space:nowrap;
 }
@@ -218,23 +331,26 @@ tbody tr:hover{
 
 .teacher-number{
   font-weight:800;
-  color:#075b7c;
+  color:var(--deep);
+
   background:#eaf7fb;
+
   padding:5px 9px;
+
   border-radius:8px;
+
   display:inline-block;
 }
 
-.password-note{
-  margin-top:7px;
-  color:var(--muted);
-  font-size:12px;
-}
+/* =========================
+   MESSAGE
+========================= */
 
 #msg{
   margin-top:12px;
   min-height:20px;
   color:var(--blue);
+  font-size:14px;
 }
 
 .loading{
@@ -243,7 +359,24 @@ tbody tr:hover{
   color:var(--muted);
 }
 
+/* =========================
+   STATUS
+========================= */
+
+.status-success{
+  color:var(--success)!important;
+}
+
+.status-error{
+  color:var(--danger)!important;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
 @media(max-width:700px){
+
   .top{
     padding:15px;
   }
@@ -278,6 +411,7 @@ tbody tr:hover{
   table{
     min-width:950px;
   }
+
 }
 </style>
 </head>
@@ -285,109 +419,206 @@ tbody tr:hover{
 <body>
 
 <header class="top">
-  <h2>Teacher Management</h2>
-  <a href="dashboard.html">← Dashboard</a>
+
+  <h2>
+    Teacher Management
+  </h2>
+
+  <a href="dashboard.html">
+    ← Dashboard
+  </a>
+
 </header>
+
 
 <div class="container">
 
+  <!-- =========================
+       ADD / EDIT TEACHER
+  ========================== -->
+
   <div class="box">
 
-    <h3 id="formTitle">Add Teacher</h3>
+    <h3 id="formTitle">
+      Add Teacher
+    </h3>
+
 
     <form id="teacherForm">
 
-      <input type="hidden" id="editId">
+      <input
+        type="hidden"
+        id="editId"
+      >
 
-      <div>
-        <label>Teacher Number</label>
-        <input
-          id="teacherId"
-          readonly
-          placeholder="Auto Generated">
-        <div class="password-note">
-          এই Number দিয়েই Teacher Login করবে।
-        </div>
-      </div>
 
-      <div>
-        <label>Teacher Name *</label>
-        <input
-          id="name"
-          required
-          placeholder="শিক্ষকের নাম">
-      </div>
+      <!-- TEACHER NUMBER -->
 
-      <div>
-        <label>Login Password *</label>
+      <div class="form">
 
-        <div class="password-wrap">
+        <div>
+
+          <label>
+            Teacher Number
+          </label>
+
           <input
-            id="loginPassword"
-            type="password"
-            minlength="4"
-            placeholder="Teacher Login Password">
+            id="teacherId"
+            readonly
+            placeholder="Auto Generated"
+          >
+
+          <div class="password-note">
+            Teacher Number system automatically generate করবে।
+          </div>
+
+        </div>
+
+
+        <!-- NAME -->
+
+        <div>
+
+          <label>
+            Teacher Name *
+          </label>
+
+          <input
+            id="name"
+            required
+            placeholder="শিক্ষকের নাম"
+          >
+
+        </div>
+
+
+        <!-- PASSWORD -->
+
+        <div>
+
+          <label>
+            Login Password *
+          </label>
+
+          <div class="password-wrap">
+
+            <input
+              id="loginPassword"
+              type="password"
+              minlength="4"
+              placeholder="Teacher Login Password"
+            >
+
+            <button
+              type="button"
+              class="toggle-password"
+              id="passwordToggle"
+              onclick="togglePassword()"
+            >
+              Show
+            </button>
+
+          </div>
+
+          <div class="password-note">
+            Mobile Number + এই Password দিয়ে Teacher Login করবে।
+          </div>
+
+        </div>
+
+
+        <!-- MOBILE -->
+
+        <div>
+
+          <label>
+            Mobile *
+          </label>
+
+          <input
+            id="phone"
+            type="tel"
+            required
+            placeholder="মোবাইল নম্বর"
+          >
+
+        </div>
+
+
+        <!-- DESIGNATION -->
+
+        <div>
+
+          <label>
+            Designation
+          </label>
+
+          <input
+            id="designation"
+            placeholder="পদবি"
+          >
+
+        </div>
+
+
+        <!-- SUBJECT -->
+
+        <div>
+
+          <label>
+            Subject
+          </label>
+
+          <input
+            id="subject"
+            placeholder="বিষয়"
+          >
+
+        </div>
+
+
+        <!-- ADDRESS -->
+
+        <div class="full">
+
+          <label>
+            Address
+          </label>
+
+          <textarea
+            id="address"
+            rows="2"
+            placeholder="ঠিকানা"
+          ></textarea>
+
+        </div>
+
+
+        <!-- BUTTON -->
+
+        <div class="full">
+
+          <button
+            type="submit"
+            id="saveBtn"
+          >
+            Save Teacher
+          </button>
+
 
           <button
             type="button"
-            class="toggle-password"
-            onclick="togglePassword()">
-            Show
+            class="cancel"
+            id="cancelBtn"
+            style="display:none"
+          >
+            Cancel
           </button>
+
+
+          <div id="msg"></div>
+
         </div>
-
-        <div class="password-note">
-          Teacher Number + এই Password দিয়ে Teacher Login করবে।
-        </div>
-      </div>
-
-      <div>
-        <label>Mobile</label>
-        <input
-          id="phone"
-          type="tel"
-          placeholder="মোবাইল নম্বর">
-      </div>
-
-      <div>
-        <label>Designation</label>
-        <input
-          id="designation"
-          placeholder="পদবি">
-      </div>
-
-      <div>
-        <label>Subject</label>
-        <input
-          id="subject"
-          placeholder="বিষয়">
-      </div>
-
-      <div class="full">
-        <label>Address</label>
-        <textarea
-          id="address"
-          rows="2"
-          placeholder="ঠিকানা"></textarea>
-      </div>
-
-      <div class="full">
-
-        <button
-          type="submit"
-          id="saveBtn">
-          Save Teacher
-        </button>
-
-        <button
-          type="button"
-          class="cancel"
-          id="cancelBtn"
-          style="display:none">
-          Cancel
-        </button>
-
-        <div id="msg"></div>
 
       </div>
 
@@ -396,37 +627,78 @@ tbody tr:hover{
   </div>
 
 
+  <!-- =========================
+       TEACHER LIST
+  ========================== -->
+
   <div class="box">
 
-    <h3>Teacher List</h3>
+    <h3>
+      Teacher List
+    </h3>
+
 
     <input
       class="search"
       id="search"
-      placeholder="নাম / Teacher Number / মোবাইল দিয়ে খুঁজুন...">
+      placeholder="নাম / Teacher Number / মোবাইল দিয়ে খুঁজুন..."
+    >
+
 
     <div class="table-wrap">
 
       <table>
 
         <thead>
+
           <tr>
-            <th>Teacher Number</th>
-            <th>নাম</th>
-            <th>মোবাইল</th>
-            <th>পদবি</th>
-            <th>বিষয়</th>
-            <th>ঠিকানা</th>
-            <th>Action</th>
+
+            <th>
+              Teacher Number
+            </th>
+
+            <th>
+              নাম
+            </th>
+
+            <th>
+              মোবাইল
+            </th>
+
+            <th>
+              পদবি
+            </th>
+
+            <th>
+              বিষয়
+            </th>
+
+            <th>
+              ঠিকানা
+            </th>
+
+            <th>
+              Action
+            </th>
+
           </tr>
+
         </thead>
 
+
         <tbody id="teacherList">
+
           <tr>
-            <td colspan="7" class="loading">
+
+            <td
+              colspan="7"
+              class="loading"
+            >
               Loading...
             </td>
+
           </tr>
+
         </tbody>
 
       </table>
@@ -440,7 +712,12 @@ tbody tr:hover{
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+
 <script>
+
+/* =====================================================
+   SUPABASE
+===================================================== */
 
 const SUPABASE_URL =
   "https://qavublwhqiqsgpcmfyft.supabase.co";
@@ -458,32 +735,87 @@ const db =
 let teachers = [];
 
 
-/* =========================
-   AUTH
-========================= */
+/* =====================================================
+   AUTH CHECK
+===================================================== */
 
 async function start(){
 
   try{
 
     const {
-      data:{session}
-    } = await db.auth.getSession();
+      data:{
+        session
+      }
+    } =
+      await db.auth.getSession();
+
 
     if(!session){
 
-      location.href = "admin.html";
+      location.href =
+        "login.html";
+
       return;
 
     }
 
+
+    const {
+      data:{
+        user
+      }
+    } =
+      await db.auth.getUser();
+
+
+    if(!user){
+
+      location.href =
+        "login.html";
+
+      return;
+
+    }
+
+
+    /* =========================
+       ADMIN ROLE CHECK
+    ========================== */
+
+    const role =
+      user.app_metadata?.role ||
+      user.user_metadata?.role ||
+      "";
+
+
+    if(role !== "admin"){
+
+      alert(
+        "এই page শুধুমাত্র Admin ব্যবহার করতে পারবেন।"
+      );
+
+      location.href =
+        "dashboard.html";
+
+      return;
+
+    }
+
+
     await loadTeachers();
+
 
   }catch(error){
 
-    document.getElementById("teacherList").innerHTML =
+    console.error(error);
+
+    document
+      .getElementById("teacherList")
+      .innerHTML =
+
       `<tr>
-        <td colspan="7">
+        <td colspan="7" style="text-align:center;color:#ef4444;padding:25px">
           Error: ${escapeHtml(error.message)}
         </td>
       </tr>`;
@@ -493,63 +825,97 @@ async function start(){
 }
 
 
-/* =========================
+/* =====================================================
    LOAD TEACHERS
-========================= */
+===================================================== */
 
 async function loadTeachers(){
 
   const tbody =
-    document.getElementById("teacherList");
+    document.getElementById(
+      "teacherList"
+    );
+
 
   tbody.innerHTML =
+
     `<tr>
       <td colspan="7" class="loading">
         Loading...
       </td>
     </tr>`;
 
+
   const {
     data,
     error
-  } = await db
-    .from("teachers")
-    .select(
-      "id,teacher_id,name,phone,designation,subject,address,login_password"
-    )
-    .order("created_at",{ascending:false});
+  } =
+    await db
+      .from("teachers")
+      .select(
+        "id,teacher_id,name,phone,designation,subject,address,login_password,created_at"
+      )
+      .order(
+        "created_at",
+        {
+          ascending:false
+        }
+      );
+
 
   if(error){
 
+    console.error(
+      "Load teacher error:",
+      error
+    );
+
+
     tbody.innerHTML =
+
       `<tr>
-        <td colspan="7">
-          Error: ${escapeHtml(error.message)}
+        <td
+          colspan="7"
+          style="text-align:center;color:#ef4444;padding:25px"
+        >
+          Error:
+          ${escapeHtml(error.message)}
         </td>
       </tr>`;
 
+
     return;
+
   }
 
-  teachers = data || [];
 
-  render(teachers);
+  teachers =
+    data || [];
+
+
+  render(
+    teachers
+  );
 
 }
 
 
-/* =========================
+/* =====================================================
    GENERATE TEACHER NUMBER
-========================= */
+===================================================== */
 
 async function generateTeacherNumber(){
 
   const {
     data,
     error
-  } = await db
-    .from("teachers")
-    .select("teacher_id");
+  } =
+    await db
+      .from("teachers")
+      .select(
+        "teacher_id"
+      );
+
 
   if(error){
 
@@ -557,81 +923,117 @@ async function generateTeacherNumber(){
 
   }
 
+
   let max = 0;
 
-  (data || []).forEach(t=>{
 
-    const value =
-      String(t.teacher_id || "").trim();
+  (data || [])
+    .forEach(
+      teacher => {
 
-    const match =
-      value.match(/^T-(\d+)$/i);
+        const value =
+          String(
+            teacher.teacher_id || ""
+          ).trim();
 
-    if(match){
 
-      const number =
-        parseInt(match[1],10);
+        const match =
+          value.match(
+            /^T-(\d+)$/i
+          );
 
-      if(number > max){
 
-        max = number;
+        if(match){
+
+          const number =
+            parseInt(
+              match[1],
+              10
+            );
+
+
+          if(number > max){
+
+            max = number;
+
+          }
+
+        }
 
       }
+    );
 
-    }
-
-  });
 
   let next =
     max + 1;
 
+
   let teacherId =
-    "T-" + String(next).padStart(3,"0");
+    "T-" +
+    String(next)
+      .padStart(3,"0");
 
 
-  /*
-    Extra duplicate protection
-  */
+  /* =========================
+     DUPLICATE PROTECTION
+  ========================== */
 
   while(
     (data || []).some(
-      t =>
-        String(t.teacher_id || "").toUpperCase()
-        === teacherId.toUpperCase()
+      teacher =>
+        String(
+          teacher.teacher_id || ""
+        ).toUpperCase()
+        ===
+        teacherId.toUpperCase()
     )
   ){
 
     next++;
 
+
     teacherId =
-      "T-" + String(next).padStart(3,"0");
+      "T-" +
+      String(next)
+        .padStart(3,"0");
 
   }
+
 
   return teacherId;
 
 }
 
 
-/* =========================
-   RENDER
-========================= */
+/* =====================================================
+   RENDER TEACHER LIST
+===================================================== */
 
 function render(list){
 
   const tbody =
-    document.getElementById("teacherList");
+    document.getElementById(
+      "teacherList"
+    );
 
 
   if(!list.length){
 
     tbody.innerHTML =
+
       `<tr>
+
         <td
           colspan="7"
-          style="text-align:center;padding:25px">
+          style="
+            text-align:center;
+            padding:25px;
+            color:#6b7a8c;
+          "
+        >
           কোনো Teacher নেই
         </td>
+
       </tr>`;
 
     return;
@@ -640,133 +1042,228 @@ function render(list){
 
 
   tbody.innerHTML =
-    list.map(t=>`
 
-      <tr>
+    list
+      .map(
+        teacher => `
 
-        <td>
-          <span class="teacher-number">
-            ${escapeHtml(t.teacher_id || "-")}
-          </span>
-        </td>
+          <tr>
 
-        <td>
-          ${escapeHtml(t.name || "-")}
-        </td>
+            <td>
 
-        <td>
-          ${escapeHtml(t.phone || "-")}
-        </td>
+              <span class="teacher-number">
 
-        <td>
-          ${escapeHtml(t.designation || "-")}
-        </td>
+                ${
+                  escapeHtml(
+                    teacher.teacher_id || "-"
+                  )
+                }
 
-        <td>
-          ${escapeHtml(t.subject || "-")}
-        </td>
+              </span>
 
-        <td>
-          ${escapeHtml(t.address || "-")}
-        </td>
+            </td>
 
-        <td>
 
-          <button
-            class="action"
-            onclick="editTeacher('${t.id}')">
-            Edit
-          </button>
+            <td>
 
-          <button
-            class="action delete"
-            onclick="deleteTeacher('${t.id}')">
-            Delete
-          </button>
+              ${
+                escapeHtml(
+                  teacher.name || "-"
+                )
+              }
 
-        </td>
+            </td>
 
-      </tr>
 
-    `).join("");
+            <td>
+
+              ${
+                escapeHtml(
+                  teacher.phone || "-"
+                )
+              }
+
+            </td>
+
+
+            <td>
+
+              ${
+                escapeHtml(
+                  teacher.designation || "-"
+                )
+              }
+
+            </td>
+
+
+            <td>
+
+              ${
+                escapeHtml(
+                  teacher.subject || "-"
+                )
+              }
+
+            </td>
+
+
+            <td>
+
+              ${
+                escapeHtml(
+                  teacher.address || "-"
+                )
+              }
+
+            </td>
+
+
+            <td>
+
+              <button
+                class="action"
+                onclick="editTeacher('${teacher.id}')"
+              >
+                Edit
+              </button>
+
+
+              <button
+                class="action delete"
+                onclick="deleteTeacher('${teacher.id}')"
+              >
+                Delete
+              </button>
+
+            </td>
+
+          </tr>
+
+        `
+      )
+      .join("");
 
 }
 
 
-/* =========================
-   SAVE TEACHER
-========================= */
+/* =====================================================
+   SAVE / UPDATE TEACHER
+===================================================== */
 
 document
-  .getElementById("teacherForm")
+  .getElementById(
+    "teacherForm"
+  )
   .addEventListener(
     "submit",
-    async function(e){
+    async function(event){
 
-      e.preventDefault();
+      event.preventDefault();
 
 
       const editId =
         document
-          .getElementById("editId")
+          .getElementById(
+            "editId"
+          )
           .value
           .trim();
 
 
       const name =
         document
-          .getElementById("name")
+          .getElementById(
+            "name"
+          )
           .value
           .trim();
 
 
       const phone =
         document
-          .getElementById("phone")
+          .getElementById(
+            "phone"
+          )
           .value
           .trim();
 
 
       const designation =
         document
-          .getElementById("designation")
+          .getElementById(
+            "designation"
+          )
           .value
           .trim();
 
 
       const subject =
         document
-          .getElementById("subject")
+          .getElementById(
+            "subject"
+          )
           .value
           .trim();
 
 
       const address =
         document
-          .getElementById("address")
+          .getElementById(
+            "address"
+          )
           .value
           .trim();
 
 
       const password =
         document
-          .getElementById("loginPassword")
+          .getElementById(
+            "loginPassword"
+          )
           .value
           .trim();
 
 
       const msg =
-        document.getElementById("msg");
+        document.getElementById(
+          "msg"
+        );
 
 
       const saveBtn =
-        document.getElementById("saveBtn");
+        document.getElementById(
+          "saveBtn"
+        );
 
+
+      msg.className = "";
+
+
+      /* =========================
+         VALIDATION
+      ========================== */
 
       if(!name){
 
         msg.textContent =
           "Teacher Name দিন।";
+
+        msg.className =
+          "status-error";
+
+        return;
+
+      }
+
+
+      if(!phone){
+
+        msg.textContent =
+          "Teacher Mobile Number দিন।";
+
+        msg.className =
+          "status-error";
 
         return;
 
@@ -778,40 +1275,54 @@ document
         msg.textContent =
           "Teacher Login Password দিন।";
 
+        msg.className =
+          "status-error";
+
         return;
 
       }
 
 
-      if(password && password.length < 4){
+      if(
+        password &&
+        password.length < 4
+      ){
 
         msg.textContent =
           "Password কমপক্ষে ৪ অক্ষরের হতে হবে।";
 
+        msg.className =
+          "status-error";
+
         return;
 
       }
 
 
-      saveBtn.disabled = true;
+      saveBtn.disabled =
+        true;
+
 
       saveBtn.textContent =
-        "Saving...";
+        editId
+          ? "Updating..."
+          : "Saving...";
 
 
       try{
 
         let teacherId =
           document
-            .getElementById("teacherId")
+            .getElementById(
+              "teacherId"
+            )
             .value
             .trim();
 
 
-        /*
-          নতুন Teacher হলে
-          Auto Teacher Number
-        */
+        /* =========================
+           NEW TEACHER NUMBER
+        ========================== */
 
         if(!editId){
 
@@ -823,12 +1334,14 @@ document
 
         const teacher = {
 
-          teacher_id: teacherId,
+          teacher_id:
+            teacherId,
 
-          name: name,
+          name:
+            name,
 
           phone:
-            phone || null,
+            phone,
 
           designation:
             designation || null,
@@ -842,10 +1355,9 @@ document
         };
 
 
-        /*
-          Password only save/change
-          যখন password দেওয়া হয়েছে
-        */
+        /* =========================
+           PASSWORD
+        ========================== */
 
         if(password){
 
@@ -858,26 +1370,43 @@ document
         let result;
 
 
+        /* =========================
+           UPDATE
+        ========================== */
+
         if(editId){
 
           result =
             await db
               .from("teachers")
-              .update(teacher)
-              .eq("id",editId)
+              .update(
+                teacher
+              )
+              .eq(
+                "id",
+                editId
+              )
               .select(
-                "id,teacher_id,name,phone,designation,subject,address,login_password"
+                "id,teacher_id,name,phone,designation,subject,address,login_password,created_at"
               )
               .single();
 
+
         }else{
+
+
+          /* =========================
+             INSERT
+          ========================== */
 
           result =
             await db
               .from("teachers")
-              .insert(teacher)
+              .insert(
+                teacher
+              )
               .select(
-                "id,teacher_id,name,phone,designation,subject,address,login_password"
+                "id,teacher_id,name,phone,designation,subject,address,login_password,created_at"
               )
               .single();
 
@@ -886,40 +1415,65 @@ document
 
         if(result.error){
 
-          /*
-            Duplicate Teacher Number
-          */
+          console.error(
+            "Save teacher error:",
+            result.error
+          );
+
+
+          const errorText =
+            String(
+              result.error.message || ""
+            );
+
 
           if(
-            String(result.error.message || "")
+            errorText
               .toLowerCase()
-              .includes("duplicate")
+              .includes(
+                "duplicate"
+              )
           ){
 
             msg.textContent =
-              "Teacher Number already exists. আবার Save করুন।";
+              "Teacher Number অথবা Mobile Number already exists।";
 
           }else{
 
             msg.textContent =
               "Error: " +
-              result.error.message;
+              errorText;
 
           }
+
+
+          msg.className =
+            "status-error";
+
 
           return;
 
         }
 
 
+        /* =========================
+           UPDATE LOCAL ARRAY
+        ========================== */
+
         if(editId){
 
           const index =
             teachers.findIndex(
-              x =>
-                String(x.id)
-                === String(editId)
+              teacher =>
+                String(
+                  teacher.id
+                )
+                ===
+                String(
+                  editId
+                )
             );
+
 
           if(index !== -1){
 
@@ -937,11 +1491,21 @@ document
         }
 
 
-        render(teachers);
+        render(
+          teachers
+        );
 
 
         msg.textContent =
-          `Teacher ${result.data.teacher_id} সফলভাবে Save হয়েছে।`;
+          `Teacher ${result.data.teacher_id} সফলভাবে ${
+            editId
+              ? "Update"
+              : "Save"
+          } হয়েছে।`;
+
+
+        msg.className =
+          "status-success";
 
 
         resetForm();
@@ -949,17 +1513,32 @@ document
 
       }catch(error){
 
+        console.error(
+          "Save error:",
+          error
+        );
+
+
         msg.textContent =
           "Error: " +
           error.message;
 
+
+        msg.className =
+          "status-error";
+
+
       }finally{
 
-        saveBtn.disabled = false;
+        saveBtn.disabled =
+          false;
+
 
         if(
           document
-            .getElementById("editId")
+            .getElementById(
+              "editId"
+            )
             .value
             .trim()
         ){
@@ -980,91 +1559,125 @@ document
   );
 
 
-/* =========================
-   EDIT
-========================= */
+/* =====================================================
+   EDIT TEACHER
+===================================================== */
 
 function editTeacher(id){
 
   const teacher =
     teachers.find(
-      x =>
-        String(x.id)
-        === String(id)
+      item =>
+        String(item.id)
+        ===
+        String(id)
     );
 
 
-  if(!teacher) return;
+  if(!teacher){
+
+    return;
+
+  }
 
 
   document
-    .getElementById("editId")
+    .getElementById(
+      "editId"
+    )
     .value =
     teacher.id;
 
 
   document
-    .getElementById("teacherId")
+    .getElementById(
+      "teacherId"
+    )
     .value =
     teacher.teacher_id || "";
 
 
   document
-    .getElementById("name")
+    .getElementById(
+      "name"
+    )
     .value =
     teacher.name || "";
 
 
   document
-    .getElementById("phone")
+    .getElementById(
+      "phone"
+    )
     .value =
     teacher.phone || "";
 
 
   document
-    .getElementById("designation")
+    .getElementById(
+      "designation"
+    )
     .value =
     teacher.designation || "";
 
 
   document
-    .getElementById("subject")
+    .getElementById(
+      "subject"
+    )
     .value =
     teacher.subject || "";
 
 
   document
-    .getElementById("address")
+    .getElementById(
+      "address"
+    )
     .value =
     teacher.address || "";
 
 
   /*
-    Password blank রাখা হচ্ছে।
+    Password blank থাকবে।
     নতুন password দিলে change হবে।
   */
 
   document
-    .getElementById("loginPassword")
+    .getElementById(
+      "loginPassword"
+    )
     .value = "";
 
 
   document
-    .getElementById("formTitle")
+    .getElementById(
+      "formTitle"
+    )
     .textContent =
     "Edit Teacher";
 
 
   document
-    .getElementById("saveBtn")
+    .getElementById(
+      "saveBtn"
+    )
     .textContent =
     "Update Teacher";
 
 
   document
-    .getElementById("cancelBtn")
+    .getElementById(
+      "cancelBtn"
+    )
     .style.display =
     "inline-block";
+
+
+  document
+    .getElementById(
+      "msg"
+    )
+    .textContent = "";
 
 
   window.scrollTo({
@@ -1075,148 +1688,369 @@ function editTeacher(id){
 }
 
 
-/* =========================
-   DELETE
-========================= */
+/* =====================================================
+   DELETE TEACHER
+===================================================== */
 
 async function deleteTeacher(id){
 
   const teacher =
     teachers.find(
-      x =>
-        String(x.id)
-        === String(id)
+      item =>
+        String(item.id)
+        ===
+        String(id)
     );
 
 
-  if(!teacher) return;
+  if(!teacher){
+
+    return;
+
+  }
+
+
+  const teacherName =
+    teacher.name ||
+    "Teacher";
+
+
+  const teacherNumber =
+    teacher.teacher_id ||
+    "";
 
 
   const ok =
     confirm(
-      `${teacher.teacher_id || ""} - ${teacher.name || "Teacher"} কে Delete করতে চান?`
+      `${teacherNumber} - ${teacherName}\n\nএই Teacher-কে Delete করতে চান?`
     );
 
 
-  if(!ok) return;
+  if(!ok){
+
+    return;
+
+  }
 
 
   try{
 
+    /* =========================
+       CHECK SESSION
+    ========================== */
+
     const {
-      error
+      data:{
+        session
+      }
     } =
-      await db
-        .from("teachers")
-        .delete()
-        .eq("id",id);
+      await db.auth.getSession();
 
 
-    if(error){
+    if(!session){
 
-      alert(error.message);
+      alert(
+        "Admin session পাওয়া যায়নি। আবার Login করুন।"
+      );
+
+      location.href =
+        "login.html";
 
       return;
 
     }
 
 
-    /*
-      Permission record থাকলে
-      সেটাও delete করা হবে।
-    */
+    /* =========================
+       CHECK ADMIN
+    ========================== */
 
-    if(teacher.teacher_id){
+    const {
+      data:{
+        user
+      }
+    } =
+      await db.auth.getUser();
 
-      await db
-        .from("teacher_permissions")
-        .delete()
-        .eq(
-          "teacher_id",
-          teacher.teacher_id
-        );
+
+    if(!user){
+
+      alert(
+        "User session পাওয়া যায়নি।"
+      );
+
+      location.href =
+        "login.html";
+
+      return;
 
     }
 
 
-    teachers =
-      teachers.filter(
-        t =>
-          String(t.id)
-          !== String(id)
+    const role =
+      user.app_metadata?.role ||
+      user.user_metadata?.role ||
+      "";
+
+
+    if(role !== "admin"){
+
+      alert(
+        "শুধুমাত্র Admin Teacher Delete করতে পারবেন।"
+      );
+
+      return;
+
+    }
+
+
+    /* =========================
+       DELETE PERMISSION
+       FIRST
+    ========================== */
+
+    if(
+      teacher.teacher_id
+    ){
+
+      const {
+        error:
+        permissionError
+      } =
+        await db
+          .from(
+            "teacher_permissions"
+          )
+          .delete()
+          .eq(
+            "teacher_id",
+            teacher.teacher_id
+          );
+
+
+      /*
+        Permission record না থাকলে
+        error ignore করা হবে।
+      */
+
+      if(permissionError){
+
+        console.warn(
+          "Permission delete warning:",
+          permissionError.message
+        );
+
+      }
+
+    }
+
+
+    /* =========================
+       DELETE TEACHER
+    ========================== */
+
+    const {
+      error:
+      teacherError
+    } =
+      await db
+        .from("teachers")
+        .delete()
+        .eq(
+          "id",
+          id
+        );
+
+
+    if(teacherError){
+
+      console.error(
+        "Teacher delete error:",
+        teacherError
       );
 
 
-    render(teachers);
+      let message =
+        teacherError.message ||
+        "Unknown error";
+
+
+      /*
+        Foreign key error হলে
+        পরিষ্কার message
+      */
+
+      if(
+        message
+          .toLowerCase()
+          .includes(
+            "foreign key"
+          )
+      ){
+
+        message =
+          "এই Teacher-এর সাথে অন্য record যুক্ত আছে। তাই Delete করা যাচ্ছে না।";
+
+      }
+
+
+      alert(
+        "Teacher Delete করা যায়নি।\n\n" +
+        message
+      );
+
+
+      return;
+
+    }
+
+
+    /* =========================
+       REMOVE LOCAL DATA
+    ========================== */
+
+    teachers =
+      teachers.filter(
+        item =>
+          String(item.id)
+          !==
+          String(id)
+      );
+
+
+    render(
+      teachers
+    );
+
+
+    alert(
+      `${teacherName} সফলভাবে Delete হয়েছে।`
+    );
 
 
   }catch(error){
 
-    alert(error.message);
+    console.error(
+      "Delete error:",
+      error
+    );
+
+
+    alert(
+      "Delete করতে সমস্যা হয়েছে।\n\n" +
+      error.message
+    );
 
   }
 
 }
 
 
-/* =========================
-   RESET
-========================= */
+/* =====================================================
+   RESET FORM
+===================================================== */
 
 function resetForm(){
 
   document
-    .getElementById("teacherForm")
+    .getElementById(
+      "teacherForm"
+    )
     .reset();
 
 
   document
-    .getElementById("editId")
+    .getElementById(
+      "editId"
+    )
     .value = "";
 
 
   document
-    .getElementById("teacherId")
+    .getElementById(
+      "teacherId"
+    )
     .value = "";
 
 
   document
-    .getElementById("formTitle")
+    .getElementById(
+      "formTitle"
+    )
     .textContent =
     "Add Teacher";
 
 
   document
-    .getElementById("saveBtn")
+    .getElementById(
+      "saveBtn"
+    )
     .textContent =
     "Save Teacher";
 
 
   document
-    .getElementById("cancelBtn")
+    .getElementById(
+      "cancelBtn"
+    )
     .style.display =
     "none";
 
 
   document
-    .getElementById("msg")
+    .getElementById(
+      "msg"
+    )
     .textContent = "";
+
+
+  document
+    .getElementById(
+      "msg"
+    )
+    .className = "";
+
+
+  document
+    .getElementById(
+      "passwordToggle"
+    )
+    .textContent =
+    "Show";
+
+
+  document
+    .getElementById(
+      "loginPassword"
+    )
+    .type =
+    "password";
 
 }
 
 
+/* =====================================================
+   CANCEL
+===================================================== */
+
 document
-  .getElementById("cancelBtn")
-  .onclick =
-  resetForm;
+  .getElementById(
+    "cancelBtn"
+  )
+  .addEventListener(
+    "click",
+    resetForm
+  );
 
 
-/* =========================
+/* =====================================================
    SEARCH
-========================= */
+===================================================== */
 
 document
-  .getElementById("search")
+  .getElementById(
+    "search"
+  )
   .addEventListener(
     "input",
     function(){
@@ -1228,56 +2062,59 @@ document
 
 
       render(
-        teachers.filter(t =>
 
-          String(
-            t.teacher_id || ""
-          )
-            .toLowerCase()
-            .includes(q)
+        teachers.filter(
+          teacher =>
 
-          ||
+            String(
+              teacher.teacher_id || ""
+            )
+              .toLowerCase()
+              .includes(q)
 
-          String(
-            t.name || ""
-          )
-            .toLowerCase()
-            .includes(q)
+            ||
 
-          ||
+            String(
+              teacher.name || ""
+            )
+              .toLowerCase()
+              .includes(q)
 
-          String(
-            t.phone || ""
-          )
-            .toLowerCase()
-            .includes(q)
+            ||
 
-          ||
+            String(
+              teacher.phone || ""
+            )
+              .toLowerCase()
+              .includes(q)
 
-          String(
-            t.designation || ""
-          )
-            .toLowerCase()
-            .includes(q)
+            ||
 
-          ||
+            String(
+              teacher.designation || ""
+            )
+              .toLowerCase()
+              .includes(q)
 
-          String(
-            t.subject || ""
-          )
-            .toLowerCase()
-            .includes(q)
+            ||
+
+            String(
+              teacher.subject || ""
+            )
+              .toLowerCase()
+              .includes(q)
 
         )
+
       );
 
     }
   );
 
 
-/* =========================
-   PASSWORD SHOW/HIDE
-========================= */
+/* =====================================================
+   PASSWORD SHOW / HIDE
+===================================================== */
 
 function togglePassword(){
 
@@ -1286,22 +2123,31 @@ function togglePassword(){
       "loginPassword"
     );
 
+
   const button =
-    document.querySelector(
-      ".toggle-password"
+    document.getElementById(
+      "passwordToggle"
     );
 
 
-  if(input.type === "password"){
+  if(
+    input.type ===
+    "password"
+  ){
 
-    input.type = "text";
+    input.type =
+      "text";
+
 
     button.textContent =
       "Hide";
 
+
   }else{
 
-    input.type = "password";
+    input.type =
+      "password";
+
 
     button.textContent =
       "Show";
@@ -1311,25 +2157,47 @@ function togglePassword(){
 }
 
 
-/* =========================
+/* =====================================================
    ESCAPE HTML
-========================= */
+===================================================== */
 
 function escapeHtml(value){
 
-  return String(value ?? "")
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+  return String(
+    value ?? ""
+  )
+
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
 
 }
 
 
-/* =========================
+/* =====================================================
    START
-========================= */
+===================================================== */
 
 start();
 
