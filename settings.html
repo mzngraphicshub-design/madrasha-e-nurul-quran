@@ -990,6 +990,11 @@ button,input,select{
         Permissions
     </button>
 
+    <button onclick="showPanel('teacherAccess',this)">
+        <i class="fa-solid fa-user-check"></i>
+        Teacher Access
+    </button>
+
     <button onclick="showPanel('notifications',this)">
         <i class="fa-solid fa-bell"></i>
         Notifications
@@ -1537,6 +1542,50 @@ button,input,select{
             Save Permissions
         </button>
 
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- ================= TEACHER ACCESS ================= -->
+<section class="panel" id="teacherAccess">
+
+<div class="card">
+
+    <div class="card-head">
+        <div>
+            <h2>Teacher Login Access</h2>
+            <p>teachers.html-এ যোগ করা প্রতিটি Teacher ID এখানে দেখা যাবে। কাকে লগইন করতে দেবেন এবং সে কোন কোন পেইজ দেখতে পারবে তা এখান থেকে নিয়ন্ত্রণ করুন।</p>
+        </div>
+        <button class="btn btn-secondary" onclick="loadTeacherAccess()">
+            <i class="fa-solid fa-rotate"></i>
+            Refresh
+        </button>
+    </div>
+
+    <div id="teacherAccessList">
+        <div class="alert alert-info">Teacher তালিকা লোড হচ্ছে...</div>
+    </div>
+
+</div>
+
+
+<div class="card">
+
+    <div class="card-head">
+        <div>
+            <h2>How This Works</h2>
+        </div>
+    </div>
+
+    <div class="alert alert-info" style="margin-bottom:10px;">
+        নতুন Teacher account তৈরি করলে ডিফল্ট পাসওয়ার্ড থাকে <strong>teacher@mnq</strong> — লগইনের পর তাকে পাসওয়ার্ড বদলে নিতে বলুন।
+    </div>
+
+    <div class="alert alert-warning" style="margin-bottom:0;">
+        এই তালিকা Supabase-এর <strong>teachers</strong> table থেকে আসে। যদি তালিকা লোড না হয়, তাহলে সেই table এবং প্রয়োজনীয় database function এখনো সেটআপ করা হয়নি।
     </div>
 
 </div>
@@ -2844,6 +2893,174 @@ function resetPermissions(){
 
 
 /* =========================================================
+   TEACHER ACCESS (per-teacher login + page permissions,
+   stored in Supabase so it applies on the teacher's own
+   device too — not just this admin browser)
+========================================================= */
+
+const TEACHER_PAGE_OPTIONS = [
+    { key:"dashboard",   label:"Dashboard" },
+    { key:"students",    label:"Students" },
+    { key:"attendance",  label:"Attendance" },
+    { key:"results",     label:"Results" },
+    { key:"fees",        label:"Fees" },
+    { key:"notices",     label:"Notices" },
+    { key:"reports",     label:"Reports" },
+    { key:"employees",   label:"Employees" },
+    { key:"salary",      label:"Salary" }
+];
+
+
+function escapeHTML(value){
+
+    if(value === null || value === undefined){
+        return "";
+    }
+
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+async function loadTeacherAccess(){
+
+    const container =
+        document.getElementById("teacherAccessList");
+
+    container.innerHTML =
+        '<div class="alert alert-info">Teacher তালিকা লোড হচ্ছে...</div>';
+
+    try{
+
+        const { data, error } =
+            await supabaseClient
+                .from("teachers")
+                .select("id,teacher_id,name,login_enabled,allowed_pages")
+                .order("name",{ascending:true});
+
+        if(error){
+            throw error;
+        }
+
+        if(!data || data.length === 0){
+
+            container.innerHTML =
+                '<div class="alert alert-warning">এখনো কোনো Teacher পাওয়া যায়নি। teachers.html থেকে Teacher যোগ করুন, তারপর এখানে Refresh চাপুন।</div>';
+
+            return;
+
+        }
+
+        container.innerHTML =
+            data.map(renderTeacherAccessRow).join("");
+
+    }catch(error){
+
+        console.error(error);
+
+        container.innerHTML =
+            '<div class="alert alert-warning">Teacher তালিকা লোড করা যায়নি। নিশ্চিত করুন Supabase-এ <strong>teachers</strong> table এবং <strong>verify_teacher_login</strong> function সেটআপ করা আছে।</div>';
+
+    }
+
+}
+
+
+function renderTeacherAccessRow(teacher){
+
+    const allowed =
+        new Set(teacher.allowed_pages || []);
+
+    const checkboxes =
+        TEACHER_PAGE_OPTIONS.map(page => `
+            <label style="display:flex;align-items:center;gap:6px;font-size:12px;padding:4px 0;">
+                <input type="checkbox"
+                       data-teacher-page="${escapeHTML(teacher.id)}"
+                       value="${page.key}"
+                       ${allowed.has(page.key) ? "checked" : ""}>
+                ${page.label}
+            </label>
+        `).join("");
+
+    return `
+        <div class="role-bio-row" style="flex-wrap:wrap;align-items:flex-start;">
+            <div class="role-bio-left" style="min-width:200px;">
+                <div class="role-bio-icon">
+                    <i class="fa-solid fa-chalkboard-user"></i>
+                </div>
+                <div>
+                    <strong>${escapeHTML(teacher.name || "নাম নেই")}</strong>
+                    <span>Teacher ID: ${escapeHTML(teacher.teacher_id)}</span>
+                </div>
+            </div>
+            <label class="switch">
+                <input type="checkbox"
+                       data-teacher-enabled="${escapeHTML(teacher.id)}"
+                       ${teacher.login_enabled !== false ? "checked" : ""}>
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:2px;padding:2px 0 12px 56px;">
+            ${checkboxes}
+        </div>
+        <div class="actions" style="margin-top:0;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border);">
+            <button class="btn btn-primary" style="padding:8px 14px;font-size:12px;"
+                    onclick="saveTeacherAccess('${escapeHTML(teacher.id)}')">
+                <i class="fa-solid fa-floppy-disk"></i>
+                Save
+            </button>
+        </div>
+    `;
+
+}
+
+
+async function saveTeacherAccess(teacherId){
+
+    const enabledEl =
+        document.querySelector(`[data-teacher-enabled="${teacherId}"]`);
+
+    const pageEls =
+        document.querySelectorAll(`[data-teacher-page="${teacherId}"]`);
+
+    const allowed_pages =
+        Array.from(pageEls)
+            .filter(el => el.checked)
+            .map(el => el.value);
+
+    const login_enabled =
+        enabledEl ? enabledEl.checked : true;
+
+    try{
+
+        const { error } =
+            await supabaseClient
+                .from("teachers")
+                .update({ login_enabled, allowed_pages })
+                .eq("id",teacherId);
+
+        if(error){
+            throw error;
+        }
+
+        showToast("Teacher access আপডেট হয়েছে।");
+
+    }catch(error){
+
+        console.error(error);
+        showToast("Update করা যায়নি: "+error.message);
+
+    }
+
+}
+
+
+/* =========================================================
    SYSTEM SETTINGS
 ========================================================= */
 
@@ -3085,6 +3302,8 @@ document.addEventListener(
         applySettings();
 
         loadPermissions();
+
+        loadTeacherAccess();
 
         const year =
             new Date().getFullYear();
