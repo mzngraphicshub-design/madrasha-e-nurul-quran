@@ -2,931 +2,909 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Teacher Management | মাদরাসায়ে নূরুল কুরআন</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bornomala:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Teachers | মাদরাসায়ে নূরুল কুরআন</title>
 
 <style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
+@font-face{
+  font-family:Bornomala;
+  src:url("./fonts/Bornomala-Regular.ttf") format("truetype");
+  font-display:swap
 }
+
+:root{
+  --navy:#031a35;
+  --navy2:#062b55;
+  --blue:#0875df;
+  --blue2:#18a0ff;
+  --gold:#ffd447;
+  --white:#fff;
+  --text:#173452;
+  --muted:#718399;
+  --line:#dfeaf5;
+  --shadow:0 20px 55px rgba(0,55,120,.12)
+}
+
+*{box-sizing:border-box}
 
 body{
-    font-family:'Bornomala',sans-serif;
-    background:#f4f9fb;
-    color:#123;
-    min-height:100vh;
+  margin:0;
+  font-family:Bornomala,Arial,sans-serif;
+  color:var(--text);
+  background:linear-gradient(135deg,#f3f8fd,#eaf4ff);
+  min-height:100vh
 }
 
-.header{
-    background:linear-gradient(135deg,#075b7c,#08739b,#54b3d0);
-    color:#fff;
-    padding:18px 22px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    box-shadow:0 4px 18px rgba(0,0,0,.12);
+body:before{
+  content:"";
+  position:fixed;
+  width:420px;
+  height:420px;
+  border-radius:50%;
+  background:rgba(8,117,223,.10);
+  filter:blur(100px);
+  left:-180px;
+  top:10%;
+  z-index:-1
 }
 
-.header h1{
-    font-size:25px;
-    font-weight:700;
+body:after{
+  content:"";
+  position:fixed;
+  width:380px;
+  height:380px;
+  border-radius:50%;
+  background:rgba(255,212,71,.10);
+  filter:blur(100px);
+  right:-160px;
+  bottom:5%;
+  z-index:-1
 }
 
-.header a{
-    color:#fff;
-    text-decoration:none;
-    background:rgba(255,255,255,.15);
-    padding:9px 16px;
-    border-radius:10px;
-    border:1px solid rgba(255,255,255,.25);
+.top{
+  background:linear-gradient(135deg,var(--navy),var(--navy2),var(--blue));
+  color:#fff;
+  padding:18px 4%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  box-shadow:0 10px 35px rgba(0,35,80,.18);
+  position:sticky;
+  top:0;
+  z-index:20
+}
+
+.top h2{
+  margin:0;
+  color:#fff;
+  font-size:22px
+}
+
+.top a{
+  color:#fff;
+  text-decoration:none;
+  padding:10px 16px;
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:10px;
+  background:rgba(255,255,255,.08);
+  transition:.3s
+}
+
+.top a:hover{
+  background:var(--gold);
+  color:var(--navy);
+  transform:translateY(-2px)
 }
 
 .container{
-    width:min(1200px,94%);
-    margin:25px auto;
+  max-width:1150px;
+  margin:30px auto;
+  padding:0 18px
 }
 
-.card{
-    background:#fff;
-    border-radius:18px;
-    padding:22px;
-    margin-bottom:22px;
-    box-shadow:0 8px 25px rgba(7,91,124,.08);
-    border:1px solid #e3eef2;
+.box{
+  background:rgba(255,255,255,.82);
+  border:1px solid rgba(255,255,255,.95);
+  padding:26px;
+  border-radius:22px;
+  box-shadow:var(--shadow);
+  margin-bottom:24px;
+  backdrop-filter:blur(18px)
 }
 
-.card h2{
-    color:#075b7c;
-    margin-bottom:18px;
-    font-size:21px;
+.box h3{
+  margin:0 0 22px;
+  color:var(--navy);
+  font-size:24px
 }
 
-.form-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:15px;
+.box h3:after{
+  content:"";
+  display:block;
+  width:55px;
+  height:3px;
+  background:linear-gradient(90deg,var(--blue),var(--gold));
+  border-radius:5px;
+  margin-top:8px
 }
 
-.field{
-    display:flex;
-    flex-direction:column;
-    gap:6px;
-}
-
-.field label{
-    font-weight:600;
-    color:#16495d;
-}
-
-.field input,
-.field select,
-.field textarea{
-    width:100%;
-    padding:12px 13px;
-    border:1px solid #cbdde4;
-    border-radius:10px;
-    outline:none;
-    font-family:inherit;
-    font-size:15px;
-    background:#fbfdfe;
-}
-
-.field input:focus,
-.field select:focus,
-.field textarea:focus{
-    border-color:#08739b;
-    box-shadow:0 0 0 3px rgba(8,115,155,.10);
-}
-
-.field textarea{
-    min-height:90px;
-    resize:vertical;
+.form{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px
 }
 
 .full{
-    grid-column:1/-1;
+  grid-column:1/-1
 }
 
-.btn{
-    border:0;
-    padding:11px 20px;
-    border-radius:10px;
-    cursor:pointer;
-    font-family:inherit;
-    font-size:15px;
-    font-weight:600;
+label{
+  display:block;
+  font-weight:bold;
+  font-size:14px;
+  color:#244663
 }
 
-.btn-primary{
-    background:#08739b;
-    color:#fff;
+input,textarea{
+  width:100%;
+  padding:13px 14px;
+  margin-top:7px;
+  border:1px solid #d5e3f0;
+  border-radius:11px;
+  font-size:14px;
+  outline:none;
+  background:#f9fcff;
+  transition:.25s
 }
 
-.btn-primary:hover{
-    background:#075b7c;
+input:focus,textarea:focus{
+  border-color:var(--blue);
+  box-shadow:0 0 0 4px rgba(8,117,223,.10);
+  background:#fff
 }
 
-.btn-secondary{
-    background:#e8f2f5;
-    color:#075b7c;
+textarea{
+  resize:vertical
 }
 
-.btn-danger{
-    background:#dc3545;
-    color:#fff;
+button{
+  border:0;
+  border-radius:11px;
+  padding:12px 18px;
+  background:linear-gradient(135deg,var(--navy2),var(--blue));
+  color:#fff;
+  font-weight:bold;
+  cursor:pointer;
+  transition:.3s;
+  box-shadow:0 7px 20px rgba(8,117,223,.16)
 }
 
-.btn-edit{
-    background:#54b3d0;
-    color:#fff;
+button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 11px 25px rgba(8,117,223,.25)
 }
 
-.actions{
-    display:flex;
-    gap:10px;
-    margin-top:18px;
-    flex-wrap:wrap;
+button:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+  transform:none
+}
+
+.cancel{
+  background:#718096;
+  margin-left:7px
+}
+
+.delete{
+  background:linear-gradient(135deg,#b91c1c,#ef4444)
+}
+
+.action{
+  padding:7px 11px;
+  font-size:12px;
+  margin:2px
+}
+
+.search{
+  margin-bottom:16px
 }
 
 .table-wrap{
-    overflow-x:auto;
+  overflow-x:auto;
+  border-radius:15px;
+  border:1px solid var(--line)
 }
 
 table{
-    width:100%;
-    border-collapse:collapse;
-    min-width:850px;
+  width:100%;
+  border-collapse:collapse;
+  background:#fff
+}
+
+th,td{
+  padding:13px 10px;
+  border-bottom:1px solid #e9f0f7;
+  text-align:left;
+  font-size:14px
 }
 
 th{
-    background:#075b7c;
-    color:#fff;
-    padding:12px;
-    text-align:left;
-    white-space:nowrap;
+  background:linear-gradient(135deg,var(--navy),var(--blue));
+  color:#fff;
+  white-space:nowrap
 }
 
-td{
-    padding:11px 12px;
-    border-bottom:1px solid #e4edf0;
-    vertical-align:middle;
+tbody tr{
+  transition:.2s
 }
 
-tr:hover td{
-    background:#f7fbfc;
+tbody tr:hover{
+  background:#f3f8ff
 }
 
-.action-buttons{
-    display:flex;
-    gap:7px;
+#msg{
+  margin-top:12px;
+  min-height:20px;
+  color:var(--blue)
 }
 
-.action-buttons button{
-    border:0;
-    padding:7px 11px;
-    border-radius:7px;
-    cursor:pointer;
-    font-family:inherit;
+.loading{
+  text-align:center;
+  padding:24px!important;
+  color:var(--muted)
 }
 
-.edit-btn{
-    background:#54b3d0;
-    color:#fff;
-}
+@media(max-width:650px){
 
-.delete-btn{
-    background:#dc3545;
-    color:#fff;
-}
+  .top{
+    padding:15px
+  }
 
-.search-box{
-    margin-bottom:15px;
-}
+  .top h2{
+    font-size:18px
+  }
 
-.search-box input{
-    width:100%;
-    padding:12px;
-    border:1px solid #cbdde4;
-    border-radius:10px;
-    font-family:inherit;
-}
+  .top a{
+    font-size:13px;
+    padding:8px 10px
+  }
 
-.teacher-number{
-    font-weight:700;
-    color:#08739b;
-}
+  .container{
+    margin:18px auto;
+    padding:0 12px
+  }
 
-.status{
-    margin-top:12px;
-    padding:11px 14px;
-    border-radius:9px;
-    display:none;
-}
+  .box{
+    padding:19px;
+    border-radius:18px
+  }
 
-.status.success{
-    display:block;
-    background:#e8f7ef;
-    color:#167442;
-}
+  .box h3{
+    font-size:20px
+  }
 
-.status.error{
-    display:block;
-    background:#fdecec;
-    color:#a72828;
-}
+  .form{
+    grid-template-columns:1fr
+  }
 
-.password-note{
-    font-size:12px;
-    color:#6d7d84;
-}
+  .full{
+    grid-column:auto
+  }
 
-@media(max-width:700px){
-    .header{
-        flex-direction:column;
-        align-items:flex-start;
-        gap:12px;
-    }
-
-    .header h1{
-        font-size:21px;
-    }
-
-    .form-grid{
-        grid-template-columns:1fr;
-    }
-
-    .full{
-        grid-column:auto;
-    }
-
-    .card{
-        padding:16px;
-    }
+  table{
+    min-width:700px
+  }
 }
 </style>
 </head>
 
 <body>
 
-<header class="header">
-    <h1>Teacher Management</h1>
-    <a href="dashboard.html">Dashboard</a>
+<header class="top">
+  <h2>👨‍🏫 Teacher Management</h2>
+  <a href="dashboard.html">← Dashboard</a>
 </header>
 
-<main class="container">
+<div class="container">
 
-    <section class="card">
-        <h2 id="formTitle">Add Teacher</h2>
+  <div class="box">
 
-        <form id="teacherForm">
+    <h3 id="formTitle">➕ Add Teacher</h3>
 
-            <div class="form-grid">
+    <form id="teacherForm">
 
-                <div class="field">
-                    <label>Teacher Number</label>
-                    <input type="text" id="teacherId" readonly placeholder="Auto Generated">
-                </div>
+      <input type="hidden" id="editId">
 
-                <div class="field">
-                    <label>Teacher Name</label>
-                    <input type="text" id="name" required>
-                </div>
+      <div class="form">
 
-                <div class="field">
-                    <label>Mobile Number</label>
-                    <input type="text" id="phone" required>
-                </div>
-
-                <div class="field">
-                    <label>Login Password</label>
-                    <input type="text" id="loginPassword" required>
-                    <span class="password-note">
-                        Teacher login: Mobile Number + Password
-                    </span>
-                </div>
-
-                <div class="field">
-                    <label>Designation</label>
-                    <input type="text" id="designation">
-                </div>
-
-                <div class="field">
-                    <label>Subject</label>
-                    <input type="text" id="subject">
-                </div>
-
-                <div class="field full">
-                    <label>Address</label>
-                    <textarea id="address"></textarea>
-                </div>
-
-            </div>
-
-            <div class="actions">
-                <button type="submit" class="btn btn-primary" id="saveBtn">
-                    Save Teacher
-                </button>
-
-                <button type="button"
-                        class="btn btn-secondary"
-                        id="cancelBtn"
-                        style="display:none;">
-                    Cancel
-                </button>
-            </div>
-
-            <div id="status" class="status"></div>
-
-        </form>
-    </section>
-
-    <section class="card">
-        <h2>Teachers List</h2>
-
-        <div class="search-box">
-            <input
-                type="text"
-                id="searchInput"
-                placeholder="Search teacher by name, number or mobile..."
-            >
+        <div>
+          <label>Teacher Name *</label>
+          <input id="name" required placeholder="শিক্ষকের নাম">
         </div>
 
-        <div class="table-wrap">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Teacher No.</th>
-                        <th>Name</th>
-                        <th>Mobile</th>
-                        <th>Designation</th>
-                        <th>Subject</th>
-                        <th>Address</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-
-                <tbody id="teacherTableBody">
-                    <tr>
-                        <td colspan="7" style="text-align:center;">
-                            Loading...
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <div>
+          <label>Mobile</label>
+          <input id="phone" type="tel" placeholder="মোবাইল নম্বর">
         </div>
-    </section>
 
-</main>
+        <div>
+          <label>Designation</label>
+          <input id="designation" placeholder="পদবি">
+        </div>
+
+        <div>
+          <label>Subject</label>
+          <input id="subject" placeholder="বিষয়">
+        </div>
+
+        <div class="full">
+          <label>Address</label>
+          <textarea id="address" rows="2" placeholder="ঠিকানা"></textarea>
+        </div>
+
+        <div class="full">
+
+          <button type="submit" id="saveBtn">
+            💾 Save Teacher
+          </button>
+
+          <button
+            type="button"
+            class="cancel"
+            id="cancelBtn"
+            style="display:none">
+            Cancel
+          </button>
+
+          <div id="msg"></div>
+
+        </div>
+
+      </div>
+
+    </form>
+
+  </div>
+
+
+  <div class="box">
+
+    <h3>👨‍🏫 Teacher List</h3>
+
+    <input
+      class="search"
+      id="search"
+      placeholder="🔍 নাম / মোবাইল দিয়ে খুঁজুন...">
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>নাম</th>
+            <th>মোবাইল</th>
+            <th>পদবি</th>
+            <th>বিষয়</th>
+            <th>ঠিকানা</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody id="teacherList">
+          <tr>
+            <td colspan="6" class="loading">
+              Loading...
+            </td>
+          </tr>
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
+
 const SUPABASE_URL =
-    "https://qavublwhqiqsgpcmfyft.supabase.co";
+  "https://qavublwhqiqsgpcmfyft.supabase.co";
 
 const SUPABASE_KEY =
-    "sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
+  "sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
 
-const db = window.supabase.createClient(
+const db =
+  window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_KEY
-);
+  );
 
-let teachers = [];
-let editingId = null;
+let teachers=[];
 
 
 /* AUTH */
+
 async function start(){
 
+  try{
+
     const {
-        data:{session},
-        error
+      data:{session}
     } = await db.auth.getSession();
 
-    if(error){
-        console.error(error);
-    }
+    /*
+      এখানে কোনো role check নেই।
+      Admin session থাকলেই page open হবে।
+    */
 
     if(!session){
-        location.href = "admin.html";
-        return;
+      location.href="admin.html";
+      return;
     }
 
     await loadTeachers();
-}
 
+  }catch(error){
 
-/* STATUS */
-function showStatus(message,type="success"){
+    document.getElementById("teacherList").innerHTML=
+      `<tr>
+        <td colspan="6">
+          ❌ ${escapeHtml(error.message)}
+        </td>
+      </tr>`;
 
-    const box = document.getElementById("status");
+  }
 
-    box.textContent = message;
-    box.className = "status " + type;
-
-    setTimeout(()=>{
-        box.className = "status";
-    },4000);
-}
-
-
-/* GENERATE TEACHER NUMBER */
-function generateTeacherNumber(){
-
-    const numbers = teachers
-        .map(t => t.teacher_id)
-        .filter(Boolean)
-        .map(id => {
-
-            const match = String(id).match(/T-(\d+)/);
-
-            return match
-                ? parseInt(match[1],10)
-                : 0;
-        });
-
-    const max =
-        numbers.length
-            ? Math.max(...numbers)
-            : 0;
-
-    return "T-" + String(max + 1).padStart(3,"0");
 }
 
 
 /* LOAD TEACHERS */
+
 async function loadTeachers(){
 
-    const tbody =
-        document.getElementById("teacherTableBody");
+  const tbody =
+    document.getElementById("teacherList");
 
-    tbody.innerHTML = `
-        <tr>
-            <td colspan="7" style="text-align:center;">
-                Loading...
-            </td>
-        </tr>
-    `;
+  tbody.innerHTML=
+    `<tr>
+      <td colspan="6" class="loading">
+        Loading...
+      </td>
+    </tr>`;
 
-    const {
-        data,
-        error
-    } = await db
-        .from("teachers")
-        .select(`
-            id,
-            teacher_id,
-            name,
-            phone,
-            designation,
-            subject,
-            address,
-            login_password
-        `)
-        .order("id",{ascending:false});
+  const {
+    data,
+    error
+  } =
+    await db
+      .from("teachers")
+      .select(
+        "id,name,phone,designation,subject,address"
+      )
+      .order(
+        "created_at",
+        {ascending:false}
+      );
 
-    if(error){
+  if(error){
 
-        console.error(error);
+    tbody.innerHTML=
+      `<tr>
+        <td colspan="6">
+          ❌ ${escapeHtml(error.message)}
+        </td>
+      </tr>`;
 
-        tbody.innerHTML = `
-            <tr>
-                <td colspan="7" style="text-align:center;color:#c00;">
-                    ${escapeHtml(error.message)}
-                </td>
-            </tr>
-        `;
+    return;
+  }
 
-        return;
-    }
+  teachers=data||[];
 
-    teachers = data || [];
+  render(teachers);
 
-    renderTeachers();
-
-    if(!editingId){
-        document.getElementById("teacherId").value =
-            generateTeacherNumber();
-    }
 }
 
 
 /* RENDER */
-function renderTeachers(){
 
-    const tbody =
-        document.getElementById("teacherTableBody");
+function render(list){
 
-    const search =
-        document
-            .getElementById("searchInput")
-            .value
-            .trim()
-            .toLowerCase();
+  const tbody =
+    document.getElementById("teacherList");
 
-    const filtered =
-        teachers.filter(t => {
+  if(!list.length){
 
-            return (
-                String(t.teacher_id || "")
-                    .toLowerCase()
-                    .includes(search)
-                ||
-                String(t.name || "")
-                    .toLowerCase()
-                    .includes(search)
-                ||
-                String(t.phone || "")
-                    .toLowerCase()
-                    .includes(search)
-            );
-        });
+    tbody.innerHTML=
+      `<tr>
+        <td
+          colspan="6"
+          style="text-align:center;padding:25px">
+          কোনো Teacher নেই
+        </td>
+      </tr>`;
 
-    if(!filtered.length){
+    return;
+  }
 
-        tbody.innerHTML = `
-            <tr>
-                <td colspan="7" style="text-align:center;">
-                    No teacher found
-                </td>
-            </tr>
-        `;
+  tbody.innerHTML =
+    list.map(t=>`
 
-        return;
-    }
+      <tr>
 
-    tbody.innerHTML =
-        filtered.map(t => `
+        <td>
+          ${escapeHtml(t.name||"-")}
+        </td>
 
-            <tr>
+        <td>
+          ${escapeHtml(t.phone||"-")}
+        </td>
 
-                <td>
-                    <span class="teacher-number">
-                        ${escapeHtml(t.teacher_id || "-")}
-                    </span>
-                </td>
+        <td>
+          ${escapeHtml(t.designation||"-")}
+        </td>
 
-                <td>
-                    ${escapeHtml(t.name || "-")}
-                </td>
+        <td>
+          ${escapeHtml(t.subject||"-")}
+        </td>
 
-                <td>
-                    ${escapeHtml(t.phone || "-")}
-                </td>
+        <td>
+          ${escapeHtml(t.address||"-")}
+        </td>
 
-                <td>
-                    ${escapeHtml(t.designation || "-")}
-                </td>
+        <td>
 
-                <td>
-                    ${escapeHtml(t.subject || "-")}
-                </td>
+          <button
+            class="action"
+            onclick="editTeacher('${t.id}')">
+            ✏️ Edit
+          </button>
 
-                <td>
-                    ${escapeHtml(t.address || "-")}
-                </td>
+          <button
+            class="action delete"
+            onclick="deleteTeacher('${t.id}')">
+            🗑️ Delete
+          </button>
 
-                <td>
+        </td>
 
-                    <div class="action-buttons">
+      </tr>
 
-                        <button
-                            class="edit-btn"
-                            onclick="editTeacher('${t.id}')">
-                            Edit
-                        </button>
+    `).join("");
 
-                        <button
-                            class="delete-btn"
-                            onclick="deleteTeacher('${t.id}')">
-                            Delete
-                        </button>
-
-                    </div>
-
-                </td>
-
-            </tr>
-
-        `).join("");
 }
 
 
-/* SAVE */
+/* ADD / UPDATE */
+
 document
-.getElementById("teacherForm")
-.addEventListener("submit",async function(e){
+  .getElementById("teacherForm")
+  .addEventListener(
+    "submit",
+    async function(e){
 
-    e.preventDefault();
+      e.preventDefault();
 
-    const saveBtn =
+      const editId =
+        document.getElementById("editId").value;
+
+      const teacher={
+
+        name:
+          document
+            .getElementById("name")
+            .value
+            .trim(),
+
+        phone:
+          document
+            .getElementById("phone")
+            .value
+            .trim(),
+
+        designation:
+          document
+            .getElementById("designation")
+            .value
+            .trim(),
+
+        subject:
+          document
+            .getElementById("subject")
+            .value
+            .trim(),
+
+        address:
+          document
+            .getElementById("address")
+            .value
+            .trim()
+
+      };
+
+      const msg =
+        document.getElementById("msg");
+
+      const saveBtn =
         document.getElementById("saveBtn");
 
-    saveBtn.disabled = true;
-    saveBtn.textContent = "Saving...";
+      msg.textContent="Saving...";
 
-    const teacherId =
-        document.getElementById("teacherId").value.trim();
-
-    const name =
-        document.getElementById("name").value.trim();
-
-    const phone =
-        document.getElementById("phone").value.trim();
-
-    const loginPassword =
-        document.getElementById("loginPassword").value.trim();
-
-    const designation =
-        document.getElementById("designation").value.trim();
-
-    const subject =
-        document.getElementById("subject").value.trim();
-
-    const address =
-        document.getElementById("address").value.trim();
+      saveBtn.disabled=true;
 
 
-    const payload = {
+      try{
 
-        teacher_id:teacherId,
-        name:name,
-        phone:phone,
-        designation:designation,
-        subject:subject,
-        address:address,
-        login_password:loginPassword
-    };
+        let result;
 
 
-    let result;
+        if(editId){
 
-
-    if(editingId){
-
-        result =
+          result =
             await db
-                .from("teachers")
-                .update(payload)
-                .eq("id",editingId);
+              .from("teachers")
+              .update(teacher)
+              .eq("id",editId)
+              .select(
+                "id,name,phone,designation,subject,address"
+              )
+              .single();
 
-    }else{
+        }else{
 
-        result =
+          result =
             await db
-                .from("teachers")
-                .insert([payload]);
+              .from("teachers")
+              .insert(teacher)
+              .select(
+                "id,name,phone,designation,subject,address"
+              )
+              .single();
+
+        }
+
+
+        if(result.error){
+
+          msg.textContent =
+            "❌ "+result.error.message;
+
+          return;
+        }
+
+
+        if(editId){
+
+          const index =
+            teachers.findIndex(
+              x=>String(x.id)===String(editId)
+            );
+
+          if(index!==-1){
+
+            teachers[index]=result.data;
+
+          }
+
+        }else{
+
+          teachers.unshift(result.data);
+
+        }
+
+
+        render(teachers);
+
+        msg.textContent=
+          "✅ Saved successfully";
+
+        resetForm();
+
+
+      }catch(error){
+
+        msg.textContent=
+          "❌ "+error.message;
+
+      }finally{
+
+        saveBtn.disabled=false;
+
+      }
+
     }
-
-
-    if(result.error){
-
-        console.error(result.error);
-
-        showStatus(
-            result.error.message,
-            "error"
-        );
-
-        saveBtn.disabled = false;
-        saveBtn.textContent =
-            editingId
-                ? "Update Teacher"
-                : "Save Teacher";
-
-        return;
-    }
-
-
-    showStatus(
-        editingId
-            ? "Teacher updated successfully."
-            : "Teacher added successfully.",
-        "success"
-    );
-
-
-    resetForm();
-
-    await loadTeachers();
-
-    saveBtn.disabled = false;
-    saveBtn.textContent = "Save Teacher";
-
-});
+  );
 
 
 /* EDIT */
+
 function editTeacher(id){
 
-    const teacher =
-        teachers.find(t => String(t.id) === String(id));
+  const teacher =
+    teachers.find(
+      x=>String(x.id)===String(id)
+    );
 
-    if(!teacher) return;
+  if(!teacher)return;
 
-    editingId = teacher.id;
 
-    document.getElementById("teacherId").value =
-        teacher.teacher_id || "";
+  document
+    .getElementById("editId")
+    .value=teacher.id;
 
-    document.getElementById("name").value =
-        teacher.name || "";
+  document
+    .getElementById("name")
+    .value=teacher.name||"";
 
-    document.getElementById("phone").value =
-        teacher.phone || "";
+  document
+    .getElementById("phone")
+    .value=teacher.phone||"";
 
-    document.getElementById("loginPassword").value =
-        teacher.login_password || "";
+  document
+    .getElementById("designation")
+    .value=teacher.designation||"";
 
-    document.getElementById("designation").value =
-        teacher.designation || "";
+  document
+    .getElementById("subject")
+    .value=teacher.subject||"";
 
-    document.getElementById("subject").value =
-        teacher.subject || "";
+  document
+    .getElementById("address")
+    .value=teacher.address||"";
 
-    document.getElementById("address").value =
-        teacher.address || "";
 
-    document.getElementById("formTitle").textContent =
-        "Edit Teacher";
+  document
+    .getElementById("formTitle")
+    .textContent="✏️ Edit Teacher";
 
-    document.getElementById("saveBtn").textContent =
-        "Update Teacher";
+  document
+    .getElementById("saveBtn")
+    .textContent="💾 Update Teacher";
 
-    document.getElementById("cancelBtn").style.display =
-        "inline-block";
+  document
+    .getElementById("cancelBtn")
+    .style.display="inline-block";
 
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
 }
 
 
 /* DELETE */
+
 async function deleteTeacher(id){
 
-    const teacher =
-        teachers.find(t => String(t.id) === String(id));
-
-    if(!teacher) return;
-
-    const ok =
-        confirm(
-            `Are you sure you want to delete ${teacher.name || "this teacher"}?`
-        );
-
-    if(!ok) return;
+  if(
+    !confirm(
+      "এই Teacher-কে Delete করতে চান?"
+    )
+  )return;
 
 
-    try{
+  try{
 
-        /*
-         * First remove teacher permission.
-         * If permission row/table is unavailable,
-         * continue with teacher deletion.
-         */
-
-        if(teacher.teacher_id){
-
-            const permissionDelete =
-                await db
-                    .from("teacher_permissions")
-                    .delete()
-                    .eq("teacher_id",teacher.teacher_id);
-
-            if(permissionDelete.error){
-
-                console.warn(
-                    "Teacher permission delete warning:",
-                    permissionDelete.error
-                );
-            }
-        }
+    const {
+      error
+    } =
+      await db
+        .from("teachers")
+        .delete()
+        .eq("id",id);
 
 
-        /* Delete teacher */
+    if(error){
 
-        const {
-            error
-        } = await db
-            .from("teachers")
-            .delete()
-            .eq("id",id);
+      alert(error.message);
 
-
-        if(error){
-
-            console.error(
-                "Teacher delete error:",
-                error
-            );
-
-            let message =
-                error.message ||
-                "Teacher delete failed.";
-
-            if(
-                message.toLowerCase().includes("foreign key") ||
-                message.toLowerCase().includes("violates")
-            ){
-                message =
-                    "এই শিক্ষককে অন্য কোনো তথ্যের সাথে যুক্ত করা আছে। আগে সংশ্লিষ্ট তথ্য মুছে/সরিয়ে আবার Delete করুন।";
-            }
-
-            showStatus(
-                message,
-                "error"
-            );
-
-            return;
-        }
-
-
-        showStatus(
-            "Teacher deleted successfully.",
-            "success"
-        );
-
-
-        if(
-            editingId &&
-            String(editingId) === String(id)
-        ){
-            resetForm();
-        }
-
-
-        await loadTeachers();
-
-    }catch(err){
-
-        console.error(err);
-
-        showStatus(
-            err.message ||
-            "Teacher delete failed.",
-            "error"
-        );
+      return;
     }
+
+
+    teachers =
+      teachers.filter(
+        t=>String(t.id)!==String(id)
+      );
+
+    render(teachers);
+
+
+  }catch(error){
+
+    alert(error.message);
+
+  }
+
+}
+
+
+/* RESET */
+
+function resetForm(){
+
+  document
+    .getElementById("teacherForm")
+    .reset();
+
+  document
+    .getElementById("editId")
+    .value="";
+
+  document
+    .getElementById("formTitle")
+    .textContent="➕ Add Teacher";
+
+  document
+    .getElementById("saveBtn")
+    .textContent="💾 Save Teacher";
+
+  document
+    .getElementById("cancelBtn")
+    .style.display="none";
+
 }
 
 
 /* CANCEL */
+
 document
-.getElementById("cancelBtn")
-.addEventListener("click",resetForm);
-
-
-/* RESET */
-function resetForm(){
-
-    editingId = null;
-
-    document
-        .getElementById("teacherForm")
-        .reset();
-
-    document.getElementById("formTitle").textContent =
-        "Add Teacher";
-
-    document.getElementById("saveBtn").textContent =
-        "Save Teacher";
-
-    document.getElementById("cancelBtn").style.display =
-        "none";
-
-    document.getElementById("teacherId").value =
-        generateTeacherNumber();
-}
+  .getElementById("cancelBtn")
+  .onclick=resetForm;
 
 
 /* SEARCH */
+
 document
-.getElementById("searchInput")
-.addEventListener("input",renderTeachers);
+  .getElementById("search")
+  .addEventListener(
+    "input",
+    function(){
+
+      const q =
+        this.value
+          .toLowerCase()
+          .trim();
+
+      render(
+        teachers.filter(
+          t=>
+            (t.name||"")
+              .toLowerCase()
+              .includes(q)
+            ||
+            (t.phone||"")
+              .toLowerCase()
+              .includes(q)
+        )
+      );
+
+    }
+  );
 
 
-/* HTML ESCAPE */
+/* ESCAPE HTML */
+
 function escapeHtml(value){
 
-    return String(value ?? "")
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
 }
 
 
 /* START */
+
 start();
 
 </script>
