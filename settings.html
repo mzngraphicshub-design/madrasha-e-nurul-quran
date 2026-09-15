@@ -1557,7 +1557,7 @@ button,input,select{
     <div class="card-head">
         <div>
             <h2>Teacher Login Access</h2>
-            <p>teachers.html-এ যোগ করা প্রতিটি Teacher ID এখানে দেখা যাবে। কাকে লগইন করতে দেবেন এবং সে কোন কোন পেইজ দেখতে পারবে তা এখান থেকে নিয়ন্ত্রণ করুন।</p>
+            <p>teachers.html-এ যোগ করা প্রতিটি Teacher (মোবাইল নম্বর সহ) এখানে দেখা যাবে। কাকে লগইন করতে দেবেন এবং সে কোন কোন পেইজ দেখতে পারবে তা এখান থেকে নিয়ন্ত্রণ করুন।</p>
         </div>
         <button class="btn btn-secondary" onclick="loadTeacherAccess()">
             <i class="fa-solid fa-rotate"></i>
@@ -2940,7 +2940,7 @@ async function loadTeacherAccess(){
         const { data, error } =
             await supabaseClient
                 .from("teachers")
-                .select("id,teacher_id,name,login_enabled,allowed_pages")
+                .select("id,name,mobile,login_enabled,allowed_pages")
                 .order("name",{ascending:true});
 
         if(error){
@@ -2995,7 +2995,7 @@ function renderTeacherAccessRow(teacher){
                 </div>
                 <div>
                     <strong>${escapeHTML(teacher.name || "নাম নেই")}</strong>
-                    <span>Teacher ID: ${escapeHTML(teacher.teacher_id)}</span>
+                    <span>মোবাইল: ${escapeHTML(teacher.mobile || "যোগ করা হয়নি")}</span>
                 </div>
             </div>
             <label class="switch">
