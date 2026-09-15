@@ -1581,6 +1581,10 @@ button,input,select{
     </div>
 
     <div class="alert alert-info" style="margin-bottom:10px;">
+        প্রতিটি Teacher-এর নামের নিচের বক্সে তার মোবাইল নম্বর বসিয়ে <strong>Save</strong> করুন — সেই নম্বর ও পাসওয়ার্ড দিয়েই সে Login পেজ থেকে ঢুকতে পারবে।
+    </div>
+
+    <div class="alert alert-info" style="margin-bottom:10px;">
         নতুন Teacher account তৈরি করলে ডিফল্ট পাসওয়ার্ড থাকে <strong>teacher@mnq</strong> — লগইনের পর তাকে পাসওয়ার্ড বদলে নিতে বলুন।
     </div>
 
@@ -2995,7 +2999,13 @@ function renderTeacherAccessRow(teacher){
                 </div>
                 <div>
                     <strong>${escapeHTML(teacher.name || "নাম নেই")}</strong>
-                    <span>মোবাইল: ${escapeHTML(teacher.mobile || "যোগ করা হয়নি")}</span>
+                    <div style="margin-top:6px;">
+                        <input type="tel"
+                               data-teacher-mobile="${escapeHTML(teacher.id)}"
+                               value="${escapeHTML(teacher.mobile || "")}"
+                               placeholder="মোবাইল নম্বর যোগ করুন"
+                               style="width:180px;border:1px solid var(--border);background:#fbfdfe;border-radius:8px;padding:6px 9px;font-size:12px;color:var(--text);">
+                    </div>
                 </div>
             </div>
             <label class="switch">
@@ -3025,6 +3035,9 @@ async function saveTeacherAccess(teacherId){
     const enabledEl =
         document.querySelector(`[data-teacher-enabled="${teacherId}"]`);
 
+    const mobileEl =
+        document.querySelector(`[data-teacher-mobile="${teacherId}"]`);
+
     const pageEls =
         document.querySelectorAll(`[data-teacher-page="${teacherId}"]`);
 
@@ -3036,12 +3049,22 @@ async function saveTeacherAccess(teacherId){
     const login_enabled =
         enabledEl ? enabledEl.checked : true;
 
+    const mobile =
+        mobileEl ? mobileEl.value.trim() : "";
+
+    if(!mobile){
+
+        showToast("লগইন Allow করার আগে মোবাইল নম্বর দিন।");
+        return;
+
+    }
+
     try{
 
         const { error } =
             await supabaseClient
                 .from("teachers")
-                .update({ login_enabled, allowed_pages })
+                .update({ login_enabled, allowed_pages, mobile })
                 .eq("id",teacherId);
 
         if(error){
