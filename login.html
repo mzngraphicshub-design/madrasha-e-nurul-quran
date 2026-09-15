@@ -737,11 +737,11 @@ function switchRole(role){
         subheading.textContent =
             "শিক্ষক প্যানেলে প্রবেশ করুন";
 
-        emailLabel.textContent = "Teacher ID";
-        emailInput.type = "text";
-        emailInput.placeholder = "আপনার Teacher ID লিখুন";
-        emailInput.autocomplete = "off";
-        emailIcon.className = "fa-solid fa-id-badge";
+        emailLabel.textContent = "মোবাইল নম্বর";
+        emailInput.type = "tel";
+        emailInput.placeholder = "আপনার মোবাইল নম্বর লিখুন";
+        emailInput.autocomplete = "tel";
+        emailIcon.className = "fa-solid fa-mobile-screen-button";
 
         biometricBtn.classList.toggle(
             "hidden",
@@ -833,13 +833,13 @@ function togglePassword(){
    TEACHER TABLE LOGIN (via RPC, password never returned)
 ========================================================= */
 
-async function verifyTeacherLogin(teacherId,password){
+async function verifyTeacherLogin(mobile,password){
 
     const { data, error } =
         await supabaseClient.rpc(
             "verify_teacher_login",
             {
-                p_teacher_id: teacherId,
+                p_mobile: mobile,
                 p_password: password
             }
         );
@@ -902,7 +902,7 @@ async function staffLogin(){
 
         showMessage(
             currentRole === "teacher"
-                ? "Teacher ID লিখুন।"
+                ? "মোবাইল নম্বর লিখুন।"
                 : "ইমেইল লিখুন।"
         );
 
@@ -948,7 +948,7 @@ async function staffLogin(){
             if(!teacher){
 
                 throw new Error(
-                    "Teacher ID অথবা পাসওয়ার্ড সঠিক নয়, অথবা এই আইডির লগইন এখনো Allow করা হয়নি।"
+                    "মোবাইল নম্বর অথবা পাসওয়ার্ড সঠিক নয়, অথবা এই নম্বরের লগইন এখনো Allow করা হয়নি।"
                 );
 
             }
@@ -1485,7 +1485,7 @@ async function biometricLogin(){
         showMessage(
             currentRole === "admin"
                 ? "এই ডিভাইসে এখনো বায়োমেট্রিক সেটআপ করা হয়নি। প্রথমে ইমেইল ও পাসওয়ার্ড দিয়ে লগইন করুন, তারপর বায়োমেট্রিক চালু করার অপশন আসবে।"
-                : "এই ডিভাইসে এখনো বায়োমেট্রিক সেটআপ করা হয়নি। প্রথমে Teacher ID ও পাসওয়ার্ড দিয়ে লগইন করুন, তারপর বায়োমেট্রিক চালু করার অপশন আসবে।"
+                : "এই ডিভাইসে এখনো বায়োমেট্রিক সেটআপ করা হয়নি। প্রথমে মোবাইল নম্বর ও পাসওয়ার্ড দিয়ে লগইন করুন, তারপর বায়োমেট্রিক চালু করার অপশন আসবে।"
         );
 
         return;
@@ -1581,7 +1581,7 @@ async function biometricLogin(){
                 clearBiometricEntry("teacher");
 
                 throw new Error(
-                    "সংরক্ষিত তথ্য দিয়ে লগইন করা যায়নি (পাসওয়ার্ড বদলানো হয়ে থাকতে পারে)। Teacher ID/পাসওয়ার্ড দিয়ে আবার লগইন করুন।"
+                    "সংরক্ষিত তথ্য দিয়ে লগইন করা যায়নি (পাসওয়ার্ড বদলানো হয়ে থাকতে পারে)। মোবাইল নম্বর/পাসওয়ার্ড দিয়ে আবার লগইন করুন।"
                 );
 
             }
