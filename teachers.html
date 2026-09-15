@@ -3,2202 +3,930 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Teacher Management | মাদরাসায়ে নূরুল কুরআন</title>
 
-<link rel="stylesheet" href="https://banglawebfonts.pages.dev/css/bornomala.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bornomala:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-:root{
-  --navy:#031a35;
-  --blue:#0875df;
-  --blue2:#54b3d0;
-  --deep:#075b7c;
-  --gold:#ffd447;
-  --bg:#f4f7fb;
-  --card:#ffffff;
-  --line:#dce7f2;
-  --text:#102033;
-  --muted:#6b7a8c;
-  --danger:#ef4444;
-  --danger-dark:#c62828;
-  --success:#0b8f62;
-}
-
 *{
-  box-sizing:border-box;
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
 body{
-  margin:0;
-  font-family:Bornomala,"Noto Sans Bengali",sans-serif;
-  background:
-    radial-gradient(
-      circle at 10% 10%,
-      rgba(84,179,208,.13),
-      transparent 28%
-    ),
-    radial-gradient(
-      circle at 90% 20%,
-      rgba(8,117,223,.10),
-      transparent 30%
-    ),
-    var(--bg);
-  color:var(--text);
+    font-family:'Bornomala',sans-serif;
+    background:#f4f9fb;
+    color:#123;
+    min-height:100vh;
 }
 
-/* =========================
-   TOP BAR
-========================= */
-
-.top{
-  background:
-    linear-gradient(
-      135deg,
-      var(--navy),
-      var(--deep)
-    );
-  color:#fff;
-  padding:18px 25px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:15px;
-  box-shadow:
-    0 8px 25px rgba(3,26,53,.15);
+.header{
+    background:linear-gradient(135deg,#075b7c,#08739b,#54b3d0);
+    color:#fff;
+    padding:18px 22px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    box-shadow:0 4px 18px rgba(0,0,0,.12);
 }
 
-.top h2{
-  margin:0;
-  font-size:23px;
+.header h1{
+    font-size:25px;
+    font-weight:700;
 }
 
-.top a{
-  color:#fff;
-  text-decoration:none;
-  padding:9px 14px;
-  border:
-    1px solid
-    rgba(255,255,255,.25);
-  border-radius:10px;
-  background:
-    rgba(255,255,255,.08);
-  transition:.2s;
+.header a{
+    color:#fff;
+    text-decoration:none;
+    background:rgba(255,255,255,.15);
+    padding:9px 16px;
+    border-radius:10px;
+    border:1px solid rgba(255,255,255,.25);
 }
-
-.top a:hover{
-  background:
-    rgba(255,255,255,.16);
-}
-
-/* =========================
-   CONTAINER
-========================= */
 
 .container{
-  max-width:1200px;
-  margin:25px auto;
-  padding:0 18px;
+    width:min(1200px,94%);
+    margin:25px auto;
 }
 
-/* =========================
-   BOX
-========================= */
-
-.box{
-  background:
-    rgba(255,255,255,.94);
-  border:
-    1px solid
-    var(--line);
-  border-radius:20px;
-  padding:24px;
-  margin-bottom:22px;
-  box-shadow:
-    0 10px 35px
-    rgba(3,26,53,.07);
+.card{
+    background:#fff;
+    border-radius:18px;
+    padding:22px;
+    margin-bottom:22px;
+    box-shadow:0 8px 25px rgba(7,91,124,.08);
+    border:1px solid #e3eef2;
 }
 
-.box h3{
-  margin:0 0 20px;
-  font-size:21px;
-  color:var(--navy);
+.card h2{
+    color:#075b7c;
+    margin-bottom:18px;
+    font-size:21px;
 }
 
-/* =========================
-   FORM
-========================= */
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+}
 
-.form{
-  display:grid;
-  grid-template-columns:
-    repeat(2,1fr);
-  gap:17px;
+.field{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+
+.field label{
+    font-weight:600;
+    color:#16495d;
+}
+
+.field input,
+.field select,
+.field textarea{
+    width:100%;
+    padding:12px 13px;
+    border:1px solid #cbdde4;
+    border-radius:10px;
+    outline:none;
+    font-family:inherit;
+    font-size:15px;
+    background:#fbfdfe;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus{
+    border-color:#08739b;
+    box-shadow:0 0 0 3px rgba(8,115,155,.10);
+}
+
+.field textarea{
+    min-height:90px;
+    resize:vertical;
 }
 
 .full{
-  grid-column:1/-1;
+    grid-column:1/-1;
 }
 
-label{
-  display:block;
-  font-weight:700;
-  margin-bottom:7px;
-  font-size:14px;
+.btn{
+    border:0;
+    padding:11px 20px;
+    border-radius:10px;
+    cursor:pointer;
+    font-family:inherit;
+    font-size:15px;
+    font-weight:600;
 }
 
-input,
-textarea{
-  width:100%;
-  border:
-    1px solid
-    #d5e1ec;
-  border-radius:11px;
-  padding:12px 13px;
-  font-family:inherit;
-  font-size:15px;
-  outline:none;
-  background:#fff;
-  transition:.2s;
+.btn-primary{
+    background:#08739b;
+    color:#fff;
 }
 
-input:focus,
-textarea:focus{
-  border-color:
-    var(--blue);
-
-  box-shadow:
-    0 0 0 3px
-    rgba(8,117,223,.10);
+.btn-primary:hover{
+    background:#075b7c;
 }
 
-input[readonly]{
-  background:#eef6fb;
-  color:var(--deep);
-  font-weight:800;
+.btn-secondary{
+    background:#e8f2f5;
+    color:#075b7c;
 }
 
-/* =========================
-   PASSWORD
-========================= */
-
-.password-wrap{
-  position:relative;
+.btn-danger{
+    background:#dc3545;
+    color:#fff;
 }
 
-.password-wrap input{
-  padding-right:70px;
+.btn-edit{
+    background:#54b3d0;
+    color:#fff;
 }
 
-.toggle-password{
-  position:absolute;
-  right:8px;
-  top:7px;
-
-  height:36px;
-  width:55px;
-
-  border:0;
-  border-radius:8px;
-
-  background:#edf5fa;
-  color:var(--navy);
-
-  cursor:pointer;
-
-  font-family:inherit;
-  font-size:12px;
-  font-weight:700;
+.actions{
+    display:flex;
+    gap:10px;
+    margin-top:18px;
+    flex-wrap:wrap;
 }
-
-.password-note{
-  margin-top:7px;
-  color:var(--muted);
-  font-size:12px;
-}
-
-/* =========================
-   BUTTON
-========================= */
-
-button{
-  border:0;
-  border-radius:10px;
-  padding:11px 16px;
-  font-family:inherit;
-  font-weight:700;
-  cursor:pointer;
-
-  background:
-    linear-gradient(
-      135deg,
-      var(--blue),
-      var(--deep)
-    );
-
-  color:#fff;
-
-  transition:.2s;
-}
-
-button:hover{
-  transform:translateY(-1px);
-}
-
-button:disabled{
-  opacity:.6;
-  cursor:not-allowed;
-  transform:none;
-}
-
-.cancel{
-  background:#718096;
-  margin-left:7px;
-}
-
-.action{
-  padding:7px 11px;
-  font-size:12px;
-  margin:2px;
-  background:#0875df;
-}
-
-.action.delete{
-  background:var(--danger);
-}
-
-.action.delete:hover{
-  background:var(--danger-dark);
-}
-
-/* =========================
-   SEARCH
-========================= */
-
-.search{
-  margin-bottom:16px;
-}
-
-/* =========================
-   TABLE
-========================= */
 
 .table-wrap{
-  overflow-x:auto;
-  border-radius:15px;
-  border:
-    1px solid
-    var(--line);
+    overflow-x:auto;
 }
 
 table{
-  width:100%;
-  border-collapse:collapse;
-  background:#fff;
-  min-width:950px;
-}
-
-th,
-td{
-  padding:13px 10px;
-  border-bottom:
-    1px solid
-    #e9f0f7;
-
-  text-align:left;
-  font-size:14px;
+    width:100%;
+    border-collapse:collapse;
+    min-width:850px;
 }
 
 th{
-  background:
-    linear-gradient(
-      135deg,
-      var(--navy),
-      #08739b
-    );
-
-  color:#fff;
-  white-space:nowrap;
+    background:#075b7c;
+    color:#fff;
+    padding:12px;
+    text-align:left;
+    white-space:nowrap;
 }
 
-tbody tr{
-  transition:.2s;
+td{
+    padding:11px 12px;
+    border-bottom:1px solid #e4edf0;
+    vertical-align:middle;
 }
 
-tbody tr:hover{
-  background:#f3f8ff;
+tr:hover td{
+    background:#f7fbfc;
+}
+
+.action-buttons{
+    display:flex;
+    gap:7px;
+}
+
+.action-buttons button{
+    border:0;
+    padding:7px 11px;
+    border-radius:7px;
+    cursor:pointer;
+    font-family:inherit;
+}
+
+.edit-btn{
+    background:#54b3d0;
+    color:#fff;
+}
+
+.delete-btn{
+    background:#dc3545;
+    color:#fff;
+}
+
+.search-box{
+    margin-bottom:15px;
+}
+
+.search-box input{
+    width:100%;
+    padding:12px;
+    border:1px solid #cbdde4;
+    border-radius:10px;
+    font-family:inherit;
 }
 
 .teacher-number{
-  font-weight:800;
-  color:var(--deep);
-
-  background:#eaf7fb;
-
-  padding:5px 9px;
-
-  border-radius:8px;
-
-  display:inline-block;
+    font-weight:700;
+    color:#08739b;
 }
 
-/* =========================
-   MESSAGE
-========================= */
-
-#msg{
-  margin-top:12px;
-  min-height:20px;
-  color:var(--blue);
-  font-size:14px;
+.status{
+    margin-top:12px;
+    padding:11px 14px;
+    border-radius:9px;
+    display:none;
 }
 
-.loading{
-  text-align:center;
-  padding:24px!important;
-  color:var(--muted);
+.status.success{
+    display:block;
+    background:#e8f7ef;
+    color:#167442;
 }
 
-/* =========================
-   STATUS
-========================= */
-
-.status-success{
-  color:var(--success)!important;
+.status.error{
+    display:block;
+    background:#fdecec;
+    color:#a72828;
 }
 
-.status-error{
-  color:var(--danger)!important;
+.password-note{
+    font-size:12px;
+    color:#6d7d84;
 }
-
-/* =========================
-   MOBILE
-========================= */
 
 @media(max-width:700px){
+    .header{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:12px;
+    }
 
-  .top{
-    padding:15px;
-  }
+    .header h1{
+        font-size:21px;
+    }
 
-  .top h2{
-    font-size:18px;
-  }
+    .form-grid{
+        grid-template-columns:1fr;
+    }
 
-  .top a{
-    font-size:13px;
-    padding:8px 10px;
-  }
+    .full{
+        grid-column:auto;
+    }
 
-  .container{
-    margin:18px auto;
-    padding:0 12px;
-  }
-
-  .box{
-    padding:19px;
-    border-radius:18px;
-  }
-
-  .form{
-    grid-template-columns:1fr;
-  }
-
-  .full{
-    grid-column:auto;
-  }
-
-  table{
-    min-width:950px;
-  }
-
+    .card{
+        padding:16px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<header class="top">
-
-  <h2>
-    Teacher Management
-  </h2>
-
-  <a href="dashboard.html">
-    ← Dashboard
-  </a>
-
+<header class="header">
+    <h1>Teacher Management</h1>
+    <a href="dashboard.html">Dashboard</a>
 </header>
 
+<main class="container">
 
-<div class="container">
+    <section class="card">
+        <h2 id="formTitle">Add Teacher</h2>
 
-  <!-- =========================
-       ADD / EDIT TEACHER
-  ========================== -->
+        <form id="teacherForm">
 
-  <div class="box">
+            <div class="form-grid">
 
-    <h3 id="formTitle">
-      Add Teacher
-    </h3>
+                <div class="field">
+                    <label>Teacher Number</label>
+                    <input type="text" id="teacherId" readonly placeholder="Auto Generated">
+                </div>
 
+                <div class="field">
+                    <label>Teacher Name</label>
+                    <input type="text" id="name" required>
+                </div>
 
-    <form id="teacherForm">
+                <div class="field">
+                    <label>Mobile Number</label>
+                    <input type="text" id="phone" required>
+                </div>
 
-      <input
-        type="hidden"
-        id="editId"
-      >
+                <div class="field">
+                    <label>Login Password</label>
+                    <input type="text" id="loginPassword" required>
+                    <span class="password-note">
+                        Teacher login: Mobile Number + Password
+                    </span>
+                </div>
 
+                <div class="field">
+                    <label>Designation</label>
+                    <input type="text" id="designation">
+                </div>
 
-      <!-- TEACHER NUMBER -->
+                <div class="field">
+                    <label>Subject</label>
+                    <input type="text" id="subject">
+                </div>
 
-      <div class="form">
+                <div class="field full">
+                    <label>Address</label>
+                    <textarea id="address"></textarea>
+                </div>
 
-        <div>
+            </div>
 
-          <label>
-            Teacher Number
-          </label>
+            <div class="actions">
+                <button type="submit" class="btn btn-primary" id="saveBtn">
+                    Save Teacher
+                </button>
 
-          <input
-            id="teacherId"
-            readonly
-            placeholder="Auto Generated"
-          >
+                <button type="button"
+                        class="btn btn-secondary"
+                        id="cancelBtn"
+                        style="display:none;">
+                    Cancel
+                </button>
+            </div>
 
-          <div class="password-note">
-            Teacher Number system automatically generate করবে।
-          </div>
+            <div id="status" class="status"></div>
 
-        </div>
+        </form>
+    </section>
 
+    <section class="card">
+        <h2>Teachers List</h2>
 
-        <!-- NAME -->
-
-        <div>
-
-          <label>
-            Teacher Name *
-          </label>
-
-          <input
-            id="name"
-            required
-            placeholder="শিক্ষকের নাম"
-          >
-
-        </div>
-
-
-        <!-- PASSWORD -->
-
-        <div>
-
-          <label>
-            Login Password *
-          </label>
-
-          <div class="password-wrap">
-
+        <div class="search-box">
             <input
-              id="loginPassword"
-              type="password"
-              minlength="4"
-              placeholder="Teacher Login Password"
+                type="text"
+                id="searchInput"
+                placeholder="Search teacher by name, number or mobile..."
             >
-
-            <button
-              type="button"
-              class="toggle-password"
-              id="passwordToggle"
-              onclick="togglePassword()"
-            >
-              Show
-            </button>
-
-          </div>
-
-          <div class="password-note">
-            Mobile Number + এই Password দিয়ে Teacher Login করবে।
-          </div>
-
         </div>
 
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Teacher No.</th>
+                        <th>Name</th>
+                        <th>Mobile</th>
+                        <th>Designation</th>
+                        <th>Subject</th>
+                        <th>Address</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
 
-        <!-- MOBILE -->
-
-        <div>
-
-          <label>
-            Mobile *
-          </label>
-
-          <input
-            id="phone"
-            type="tel"
-            required
-            placeholder="মোবাইল নম্বর"
-          >
-
+                <tbody id="teacherTableBody">
+                    <tr>
+                        <td colspan="7" style="text-align:center;">
+                            Loading...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
+    </section>
 
-
-        <!-- DESIGNATION -->
-
-        <div>
-
-          <label>
-            Designation
-          </label>
-
-          <input
-            id="designation"
-            placeholder="পদবি"
-          >
-
-        </div>
-
-
-        <!-- SUBJECT -->
-
-        <div>
-
-          <label>
-            Subject
-          </label>
-
-          <input
-            id="subject"
-            placeholder="বিষয়"
-          >
-
-        </div>
-
-
-        <!-- ADDRESS -->
-
-        <div class="full">
-
-          <label>
-            Address
-          </label>
-
-          <textarea
-            id="address"
-            rows="2"
-            placeholder="ঠিকানা"
-          ></textarea>
-
-        </div>
-
-
-        <!-- BUTTON -->
-
-        <div class="full">
-
-          <button
-            type="submit"
-            id="saveBtn"
-          >
-            Save Teacher
-          </button>
-
-
-          <button
-            type="button"
-            class="cancel"
-            id="cancelBtn"
-            style="display:none"
-          >
-            Cancel
-          </button>
-
-
-          <div id="msg"></div>
-
-        </div>
-
-      </div>
-
-    </form>
-
-  </div>
-
-
-  <!-- =========================
-       TEACHER LIST
-  ========================== -->
-
-  <div class="box">
-
-    <h3>
-      Teacher List
-    </h3>
-
-
-    <input
-      class="search"
-      id="search"
-      placeholder="নাম / Teacher Number / মোবাইল দিয়ে খুঁজুন..."
-    >
-
-
-    <div class="table-wrap">
-
-      <table>
-
-        <thead>
-
-          <tr>
-
-            <th>
-              Teacher Number
-            </th>
-
-            <th>
-              নাম
-            </th>
-
-            <th>
-              মোবাইল
-            </th>
-
-            <th>
-              পদবি
-            </th>
-
-            <th>
-              বিষয়
-            </th>
-
-            <th>
-              ঠিকানা
-            </th>
-
-            <th>
-              Action
-            </th>
-
-          </tr>
-
-        </thead>
-
-
-        <tbody id="teacherList">
-
-          <tr>
-
-            <td
-              colspan="7"
-              class="loading"
-            >
-              Loading...
-            </td>
-
-          </tr>
-
-        </tbody>
-
-      </table>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
+</main>
 
 <script>
-
-/* =====================================================
-   SUPABASE
-===================================================== */
-
 const SUPABASE_URL =
-  "https://qavublwhqiqsgpcmfyft.supabase.co";
+    "https://qavublwhqiqsgpcmfyft.supabase.co";
 
 const SUPABASE_KEY =
-  "sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
+    "sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
 
-const db =
-  window.supabase.createClient(
+const db = window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_KEY
-  );
-
+);
 
 let teachers = [];
+let editingId = null;
 
 
-/* =====================================================
-   AUTH CHECK
-===================================================== */
-
+/* AUTH */
 async function start(){
 
-  try{
-
     const {
-      data:{
-        session
-      }
-    } =
-      await db.auth.getSession();
+        data:{session},
+        error
+    } = await db.auth.getSession();
 
+    if(error){
+        console.error(error);
+    }
 
     if(!session){
-
-      location.href =
-        "login.html";
-
-      return;
-
+        location.href = "admin.html";
+        return;
     }
 
+    await loadTeachers();
+}
+
+
+/* STATUS */
+function showStatus(message,type="success"){
+
+    const box = document.getElementById("status");
+
+    box.textContent = message;
+    box.className = "status " + type;
+
+    setTimeout(()=>{
+        box.className = "status";
+    },4000);
+}
+
+
+/* GENERATE TEACHER NUMBER */
+function generateTeacherNumber(){
+
+    const numbers = teachers
+        .map(t => t.teacher_id)
+        .filter(Boolean)
+        .map(id => {
+
+            const match = String(id).match(/T-(\d+)/);
+
+            return match
+                ? parseInt(match[1],10)
+                : 0;
+        });
+
+    const max =
+        numbers.length
+            ? Math.max(...numbers)
+            : 0;
+
+    return "T-" + String(max + 1).padStart(3,"0");
+}
+
+
+/* LOAD TEACHERS */
+async function loadTeachers(){
+
+    const tbody =
+        document.getElementById("teacherTableBody");
+
+    tbody.innerHTML = `
+        <tr>
+            <td colspan="7" style="text-align:center;">
+                Loading...
+            </td>
+        </tr>
+    `;
 
     const {
-      data:{
-        user
-      }
-    } =
-      await db.auth.getUser();
+        data,
+        error
+    } = await db
+        .from("teachers")
+        .select(`
+            id,
+            teacher_id,
+            name,
+            phone,
+            designation,
+            subject,
+            address,
+            login_password
+        `)
+        .order("id",{ascending:false});
+
+    if(error){
+
+        console.error(error);
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="7" style="text-align:center;color:#c00;">
+                    ${escapeHtml(error.message)}
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+    teachers = data || [];
+
+    renderTeachers();
+
+    if(!editingId){
+        document.getElementById("teacherId").value =
+            generateTeacherNumber();
+    }
+}
 
 
-    if(!user){
+/* RENDER */
+function renderTeachers(){
 
-      location.href =
-        "login.html";
+    const tbody =
+        document.getElementById("teacherTableBody");
 
-      return;
+    const search =
+        document
+            .getElementById("searchInput")
+            .value
+            .trim()
+            .toLowerCase();
 
+    const filtered =
+        teachers.filter(t => {
+
+            return (
+                String(t.teacher_id || "")
+                    .toLowerCase()
+                    .includes(search)
+                ||
+                String(t.name || "")
+                    .toLowerCase()
+                    .includes(search)
+                ||
+                String(t.phone || "")
+                    .toLowerCase()
+                    .includes(search)
+            );
+        });
+
+    if(!filtered.length){
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="7" style="text-align:center;">
+                    No teacher found
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+    tbody.innerHTML =
+        filtered.map(t => `
+
+            <tr>
+
+                <td>
+                    <span class="teacher-number">
+                        ${escapeHtml(t.teacher_id || "-")}
+                    </span>
+                </td>
+
+                <td>
+                    ${escapeHtml(t.name || "-")}
+                </td>
+
+                <td>
+                    ${escapeHtml(t.phone || "-")}
+                </td>
+
+                <td>
+                    ${escapeHtml(t.designation || "-")}
+                </td>
+
+                <td>
+                    ${escapeHtml(t.subject || "-")}
+                </td>
+
+                <td>
+                    ${escapeHtml(t.address || "-")}
+                </td>
+
+                <td>
+
+                    <div class="action-buttons">
+
+                        <button
+                            class="edit-btn"
+                            onclick="editTeacher('${t.id}')">
+                            Edit
+                        </button>
+
+                        <button
+                            class="delete-btn"
+                            onclick="deleteTeacher('${t.id}')">
+                            Delete
+                        </button>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        `).join("");
+}
+
+
+/* SAVE */
+document
+.getElementById("teacherForm")
+.addEventListener("submit",async function(e){
+
+    e.preventDefault();
+
+    const saveBtn =
+        document.getElementById("saveBtn");
+
+    saveBtn.disabled = true;
+    saveBtn.textContent = "Saving...";
+
+    const teacherId =
+        document.getElementById("teacherId").value.trim();
+
+    const name =
+        document.getElementById("name").value.trim();
+
+    const phone =
+        document.getElementById("phone").value.trim();
+
+    const loginPassword =
+        document.getElementById("loginPassword").value.trim();
+
+    const designation =
+        document.getElementById("designation").value.trim();
+
+    const subject =
+        document.getElementById("subject").value.trim();
+
+    const address =
+        document.getElementById("address").value.trim();
+
+
+    const payload = {
+
+        teacher_id:teacherId,
+        name:name,
+        phone:phone,
+        designation:designation,
+        subject:subject,
+        address:address,
+        login_password:loginPassword
+    };
+
+
+    let result;
+
+
+    if(editingId){
+
+        result =
+            await db
+                .from("teachers")
+                .update(payload)
+                .eq("id",editingId);
+
+    }else{
+
+        result =
+            await db
+                .from("teachers")
+                .insert([payload]);
     }
 
 
-    /* =========================
-       ADMIN ROLE CHECK
-    ========================== */
+    if(result.error){
 
-    const role =
-      user.app_metadata?.role ||
-      user.user_metadata?.role ||
-      "";
+        console.error(result.error);
 
+        showStatus(
+            result.error.message,
+            "error"
+        );
 
-    if(role !== "admin"){
+        saveBtn.disabled = false;
+        saveBtn.textContent =
+            editingId
+                ? "Update Teacher"
+                : "Save Teacher";
 
-      alert(
-        "এই page শুধুমাত্র Admin ব্যবহার করতে পারবেন।"
-      );
-
-      location.href =
-        "dashboard.html";
-
-      return;
-
+        return;
     }
 
+
+    showStatus(
+        editingId
+            ? "Teacher updated successfully."
+            : "Teacher added successfully.",
+        "success"
+    );
+
+
+    resetForm();
 
     await loadTeachers();
 
+    saveBtn.disabled = false;
+    saveBtn.textContent = "Save Teacher";
 
-  }catch(error){
+});
 
-    console.error(error);
 
-    document
-      .getElementById("teacherList")
-      .innerHTML =
+/* EDIT */
+function editTeacher(id){
 
-      `<tr>
-        <td colspan="7" style="text-align:center;color:#ef4444;padding:25px">
-          Error: ${escapeHtml(error.message)}
-        </td>
-      </tr>`;
+    const teacher =
+        teachers.find(t => String(t.id) === String(id));
 
-  }
+    if(!teacher) return;
 
+    editingId = teacher.id;
+
+    document.getElementById("teacherId").value =
+        teacher.teacher_id || "";
+
+    document.getElementById("name").value =
+        teacher.name || "";
+
+    document.getElementById("phone").value =
+        teacher.phone || "";
+
+    document.getElementById("loginPassword").value =
+        teacher.login_password || "";
+
+    document.getElementById("designation").value =
+        teacher.designation || "";
+
+    document.getElementById("subject").value =
+        teacher.subject || "";
+
+    document.getElementById("address").value =
+        teacher.address || "";
+
+    document.getElementById("formTitle").textContent =
+        "Edit Teacher";
+
+    document.getElementById("saveBtn").textContent =
+        "Update Teacher";
+
+    document.getElementById("cancelBtn").style.display =
+        "inline-block";
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
 }
 
 
-/* =====================================================
-   LOAD TEACHERS
-===================================================== */
+/* DELETE */
+async function deleteTeacher(id){
 
-async function loadTeachers(){
+    const teacher =
+        teachers.find(t => String(t.id) === String(id));
 
-  const tbody =
-    document.getElementById(
-      "teacherList"
-    );
+    if(!teacher) return;
 
+    const ok =
+        confirm(
+            `Are you sure you want to delete ${teacher.name || "this teacher"}?`
+        );
 
-  tbody.innerHTML =
-
-    `<tr>
-      <td colspan="7" class="loading">
-        Loading...
-      </td>
-    </tr>`;
+    if(!ok) return;
 
 
-  const {
-    data,
-    error
-  } =
-    await db
-      .from("teachers")
-      .select(
-        "id,teacher_id,name,phone,designation,subject,address,login_password,created_at"
-      )
-      .order(
-        "created_at",
-        {
-          ascending:false
+    try{
+
+        /*
+         * First remove teacher permission.
+         * If permission row/table is unavailable,
+         * continue with teacher deletion.
+         */
+
+        if(teacher.teacher_id){
+
+            const permissionDelete =
+                await db
+                    .from("teacher_permissions")
+                    .delete()
+                    .eq("teacher_id",teacher.teacher_id);
+
+            if(permissionDelete.error){
+
+                console.warn(
+                    "Teacher permission delete warning:",
+                    permissionDelete.error
+                );
+            }
         }
-      );
 
 
-  if(error){
+        /* Delete teacher */
 
-    console.error(
-      "Load teacher error:",
-      error
-    );
-
-
-    tbody.innerHTML =
-
-      `<tr>
-        <td
-          colspan="7"
-          style="text-align:center;color:#ef4444;padding:25px"
-        >
-          Error:
-          ${escapeHtml(error.message)}
-        </td>
-      </tr>`;
+        const {
+            error
+        } = await db
+            .from("teachers")
+            .delete()
+            .eq("id",id);
 
 
-    return;
+        if(error){
 
-  }
-
-
-  teachers =
-    data || [];
-
-
-  render(
-    teachers
-  );
-
-}
-
-
-/* =====================================================
-   GENERATE TEACHER NUMBER
-===================================================== */
-
-async function generateTeacherNumber(){
-
-  const {
-    data,
-    error
-  } =
-    await db
-      .from("teachers")
-      .select(
-        "teacher_id"
-      );
-
-
-  if(error){
-
-    throw error;
-
-  }
-
-
-  let max = 0;
-
-
-  (data || [])
-    .forEach(
-      teacher => {
-
-        const value =
-          String(
-            teacher.teacher_id || ""
-          ).trim();
-
-
-        const match =
-          value.match(
-            /^T-(\d+)$/i
-          );
-
-
-        if(match){
-
-          const number =
-            parseInt(
-              match[1],
-              10
+            console.error(
+                "Teacher delete error:",
+                error
             );
 
-
-          if(number > max){
-
-            max = number;
-
-          }
-
-        }
-
-      }
-    );
-
-
-  let next =
-    max + 1;
-
-
-  let teacherId =
-    "T-" +
-    String(next)
-      .padStart(3,"0");
-
-
-  /* =========================
-     DUPLICATE PROTECTION
-  ========================== */
-
-  while(
-    (data || []).some(
-      teacher =>
-        String(
-          teacher.teacher_id || ""
-        ).toUpperCase()
-        ===
-        teacherId.toUpperCase()
-    )
-  ){
-
-    next++;
-
-
-    teacherId =
-      "T-" +
-      String(next)
-        .padStart(3,"0");
-
-  }
-
-
-  return teacherId;
-
-}
-
-
-/* =====================================================
-   RENDER TEACHER LIST
-===================================================== */
-
-function render(list){
-
-  const tbody =
-    document.getElementById(
-      "teacherList"
-    );
-
-
-  if(!list.length){
-
-    tbody.innerHTML =
-
-      `<tr>
-
-        <td
-          colspan="7"
-          style="
-            text-align:center;
-            padding:25px;
-            color:#6b7a8c;
-          "
-        >
-          কোনো Teacher নেই
-        </td>
-
-      </tr>`;
-
-    return;
-
-  }
-
-
-  tbody.innerHTML =
-
-    list
-      .map(
-        teacher => `
-
-          <tr>
-
-            <td>
-
-              <span class="teacher-number">
-
-                ${
-                  escapeHtml(
-                    teacher.teacher_id || "-"
-                  )
-                }
-
-              </span>
-
-            </td>
-
-
-            <td>
-
-              ${
-                escapeHtml(
-                  teacher.name || "-"
-                )
-              }
-
-            </td>
-
-
-            <td>
-
-              ${
-                escapeHtml(
-                  teacher.phone || "-"
-                )
-              }
-
-            </td>
-
-
-            <td>
-
-              ${
-                escapeHtml(
-                  teacher.designation || "-"
-                )
-              }
-
-            </td>
-
-
-            <td>
-
-              ${
-                escapeHtml(
-                  teacher.subject || "-"
-                )
-              }
-
-            </td>
-
-
-            <td>
-
-              ${
-                escapeHtml(
-                  teacher.address || "-"
-                )
-              }
-
-            </td>
-
-
-            <td>
-
-              <button
-                class="action"
-                onclick="editTeacher('${teacher.id}')"
-              >
-                Edit
-              </button>
-
-
-              <button
-                class="action delete"
-                onclick="deleteTeacher('${teacher.id}')"
-              >
-                Delete
-              </button>
-
-            </td>
-
-          </tr>
-
-        `
-      )
-      .join("");
-
-}
-
-
-/* =====================================================
-   SAVE / UPDATE TEACHER
-===================================================== */
-
-document
-  .getElementById(
-    "teacherForm"
-  )
-  .addEventListener(
-    "submit",
-    async function(event){
-
-      event.preventDefault();
-
-
-      const editId =
-        document
-          .getElementById(
-            "editId"
-          )
-          .value
-          .trim();
-
-
-      const name =
-        document
-          .getElementById(
-            "name"
-          )
-          .value
-          .trim();
-
-
-      const phone =
-        document
-          .getElementById(
-            "phone"
-          )
-          .value
-          .trim();
-
-
-      const designation =
-        document
-          .getElementById(
-            "designation"
-          )
-          .value
-          .trim();
-
-
-      const subject =
-        document
-          .getElementById(
-            "subject"
-          )
-          .value
-          .trim();
-
-
-      const address =
-        document
-          .getElementById(
-            "address"
-          )
-          .value
-          .trim();
-
-
-      const password =
-        document
-          .getElementById(
-            "loginPassword"
-          )
-          .value
-          .trim();
-
-
-      const msg =
-        document.getElementById(
-          "msg"
-        );
-
-
-      const saveBtn =
-        document.getElementById(
-          "saveBtn"
-        );
-
-
-      msg.className = "";
-
-
-      /* =========================
-         VALIDATION
-      ========================== */
-
-      if(!name){
-
-        msg.textContent =
-          "Teacher Name দিন।";
-
-        msg.className =
-          "status-error";
-
-        return;
-
-      }
-
-
-      if(!phone){
-
-        msg.textContent =
-          "Teacher Mobile Number দিন।";
-
-        msg.className =
-          "status-error";
-
-        return;
-
-      }
-
-
-      if(!editId && !password){
-
-        msg.textContent =
-          "Teacher Login Password দিন।";
-
-        msg.className =
-          "status-error";
-
-        return;
-
-      }
-
-
-      if(
-        password &&
-        password.length < 4
-      ){
-
-        msg.textContent =
-          "Password কমপক্ষে ৪ অক্ষরের হতে হবে।";
-
-        msg.className =
-          "status-error";
-
-        return;
-
-      }
-
-
-      saveBtn.disabled =
-        true;
-
-
-      saveBtn.textContent =
-        editId
-          ? "Updating..."
-          : "Saving...";
-
-
-      try{
-
-        let teacherId =
-          document
-            .getElementById(
-              "teacherId"
-            )
-            .value
-            .trim();
-
-
-        /* =========================
-           NEW TEACHER NUMBER
-        ========================== */
-
-        if(!editId){
-
-          teacherId =
-            await generateTeacherNumber();
-
-        }
-
-
-        const teacher = {
-
-          teacher_id:
-            teacherId,
-
-          name:
-            name,
-
-          phone:
-            phone,
-
-          designation:
-            designation || null,
-
-          subject:
-            subject || null,
-
-          address:
-            address || null
-
-        };
-
-
-        /* =========================
-           PASSWORD
-        ========================== */
-
-        if(password){
-
-          teacher.login_password =
-            password;
-
-        }
-
-
-        let result;
-
-
-        /* =========================
-           UPDATE
-        ========================== */
-
-        if(editId){
-
-          result =
-            await db
-              .from("teachers")
-              .update(
-                teacher
-              )
-              .eq(
-                "id",
-                editId
-              )
-              .select(
-                "id,teacher_id,name,phone,designation,subject,address,login_password,created_at"
-              )
-              .single();
-
-
-        }else{
-
-
-          /* =========================
-             INSERT
-          ========================== */
-
-          result =
-            await db
-              .from("teachers")
-              .insert(
-                teacher
-              )
-              .select(
-                "id,teacher_id,name,phone,designation,subject,address,login_password,created_at"
-              )
-              .single();
-
-        }
-
-
-        if(result.error){
-
-          console.error(
-            "Save teacher error:",
-            result.error
-          );
-
-
-          const errorText =
-            String(
-              result.error.message || ""
+            let message =
+                error.message ||
+                "Teacher delete failed.";
+
+            if(
+                message.toLowerCase().includes("foreign key") ||
+                message.toLowerCase().includes("violates")
+            ){
+                message =
+                    "এই শিক্ষককে অন্য কোনো তথ্যের সাথে যুক্ত করা আছে। আগে সংশ্লিষ্ট তথ্য মুছে/সরিয়ে আবার Delete করুন।";
+            }
+
+            showStatus(
+                message,
+                "error"
             );
 
-
-          if(
-            errorText
-              .toLowerCase()
-              .includes(
-                "duplicate"
-              )
-          ){
-
-            msg.textContent =
-              "Teacher Number অথবা Mobile Number already exists।";
-
-          }else{
-
-            msg.textContent =
-              "Error: " +
-              errorText;
-
-          }
-
-
-          msg.className =
-            "status-error";
-
-
-          return;
-
+            return;
         }
 
 
-        /* =========================
-           UPDATE LOCAL ARRAY
-        ========================== */
-
-        if(editId){
-
-          const index =
-            teachers.findIndex(
-              teacher =>
-                String(
-                  teacher.id
-                )
-                ===
-                String(
-                  editId
-                )
-            );
-
-
-          if(index !== -1){
-
-            teachers[index] =
-              result.data;
-
-          }
-
-        }else{
-
-          teachers.unshift(
-            result.data
-          );
-
-        }
-
-
-        render(
-          teachers
+        showStatus(
+            "Teacher deleted successfully.",
+            "success"
         );
-
-
-        msg.textContent =
-          `Teacher ${result.data.teacher_id} সফলভাবে ${
-            editId
-              ? "Update"
-              : "Save"
-          } হয়েছে।`;
-
-
-        msg.className =
-          "status-success";
-
-
-        resetForm();
-
-
-      }catch(error){
-
-        console.error(
-          "Save error:",
-          error
-        );
-
-
-        msg.textContent =
-          "Error: " +
-          error.message;
-
-
-        msg.className =
-          "status-error";
-
-
-      }finally{
-
-        saveBtn.disabled =
-          false;
 
 
         if(
-          document
-            .getElementById(
-              "editId"
-            )
-            .value
-            .trim()
+            editingId &&
+            String(editingId) === String(id)
         ){
-
-          saveBtn.textContent =
-            "Update Teacher";
-
-        }else{
-
-          saveBtn.textContent =
-            "Save Teacher";
-
+            resetForm();
         }
 
-      }
 
+        await loadTeachers();
+
+    }catch(err){
+
+        console.error(err);
+
+        showStatus(
+            err.message ||
+            "Teacher delete failed.",
+            "error"
+        );
     }
-  );
-
-
-/* =====================================================
-   EDIT TEACHER
-===================================================== */
-
-function editTeacher(id){
-
-  const teacher =
-    teachers.find(
-      item =>
-        String(item.id)
-        ===
-        String(id)
-    );
-
-
-  if(!teacher){
-
-    return;
-
-  }
-
-
-  document
-    .getElementById(
-      "editId"
-    )
-    .value =
-    teacher.id;
-
-
-  document
-    .getElementById(
-      "teacherId"
-    )
-    .value =
-    teacher.teacher_id || "";
-
-
-  document
-    .getElementById(
-      "name"
-    )
-    .value =
-    teacher.name || "";
-
-
-  document
-    .getElementById(
-      "phone"
-    )
-    .value =
-    teacher.phone || "";
-
-
-  document
-    .getElementById(
-      "designation"
-    )
-    .value =
-    teacher.designation || "";
-
-
-  document
-    .getElementById(
-      "subject"
-    )
-    .value =
-    teacher.subject || "";
-
-
-  document
-    .getElementById(
-      "address"
-    )
-    .value =
-    teacher.address || "";
-
-
-  /*
-    Password blank থাকবে।
-    নতুন password দিলে change হবে।
-  */
-
-  document
-    .getElementById(
-      "loginPassword"
-    )
-    .value = "";
-
-
-  document
-    .getElementById(
-      "formTitle"
-    )
-    .textContent =
-    "Edit Teacher";
-
-
-  document
-    .getElementById(
-      "saveBtn"
-    )
-    .textContent =
-    "Update Teacher";
-
-
-  document
-    .getElementById(
-      "cancelBtn"
-    )
-    .style.display =
-    "inline-block";
-
-
-  document
-    .getElementById(
-      "msg"
-    )
-    .textContent = "";
-
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-
 }
 
 
-/* =====================================================
-   DELETE TEACHER
-===================================================== */
+/* CANCEL */
+document
+.getElementById("cancelBtn")
+.addEventListener("click",resetForm);
 
-async function deleteTeacher(id){
 
-  const teacher =
-    teachers.find(
-      item =>
-        String(item.id)
-        ===
-        String(id)
-    );
-
-
-  if(!teacher){
-
-    return;
-
-  }
-
-
-  const teacherName =
-    teacher.name ||
-    "Teacher";
-
-
-  const teacherNumber =
-    teacher.teacher_id ||
-    "";
-
-
-  const ok =
-    confirm(
-      `${teacherNumber} - ${teacherName}\n\nএই Teacher-কে Delete করতে চান?`
-    );
-
-
-  if(!ok){
-
-    return;
-
-  }
-
-
-  try{
-
-    /* =========================
-       CHECK SESSION
-    ========================== */
-
-    const {
-      data:{
-        session
-      }
-    } =
-      await db.auth.getSession();
-
-
-    if(!session){
-
-      alert(
-        "Admin session পাওয়া যায়নি। আবার Login করুন।"
-      );
-
-      location.href =
-        "login.html";
-
-      return;
-
-    }
-
-
-    /* =========================
-       CHECK ADMIN
-    ========================== */
-
-    const {
-      data:{
-        user
-      }
-    } =
-      await db.auth.getUser();
-
-
-    if(!user){
-
-      alert(
-        "User session পাওয়া যায়নি।"
-      );
-
-      location.href =
-        "login.html";
-
-      return;
-
-    }
-
-
-    const role =
-      user.app_metadata?.role ||
-      user.user_metadata?.role ||
-      "";
-
-
-    if(role !== "admin"){
-
-      alert(
-        "শুধুমাত্র Admin Teacher Delete করতে পারবেন।"
-      );
-
-      return;
-
-    }
-
-
-    /* =========================
-       DELETE PERMISSION
-       FIRST
-    ========================== */
-
-    if(
-      teacher.teacher_id
-    ){
-
-      const {
-        error:
-        permissionError
-      } =
-        await db
-          .from(
-            "teacher_permissions"
-          )
-          .delete()
-          .eq(
-            "teacher_id",
-            teacher.teacher_id
-          );
-
-
-      /*
-        Permission record না থাকলে
-        error ignore করা হবে।
-      */
-
-      if(permissionError){
-
-        console.warn(
-          "Permission delete warning:",
-          permissionError.message
-        );
-
-      }
-
-    }
-
-
-    /* =========================
-       DELETE TEACHER
-    ========================== */
-
-    const {
-      error:
-      teacherError
-    } =
-      await db
-        .from("teachers")
-        .delete()
-        .eq(
-          "id",
-          id
-        );
-
-
-    if(teacherError){
-
-      console.error(
-        "Teacher delete error:",
-        teacherError
-      );
-
-
-      let message =
-        teacherError.message ||
-        "Unknown error";
-
-
-      /*
-        Foreign key error হলে
-        পরিষ্কার message
-      */
-
-      if(
-        message
-          .toLowerCase()
-          .includes(
-            "foreign key"
-          )
-      ){
-
-        message =
-          "এই Teacher-এর সাথে অন্য record যুক্ত আছে। তাই Delete করা যাচ্ছে না।";
-
-      }
-
-
-      alert(
-        "Teacher Delete করা যায়নি।\n\n" +
-        message
-      );
-
-
-      return;
-
-    }
-
-
-    /* =========================
-       REMOVE LOCAL DATA
-    ========================== */
-
-    teachers =
-      teachers.filter(
-        item =>
-          String(item.id)
-          !==
-          String(id)
-      );
-
-
-    render(
-      teachers
-    );
-
-
-    alert(
-      `${teacherName} সফলভাবে Delete হয়েছে।`
-    );
-
-
-  }catch(error){
-
-    console.error(
-      "Delete error:",
-      error
-    );
-
-
-    alert(
-      "Delete করতে সমস্যা হয়েছে।\n\n" +
-      error.message
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   RESET FORM
-===================================================== */
-
+/* RESET */
 function resetForm(){
 
-  document
-    .getElementById(
-      "teacherForm"
-    )
-    .reset();
+    editingId = null;
 
+    document
+        .getElementById("teacherForm")
+        .reset();
 
-  document
-    .getElementById(
-      "editId"
-    )
-    .value = "";
+    document.getElementById("formTitle").textContent =
+        "Add Teacher";
 
+    document.getElementById("saveBtn").textContent =
+        "Save Teacher";
 
-  document
-    .getElementById(
-      "teacherId"
-    )
-    .value = "";
+    document.getElementById("cancelBtn").style.display =
+        "none";
 
-
-  document
-    .getElementById(
-      "formTitle"
-    )
-    .textContent =
-    "Add Teacher";
-
-
-  document
-    .getElementById(
-      "saveBtn"
-    )
-    .textContent =
-    "Save Teacher";
-
-
-  document
-    .getElementById(
-      "cancelBtn"
-    )
-    .style.display =
-    "none";
-
-
-  document
-    .getElementById(
-      "msg"
-    )
-    .textContent = "";
-
-
-  document
-    .getElementById(
-      "msg"
-    )
-    .className = "";
-
-
-  document
-    .getElementById(
-      "passwordToggle"
-    )
-    .textContent =
-    "Show";
-
-
-  document
-    .getElementById(
-      "loginPassword"
-    )
-    .type =
-    "password";
-
+    document.getElementById("teacherId").value =
+        generateTeacherNumber();
 }
 
 
-/* =====================================================
-   CANCEL
-===================================================== */
-
+/* SEARCH */
 document
-  .getElementById(
-    "cancelBtn"
-  )
-  .addEventListener(
-    "click",
-    resetForm
-  );
+.getElementById("searchInput")
+.addEventListener("input",renderTeachers);
 
 
-/* =====================================================
-   SEARCH
-===================================================== */
-
-document
-  .getElementById(
-    "search"
-  )
-  .addEventListener(
-    "input",
-    function(){
-
-      const q =
-        this.value
-          .toLowerCase()
-          .trim();
-
-
-      render(
-
-        teachers.filter(
-          teacher =>
-
-            String(
-              teacher.teacher_id || ""
-            )
-              .toLowerCase()
-              .includes(q)
-
-            ||
-
-            String(
-              teacher.name || ""
-            )
-              .toLowerCase()
-              .includes(q)
-
-            ||
-
-            String(
-              teacher.phone || ""
-            )
-              .toLowerCase()
-              .includes(q)
-
-            ||
-
-            String(
-              teacher.designation || ""
-            )
-              .toLowerCase()
-              .includes(q)
-
-            ||
-
-            String(
-              teacher.subject || ""
-            )
-              .toLowerCase()
-              .includes(q)
-
-        )
-
-      );
-
-    }
-  );
-
-
-/* =====================================================
-   PASSWORD SHOW / HIDE
-===================================================== */
-
-function togglePassword(){
-
-  const input =
-    document.getElementById(
-      "loginPassword"
-    );
-
-
-  const button =
-    document.getElementById(
-      "passwordToggle"
-    );
-
-
-  if(
-    input.type ===
-    "password"
-  ){
-
-    input.type =
-      "text";
-
-
-    button.textContent =
-      "Hide";
-
-
-  }else{
-
-    input.type =
-      "password";
-
-
-    button.textContent =
-      "Show";
-
-  }
-
-}
-
-
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
-
+/* HTML ESCAPE */
 function escapeHtml(value){
 
-  return String(
-    value ?? ""
-  )
-
-    .replaceAll(
-      "&",
-      "&amp;"
-    )
-
-    .replaceAll(
-      "<",
-      "&lt;"
-    )
-
-    .replaceAll(
-      ">",
-      "&gt;"
-    )
-
-    .replaceAll(
-      '"',
-      "&quot;"
-    )
-
-    .replaceAll(
-      "'",
-      "&#039;"
-    );
-
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
 }
 
 
-/* =====================================================
-   START
-===================================================== */
-
+/* START */
 start();
 
 </script>
