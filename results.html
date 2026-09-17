@@ -7,6 +7,8 @@
 <title>ফলাফল ব্যবস্থাপনা | মাদরাসায়ে নূরুল কুরআন</title>
 
 <link href="https://banglawebfonts.pages.dev/css/bornomala.css" rel="stylesheet">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <style>
 
@@ -17,7 +19,7 @@ box-sizing:border-box;
 :root{
 --primary:#075ca6;
 --primary2:#0877d1;
---dark:#063b70;
+--deep:#063b70;
 --light:#eef7ff;
 --border:#d7e5f0;
 --text:#172033;
@@ -25,6 +27,8 @@ box-sizing:border-box;
 --success:#15803d;
 --danger:#dc2626;
 --warning:#b45309;
+--purple:#7c3aed;
+--teal:#0f766e;
 --white:#fff;
 }
 
@@ -46,7 +50,7 @@ gap:15px;
 box-shadow:0 3px 18px #0002;
 position:sticky;
 top:0;
-z-index:100;
+z-index:1000;
 }
 
 .header-title{
@@ -65,6 +69,7 @@ margin-top:3px;
 .header-actions{
 display:flex;
 gap:8px;
+flex-wrap:wrap;
 }
 
 .header-btn{
@@ -83,9 +88,9 @@ color:var(--primary);
 }
 
 main{
-max-width:1400px;
+max-width:1450px;
 margin:20px auto;
-padding:0 14px 60px;
+padding:0 14px 70px;
 }
 
 .card{
@@ -116,6 +121,12 @@ grid-template-columns:repeat(3,1fr);
 gap:14px;
 }
 
+.grid-2{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:14px;
+}
+
 .grid-4{
 display:grid;
 grid-template-columns:repeat(4,1fr);
@@ -128,14 +139,13 @@ font-weight:800;
 display:block;
 }
 
-select,
-input{
+input,
+select{
 width:100%;
 padding:11px 12px;
 margin-top:6px;
 border:1px solid #ccd8e5;
 border-radius:9px;
-box-sizing:border-box;
 font-family:"Bornomala",Arial,sans-serif;
 font-size:14px;
 background:#fff;
@@ -143,8 +153,8 @@ color:#172033;
 outline:none;
 }
 
-select:focus,
-input:focus{
+input:focus,
+select:focus{
 border-color:#0877d1;
 box-shadow:0 0 0 3px #0877d118;
 }
@@ -181,14 +191,6 @@ background:#64748b;
 background:#15803d;
 }
 
-.print-btn{
-background:#7c3aed;
-}
-
-.print-all-btn{
-background:#0f766e;
-}
-
 .danger{
 background:#dc2626;
 }
@@ -197,13 +199,34 @@ background:#dc2626;
 background:#b45309;
 }
 
+.purple{
+background:#7c3aed;
+}
+
+.teal{
+background:#0f766e;
+}
+
+.blue{
+background:#2563eb;
+}
+
+.dark{
+background:#334155;
+}
+
+.small-btn{
+padding:7px 10px;
+font-size:12px;
+margin:0;
+}
+
 #studentsCard,
 #entryCard{
 display:none;
 }
 
-#msg,
-#entryMsg{
+.notice{
 display:none;
 padding:11px 13px;
 margin-top:12px;
@@ -214,7 +237,7 @@ font-weight:700;
 
 .stats{
 display:grid;
-grid-template-columns:repeat(5,1fr);
+grid-template-columns:repeat(6,1fr);
 gap:12px;
 margin-bottom:18px;
 }
@@ -240,25 +263,16 @@ background:linear-gradient(#075ca6,#0877d1);
 }
 
 .stat-label{
-font-size:13px;
+font-size:12px;
 color:var(--muted);
 }
 
 .stat b{
 display:block;
 font-family:Arial,sans-serif;
-font-size:23px;
+font-size:22px;
 margin-top:5px;
-color:var(--dark);
-}
-
-.notice-box{
-background:#f5faff;
-border:1px solid #d8e8f5;
-border-radius:10px;
-padding:12px;
-margin:12px 0;
-font-size:13px;
+color:var(--deep);
 }
 
 .wrap{
@@ -270,7 +284,7 @@ border-radius:10px;
 table{
 width:100%;
 border-collapse:collapse;
-min-width:950px;
+min-width:1050px;
 }
 
 th{
@@ -293,33 +307,41 @@ tbody tr:hover td{
 background:#f7fbff;
 }
 
-.action-btn{
-padding:7px 10px;
-margin:0;
-font-size:12px;
+.action-group{
+display:flex;
+gap:5px;
+flex-wrap:wrap;
 }
 
-.add-btn{
-background:#0f766e;
-}
-
-.edit-btn{
-background:#2563eb;
-}
-
-.delete-btn{
-background:#dc2626;
-margin-left:4px;
-}
-
-.status-added{
-color:#15803d;
+.status{
+display:inline-flex;
+align-items:center;
+gap:5px;
+padding:5px 9px;
+border-radius:20px;
+font-size:11px;
 font-weight:800;
+white-space:nowrap;
 }
 
-.status-pending{
-color:#dc2626;
-font-weight:800;
+.status-draft{
+background:#fff3cd;
+color:#92400e;
+}
+
+.status-published{
+background:#dcfce7;
+color:#166534;
+}
+
+.status-scheduled{
+background:#dbeafe;
+color:#1d4ed8;
+}
+
+.status-none{
+background:#f1f5f9;
+color:#64748b;
 }
 
 .resultHead{
@@ -352,21 +374,138 @@ color:#64748b;
 margin-bottom:8px;
 }
 
-.pass{
-color:#159447;
-font-weight:bold;
+.mark-row{
+display:grid;
+grid-template-columns:1fr 180px;
+gap:10px;
+align-items:end;
 }
 
-.fail{
-color:#d93636;
-font-weight:bold;
+.subject-actions{
+display:flex;
+gap:5px;
+margin-top:8px;
 }
 
-#out{
-margin-top:15px;
+.help{
+font-size:12px;
+color:#64748b;
+margin-top:6px;
+line-height:1.6;
 }
 
-.result-summary{
+.notice-box{
+background:#f5faff;
+border:1px solid #d8e8f5;
+border-radius:10px;
+padding:12px;
+margin:12px 0;
+font-size:13px;
+}
+
+.empty{
+text-align:center;
+padding:30px;
+color:#64748b;
+}
+
+.publish-panel{
+background:linear-gradient(135deg,#f0fdf4,#eff6ff);
+border:1px solid #cfe2f4;
+border-radius:13px;
+padding:17px;
+}
+
+.publish-title{
+font-size:18px;
+font-weight:800;
+color:#075ca6;
+margin-bottom:5px;
+}
+
+.publish-box{
+background:#fff;
+border:1px solid #dce7f1;
+border-radius:10px;
+padding:13px;
+margin-top:12px;
+}
+
+.radio-row{
+display:flex;
+gap:18px;
+flex-wrap:wrap;
+margin-top:8px;
+}
+
+.radio-label{
+display:flex;
+align-items:center;
+gap:7px;
+font-weight:700;
+cursor:pointer;
+}
+
+.radio-label input{
+width:auto;
+margin:0;
+}
+
+.subject-table{
+min-width:750px;
+}
+
+.modal{
+display:none;
+position:fixed;
+inset:0;
+background:#0008;
+z-index:5000;
+align-items:center;
+justify-content:center;
+padding:15px;
+}
+
+.modal.show{
+display:flex;
+}
+
+.modal-box{
+background:#fff;
+width:min(650px,100%);
+max-height:90vh;
+overflow:auto;
+border-radius:16px;
+padding:20px;
+box-shadow:0 20px 60px #0005;
+}
+
+.modal-head{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+border-bottom:1px solid #e2e8f0;
+padding-bottom:12px;
+margin-bottom:15px;
+}
+
+.modal-head h3{
+margin:0;
+color:#075ca6;
+}
+
+.close-x{
+background:#e2e8f0;
+color:#334155;
+width:35px;
+height:35px;
+padding:0;
+margin:0;
+border-radius:50%;
+}
+
+.summary{
 display:grid;
 grid-template-columns:repeat(4,1fr);
 gap:10px;
@@ -395,33 +534,14 @@ margin-top:4px;
 color:#075ca6;
 }
 
-.print-controls{
-background:linear-gradient(135deg,#f8fbff,#edf7ff);
-border:1px solid #cfe2f4;
-border-radius:12px;
-padding:15px;
+.pass{
+color:#15803d;
+font-weight:bold;
 }
 
-.print-controls .buttons{
-display:flex;
-flex-wrap:wrap;
-gap:8px;
-}
-
-.print-controls button{
-margin-top:0;
-}
-
-.help{
-font-size:12px;
-color:#64748b;
-margin-top:6px;
-}
-
-.empty{
-text-align:center;
-padding:30px;
-color:#64748b;
+.fail{
+color:#dc2626;
+font-weight:bold;
 }
 
 .loading{
@@ -430,6 +550,11 @@ background:#dcecf9;
 overflow:hidden;
 margin-bottom:12px;
 border-radius:10px;
+display:none;
+}
+
+.loading.active{
+display:block;
 }
 
 .loading:after{
@@ -442,69 +567,12 @@ animation:load 1s infinite;
 }
 
 @keyframes load{
-from{
-transform:translateX(-100%);
-}
-to{
-transform:translateX(300%);
-}
+from{transform:translateX(-100%);}
+to{transform:translateX(300%);}
 }
 
 #printArea{
 display:none;
-}
-
-@media(max-width:1000px){
-
-.stats{
-grid-template-columns:repeat(3,1fr);
-}
-
-.grid-4{
-grid-template-columns:repeat(2,1fr);
-}
-
-}
-
-@media(max-width:800px){
-
-.grid,
-.grid-4{
-grid-template-columns:1fr 1fr;
-}
-
-.stats{
-grid-template-columns:repeat(2,1fr);
-}
-
-.result-summary{
-grid-template-columns:repeat(2,1fr);
-}
-
-header{
-flex-direction:column;
-align-items:flex-start;
-}
-
-}
-
-@media(max-width:550px){
-
-.grid,
-.grid-4,
-.stats,
-.result-summary{
-grid-template-columns:1fr;
-}
-
-main{
-padding:0 9px 40px;
-}
-
-.card{
-padding:15px;
-}
-
 }
 
 /* =====================================================
@@ -537,7 +605,6 @@ position:absolute!important;
 left:0!important;
 top:0!important;
 width:100%!important;
-min-height:0!important;
 background:#fff!important;
 color:#000!important;
 padding:0!important;
@@ -546,68 +613,68 @@ margin:0!important;
 
 .print-page{
 width:100%!important;
-height:auto!important;
-min-height:0!important;
-page-break-after:avoid!important;
-break-after:avoid!important;
+page-break-after:always!important;
+break-after:page!important;
+}
+
+.print-page:last-child{
+page-break-after:auto!important;
+break-after:auto!important;
 }
 
 .print-school-header{
 text-align:center;
 border-bottom:1px solid #000;
-padding-bottom:3px;
-margin-bottom:3px;
+padding-bottom:4px;
+margin-bottom:5px;
 }
 
 .print-school-header h1{
 font-family:"Bornomala",Arial,sans-serif;
-font-size:18px;
+font-size:19px;
 margin:0;
 font-weight:900;
 line-height:1.2;
 }
 
 .print-school-header p{
-margin:0;
+margin:1px 0;
 font-family:Arial,sans-serif;
-font-size:7px;
+font-size:8px;
 line-height:1.2;
 }
 
 .print-result-title{
 text-align:center;
 font-family:"Bornomala",Arial,sans-serif;
-font-size:12px;
+font-size:13px;
 font-weight:900;
-margin:3px 0;
-line-height:1.2;
+margin:4px 0;
 }
 
 .print-info{
 display:flex;
 justify-content:center;
-gap:12px;
+gap:15px;
 font-family:"Bornomala",Arial,sans-serif;
-font-size:7px;
-margin-bottom:3px;
+font-size:8px;
+margin-bottom:5px;
 flex-wrap:wrap;
-line-height:1.2;
 }
 
 .print-table{
 width:100%!important;
 border-collapse:collapse!important;
-table-layout:auto!important;
 font-family:"Bornomala",Arial,sans-serif;
-font-size:6.2px!important;
+font-size:7px!important;
 margin:0!important;
 }
 
 .print-table th,
 .print-table td{
 border:1px solid #000!important;
-padding:2px 1px!important;
-height:12px!important;
+padding:3px 2px!important;
+height:15px!important;
 line-height:1.05!important;
 text-align:center!important;
 color:#000!important;
@@ -622,52 +689,36 @@ font-weight:900!important;
 .print-table td.name-cell{
 text-align:left!important;
 white-space:nowrap!important;
-max-width:115px!important;
+max-width:150px!important;
 overflow:hidden!important;
 }
 
-.print-table .roll-cell{
-font-family:Arial,sans-serif;
-font-weight:bold;
-}
-
 .print-footer{
-margin-top:5px!important;
+margin-top:7px!important;
 display:flex;
 justify-content:space-between;
 font-family:"Bornomala",Arial,sans-serif;
-font-size:7px;
-line-height:1.1;
+font-size:8px;
 }
 
 .signature-area{
 display:flex;
 justify-content:space-between;
-margin-top:12px!important;
+margin-top:25px!important;
 font-family:"Bornomala",Arial,sans-serif;
-font-size:7px;
-line-height:1;
+font-size:8px;
 }
 
 .signature-box{
 text-align:center;
-width:100px;
+width:120px;
 border-top:1px solid #000;
-padding-top:2px;
+padding-top:3px;
 }
 
 .individual-print{
-max-width:760px;
+max-width:800px;
 margin:auto;
-}
-
-.individual-photo{
-width:105px;
-height:125px;
-object-fit:cover;
-border:1px solid #000;
-display:block;
-margin:10px auto;
 }
 
 .individual-info{
@@ -688,26 +739,76 @@ font-weight:bold;
 background:#eee!important;
 }
 
-/* Blank Marksheet specifically */
-
-#printArea .blank-print .print-table{
-font-size:6px!important;
-}
-
-#printArea .blank-print .print-table th,
-#printArea .blank-print .print-table td{
-padding:1.5px 1px!important;
-height:11px!important;
-line-height:1!important;
-}
-
-#printArea .blank-print .signature-area{
-margin-top:8px!important;
-}
-
 @page{
 size:A4 landscape;
 margin:5mm;
+}
+
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:1200px){
+
+.stats{
+grid-template-columns:repeat(3,1fr);
+}
+
+.grid-4{
+grid-template-columns:repeat(2,1fr);
+}
+
+}
+
+@media(max-width:800px){
+
+.grid,
+.grid-2,
+.grid-4{
+grid-template-columns:1fr 1fr;
+}
+
+.stats{
+grid-template-columns:repeat(2,1fr);
+}
+
+.summary{
+grid-template-columns:repeat(2,1fr);
+}
+
+.mark-row{
+grid-template-columns:1fr;
+}
+
+header{
+flex-direction:column;
+align-items:flex-start;
+}
+
+}
+
+@media(max-width:550px){
+
+.grid,
+.grid-2,
+.grid-4,
+.stats,
+.summary{
+grid-template-columns:1fr;
+}
+
+main{
+padding:0 9px 40px;
+}
+
+.card{
+padding:15px;
+}
+
+.header-title{
+font-size:18px;
 }
 
 }
@@ -720,7 +821,6 @@ margin:5mm;
 <header>
 
 <div>
-
 <div class="header-title">
 মাদরাসায়ে নূরুল কুরআন
 </div>
@@ -728,23 +828,26 @@ margin:5mm;
 <div class="header-sub">
 RESULT MANAGEMENT SYSTEM
 </div>
-
 </div>
 
 <div class="header-actions">
 
 <a href="dashboard.html" class="header-btn">
-← Dashboard
+<i class="fa-solid fa-arrow-left"></i>
+Dashboard
 </a>
 
 </div>
 
 </header>
 
-
 <main>
 
-<!-- STATS -->
+<div id="loading" class="loading"></div>
+
+<!-- =====================================================
+STATS
+===================================================== -->
 
 <div class="stats">
 
@@ -764,8 +867,13 @@ RESULT MANAGEMENT SYSTEM
 </div>
 
 <div class="stat">
-<div class="stat-label">Pending</div>
-<b id="pending">0</b>
+<div class="stat-label">Draft</div>
+<b id="draftCount">0</b>
+</div>
+
+<div class="stat">
+<div class="stat-label">Published</div>
+<b id="publishedCount">0</b>
 </div>
 
 <div class="stat">
@@ -775,17 +883,19 @@ RESULT MANAGEMENT SYSTEM
 
 </div>
 
-
-<!-- RESULT SELECTION -->
+<!-- =====================================================
+RESULT SELECTION
+===================================================== -->
 
 <div class="card">
 
 <h2 class="card-title">
+<i class="fa-solid fa-sliders"></i>
 Result Selection
 </h2>
 
 <div class="card-description">
-Session, Class ও Exam নির্বাচন করে শিক্ষার্থীদের Result তৈরি করুন।
+Session, Class ও Exam নির্বাচন করে শিক্ষার্থীদের Result তৈরি ও পরিচালনা করুন।
 </div>
 
 <div class="grid-4">
@@ -799,7 +909,6 @@ Session
 
 </label>
 
-
 <label>
 Class
 
@@ -808,7 +917,6 @@ Class
 </select>
 
 </label>
-
 
 <label>
 Exam
@@ -819,15 +927,12 @@ Exam
 
 </label>
 
-
 <label id="monthWrap" style="display:none">
 
 মাস
 
 <select id="month">
-
 <option value="">মাস নির্বাচন করুন</option>
-
 <option value="জানুয়ারি">জানুয়ারি</option>
 <option value="ফেব্রুয়ারি">ফেব্রুয়ারি</option>
 <option value="মার্চ">মার্চ</option>
@@ -840,88 +945,288 @@ Exam
 <option value="অক্টোবর">অক্টোবর</option>
 <option value="নভেম্বর">নভেম্বর</option>
 <option value="ডিসেম্বর">ডিসেম্বর</option>
-
 </select>
 
 </label>
 
 </div>
 
-
-<div>
-
 <button id="show" type="button">
+<i class="fa-solid fa-users"></i>
 Students দেখুন
 </button>
 
-<button
-class="secondary"
-id="refreshBtn"
-type="button">
+<button class="secondary" id="refreshBtn" type="button">
+<i class="fa-solid fa-rotate"></i>
 Refresh
 </button>
 
-</div>
-
-<div id="msg"></div>
+<div id="msg" class="notice"></div>
 
 </div>
 
-
-<!-- PRINT CONTROL -->
+<!-- =====================================================
+SUBJECT MANAGEMENT
+===================================================== -->
 
 <div class="card">
 
 <h2 class="card-title">
-Class Result Print / PDF
+<i class="fa-solid fa-book"></i>
+Subject Management
 </h2>
 
 <div class="card-description">
-নির্বাচিত Session + Class + Exam অনুযায়ী সকল শিক্ষার্থীর Result একসাথে A4 Print অথবা PDF হিসেবে সংরক্ষণ করুন।
+Class অনুযায়ী Subject, Full Mark ও Pass Mark তৈরি, Edit এবং Delete করুন।
 </div>
 
-<div class="print-controls">
-
-<div class="grid">
+<div class="grid-4">
 
 <label>
-Print Session
+Subject-এর Class
 
-<select id="printSession">
+<select id="subjectClass">
+<option value="">Class নির্বাচন করুন</option>
+</select>
+</label>
+
+<label>
+Subject Name
+
+<input
+id="subjectName"
+placeholder="যেমন: বাংলা">
+
+</label>
+
+<label>
+Full Mark
+
+<input
+id="fullMark"
+type="number"
+min="1"
+value="100">
+
+</label>
+
+<label>
+Pass Mark
+
+<input
+id="passMark"
+type="number"
+min="0"
+value="33">
+
+</label>
+
+</div>
+
+<button class="teal" id="addSubject" type="button">
+<i class="fa-solid fa-plus"></i>
+Subject Add
+</button>
+
+<button class="secondary" id="loadSubjectsBtn" type="button">
+<i class="fa-solid fa-list"></i>
+Subjects দেখুন
+</button>
+
+<div id="subjectMsg" class="notice"></div>
+
+<div id="subjectList" style="margin-top:15px"></div>
+
+</div>
+
+<!-- =====================================================
+PUBLISH MANAGEMENT
+===================================================== -->
+
+<div class="card">
+
+<h2 class="card-title">
+<i class="fa-solid fa-cloud-arrow-up"></i>
+Publish Management
+</h2>
+
+<div class="card-description">
+Result Save করার পর তা Draft থাকবে। এখান থেকে Class-wise অথবা All Result Publish করতে পারবেন। নির্দিষ্ট Date & Time দিয়েও Publish করা যাবে।
+</div>
+
+<div class="publish-panel">
+
+<div class="publish-title">
+<i class="fa-solid fa-bullhorn"></i>
+Publish Target
+</div>
+
+<div class="radio-row">
+
+<label class="radio-label">
+<input
+type="radio"
+name="publishScope"
+value="class"
+checked>
+Selected Class
+</label>
+
+<label class="radio-label">
+<input
+type="radio"
+name="publishScope"
+value="all">
+All Classes
+</label>
+
+</div>
+
+<div class="grid-4">
+
+<label>
+Session
+
+<select id="publishSession">
 <option value="">Session নির্বাচন করুন</option>
+</select>
+</label>
+
+<label>
+Exam
+
+<select id="publishExam">
+<option value="">Exam নির্বাচন করুন</option>
+</select>
+</label>
+
+<label id="publishMonthWrap" style="display:none">
+
+Month
+
+<select id="publishMonth">
+<option value="">মাস নির্বাচন করুন</option>
+<option value="জানুয়ারি">জানুয়ারি</option>
+<option value="ফেব্রুয়ারি">ফেব্রুয়ারি</option>
+<option value="মার্চ">মার্চ</option>
+<option value="এপ্রিল">এপ্রিল</option>
+<option value="মে">মে</option>
+<option value="জুন">জুন</option>
+<option value="জুলাই">জুলাই</option>
+<option value="আগস্ট">আগস্ট</option>
+<option value="সেপ্টেম্বর">সেপ্টেম্বর</option>
+<option value="অক্টোবর">অক্টোবর</option>
+<option value="নভেম্বর">নভেম্বর</option>
+<option value="ডিসেম্বর">ডিসেম্বর</option>
 </select>
 
 </label>
 
+<label id="publishClassWrap">
 
-<label>
-Print Class
+Class
 
-<select id="printClass">
+<select id="publishClass">
 <option value="">Class নির্বাচন করুন</option>
 </select>
 
 </label>
 
+</div>
+
+<div class="grid-2">
 
 <label>
-Print Exam
+Publish Date & Time
+
+<input
+id="publishAt"
+type="datetime-local">
+
+<div class="help">
+এখন Publish করতে বর্তমান সময় রাখুন। ভবিষ্যতের Date & Time দিলে নির্ধারিত সময়ের আগে Student Dashboard-এ দেখা যাবে না।
+</div>
+
+</label>
+
+<label>
+Publish Note
+
+<input
+id="publishNote"
+placeholder="যেমন: ১ম সাময়িক পরীক্ষার ফলাফল">
+
+<div class="help">
+Note শুধু Admin-এর reference হিসেবে ব্যবহার করতে পারেন।
+</div>
+
+</label>
+
+</div>
+
+<button class="success-btn" id="publishBtn" type="button">
+<i class="fa-solid fa-paper-plane"></i>
+Publish Result
+</button>
+
+<button class="warning" id="unpublishBtn" type="button">
+<i class="fa-solid fa-eye-slash"></i>
+Unpublish
+</button>
+
+<div id="publishMsg" class="notice"></div>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+PRINT
+===================================================== -->
+
+<div class="card">
+
+<h2 class="card-title">
+<i class="fa-solid fa-file-pdf"></i>
+Result Print / PDF
+</h2>
+
+<div class="card-description">
+Class-wise Published Result অথবা Blank Marksheet A4 Landscape format-এ Print / Save as PDF করুন।
+</div>
+
+<div class="grid-4">
+
+<label>
+Session
+
+<select id="printSession">
+<option value="">Session নির্বাচন করুন</option>
+</select>
+</label>
+
+<label>
+Class
+
+<select id="printClass">
+<option value="">Class নির্বাচন করুন</option>
+</select>
+</label>
+
+<label>
+Exam
 
 <select id="printExam">
 <option value="">Exam নির্বাচন করুন</option>
 </select>
-
 </label>
-
 
 <label id="printMonthWrap" style="display:none">
 
-Print Month
+Month
 
 <select id="printMonth">
-
 <option value="">মাস নির্বাচন করুন</option>
-
 <option value="জানুয়ারি">জানুয়ারি</option>
 <option value="ফেব্রুয়ারি">ফেব্রুয়ারি</option>
 <option value="মার্চ">মার্চ</option>
@@ -934,58 +1239,42 @@ Print Month
 <option value="অক্টোবর">অক্টোবর</option>
 <option value="নভেম্বর">নভেম্বর</option>
 <option value="ডিসেম্বর">ডিসেম্বর</option>
-
 </select>
 
 </label>
 
 </div>
 
-
-<div class="buttons">
-
-<button
-class="print-all-btn"
-id="printClassResult"
-type="button">
-
-Print All Result
-
+<button class="purple" id="printClassResult" type="button">
+<i class="fa-solid fa-file-pdf"></i>
+Published Result PDF
 </button>
 
+<button class="teal" id="printBlank" type="button">
+<i class="fa-solid fa-file-lines"></i>
+Blank Marksheet
+</button>
 
-<button
-class="print-btn"
-id="printBlank"
-type="button">
-
-Print Blank Marksheet
-
+<button class="blue" id="printStudentResult" type="button">
+<i class="fa-solid fa-user-graduate"></i>
+Student Marksheet
 </button>
 
 </div>
 
-<div class="help">
-Print All Result চাপলে নির্বাচিত Class-এর সকল শিক্ষার্থীর Subject-wise Result একসাথে তৈরি হবে।
-</div>
+<!-- =====================================================
+STUDENT LIST
+===================================================== -->
 
-</div>
-
-</div>
-
-
-<!-- STUDENTS -->
-
-<div
-class="card"
-id="studentsCard">
+<div class="card" id="studentsCard">
 
 <h2 class="card-title">
+<i class="fa-solid fa-users"></i>
 শিক্ষার্থী তালিকা
 </h2>
 
 <div class="card-description">
-নির্বাচিত Class + Session অনুযায়ী শিক্ষার্থীদের তালিকা।
+Selected Class + Session + Exam অনুযায়ী Result Status ও Action।
 </div>
 
 <div class="wrap">
@@ -1000,8 +1289,8 @@ id="studentsCard">
 <th>Student ID</th>
 <th>Roll</th>
 <th>Class</th>
-<th>Session</th>
 <th>Status</th>
+<th>Publish Time</th>
 <th>Action</th>
 </tr>
 
@@ -1015,16 +1304,13 @@ id="studentsCard">
 
 </div>
 
+<!-- =====================================================
+RESULT ENTRY
+===================================================== -->
 
-<!-- RESULT ENTRY -->
+<div class="card" id="entryCard">
 
-<div
-class="card"
-id="entryCard">
-
-<h2
-class="card-title"
-id="etitle">
+<h2 class="card-title" id="etitle">
 Result Add
 </h2>
 
@@ -1032,81 +1318,66 @@ Result Add
 
 <div id="subs"></div>
 
-
-<button
-id="save"
-class="success-btn"
-type="button">
-Save Result
+<button id="save" class="success-btn" type="button">
+<i class="fa-solid fa-floppy-disk"></i>
+Save Draft
 </button>
 
-
-<button
-class="secondary"
-id="close"
-type="button">
+<button class="secondary" id="close" type="button">
 Close
 </button>
 
-
-<div id="entryMsg"></div>
+<div id="entryMsg" class="notice"></div>
 
 </div>
 
-
-<!-- PUBLIC SEARCH -->
+<!-- =====================================================
+SEARCH
+===================================================== -->
 
 <div class="card">
 
 <h2 class="card-title">
+<i class="fa-solid fa-magnifying-glass"></i>
 Result Search
 </h2>
 
 <div class="card-description">
-Student ID অথবা Roll দিয়ে নির্দিষ্ট Exam-এর Result খুঁজুন।
+শুধুমাত্র Published Result Search করে দেখা যাবে।
 </div>
 
 <div class="grid">
 
 <label>
-
 Session
 
 <select id="ss">
 <option value="">Session নির্বাচন করুন</option>
 </select>
-
 </label>
 
-
 <label>
-
 Exam
 
 <select id="se">
 <option value="">Exam নির্বাচন করুন</option>
 </select>
-
 </label>
 
-
 <label>
-
 Student ID / Roll
 
 <input
 id="key"
 placeholder="Student ID অথবা Roll">
-
 </label>
 
 </div>
 
-
 <button id="search" type="button">
+<i class="fa-solid fa-search"></i>
 Search Result
 </button>
-
 
 <div id="out"></div>
 
@@ -1114,16 +1385,72 @@ Search Result
 
 </main>
 
-
 <div id="printArea"></div>
 
+<!-- =====================================================
+SUBJECT MODAL
+===================================================== -->
+
+<div class="modal" id="subjectModal">
+
+<div class="modal-box">
+
+<div class="modal-head">
+
+<h3>
+<i class="fa-solid fa-pen"></i>
+Subject Edit
+</h3>
+
+<button class="close-x" onclick="closeSubjectModal()">
+×
+</button>
+
+</div>
+
+<label>
+Subject Name
+
+<input id="editSubjectName">
+
+</label>
+
+<label style="margin-top:10px">
+Full Mark
+
+<input id="editFullMark" type="number" min="1">
+
+</label>
+
+<label style="margin-top:10px">
+Pass Mark
+
+<input id="editPassMark" type="number" min="0">
+
+</label>
+
+<input type="hidden" id="editSubjectId">
+
+<button class="success-btn" id="saveSubjectEdit">
+Save Changes
+</button>
+
+<button class="secondary" onclick="closeSubjectModal()">
+Cancel
+</button>
+
+<div id="editSubjectMsg" class="notice"></div>
+
+</div>
+
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 
 /* =====================================================
-   SUPABASE
+SUPABASE
 ===================================================== */
 
 const db =
@@ -1134,7 +1461,7 @@ supabase.createClient(
 
 
 /* =====================================================
-   GLOBAL
+GLOBAL
 ===================================================== */
 
 let students=[];
@@ -1142,11 +1469,6 @@ let subjects=[];
 let classes=[];
 let years=[];
 let currentStudent=null;
-
-
-/* =====================================================
-   FALLBACK CLASS
-===================================================== */
 
 const CLASS_LIST=[
 "নূরানী",
@@ -1159,11 +1481,6 @@ const CLASS_LIST=[
 "হিফাজ"
 ];
 
-
-/* =====================================================
-   EXAMS
-===================================================== */
-
 const EXAM_LIST=[
 "১ম সাময়িক পরীক্ষা",
 "২য় সাময়িক পরীক্ষা",
@@ -1173,7 +1490,7 @@ const EXAM_LIST=[
 
 
 /* =====================================================
-   ESCAPE
+HELPERS
 ===================================================== */
 
 function escapeHtml(value){
@@ -1188,9 +1505,84 @@ return String(value ?? "")
 }
 
 
-/* =====================================================
-   NOTICE
-===================================================== */
+function parseMaybeNumber(value){
+
+if(
+value!==null &&
+value!==undefined &&
+String(value).trim()!=="" &&
+!Number.isNaN(Number(value))
+){
+
+return Number(value);
+
+}
+
+return value;
+
+}
+
+
+function getCurrentYear(){
+
+return String(new Date().getFullYear());
+
+}
+
+
+function getClassNameById(id){
+
+const c=
+classes.find(
+x=>String(x.id)===String(id)
+);
+
+return c ? c.name : String(id ?? "—");
+
+}
+
+
+function formatDate(value){
+
+if(!value){
+return "—";
+}
+
+const d=new Date(value);
+
+if(Number.isNaN(d.getTime())){
+return "—";
+}
+
+return d.toLocaleString(
+"bn-BD",
+{
+dateStyle:"medium",
+timeStyle:"short"
+}
+);
+
+}
+
+
+function toDateTimeLocalValue(date){
+
+const d=date || new Date();
+
+const pad=n=>String(n).padStart(2,"0");
+
+return d.getFullYear()+
+"-"+
+pad(d.getMonth()+1)+
+"-"+
+pad(d.getDate())+
+"T"+
+pad(d.getHours())+
+":"+
+pad(d.getMinutes());
+
+}
+
 
 function notice(text,success=false,box=document.getElementById("msg")){
 
@@ -1205,22 +1597,21 @@ success ? "#15803d" : "#b91c1c";
 
 setTimeout(()=>{
 box.style.display="none";
-},4000);
+},5000);
+
+}
+
+
+function setLoading(active){
+
+document.getElementById("loading")
+.classList.toggle("active",active);
 
 }
 
 
 /* =====================================================
-   CURRENT YEAR
-===================================================== */
-
-function getCurrentYear(){
-return String(new Date().getFullYear());
-}
-
-
-/* =====================================================
-   EXAM OPTIONS
+EXAM
 ===================================================== */
 
 function loadExamOptions(){
@@ -1228,7 +1619,8 @@ function loadExamOptions(){
 const lists=[
 document.getElementById("exam"),
 document.getElementById("printExam"),
-document.getElementById("se")
+document.getElementById("se"),
+document.getElementById("publishExam")
 ];
 
 lists.forEach(select=>{
@@ -1237,7 +1629,11 @@ select.innerHTML=
 `<option value="">Exam নির্বাচন করুন</option>`;
 
 EXAM_LIST.forEach(name=>{
-select.add(new Option(name,name));
+
+select.add(
+new Option(name,name)
+);
+
 });
 
 });
@@ -1245,45 +1641,56 @@ select.add(new Option(name,name));
 }
 
 
-/* =====================================================
-   EXAM MONTH
-===================================================== */
-
-function setupExamMonth(examSelect,monthWrap,monthSelect){
-
-examSelect.addEventListener("change",()=>{
-
-if(
-examSelect.value==="মাসিক মূল্যায়ন পরীক্ষা"
+function setupExamMonth(
+examSelect,
+monthWrap,
+monthSelect
 ){
 
-monthWrap.style.display="block";
+examSelect.addEventListener(
+"change",
+()=>{
+
+if(
+examSelect.value===
+"মাসিক মূল্যায়ন পরীক্ষা"
+){
+
+monthWrap.style.display=
+"block";
 
 }
 else{
 
-monthWrap.style.display="none";
+monthWrap.style.display=
+"none";
+
 monthSelect.value="";
 
 }
 
-});
+}
+);
 
 }
 
 
-/* =====================================================
-   EXAM KEY
-===================================================== */
-
-function getExamKey(examName,month){
+function getExamKey(
+examName,
+month
+){
 
 if(
-examName==="মাসিক মূল্যায়ন পরীক্ষা"
+examName===
+"মাসিক মূল্যায়ন পরীক্ষা"
 ){
 
 if(!month){
-throw new Error("মাস নির্বাচন করুন।");
+
+throw new Error(
+"মাস নির্বাচন করুন।"
+);
+
 }
 
 return examName+" — "+month;
@@ -1296,15 +1703,25 @@ return examName;
 
 
 /* =====================================================
-   LOAD CLASSES
+CLASSES
 ===================================================== */
 
 async function loadClasses(){
 
 const selects=[
 document.getElementById("className"),
-document.getElementById("printClass")
+document.getElementById("printClass"),
+document.getElementById("subjectClass"),
+document.getElementById("publishClass")
 ];
+
+selects.forEach(select=>{
+
+select.innerHTML=
+`<option value="">Class নির্বাচন করুন</option>`;
+
+});
+
 
 let data=[];
 
@@ -1317,61 +1734,57 @@ await db
 .order("id");
 
 if(!r.error){
+
 data=r.data||[];
+
 }
 
 }
 catch(e){
+
 console.error(e);
+
 }
-
-
-selects.forEach(select=>{
-select.innerHTML=
-`<option value="">Class নির্বাচন করুন</option>`;
-});
 
 
 if(data.length){
 
 classes=data;
 
-data.forEach(c=>{
-
-selects.forEach(select=>{
-select.add(
-new Option(c.name,String(c.id))
-);
-});
-
-});
-
 }
 else{
 
 classes=
-CLASS_LIST.map((name,index)=>({
+CLASS_LIST.map(
+(name,index)=>({
 id:name,
 name:name
-}));
+})
+);
+
+}
+
 
 classes.forEach(c=>{
 
 selects.forEach(select=>{
+
 select.add(
-new Option(c.name,String(c.id))
+new Option(
+c.name,
+String(c.id)
+)
 );
-});
 
 });
 
-}
+});
 
 }
 
 
 /* =====================================================
-   LOAD SESSIONS
+SESSIONS
 ===================================================== */
 
 async function loadSessions(){
@@ -1379,12 +1792,15 @@ async function loadSessions(){
 const selects=[
 document.getElementById("session"),
 document.getElementById("printSession"),
-document.getElementById("ss")
+document.getElementById("ss"),
+document.getElementById("publishSession")
 ];
 
 selects.forEach(select=>{
+
 select.innerHTML=
 `<option value="">Session নির্বাচন করুন</option>`;
+
 });
 
 
@@ -1499,32 +1915,30 @@ String(item.year)
 
 document.getElementById("session").value=current;
 document.getElementById("printSession").value=current;
+document.getElementById("publishSession").value=current;
 
 }
 
 
 /* =====================================================
-   GET CLASS NAME
+STUDENT CLASS
 ===================================================== */
 
-function getStudentClassName(s){
+function getStudentClassName(student){
 
-const c=
-classes.find(
-x=>String(x.id)===String(s.class_id)
-);
-
-if(c){
-return c.name;
-}
-
-return s.class_name || "—";
+return getClassNameById(
+student.class_id
+) !== String(student.class_id)
+?
+getClassNameById(student.class_id)
+:
+student.class_name || "—";
 
 }
 
 
 /* =====================================================
-   LOAD STUDENTS
+LOAD STUDENTS
 ===================================================== */
 
 async function getStudents(){
@@ -1560,7 +1974,10 @@ let examKey;
 try{
 
 examKey=
-getExamKey(examName,month);
+getExamKey(
+examName,
+month
+);
 
 }
 catch(error){
@@ -1570,17 +1987,9 @@ return notice(error.message);
 }
 
 
-/*
-=========================================================
-IMPORTANT FIX
+setLoading(true);
 
-আগের কোডে student_name, roll_no, roll,
-class_name ইত্যাদি এমন column select করা হচ্ছিল
-যেগুলো আপনার students table-এ নেই।
-
-এখন শুধু actual fields নেওয়া হচ্ছে।
-=========================================================
-*/
+try{
 
 const r=
 await db
@@ -1608,7 +2017,7 @@ created_at
 
 if(r.error){
 
-return notice(
+throw new Error(
 "Student Load Error: "+
 r.error.message
 );
@@ -1616,45 +2025,25 @@ r.error.message
 }
 
 
-let all=r.data||[];
-
-
-/* =====================================================
-   CLASS FILTER
-===================================================== */
-
 students=
-all.filter(s=>{
+(r.data||[]).filter(
+s=>
+String(s.class_id)===
+String(classValue)
+);
 
-return String(s.class_id)===
-String(classValue);
-
-});
-
-
-/* =====================================================
-   SESSION FILTER
-===================================================== */
 
 students=
 students.filter(s=>{
 
-const studentSession=
+const ses=
 String(s.session ?? "").trim();
 
-if(!studentSession){
-return true;
-}
-
-return studentSession===
-String(sessionValue);
+return !ses ||
+ses===String(sessionValue);
 
 });
 
-
-/* =====================================================
-   SORT ROLL
-===================================================== */
 
 students.sort((a,b)=>{
 
@@ -1669,13 +2058,10 @@ return ra-rb;
 });
 
 
-/* =====================================================
-   CLASS NAME
-===================================================== */
-
 const selectedClass=
 classes.find(
-c=>String(c.id)===String(classValue)
+c=>String(c.id)===
+String(classValue)
 );
 
 const selectedClassName=
@@ -1686,49 +2072,11 @@ selectedClass.name
 classValue;
 
 
-/* =====================================================
-   SUBJECTS
-===================================================== */
-
-let sr=
-await db
-.from("subjects")
-.select("*")
-.eq("class_id",classValue)
-.order("id");
-
-
-if(
-sr.error ||
-!(sr.data||[]).length
-){
-
-sr=
-await db
-.from("subjects")
-.select("*")
-.eq("class_name",selectedClassName)
-.order("id");
-
-}
-
-
-if(sr.error){
-
-return notice(
-"Subject Load Error: "+
-sr.error.message
+await loadSubjectsForClass(
+classValue,
+selectedClassName
 );
 
-}
-
-
-subjects=sr.data||[];
-
-
-/* =====================================================
-   STATS
-===================================================== */
 
 document.getElementById("cnt").textContent=
 students.length;
@@ -1740,32 +2088,79 @@ document.getElementById("subcnt").textContent=
 subjects.length;
 
 
-/* =====================================================
-   RENDER
-===================================================== */
-
 renderStudents();
 
-document.getElementById("studentsCard").style.display=
-"block";
 
-
-if(!subjects.length){
-
-notice(
-"এই Class-এর জন্য কোনো Subject পাওয়া যায়নি। আগে subjects page থেকে Subject যোগ করুন।"
-);
-
-}
+document.getElementById("studentsCard")
+.style.display="block";
 
 
 await updateStatus();
 
 }
+catch(error){
+
+notice(error.message);
+
+}
+finally{
+
+setLoading(false);
+
+}
+
+}
 
 
 /* =====================================================
-   RENDER STUDENTS
+SUBJECT LOAD
+===================================================== */
+
+async function loadSubjectsForClass(
+classValue,
+className
+){
+
+let r=
+await db
+.from("subjects")
+.select("*")
+.eq("class_id",classValue)
+.order("id");
+
+
+if(
+r.error ||
+!(r.data||[]).length
+){
+
+r=
+await db
+.from("subjects")
+.select("*")
+.eq("class_name",className)
+.order("id");
+
+}
+
+
+if(r.error){
+
+throw new Error(
+"Subject Load Error: "+
+r.error.message
+);
+
+}
+
+
+subjects=r.data||[];
+
+}
+
+
+/* =====================================================
+RENDER STUDENTS
 ===================================================== */
 
 function renderStudents(){
@@ -1792,27 +2187,8 @@ return;
 
 
 tbody.innerHTML=
-students.map((s,i)=>{
-
-const studentId=
-s.student_id ??
-"";
-
-const roll=
-s.roll_number ??
-"";
-
-const name=
-s.name ??
-"";
-
-const className=
-getStudentClassName(s);
-
-const ses=
-s.session ??
-document.getElementById("session").value;
-
+students.map(
+(s,i)=>{
 
 return `
 
@@ -1822,43 +2198,79 @@ return `
 
 <td>
 <strong>
-${escapeHtml(name)}
+${escapeHtml(s.name)}
 </strong>
 </td>
 
 <td>
-${escapeHtml(studentId)}
+${escapeHtml(s.student_id)}
 </td>
 
 <td>
 <strong>
-${escapeHtml(roll)}
+${escapeHtml(s.roll_number)}
 </strong>
 </td>
 
 <td>
-${escapeHtml(className)}
+${escapeHtml(
+getStudentClassName(s)
+)}
 </td>
 
-<td>
-${escapeHtml(ses)}
-</td>
-
-<td id="st-${escapeHtml(s.id)}">
-<span class="status-pending">
-Pending
+<td id="status-${escapeHtml(s.id)}">
+<span class="status status-none">
+Loading...
 </span>
 </td>
 
+<td id="time-${escapeHtml(s.id)}">
+—
+</td>
+
 <td>
 
+<div class="action-group">
+
 <button
-class="action-btn add-btn"
+class="small-btn blue"
 onclick="openResultById('${String(s.id)}')">
 
-Add Result
+<i class="fa-solid fa-pen"></i>
+Edit Marks
 
 </button>
+
+<button
+class="small-btn success-btn"
+id="publish-row-${escapeHtml(s.id)}"
+onclick="publishSingle('${String(s.id)}')">
+
+<i class="fa-solid fa-eye"></i>
+Publish
+
+</button>
+
+<button
+class="small-btn warning"
+id="unpublish-row-${escapeHtml(s.id)}"
+onclick="unpublishSingle('${String(s.id)}')">
+
+<i class="fa-solid fa-eye-slash"></i>
+Unpublish
+
+</button>
+
+<button
+class="small-btn danger"
+onclick="deleteResultById('${String(s.id)}')">
+
+<i class="fa-solid fa-trash"></i>
+Delete
+
+</button>
+
+</div>
 
 </td>
 
@@ -1866,83 +2278,183 @@ Add Result
 
 `;
 
-}).join("");
+}
+).join("");
 
 }
 
 
 /* =====================================================
-   UPDATE STATUS
+GET CURRENT EXAM
 ===================================================== */
 
-async function updateStatus(){
+function getSelectedExam(){
 
-let totalAdded=0;
+return getExamKey(
+document.getElementById("exam").value,
+document.getElementById("month").value
+);
 
-const examName=
-document.getElementById("exam").value;
+}
 
-const month=
-document.getElementById("month").value;
+
+/* =====================================================
+RESULTS FOR STUDENT
+===================================================== */
+
+async function getStudentResults(student){
+
+const studentId=
+String(
+student.student_id ??
+student.id
+);
 
 const sessionValue=
 document.getElementById("session").value;
 
-
-if(!examName || !sessionValue){
-return;
-}
-
-
-let examKey;
-
-try{
-
-examKey=
-getExamKey(examName,month);
-
-}
-catch(e){
-return;
-}
-
-
-for(const s of students){
-
-const studentId=
-String(
-s.student_id ??
-s.id
-);
+const examKey=
+getSelectedExam();
 
 
 const r=
 await db
 .from("results")
-.select("id")
+.select("*")
 .eq("student_id",studentId)
 .eq("exam_name",examKey)
 .eq("session",sessionValue);
 
+if(r.error){
 
-const count=(r.data||[]).length;
+throw new Error(
+r.error.message
+);
+
+}
+
+return r.data||[];
+
+}
+
+
+/* =====================================================
+STATUS
+===================================================== */
+
+async function updateStatus(){
+
+let totalAdded=0;
+let draftCount=0;
+let publishedCount=0;
+
+
+if(!students.length){
+
+return;
+
+}
+
+
+for(const student of students){
+
+try{
+
+const results=
+await getStudentResults(student);
 
 const cell=
-document.getElementById("st-"+s.id);
+document.getElementById(
+"status-"+student.id
+);
+
+const timeCell=
+document.getElementById(
+"time-"+student.id
+);
+
+const publishBtn=
+document.getElementById(
+"publish-row-"+student.id
+);
+
+const unpublishBtn=
+document.getElementById(
+"unpublish-row-"+student.id
+);
 
 
-if(count){
-
-totalAdded++;
+if(!results.length){
 
 if(cell){
 
 cell.innerHTML=`
-
-<span class="status-added">
-Added
+<span class="status status-none">
+<i class="fa-solid fa-minus"></i>
+Not Added
 </span>
+`;
 
+}
+
+if(timeCell){
+
+timeCell.textContent="—";
+
+}
+
+if(publishBtn){
+publishBtn.style.display="none";
+}
+
+if(unpublishBtn){
+unpublishBtn.style.display="none";
+}
+
+continue;
+
+}
+
+
+totalAdded++;
+
+
+const published=
+results.every(
+r=>r.published===true
+);
+
+
+const hasFutureSchedule=
+results.some(
+r=>
+r.published===true &&
+r.publish_at &&
+new Date(r.publish_at)>new Date()
+);
+
+
+const publishTime=
+results
+.map(r=>r.publish_at)
+.filter(Boolean)
+.sort()
+[0] || null;
+
+
+if(published){
+
+if(hasFutureSchedule){
+
+draftCount++;
+
+if(cell){
+
+cell.innerHTML=`
+<span class="status status-scheduled">
+<i class="fa-solid fa-clock"></i>
+Scheduled
+</span>
 `;
 
 }
@@ -1950,17 +2462,71 @@ Added
 }
 else{
 
+publishedCount++;
+
 if(cell){
 
 cell.innerHTML=`
-
-<span class="status-pending">
-Pending
+<span class="status status-published">
+<i class="fa-solid fa-circle-check"></i>
+Published
 </span>
-
 `;
 
 }
+
+}
+
+if(publishBtn){
+publishBtn.style.display="none";
+}
+
+if(unpublishBtn){
+unpublishBtn.style.display="inline-block";
+}
+
+}
+else{
+
+draftCount++;
+
+if(cell){
+
+cell.innerHTML=`
+<span class="status status-draft">
+<i class="fa-solid fa-file"></i>
+Draft
+</span>
+`;
+
+}
+
+if(publishBtn){
+publishBtn.style.display="inline-block";
+}
+
+if(unpublishBtn){
+unpublishBtn.style.display="none";
+}
+
+}
+
+
+if(timeCell){
+
+timeCell.textContent=
+publishTime
+?
+formatDate(publishTime)
+:
+"—";
+
+}
+
+}
+catch(error){
+
+console.error(error);
 
 }
 
@@ -1970,14 +2536,17 @@ Pending
 document.getElementById("added").textContent=
 totalAdded;
 
-document.getElementById("pending").textContent=
-Math.max(0,students.length-totalAdded);
+document.getElementById("draftCount").textContent=
+draftCount;
+
+document.getElementById("publishedCount").textContent=
+publishedCount;
 
 }
 
 
 /* =====================================================
-   OPEN RESULT
+OPEN RESULT
 ===================================================== */
 
 window.openResultById=
@@ -1990,7 +2559,9 @@ s=>String(s.id)===String(id)
 
 if(!student){
 
-return alert("Student পাওয়া যায়নি।");
+return alert(
+"Student পাওয়া যায়নি।"
+);
 
 }
 
@@ -1999,71 +2570,34 @@ openResult(student);
 };
 
 
-/* =====================================================
-   OPEN RESULT
-===================================================== */
+async function openResult(student){
 
-async function openResult(s){
-
-currentStudent=s;
+currentStudent=student;
 
 
 const studentId=
 String(
-s.student_id ??
-s.id
+student.student_id ??
+student.id
 );
 
-const name=
-s.name ??
-"";
-
-const roll=
-s.roll_number ??
-"";
-
-const className=
-getStudentClassName(s);
+const examKey=
+getSelectedExam();
 
 const sessionValue=
 document.getElementById("session").value;
 
-const examName=
-document.getElementById("exam").value;
-
-const month=
-document.getElementById("month").value;
-
-
-let examKey;
-
-try{
-
-examKey=
-getExamKey(examName,month);
-
-}
-catch(error){
-
-return notice(
-error.message,
-false,
-document.getElementById("entryMsg")
-);
-
-}
-
 
 document.getElementById("etitle").textContent=
-"Result — "+name;
+"Result — "+student.name;
 
 
 document.getElementById("einfo").innerHTML=`
 
 <div class="resultHead">
 
-<b>Student Name:</b>
-${escapeHtml(name)}
+<b>Student:</b>
+${escapeHtml(student.name)}
 
 <br>
 
@@ -2073,12 +2607,14 @@ ${escapeHtml(studentId)}
 &nbsp;&nbsp;
 
 <b>Roll:</b>
-${escapeHtml(roll)}
+${escapeHtml(student.roll_number)}
 
 <br>
 
 <b>Class:</b>
-${escapeHtml(className)}
+${escapeHtml(
+getStudentClassName(student)
+)}
 
 &nbsp;&nbsp;
 
@@ -2095,9 +2631,7 @@ ${escapeHtml(examKey)}
 `;
 
 
-/* OLD RESULT */
-
-const old=
+let old=
 await db
 .from("results")
 .select("*")
@@ -2121,7 +2655,9 @@ const oldMap={};
 
 (old.data||[]).forEach(r=>{
 
-oldMap[String(r.subject_id)]=r;
+oldMap[
+String(r.subject_id)
+]=r;
 
 });
 
@@ -2136,11 +2672,13 @@ subs.innerHTML=`
 
 <div class="notice-box">
 
-এই Class-এর জন্য Subject নেই।
+<i class="fa-solid fa-triangle-exclamation"></i>
+
+এই Class-এর জন্য কোনো Subject নেই।
 
 <br><br>
 
-আগে subjects page থেকে Subject যোগ করুন।
+উপরের Subject Management থেকে আগে Subject যোগ করুন।
 
 </div>
 
@@ -2150,9 +2688,11 @@ subs.innerHTML=`
 else{
 
 subs.innerHTML=
-subjects.map(subject=>{
+subjects.map(
+subject=>{
 
-const subjectId=subject.id;
+const subjectId=
+subject.id;
 
 const subjectName=
 subject.subject_name ??
@@ -2192,6 +2732,8 @@ return `
 
 <div class="markTitle">
 
+<i class="fa-solid fa-book-open"></i>
+
 ${escapeHtml(subjectName)}
 
 </div>
@@ -2207,6 +2749,10 @@ ${escapeHtml(subjectName)}
 <strong>${pass}</strong>
 
 </div>
+
+<div class="mark-row">
+
+<div>
 
 <input
 
@@ -2232,18 +2778,45 @@ placeholder="প্রাপ্ত নম্বর লিখুন"
 
 </div>
 
+<div>
+
+<div class="help">
+Existing Status:
+${
+oldResult
+?
+(
+oldResult.published
+?
+'<span class="pass">Published</span>'
+:
+'<span class="status status-draft">Draft</span>'
+)
+:
+"Not Added"
+}
+</div>
+
+</div>
+
+</div>
+
+</div>
+
 `;
 
-}).join("");
+}
+).join("");
 
 }
 
 
-document.getElementById("entryCard").style.display=
-"block";
+document.getElementById("entryCard")
+.style.display="block";
 
 
-document.getElementById("entryCard").scrollIntoView({
+document.getElementById("entryCard")
+.scrollIntoView({
 behavior:"smooth"
 });
 
@@ -2251,7 +2824,7 @@ behavior:"smooth"
 
 
 /* =====================================================
-   SAVE RESULT
+SAVE DRAFT
 ===================================================== */
 
 document.getElementById("save").onclick=
@@ -2282,21 +2855,13 @@ const month=
 document.getElementById("month").value;
 
 
-if(!sessionValue){
+if(
+!sessionValue ||
+!examName
+){
 
 return notice(
-"Session নির্বাচন করুন।",
-false,
-entryMsg
-);
-
-}
-
-
-if(!examName){
-
-return notice(
-"Exam নির্বাচন করুন।",
+"Session এবং Exam নির্বাচন করুন।",
 false,
 entryMsg
 );
@@ -2309,7 +2874,10 @@ let examKey;
 try{
 
 examKey=
-getExamKey(examName,month);
+getExamKey(
+examName,
+month
+);
 
 }
 catch(error){
@@ -2345,25 +2913,21 @@ continue;
 }
 
 
-const mark=Number(input.value);
-const full=Number(input.dataset.full);
+const mark=
+Number(input.value);
+
+const full=
+Number(input.dataset.full);
 
 
-if(Number.isNaN(mark)){
-
-return notice(
-"সঠিক নম্বর দিন।",
-false,
-entryMsg
-);
-
-}
-
-
-if(mark<0 || mark>full){
+if(
+Number.isNaN(mark) ||
+mark<0 ||
+mark>full
+){
 
 return notice(
-`প্রাপ্ত নম্বর ${full}-এর বেশি হতে পারবে না।`,
+`প্রাপ্ত নম্বর ${full}-এর মধ্যে হতে হবে।`,
 false,
 entryMsg
 );
@@ -2375,13 +2939,22 @@ data.push({
 
 student_id:studentId,
 
-subject_id:Number(input.dataset.id),
+subject_id:
+parseMaybeNumber(
+input.dataset.id
+),
 
 exam_name:examKey,
 
 marks:mark,
 
-session:sessionValue
+session:sessionValue,
+
+published:false,
+
+publish_at:null,
+
+updated_at:new Date().toISOString()
 
 });
 
@@ -2424,14 +2997,14 @@ entryMsg
 
 
 notice(
-"Result সফলভাবে Save হয়েছে।",
+"Result Draft হিসেবে Save হয়েছে। Student Dashboard-এ এখনো দেখা যাবে না।",
 true,
 entryMsg
 );
 
 
-document.getElementById("entryCard").style.display=
-"none";
+document.getElementById("entryCard")
+.style.display="none";
 
 
 await updateStatus();
@@ -2440,42 +3013,250 @@ await updateStatus();
 
 
 /* =====================================================
-   DELETE RESULT
+PUBLISH SINGLE
 ===================================================== */
 
-window.deleteResultById=
-async function(id){
+window.publishSingle=
+async function(studentRowId){
 
 const student=
 students.find(
-s=>String(s.id)===String(id)
+s=>String(s.id)===
+String(studentRowId)
 );
 
 if(!student){
 
-return alert("Student পাওয়া যায়নি।");
+return alert(
+"Student পাওয়া যায়নি।"
+);
 
 }
 
 
-const studentName=
-student.name ||
-"এই Student";
+const results=
+await getStudentResults(student);
+
+
+if(!results.length){
+
+return alert(
+"এই Student-এর কোনো Result এখনো Add করা হয়নি।"
+);
+
+}
+
+
+const value=
+prompt(
+"Publish Date & Time দিন।\n\n" +
+"খালি রাখলে এখনই Publish হবে।\n" +
+"Format: YYYY-MM-DDTHH:MM",
+toDateTimeLocalValue()
+);
+
+
+if(value===null){
+return;
+}
+
+
+let publishAt=null;
+
+
+if(value.trim()){
+
+const d=
+new Date(value);
+
+if(Number.isNaN(d.getTime())){
+
+return alert(
+"সঠিক Date & Time দিন।"
+);
+
+}
+
+publishAt=d.toISOString();
+
+}
+
+
+const studentId=
+String(
+student.student_id ??
+student.id
+);
 
 const sessionValue=
 document.getElementById("session").value;
 
-const examName=
-document.getElementById("exam").value;
-
-const month=
-document.getElementById("month").value;
+const examKey=
+getSelectedExam();
 
 
-if(!sessionValue || !examName){
+const r=
+await db
+.from("results")
+.update({
+published:true,
+publish_at:publishAt,
+updated_at:new Date().toISOString()
+})
+.eq("student_id",studentId)
+.eq("exam_name",examKey)
+.eq("session",sessionValue);
+
+
+if(r.error){
 
 return alert(
-"Session এবং Exam নির্বাচন করুন।"
+"Publish Error: "+
+r.error.message
+);
+
+}
+
+
+alert(
+publishAt
+?
+"Result Scheduled/Published হয়েছে।"
+:
+"Result এখন Published হয়েছে।"
+);
+
+await updateStatus();
+
+};
+
+
+/* =====================================================
+UNPUBLISH SINGLE
+===================================================== */
+
+window.unpublishSingle=
+async function(studentRowId){
+
+const student=
+students.find(
+s=>String(s.id)===
+String(studentRowId)
+);
+
+if(!student){
+return;
+}
+
+
+const ok=
+confirm(
+student.name+
+" - এর Result Unpublish করতে চান?\n\nStudent Dashboard থেকে Result লুকানো হবে।"
+);
+
+if(!ok){
+return;
+}
+
+
+const studentId=
+String(
+student.student_id ??
+student.id
+);
+
+const sessionValue=
+document.getElementById("session").value;
+
+const examKey=
+getSelectedExam();
+
+
+const r=
+await db
+.from("results")
+.update({
+published:false,
+publish_at:null,
+updated_at:new Date().toISOString()
+})
+.eq("student_id",studentId)
+.eq("exam_name",examKey)
+.eq("session",sessionValue);
+
+
+if(r.error){
+
+return alert(
+"Unpublish Error: "+
+r.error.message
+);
+
+}
+
+
+alert(
+"Result Unpublish করা হয়েছে।"
+);
+
+await updateStatus();
+
+};
+
+
+/* =====================================================
+BULK PUBLISH
+===================================================== */
+
+document.getElementById("publishBtn")
+.onclick=
+async function(){
+
+const session=
+document.getElementById("publishSession").value;
+
+const examName=
+document.getElementById("publishExam").value;
+
+const month=
+document.getElementById("publishMonth").value;
+
+const scope=
+document.querySelector(
+'input[name="publishScope"]:checked'
+)?.value;
+
+const classValue=
+document.getElementById("publishClass").value;
+
+const dateValue=
+document.getElementById("publishAt").value;
+
+
+if(
+!session ||
+!examName
+){
+
+return notice(
+"Publish করার জন্য Session এবং Exam নির্বাচন করুন।",
+false,
+document.getElementById("publishMsg")
+);
+
+}
+
+
+if(
+scope==="class" &&
+!classValue
+){
+
+return notice(
+"Class নির্বাচন করুন।",
+false,
+document.getElementById("publishMsg")
 );
 
 }
@@ -2486,22 +3267,410 @@ let examKey;
 try{
 
 examKey=
-getExamKey(examName,month);
+getExamKey(
+examName,
+month
+);
 
 }
 catch(error){
 
-return alert(error.message);
+return notice(
+error.message,
+false,
+document.getElementById("publishMsg")
+);
 
 }
 
 
+let publishAt=null;
+
+
+if(dateValue){
+
+const d=
+new Date(dateValue);
+
+if(Number.isNaN(d.getTime())){
+
+return notice(
+"সঠিক Publish Date & Time দিন।",
+false,
+document.getElementById("publishMsg")
+);
+
+}
+
+publishAt=d.toISOString();
+
+}
+
+
+const confirmText=
+scope==="all"
+?
+"এই Session + Exam-এর সকল Class-এর Result Publish করবেন?"
+:
+"নির্বাচিত Class-এর সকল Result Publish করবেন?";
+
+
+if(!confirm(confirmText)){
+return;
+}
+
+
+setLoading(true);
+
+
+try{
+
+let query=
+db
+.from("students")
+.select("student_id,class_id,session");
+
+
+query=
+query.eq(
+"session",
+session
+);
+
+
+if(scope==="class"){
+
+query=
+query.eq(
+"class_id",
+classValue
+);
+
+}
+
+
+const sr=
+await query;
+
+
+if(sr.error){
+
+throw new Error(
+"Student Load Error: "+
+sr.error.message
+);
+
+}
+
+
+const studentIds=
+(sr.data||[])
+.map(
+s=>String(
+s.student_id
+)
+)
+.filter(Boolean);
+
+
+if(!studentIds.length){
+
+throw new Error(
+"এই selection-এর কোনো Student পাওয়া যায়নি।"
+);
+
+}
+
+
+/*
+Bulk update results.
+শুধু existing result rows Publish হবে।
+যেসব Student-এর marks এখনো Save করা হয়নি,
+তাদের Result তৈরি হবে না।
+*/
+
+const r=
+await db
+.from("results")
+.update({
+published:true,
+publish_at:publishAt,
+updated_at:new Date().toISOString()
+})
+.in("student_id",studentIds)
+.eq("exam_name",examKey)
+.eq("session",session);
+
+
+if(r.error){
+
+throw new Error(
+"Bulk Publish Error: "+
+r.error.message
+);
+
+}
+
+
+notice(
+scope==="all"
+?
+"সকল Class-এর existing Result Publish/Schedule করা হয়েছে।"
+:
+"নির্বাচিত Class-এর existing Result Publish/Schedule করা হয়েছে।",
+true,
+document.getElementById("publishMsg")
+);
+
+
+if(
+document.getElementById("session").value===
+session
+){
+
+await updateStatus();
+
+}
+
+}
+catch(error){
+
+notice(
+error.message,
+false,
+document.getElementById("publishMsg")
+);
+
+}
+finally{
+
+setLoading(false);
+
+}
+
+};
+
+
+/* =====================================================
+BULK UNPUBLISH
+===================================================== */
+
+document.getElementById("unpublishBtn")
+.onclick=
+async function(){
+
+const session=
+document.getElementById("publishSession").value;
+
+const examName=
+document.getElementById("publishExam").value;
+
+const month=
+document.getElementById("publishMonth").value;
+
+const scope=
+document.querySelector(
+'input[name="publishScope"]:checked'
+)?.value;
+
+const classValue=
+document.getElementById("publishClass").value;
+
+
+if(
+!session ||
+!examName
+){
+
+return notice(
+"Session এবং Exam নির্বাচন করুন।",
+false,
+document.getElementById("publishMsg")
+);
+
+}
+
+
+if(
+scope==="class" &&
+!classValue
+){
+
+return notice(
+"Class নির্বাচন করুন।",
+false,
+document.getElementById("publishMsg")
+);
+
+}
+
+
+let examKey;
+
+try{
+
+examKey=
+getExamKey(
+examName,
+month
+);
+
+}
+catch(error){
+
+return notice(
+error.message,
+false,
+document.getElementById("publishMsg")
+);
+
+}
+
+
+if(
+!confirm(
+"Selected Result Unpublish করতে চান?"
+)
+){
+
+return;
+
+}
+
+
+setLoading(true);
+
+
+try{
+
+let query=
+db
+.from("students")
+.select("student_id,class_id,session")
+.eq("session",session);
+
+
+if(scope==="class"){
+
+query=
+query.eq(
+"class_id",
+classValue
+);
+
+}
+
+
+const sr=
+await query;
+
+
+if(sr.error){
+
+throw new Error(
+sr.error.message
+);
+
+}
+
+
+const ids=
+(sr.data||[])
+.map(
+s=>String(s.student_id)
+)
+.filter(Boolean);
+
+
+if(!ids.length){
+
+throw new Error(
+"কোনো Student পাওয়া যায়নি।"
+);
+
+}
+
+
+const r=
+await db
+.from("results")
+.update({
+published:false,
+publish_at:null,
+updated_at:new Date().toISOString()
+})
+.in("student_id",ids)
+.eq("exam_name",examKey)
+.eq("session",session);
+
+
+if(r.error){
+
+throw new Error(
+r.error.message
+);
+
+}
+
+
+notice(
+"Selected Result Unpublish করা হয়েছে।",
+true,
+document.getElementById("publishMsg")
+);
+
+
+await updateStatus();
+
+}
+catch(error){
+
+notice(
+error.message,
+false,
+document.getElementById("publishMsg")
+);
+
+}
+finally{
+
+setLoading(false);
+
+}
+
+};
+
+
+/* =====================================================
+DELETE RESULT
+===================================================== */
+
+window.deleteResultById=
+async function(studentRowId){
+
+const student=
+students.find(
+s=>String(s.id)===
+String(studentRowId)
+);
+
+if(!student){
+return;
+}
+
+
+const examKey=
+getSelectedExam();
+
+const session=
+document.getElementById("session").value;
+
 const ok=
 confirm(
-studentName+
-" - এর "+
-examKey+
-" Result Delete করতে চান?"
+student.name+
+" - এর "+examKey+
+" Result সম্পূর্ণ Delete করতে চান?\n\n"+
+"এই Student-এর এই Exam-এর সব Subject Marks Delete হবে।"
 );
 
 if(!ok){
@@ -2516,19 +3685,13 @@ student.id
 );
 
 
-/*
-শুধু এই Student-এর
-নির্বাচিত Exam + Session-এর Result delete হবে।
-অন্য Student বা অন্য Exam-এর Result থাকবে।
-*/
-
 const r=
 await db
 .from("results")
 .delete()
 .eq("student_id",studentId)
 .eq("exam_name",examKey)
-.eq("session",sessionValue);
+.eq("session",session);
 
 
 if(r.error){
@@ -2541,41 +3704,573 @@ r.error.message
 }
 
 
-const cell=
-document.getElementById(
-"st-"+student.id
+alert(
+"Result সফলভাবে Delete হয়েছে।"
 );
 
 
-if(cell){
+await updateStatus();
 
-cell.innerHTML=`
+};
 
-<span class="status-pending">
-Pending
-</span>
+
+/* =====================================================
+SUBJECT ADD
+===================================================== */
+
+document.getElementById("addSubject")
+.onclick=
+async function(){
+
+const classValue=
+document.getElementById("subjectClass").value;
+
+const name=
+document.getElementById("subjectName").value.trim();
+
+const full=
+Number(
+document.getElementById("fullMark").value
+);
+
+const pass=
+Number(
+document.getElementById("passMark").value
+);
+
+
+if(
+!classValue ||
+!name
+){
+
+return notice(
+"Class এবং Subject Name দিন।",
+false,
+document.getElementById("subjectMsg")
+);
+
+}
+
+
+if(
+!full ||
+full<=0
+){
+
+return notice(
+"Full Mark সঠিকভাবে দিন।",
+false,
+document.getElementById("subjectMsg")
+);
+
+}
+
+
+if(
+pass<0 ||
+pass>full
+){
+
+return notice(
+"Pass Mark Full Mark-এর মধ্যে হতে হবে।",
+false,
+document.getElementById("subjectMsg")
+);
+
+}
+
+
+const className=
+getClassNameById(
+classValue
+);
+
+
+const r=
+await db
+.from("subjects")
+.insert({
+
+class_id:
+parseMaybeNumber(classValue),
+
+class_name:className,
+
+subject_name:name,
+
+full_mark:full,
+
+pass_mark:pass
+
+})
+.select()
+.single();
+
+
+if(r.error){
+
+return notice(
+"Subject Add Error: "+
+r.error.message,
+false,
+document.getElementById("subjectMsg")
+);
+
+}
+
+
+document.getElementById("subjectName")
+.value="";
+
+document.getElementById("fullMark")
+.value="100";
+
+document.getElementById("passMark")
+.value="33";
+
+
+notice(
+"Subject সফলভাবে Add হয়েছে।",
+true,
+document.getElementById("subjectMsg")
+);
+
+
+await loadSubjectManagement();
+
+};
+
+
+/* =====================================================
+LOAD SUBJECT MANAGEMENT
+===================================================== */
+
+async function loadSubjectManagement(){
+
+const classValue=
+document.getElementById("subjectClass").value;
+
+const box=
+document.getElementById("subjectList");
+
+
+if(!classValue){
+
+box.innerHTML=`
+<div class="notice-box">
+Subject দেখতে Class নির্বাচন করুন।
+</div>
+`;
+
+return;
+
+}
+
+
+const className=
+getClassNameById(
+classValue
+);
+
+
+let r=
+await db
+.from("subjects")
+.select("*")
+.eq("class_id",classValue)
+.order("id");
+
+
+if(
+r.error ||
+!(r.data||[]).length
+){
+
+r=
+await db
+.from("subjects")
+.select("*")
+.eq("class_name",className)
+.order("id");
+
+}
+
+
+if(r.error){
+
+box.innerHTML=`
+<div class="notice-box">
+${escapeHtml(r.error.message)}
+</div>
+`;
+
+return;
+
+}
+
+
+const data=
+r.data||[];
+
+
+if(!data.length){
+
+box.innerHTML=`
+<div class="notice-box">
+এই Class-এর কোনো Subject নেই।
+</div>
+`;
+
+return;
+
+}
+
+
+box.innerHTML=`
+
+<div class="wrap">
+
+<table class="subject-table">
+
+<thead>
+
+<tr>
+<th>#</th>
+<th>Subject</th>
+<th>Full Mark</th>
+<th>Pass Mark</th>
+<th>Action</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+${data.map((s,i)=>`
+
+<tr>
+
+<td>${i+1}</td>
+
+<td>
+<strong>
+${escapeHtml(
+s.subject_name ??
+s.name ??
+s.title ??
+"Subject"
+)}
+</strong>
+</td>
+
+<td>
+${escapeHtml(
+s.full_mark ??
+s.full_marks ??
+s.total_mark ??
+100
+)}
+</td>
+
+<td>
+${escapeHtml(
+s.pass_mark ??
+s.pass_marks ??
+0
+)}
+</td>
+
+<td>
+
+<button
+class="small-btn blue"
+onclick="editSubject('${String(s.id)}','${escapeHtml(s.subject_name ?? s.name ?? "")}','${s.full_mark ?? 100}','${s.pass_mark ?? 0}')">
+
+<i class="fa-solid fa-pen"></i>
+Edit
+</button>
+
+<button
+class="small-btn danger"
+onclick="deleteSubject('${String(s.id)}')">
+
+<i class="fa-solid fa-trash"></i>
+Delete
+</button>
+
+</td>
+
+</tr>
+
+`).join("")}
+
+</tbody>
+
+</table>
+
+</div>
 
 `;
 
 }
 
 
-await updateStatus();
+/* =====================================================
+SUBJECT EDIT MODAL
+===================================================== */
 
-alert(
-"Result সফলভাবে Delete হয়েছে।"
+window.editSubject=
+function(id,name,full,pass){
+
+document.getElementById("editSubjectId")
+.value=id;
+
+document.getElementById("editSubjectName")
+.value=
+decodeHtml(name);
+
+document.getElementById("editFullMark")
+.value=full;
+
+document.getElementById("editPassMark")
+.value=pass;
+
+document.getElementById("subjectModal")
+.classList.add("show");
+
+};
+
+
+function decodeHtml(value){
+
+const txt=
+document.createElement("textarea");
+
+txt.innerHTML=value;
+
+return txt.value;
+
+}
+
+
+window.closeSubjectModal=
+function(){
+
+document.getElementById("subjectModal")
+.classList.remove("show");
+
+};
+
+
+document.getElementById("saveSubjectEdit")
+.onclick=
+async function(){
+
+const id=
+document.getElementById("editSubjectId").value;
+
+const name=
+document.getElementById("editSubjectName").value.trim();
+
+const full=
+Number(
+document.getElementById("editFullMark").value
 );
+
+const pass=
+Number(
+document.getElementById("editPassMark").value
+);
+
+
+if(!id || !name){
+
+return notice(
+"Subject Name দিন।",
+false,
+document.getElementById("editSubjectMsg")
+);
+
+}
+
+
+if(
+!full ||
+full<=0 ||
+pass<0 ||
+pass>full
+){
+
+return notice(
+"Full Mark / Pass Mark সঠিক নয়।",
+false,
+document.getElementById("editSubjectMsg")
+);
+
+}
+
+
+const r=
+await db
+.from("subjects")
+.update({
+
+subject_name:name,
+
+full_mark:full,
+
+pass_mark:pass
+
+})
+.eq("id",id);
+
+
+if(r.error){
+
+return notice(
+"Subject Update Error: "+
+r.error.message,
+false,
+document.getElementById("editSubjectMsg")
+);
+
+}
+
+
+closeSubjectModal();
+
+
+await loadSubjectManagement();
+
+
+/*
+বর্তমানে Result selection-এর Class-এর
+subject list-ও update করা হবে।
+*/
+
+const classValue=
+document.getElementById("className").value;
+
+if(classValue){
+
+const selectedClassName=
+getClassNameById(classValue);
+
+try{
+
+await loadSubjectsForClass(
+classValue,
+selectedClassName
+);
+
+document.getElementById("subcnt")
+.textContent=subjects.length;
+
+}
+catch(e){
+
+console.error(e);
+
+}
+
+}
 
 };
 
 
 /* =====================================================
-   PRINT DATA
+SUBJECT DELETE
+===================================================== */
+
+window.deleteSubject=
+async function(id){
+
+const ok=
+confirm(
+"এই Subject Delete করতে চান?\n\n"+
+"সতর্কতা: এই Subject-এর existing Result-এর subject reference নষ্ট হতে পারে।"
+);
+
+if(!ok){
+return;
+}
+
+
+const r=
+await db
+.from("subjects")
+.delete()
+.eq("id",id);
+
+
+if(r.error){
+
+return alert(
+"Subject Delete Error: "+
+r.error.message
+);
+
+}
+
+
+alert(
+"Subject Delete হয়েছে।"
+);
+
+
+await loadSubjectManagement();
+
+
+const classValue=
+document.getElementById("className").value;
+
+if(classValue){
+
+try{
+
+await loadSubjectsForClass(
+classValue,
+getClassNameById(classValue)
+);
+
+document.getElementById("subcnt")
+.textContent=subjects.length;
+
+}
+catch(e){
+
+console.error(e);
+
+}
+
+}
+
+};
+
+
+/* =====================================================
+SUBJECT EVENTS
+===================================================== */
+
+document.getElementById("loadSubjectsBtn")
+.onclick=
+loadSubjectManagement;
+
+document.getElementById("subjectClass")
+.addEventListener(
+"change",
+loadSubjectManagement
+);
+
+
+/* =====================================================
+PRINT DATA
 ===================================================== */
 
 async function loadPrintResultData(){
 
-const sessionValue=
+const session=
 document.getElementById("printSession").value;
 
 const classValue=
@@ -2589,7 +4284,7 @@ document.getElementById("printMonth").value;
 
 
 if(
-!sessionValue ||
+!session ||
 !classValue ||
 !examName
 ){
@@ -2601,24 +4296,16 @@ throw new Error(
 }
 
 
-const examKey=
-getExamKey(examName,month);
-
-
-const selectedClass=
-classes.find(
-c=>String(c.id)===String(classValue)
+const exam=
+getExamKey(
+examName,
+month
 );
 
+
 const className=
-selectedClass
-?
-selectedClass.name
-:
-classValue;
+getClassNameById(classValue);
 
-
-/* STUDENTS */
 
 const sr=
 await db
@@ -2631,13 +4318,13 @@ name,
 class_id,
 session,
 photo_url
-`);
+`)
+.eq("class_id",classValue);
 
 
 if(sr.error){
 
 throw new Error(
-"Student Load Error: "+
 sr.error.message
 );
 
@@ -2647,580 +4334,30 @@ sr.error.message
 let printStudents=
 (sr.data||[]).filter(s=>{
 
-if(
-String(s.class_id)!==
-String(classValue)
-){
-
-return false;
-
-}
-
-
 const ses=
 String(s.session ?? "").trim();
 
-if(
-ses &&
-ses!==String(sessionValue)
-){
-
-return false;
-
-}
-
-return true;
+return !ses ||
+ses===String(session);
 
 });
 
 
-printStudents.sort((a,b)=>{
-
-const ra=
-Number(a.roll_number ?? 999999);
-
-const rb=
-Number(b.roll_number ?? 999999);
-
-return ra-rb;
-
-});
+printStudents.sort(
+(a,b)=>
+Number(a.roll_number ?? 999999)-
+Number(b.roll_number ?? 999999)
+);
 
 
 if(!printStudents.length){
 
 throw new Error(
-"এই Class + Session-এ কোনো Student পাওয়া যায়নি।"
+"এই Class + Session-এ কোনো Student নেই।"
 );
 
 }
 
-
-/* SUBJECTS */
-
-let sub=
-await db
-.from("subjects")
-.select("*")
-.eq("class_id",classValue)
-.order("id");
-
-
-if(
-sub.error ||
-!(sub.data||[]).length
-){
-
-sub=
-await db
-.from("subjects")
-.select("*")
-.eq("class_name",className)
-.order("id");
-
-}
-
-
-if(sub.error){
-
-throw new Error(
-"Subject Load Error: "+
-sub.error.message
-);
-
-}
-
-
-const printSubjects=sub.data||[];
-
-
-if(!printSubjects.length){
-
-throw new Error(
-"এই Class-এর জন্য কোনো Subject পাওয়া যায়নি।"
-);
-
-}
-
-
-/* RESULTS */
-
-const ids=
-printStudents.map(
-s=>String(
-s.student_id ??
-s.id
-)
-);
-
-
-const rr=
-await db
-.from("results")
-.select("*")
-.in("student_id",ids)
-.eq("exam_name",examKey)
-.eq("session",sessionValue);
-
-
-if(rr.error){
-
-throw new Error(
-"Result Load Error: "+
-rr.error.message
-);
-
-}
-
-
-const resultMap={};
-
-(rr.data||[]).forEach(r=>{
-
-const sid=String(r.student_id);
-const subid=String(r.subject_id);
-
-if(!resultMap[sid]){
-resultMap[sid]={};
-}
-
-resultMap[sid][subid]=r;
-
-});
-
-
-return{
-
-students:printStudents,
-
-subjects:printSubjects,
-
-results:resultMap,
-
-session:sessionValue,
-
-className:className,
-
-exam:examKey
-
-};
-
-}
-
-
-/* =====================================================
-   GRADE
-===================================================== */
-
-function getGrade(percentage){
-
-if(percentage>=80) return "A+";
-if(percentage>=70) return "A";
-if(percentage>=60) return "A-";
-if(percentage>=50) return "B";
-if(percentage>=40) return "C";
-if(percentage>=33) return "D";
-
-return "F";
-
-}
-
-
-/* =====================================================
-   PRINT ALL RESULT
-===================================================== */
-
-document.getElementById("printClassResult").onclick=
-async function(){
-
-try{
-
-const data=
-await loadPrintResultData();
-
-
-const{
-students,
-subjects,
-results,
-session,
-className,
-exam
-}=data;
-
-
-let passCount=0;
-let failCount=0;
-
-
-let html=`
-
-<div class="print-page">
-
-<div class="print-school-header">
-
-<h1>
-মাদরাসায়ে নূরুল কুরআন
-</h1>
-
-<p>
-MADRASHA-E NURUL QURAN
-</p>
-
-<p>
-STUDENT RESULT MANAGEMENT SYSTEM
-</p>
-
-</div>
-
-
-<div class="print-result-title">
-
-${escapeHtml(exam)}
-
-</div>
-
-
-<div class="print-info">
-
-<span>
-<strong>Session:</strong>
-${escapeHtml(session)}
-</span>
-
-<span>
-<strong>Class:</strong>
-${escapeHtml(className)}
-</span>
-
-<span>
-<strong>Total Student:</strong>
-${students.length}
-</span>
-
-</div>
-
-
-<table class="print-table">
-
-<thead>
-
-<tr>
-
-<th>SL</th>
-<th>Roll</th>
-<th>Student ID</th>
-<th>Student Name</th>
-`;
-
-
-subjects.forEach(subject=>{
-
-html+=`
-
-<th>
-${escapeHtml(
-subject.subject_name ??
-subject.name ??
-subject.title ??
-"Subject"
-)}
-</th>
-
-`;
-
-});
-
-
-html+=`
-
-<th>Total</th>
-<th>%</th>
-<th>Grade</th>
-<th>Result</th>
-
-</tr>
-
-</thead>
-
-<tbody>
-
-`;
-
-
-students.forEach((student,index)=>{
-
-const sid=
-String(
-student.student_id ??
-student.id
-);
-
-const roll=
-student.roll_number ??
-"-";
-
-const name=
-student.name ??
-"-";
-
-
-let total=0;
-let fullTotal=0;
-let studentPass=true;
-let cells="";
-
-
-subjects.forEach(subject=>{
-
-const subid=String(subject.id);
-
-const result=
-results[sid]
-?
-results[sid][subid]
-:
-null;
-
-
-const full=
-Number(
-subject.full_mark ??
-subject.full_marks ??
-subject.total_mark ??
-100
-);
-
-const pass=
-Number(
-subject.pass_mark ??
-subject.pass_marks ??
-0
-);
-
-fullTotal+=full;
-
-
-if(result){
-
-const marks=Number(result.marks);
-
-total+=marks;
-
-if(marks<pass){
-studentPass=false;
-}
-
-cells+=`
-
-<td>
-${marks}
-</td>
-
-`;
-
-}
-else{
-
-studentPass=false;
-
-cells+=`
-
-<td>—</td>
-
-`;
-
-}
-
-});
-
-
-const percentage=
-fullTotal
-?
-(total/fullTotal)*100
-:
-0;
-
-const grade=
-getGrade(percentage);
-
-
-if(studentPass){
-passCount++;
-}
-else{
-failCount++;
-}
-
-
-html+=`
-
-<tr>
-
-<td>${index+1}</td>
-
-<td class="roll-cell">
-${escapeHtml(roll)}
-</td>
-
-<td>
-${escapeHtml(sid)}
-</td>
-
-<td class="name-cell">
-${escapeHtml(name)}
-</td>
-
-${cells}
-
-<td>
-<strong>
-${total}
-</strong>
-</td>
-
-<td>
-${percentage.toFixed(1)}%
-</td>
-
-<td>
-<strong>
-${grade}
-</strong>
-</td>
-
-<td>
-
-${
-studentPass
-?
-'<span class="pass">PASS</span>'
-:
-'<span class="fail">FAIL</span>'
-}
-
-</td>
-
-</tr>
-
-`;
-
-});
-
-
-html+=`
-
-</tbody>
-
-</table>
-
-
-<div class="print-footer">
-
-<span>
-Print Date:
-${new Date().toLocaleDateString("bn-BD")}
-</span>
-
-<span>
-Total: ${students.length}
-&nbsp; | &nbsp;
-Pass: ${passCount}
-&nbsp; | &nbsp;
-Fail: ${failCount}
-</span>
-
-</div>
-
-
-<div class="signature-area">
-
-<div class="signature-box">
-Class Teacher
-</div>
-
-<div class="signature-box">
-Principal
-</div>
-
-</div>
-
-</div>
-
-`;
-
-
-document.getElementById("printArea").innerHTML=
-html;
-
-
-window.print();
-
-}
-catch(error){
-
-alert(error.message);
-
-}
-
-};
-
-
-/* =====================================================
-   PRINT BLANK MARKSHEET
-   ONE PAGE A4 LANDSCAPE
-===================================================== */
-
-document.getElementById("printBlank").onclick=
-async function(){
-
-try{
-
-const sessionValue=
-document.getElementById("printSession").value;
-
-const classValue=
-document.getElementById("printClass").value;
-
-const examName=
-document.getElementById("printExam").value;
-
-const month=
-document.getElementById("printMonth").value;
-
-
-if(
-!sessionValue ||
-!classValue ||
-!examName
-){
-
-throw new Error(
-"Session, Class ও Exam নির্বাচন করুন।"
-);
-
-}
-
-
-const exam=
-getExamKey(examName,month);
-
-
-const selectedClass=
-classes.find(
-c=>String(c.id)===String(classValue)
-);
-
-const className=
-selectedClass
-?
-selectedClass.name
-:
-classValue;
-
-
-/* SUBJECTS */
 
 let sub=
 await db
@@ -3267,9 +4404,256 @@ throw new Error(
 }
 
 
-let html=`
+const ids=
+printStudents
+.map(
+s=>String(
+s.student_id ??
+s.id
+)
+);
 
-<div class="print-page blank-print">
+
+const rr=
+await db
+.from("results")
+.select("*")
+.in("student_id",ids)
+.eq("exam_name",exam)
+.eq("session",session)
+.eq("published",true);
+
+
+if(rr.error){
+
+throw new Error(
+rr.error.message
+);
+
+}
+
+
+/*
+Scheduled publish-এর সময় না আসা পর্যন্ত
+PDF-তেও Result দেখাবে না।
+*/
+
+const now=
+Date.now();
+
+
+const publishedResults=
+(rr.data||[]).filter(r=>{
+
+if(
+!r.publish_at
+){
+
+return true;
+
+}
+
+return new Date(r.publish_at).getTime()
+<=now;
+
+});
+
+
+const resultMap={};
+
+publishedResults.forEach(r=>{
+
+const sid=
+String(r.student_id);
+
+const subid=
+String(r.subject_id);
+
+if(!resultMap[sid]){
+resultMap[sid]={};
+}
+
+resultMap[sid][subid]=r;
+
+});
+
+
+return{
+students:printStudents,
+subjects:printSubjects,
+results:resultMap,
+session,
+className,
+exam
+};
+
+}
+
+
+/* =====================================================
+GRADE
+===================================================== */
+
+function getGrade(percentage){
+
+if(percentage>=80) return "A+";
+if(percentage>=70) return "A";
+if(percentage>=60) return "A-";
+if(percentage>=50) return "B";
+if(percentage>=40) return "C";
+if(percentage>=33) return "D";
+
+return "F";
+
+}
+
+
+/* =====================================================
+PRINT CLASS RESULT
+===================================================== */
+
+document.getElementById("printClassResult")
+.onclick=
+async function(){
+
+try{
+
+const data=
+await loadPrintResultData();
+
+const{
+students,
+subjects,
+results,
+session,
+className,
+exam
+}=data;
+
+
+let html="";
+
+
+students.forEach(
+(student,index)=>{
+
+const sid=
+String(
+student.student_id ??
+student.id
+);
+
+const result=
+results[sid]||{};
+
+
+let total=0;
+let fullTotal=0;
+let studentPass=true;
+
+
+let rows="";
+
+
+subjects.forEach(subject=>{
+
+const subid=
+String(subject.id);
+
+const r=
+result[subid];
+
+const full=
+Number(
+subject.full_mark ??
+subject.full_marks ??
+subject.total_mark ??
+100
+);
+
+const pass=
+Number(
+subject.pass_mark ??
+subject.pass_marks ??
+0
+);
+
+fullTotal+=full;
+
+
+let marks="—";
+
+
+if(r){
+
+marks=
+Number(r.marks);
+
+total+=marks;
+
+if(marks<pass){
+studentPass=false;
+}
+
+}
+else{
+
+studentPass=false;
+
+}
+
+
+rows+=`
+
+<tr>
+
+<td>
+${escapeHtml(
+subject.subject_name ??
+subject.name ??
+"Subject"
+)}
+</td>
+
+<td>${full}</td>
+
+<td>${pass}</td>
+
+<td>
+<strong>${marks}</strong>
+</td>
+
+<td>
+${
+marks!=="—" && marks>=pass
+?
+'<span class="pass">PASS</span>'
+:
+'<span class="fail">FAIL</span>'
+}
+</td>
+
+</tr>
+
+`;
+
+});
+
+
+const percentage=
+fullTotal
+?
+(total/fullTotal)*100
+:
+0;
+
+const grade=
+getGrade(percentage);
+
+
+html+=`
+
+<div class="print-page">
 
 <div class="print-school-header">
 
@@ -3281,8 +4665,11 @@ let html=`
 MADRASHA-E NURUL QURAN
 </p>
 
-</div>
+<p>
+RESULT / MARKSHEET
+</p>
 
+</div>
 
 <div class="print-result-title">
 
@@ -3290,12 +4677,21 @@ ${escapeHtml(exam)}
 
 </div>
 
-
 <div class="print-info">
 
 <span>
-<strong>Session:</strong>
-${escapeHtml(sessionValue)}
+<strong>Student:</strong>
+${escapeHtml(student.name)}
+</span>
+
+<span>
+<strong>Student ID:</strong>
+${escapeHtml(sid)}
+</span>
+
+<span>
+<strong>Roll:</strong>
+${escapeHtml(student.roll_number)}
 </span>
 
 <span>
@@ -3303,8 +4699,518 @@ ${escapeHtml(sessionValue)}
 ${escapeHtml(className)}
 </span>
 
+<span>
+<strong>Session:</strong>
+${escapeHtml(session)}
+</span>
+
 </div>
 
+<table class="print-table">
+
+<thead>
+
+<tr>
+<th>SL</th>
+<th>Subject</th>
+<th>Full Mark</th>
+<th>Pass Mark</th>
+<th>Obtained</th>
+<th>Status</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+${subjects.map(
+(subject,i)=>{
+
+const subid=
+String(subject.id);
+
+const r=
+result[subid];
+
+const full=
+Number(
+subject.full_mark ??
+subject.full_marks ??
+subject.total_mark ??
+100
+);
+
+const pass=
+Number(
+subject.pass_mark ??
+subject.pass_marks ??
+0
+);
+
+const marks=
+r
+?
+Number(r.marks)
+:
+"—";
+
+
+return `
+
+<tr>
+
+<td>${i+1}</td>
+
+<td style="text-align:left">
+${escapeHtml(
+subject.subject_name ??
+subject.name ??
+"Subject"
+)}
+</td>
+
+<td>${full}</td>
+
+<td>${pass}</td>
+
+<td>
+<strong>${marks}</strong>
+</td>
+
+<td>
+
+${
+marks!=="—" && marks>=pass
+?
+'<span class="pass">PASS</span>'
+:
+'<span class="fail">FAIL</span>'
+}
+
+</td>
+
+</tr>
+
+`;
+
+}).join("")}
+
+<tr>
+
+<th colspan="2">
+Total
+</th>
+
+<th>
+${fullTotal}
+</th>
+
+<th>
+—
+</th>
+
+<th>
+${total}
+</th>
+
+<th>
+${
+studentPass
+?
+'<span class="pass">PASS</span>'
+:
+'<span class="fail">FAIL</span>'
+}
+</th>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<div class="print-info" style="margin-top:8px">
+
+<span>
+<strong>Total:</strong>
+${total}/${fullTotal}
+</span>
+
+<span>
+<strong>Percentage:</strong>
+${percentage.toFixed(1)}%
+</span>
+
+<span>
+<strong>Grade:</strong>
+${grade}
+</span>
+
+</div>
+
+<div class="signature-area">
+
+<div class="signature-box">
+Class Teacher
+</div>
+
+<div class="signature-box">
+Principal
+</div>
+
+</div>
+
+</div>
+
+`;
+
+}
+);
+
+
+document.getElementById("printArea")
+.innerHTML=html;
+
+window.print();
+
+}
+catch(error){
+
+alert(error.message);
+
+}
+
+};
+
+
+/* =====================================================
+STUDENT MARKSHEET
+===================================================== */
+
+document.getElementById("printStudentResult")
+.onclick=
+async function(){
+
+const session=
+document.getElementById("printSession").value;
+
+const classValue=
+document.getElementById("printClass").value;
+
+const examName=
+document.getElementById("printExam").value;
+
+const month=
+document.getElementById("printMonth").value;
+
+
+if(
+!session ||
+!classValue ||
+!examName
+){
+
+return alert(
+"Session, Class ও Exam নির্বাচন করুন।"
+);
+
+}
+
+
+const exam=
+getExamKey(
+examName,
+month
+);
+
+
+const search=
+prompt(
+"Student ID অথবা Roll Number দিন:"
+);
+
+if(!search){
+return;
+}
+
+
+try{
+
+const sr=
+await db
+.from("students")
+.select(`
+id,
+student_id,
+roll_number,
+name,
+class_id,
+session
+`);
+
+
+if(sr.error){
+
+throw new Error(
+sr.error.message
+);
+
+}
+
+
+const student=
+(sr.data||[]).find(s=>
+String(s.student_id)
+.toLowerCase()===
+search.toLowerCase()
+||
+String(s.roll_number)===
+search
+);
+
+
+if(!student){
+
+throw new Error(
+"Student পাওয়া যায়নি।"
+);
+
+}
+
+
+const sid=
+String(
+student.student_id ??
+student.id
+);
+
+
+const rr=
+await db
+.from("results")
+.select("*")
+.eq("student_id",sid)
+.eq("exam_name",exam)
+.eq("session",session)
+.eq("published",true);
+
+
+if(rr.error){
+
+throw new Error(
+rr.error.message
+);
+
+}
+
+
+const resultRows=
+(rr.data||[]).filter(r=>
+!r.publish_at ||
+new Date(r.publish_at)<=new Date()
+);
+
+
+if(!resultRows.length){
+
+throw new Error(
+"এই Student-এর Published Result পাওয়া যায়নি।"
+);
+
+}
+
+
+const subIds=
+resultRows.map(r=>r.subject_id);
+
+
+const sub=
+await db
+.from("subjects")
+.select("*")
+.in("id",subIds);
+
+
+if(sub.error){
+
+throw new Error(
+sub.error.message
+);
+
+}
+
+
+const subMap={};
+
+(sub.data||[]).forEach(s=>{
+subMap[String(s.id)]=s;
+});
+
+
+let total=0;
+let fullTotal=0;
+
+
+const rows=
+resultRows.map((r,i)=>{
+
+const s=
+subMap[String(r.subject_id)];
+
+if(!s){
+return "";
+}
+
+const full=
+Number(
+s.full_mark ??
+s.full_marks ??
+100
+);
+
+const pass=
+Number(
+s.pass_mark ??
+s.pass_marks ??
+0
+);
+
+const marks=
+Number(r.marks);
+
+total+=marks;
+fullTotal+=full;
+
+
+return `
+
+<tr>
+
+<td>${i+1}</td>
+
+<td style="text-align:left">
+${escapeHtml(
+s.subject_name ??
+s.name ??
+"Subject"
+)}
+</td>
+
+<td>${full}</td>
+
+<td>${pass}</td>
+
+<td>
+<strong>${marks}</strong>
+</td>
+
+<td>
+${
+marks>=pass
+?
+'<span class="pass">PASS</span>'
+:
+'<span class="fail">FAIL</span>'
+}
+</td>
+
+</tr>
+
+`;
+
+}).join("");
+
+
+const percentage=
+fullTotal
+?
+(total/fullTotal)*100
+:
+0;
+
+const grade=
+getGrade(percentage);
+
+
+const allPass=
+resultRows.every(r=>{
+
+const s=
+subMap[String(r.subject_id)];
+
+if(!s){
+return false;
+}
+
+const pass=
+Number(
+s.pass_mark ??
+s.pass_marks ??
+0
+);
+
+return Number(r.marks)>=pass;
+
+});
+
+
+document.getElementById("printArea")
+.innerHTML=`
+
+<div class="print-page">
+
+<div class="print-school-header">
+
+<h1>
+মাদরাসায়ে নূরুল কুরআন
+</h1>
+
+<p>
+MADRASHA-E NURUL QURAN
+</p>
+
+<p>
+OFFICIAL STUDENT MARKSHEET
+</p>
+
+</div>
+
+<div class="print-result-title">
+
+${escapeHtml(exam)}
+
+</div>
+
+<div class="print-info">
+
+<span>
+<strong>Student:</strong>
+${escapeHtml(student.name)}
+</span>
+
+<span>
+<strong>ID:</strong>
+${escapeHtml(sid)}
+</span>
+
+<span>
+<strong>Roll:</strong>
+${escapeHtml(student.roll_number)}
+</span>
+
+<span>
+<strong>Class:</strong>
+${escapeHtml(
+getClassNameById(student.class_id)
+)}
+</span>
+
+<span>
+<strong>Session:</strong>
+${escapeHtml(session)}
+</span>
+
+</div>
 
 <table class="print-table">
 
@@ -3313,34 +5219,11 @@ ${escapeHtml(className)}
 <tr>
 
 <th>SL</th>
-<th>Roll</th>
-<th>Student Name</th>
-`;
-
-
-printSubjects.forEach(subject=>{
-
-html+=`
-
-<th>
-${escapeHtml(
-subject.subject_name ??
-subject.name ??
-subject.title ??
-"Subject"
-)}
-</th>
-
-`;
-
-});
-
-
-html+=`
-
-<th>Total</th>
-<th>Grade</th>
-<th>Result</th>
+<th>Subject</th>
+<th>Full</th>
+<th>Pass</th>
+<th>Obtained</th>
+<th>Status</th>
 
 </tr>
 
@@ -3348,57 +5231,66 @@ html+=`
 
 <tbody>
 
-`;
-
-
-/*
-৩০টি row — compact CSS-এর কারণে
-A4 Landscape-এর একটি page-এ থাকবে।
-*/
-
-for(let i=1;i<=30;i++){
-
-html+=`
+${rows}
 
 <tr>
 
-<td>${i}</td>
+<th colspan="2">
+Total
+</th>
 
-<td></td>
+<th>
+${fullTotal}
+</th>
 
-<td></td>
+<th>
+—
+</th>
 
-`;
+<th>
+${total}
+</th>
 
-
-printSubjects.forEach(()=>{
-
-html+=`
-<td></td>
-`;
-
-});
-
-
-html+=`
-
-<td></td>
-<td></td>
-<td></td>
+<th>
+${
+allPass
+?
+'<span class="pass">PASS</span>'
+:
+'<span class="fail">FAIL</span>'
+}
+</th>
 
 </tr>
-
-`;
-
-}
-
-
-html+=`
 
 </tbody>
 
 </table>
 
+<div class="print-info" style="margin-top:8px">
+
+<span>
+<strong>Percentage:</strong>
+${percentage.toFixed(1)}%
+</span>
+
+<span>
+<strong>Grade:</strong>
+${grade}
+</span>
+
+<span>
+<strong>Result:</strong>
+${
+allPass
+?
+'<span class="pass">PASS</span>'
+:
+'<span class="fail">FAIL</span>'
+}
+</span>
+
+</div>
 
 <div class="signature-area">
 
@@ -3417,8 +5309,233 @@ Principal
 `;
 
 
-document.getElementById("printArea").innerHTML=
-html;
+window.print();
+
+}
+catch(error){
+
+alert(error.message);
+
+}
+
+};
+
+
+/* =====================================================
+BLANK MARKSHEET
+===================================================== */
+
+document.getElementById("printBlank")
+.onclick=
+async function(){
+
+const session=
+document.getElementById("printSession").value;
+
+const classValue=
+document.getElementById("printClass").value;
+
+const examName=
+document.getElementById("printExam").value;
+
+const month=
+document.getElementById("printMonth").value;
+
+
+if(
+!session ||
+!classValue ||
+!examName
+){
+
+return alert(
+"Session, Class ও Exam নির্বাচন করুন।"
+);
+
+}
+
+
+try{
+
+const exam=
+getExamKey(
+examName,
+month
+);
+
+const className=
+getClassNameById(
+classValue
+);
+
+
+let sub=
+await db
+.from("subjects")
+.select("*")
+.eq("class_id",classValue)
+.order("id");
+
+
+if(
+sub.error ||
+!(sub.data||[]).length
+){
+
+sub=
+await db
+.from("subjects")
+.select("*")
+.eq("class_name",className)
+.order("id");
+
+}
+
+
+if(sub.error){
+
+throw new Error(
+sub.error.message
+);
+
+}
+
+
+const printSubjects=
+sub.data||[];
+
+
+if(!printSubjects.length){
+
+throw new Error(
+"এই Class-এর কোনো Subject নেই।"
+);
+
+}
+
+
+let rows="";
+
+
+for(let i=1;i<=30;i++){
+
+rows+=`
+
+<tr>
+
+<td>${i}</td>
+
+<td></td>
+
+<td></td>
+
+${printSubjects.map(
+()=>`<td></td>`
+).join("")}
+
+<td></td>
+<td></td>
+<td></td>
+
+</tr>
+
+`;
+
+}
+
+
+document.getElementById("printArea")
+.innerHTML=`
+
+<div class="print-page">
+
+<div class="print-school-header">
+
+<h1>
+মাদরাসায়ে নূরুল কুরআন
+</h1>
+
+<p>
+MADRASHA-E NURUL QURAN
+</p>
+
+</div>
+
+<div class="print-result-title">
+
+${escapeHtml(exam)}
+
+</div>
+
+<div class="print-info">
+
+<span>
+<strong>Session:</strong>
+${escapeHtml(session)}
+</span>
+
+<span>
+<strong>Class:</strong>
+${escapeHtml(className)}
+</span>
+
+</div>
+
+<table class="print-table">
+
+<thead>
+
+<tr>
+
+<th>SL</th>
+<th>Roll</th>
+<th>Student Name</th>
+
+${printSubjects.map(
+s=>`
+
+<th>
+${escapeHtml(
+s.subject_name ??
+s.name ??
+"Subject"
+)}
+</th>
+
+`
+).join("")}
+
+<th>Total</th>
+<th>Grade</th>
+<th>Result</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+${rows}
+
+</tbody>
+
+</table>
+
+<div class="signature-area">
+
+<div class="signature-box">
+Class Teacher
+</div>
+
+<div class="signature-box">
+Principal
+</div>
+
+</div>
+
+</div>
+
+`;
 
 
 window.print();
@@ -3434,26 +5551,27 @@ alert(error.message);
 
 
 /* =====================================================
-   PUBLIC RESULT SEARCH
+SEARCH PUBLISHED RESULT
 ===================================================== */
 
-document.getElementById("search").onclick=
+document.getElementById("search")
+.onclick=
 async function(){
 
-const ses=
+const session=
 document.getElementById("ss").value;
 
-const exName=
+const examName=
 document.getElementById("se").value;
 
-const searchKey=
+const key=
 document.getElementById("key").value.trim();
 
 
 if(
-!ses ||
-!exName ||
-!searchKey
+!session ||
+!examName ||
+!key
 ){
 
 return notice(
@@ -3463,7 +5581,36 @@ return notice(
 }
 
 
-const r=
+let examKey=examName;
+
+
+try{
+
+if(
+examName===
+"মাসিক মূল্যায়ন পরীক্ষা"
+){
+
+return notice(
+"Monthly search-এর জন্য নিচের Result selection-এ Month ব্যবহার করুন।"
+);
+
+}
+
+}
+catch(e){
+
+return notice(e.message);
+
+}
+
+
+setLoading(true);
+
+
+try{
+
+const sr=
 await db
 .from("students")
 .select(`
@@ -3476,59 +5623,38 @@ session
 `);
 
 
-if(r.error){
+if(sr.error){
 
-return notice(
-r.error.message
+throw new Error(
+sr.error.message
 );
 
 }
 
 
-const found=
-(r.data||[]).find(s=>{
+const student=
+(sr.data||[]).find(s=>
+String(s.student_id).toLowerCase()===
+key.toLowerCase()
+||
+String(s.roll_number)===
+key
+);
+
+
+if(!student){
+
+throw new Error(
+"Student পাওয়া যায়নি।"
+);
+
+}
+
 
 const sid=
-String(s.student_id ?? "");
-
-const roll=
-String(s.roll_number ?? "");
-
-
-return(
-sid.toLowerCase()===
-searchKey.toLowerCase()
-
-||
-
-roll.toLowerCase()===
-searchKey.toLowerCase()
-);
-
-});
-
-
-if(!found){
-
-document.getElementById("out").innerHTML=`
-
-<div class="notice-box">
-
-Student পাওয়া যায়নি।
-
-</div>
-
-`;
-
-return;
-
-}
-
-
-const studentId=
 String(
-found.student_id ??
-found.id
+student.student_id ??
+student.id
 );
 
 
@@ -3536,71 +5662,72 @@ const rr=
 await db
 .from("results")
 .select("*")
-.eq("student_id",studentId)
-.eq("exam_name",exName)
-.eq("session",ses);
+.eq("student_id",sid)
+.eq("exam_name",examKey)
+.eq("session",session)
+.eq("published",true);
 
 
 if(rr.error){
 
-document.getElementById("out").innerHTML=`
-
-<div class="notice-box">
-
-${escapeHtml(rr.error.message)}
-
-</div>
-
-`;
-
-return;
+throw new Error(
+rr.error.message
+);
 
 }
 
 
-if(!(rr.data||[]).length){
-
-document.getElementById("out").innerHTML=`
-
-<div class="notice-box">
-
-এই Exam-এর Result এখনো দেওয়া হয়নি।
-
-</div>
-
-`;
-
-return;
-
-}
-
-
-const subjectIds=
-(rr.data||[]).map(
-r=>r.subject_id
+const results=
+(rr.data||[]).filter(r=>
+!r.publish_at ||
+new Date(r.publish_at)<=new Date()
 );
 
 
-const sr=
+if(!results.length){
+
+document.getElementById("out")
+.innerHTML=`
+
+<div class="notice-box">
+
+<i class="fa-solid fa-lock"></i>
+
+এই Student-এর এই Exam-এর Published Result এখনো পাওয়া যায়নি।
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+const ids=
+results.map(r=>r.subject_id);
+
+
+const sr2=
 await db
 .from("subjects")
 .select("*")
-.in("id",subjectIds);
+.in("id",ids);
 
 
-if(sr.error){
+if(sr2.error){
 
-return;
+throw new Error(
+sr2.error.message
+);
 
 }
 
 
 const subjectMap={};
 
-(sr.data||[]).forEach(s=>{
-
+(sr2.data||[]).forEach(s=>{
 subjectMap[String(s.id)]=s;
-
 });
 
 
@@ -3610,25 +5737,23 @@ let overallPass=true;
 
 
 const rows=
-(rr.data||[])
-.map(result=>{
+results.map(
+result=>{
 
 const subject=
-subjectMap[String(result.subject_id)];
+subjectMap[
+String(result.subject_id)
+];
 
 if(!subject){
 return "";
 }
 
 
-const marks=
-Number(result.marks);
-
 const full=
 Number(
 subject.full_mark ??
 subject.full_marks ??
-subject.total_mark ??
 100
 );
 
@@ -3638,6 +5763,9 @@ subject.pass_mark ??
 subject.pass_marks ??
 0
 );
+
+const marks=
+Number(result.marks);
 
 
 total+=marks;
@@ -3685,8 +5813,8 @@ marks>=pass
 
 `;
 
-})
-.join("");
+}
+).join("");
 
 
 const percentage=
@@ -3700,77 +5828,70 @@ const grade=
 getGrade(percentage);
 
 
-document.getElementById("out").innerHTML=`
+document.getElementById("out")
+.innerHTML=`
 
 <div class="card">
 
 <div class="resultHead">
 
 <b>Student:</b>
-${escapeHtml(found.name ?? "")}
+${escapeHtml(student.name)}
 
 <br>
 
 <b>Student ID:</b>
-${escapeHtml(studentId)}
+${escapeHtml(sid)}
 
 &nbsp;&nbsp;
 
 <b>Roll:</b>
-${escapeHtml(found.roll_number ?? "")}
+${escapeHtml(student.roll_number)}
 
 <br>
 
-<b>Session:</b>
-${escapeHtml(ses)}
+<b>Class:</b>
+${escapeHtml(
+getClassNameById(student.class_id)
+)}
 
 &nbsp;&nbsp;
 
+<b>Session:</b>
+${escapeHtml(session)}
+
+<br>
+
 <b>Exam:</b>
-${escapeHtml(exName)}
+${escapeHtml(examKey)}
 
 </div>
 
-
-<div class="result-summary">
+<div class="summary">
 
 <div class="summary-box">
-
 <small>Total Marks</small>
-
 <strong>
 ${total}/${fullTotal}
 </strong>
-
 </div>
 
-
 <div class="summary-box">
-
 <small>Percentage</small>
-
 <strong>
 ${percentage.toFixed(1)}%
 </strong>
-
 </div>
 
-
 <div class="summary-box">
-
 <small>Grade</small>
-
 <strong>
 ${grade}
 </strong>
-
 </div>
 
-
 <div class="summary-box">
-
 <small>Result</small>
-
 <strong class="${
 overallPass
 ?
@@ -3778,7 +5899,6 @@ overallPass
 :
 "fail"
 }">
-
 ${
 overallPass
 ?
@@ -3786,13 +5906,10 @@ overallPass
 :
 "FAIL"
 }
-
 </strong>
-
 </div>
 
 </div>
-
 
 <div class="wrap">
 
@@ -3819,11 +5936,8 @@ ${rows}
 <tr>
 
 <th>Total</th>
-
 <th>${fullTotal}</th>
-
 <th>—</th>
-
 <th>${total}</th>
 
 <th>
@@ -3850,25 +5964,91 @@ overallPass
 
 `;
 
+}
+catch(error){
+
+notice(
+error.message
+);
+
+}
+finally{
+
+setLoading(false);
+
+}
+
 };
 
 
 /* =====================================================
-   EVENTS
+PUBLISH SCOPE
 ===================================================== */
 
-document.getElementById("show").onclick=
+document
+.querySelectorAll(
+'input[name="publishScope"]'
+)
+.forEach(radio=>{
+
+radio.addEventListener(
+"change",
+function(){
+
+const classWrap=
+document.getElementById(
+"publishClassWrap"
+);
+
+if(this.value==="all"){
+
+classWrap.style.display="none";
+
+}
+else{
+
+classWrap.style.display="block";
+
+}
+
+}
+);
+
+});
+
+
+/* =====================================================
+EVENTS
+===================================================== */
+
+document.getElementById("show")
+.onclick=
 getStudents;
 
 
-document.getElementById("refreshBtn").onclick=
+document.getElementById("refreshBtn")
+.onclick=
 function(){
+
 location.reload();
+
+};
+
+
+document.getElementById("close")
+.onclick=
+function(){
+
+document.getElementById("entryCard")
+.style.display="none";
+
+currentStudent=null;
+
 };
 
 
 /* =====================================================
-   MONTH SETUP
+EXAM MONTH
 ===================================================== */
 
 setupExamMonth(
@@ -3885,19 +6065,39 @@ document.getElementById("printMonth")
 );
 
 
+setupExamMonth(
+document.getElementById("publishExam"),
+document.getElementById("publishMonthWrap"),
+document.getElementById("publishMonth")
+);
+
+
 /* =====================================================
-   INIT
+INIT
 ===================================================== */
 
 async function init(){
 
 try{
 
+setLoading(true);
+
 loadExamOptions();
 
 await loadClasses();
 
 await loadSessions();
+
+
+/*
+Publish Date & Time default:
+Current Bangladesh/local browser time.
+*/
+
+document.getElementById("publishAt")
+.value=
+toDateTimeLocalValue();
+
 
 }
 catch(error){
@@ -3908,6 +6108,11 @@ notice(
 "Initialization Error: "+
 error.message
 );
+
+}
+finally{
+
+setLoading(false);
 
 }
 
