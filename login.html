@@ -637,6 +637,17 @@ a{
 
       </form>
 
+      <div class="divider">অথবা</div>
+
+      <button class="passkey"
+              id="studentPasskey"
+              type="button">
+
+        <i class="fa-solid fa-fingerprint"></i>
+        Fingerprint দিয়ে লগইন
+
+      </button>
+
       <div class="message"
            id="studentMessage"></div>
 
@@ -644,8 +655,9 @@ a{
 
     <p class="info">
 
-      অ্যাডমিন ও শিক্ষক Passkey চালু থাকলে Fingerprint /
-      Face / PIN ব্যবহার করে দ্রুত লগইন করতে পারবেন।
+      প্রথমবার পাসওয়ার্ড দিয়ে লগইন করলে Fingerprint / Face
+      সংরক্ষণ করার অপশন আসবে। এরপর থেকে অ্যাডমিন, শিক্ষক ও
+      অভিভাবক — সবাই Fingerprint দিয়েও দ্রুত লগইন করতে পারবেন।
 
     </p>
 
@@ -789,6 +801,318 @@ function busy(form,yes){
     .forEach(element=>{
       element.disabled = yes;
     });
+
+}
+
+
+/* =====================================================
+   FINGERPRINT / FACE (DEVICE WEBAUTHN)
+
+   এটা Supabase-এর passkey না — বরং ডিভাইসের নিজস্ব
+   Fingerprint/Face দিয়ে লক করা একটা "quick login"।
+
+   প্রথমবার Email/Mobile+Password দিয়ে সফল লগইনের পর
+   ডিভাইসে একটা WebAuthn credential তৈরি হয় আর সেই
+   credential-এর সাথে লগইন তথ্য (এই ডিভাইসেই, LocalStorage-এ)
+   সংরক্ষণ থাকে। পরেরবার Fingerprint দিলে ডিভাইস যাচাই করে,
+   তারপর সংরক্ষিত তথ্য দিয়ে স্বাভাবিক লগইনই (Supabase/RPC)
+   আবার চালানো হয় — তাই সার্ভার সাইডে আসল verification
+   ঠিকই হয়, শুধু বারবার টাইপ করতে হয় না।
+===================================================== */
+
+function bioKey(role){
+  return "mnq_biometric_" + role;
+}
+
+function bufToB64(buf){
+
+  return btoa(
+    String.fromCharCode(
+      ...new Uint8Array(buf)
+    )
+  );
+
+}
+
+function b64ToBuf(b64){
+
+  const binary = atob(b64);
+
+  const bytes =
+    new Uint8Array(binary.length);
+
+  for(let i=0;i<binary.length;i++){
+    bytes[i] = binary.charCodeAt(i);
+  }
+
+  return bytes.buffer;
+
+}
+
+async function biometricSupported(){
+
+  if(
+    !window.PublicKeyCredential ||
+    !navigator.credentials
+  ){
+    return false;
+  }
+
+  try{
+
+    if(
+      PublicKeyCredential
+        .isUserVerifyingPlatformAuthenticatorAvailable
+    ){
+
+      return await PublicKeyCredential
+        .isUserVerifyingPlatformAuthenticatorAvailable();
+
+    }
+
+  }catch(e){
+
+    console.error(
+      "Biometric support check failed:",
+      e
+    );
+
+  }
+
+  return false;
+
+}
+
+async function registerBiometric(role,payload){
+
+  try{
+
+    const challenge =
+      crypto.getRandomValues(new Uint8Array(32));
+
+    const userId =
+      crypto.getRandomValues(new Uint8Array(16));
+
+    const cred =
+      await navigator.credentials.create({
+        publicKey:{
+          challenge,
+          rp:{
+            name:"মাদরাসায়ে নূরুল কুরআন"
+          },
+          user:{
+            id:userId,
+            name:role + "-" + Date.now(),
+            displayName:
+              payload.label || role
+          },
+          pubKeyCredParams:[
+            {type:"public-key",alg:-7},
+            {type:"public-key",alg:-257}
+          ],
+          authenticatorSelection:{
+            authenticatorAttachment:"platform",
+            userVerification:"required",
+            residentKey:"preferred"
+          },
+          timeout:60000
+        }
+      });
+
+    if(!cred) return false;
+
+    localStorage.setItem(
+      bioKey(role),
+      JSON.stringify({
+        credentialId:bufToB64(cred.rawId),
+        ...payload
+      })
+    );
+
+    return true;
+
+  }catch(e){
+
+    console.error(
+      "Biometric register error:",
+      e
+    );
+
+    return false;
+
+  }
+
+}
+
+async function authenticateBiometric(role){
+
+  const raw =
+    localStorage.getItem(bioKey(role));
+
+  if(!raw) return null;
+
+  let saved;
+
+  try{
+    saved = JSON.parse(raw);
+  }catch(e){
+    return null;
+  }
+
+  if(!saved || !saved.credentialId){
+    return null;
+  }
+
+  try{
+
+    const challenge =
+      crypto.getRandomValues(new Uint8Array(32));
+
+    const assertion =
+      await navigator.credentials.get({
+        publicKey:{
+          challenge,
+          allowCredentials:[{
+            id:b64ToBuf(saved.credentialId),
+            type:"public-key",
+            transports:["internal"]
+          }],
+          userVerification:"required",
+          timeout:60000
+        }
+      });
+
+    if(!assertion) return null;
+
+    return saved;
+
+  }catch(e){
+
+    console.error(
+      "Biometric authenticate error:",
+      e
+    );
+
+    return null;
+
+  }
+
+}
+
+async function maybeEnrollBiometric(role,payload,messageId){
+
+  if(localStorage.getItem(bioKey(role))){
+    return;
+  }
+
+  const supported = await biometricSupported();
+
+  if(!supported){
+    return;
+  }
+
+  const wants = confirm(
+    "পরের বার দ্রুত লগইনের জন্য এই ডিভাইসে Fingerprint / " +
+    "Face সংরক্ষণ করতে চান?"
+  );
+
+  if(!wants){
+    return;
+  }
+
+  const ok = await registerBiometric(role,payload);
+
+  if(ok){
+
+    msg(
+      messageId,
+      "✅ Fingerprint সংরক্ষণ করা হয়েছে। এরপর থেকে " +
+      "Fingerprint দিয়েও লগইন করতে পারবেন।",
+      "success"
+    );
+
+  }
+
+}
+
+async function biometricLogin(role){
+
+  const messageId = role + "Message";
+
+  const supported = await biometricSupported();
+
+  if(!supported){
+
+    msg(
+      messageId,
+      "এই ডিভাইস/ব্রাউজারে Fingerprint সাপোর্ট পাওয়া যায়নি।",
+      "error"
+    );
+
+    return;
+  }
+
+  if(!localStorage.getItem(bioKey(role))){
+
+    msg(
+      messageId,
+      "এই ডিভাইসে এখনো Fingerprint সংরক্ষণ করা নেই। প্রথমে " +
+      "পাসওয়ার্ড দিয়ে লগইন করুন।",
+      "error"
+    );
+
+    return;
+  }
+
+  msg(
+    messageId,
+    "Fingerprint / Face যাচাই করুন..."
+  );
+
+  const saved = await authenticateBiometric(role);
+
+  if(!saved){
+
+    msg(
+      messageId,
+      "Fingerprint যাচাই ব্যর্থ হয়েছে। পাসওয়ার্ড দিয়ে লগইন করুন।",
+      "error"
+    );
+
+    return;
+  }
+
+  if(role === "admin"){
+
+    document.getElementById("adminEmail").value =
+      saved.email || "";
+
+    document.getElementById("adminPassword").value =
+      saved.password || "";
+
+    adminLogin();
+
+  }else if(role === "teacher"){
+
+    document.getElementById("teacherMobile").value =
+      saved.mobile || "";
+
+    document.getElementById("teacherPassword").value =
+      saved.password || "";
+
+    teacherLogin();
+
+  }else if(role === "student"){
+
+    document.getElementById("studentId").value =
+      saved.studentId || "";
+
+    document.getElementById("studentMobile").value =
+      saved.mobile || "";
+
+    studentLogin();
+
+  }
 
 }
 
@@ -977,6 +1301,12 @@ async function adminLogin(){
       "adminMessage",
       "লগইন সফল হয়েছে। Dashboard খোলা হচ্ছে...",
       "success"
+    );
+
+    await maybeEnrollBiometric(
+      "admin",
+      {email:email,password:password,label:email},
+      "adminMessage"
     );
 
     setTimeout(()=>{
@@ -1191,6 +1521,12 @@ async function teacherLogin(){
       "teacherMessage",
       "লগইন সফল হয়েছে। Dashboard খোলা হচ্ছে...",
       "success"
+    );
+
+    await maybeEnrollBiometric(
+      "teacher",
+      {mobile:mobile,password:password,label:mobile},
+      "teacherMessage"
     );
 
     setTimeout(()=>{
@@ -1423,6 +1759,12 @@ async function studentLogin(){
       "success"
     );
 
+    await maybeEnrollBiometric(
+      "student",
+      {studentId:studentId,mobile:mobile,label:studentId},
+      "studentMessage"
+    );
+
     setTimeout(()=>{
 
       goStudent(data);
@@ -1571,84 +1913,15 @@ document
 
 
 /* =====================================================
-   PASSKEY
+   FINGERPRINT / FACE BUTTONS
 ===================================================== */
-
-async function passkeyLogin(role,messageId){
-
-  if(
-    !window.PublicKeyCredential ||
-    typeof db.auth.signInWithPasskey !== "function"
-  ){
-
-    msg(
-      messageId,
-      "এই ব্রাউজারে Passkey support পাওয়া যায়নি।",
-      "error"
-    );
-
-    return;
-  }
-
-  msg(
-    messageId,
-    "Fingerprint / Passkey যাচাই করুন..."
-  );
-
-  try{
-
-    const {data,error} =
-      await db.auth.signInWithPasskey();
-
-    if(error) throw error;
-
-    const user = data?.user;
-
-    if(!user){
-
-      throw new Error(
-        "Passkey user পাওয়া যায়নি।"
-      );
-
-    }
-
-    msg(
-      messageId,
-      "Passkey login সফল হয়েছে। Dashboard খোলা হচ্ছে...",
-      "success"
-    );
-
-    setTimeout(()=>{
-      goDashboard(role,user);
-    },300);
-
-  }catch(error){
-
-    console.error(
-      "Passkey Login:",
-      error
-    );
-
-    msg(
-      messageId,
-      error?.message ||
-      "Passkey login ব্যর্থ হয়েছে।",
-      "error"
-    );
-
-  }
-
-}
 
 document
   .getElementById("adminPasskey")
   .addEventListener(
     "click",
     ()=>{
-      passkeyLogin(
-        "admin",
-        "adminMessage"
-      );
+      biometricLogin("admin");
     }
   );
 
@@ -1657,10 +1930,16 @@ document
   .addEventListener(
     "click",
     ()=>{
-      passkeyLogin(
-        "teacher",
-        "teacherMessage"
-      );
+      biometricLogin("teacher");
+    }
+  );
+
+document
+  .getElementById("studentPasskey")
+  .addEventListener(
+    "click",
+    ()=>{
+      biometricLogin("student");
     }
   );
 
