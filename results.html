@@ -7,7 +7,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Noto+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -40,10 +40,54 @@
 }
 
 body{
-    font-family:"Noto Sans Bengali",sans-serif;
+    font-family:"Noto Sans Bengali","Noto Sans",sans-serif;
     background:var(--bg);
     color:var(--text);
     line-height:1.6;
+}
+
+body[data-lang="en"]{
+    font-family:"Noto Sans","Noto Sans Bengali",sans-serif;
+}
+
+body[data-lang="ar"]{
+    font-family:"Noto Naskh Arabic","Noto Sans Bengali",serif;
+}
+
+html[dir="rtl"] .topbar{
+    flex-direction:row-reverse;
+}
+
+html[dir="rtl"] .page-heading,
+html[dir="rtl"] .card-title,
+html[dir="rtl"] .card-title-left,
+html[dir="rtl"] .card-title-actions,
+html[dir="rtl"] .student-header,
+html[dir="rtl"] .student-header-left,
+html[dir="rtl"] .student-info,
+html[dir="rtl"] .stat,
+html[dir="rtl"] .actions,
+html[dir="rtl"] .publish-actions,
+html[dir="rtl"] .scope-row{
+    direction:rtl;
+}
+
+html[dir="rtl"] table{
+    direction:rtl;
+}
+
+html[dir="rtl"] th,
+html[dir="rtl"] td{
+    text-align:right;
+}
+
+html[dir="rtl"] .card-menu-list{
+    right:auto;
+    left:0;
+}
+
+html[dir="rtl"] .card-menu-list button{
+    text-align:right;
 }
 
 button,
@@ -113,6 +157,74 @@ a{
 .back-btn:hover{
     background:white;
     color:var(--deep);
+}
+
+.lang-switcher{
+    position:relative;
+}
+
+.lang-btn{
+    border:1px solid rgba(255,255,255,.35);
+    background:rgba(255,255,255,.12);
+    color:white;
+    width:42px;
+    height:42px;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:18px;
+}
+
+.lang-btn:hover{
+    background:rgba(255,255,255,.22);
+}
+
+.lang-menu{
+    display:none;
+    position:absolute;
+    right:0;
+    top:calc(100% + 8px);
+    background:white;
+    border:1px solid var(--border);
+    border-radius:10px;
+    box-shadow:0 12px 35px rgba(0,0,0,.2);
+    min-width:170px;
+    overflow:hidden;
+    z-index:200;
+}
+
+.lang-menu.open{
+    display:block;
+}
+
+.lang-menu button{
+    width:100%;
+    text-align:left;
+    border:0;
+    background:white;
+    padding:12px 14px;
+    font-size:14px;
+    font-weight:700;
+    color:var(--text);
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.lang-menu button:hover{
+    background:#f2fafc;
+}
+
+.lang-menu button.active{
+    background:#e8f5f9;
+    color:var(--deep);
+}
+
+.topbar-actions{
+    display:flex;
+    align-items:center;
+    gap:10px;
 }
 
 .container{
@@ -841,6 +953,29 @@ tr:hover td{
         position:relative;
     }
 
+    .print-page[dir="rtl"]{
+        direction:rtl;
+        font-family:"Noto Naskh Arabic","Noto Sans Bengali",serif;
+    }
+
+    .print-page[dir="rtl"] .marksheet-id{
+        right:auto;
+        left:8mm;
+    }
+
+    .print-page[dir="rtl"] .print-header img{
+        float:right;
+    }
+
+    .print-page[dir="rtl"] .print-table th,
+    .print-page[dir="rtl"] .print-table td{
+        text-align:center;
+    }
+
+    .print-page[dir="rtl"] .print-table .left{
+        text-align:right;
+    }
+
     .print-page:last-child{
         page-break-after:auto;
     }
@@ -962,15 +1097,46 @@ tr:hover td{
              onerror="this.style.display='none'">
 
         <div class="brand-title">
-            <h1>মাদরাসায়ে নূরুল কুরআন</h1>
-            <span>Result Management System</span>
+            <h1 data-i18n="brand_title">মাদরাসায়ে নূরুল কুরআন</h1>
+            <span data-i18n="brand_sub">Result Management System</span>
         </div>
     </div>
 
-    <button class="back-btn" onclick="goDashboard()">
-        <i class="fa-solid fa-arrow-left"></i>
-        Dashboard
-    </button>
+    <div class="topbar-actions">
+
+        <div class="lang-switcher">
+
+            <button class="lang-btn" onclick="toggleLangMenu(event)" title="Language / ভাষা / اللغة">
+                <i class="fa-solid fa-globe"></i>
+            </button>
+
+            <div class="lang-menu" id="langMenu">
+
+                <button data-lang-option="bn" onclick="setLanguage('bn')">
+                    <i class="fa-solid fa-check" style="visibility:hidden;"></i>
+                    বাংলা
+                </button>
+
+                <button data-lang-option="ar" onclick="setLanguage('ar')">
+                    <i class="fa-solid fa-check" style="visibility:hidden;"></i>
+                    العربية
+                </button>
+
+                <button data-lang-option="en" onclick="setLanguage('en')">
+                    <i class="fa-solid fa-check" style="visibility:hidden;"></i>
+                    English
+                </button>
+
+            </div>
+
+        </div>
+
+        <button class="back-btn" onclick="goDashboard()">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span data-i18n="btn_dashboard">Dashboard</span>
+        </button>
+
+    </div>
 </header>
 
 
@@ -978,8 +1144,8 @@ tr:hover td{
 
     <div class="page-heading">
         <div>
-            <h2><i class="fa-solid fa-square-poll-vertical"></i> Result Management</h2>
-            <p>শিক্ষার্থীদের ফলাফল তৈরি, সংরক্ষণ, প্রকাশ ও Print / PDF করুন। প্রতিটা কার্ডের পাশের তীর চিহ্নে চাপলে সেটা ছোট/বড় হবে।</p>
+            <h2><i class="fa-solid fa-square-poll-vertical"></i> <span data-i18n="page_title">Result Management</span></h2>
+            <p data-i18n="page_subtitle">শিক্ষার্থীদের ফলাফল তৈরি, সংরক্ষণ, প্রকাশ ও Print / PDF করুন। প্রতিটা কার্ডের পাশের তীর চিহ্নে চাপলে সেটা ছোট/বড় হবে।</p>
         </div>
     </div>
 
@@ -992,7 +1158,7 @@ tr:hover td{
             </div>
             <div>
                 <strong id="statStudents">0</strong>
-                <span>Students</span>
+                <span data-i18n="stat_students">Students</span>
             </div>
         </div>
 
@@ -1002,7 +1168,7 @@ tr:hover td{
             </div>
             <div>
                 <strong id="statSubjects">0</strong>
-                <span>Subjects</span>
+                <span data-i18n="stat_subjects">Subjects</span>
             </div>
         </div>
 
@@ -1012,7 +1178,7 @@ tr:hover td{
             </div>
             <div>
                 <strong id="statAdded">0</strong>
-                <span>Result Added</span>
+                <span data-i18n="stat_added">Result Added</span>
             </div>
         </div>
 
@@ -1022,7 +1188,7 @@ tr:hover td{
             </div>
             <div>
                 <strong id="statPublished">0</strong>
-                <span>Published</span>
+                <span data-i18n="stat_published">Published</span>
             </div>
         </div>
 
@@ -1032,7 +1198,7 @@ tr:hover td{
             </div>
             <div>
                 <strong id="statScheduled">0</strong>
-                <span>Scheduled</span>
+                <span data-i18n="stat_scheduled">Scheduled</span>
             </div>
         </div>
 
@@ -1042,7 +1208,7 @@ tr:hover td{
             </div>
             <div>
                 <strong id="statPending">0</strong>
-                <span>Draft / Pending</span>
+                <span data-i18n="stat_pending">Draft / Pending</span>
             </div>
         </div>
 
@@ -1057,7 +1223,7 @@ tr:hover td{
 
             <div class="card-title-left">
                 <i class="fa-solid fa-filter"></i>
-                Result Selection
+                <span data-i18n="title_result_selection">Result Selection</span>
             </div>
 
             <div class="card-title-actions">
@@ -1073,28 +1239,28 @@ tr:hover td{
             <div class="grid grid-4">
 
                 <div class="form-group">
-                    <label>Session</label>
+                    <label data-i18n="lbl_session">Session</label>
                     <select id="resultSession">
                         <option value="">Select Session</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label>Class</label>
+                    <label data-i18n="lbl_class">Class</label>
                     <select id="resultClass">
                         <option value="">Select Class</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label>Exam</label>
+                    <label data-i18n="lbl_exam">Exam</label>
                     <select id="resultExam">
                         <option value="">Select Exam</option>
                     </select>
                 </div>
 
-                <div class="form-group">
-                    <label>Month</label>
+                <div class="form-group" data-month-wrap="resultMonth">
+                    <label data-i18n="lbl_month">Month</label>
                     <select id="resultMonth">
                         <option value="">Select Month</option>
                         <option value="জানুয়ারি">জানুয়ারি</option>
@@ -1118,12 +1284,12 @@ tr:hover td{
 
                 <button class="btn btn-primary" onclick="loadStudents()">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    Load Students
+                    <span data-i18n="btn_load_students">Load Students</span>
                 </button>
 
                 <button class="btn btn-light" onclick="resetResultSelection()">
                     <i class="fa-solid fa-rotate-left"></i>
-                    Reset
+                    <span data-i18n="btn_reset">Reset</span>
                 </button>
 
             </div>
@@ -1141,7 +1307,7 @@ tr:hover td{
 
             <div class="card-title-left">
                 <i class="fa-solid fa-bullhorn"></i>
-                Result Publish Control
+                <span data-i18n="title_publish_control">Result Publish Control</span>
             </div>
 
             <div class="card-title-actions">
@@ -1156,22 +1322,22 @@ tr:hover td{
 
                         <button onclick="closeAllCardMenus();publishNow();">
                             <i class="fa-solid fa-circle-check"></i>
-                            Publish Now
+                            <span data-i18n="btn_publish_now">Publish Now</span>
                         </button>
 
                         <button onclick="closeAllCardMenus();schedulePublish();">
                             <i class="fa-solid fa-calendar-check"></i>
-                            Schedule Publish
+                            <span data-i18n="btn_schedule_publish">Schedule Publish</span>
                         </button>
 
                         <button onclick="closeAllCardMenus();unpublishTarget();">
                             <i class="fa-solid fa-eye-slash"></i>
-                            Unpublish
+                            <span data-i18n="btn_unpublish">Unpublish</span>
                         </button>
 
                         <button onclick="closeAllCardMenus();checkPublishStatus();">
                             <i class="fa-solid fa-arrows-rotate"></i>
-                            Check Status
+                            <span data-i18n="btn_check_status">Check Status</span>
                         </button>
 
                     </div>
@@ -1193,21 +1359,21 @@ tr:hover td{
                 <div class="grid grid-3">
 
                     <div class="form-group">
-                        <label>Publish Session</label>
+                        <label data-i18n="lbl_publish_session">Publish Session</label>
                         <select id="publishSession">
                             <option value="">Select Session</option>
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label>Publish Exam</label>
+                        <label data-i18n="lbl_publish_exam">Publish Exam</label>
                         <select id="publishExam">
                             <option value="">Select Exam</option>
                         </select>
                     </div>
 
-                    <div class="form-group">
-                        <label>Publish Month</label>
+                    <div class="form-group" data-month-wrap="publishMonth">
+                        <label data-i18n="lbl_publish_month">Publish Month</label>
                         <select id="publishMonth">
                             <option value="">Select Month</option>
                             <option value="জানুয়ারি">জানুয়ারি</option>
@@ -1230,7 +1396,8 @@ tr:hover td{
 
                 <div style="margin-top:15px;">
 
-                    <label style="font-size:13px;font-weight:800;color:#45616d;display:block;margin-bottom:8px;">
+                    <label style="font-size:13px;font-weight:800;color:#45616d;display:block;margin-bottom:8px;"
+                           data-i18n="lbl_publish_scope">
                         Publish Scope
                     </label>
 
@@ -1241,7 +1408,7 @@ tr:hover td{
                              onclick="setPublishScope('class')">
 
                             <i class="fa-solid fa-school"></i>
-                            Selected Class
+                            <span data-i18n="scope_selected_class">Selected Class</span>
 
                         </div>
 
@@ -1250,7 +1417,7 @@ tr:hover td{
                              onclick="setPublishScope('all')">
 
                             <i class="fa-solid fa-layer-group"></i>
-                            All Classes
+                            <span data-i18n="scope_all_classes">All Classes</span>
 
                         </div>
 
@@ -1263,7 +1430,7 @@ tr:hover td{
                      class="form-group"
                      style="max-width:400px;">
 
-                    <label>Class to Publish</label>
+                    <label data-i18n="lbl_class_to_publish">Class to Publish</label>
 
                     <select id="publishClass">
                         <option value="">Select Class</option>
@@ -1275,14 +1442,14 @@ tr:hover td{
                 <div class="grid grid-2" style="margin-top:15px;">
 
                     <div class="form-group">
-                        <label>Publish Date & Time</label>
+                        <label data-i18n="lbl_publish_datetime">Publish Date & Time</label>
 
                         <input type="datetime-local"
                                id="publishAt">
                     </div>
 
                     <div class="form-group">
-                        <label>Selected Time Information</label>
+                        <label data-i18n="lbl_selected_time_info">Selected Time Information</label>
 
                         <input type="text"
                                id="publishTimeInfo"
@@ -1299,7 +1466,7 @@ tr:hover td{
                             onclick="publishNow()">
 
                         <i class="fa-solid fa-circle-check"></i>
-                        Publish Now
+                        <span data-i18n="btn_publish_now">Publish Now</span>
 
                     </button>
 
@@ -1307,7 +1474,7 @@ tr:hover td{
                             onclick="schedulePublish()">
 
                         <i class="fa-solid fa-calendar-check"></i>
-                        Schedule Publish
+                        <span data-i18n="btn_schedule_publish">Schedule Publish</span>
 
                     </button>
 
@@ -1315,7 +1482,7 @@ tr:hover td{
                             onclick="unpublishTarget()">
 
                         <i class="fa-solid fa-eye-slash"></i>
-                        Unpublish
+                        <span data-i18n="btn_unpublish">Unpublish</span>
 
                     </button>
 
@@ -1323,14 +1490,14 @@ tr:hover td{
                             onclick="checkPublishStatus()">
 
                         <i class="fa-solid fa-arrows-rotate"></i>
-                        Check Status
+                        <span data-i18n="btn_check_status">Check Status</span>
 
                     </button>
 
                 </div>
 
 
-                <div class="publish-info">
+                <div class="publish-info" data-i18n-html="info_publish_system">
 
                     <i class="fa-solid fa-circle-info"></i>
 
@@ -1368,7 +1535,7 @@ tr:hover td{
 
             <div class="card-title-left">
                 <i class="fa-solid fa-users"></i>
-                Student Result List
+                <span data-i18n="title_student_list">Student Result List</span>
             </div>
 
             <div class="card-title-actions">
@@ -1383,7 +1550,7 @@ tr:hover td{
 
             <div id="studentList">
 
-                <div class="empty">
+                <div class="empty" data-i18n-html="empty_load_students">
                     <i class="fa-solid fa-users-viewfinder"></i>
                     Session, Class এবং Exam নির্বাচন করে
                     <strong>Load Students</strong> চাপুন।
@@ -1403,7 +1570,7 @@ tr:hover td{
         <div class="card-title">
             <div class="card-title-left">
                 <i class="fa-solid fa-pen-to-square"></i>
-                Result Entry / Edit
+                <span data-i18n="title_result_entry">Result Entry / Edit</span>
             </div>
         </div>
 
@@ -1419,7 +1586,7 @@ tr:hover td{
                     onclick="saveResult()">
 
                 <i class="fa-solid fa-floppy-disk"></i>
-                Save Result as Draft
+                <span data-i18n="btn_save_result_draft">Save Result as Draft</span>
 
             </button>
 
@@ -1427,7 +1594,7 @@ tr:hover td{
                     onclick="closeResultEntry()">
 
                 <i class="fa-solid fa-xmark"></i>
-                Close
+                <span data-i18n="btn_close">Close</span>
 
             </button>
 
@@ -1444,7 +1611,7 @@ tr:hover td{
 
             <div class="card-title-left">
                 <i class="fa-solid fa-book-open"></i>
-                Subject Management
+                <span data-i18n="title_subject_mgmt">Subject Management</span>
             </div>
 
             <div class="card-title-actions">
@@ -1459,7 +1626,7 @@ tr:hover td{
 
                         <button onclick="closeAllCardMenus();loadAllSubjects();">
                             <i class="fa-solid fa-arrows-rotate"></i>
-                            Refresh Subject List
+                            <span data-i18n="btn_refresh_subject_list">Refresh Subject List</span>
                         </button>
 
                     </div>
@@ -1479,7 +1646,7 @@ tr:hover td{
             <div class="grid grid-4">
 
                 <div class="form-group">
-                    <label>Class</label>
+                    <label data-i18n="lbl_class">Class</label>
 
                     <select id="subjectClass">
                         <option value="">Select Class</option>
@@ -1487,7 +1654,7 @@ tr:hover td{
                 </div>
 
                 <div class="form-group">
-                    <label>Subject Name</label>
+                    <label data-i18n="lbl_subject_name">Subject Name</label>
 
                     <input type="text"
                            id="subjectName"
@@ -1495,7 +1662,7 @@ tr:hover td{
                 </div>
 
                 <div class="form-group">
-                    <label>Full Mark</label>
+                    <label data-i18n="lbl_full_mark">Full Mark</label>
 
                     <input type="number"
                            id="subjectFullMark"
@@ -1504,7 +1671,7 @@ tr:hover td{
                 </div>
 
                 <div class="form-group">
-                    <label>Pass Mark</label>
+                    <label data-i18n="lbl_pass_mark">Pass Mark</label>
 
                     <input type="number"
                            id="subjectPassMark"
@@ -1527,7 +1694,7 @@ tr:hover td{
                         onclick="saveSubject()">
 
                     <i class="fa-solid fa-plus"></i>
-                    Add Subject
+                    <span data-i18n="btn_add_subject">Add Subject</span>
 
                 </button>
 
@@ -1536,7 +1703,7 @@ tr:hover td{
                         onclick="cancelSubjectEdit()">
 
                     <i class="fa-solid fa-xmark"></i>
-                    Cancel Edit
+                    <span data-i18n="btn_cancel_edit">Cancel Edit</span>
 
                 </button>
 
@@ -1544,7 +1711,7 @@ tr:hover td{
                         onclick="loadAllSubjects()">
 
                     <i class="fa-solid fa-arrows-rotate"></i>
-                    Refresh
+                    <span data-i18n="btn_refresh">Refresh</span>
 
                 </button>
 
@@ -1558,11 +1725,11 @@ tr:hover td{
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Class</th>
-                            <th>Subject</th>
-                            <th>Full Mark</th>
-                            <th>Pass Mark</th>
-                            <th>Action</th>
+                            <th data-i18n="th_class">Class</th>
+                            <th data-i18n="th_subject">Subject</th>
+                            <th data-i18n="th_full_mark">Full Mark</th>
+                            <th data-i18n="th_pass_mark">Pass Mark</th>
+                            <th data-i18n="th_action">Action</th>
                         </tr>
                     </thead>
 
@@ -1591,7 +1758,7 @@ tr:hover td{
 
             <div class="card-title-left">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                Published Result Search
+                <span data-i18n="title_result_search">Published Result Search</span>
             </div>
 
             <div class="card-title-actions">
@@ -1607,7 +1774,7 @@ tr:hover td{
             <div class="grid grid-4">
 
                 <div class="form-group">
-                    <label>Student ID</label>
+                    <label data-i18n="lbl_student_id">Student ID</label>
 
                     <input type="text"
                            id="searchStudentId"
@@ -1615,7 +1782,7 @@ tr:hover td{
                 </div>
 
                 <div class="form-group">
-                    <label>Session</label>
+                    <label data-i18n="lbl_session">Session</label>
 
                     <select id="searchSession">
                         <option value="">Select Session</option>
@@ -1623,15 +1790,15 @@ tr:hover td{
                 </div>
 
                 <div class="form-group">
-                    <label>Exam</label>
+                    <label data-i18n="lbl_exam">Exam</label>
 
                     <select id="searchExam">
                         <option value="">Select Exam</option>
                     </select>
                 </div>
 
-                <div class="form-group">
-                    <label>Month</label>
+                <div class="form-group" data-month-wrap="searchMonth">
+                    <label data-i18n="lbl_month">Month</label>
 
                     <select id="searchMonth">
                         <option value="">Select Month</option>
@@ -1658,7 +1825,7 @@ tr:hover td{
                         onclick="searchPublishedResult()">
 
                     <i class="fa-solid fa-search"></i>
-                    Search Result
+                    <span data-i18n="btn_search_result">Search Result</span>
 
                 </button>
 
@@ -1666,7 +1833,7 @@ tr:hover td{
                         onclick="clearSearch()">
 
                     <i class="fa-solid fa-rotate-left"></i>
-                    Clear
+                    <span data-i18n="btn_clear">Clear</span>
 
                 </button>
 
@@ -1687,7 +1854,7 @@ tr:hover td{
 
             <div class="card-title-left">
                 <i class="fa-solid fa-print"></i>
-                Print / Save PDF
+                <span data-i18n="title_print_pdf">Print / Save PDF</span>
             </div>
 
             <div class="card-title-actions">
@@ -1702,12 +1869,12 @@ tr:hover td{
 
                         <button onclick="closeAllCardMenus();printAllResults();">
                             <i class="fa-solid fa-print"></i>
-                            Print Class (Unique Marksheet / Student)
+                            <span data-i18n="btn_print_class_menu">Print Class (Unique Marksheet / Student)</span>
                         </button>
 
                         <button onclick="closeAllCardMenus();printBlankMarksheet();">
                             <i class="fa-solid fa-file"></i>
-                            Blank Marksheet
+                            <span data-i18n="btn_blank_marksheet">Blank Marksheet</span>
                         </button>
 
                     </div>
@@ -1727,7 +1894,7 @@ tr:hover td{
             <div class="grid grid-4">
 
                 <div class="form-group">
-                    <label>Session</label>
+                    <label data-i18n="lbl_session">Session</label>
 
                     <select id="printSession">
                         <option value="">Select Session</option>
@@ -1735,7 +1902,7 @@ tr:hover td{
                 </div>
 
                 <div class="form-group">
-                    <label>Class</label>
+                    <label data-i18n="lbl_class">Class</label>
 
                     <select id="printClass">
                         <option value="">Select Class</option>
@@ -1743,15 +1910,15 @@ tr:hover td{
                 </div>
 
                 <div class="form-group">
-                    <label>Exam</label>
+                    <label data-i18n="lbl_exam">Exam</label>
 
                     <select id="printExam">
                         <option value="">Select Exam</option>
                     </select>
                 </div>
 
-                <div class="form-group">
-                    <label>Month</label>
+                <div class="form-group" data-month-wrap="printMonth">
+                    <label data-i18n="lbl_month">Month</label>
 
                     <select id="printMonth">
                         <option value="">Select Month</option>
@@ -1781,7 +1948,8 @@ tr:hover td{
                        style="width:auto;">
 
                 <label for="printPublishedOnly"
-                       style="font-size:13px;font-weight:700;">
+                       style="font-size:13px;font-weight:700;"
+                       data-i18n="chk_published_only">
 
                     শুধু কার্যকর Published Result Print করব
 
@@ -1796,7 +1964,7 @@ tr:hover td{
                         onclick="printAllResults()">
 
                     <i class="fa-solid fa-print"></i>
-                    Print Class Result / Save PDF
+                    <span data-i18n="btn_print_class_result">Print Class Result / Save PDF</span>
 
                 </button>
 
@@ -1804,13 +1972,13 @@ tr:hover td{
                         onclick="printBlankMarksheet()">
 
                     <i class="fa-solid fa-file"></i>
-                    Blank Marksheet
+                    <span data-i18n="btn_blank_marksheet">Blank Marksheet</span>
 
                 </button>
 
             </div>
 
-            <div class="publish-info">
+            <div class="publish-info" data-i18n-html="info_print_system">
 
                 <i class="fa-solid fa-circle-info"></i>
 
@@ -1918,14 +2086,781 @@ const months = [
 
 
 /* =========================================================
+   ভাষা / LANGUAGE / اللغة — translations
+
+   এখানে বাংলা (bn), English (en), আরবি (ar) — তিনটা ভাষার
+   জন্য UI text রাখা হয়েছে। এই translation শুধু পেজের নিজস্ব
+   লেখা (label, button, table header, print template ইত্যাদি)
+   বদলায় — Database-এ যা লেখা আছে (student name, subject name,
+   class name) তা যেই ভাষায় লেখা হয়েছে সেই ভাষাতেই থাকবে, কারণ
+   সেটা admin নিজে টাইপ করেছেন এবং automatic translate করা সম্ভব
+   না। Exam/Month-এর নাম কোড-নির্ধারিত বলে সেগুলো অনুবাদ করা গেছে।
+========================================================= */
+
+let currentLang =
+    localStorage.getItem("mnq_result_lang") || "bn";
+
+const translations = {
+
+bn:{
+    brand_title:"মাদরাসায়ে নূরুল কুরআন",
+    brand_sub:"Result Management System",
+    btn_dashboard:"Dashboard",
+
+    page_title:"Result Management",
+    page_subtitle:"শিক্ষার্থীদের ফলাফল তৈরি, সংরক্ষণ, প্রকাশ ও Print / PDF করুন। প্রতিটা কার্ডের পাশের তীর চিহ্নে চাপলে সেটা ছোট/বড় হবে।",
+
+    stat_students:"Students",
+    stat_subjects:"Subjects",
+    stat_added:"Result Added",
+    stat_published:"Published",
+    stat_scheduled:"Scheduled",
+    stat_pending:"Draft / Pending",
+
+    title_result_selection:"Result Selection",
+    title_publish_control:"Result Publish Control",
+    title_student_list:"Student Result List",
+    title_result_entry:"Result Entry / Edit",
+    title_subject_mgmt:"Subject Management",
+    title_result_search:"Published Result Search",
+    title_print_pdf:"Print / Save PDF",
+
+    lbl_session:"Session",
+    lbl_class:"Class",
+    lbl_exam:"Exam",
+    lbl_month:"Month",
+    lbl_publish_session:"Publish Session",
+    lbl_publish_exam:"Publish Exam",
+    lbl_publish_month:"Publish Month",
+    lbl_class_to_publish:"Class to Publish",
+    lbl_publish_datetime:"Publish Date & Time",
+    lbl_selected_time_info:"Selected Time Information",
+    lbl_student_id:"Student ID",
+    lbl_subject_name:"Subject Name",
+    lbl_full_mark:"Full Mark",
+    lbl_pass_mark:"Pass Mark",
+    lbl_publish_scope:"Publish Scope",
+
+    scope_selected_class:"Selected Class",
+    scope_all_classes:"All Classes",
+
+    btn_load_students:"Load Students",
+    btn_reset:"Reset",
+    btn_publish_now:"Publish Now",
+    btn_schedule_publish:"Schedule Publish",
+    btn_unpublish:"Unpublish",
+    btn_check_status:"Check Status",
+    btn_save_result_draft:"Save Result as Draft",
+    btn_close:"Close",
+    btn_add_subject:"Add Subject",
+    btn_update_subject:"Update Subject",
+    btn_cancel_edit:"Cancel Edit",
+    btn_refresh:"Refresh",
+    btn_refresh_subject_list:"Refresh Subject List",
+    btn_search_result:"Search Result",
+    btn_clear:"Clear",
+    btn_print_class_result:"Print Class Result / Save PDF",
+    btn_print_class_menu:"Print Class (Unique Marksheet / Student)",
+    btn_blank_marksheet:"Blank Marksheet",
+    btn_edit:"Edit",
+    btn_delete:"Delete",
+    btn_print:"Print",
+    btn_add_result:"Add Result",
+    btn_edit_result:"Edit Result",
+
+    chk_published_only:"শুধু কার্যকর Published Result Print করব",
+
+    th_no:"#",
+    th_student:"Student",
+    th_student_id:"Student ID",
+    th_roll:"Roll",
+    th_class:"Class",
+    th_result_status:"Result Status",
+    th_action:"Action",
+    th_subject:"Subject",
+    th_full_mark:"Full Mark",
+    th_pass_mark:"Pass Mark",
+    th_obtained_mark:"Obtained Mark",
+    th_obtained:"Obtained",
+    th_status:"Status",
+
+    badge_pass:"PASS",
+    badge_fail:"FAIL",
+    badge_not_entered:"Not Entered",
+    badge_invalid:"Invalid",
+    badge_published:"Published",
+    badge_scheduled:"Scheduled",
+    badge_draft:"Draft",
+    badge_result_not_added:"Result Not Added",
+    badge_partially_published:"Partially Published",
+    badge_new_result:"New Result",
+    badge_existing_result:"Existing Result",
+
+    total_full_mark:"Total Full Mark",
+    total_obtained:"Total Obtained",
+    total_percentage:"Percentage",
+    total_grade:"Grade",
+    total_overall_result:"Overall Result",
+
+    empty_load_students:`<i class="fa-solid fa-users-viewfinder"></i>
+                    Session, Class এবং Exam নির্বাচন করে
+                    <strong>Load Students</strong> চাপুন।`,
+    empty_no_student:"এই Class / Session-এ কোনো Student পাওয়া যায়নি।",
+    empty_no_subject:"কোনো Subject পাওয়া যায়নি।",
+    empty_no_published_result:"এই Student-এর জন্য বর্তমানে কোনো Published Result পাওয়া যায়নি।",
+
+    info_publish_system:`<i class="fa-solid fa-circle-info"></i>
+                    <strong>Publish System:</strong>
+                    Result Save করার সময় এটি Draft থাকবে।
+                    Publish Now করলে সঙ্গে সঙ্গে Published হবে।
+                    ভবিষ্যতের Date & Time দিলে Scheduled থাকবে এবং
+                    নির্দিষ্ট সময় হওয়ার আগে Student Dashboard-এ দেখা যাবে না।
+                    <br><br>
+                    <strong>Class-wise:</strong>
+                    শুধু নির্বাচিত Class-এর Result প্রকাশ হবে।
+                    <br>
+                    <strong>All Classes:</strong>
+                    নির্বাচিত Session + Exam-এর সব Class-এর Result প্রকাশ হবে।`,
+
+    info_print_system:`<i class="fa-solid fa-circle-info"></i>
+                প্রতিটা Student-এর জন্য আলাদা <strong>Unique Marksheet ID</strong>
+                সহ আলাদা Page তৈরি হবে (একই PDF-এর ভেতরে একের পর এক)।
+                Print button চাপার পর Browser-এর
+                <strong>Print → Save as PDF</strong>
+                নির্বাচন করলে High-quality PDF তৈরি করা যাবে।`,
+
+    print_official_marksheet:"Official Student Marksheet",
+    print_published_result:"Published Result",
+    print_draft_unpublished:"DRAFT / UNPUBLISHED",
+    print_name:"Name",
+    print_student_id:"Student ID",
+    print_roll:"Roll",
+    print_class:"Class",
+    print_session:"Session",
+    print_marksheet_id:"Marksheet ID",
+    print_subject:"Subject",
+    print_full_mark:"Full Mark",
+    print_pass_mark:"Pass Mark",
+    print_obtained_mark:"Obtained Mark",
+    print_status:"Status",
+    print_total:"Total",
+    print_percentage:"Percentage",
+    print_grade:"Grade",
+    print_result:"Result",
+    print_class_teacher:"Class Teacher",
+    print_principal_head:"Principal / Head",
+    print_office_seal:"Office Seal",
+    print_blank_marksheet:"Blank Marksheet",
+    print_student_name:"Student Name",
+    print_total_short:"Total",
+    print_grade_short:"Grade",
+    print_full_short:"Full",
+    print_pass_short:"Pass",
+    print_obt_short:"Obt.",
+    print_prepared_by:"Prepared By",
+    print_checked_by:"Checked By",
+    print_principal:"Principal",
+    print_date:"Date",
+
+    msg_select_session_class_exam:"Session, Class এবং Exam নির্বাচন করুন।",
+    msg_select_month_monthly:"Monthly exam-এর জন্য Month নির্বাচন করুন।",
+    msg_select_session_exam:"Session / Exam নির্বাচন করুন।",
+    msg_student_not_found:"Student পাওয়া যায়নি।"
+},
+
+en:{
+    brand_title:"Madrasa-e-Nurul Quran",
+    brand_sub:"Result Management System",
+    btn_dashboard:"Dashboard",
+
+    page_title:"Result Management",
+    page_subtitle:"Create, save, publish and Print / PDF student results. Click the arrow beside any card to expand or collapse it.",
+
+    stat_students:"Students",
+    stat_subjects:"Subjects",
+    stat_added:"Result Added",
+    stat_published:"Published",
+    stat_scheduled:"Scheduled",
+    stat_pending:"Draft / Pending",
+
+    title_result_selection:"Result Selection",
+    title_publish_control:"Result Publish Control",
+    title_student_list:"Student Result List",
+    title_result_entry:"Result Entry / Edit",
+    title_subject_mgmt:"Subject Management",
+    title_result_search:"Published Result Search",
+    title_print_pdf:"Print / Save PDF",
+
+    lbl_session:"Session",
+    lbl_class:"Class",
+    lbl_exam:"Exam",
+    lbl_month:"Month",
+    lbl_publish_session:"Publish Session",
+    lbl_publish_exam:"Publish Exam",
+    lbl_publish_month:"Publish Month",
+    lbl_class_to_publish:"Class to Publish",
+    lbl_publish_datetime:"Publish Date & Time",
+    lbl_selected_time_info:"Selected Time Information",
+    lbl_student_id:"Student ID",
+    lbl_subject_name:"Subject Name",
+    lbl_full_mark:"Full Mark",
+    lbl_pass_mark:"Pass Mark",
+    lbl_publish_scope:"Publish Scope",
+
+    scope_selected_class:"Selected Class",
+    scope_all_classes:"All Classes",
+
+    btn_load_students:"Load Students",
+    btn_reset:"Reset",
+    btn_publish_now:"Publish Now",
+    btn_schedule_publish:"Schedule Publish",
+    btn_unpublish:"Unpublish",
+    btn_check_status:"Check Status",
+    btn_save_result_draft:"Save Result as Draft",
+    btn_close:"Close",
+    btn_add_subject:"Add Subject",
+    btn_update_subject:"Update Subject",
+    btn_cancel_edit:"Cancel Edit",
+    btn_refresh:"Refresh",
+    btn_refresh_subject_list:"Refresh Subject List",
+    btn_search_result:"Search Result",
+    btn_clear:"Clear",
+    btn_print_class_result:"Print Class Result / Save PDF",
+    btn_print_class_menu:"Print Class (Unique Marksheet / Student)",
+    btn_blank_marksheet:"Blank Marksheet",
+    btn_edit:"Edit",
+    btn_delete:"Delete",
+    btn_print:"Print",
+    btn_add_result:"Add Result",
+    btn_edit_result:"Edit Result",
+
+    chk_published_only:"Print only currently effective Published Results",
+
+    th_no:"#",
+    th_student:"Student",
+    th_student_id:"Student ID",
+    th_roll:"Roll",
+    th_class:"Class",
+    th_result_status:"Result Status",
+    th_action:"Action",
+    th_subject:"Subject",
+    th_full_mark:"Full Mark",
+    th_pass_mark:"Pass Mark",
+    th_obtained_mark:"Obtained Mark",
+    th_obtained:"Obtained",
+    th_status:"Status",
+
+    badge_pass:"PASS",
+    badge_fail:"FAIL",
+    badge_not_entered:"Not Entered",
+    badge_invalid:"Invalid",
+    badge_published:"Published",
+    badge_scheduled:"Scheduled",
+    badge_draft:"Draft",
+    badge_result_not_added:"Result Not Added",
+    badge_partially_published:"Partially Published",
+    badge_new_result:"New Result",
+    badge_existing_result:"Existing Result",
+
+    total_full_mark:"Total Full Mark",
+    total_obtained:"Total Obtained",
+    total_percentage:"Percentage",
+    total_grade:"Grade",
+    total_overall_result:"Overall Result",
+
+    empty_load_students:`<i class="fa-solid fa-users-viewfinder"></i>
+                    Select Session, Class and Exam, then click
+                    <strong>Load Students</strong>.`,
+    empty_no_student:"No students found for this Class / Session.",
+    empty_no_subject:"No subjects found.",
+    empty_no_published_result:"No published result is currently available for this student.",
+
+    info_publish_system:`<i class="fa-solid fa-circle-info"></i>
+                    <strong>Publish System:</strong>
+                    A saved result stays as Draft.
+                    Publish Now makes it Published immediately.
+                    A future Date & Time keeps it Scheduled and it
+                    won't appear on the Student Dashboard until then.
+                    <br><br>
+                    <strong>Class-wise:</strong>
+                    Only the selected Class's result will be published.
+                    <br>
+                    <strong>All Classes:</strong>
+                    Every class's result for the selected Session + Exam will be published.`,
+
+    info_print_system:`<i class="fa-solid fa-circle-info"></i>
+                A separate <strong>Unique Marksheet ID</strong> page will be
+                created for every student (one after another in the same PDF).
+                After clicking Print, choose your browser's
+                <strong>Print → Save as PDF</strong>
+                to get a high-quality PDF.`,
+
+    print_official_marksheet:"Official Student Marksheet",
+    print_published_result:"Published Result",
+    print_draft_unpublished:"DRAFT / UNPUBLISHED",
+    print_name:"Name",
+    print_student_id:"Student ID",
+    print_roll:"Roll",
+    print_class:"Class",
+    print_session:"Session",
+    print_marksheet_id:"Marksheet ID",
+    print_subject:"Subject",
+    print_full_mark:"Full Mark",
+    print_pass_mark:"Pass Mark",
+    print_obtained_mark:"Obtained Mark",
+    print_status:"Status",
+    print_total:"Total",
+    print_percentage:"Percentage",
+    print_grade:"Grade",
+    print_result:"Result",
+    print_class_teacher:"Class Teacher",
+    print_principal_head:"Principal / Head",
+    print_office_seal:"Office Seal",
+    print_blank_marksheet:"Blank Marksheet",
+    print_student_name:"Student Name",
+    print_total_short:"Total",
+    print_grade_short:"Grade",
+    print_full_short:"Full",
+    print_pass_short:"Pass",
+    print_obt_short:"Obt.",
+    print_prepared_by:"Prepared By",
+    print_checked_by:"Checked By",
+    print_principal:"Principal",
+    print_date:"Date",
+
+    msg_select_session_class_exam:"Please select Session, Class and Exam.",
+    msg_select_month_monthly:"Please select a Month for the Monthly exam.",
+    msg_select_session_exam:"Please select Session / Exam.",
+    msg_student_not_found:"Student not found."
+},
+
+ar:{
+    brand_title:"مدرسة نور القرآن",
+    brand_sub:"نظام إدارة النتائج",
+    btn_dashboard:"لوحة التحكم",
+
+    page_title:"إدارة النتائج",
+    page_subtitle:"أنشئ، احفظ، انشر واطبع نتائج الطلاب بصيغة PDF. اضغط على السهم بجانب أي بطاقة لطيّها أو فتحها.",
+
+    stat_students:"الطلاب",
+    stat_subjects:"المواد",
+    stat_added:"نتائج مضافة",
+    stat_published:"منشورة",
+    stat_scheduled:"مجدولة",
+    stat_pending:"مسودة / معلقة",
+
+    title_result_selection:"اختيار النتيجة",
+    title_publish_control:"التحكم في نشر النتيجة",
+    title_student_list:"قائمة نتائج الطلاب",
+    title_result_entry:"إدخال / تعديل النتيجة",
+    title_subject_mgmt:"إدارة المواد",
+    title_result_search:"البحث عن نتيجة منشورة",
+    title_print_pdf:"طباعة / حفظ PDF",
+
+    lbl_session:"العام الدراسي",
+    lbl_class:"الصف",
+    lbl_exam:"الامتحان",
+    lbl_month:"الشهر",
+    lbl_publish_session:"عام النشر",
+    lbl_publish_exam:"امتحان النشر",
+    lbl_publish_month:"شهر النشر",
+    lbl_class_to_publish:"الصف المراد نشره",
+    lbl_publish_datetime:"تاريخ ووقت النشر",
+    lbl_selected_time_info:"معلومات الوقت المحدد",
+    lbl_student_id:"رقم الطالب",
+    lbl_subject_name:"اسم المادة",
+    lbl_full_mark:"الدرجة الكلية",
+    lbl_pass_mark:"درجة النجاح",
+    lbl_publish_scope:"نطاق النشر",
+
+    scope_selected_class:"الصف المحدد",
+    scope_all_classes:"جميع الصفوف",
+
+    btn_load_students:"تحميل الطلاب",
+    btn_reset:"إعادة تعيين",
+    btn_publish_now:"انشر الآن",
+    btn_schedule_publish:"جدولة النشر",
+    btn_unpublish:"إلغاء النشر",
+    btn_check_status:"فحص الحالة",
+    btn_save_result_draft:"حفظ النتيجة كمسودة",
+    btn_close:"إغلاق",
+    btn_add_subject:"إضافة مادة",
+    btn_update_subject:"تحديث المادة",
+    btn_cancel_edit:"إلغاء التعديل",
+    btn_refresh:"تحديث",
+    btn_refresh_subject_list:"تحديث قائمة المواد",
+    btn_search_result:"بحث عن نتيجة",
+    btn_clear:"مسح",
+    btn_print_class_result:"طباعة نتيجة الصف / حفظ PDF",
+    btn_print_class_menu:"طباعة الصف (كشف درجات فريد لكل طالب)",
+    btn_blank_marksheet:"كشف درجات فارغ",
+    btn_edit:"تعديل",
+    btn_delete:"حذف",
+    btn_print:"طباعة",
+    btn_add_result:"إضافة نتيجة",
+    btn_edit_result:"تعديل النتيجة",
+
+    chk_published_only:"طباعة النتائج المنشورة والسارية فقط",
+
+    th_no:"#",
+    th_student:"الطالب",
+    th_student_id:"رقم الطالب",
+    th_roll:"الرقم",
+    th_class:"الصف",
+    th_result_status:"حالة النتيجة",
+    th_action:"إجراء",
+    th_subject:"المادة",
+    th_full_mark:"الدرجة الكلية",
+    th_pass_mark:"درجة النجاح",
+    th_obtained_mark:"الدرجة المحصلة",
+    th_obtained:"المحصلة",
+    th_status:"الحالة",
+
+    badge_pass:"ناجح",
+    badge_fail:"راسب",
+    badge_not_entered:"لم تُدخل",
+    badge_invalid:"غير صالحة",
+    badge_published:"منشورة",
+    badge_scheduled:"مجدولة",
+    badge_draft:"مسودة",
+    badge_result_not_added:"لم تُضف النتيجة",
+    badge_partially_published:"منشورة جزئياً",
+    badge_new_result:"نتيجة جديدة",
+    badge_existing_result:"نتيجة موجودة",
+
+    total_full_mark:"مجموع الدرجة الكلية",
+    total_obtained:"مجموع الدرجة المحصلة",
+    total_percentage:"النسبة المئوية",
+    total_grade:"التقدير",
+    total_overall_result:"النتيجة الإجمالية",
+
+    empty_load_students:`<i class="fa-solid fa-users-viewfinder"></i>
+                    اختر العام الدراسي والصف والامتحان ثم اضغط
+                    <strong>تحميل الطلاب</strong>.`,
+    empty_no_student:"لم يتم العثور على طلاب لهذا الصف / العام الدراسي.",
+    empty_no_subject:"لم يتم العثور على أي مادة.",
+    empty_no_published_result:"لا توجد حالياً نتيجة منشورة لهذا الطالب.",
+
+    info_publish_system:`<i class="fa-solid fa-circle-info"></i>
+                    <strong>نظام النشر:</strong>
+                    عند حفظ النتيجة تبقى كمسودة.
+                    النشر الفوري يجعلها منشورة على الفور.
+                    تحديد تاريخ ووقت مستقبلي يجعلها مجدولة ولن تظهر
+                    في لوحة الطالب حتى ذلك الوقت.
+                    <br><br>
+                    <strong>حسب الصف:</strong>
+                    سيتم نشر نتيجة الصف المحدد فقط.
+                    <br>
+                    <strong>جميع الصفوف:</strong>
+                    سيتم نشر نتيجة جميع الصفوف لهذا العام الدراسي والامتحان.`,
+
+    info_print_system:`<i class="fa-solid fa-circle-info"></i>
+                سيتم إنشاء صفحة منفصلة بـ <strong>رقم كشف درجات فريد</strong>
+                لكل طالب (الواحدة تلو الأخرى في نفس ملف PDF).
+                بعد الضغط على طباعة، اختر من المتصفح
+                <strong>طباعة ← حفظ كـ PDF</strong>
+                للحصول على PDF عالي الجودة.`,
+
+    print_official_marksheet:"كشف درجات الطالب الرسمي",
+    print_published_result:"نتيجة منشورة",
+    print_draft_unpublished:"مسودة / غير منشورة",
+    print_name:"الاسم",
+    print_student_id:"رقم الطالب",
+    print_roll:"الرقم",
+    print_class:"الصف",
+    print_session:"العام الدراسي",
+    print_marksheet_id:"رقم كشف الدرجات",
+    print_subject:"المادة",
+    print_full_mark:"الدرجة الكلية",
+    print_pass_mark:"درجة النجاح",
+    print_obtained_mark:"الدرجة المحصلة",
+    print_status:"الحالة",
+    print_total:"المجموع",
+    print_percentage:"النسبة المئوية",
+    print_grade:"التقدير",
+    print_result:"النتيجة",
+    print_class_teacher:"معلم الصف",
+    print_principal_head:"المدير / الرئيس",
+    print_office_seal:"ختم المكتب",
+    print_blank_marksheet:"كشف درجات فارغ",
+    print_student_name:"اسم الطالب",
+    print_total_short:"المجموع",
+    print_grade_short:"التقدير",
+    print_full_short:"الكلية",
+    print_pass_short:"النجاح",
+    print_obt_short:"المحصلة",
+    print_prepared_by:"إعداد",
+    print_checked_by:"مراجعة",
+    print_principal:"المدير",
+    print_date:"التاريخ",
+
+    msg_select_session_class_exam:"الرجاء اختيار العام الدراسي والصف والامتحان.",
+    msg_select_month_monthly:"الرجاء اختيار الشهر للامتحان الشهري.",
+    msg_select_session_exam:"الرجاء اختيار العام الدراسي / الامتحان.",
+    msg_student_not_found:"الطالب غير موجود."
+}
+
+};
+
+/*
+ * Exam/Month-এর canonical (আসল, DB-তে যেভাবে save থাকে) value সবসময়
+ * বাংলা থাকে — ভাষা বদলালে শুধু dropdown-এ দেখানো text বদলায়,
+ * DB-তে save হওয়া exam_name বা published আগের data ভাঙে না।
+ */
+
+const examLabelTranslations = {
+    bn:examList,
+    en:[
+        "1st Terminal Exam",
+        "2nd Terminal Exam",
+        "Annual Exam",
+        "Monthly Assessment Exam"
+    ],
+    ar:[
+        "الامتحان الفصلي الأول",
+        "الامتحان الفصلي الثاني",
+        "الامتحان السنوي",
+        "امتحان التقييم الشهري"
+    ]
+};
+
+const monthLabelTranslations = {
+    bn:months,
+    en:[
+        "January","February","March","April","May","June",
+        "July","August","September","October","November","December"
+    ],
+    ar:[
+        "يناير","فبراير","مارس","أبريل","مايو","يونيو",
+        "يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"
+    ]
+};
+
+function t(key){
+
+    return (
+        (translations[currentLang] && translations[currentLang][key]) ??
+        translations.bn[key] ??
+        key
+    );
+
+}
+
+function translateExamValue(value){
+
+    const idx = examList.indexOf(value);
+
+    if(idx === -1) return value;
+
+    return (examLabelTranslations[currentLang] || examLabelTranslations.bn)[idx];
+
+}
+
+function translateMonthValue(value){
+
+    const idx = months.indexOf(value);
+
+    if(idx === -1) return value;
+
+    return (monthLabelTranslations[currentLang] || monthLabelTranslations.bn)[idx];
+
+}
+
+function translateExamKeyForDisplay(examKey){
+
+    if(!examKey) return examKey;
+
+    const parts = examKey.split(" — ");
+
+    if(parts.length === 2){
+
+        return (
+            translateExamValue(parts[0]) +
+            " — " +
+            translateMonthValue(parts[1])
+        );
+
+    }
+
+    return translateExamValue(examKey);
+
+}
+
+function toggleLangMenu(event){
+
+    event.stopPropagation();
+
+    const menu = $("langMenu");
+
+    menu.classList.toggle("open");
+
+}
+
+function setLanguage(lang){
+
+    if(!translations[lang]) lang = "bn";
+
+    currentLang = lang;
+
+    localStorage.setItem("mnq_result_lang",lang);
+
+    applyLanguage();
+
+    $("langMenu").classList.remove("open");
+
+}
+
+function applyLanguage(){
+
+    const isRTL = currentLang === "ar";
+
+    document.documentElement.setAttribute(
+        "lang",
+        currentLang
+    );
+
+    document.documentElement.setAttribute(
+        "dir",
+        isRTL ? "rtl" : "ltr"
+    );
+
+    document.body.setAttribute("data-lang",currentLang);
+
+    /*
+     * সাধারণ static text — data-i18n attribute থাকা সব element
+     */
+
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+
+        const key = el.getAttribute("data-i18n");
+        el.textContent = t(key);
+
+    });
+
+    /*
+     * HTML সহ ব্লক (icon/strong/br থাকা লেখা) —
+     * data-i18n-html attribute থাকা element
+     */
+
+    document.querySelectorAll("[data-i18n-html]").forEach(el => {
+
+        const key = el.getAttribute("data-i18n-html");
+        el.innerHTML = t(key);
+
+    });
+
+    /*
+     * ভাষার dropdown-এ কোনটা active সেটা টিক চিহ্ন দিয়ে দেখানো
+     */
+
+    document.querySelectorAll("[data-lang-option]").forEach(btn => {
+
+        const isActive =
+            btn.getAttribute("data-lang-option") === currentLang;
+
+        btn.classList.toggle("active",isActive);
+
+        const check = btn.querySelector("i");
+
+        if(check){
+            check.style.visibility = isActive ? "visible" : "hidden";
+        }
+
+    });
+
+    /*
+     * Exam / Month select-এর দেখানো লেখা বদলানো — value (DB key)
+     * অপরিবর্তিত থাকে, শুধু visible option label ভাষা অনুযায়ী বদলায়।
+     */
+
+    ["resultExam","publishExam","searchExam","printExam"].forEach(id => {
+        refreshExamSelectLabels(id);
+    });
+
+    ["resultMonth","publishMonth","searchMonth","printMonth"].forEach(id => {
+        refreshMonthSelectLabels(id);
+    });
+
+    /*
+     * এখন যা on-screen render করা আছে (student list, subject
+     * list, search result, result entry ইত্যাদি) — সেগুলোও নতুন
+     * ভাষায় re-render করা হচ্ছে, যাতে "সব লেখা" সত্যিই বদলায়।
+     */
+
+    renderSubjectList();
+
+    if(currentStudents.length){
+        renderStudentList(
+            currentStudents,
+            $("resultSession").value,
+            getExamKey($("resultExam").value,$("resultMonth").value)
+        );
+    }
+
+    if(currentStudent){
+        renderResultEntry(
+            currentStudent,
+            currentSubjects,
+            currentStudentResults,
+            $("resultSession").value,
+            getExamKey($("resultExam").value,$("resultMonth").value)
+        );
+    }
+
+    if($("searchResult").innerHTML.trim()){
+        $("searchResult").innerHTML = "";
+    }
+
+}
+
+function refreshExamSelectLabels(id){
+
+    const select = $(id);
+    if(!select) return;
+
+    const oldValue = select.value;
+
+    select.innerHTML =
+        `<option value="">${t("lbl_exam")}</option>` +
+        examList.map(exam =>
+            `<option value="${escapeHTML(exam)}">${escapeHTML(translateExamValue(exam))}</option>`
+        ).join("");
+
+    select.value = oldValue;
+
+}
+
+function refreshMonthSelectLabels(id){
+
+    const select = $(id);
+    if(!select) return;
+
+    const oldValue = select.value;
+
+    select.innerHTML =
+        `<option value="">${t("lbl_month")}</option>` +
+        months.map(month =>
+            `<option value="${escapeHTML(month)}">${escapeHTML(translateMonthValue(month))}</option>`
+        ).join("");
+
+    select.value = oldValue;
+
+}
+
+
+/* =========================================================
    INIT
 ========================================================= */
 
 document.addEventListener("DOMContentLoaded", async () => {
 
     setupExamSelects();
+    setupMonthToggle();
     setupDateTime();
     setupCardMenuOutsideClick();
+    setupLangMenuOutsideClick();
+
+    applyLanguage();
 
     await loadClasses();
     await loadSessions();
@@ -1934,6 +2869,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     setDefaultDateTime();
 
 });
+
+function setupLangMenuOutsideClick(){
+
+    document.addEventListener("click", () => {
+        $("langMenu").classList.remove("open");
+    });
+
+}
 
 
 /* =========================================================
@@ -2096,6 +3039,58 @@ function setupExamSelects(){
             ).join("");
 
     });
+}
+
+
+/* =========================================================
+   MONTH FIELD — শুধু "মাসিক মূল্যায়ন পরীক্ষা"-তে দেখাবে
+========================================================= */
+
+const MONTHLY_EXAM_NAME = "মাসিক মূল্যায়ন পরীক্ষা";
+
+const examToMonthMap = {
+    resultExam:"resultMonth",
+    publishExam:"publishMonth",
+    searchExam:"searchMonth",
+    printExam:"printMonth"
+};
+
+function updateMonthVisibility(examId){
+
+    const monthId = examToMonthMap[examId];
+    if(!monthId) return;
+
+    const examSelect = $(examId);
+    const monthWrap = document.querySelector(`[data-month-wrap="${monthId}"]`);
+
+    if(!examSelect || !monthWrap) return;
+
+    const isMonthly = examSelect.value === MONTHLY_EXAM_NAME;
+
+    monthWrap.classList.toggle("hidden",!isMonthly);
+
+    /*
+     * Monthly exam না হলে Month value ও reset করা হচ্ছে,
+     * যাতে পুরনো month value ভুলবশত exam key-তে যুক্ত না হয়ে যায়।
+     */
+    if(!isMonthly){
+        $(monthId).value = "";
+    }
+
+}
+
+function setupMonthToggle(){
+
+    Object.keys(examToMonthMap).forEach(examId => {
+
+        $(examId).addEventListener("change", () => {
+            updateMonthVisibility(examId);
+        });
+
+        updateMonthVisibility(examId);
+
+    });
+
 }
 
 
@@ -2335,7 +3330,7 @@ function renderSubjectList(){
                 <td colspan="6">
                     <div class="empty">
                         <i class="fa-solid fa-book-open"></i>
-                        কোনো Subject পাওয়া যায়নি।
+                        ${escapeHTML(t("empty_no_subject"))}
                     </div>
                 </td>
             </tr>
@@ -2359,10 +3354,10 @@ function renderSubjectList(){
                 <td>
                     <div class="actions">
                         <button class="btn btn-light btn-sm" onclick="editSubject('${escapeHTML(subject.id)}')">
-                            <i class="fa-solid fa-pen"></i> Edit
+                            <i class="fa-solid fa-pen"></i> ${escapeHTML(t("btn_edit"))}
                         </button>
                         <button class="btn btn-danger btn-sm" onclick="deleteSubject('${escapeHTML(subject.id)}')">
-                            <i class="fa-solid fa-trash"></i> Delete
+                            <i class="fa-solid fa-trash"></i> ${escapeHTML(t("btn_delete"))}
                         </button>
                     </div>
                 </td>
@@ -2619,14 +3614,14 @@ async function loadStudents(){
     const month    = $("resultMonth").value;
 
     if(!session || !classId || !exam){
-        toast("Session, Class এবং Exam নির্বাচন করুন।","warning");
+        toast(t("msg_select_session_class_exam"),"warning");
         return;
     }
 
     const examKey = getExamKey(exam,month);
 
     if(exam === "মাসিক মূল্যায়ন পরীক্ষা" && !month){
-        toast("Monthly exam-এর জন্য Month নির্বাচন করুন।","warning");
+        toast(t("msg_select_month_monthly"),"warning");
         return;
     }
 
@@ -2636,11 +3631,7 @@ async function loadStudents(){
 
         let query = db
             .from("students")
-            .select(`
-                id, student_id, roll_number, name, father_name, mother_name,
-                phone, mobile, mobile_number, guardian_mobile, class_id,
-                session, admission_date, address, photo_url, created_at
-            `)
+            .select("*")
             .order("roll_number");
 
         if(classId){
@@ -2722,7 +3713,7 @@ function getStudentResultState(studentId,results){
     );
 
     if(!rows.length){
-        return {type:"pending",label:"Result Not Added"};
+        return {type:"pending",label:t("badge_result_not_added")};
     }
 
     const publishedRows = rows.filter(r => r.published === true);
@@ -2734,19 +3725,18 @@ function getStudentResultState(studentId,results){
         );
 
         return future
-            ? {type:"scheduled",label:"Scheduled"}
-            : {type:"published",label:"Published"};
+            ? {type:"scheduled",label:t("badge_scheduled")}
+            : {type:"published",label:t("badge_published")};
 
     }
 
     if(publishedRows.length > 0){
-        return {type:"scheduled",label:"Partially Published"};
+        return {type:"scheduled",label:t("badge_partially_published")};
     }
 
-    return {type:"draft",label:"Draft"};
+    return {type:"draft",label:t("badge_draft")};
 
 }
-
 
 /* =========================================================
    RENDER STUDENTS
@@ -2761,7 +3751,7 @@ async function renderStudentList(students,session,examKey){
         box.innerHTML = `
             <div class="empty">
                 <i class="fa-solid fa-user-slash"></i>
-                এই Class / Session-এ কোনো Student পাওয়া যায়নি।
+                ${escapeHTML(t("empty_no_student"))}
             </div>
         `;
 
@@ -2796,12 +3786,12 @@ async function renderStudentList(students,session,examKey){
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Student</th>
-                        <th>Student ID</th>
-                        <th>Roll</th>
-                        <th>Class</th>
-                        <th>Result Status</th>
-                        <th>Action</th>
+                        <th>${escapeHTML(t("th_student"))}</th>
+                        <th>${escapeHTML(t("th_student_id"))}</th>
+                        <th>${escapeHTML(t("th_roll"))}</th>
+                        <th>${escapeHTML(t("th_class"))}</th>
+                        <th>${escapeHTML(t("th_result_status"))}</th>
+                        <th>${escapeHTML(t("th_action"))}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -2855,14 +3845,14 @@ async function renderStudentList(students,session,examKey){
                                     <div class="actions">
                                         <button class="btn btn-primary btn-sm" onclick="openResultEntry('${escapeHTML(student.student_id)}')">
                                             <i class="fa-solid fa-${hasResult ? "pen" : "plus"}"></i>
-                                            ${hasResult ? "Edit Result" : "Add Result"}
+                                            ${hasResult ? escapeHTML(t("btn_edit_result")) : escapeHTML(t("btn_add_result"))}
                                         </button>
                                         ${hasResult ? `
                                             <button class="btn btn-danger btn-sm" onclick="deleteStudentResult('${escapeHTML(student.student_id)}')">
-                                                <i class="fa-solid fa-trash"></i> Delete
+                                                <i class="fa-solid fa-trash"></i> ${escapeHTML(t("btn_delete"))}
                                             </button>
                                             <button class="btn btn-dark btn-sm" onclick="printIndividualResult('${escapeHTML(student.student_id)}')">
-                                                <i class="fa-solid fa-print"></i> Print
+                                                <i class="fa-solid fa-print"></i> ${escapeHTML(t("btn_print"))}
                                             </button>
                                         ` : ""}
                                     </div>
@@ -2895,7 +3885,7 @@ async function openResultEntry(studentId){
     );
 
     if(!student){
-        toast("Student পাওয়া যায়নি।","error");
+        toast(t("msg_student_not_found"),"error");
         return;
     }
 
@@ -3025,21 +4015,21 @@ function renderResultEntry(student,subjects,existingResults,session,examKey){
                 <div>
                     <h3 style="color:var(--deep);font-size:18px;">${escapeHTML(student.name || "—")}</h3>
                     <div class="muted">
-                        Student ID: <strong>${escapeHTML(student.student_id || "—")}</strong>
+                        ${escapeHTML(t("th_student_id"))}: <strong>${escapeHTML(student.student_id || "—")}</strong>
                         &nbsp;|&nbsp;
-                        Roll: <strong>${escapeHTML(student.roll_number || "—")}</strong>
+                        ${escapeHTML(t("th_roll"))}: <strong>${escapeHTML(student.roll_number || "—")}</strong>
                     </div>
                     <div class="muted">
-                        Class: ${escapeHTML(getClassName(student.class_id))}
-                        &nbsp;|&nbsp; Session: ${escapeHTML(session)}
-                        &nbsp;|&nbsp; Exam: ${escapeHTML(examKey)}
+                        ${escapeHTML(t("th_class"))}: ${escapeHTML(getClassName(student.class_id))}
+                        &nbsp;|&nbsp; ${escapeHTML(t("lbl_session"))}: ${escapeHTML(session)}
+                        &nbsp;|&nbsp; ${escapeHTML(t("lbl_exam"))}: ${escapeHTML(translateExamKeyForDisplay(examKey))}
                     </div>
                 </div>
             </div>
             <div>
                 ${existingResults.length
-                    ? `<span class="badge badge-info"><i class="fa-solid fa-pen"></i> Existing Result</span>`
-                    : `<span class="badge badge-dark"><i class="fa-solid fa-file"></i> New Result</span>`
+                    ? `<span class="badge badge-info"><i class="fa-solid fa-pen"></i> ${escapeHTML(t("badge_existing_result"))}</span>`
+                    : `<span class="badge badge-dark"><i class="fa-solid fa-file"></i> ${escapeHTML(t("badge_new_result"))}</span>`
                 }
             </div>
         </div>
@@ -3050,8 +4040,8 @@ function renderResultEntry(student,subjects,existingResults,session,examKey){
             <table>
                 <thead>
                     <tr>
-                        <th>#</th><th>Subject</th><th>Full Mark</th>
-                        <th>Pass Mark</th><th>Obtained Mark</th><th>Status</th>
+                        <th>#</th><th>${escapeHTML(t("th_subject"))}</th><th>${escapeHTML(t("th_full_mark"))}</th>
+                        <th>${escapeHTML(t("th_pass_mark"))}</th><th>${escapeHTML(t("th_obtained_mark"))}</th><th>${escapeHTML(t("th_status"))}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -3120,7 +4110,7 @@ function calculateLiveTotal(){
         totalPass += pass;
 
         if(value === ""){
-            status.innerHTML = `<span class="badge badge-dark">Not Entered</span>`;
+            status.innerHTML = `<span class="badge badge-dark">${escapeHTML(t("badge_not_entered"))}</span>`;
             return;
         }
 
@@ -3132,18 +4122,18 @@ function calculateLiveTotal(){
         if(mark > full){
             input.classList.remove("pass");
             input.classList.add("fail");
-            status.innerHTML = `<span class="badge badge-danger">Invalid</span>`;
+            status.innerHTML = `<span class="badge badge-danger">${escapeHTML(t("badge_invalid"))}</span>`;
             return;
         }
 
         if(mark >= pass){
             input.classList.remove("fail");
             input.classList.add("pass");
-            status.innerHTML = `<span class="badge badge-success">Pass</span>`;
+            status.innerHTML = `<span class="badge badge-success">${escapeHTML(t("badge_pass"))}</span>`;
         }else{
             input.classList.remove("pass");
             input.classList.add("fail");
-            status.innerHTML = `<span class="badge badge-danger">Fail</span>`;
+            status.innerHTML = `<span class="badge badge-danger">${escapeHTML(t("badge_fail"))}</span>`;
             failedSubjects++;
         }
 
@@ -3160,14 +4150,14 @@ function calculateLiveTotal(){
     $("resultTotalBox").innerHTML = `
         <div class="total-box">
             <div class="total-grid">
-                <div class="total-item"><span>Total Full Mark</span><strong>${formatNumber(totalFull)}</strong></div>
-                <div class="total-item"><span>Total Obtained</span><strong>${formatNumber(totalObtained)}</strong></div>
-                <div class="total-item"><span>Percentage</span><strong>${percentage.toFixed(2)}%</strong></div>
-                <div class="total-item"><span>Grade</span><strong>${grade}</strong></div>
+                <div class="total-item"><span>${escapeHTML(t("total_full_mark"))}</span><strong>${formatNumber(totalFull)}</strong></div>
+                <div class="total-item"><span>${escapeHTML(t("total_obtained"))}</span><strong>${formatNumber(totalObtained)}</strong></div>
+                <div class="total-item"><span>${escapeHTML(t("total_percentage"))}</span><strong>${percentage.toFixed(2)}%</strong></div>
+                <div class="total-item"><span>${escapeHTML(t("total_grade"))}</span><strong>${grade}</strong></div>
                 <div class="total-item">
-                    <span>Overall Result</span>
+                    <span>${escapeHTML(t("total_overall_result"))}</span>
                     <strong class="${overallPass ? "result-pass" : "result-fail"}">
-                        ${entered === 0 ? "—" : (overallPass ? "PASS" : "FAIL")}
+                        ${entered === 0 ? "—" : (overallPass ? escapeHTML(t("badge_pass")) : escapeHTML(t("badge_fail")))}
                     </strong>
                 </div>
             </div>
@@ -3221,7 +4211,7 @@ async function saveResult(){
     const examKey = getExamKey(exam,month);
 
     if(!session || !examKey){
-        toast("Session / Exam নির্বাচন করুন।","warning");
+        toast(t("msg_select_session_exam"),"warning");
         return;
     }
 
@@ -3332,7 +4322,7 @@ async function deleteStudentResult(studentId){
     const examKey = getExamKey(exam,month);
 
     if(!session || !examKey){
-        toast("Session / Exam নির্বাচন করুন।","warning");
+        toast(t("msg_select_session_exam"),"warning");
         return;
     }
 
@@ -3423,7 +4413,7 @@ function getPublishSettings(){
     const examKey = getExamKey(exam,month);
 
     if(exam === "মাসিক মূল্যায়ন পরীক্ষা" && !month){
-        toast("Monthly exam-এর জন্য Month নির্বাচন করুন।","warning");
+        toast(t("msg_select_month_monthly"),"warning");
         return null;
     }
 
@@ -3698,7 +4688,7 @@ async function searchPublishedResult(){
     const examKey = getExamKey(exam,month);
 
     if(exam === "মাসিক মূল্যায়ন পরীক্ষা" && !month){
-        toast("Monthly exam-এর জন্য Month নির্বাচন করুন।","warning");
+        toast(t("msg_select_month_monthly"),"warning");
         return;
     }
 
@@ -3726,7 +4716,7 @@ async function searchPublishedResult(){
             $("searchResult").innerHTML = `
                 <div class="empty search-result">
                     <i class="fa-solid fa-file-circle-xmark"></i>
-                    এই Student-এর জন্য বর্তমানে কোনো Published Result পাওয়া যায়নি।
+                    ${escapeHTML(t("empty_no_published_result"))}
                 </div>
             `;
 
@@ -3847,17 +4837,17 @@ function renderSearchResult(result,session,examKey){
     $("searchResult").innerHTML = `
         <div class="search-result">
             <div class="search-summary">
-                <strong>Published Result</strong> &nbsp;|&nbsp;
+                <strong>${escapeHTML(t("badge_published"))}</strong> &nbsp;|&nbsp;
                 ${escapeHTML(student?.name || "Student")} &nbsp;|&nbsp;
-                ID: <strong>${escapeHTML(student?.student_id || "")}</strong> &nbsp;|&nbsp;
-                ${escapeHTML(examKey)}
+                ${escapeHTML(t("lbl_student_id"))}: <strong>${escapeHTML(student?.student_id || "")}</strong> &nbsp;|&nbsp;
+                ${escapeHTML(translateExamKeyForDisplay(examKey))}
             </div>
             <div class="table-wrap">
                 <table>
                     <thead>
                         <tr>
-                            <th>#</th><th>Subject</th><th>Full Mark</th>
-                            <th>Pass Mark</th><th>Obtained</th><th>Status</th>
+                            <th>#</th><th>${escapeHTML(t("th_subject"))}</th><th>${escapeHTML(t("th_full_mark"))}</th>
+                            <th>${escapeHTML(t("th_pass_mark"))}</th><th>${escapeHTML(t("th_obtained"))}</th><th>${escapeHTML(t("th_status"))}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -3870,7 +4860,7 @@ function renderSearchResult(result,session,examKey){
                                 <td><strong>${formatNumber(r.marks)}</strong></td>
                                 <td>
                                     <span class="badge ${r.isPass ? "badge-success" : "badge-danger"}">
-                                        ${r.isPass ? "PASS" : "FAIL"}
+                                        ${r.isPass ? escapeHTML(t("badge_pass")) : escapeHTML(t("badge_fail"))}
                                     </span>
                                 </td>
                             </tr>
@@ -3880,13 +4870,13 @@ function renderSearchResult(result,session,examKey){
             </div>
             <div class="total-box" style="margin-top:15px;">
                 <div class="total-grid">
-                    <div class="total-item"><span>Total</span><strong>${formatNumber(result.totalObtained)} / ${formatNumber(result.totalFull)}</strong></div>
-                    <div class="total-item"><span>Percentage</span><strong>${result.percentage.toFixed(2)}%</strong></div>
-                    <div class="total-item"><span>Grade</span><strong>${result.grade}</strong></div>
+                    <div class="total-item"><span>${escapeHTML(t("print_total"))}</span><strong>${formatNumber(result.totalObtained)} / ${formatNumber(result.totalFull)}</strong></div>
+                    <div class="total-item"><span>${escapeHTML(t("total_percentage"))}</span><strong>${result.percentage.toFixed(2)}%</strong></div>
+                    <div class="total-item"><span>${escapeHTML(t("total_grade"))}</span><strong>${result.grade}</strong></div>
                     <div class="total-item">
-                        <span>Result</span>
+                        <span>${escapeHTML(t("print_result"))}</span>
                         <strong class="${result.pass ? "result-pass" : "result-fail"}">
-                            ${result.pass ? "PASS" : "FAIL"}
+                            ${result.pass ? escapeHTML(t("badge_pass")) : escapeHTML(t("badge_fail"))}
                         </strong>
                     </div>
                 </div>
@@ -3945,7 +4935,7 @@ async function printAllResults(){
     const examKey = getExamKey(exam,month);
 
     if(exam === "মাসিক মূল্যায়ন পরীক্ষা" && !month){
-        toast("Monthly exam-এর জন্য Month নির্বাচন করুন।","warning");
+        toast(t("msg_select_month_monthly"),"warning");
         return;
     }
 
@@ -4059,6 +5049,78 @@ async function getTargetStudentsForPrint(classId,session){
     });
 
 }
+
+
+/* =========================================================
+   INDIVIDUAL PRINT
+========================================================= */
+
+async function printIndividualResult(studentId){
+
+    const student = currentStudents.find(
+        s => String(s.student_id) === String(studentId)
+    );
+
+    if(!student){
+        toast(t("msg_student_not_found"),"error");
+        return;
+    }
+
+    const session = $("resultSession").value;
+    const exam    = $("resultExam").value;
+    const month   = $("resultMonth").value;
+    const examKey = getExamKey(exam,month);
+
+    if(!session || !examKey){
+        toast(t("msg_select_session_exam"),"warning");
+        return;
+    }
+
+    showLoading("Preparing Student Marksheet...");
+
+    try{
+
+        const {data,error} = await db
+            .from("results")
+            .select("*")
+            .eq("student_id",studentId)
+            .eq("session",session)
+            .eq("exam_name",examKey)
+            .eq("published",true)
+            .or(`published_at.is.null,published_at.lte.${new Date().toISOString()}`);
+
+        if(error) throw error;
+
+        if(!data?.length){
+            toast("এই Student-এর Published Result নেই।","warning");
+            return;
+        }
+
+        const result = await buildResultSummary(data,student);
+
+        $("printArea").innerHTML =
+            buildIndividualPrintHTML(result,session,examKey,true);
+
+        setTimeout(() => window.print(),300);
+
+    }catch(error){
+
+        console.error(error);
+
+        toast(
+            "Print failed: " + escapeHTML(error.message || String(error)),
+            "error"
+        );
+
+    }finally{
+
+        hideLoading();
+
+    }
+
+}
+
+
 /* =========================================================
    INDIVIDUAL / UNIQUE MARKSHEET HTML
 ========================================================= */
@@ -4073,45 +5135,47 @@ function buildIndividualPrintHTML(result,session,examKey,publishedOnly = true){
         session
     );
 
+    const isRTL = currentLang === "ar";
+
     return `
-        <div class="print-page">
+        <div class="print-page" dir="${isRTL ? "rtl" : "ltr"}">
 
             <div class="marksheet-id">
-                Marksheet ID: ${escapeHTML(marksheetId)}
+                ${escapeHTML(t("print_marksheet_id"))}: ${escapeHTML(marksheetId)}
             </div>
 
             <div class="print-header">
                 <img src="img/logo.png" onerror="this.style.display='none'">
-                <h1>মাদরাসায়ে নূরুল কুরআন</h1>
+                <h1>${escapeHTML(t("brand_title"))}</h1>
                 <h2>ভল্লবপুর, দিঘলী, চন্দ্রগঞ্জ, লক্ষ্মীপুর</h2>
-                <p>Official Student Marksheet</p>
+                <p>${escapeHTML(t("print_official_marksheet"))}</p>
             </div>
 
             <div class="print-title">
-                <h3>${escapeHTML(examKey)}</h3>
+                <h3>${escapeHTML(translateExamKeyForDisplay(examKey))}</h3>
                 ${publishedOnly
-                    ? `<span>Published Result</span>`
-                    : `<span class="draft-watermark">DRAFT / UNPUBLISHED</span>`
+                    ? `<span>${escapeHTML(t("print_published_result"))}</span>`
+                    : `<span class="draft-watermark">${escapeHTML(t("print_draft_unpublished"))}</span>`
                 }
             </div>
 
             <div class="print-meta">
-                <div><strong>Name:</strong> ${escapeHTML(student?.name || "")}</div>
-                <div><strong>Student ID:</strong> ${escapeHTML(student?.student_id || "")}</div>
-                <div><strong>Roll:</strong> ${escapeHTML(student?.roll_number || "")}</div>
+                <div><strong>${escapeHTML(t("print_name"))}:</strong> ${escapeHTML(student?.name || "")}</div>
+                <div><strong>${escapeHTML(t("print_student_id"))}:</strong> ${escapeHTML(student?.student_id || "")}</div>
+                <div><strong>${escapeHTML(t("print_roll"))}:</strong> ${escapeHTML(student?.roll_number || "")}</div>
             </div>
 
             <div class="print-meta">
-                <div><strong>Class:</strong> ${escapeHTML(getClassName(student?.class_id))}</div>
-                <div><strong>Session:</strong> ${escapeHTML(session)}</div>
-                <div><strong>Marksheet ID:</strong> ${escapeHTML(marksheetId)}</div>
+                <div><strong>${escapeHTML(t("print_class"))}:</strong> ${escapeHTML(getClassName(student?.class_id))}</div>
+                <div><strong>${escapeHTML(t("print_session"))}:</strong> ${escapeHTML(session)}</div>
+                <div><strong>${escapeHTML(t("print_marksheet_id"))}:</strong> ${escapeHTML(marksheetId)}</div>
             </div>
 
             <table class="print-table">
                 <thead>
                     <tr>
-                        <th>#</th><th>Subject</th><th>Full Mark</th>
-                        <th>Pass Mark</th><th>Obtained Mark</th><th>Status</th>
+                        <th>#</th><th>${escapeHTML(t("print_subject"))}</th><th>${escapeHTML(t("print_full_mark"))}</th>
+                        <th>${escapeHTML(t("print_pass_mark"))}</th><th>${escapeHTML(t("print_obtained_mark"))}</th><th>${escapeHTML(t("print_status"))}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -4122,23 +5186,23 @@ function buildIndividualPrintHTML(result,session,examKey,publishedOnly = true){
                             <td>${row.full}</td>
                             <td>${row.pass}</td>
                             <td><strong>${formatNumber(row.marks)}</strong></td>
-                            <td>${row.isPass ? "PASS" : "FAIL"}</td>
+                            <td>${row.isPass ? escapeHTML(t("badge_pass")) : escapeHTML(t("badge_fail"))}</td>
                         </tr>
                     `).join("")}
                 </tbody>
             </table>
 
             <div class="print-total">
-                <span>Total: ${formatNumber(result.totalObtained)} / ${formatNumber(result.totalFull)}</span>
-                <span>Percentage: ${result.percentage.toFixed(2)}%</span>
-                <span>Grade: ${result.grade}</span>
-                <span>Result: ${result.pass ? "PASS" : "FAIL"}</span>
+                <span>${escapeHTML(t("print_total"))}: ${formatNumber(result.totalObtained)} / ${formatNumber(result.totalFull)}</span>
+                <span>${escapeHTML(t("print_percentage"))}: ${result.percentage.toFixed(2)}%</span>
+                <span>${escapeHTML(t("print_grade"))}: ${result.grade}</span>
+                <span>${escapeHTML(t("print_result"))}: ${result.pass ? escapeHTML(t("badge_pass")) : escapeHTML(t("badge_fail"))}</span>
             </div>
 
             <div class="signature-area">
-                <div class="signature">Class Teacher</div>
-                <div class="signature">Principal / Head</div>
-                <div class="signature">Office Seal</div>
+                <div class="signature">${escapeHTML(t("print_class_teacher"))}</div>
+                <div class="signature">${escapeHTML(t("print_principal_head"))}</div>
+                <div class="signature">${escapeHTML(t("print_office_seal"))}</div>
             </div>
 
         </div>
@@ -4159,14 +5223,14 @@ function printBlankMarksheet(){
     const month   = $("printMonth").value;
 
     if(!session || !classId || !exam){
-        toast("Blank Marksheet-এর জন্য Session, Class এবং Exam নির্বাচন করুন।","warning");
+        toast(t("msg_select_session_class_exam"),"warning");
         return;
     }
 
     const examKey = getExamKey(exam,month);
 
     if(exam === "মাসিক মূল্যায়ন পরীক্ষা" && !month){
-        toast("Monthly exam-এর জন্য Month নির্বাচন করুন।","warning");
+        toast(t("msg_select_month_monthly"),"warning");
         return;
     }
 
@@ -4175,38 +5239,40 @@ function printBlankMarksheet(){
     );
 
     if(!classSubjects.length){
-        toast("এই Class-এর কোনো Subject পাওয়া যায়নি।","warning");
+        toast(t("empty_no_subject"),"warning");
         return;
     }
 
+    const isRTL = currentLang === "ar";
+
     let html = `
-        <div class="print-page">
+        <div class="print-page" dir="${isRTL ? "rtl" : "ltr"}">
             <div class="print-header">
                 <img src="img/logo.png" onerror="this.style.display='none'">
-                <h1>মাদরাসায়ে নূরুল কুরআন</h1>
+                <h1>${escapeHTML(t("brand_title"))}</h1>
                 <h2>ভল্লবপুর, দিঘলী, চন্দ্রগঞ্জ, লক্ষ্মীপুর</h2>
             </div>
             <div class="print-title">
-                <h3>Blank Marksheet</h3>
-                <p>${escapeHTML(examKey)}</p>
+                <h3>${escapeHTML(t("print_blank_marksheet"))}</h3>
+                <p>${escapeHTML(translateExamKeyForDisplay(examKey))}</p>
             </div>
             <div class="print-meta">
-                <div>Class: ${escapeHTML(getClassName(classId))}</div>
-                <div>Session: ${escapeHTML(session)}</div>
-                <div>Date: __________________</div>
+                <div>${escapeHTML(t("print_class"))}: ${escapeHTML(getClassName(classId))}</div>
+                <div>${escapeHTML(t("print_session"))}: ${escapeHTML(session)}</div>
+                <div>${escapeHTML(t("print_date"))}: __________________</div>
             </div>
             <table class="print-table">
                 <thead>
                     <tr>
                         <th rowspan="2">#</th>
-                        <th rowspan="2">Student Name</th>
-                        <th rowspan="2">Roll</th>
+                        <th rowspan="2">${escapeHTML(t("print_student_name"))}</th>
+                        <th rowspan="2">${escapeHTML(t("print_roll"))}</th>
                         ${classSubjects.map(s => `<th colspan="3">${escapeHTML(getSubjectName(s))}</th>`).join("")}
-                        <th rowspan="2">Total</th>
-                        <th rowspan="2">Grade</th>
+                        <th rowspan="2">${escapeHTML(t("print_total_short"))}</th>
+                        <th rowspan="2">${escapeHTML(t("print_grade_short"))}</th>
                     </tr>
                     <tr>
-                        ${classSubjects.map(() => `<th>Full</th><th>Pass</th><th>Obt.</th>`).join("")}
+                        ${classSubjects.map(() => `<th>${escapeHTML(t("print_full_short"))}</th><th>${escapeHTML(t("print_pass_short"))}</th><th>${escapeHTML(t("print_obt_short"))}</th>`).join("")}
                     </tr>
                 </thead>
                 <tbody>
@@ -4227,9 +5293,9 @@ function printBlankMarksheet(){
                 </tbody>
             </table>
             <div class="signature-area">
-                <div class="signature">Prepared By</div>
-                <div class="signature">Checked By</div>
-                <div class="signature">Principal</div>
+                <div class="signature">${escapeHTML(t("print_prepared_by"))}</div>
+                <div class="signature">${escapeHTML(t("print_checked_by"))}</div>
+                <div class="signature">${escapeHTML(t("print_principal"))}</div>
             </div>
         </div>
     `;
@@ -4309,6 +5375,10 @@ $("resultExam").addEventListener("change", () => {
     $("publishExam").value = $("resultExam").value;
     $("searchExam").value = $("resultExam").value;
     $("printExam").value = $("resultExam").value;
+
+    updateMonthVisibility("publishExam");
+    updateMonthVisibility("searchExam");
+    updateMonthVisibility("printExam");
 });
 
 $("resultMonth").addEventListener("change", () => {
