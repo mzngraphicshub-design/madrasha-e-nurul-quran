@@ -10,7 +10,11 @@
 
 <style>
 *{box-sizing:border-box}
-html,body{margin:0;padding:0}
+
+html,body{
+  margin:0;
+  padding:0
+}
 
 body{
   font-family:'Bornomala',sans-serif;
@@ -19,9 +23,14 @@ body{
   font-size:14px
 }
 
-button,input,select,textarea{
+button,
+input,
+select,
+textarea{
   font-family:'Bornomala',sans-serif
 }
+
+/* ================= TOPBAR ================= */
 
 .topbar{
   height:64px;
@@ -76,11 +85,15 @@ button,input,select,textarea{
   cursor:pointer
 }
 
+/* ================= CONTAINER ================= */
+
 .container{
   max-width:1400px;
   margin:auto;
   padding:16px
 }
+
+/* ================= ALERT ================= */
 
 .alert{
   display:none;
@@ -97,6 +110,8 @@ button,input,select,textarea{
   color:#176b2e;
   border-color:#bfe8ca
 }
+
+/* ================= STATS ================= */
 
 .stats{
   display:grid;
@@ -136,6 +151,8 @@ button,input,select,textarea{
   color:#778490
 }
 
+/* ================= CARD ================= */
+
 .card{
   background:#fff;
   border-radius:13px;
@@ -157,6 +174,8 @@ button,input,select,textarea{
   font-size:18px;
   color:#19486d
 }
+
+/* ================= FORM ================= */
 
 .form-grid{
   display:grid;
@@ -206,6 +225,8 @@ button,input,select,textarea{
   margin-top:4px
 }
 
+/* ================= BUTTON ================= */
+
 .btn{
   border:0;
   border-radius:8px;
@@ -244,6 +265,8 @@ button,input,select,textarea{
   cursor:not-allowed
 }
 
+/* ================= TOOLBAR ================= */
+
 .toolbar{
   display:grid;
   grid-template-columns:1.7fr 1fr 1fr auto;
@@ -266,6 +289,8 @@ button,input,select,textarea{
   gap:7px
 }
 
+/* ================= TABLE ================= */
+
 .table-wrap{
   overflow:auto;
   border:1px solid #e2e8ef;
@@ -278,7 +303,8 @@ table{
   min-width:1050px
 }
 
-th,td{
+th,
+td{
   padding:8px 7px;
   border-bottom:1px solid #edf1f5;
   text-align:left;
@@ -342,6 +368,8 @@ tbody tr:hover{
   color:#19723a
 }
 
+/* ================= FOOTER ================= */
+
 .footer{
   text-align:center;
   color:#8b98a5;
@@ -349,7 +377,16 @@ tbody tr:hover{
   padding:10px 0 22px
 }
 
+/* ================= PRINT AREA ================= */
+
+#printArea{
+  display:none
+}
+
+/* ================= RESPONSIVE ================= */
+
 @media(max-width:900px){
+
   .stats{
     grid-template-columns:repeat(2,1fr)
   }
@@ -360,6 +397,7 @@ tbody tr:hover{
 }
 
 @media(max-width:600px){
+
   body{
     font-size:13px
   }
@@ -427,17 +465,24 @@ tbody tr:hover{
   }
 }
 
-#printArea{
-  display:none
+/* =========================================================
+   PRINT
+========================================================= */
+
+@page listPage{
+  size:A4 landscape;
+  margin:6mm
+}
+
+@page profilePage{
+  size:A4 portrait;
+  margin:8mm
 }
 
 @media print{
-  @page{
-    size:A4 landscape;
-    margin:8mm
-  }
 
-  html,body{
+  html,
+  body{
     background:#fff!important
   }
 
@@ -448,29 +493,37 @@ tbody tr:hover{
   #printArea{
     display:block!important;
     width:100%;
-    min-height:194mm;
     color:#111;
     font-family:'Bornomala',sans-serif
   }
 
+  /* LIST PRINT */
+
+  #printArea.list-print{
+    page:listPage;
+  }
+
   .print-header{
     text-align:center;
-    margin-bottom:6px
+    margin-bottom:4px
   }
 
   .print-header h1{
-    font-size:20px;
-    margin:0 0 2px
+    font-size:18px;
+    margin:0 0 1px;
+    line-height:1.15
   }
 
   .print-header h2{
-    font-size:15px;
-    margin:0 0 2px
+    font-size:13px;
+    margin:0 0 1px;
+    line-height:1.15
   }
 
   .print-header p{
-    font-size:10px;
-    margin:0
+    font-size:8px;
+    margin:0;
+    line-height:1
   }
 
   .print-meta{
@@ -478,74 +531,102 @@ tbody tr:hover{
     justify-content:space-between;
     border-top:1px solid #222;
     border-bottom:1px solid #222;
-    padding:4px 0;
-    margin:5px 0;
-    font-size:10px
+    padding:3px 0;
+    margin:4px 0;
+    font-size:8px
   }
 
   .print-table{
-    width:100%;
+    width:100%!important;
+    min-width:0!important;
     border-collapse:collapse;
-    min-width:0!important
+    table-layout:auto
+  }
+
+  .print-table thead{
+    display:table-header-group
+  }
+
+  .print-table tr{
+    break-inside:avoid;
+    page-break-inside:avoid
   }
 
   .print-table th,
   .print-table td{
     border:1px solid #555;
-    padding:3px 3px;
+    padding:2px 3px;
     white-space:nowrap;
-    font-size:9px;
+    font-size:7.5px;
+    line-height:1.15;
     color:#111
   }
 
   .print-table th{
-    background:#eee!important
+    background:#e9e9e9!important
+  }
+
+  .print-table td:nth-child(1){
+    width:28px;
+    text-align:center
+  }
+
+  .print-table td:nth-child(2){
+    width:28px;
+    text-align:center
   }
 
   .print-img{
-    width:25px;
-    height:25px;
-    object-fit:cover
+    width:20px;
+    height:20px;
+    object-fit:cover;
+    display:block;
+    margin:auto
   }
 
   .print-footer{
-    position:fixed;
-    left:0;
-    right:0;
-    bottom:2mm;
     text-align:center;
-    font-size:9px;
+    margin-top:4px;
+    font-size:7px;
     color:#555
   }
 
+  /* PROFILE PRINT */
+
+  #printArea.profile-print{
+    page:profilePage;
+  }
+
   .profile{
-    width:170mm;
-    margin:0 auto;
-    border:1px solid #333;
-    padding:8mm
+    width:190mm;
+    min-height:105mm;
+    margin:12mm auto 0;
+    border:1.2px solid #222;
+    padding:10mm
   }
 
   .profile-top{
     text-align:center;
-    margin-bottom:6px
+    margin-bottom:7mm
   }
 
   .profile-photo{
-    width:75px;
-    height:75px;
+    width:82px;
+    height:82px;
     border-radius:50%;
     object-fit:cover;
     border:1px solid #444;
-    margin-bottom:4px
+    margin-bottom:5px
   }
 
   .profile-title{
-    font-size:19px;
-    margin:0
+    font-size:22px;
+    margin:0;
+    line-height:1.25
   }
 
   .profile-sub{
-    font-size:11px;
+    font-size:12px;
     margin:2px 0
   }
 
@@ -555,89 +636,138 @@ tbody tr:hover{
     margin-top:7px
   }
 
+  .profile-table tr{
+    break-inside:avoid;
+    page-break-inside:avoid
+  }
+
   .profile-table td{
     border:1px solid #555;
-    padding:6px;
-    font-size:11px
+    padding:7px 8px;
+    font-size:12px;
+    line-height:1.3
   }
 
   .profile-table td:first-child{
     font-weight:700;
-    width:35%;
+    width:34%;
     background:#f1f1f1
   }
 
   .profile-footer{
     display:flex;
     justify-content:space-between;
-    margin-top:25mm;
-    font-size:10px
+    margin-top:30mm;
+    font-size:11px
   }
 }
+
 </style>
 </head>
 
 <body>
 
 <header class="topbar no-print">
+
   <div class="brand">
-    <div class="brand-logo">🎓</div>
+
+    <div class="brand-logo">
+      🎓
+    </div>
+
     <div>
       <h1>শিক্ষার্থী ব্যবস্থাপনা</h1>
       <small>MADRASA-E NURUL QURAN</small>
     </div>
+
   </div>
 
   <div class="top-actions">
-    <a href="admin.html">🏠 Dashboard</a>
-    <button id="logoutBtn">↪ Logout</button>
+
+    <a href="admin.html">
+      🏠 Dashboard
+    </a>
+
+    <button id="logoutBtn">
+      ↪ Logout
+    </button>
+
   </div>
+
 </header>
 
 <main class="container no-print">
 
   <div id="alert" class="alert"></div>
 
+  <!-- ================= STATS ================= -->
+
   <section class="stats">
 
     <div class="stat">
-      <div class="stat-icon">👨‍🎓</div>
+
+      <div class="stat-icon">
+        👨‍🎓
+      </div>
+
       <div>
         <b id="totalStudents">0</b>
         <span>মোট শিক্ষার্থী</span>
       </div>
+
     </div>
 
     <div class="stat">
-      <div class="stat-icon">📅</div>
+
+      <div class="stat-icon">
+        📅
+      </div>
+
       <div>
         <b id="yearStudents">0</b>
         <span>নির্বাচিত বছরের শিক্ষার্থী</span>
       </div>
+
     </div>
 
     <div class="stat">
-      <div class="stat-icon">🏫</div>
+
+      <div class="stat-icon">
+        🏫
+      </div>
+
       <div>
         <b id="totalClasses">0</b>
         <span>মোট শ্রেণি</span>
       </div>
+
     </div>
 
     <div class="stat">
-      <div class="stat-icon">📝</div>
+
+      <div class="stat-icon">
+        📝
+      </div>
+
       <div>
         <b id="pendingAdmission">0</b>
         <span>Pending Admission</span>
       </div>
+
     </div>
 
   </section>
 
+  <!-- ================= FORM ================= -->
+
   <section class="card">
 
     <div class="card-title">
-      <h2>➕ নতুন শিক্ষার্থী যোগ করুন</h2>
+
+      <h2>
+        ➕ নতুন শিক্ষার্থী যোগ করুন
+      </h2>
+
     </div>
 
     <form id="studentForm">
@@ -646,10 +776,11 @@ tbody tr:hover{
 
       <div class="form-grid">
 
-        <!-- MANUAL STUDENT ID -->
         <div class="field">
+
           <label>
-            Student ID <span style="color:#d22">*</span>
+            Student ID
+            <span style="color:#d22">*</span>
           </label>
 
           <input
@@ -659,11 +790,14 @@ tbody tr:hover{
             placeholder="Student ID লিখুন"
             autocomplete="off"
           >
+
         </div>
 
         <div class="field">
+
           <label>
-            Roll Number <span style="color:#d22">*</span>
+            Roll Number
+            <span style="color:#d22">*</span>
           </label>
 
           <input
@@ -673,11 +807,14 @@ tbody tr:hover{
             placeholder="যেমন: 01"
             autocomplete="off"
           >
+
         </div>
 
         <div class="field">
+
           <label>
-            শিক্ষার্থীর নাম <span style="color:#d22">*</span>
+            শিক্ষার্থীর নাম
+            <span style="color:#d22">*</span>
           </label>
 
           <input
@@ -686,32 +823,42 @@ tbody tr:hover{
             required
             placeholder="শিক্ষার্থীর পূর্ণ নাম"
           >
+
         </div>
 
         <div class="field">
-          <label>পিতার নাম</label>
+
+          <label>
+            পিতার নাম
+          </label>
 
           <input
             id="fatherName"
             type="text"
             placeholder="পিতার নাম"
           >
+
         </div>
 
         <div class="field">
-          <label>মাতার নাম</label>
+
+          <label>
+            মাতার নাম
+          </label>
 
           <input
             id="motherName"
             type="text"
             placeholder="মাতার নাম"
           >
+
         </div>
 
-        <!-- REQUIRED MOBILE -->
         <div class="field">
+
           <label>
-            মোবাইল নম্বর <span style="color:#d22">*</span>
+            মোবাইল নম্বর
+            <span style="color:#d22">*</span>
           </label>
 
           <input
@@ -721,54 +868,81 @@ tbody tr:hover{
             placeholder="01XXXXXXXXX"
             autocomplete="off"
           >
+
         </div>
 
         <div class="field">
+
           <label>
-            শিক্ষাবর্ষ <span style="color:#d22">*</span>
+            শিক্ষাবর্ষ
+            <span style="color:#d22">*</span>
           </label>
 
           <select id="session" required>
-            <option value="">শিক্ষাবর্ষ নির্বাচন করুন</option>
+
+            <option value="">
+              শিক্ষাবর্ষ নির্বাচন করুন
+            </option>
+
           </select>
+
         </div>
 
         <div class="field">
+
           <label>
-            শ্রেণি <span style="color:#d22">*</span>
+            শ্রেণি
+            <span style="color:#d22">*</span>
           </label>
 
           <select id="classId" required>
-            <option value="">শ্রেণি নির্বাচন করুন</option>
+
+            <option value="">
+              শ্রেণি নির্বাচন করুন
+            </option>
+
           </select>
+
         </div>
 
         <div class="field">
-          <label>ভর্তি তারিখ</label>
+
+          <label>
+            ভর্তি তারিখ
+          </label>
 
           <input
             id="admissionDate"
             type="date"
           >
+
         </div>
 
         <div class="field">
-          <label>ছবি</label>
+
+          <label>
+            ছবি
+          </label>
 
           <input
             id="photo"
             type="file"
             accept="image/*"
           >
+
         </div>
 
         <div class="field full">
-          <label>ঠিকানা</label>
+
+          <label>
+            ঠিকানা
+          </label>
 
           <textarea
             id="address"
             placeholder="শিক্ষার্থীর পূর্ণ ঠিকানা"
           ></textarea>
+
         </div>
 
         <div class="actions full">
@@ -797,17 +971,22 @@ tbody tr:hover{
 
   </section>
 
+  <!-- ================= STUDENT LIST ================= -->
+
   <section class="card">
 
     <div class="card-title">
 
-      <h2>👨‍🎓 শিক্ষার্থীদের তালিকা</h2>
+      <h2>
+        👨‍🎓 শিক্ষার্থীদের তালিকা
+      </h2>
 
       <div class="toolbar-actions">
 
         <button
           class="btn btn-green"
           id="filteredPrintBtn"
+          type="button"
         >
           🖨 Filtered Print
         </button>
@@ -815,6 +994,7 @@ tbody tr:hover{
         <button
           class="btn btn-gold"
           id="allPrintBtn"
+          type="button"
         >
           🖨 All Print
         </button>
@@ -832,11 +1012,19 @@ tbody tr:hover{
       >
 
       <select id="filterSession">
-        <option value="">সব শিক্ষাবর্ষ</option>
+
+        <option value="">
+          সব শিক্ষাবর্ষ
+        </option>
+
       </select>
 
       <select id="filterClass">
-        <option value="">সব শ্রেণি</option>
+
+        <option value="">
+          সব শ্রেণি
+        </option>
+
       </select>
 
       <button
@@ -854,7 +1042,9 @@ tbody tr:hover{
       <table>
 
         <thead>
+
           <tr>
+
             <th>ছবি</th>
             <th>Student ID</th>
             <th>Roll</th>
@@ -866,15 +1056,24 @@ tbody tr:hover{
             <th>বছর</th>
             <th>ভর্তি তারিখ</th>
             <th>Action</th>
+
           </tr>
+
         </thead>
 
         <tbody id="studentTable">
+
           <tr>
-            <td colspan="11" class="empty">
+
+            <td
+              colspan="11"
+              class="empty"
+            >
               লোড হচ্ছে...
             </td>
+
           </tr>
+
         </tbody>
 
       </table>
@@ -886,12 +1085,19 @@ tbody tr:hover{
 </main>
 
 <footer class="footer no-print">
-  © 2026 মাদরাসায়ে নূরুল কুরআন — Student Management System
+
+  © 2026 মাদরাসায়ে নূরুল কুরআন —
+  Student Management System
+
 </footer>
 
 <div id="printArea"></div>
 
 <script>
+
+/* =========================================================
+   SUPABASE
+========================================================= */
 
 const SUPABASE_URL =
   "https://qavublwhqiqsgpcmfyft.supabase.co";
@@ -899,27 +1105,40 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
   "sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
 
-const { createClient } = supabase;
+const {
+  createClient
+} = supabase;
 
-const db = createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY,
-  {
-    auth:{
-      persistSession:true,
-      autoRefreshToken:true,
-      detectSessionInUrl:true
+const db =
+  createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY,
+    {
+      auth:{
+        persistSession:true,
+        autoRefreshToken:true,
+        detectSessionInUrl:true
+      }
     }
-  }
-);
+  );
+
+/* =========================================================
+   VARIABLES
+========================================================= */
 
 let students = [];
 let classes = [];
 let sessions = [];
 
-const $ = id => document.getElementById(id);
+const $ =
+  id => document.getElementById(id);
+
+/* =========================================================
+   ESCAPE
+========================================================= */
 
 function esc(v){
+
   return String(v ?? "")
     .replaceAll("&","&amp;")
     .replaceAll("<","&lt;")
@@ -928,30 +1147,60 @@ function esc(v){
     .replaceAll("'","&#039;");
 }
 
+/* =========================================================
+   NORMALIZE
+========================================================= */
+
 function normalize(v){
+
   return String(v ?? "")
     .trim()
     .toLowerCase();
 }
 
-function showMessage(msg,type="error"){
+/* =========================================================
+   MESSAGE
+========================================================= */
 
-  const box = $("alert");
+function showMessage(
+  msg,
+  type="error"
+){
 
-  box.textContent = msg;
+  const box =
+    $("alert");
+
+  box.textContent =
+    msg;
 
   box.className =
     "alert" +
-    (type==="ok" ? " ok" : "");
+    (
+      type === "ok"
+      ? " ok"
+      : ""
+    );
 
-  box.style.display = "block";
+  box.style.display =
+    "block";
 
-  clearTimeout(window.__msgTimer);
+  clearTimeout(
+    window.__msgTimer
+  );
 
-  window.__msgTimer = setTimeout(()=>{
-    box.style.display = "none";
-  },7000);
+  window.__msgTimer =
+    setTimeout(
+      ()=>{
+        box.style.display =
+          "none";
+      },
+      7000
+    );
 }
+
+/* =========================================================
+   ERROR
+========================================================= */
 
 function friendlyError(error){
 
@@ -963,30 +1212,66 @@ function friendlyError(error){
     error.error_description ||
     String(error);
 
-  if(/invalid api key/i.test(msg)){
-    return "Supabase Invalid API Key। SUPABASE_KEY-এ বর্তমান Publishable/Anon Key দিতে হবে।";
+  if(
+    /invalid api key/i.test(msg)
+  ){
+
+    return "Supabase Invalid API Key। বর্তমান Publishable Key ব্যবহার করুন।";
   }
 
-  if(/column .*session.* does not exist/i.test(msg)){
+  if(
+    /column .*session.* does not exist/i.test(msg)
+  ){
+
     return "students table-এ session column নেই। Database-এ session column যোগ করুন।";
   }
 
-  if(/row-level security|permission denied|not authorized/i.test(msg)){
+  if(
+    /duplicate key/i.test(msg) &&
+    /student_id/i.test(msg)
+  ){
+
+    return "এই Student ID আগে থেকেই অন্য শিক্ষার্থীর আছে। অন্য Student ID দিন।";
+  }
+
+  if(
+    /duplicate key/i.test(msg) &&
+    /roll_number/i.test(msg)
+  ){
+
+    return "এই Roll Number আগে থেকেই ব্যবহার করা হয়েছে।";
+  }
+
+  if(
+    /row-level security|permission denied|not authorized/i.test(msg)
+  ){
+
     return "Database RLS/Permission-এর কারণে কাজটি করা যাচ্ছে না।";
   }
 
   return msg;
 }
 
+/* =========================================================
+   DATE
+========================================================= */
+
 function formatDate(v){
 
   if(!v)
     return "";
 
-  const d = new Date(v);
+  const d =
+    new Date(v);
 
-  if(Number.isNaN(d.getTime()))
+  if(
+    Number.isNaN(
+      d.getTime()
+    )
+  ){
+
     return String(v);
+  }
 
   return d.toLocaleDateString(
     "bn-BD",
@@ -998,21 +1283,34 @@ function formatDate(v){
   );
 }
 
+/* =========================================================
+   CLASS NAME
+========================================================= */
+
 function classNameById(id){
 
   const c =
     classes.find(
-      x => String(x.id) === String(id)
+      x =>
+        String(x.id) ===
+        String(id)
     );
 
-  return c ? c.name : "—";
+  return c
+    ? c.name
+    : "—";
 }
 
-/* AUTH */
+/* =========================================================
+   AUTH
+========================================================= */
 
 async function checkAuth(){
 
-  const {data,error} =
+  const {
+    data,
+    error
+  } =
     await db.auth.getSession();
 
   if(error){
@@ -1024,7 +1322,10 @@ async function checkAuth(){
     return false;
   }
 
-  if(!data?.session){
+  if(
+    !data ||
+    !data.session
+  ){
 
     window.location.href =
       "login.html";
@@ -1035,95 +1336,138 @@ async function checkAuth(){
   return true;
 }
 
-db.auth.onAuthStateChange((event)=>{
+db.auth.onAuthStateChange(
+  (event)=>{
+    
+    if(
+      event === "SIGNED_OUT"
+    ){
 
-  if(event === "SIGNED_OUT"){
+      window.location.href =
+        "login.html";
+    }
 
-    window.location.href =
-      "login.html";
   }
+);
 
-});
-
-/* CLASSES */
+/* =========================================================
+   CLASSES
+========================================================= */
 
 async function loadClasses(){
 
-  const {data,error} =
+  const {
+    data,
+    error
+  } =
     await db
       .from("classes")
       .select("*")
-      .order("id",{ascending:true});
+      .order(
+        "id",
+        {
+          ascending:true
+        }
+      );
 
   if(error)
     throw error;
 
-  classes = data || [];
+  classes =
+    data || [];
 
-  $("totalClasses").textContent =
+  $("totalClasses")
+    .textContent =
     classes.length;
 
   $("classId").innerHTML =
     '<option value="">শ্রেণি নির্বাচন করুন</option>' +
 
-    classes.map(c =>
-
-      `<option value="${esc(c.id)}">
-        ${esc(c.name)}
-      </option>`
-
-    ).join("");
+    classes
+      .map(
+        c => `
+          <option value="${esc(c.id)}">
+            ${esc(c.name)}
+          </option>
+        `
+      )
+      .join("");
 
   $("filterClass").innerHTML =
     '<option value="">সব শ্রেণি</option>' +
 
-    classes.map(c =>
-
-      `<option value="${esc(c.id)}">
-        ${esc(c.name)}
-      </option>`
-
-    ).join("");
+    classes
+      .map(
+        c => `
+          <option value="${esc(c.id)}">
+            ${esc(c.name)}
+          </option>
+        `
+      )
+      .join("");
 }
 
-/* SESSIONS */
+/* =========================================================
+   SESSIONS
+========================================================= */
 
 async function loadSessions(){
 
-  const {data,error} =
+  const {
+    data,
+    error
+  } =
     await db
       .from("sessions")
       .select("*")
-      .order("year",{ascending:false});
+      .order(
+        "year",
+        {
+          ascending:false
+        }
+      );
 
-  if(!error && data?.length){
+  if(
+    !error &&
+    data &&
+    data.length
+  ){
 
-    sessions = data;
+    sessions =
+      data;
 
   }else{
 
     const years =
-      [...new Set(
-
-        students
-          .map(s => s.session)
-          .filter(
-            v =>
-              v !== null &&
-              v !== undefined &&
-              String(v).trim() !== ""
-          )
-          .map(v => String(v))
-
-      )]
+      [
+        ...new Set(
+          students
+            .map(
+              s =>
+                s.session
+            )
+            .filter(
+              v =>
+                v !== null &&
+                v !== undefined &&
+                String(v).trim() !== ""
+            )
+            .map(
+              v =>
+                String(v)
+            )
+        )
+      ]
       .sort(
-        (a,b) => Number(b) - Number(a)
+        (a,b)=>
+          Number(b)-Number(a)
       );
 
     sessions =
       years.map(
-        (year,i) => ({
-          id:"local-"+i,
+        (year,i)=>({
+          id:
+            "local-"+i,
           year
         })
       );
@@ -1132,80 +1476,133 @@ async function loadSessions(){
   fillYears();
 }
 
+/* =========================================================
+   FILL YEARS
+========================================================= */
+
 function fillYears(){
 
   const years =
-    [...new Set(
-
-      sessions
-        .map(
-          s =>
-            s.year ??
-            s.name ??
-            s.session
-        )
-        .filter(
-          v =>
-            String(v).trim() !== ""
-        )
-        .map(v => String(v))
-
-    )];
+    [
+      ...new Set(
+        sessions
+          .map(
+            s =>
+              s.year ??
+              s.name ??
+              s.session
+          )
+          .filter(
+            v =>
+              String(v).trim() !== ""
+          )
+          .map(
+            v =>
+              String(v)
+          )
+      )
+    ];
 
   const currentYear =
-    String(new Date().getFullYear());
+    String(
+      new Date()
+        .getFullYear()
+    );
 
-  if(!years.includes(currentYear)){
+  if(
+    !years.includes(
+      currentYear
+    )
+  ){
 
-    years.unshift(currentYear);
+    years.unshift(
+      currentYear
+    );
   }
 
   $("session").innerHTML =
     '<option value="">শিক্ষাবর্ষ নির্বাচন করুন</option>' +
 
-    years.map(
-      y =>
-        `<option value="${esc(y)}">
-          ${esc(y)}
-        </option>`
-    ).join("");
+    years
+      .map(
+        y => `
+          <option value="${esc(y)}">
+            ${esc(y)}
+          </option>
+        `
+      )
+      .join("");
 
   $("filterSession").innerHTML =
     '<option value="">সব শিক্ষাবর্ষ</option>' +
 
-    years.map(
-      y =>
-        `<option value="${esc(y)}">
-          ${esc(y)}
-        </option>`
-    ).join("");
+    years
+      .map(
+        y => `
+          <option value="${esc(y)}">
+            ${esc(y)}
+          </option>
+        `
+      )
+      .join("");
 
   $("session").value =
     currentYear;
 }
 
-/* STUDENTS */
+/* =========================================================
+   LOAD STUDENTS
+========================================================= */
 
 async function loadStudents(){
 
   $("studentTable").innerHTML =
-    '<tr><td colspan="11" class="empty">⏳ লোড হচ্ছে...</td></tr>';
+    `
+      <tr>
+        <td
+          colspan="11"
+          class="empty"
+        >
+          লোড হচ্ছে...
+        </td>
+      </tr>
+    `;
 
-  const {data,error} =
+  const {
+    data,
+    error
+  } =
     await db
       .from("students")
       .select("*")
-      .order("class_id",{ascending:true})
-      .order("roll_number",{ascending:true});
+      .order(
+        "class_id",
+        {
+          ascending:true
+        }
+      )
+      .order(
+        "roll_number",
+        {
+          ascending:true
+        }
+      );
 
   if(error){
 
     $("studentTable").innerHTML =
-      `<tr>
-        <td colspan="11" class="empty">
-          ⚠️ ${esc(friendlyError(error))}
-        </td>
-      </tr>`;
+      `
+        <tr>
+          <td
+            colspan="11"
+            class="empty"
+          >
+            ${esc(
+              friendlyError(error)
+            )}
+          </td>
+        </tr>
+      `;
 
     showMessage(
       friendlyError(error)
@@ -1214,9 +1611,11 @@ async function loadStudents(){
     return;
   }
 
-  students = data || [];
+  students =
+    data || [];
 
-  $("totalStudents").textContent =
+  $("totalStudents")
+    .textContent =
     students.length;
 
   renderStudents();
@@ -1226,56 +1625,75 @@ async function loadStudents(){
   await loadSessions();
 }
 
+/* =========================================================
+   FILTER
+========================================================= */
+
 function getFilteredStudents(){
 
   const q =
-    normalize($("search").value);
+    normalize(
+      $("search").value
+    );
 
   const year =
     String(
-      $("filterSession").value || ""
+      $("filterSession").value ||
+      ""
     ).trim();
 
   const cls =
     String(
-      $("filterClass").value || ""
+      $("filterClass").value ||
+      ""
     ).trim();
 
-  return students.filter(s => {
+  return students.filter(
+    s => {
 
-    const sy =
-      String(s.session ?? "").trim();
+      const sy =
+        String(
+          s.session ?? ""
+        ).trim();
 
-    const yearOK =
-      !year || sy === year;
+      const yearOK =
+        !year ||
+        sy === year;
 
-    const classOK =
-      !cls ||
-      String(s.class_id) === cls;
+      const classOK =
+        !cls ||
+        String(
+          s.class_id
+        ) === cls;
 
-    const text = [
+      const text =
+        [
+          s.roll_number,
+          s.student_id,
+          s.name,
+          s.phone,
+          s.father_name,
+          s.mother_name
+        ]
+        .map(normalize)
+        .join(" ");
 
-      s.roll_number,
-      s.student_id,
-      s.name,
-      s.phone,
-      s.father_name,
-      s.mother_name
+      const searchOK =
+        !q ||
+        text.includes(q);
 
-    ]
-    .map(normalize)
-    .join(" ");
-
-    const searchOK =
-      !q || text.includes(q);
-
-    return (
-      yearOK &&
-      classOK &&
-      searchOK
-    );
-  });
+      return (
+        yearOK &&
+        classOK &&
+        searchOK
+      );
+    }
+  );
 }
+
+/* =========================================================
+   RENDER
+========================================================= */
 
 function renderStudents(){
 
@@ -1288,125 +1706,165 @@ function renderStudents(){
   if(!list.length){
 
     tbody.innerHTML =
-      '<tr>' +
-        '<td colspan="11" class="empty">' +
-          '🎓 কোনো শিক্ষার্থীর তথ্য পাওয়া যায়নি।' +
-        '</td>' +
-      '</tr>';
+      `
+        <tr>
+          <td
+            colspan="11"
+            class="empty"
+          >
+            কোনো শিক্ষার্থীর তথ্য পাওয়া যায়নি।
+          </td>
+        </tr>
+      `;
 
     return;
   }
 
   tbody.innerHTML =
-    list.map(s => {
+    list
+      .map(
+        s => {
 
-      const image =
-        s.photo_url
+          const image =
+            s.photo_url
 
-        ? `<img
-             class="student-photo"
-             src="${esc(s.photo_url)}"
-             alt="ছবি"
-           >`
-
-        : "👤";
-
-      return `
-
-        <tr>
-
-          <td>
-            ${image}
-          </td>
-
-          <td>
-            ${esc(s.student_id || "—")}
-          </td>
-
-          <td>
-            <b>
-              ${esc(s.roll_number || "—")}
-            </b>
-          </td>
-
-          <td>
-            ${esc(s.name || "—")}
-          </td>
-
-          <td>
-            ${esc(s.father_name || "—")}
-          </td>
-
-          <td>
-            ${esc(s.mother_name || "—")}
-          </td>
-
-          <td>
-            ${esc(s.phone || "—")}
-          </td>
-
-          <td>
-            ${esc(
-              classNameById(s.class_id)
-            )}
-          </td>
-
-          <td>
-            ${esc(s.session || "—")}
-          </td>
-
-          <td>
-            ${esc(
-              formatDate(
-                s.admission_date
-              )
-            )}
-          </td>
-
-          <td>
-
-            <div class="row-actions">
-
-              <button
-                class="mini edit"
-                onclick="editStudent('${esc(s.id)}')"
+            ? `
+              <img
+                class="student-photo"
+                src="${esc(s.photo_url)}"
+                alt="ছবি"
               >
-                ✏ Edit
-              </button>
+            `
 
-              <button
-                class="mini print-one"
-                onclick="printStudent('${esc(s.id)}')"
-              >
-                🖨
-              </button>
+            : "—";
 
-              <button
-                class="mini del"
-                onclick="deleteStudent('${esc(s.id)}')"
-              >
-                🗑
-              </button>
+          return `
+            <tr>
 
-            </div>
+              <td>
+                ${image}
+              </td>
 
-          </td>
+              <td>
+                ${esc(
+                  s.student_id ||
+                  "—"
+                )}
+              </td>
 
-        </tr>
+              <td>
+                <b>
+                  ${esc(
+                    s.roll_number ||
+                    "—"
+                  )}
+                </b>
+              </td>
 
-      `;
+              <td>
+                ${esc(
+                  s.name ||
+                  "—"
+                )}
+              </td>
 
-    }).join("");
+              <td>
+                ${esc(
+                  s.father_name ||
+                  "—"
+                )}
+              </td>
+
+              <td>
+                ${esc(
+                  s.mother_name ||
+                  "—"
+                )}
+              </td>
+
+              <td>
+                ${esc(
+                  s.phone ||
+                  "—"
+                )}
+              </td>
+
+              <td>
+                ${esc(
+                  classNameById(
+                    s.class_id
+                  )
+                )}
+              </td>
+
+              <td>
+                ${esc(
+                  s.session ||
+                  "—"
+                )}
+              </td>
+
+              <td>
+                ${esc(
+                  formatDate(
+                    s.admission_date
+                  )
+                )}
+              </td>
+
+              <td>
+
+                <div class="row-actions">
+
+                  <button
+                    class="mini edit"
+                    onclick="editStudent('${esc(s.id)}')"
+                    type="button"
+                  >
+                    ✏ Edit
+                  </button>
+
+                  <button
+                    class="mini print-one"
+                    onclick="printStudent('${esc(s.id)}')"
+                    type="button"
+                  >
+                    🖨
+                  </button>
+
+                  <button
+                    class="mini del"
+                    onclick="deleteStudent('${esc(s.id)}')"
+                    type="button"
+                  >
+                    🗑
+                  </button>
+
+                </div>
+
+              </td>
+
+            </tr>
+          `;
+        }
+      )
+      .join("");
 }
+
+/* =========================================================
+   YEAR COUNT
+========================================================= */
 
 function updateYearCount(){
 
   const year =
     String(
-      $("filterSession").value || ""
+      $("filterSession").value ||
+      ""
     ).trim();
 
-  $("yearStudents").textContent =
+  $("yearStudents")
+    .textContent =
     year
 
       ? students.filter(
@@ -1419,7 +1877,9 @@ function updateYearCount(){
       : students.length;
 }
 
-/* DUPLICATE ROLL */
+/* =========================================================
+   DUPLICATE ROLL
+========================================================= */
 
 async function rollExists(
   roll,
@@ -1428,30 +1888,94 @@ async function rollExists(
   excludeId=""
 ){
 
-  const {data,error} =
+  const {
+    data,
+    error
+  } =
     await db
       .from("students")
       .select(
         "id,roll_number,session,class_id"
       )
-      .eq("roll_number",roll)
-      .eq("class_id",classId);
+      .eq(
+        "roll_number",
+        roll
+      )
+      .eq(
+        "class_id",
+        classId
+      );
 
   if(error)
     throw error;
 
-  return (data || []).some(row =>
+  return (
+    data || []
+  ).some(
+    row =>
 
-    String(row.id) !==
-      String(excludeId || "") &&
+      String(row.id) !==
+      String(
+        excludeId || ""
+      ) &&
 
-    String(row.session || "").trim() ===
-      String(year || "").trim()
-
+      String(
+        row.session || ""
+      ).trim() ===
+      String(
+        year || ""
+      ).trim()
   );
 }
 
-/* PHOTO */
+/* =========================================================
+   DUPLICATE STUDENT ID
+========================================================= */
+
+async function studentIdExists(
+  studentId,
+  excludeId=""
+){
+
+  const cleanId =
+    String(
+      studentId || ""
+    ).trim();
+
+  if(!cleanId)
+    return false;
+
+  const {
+    data,
+    error
+  } =
+    await db
+      .from("students")
+      .select(
+        "id,student_id"
+      )
+      .eq(
+        "student_id",
+        cleanId
+      );
+
+  if(error)
+    throw error;
+
+  return (
+    data || []
+  ).some(
+    row =>
+      String(row.id) !==
+      String(
+        excludeId || ""
+      )
+  );
+}
+
+/* =========================================================
+   PHOTO UPLOAD
+========================================================= */
 
 async function uploadPhoto(
   file,
@@ -1465,13 +1989,25 @@ async function uploadPhoto(
     (
       file.name
         .split(".")
-        .pop() || "jpg"
-    ).toLowerCase();
+        .pop() ||
+      "jpg"
+    )
+    .toLowerCase();
+
+  const safeStudentId =
+    String(studentId)
+      .trim()
+      .replace(
+        /[^a-zA-Z0-9_-]/g,
+        "_"
+      );
 
   const path =
-    `${studentId}/${Date.now()}.${ext}`;
+    `${safeStudentId}/${Date.now()}.${ext}`;
 
-  const {error} =
+  const {
+    error
+  } =
     await db.storage
       .from("student-photo")
       .upload(
@@ -1480,22 +2016,32 @@ async function uploadPhoto(
         {
           upsert:true,
           contentType:
-            file.type || "image/jpeg"
+            file.type ||
+            "image/jpeg"
         }
       );
 
   if(error)
     throw error;
 
-  const {data} =
+  const {
+    data
+  } =
     db.storage
       .from("student-photo")
-      .getPublicUrl(path);
+      .getPublicUrl(
+        path
+      );
 
-  return data?.publicUrl || null;
+  return (
+    data?.publicUrl ||
+    null
+  );
 }
 
-/* SAVE */
+/* =========================================================
+   SAVE / UPDATE
+========================================================= */
 
 $("studentForm")
 .addEventListener(
@@ -1507,17 +2053,18 @@ $("studentForm")
     const btn =
       $("saveBtn");
 
-    btn.disabled = true;
+    btn.disabled =
+      true;
 
     btn.textContent =
-      "⏳ সংরক্ষণ হচ্ছে...";
+      "সংরক্ষণ হচ্ছে...";
 
     try{
 
       const editId =
-        $("editId").value.trim();
-
-      /* MANUAL STUDENT ID */
+        $("editId")
+          .value
+          .trim();
 
       const studentId =
         $("studentId")
@@ -1561,7 +2108,8 @@ $("studentForm")
 
       const admissionDate =
         $("admissionDate")
-          .value || null;
+          .value ||
+        null;
 
       const address =
         $("address")
@@ -1569,7 +2117,10 @@ $("studentForm")
           .trim();
 
       const file =
-        $("photo").files[0];
+        $("photo")
+          .files[0];
+
+      /* REQUIRED */
 
       if(!studentId){
 
@@ -1577,7 +2128,8 @@ $("studentForm")
           "Student ID লিখুন।"
         );
 
-        $("studentId").focus();
+        $("studentId")
+          .focus();
 
         return;
       }
@@ -1588,7 +2140,8 @@ $("studentForm")
           "Roll Number দিন।"
         );
 
-        $("rollNumber").focus();
+        $("rollNumber")
+          .focus();
 
         return;
       }
@@ -1599,7 +2152,8 @@ $("studentForm")
           "শিক্ষার্থীর নাম দিন।"
         );
 
-        $("name").focus();
+        $("name")
+          .focus();
 
         return;
       }
@@ -1610,12 +2164,16 @@ $("studentForm")
           "মোবাইল নম্বর অবশ্যই দিতে হবে।"
         );
 
-        $("phone").focus();
+        $("phone")
+          .focus();
 
         return;
       }
 
-      if(!year || !classId){
+      if(
+        !year ||
+        !classId
+      ){
 
         showMessage(
           "শিক্ষাবর্ষ ও শ্রেণি অবশ্যই দিতে হবে।"
@@ -1624,25 +2182,52 @@ $("studentForm")
         return;
       }
 
-      if(
+      /* STUDENT ID DUPLICATE CHECK */
+
+      const duplicateId =
+        await studentIdExists(
+          studentId,
+          editId
+        );
+
+      if(duplicateId){
+
+        showMessage(
+          `Student ID "${studentId}" অন্য একজন শিক্ষার্থীর আছে। অন্য ID দিন।`
+        );
+
+        $("studentId")
+          .focus();
+
+        return;
+      }
+
+      /* ROLL DUPLICATE CHECK */
+
+      const duplicateRoll =
         await rollExists(
           roll,
           year,
           classId,
           editId
-        )
-      ){
+        );
+
+      if(duplicateRoll){
 
         showMessage(
           `এই শ্রেণি ও শিক্ষাবর্ষে Roll ${roll} ইতোমধ্যে আছে। অন্য Roll দিন।`
         );
 
-        $("rollNumber").focus();
+        $("rollNumber")
+          .focus();
 
         return;
       }
 
-      let photoUrl = null;
+      /* PHOTO */
+
+      let photoUrl =
+        null;
 
       if(file){
 
@@ -1652,6 +2237,8 @@ $("studentForm")
             studentId
           );
       }
+
+      /* PAYLOAD */
 
       const payload = {
 
@@ -1665,10 +2252,12 @@ $("studentForm")
           name,
 
         father_name:
-          father || null,
+          father ||
+          null,
 
         mother_name:
-          mother || null,
+          mother ||
+          null,
 
         phone:
           phone,
@@ -1683,7 +2272,8 @@ $("studentForm")
           admissionDate,
 
         address:
-          address || null
+          address ||
+          null
 
       };
 
@@ -1693,31 +2283,86 @@ $("studentForm")
           photoUrl;
       }
 
+      /* =========================
+         UPDATE EXISTING STUDENT
+      ========================= */
+
       if(editId){
 
-        const {error} =
+        /*
+          IMPORTANT:
+          student_id এখানে update payload-এর
+          মধ্যে সরাসরি পাঠানো হচ্ছে।
+        */
+
+        const {
+          data,
+          error
+        } =
           await db
             .from("students")
-            .update(payload)
-            .eq("id",editId);
+            .update(
+              payload
+            )
+            .eq(
+              "id",
+              editId
+            )
+            .select(
+              "*"
+            );
 
         if(error)
           throw error;
 
+        if(
+          !data ||
+          !data.length
+        ){
+
+          throw new Error(
+            "তথ্য Update করার পর Database থেকে কোনো updated row পাওয়া যায়নি। RLS/Permission check করুন।"
+          );
+        }
+
         showMessage(
-          "শিক্ষার্থীর তথ্য সফলভাবে আপডেট হয়েছে।",
+          "শিক্ষার্থীর তথ্য এবং Student ID সফলভাবে আপডেট হয়েছে।",
           "ok"
         );
 
-      }else{
+      }
 
-        const {error} =
+      /* =========================
+         ADD NEW STUDENT
+      ========================= */
+
+      else{
+
+        const {
+          data,
+          error
+        } =
           await db
             .from("students")
-            .insert(payload);
+            .insert(
+              payload
+            )
+            .select(
+              "*"
+            );
 
         if(error)
           throw error;
+
+        if(
+          !data ||
+          !data.length
+        ){
+
+          throw new Error(
+            "শিক্ষার্থী যোগ করার পর Database থেকে কোনো row পাওয়া যায়নি।"
+          );
+        }
 
         showMessage(
           "শিক্ষার্থী সফলভাবে যোগ হয়েছে।",
@@ -1731,7 +2376,10 @@ $("studentForm")
 
     }catch(error){
 
-      console.error(error);
+      console.error(
+        "Student Save/Update Error:",
+        error
+      );
 
       showMessage(
         friendlyError(error)
@@ -1739,7 +2387,8 @@ $("studentForm")
 
     }finally{
 
-      btn.disabled = false;
+      btn.disabled =
+        false;
 
       btn.textContent =
         "💾 শিক্ষার্থী সংরক্ষণ";
@@ -1748,7 +2397,9 @@ $("studentForm")
   }
 );
 
-/* EDIT */
+/* =========================================================
+   EDIT
+========================================================= */
 
 window.editStudent =
 function(id){
@@ -1763,51 +2414,89 @@ function(id){
   if(!s)
     return;
 
-  $("editId").value =
-    s.id;
+  $("editId")
+    .value =
+    s.id || "";
 
-  $("studentId").value =
+  /*
+    এখানে Student ID database থেকে
+    সরাসরি form-এ আসবে।
+    তাই পুরনো শিক্ষার্থীর ID blank থাকলেও
+    নতুন ID লিখে Save করা যাবে।
+  */
+
+  $("studentId")
+    .value =
     s.student_id || "";
 
-  $("rollNumber").value =
+  $("rollNumber")
+    .value =
     s.roll_number || "";
 
-  $("name").value =
+  $("name")
+    .value =
     s.name || "";
 
-  $("fatherName").value =
+  $("fatherName")
+    .value =
     s.father_name || "";
 
-  $("motherName").value =
+  $("motherName")
+    .value =
     s.mother_name || "";
 
-  $("phone").value =
+  $("phone")
+    .value =
     s.phone || "";
 
-  $("session").value =
+  $("session")
+    .value =
     s.session || "";
 
-  $("classId").value =
+  $("classId")
+    .value =
     s.class_id || "";
 
-  $("admissionDate").value =
-    s.admission_date || "";
+  $("admissionDate")
+    .value =
+    s.admission_date
+      ? String(
+          s.admission_date
+        ).substring(
+          0,
+          10
+        )
+      : "";
 
-  $("address").value =
+  $("address")
+    .value =
     s.address || "";
 
-  $("photo").value = "";
+  $("photo")
+    .value =
+    "";
 
-  $("saveBtn").textContent =
+  $("saveBtn")
+    .textContent =
     "💾 তথ্য আপডেট করুন";
 
   window.scrollTo({
     top:0,
     behavior:"smooth"
   });
+
+  setTimeout(
+    ()=>{
+      $("studentId")
+        .focus();
+    },
+    300
+  );
 };
 
-/* DELETE */
+/* =========================================================
+   DELETE
+========================================================= */
 
 window.deleteStudent =
 async function(id){
@@ -1822,19 +2511,27 @@ async function(id){
   if(!s)
     return;
 
-  if(!confirm(
-    `"${s.name}" (Roll: ${s.roll_number || "—"}) শিক্ষার্থীকে মুছে ফেলবেন?`
-  )){
+  if(
+    !confirm(
+      `"${s.name}" (Roll: ${s.roll_number || "—"}) শিক্ষার্থীকে মুছে ফেলবেন?`
+    )
+  ){
+
     return;
   }
 
   try{
 
-    const {error} =
+    const {
+      error
+    } =
       await db
         .from("students")
         .delete()
-        .eq("id",id);
+        .eq(
+          "id",
+          id
+        );
 
     if(error)
       throw error;
@@ -1848,7 +2545,9 @@ async function(id){
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      error
+    );
 
     showMessage(
       friendlyError(error)
@@ -1856,26 +2555,37 @@ async function(id){
   }
 };
 
-/* RESET */
+/* =========================================================
+   RESET
+========================================================= */
 
 function resetForm(){
 
-  $("studentForm").reset();
+  $("studentForm")
+    .reset();
 
-  $("editId").value = "";
+  $("editId")
+    .value =
+    "";
 
-  $("studentId").value = "";
+  $("studentId")
+    .value =
+    "";
 
-  $("saveBtn").textContent =
+  $("saveBtn")
+    .textContent =
     "💾 শিক্ষার্থী সংরক্ষণ";
 
   const year =
-    $("filterSession").value ||
+    $("filterSession")
+      .value ||
     String(
-      new Date().getFullYear()
+      new Date()
+        .getFullYear()
     );
 
-  $("session").value =
+  $("session")
+    .value =
     year;
 }
 
@@ -1885,7 +2595,9 @@ $("resetBtn")
   resetForm
 );
 
-/* FILTER */
+/* =========================================================
+   SEARCH / FILTER
+========================================================= */
 
 $("search")
 .addEventListener(
@@ -1913,11 +2625,17 @@ $("clearBtn")
   "click",
   ()=>{
 
-    $("search").value = "";
+    $("search")
+      .value =
+      "";
 
-    $("filterSession").value = "";
+    $("filterSession")
+      .value =
+      "";
 
-    $("filterClass").value = "";
+    $("filterClass")
+      .value =
+      "";
 
     renderStudents();
 
@@ -1925,7 +2643,9 @@ $("clearBtn")
   }
 );
 
-/* PRINT */
+/* =========================================================
+   PRINT HEADER
+========================================================= */
 
 function printHeader(
   title,
@@ -1959,7 +2679,9 @@ function printHeader(
       <span>
         তারিখ:
         ${esc(
-          formatDate(new Date())
+          formatDate(
+            new Date()
+          )
         )}
       </span>
 
@@ -1968,56 +2690,65 @@ function printHeader(
   `;
 }
 
-function printFooter(){
-
-  return `
-
-    <div class="print-footer">
-      © 2026 মাদরাসায়ে নূরুল কুরআন — Student Management System
-    </div>
-
-  `;
-}
+/* =========================================================
+   PRINT WAIT
+========================================================= */
 
 function preparePrint(){
 
   const imgs =
     [
       ...$("printArea")
-        .querySelectorAll("img")
+        .querySelectorAll(
+          "img"
+        )
     ];
 
   const waits =
     imgs.map(
       img =>
-        new Promise(resolve => {
+        new Promise(
+          resolve => {
 
-          if(img.complete){
+            if(
+              img.complete
+            ){
 
-            resolve();
+              resolve();
 
-          }else{
+            }else{
 
-            img.onload = resolve;
+              img.onload =
+                resolve;
 
-            img.onerror = resolve;
+              img.onerror =
+                resolve;
+            }
+
           }
-
-        })
+        )
     );
 
-  Promise.all(waits)
-    .then(()=>{
+  Promise.all(
+    waits
+  )
+  .then(
+    ()=>{
 
       setTimeout(
         ()=>{
           window.print();
         },
-        250
+        300
       );
 
-    });
+    }
+  );
 }
+
+/* =========================================================
+   LIST PRINT
+========================================================= */
 
 function buildListPrint(
   list,
@@ -2025,94 +2756,111 @@ function buildListPrint(
   meta
 ){
 
+  $("printArea")
+    .className =
+    "list-print";
+
   const rows =
-    list.map(
-      (s,i)=>`
+    list
+      .map(
+        (s,i)=>`
 
-        <tr>
+          <tr>
 
-          <td>
-            ${i+1}
-          </td>
+            <td>
+              ${i+1}
+            </td>
 
-          <td>
+            <td>
 
-            ${
-              s.photo_url
+              ${
+                s.photo_url
 
-              ? `<img
-                   class="print-img"
-                   src="${esc(s.photo_url)}"
-                   alt=""
-                 >`
+                ? `
+                  <img
+                    class="print-img"
+                    src="${esc(
+                      s.photo_url
+                    )}"
+                    alt=""
+                  >
+                `
 
-              : "—"
-            }
+                : "—"
+              }
 
-          </td>
+            </td>
 
-          <td>
-            ${esc(
-              s.student_id || "—"
-            )}
-          </td>
+            <td>
+              ${esc(
+                s.student_id ||
+                "—"
+              )}
+            </td>
 
-          <td>
-            ${esc(
-              s.roll_number || "—"
-            )}
-          </td>
+            <td>
+              ${esc(
+                s.roll_number ||
+                "—"
+              )}
+            </td>
 
-          <td>
-            ${esc(
-              s.name || "—"
-            )}
-          </td>
+            <td>
+              ${esc(
+                s.name ||
+                "—"
+              )}
+            </td>
 
-          <td>
-            ${esc(
-              s.father_name || "—"
-            )}
-          </td>
+            <td>
+              ${esc(
+                s.father_name ||
+                "—"
+              )}
+            </td>
 
-          <td>
-            ${esc(
-              s.mother_name || "—"
-            )}
-          </td>
+            <td>
+              ${esc(
+                s.mother_name ||
+                "—"
+              )}
+            </td>
 
-          <td>
-            ${esc(
-              s.phone || "—"
-            )}
-          </td>
+            <td>
+              ${esc(
+                s.phone ||
+                "—"
+              )}
+            </td>
 
-          <td>
-            ${esc(
-              classNameById(
-                s.class_id
-              )
-            )}
-          </td>
+            <td>
+              ${esc(
+                classNameById(
+                  s.class_id
+                )
+              )}
+            </td>
 
-          <td>
-            ${esc(
-              s.session || "—"
-            )}
-          </td>
+            <td>
+              ${esc(
+                s.session ||
+                "—"
+              )}
+            </td>
 
-          <td>
-            ${esc(
-              formatDate(
-                s.admission_date
-              )
-            )}
-          </td>
+            <td>
+              ${esc(
+                formatDate(
+                  s.admission_date
+                )
+              )}
+            </td>
 
-        </tr>
+          </tr>
 
-      `
-    ).join("");
+        `
+      )
+      .join("");
 
   $("printArea").innerHTML = `
 
@@ -2149,12 +2897,19 @@ function buildListPrint(
 
     </table>
 
-    ${printFooter()}
+    <div class="print-footer">
+      © 2026 মাদরাসায়ে নূরুল কুরআন —
+      Student Management System
+    </div>
 
   `;
 
   preparePrint();
 }
+
+/* =========================================================
+   FILTERED PRINT
+========================================================= */
 
 $("filteredPrintBtn")
 .addEventListener(
@@ -2174,24 +2929,29 @@ $("filteredPrintBtn")
     }
 
     const year =
-      $("filterSession").value;
+      $("filterSession")
+        .value;
 
     const cls =
-      $("filterClass").value;
+      $("filterClass")
+        .value;
 
-    const meta = [
+    const meta =
+      [
 
-      year
-        ? `শিক্ষাবর্ষ: ${year}`
-        : "সকল শিক্ষাবর্ষ",
+        year
+          ? `শিক্ষাবর্ষ: ${year}`
+          : "সকল শিক্ষাবর্ষ",
 
-      cls
-        ? `শ্রেণি: ${classNameById(cls)}`
-        : "সকল শ্রেণি",
+        cls
+          ? `শ্রেণি: ${classNameById(cls)}`
+          : "সকল শ্রেণি",
 
-      `মোট: ${list.length} জন`
+        `মোট: ${list.length} জন`
 
-    ].join(" | ");
+      ].join(
+        " | "
+      );
 
     buildListPrint(
       list,
@@ -2201,12 +2961,18 @@ $("filteredPrintBtn")
   }
 );
 
+/* =========================================================
+   ALL PRINT
+========================================================= */
+
 $("allPrintBtn")
 .addEventListener(
   "click",
   ()=>{
 
-    if(!students.length){
+    if(
+      !students.length
+    ){
 
       showMessage(
         "Print করার মতো কোনো শিক্ষার্থী নেই।"
@@ -2223,7 +2989,9 @@ $("allPrintBtn")
   }
 );
 
-/* SINGLE STUDENT PRINT */
+/* =========================================================
+   SINGLE STUDENT PRINT
+========================================================= */
 
 window.printStudent =
 function(id){
@@ -2238,6 +3006,10 @@ function(id){
   if(!s)
     return;
 
+  $("printArea")
+    .className =
+    "profile-print";
+
   $("printArea").innerHTML = `
 
     <div class="profile">
@@ -2247,17 +3019,24 @@ function(id){
         ${
           s.photo_url
 
-          ? `<img
-               class="profile-photo"
-               src="${esc(s.photo_url)}"
-               alt=""
-             >`
+          ? `
+            <img
+              class="profile-photo"
+              src="${esc(
+                s.photo_url
+              )}"
+              alt=""
+            >
+          `
 
           : ""
         }
 
         <h1 class="profile-title">
-          ${esc(s.name || "")}
+          ${esc(
+            s.name ||
+            ""
+          )}
         </h1>
 
         <div class="profile-sub">
@@ -2267,7 +3046,8 @@ function(id){
         <div class="profile-sub">
           Student ID:
           ${esc(
-            s.student_id || "—"
+            s.student_id ||
+            "—"
           )}
         </div>
 
@@ -2276,16 +3056,26 @@ function(id){
       <table class="profile-table">
 
         <tr>
-          <td>Roll Number</td>
+
+          <td>
+            Roll Number
+          </td>
+
           <td>
             ${esc(
-              s.roll_number || "—"
+              s.roll_number ||
+              "—"
             )}
           </td>
+
         </tr>
 
         <tr>
-          <td>শ্রেণি</td>
+
+          <td>
+            শ্রেণি
+          </td>
+
           <td>
             ${esc(
               classNameById(
@@ -2293,62 +3083,99 @@ function(id){
               )
             )}
           </td>
+
         </tr>
 
         <tr>
-          <td>শিক্ষাবর্ষ</td>
+
+          <td>
+            শিক্ষাবর্ষ
+          </td>
+
           <td>
             ${esc(
-              s.session || "—"
+              s.session ||
+              "—"
             )}
           </td>
+
         </tr>
 
         <tr>
-          <td>পিতার নাম</td>
+
+          <td>
+            পিতার নাম
+          </td>
+
           <td>
             ${esc(
-              s.father_name || "—"
+              s.father_name ||
+              "—"
             )}
           </td>
+
         </tr>
 
         <tr>
-          <td>মাতার নাম</td>
+
+          <td>
+            মাতার নাম
+          </td>
+
           <td>
             ${esc(
-              s.mother_name || "—"
+              s.mother_name ||
+              "—"
             )}
           </td>
+
         </tr>
 
         <tr>
-          <td>মোবাইল</td>
+
+          <td>
+            মোবাইল
+          </td>
+
           <td>
             ${esc(
-              s.phone || "—"
+              s.phone ||
+              "—"
             )}
           </td>
+
         </tr>
 
         <tr>
-          <td>ভর্তি তারিখ</td>
+
+          <td>
+            ভর্তি তারিখ
+          </td>
+
           <td>
             ${esc(
               formatDate(
                 s.admission_date
-              ) || "—"
+              ) ||
+              "—"
             )}
           </td>
+
         </tr>
 
         <tr>
-          <td>ঠিকানা</td>
+
+          <td>
+            ঠিকানা
+          </td>
+
           <td>
             ${esc(
-              s.address || "—"
+              s.address ||
+              "—"
             )}
           </td>
+
         </tr>
 
       </table>
@@ -2367,22 +3194,50 @@ function(id){
 
     </div>
 
-    ${printFooter()}
+    <div class="print-footer">
+      © 2026 মাদরাসায়ে নূরুল কুরআন —
+      Student Management System
+    </div>
 
   `;
 
   preparePrint();
 };
 
-/* PENDING ADMISSION */
+/* =========================================================
+   BEFORE PRINT CLEANUP
+========================================================= */
+
+window.addEventListener(
+  "afterprint",
+  ()=>{
+
+    $("printArea")
+      .innerHTML =
+      "";
+
+    $("printArea")
+      .className =
+      "";
+  }
+);
+
+/* =========================================================
+   PENDING ADMISSION
+========================================================= */
 
 async function loadPendingAdmission(){
 
   try{
 
-    const {count,error} =
+    const {
+      count,
+      error
+    } =
       await db
-        .from("admission_applications")
+        .from(
+          "admission_applications"
+        )
         .select(
           "*",
           {
@@ -2404,11 +3259,15 @@ async function loadPendingAdmission(){
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      error
+    );
   }
 }
 
-/* LOGOUT */
+/* =========================================================
+   LOGOUT
+========================================================= */
 
 $("logoutBtn")
 .addEventListener(
@@ -2422,7 +3281,9 @@ $("logoutBtn")
   }
 );
 
-/* START */
+/* =========================================================
+   START
+========================================================= */
 
 (async function init(){
 
@@ -2442,7 +3303,9 @@ $("logoutBtn")
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      error
+    );
 
     showMessage(
       friendlyError(error)
