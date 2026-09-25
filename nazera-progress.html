@@ -1,23 +1,36 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
 
 <title>নাজেরা প্রগ্রেস | মাদরাসায়ে নূরুল কুরআন</title>
 
-<!-- Supabase -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<!-- Bornomala -->
-<link rel="stylesheet"
-      href="https://fonts.maateen.me/bornomala/font.css">
 
 <style>
 
 /* =========================================================
+   BORNOMALA FONT
+   ========================================================= */
+
+@font-face{
+    font-family:"Bornomala";
+    src:
+        url("./fonts/Bornomala-Regular.ttf") format("truetype");
+    font-weight:400;
+    font-style:normal;
+    font-display:swap;
+}
+
+
+/* =========================================================
    RESET
-========================================================= */
+   ========================================================= */
 
 *{
     margin:0;
@@ -25,9 +38,10 @@
     box-sizing:border-box;
 }
 
+
 /* =========================================================
-   FONT
-========================================================= */
+   GLOBAL
+   ========================================================= */
 
 html,
 body,
@@ -36,717 +50,1170 @@ input,
 select,
 textarea,
 table,
-th,
-td,
 option,
 label,
+a,
 div,
 span,
 p,
 h1,
 h2,
 h3,
-a{
-    font-family:"Bornomala","SolaimanLipi",sans-serif !important;
+h4,
+h5,
+h6,
+th,
+td{
+
+    font-family:"Bornomala" !important;
+
 }
 
-/* =========================================================
-   BODY
-========================================================= */
 
 body{
+
     background:#f3f8fd;
+
     color:#173452;
+
     min-height:100vh;
+
 }
+
 
 button,
 input,
 select,
 textarea{
-    font-size:15px;
+
+    font-family:"Bornomala" !important;
+
 }
 
-.container{
-    width:min(1250px,94%);
-    margin:auto;
+
+button{
+
+    cursor:pointer;
+
 }
+
+
+img{
+
+    max-width:100%;
+
+}
+
+
+.container{
+
+    width:min(1250px,94%);
+
+    margin:auto;
+
+}
+
 
 /* =========================================================
    HEADER
-========================================================= */
+   ========================================================= */
 
 .header{
-    background:linear-gradient(135deg,#031a35,#0875df);
+
+    background:
+    linear-gradient(
+        135deg,
+        #031a35,
+        #0875df
+    );
+
     color:#fff;
-    padding:12px 0;
-    box-shadow:0 8px 30px rgba(0,0,0,.15);
-    position:sticky;
-    top:0;
-    z-index:100;
+
+    padding:14px 0;
+
+    box-shadow:
+    0 8px 30px rgba(0,25,60,.18);
+
 }
+
 
 .header-inner{
+
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
-    gap:15px;
+
+    gap:20px;
+
 }
+
 
 .brand{
+
     display:flex;
+
     align-items:center;
-    gap:12px;
-    min-width:0;
+
+    gap:14px;
+
 }
+
 
 .logo{
-    width:56px;
-    height:56px;
+
+    width:58px;
+
+    height:58px;
+
     object-fit:contain;
+
     background:#fff;
+
     border-radius:50%;
-    flex-shrink:0;
+
+    padding:3px;
+
 }
+
 
 .brand h1{
-    font-size:22px;
+
+    font-size:24px;
+
     line-height:1.2;
-    white-space:nowrap;
+
 }
+
 
 .brand small{
+
     display:block;
-    font-size:8px;
+
+    margin-top:4px;
+
+    font-size:9px;
+
     letter-spacing:2px;
-    color:#dcecff;
-    margin-top:3px;
+
+    opacity:.8;
+
 }
 
+
 .home-btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:5px;
+
     background:#ffd447;
+
     color:#08294c;
+
     text-decoration:none;
-    padding:9px 16px;
+
+    padding:10px 18px;
+
     border-radius:10px;
+
     font-weight:bold;
+
     white-space:nowrap;
+
 }
+
 
 /* =========================================================
    PAGE
-========================================================= */
+   ========================================================= */
 
 .page{
-    padding:35px 0 60px;
+
+    padding:42px 0 70px;
+
 }
+
 
 .page-title{
+
     text-align:center;
-    margin-bottom:25px;
+
+    margin-bottom:30px;
+
 }
+
 
 .page-title small{
+
+    display:block;
+
     color:#0875df;
+
     font-size:12px;
+
+    letter-spacing:1px;
+
+    margin-bottom:5px;
+
 }
+
 
 .page-title h2{
+
     color:#031a35;
-    font-size:36px;
-    margin-top:5px;
+
+    font-size:38px;
+
+    line-height:1.25;
+
 }
 
+
 .page-title p{
+
     color:#718399;
-    margin-top:5px;
+
+    margin-top:8px;
+
+    font-size:15px;
+
 }
+
 
 /* =========================================================
    CARD
-========================================================= */
+   ========================================================= */
 
 .card{
+
     background:#fff;
-    border-radius:20px;
-    padding:22px;
-    margin-bottom:20px;
-    box-shadow:0 15px 45px rgba(0,25,60,.09);
+
+    border-radius:22px;
+
+    padding:27px;
+
+    margin-bottom:22px;
+
+    box-shadow:
+    0 15px 45px rgba(0,25,60,.09);
+
 }
+
 
 .card-title{
+
     color:#031a35;
-    font-size:20px;
+
+    font-size:22px;
+
     font-weight:bold;
-    margin-bottom:15px;
-}
 
-/* =========================================================
-   THREE DOT MENU
-========================================================= */
-
-.more-wrap{
-    position:relative;
-}
-
-.more-btn{
-    width:44px;
-    height:42px;
-    border:0;
-    border-radius:11px;
-    background:#eaf3fb;
-    color:#173452;
-    font-size:24px;
-    cursor:pointer;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.more-menu{
-    position:absolute;
-    right:0;
-    top:48px;
-    min-width:210px;
-    background:#fff;
-    border:1px solid #dce8f2;
-    border-radius:14px;
-    padding:7px;
-    box-shadow:0 15px 40px rgba(0,30,70,.18);
-    z-index:500;
-    display:none;
-}
-
-.more-menu.show{
-    display:block;
-}
-
-.more-menu button,
-.more-menu a{
-    width:100%;
-    display:block;
-    border:0;
-    background:transparent;
-    color:#173452;
-    text-align:left;
-    padding:11px 12px;
-    border-radius:9px;
-    cursor:pointer;
-    text-decoration:none;
-}
-
-.more-menu button:hover,
-.more-menu a:hover{
-    background:#f1f7fc;
-}
-
-.more-menu .danger{
-    color:#d62839;
-}
-
-/* =========================================================
-   SECTION HEADER
-========================================================= */
-
-.section-head{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:12px;
     margin-bottom:18px;
+
 }
 
-.section-head .card-title{
-    margin:0;
-}
 
 /* =========================================================
    SEARCH
-========================================================= */
+   ========================================================= */
 
 .search-grid{
+
     display:grid;
-    grid-template-columns:1fr 1fr auto;
+
+    grid-template-columns:
+        1fr
+        1fr
+        auto;
+
     gap:12px;
+
 }
+
 
 input,
 select,
 textarea{
+
     width:100%;
-    padding:12px 13px;
-    border:1px solid #d8e4ef;
-    border-radius:10px;
+
+    padding:12px 14px;
+
+    border:1px solid #d7e3ee;
+
+    border-radius:11px;
+
     outline:none;
+
     background:#fff;
+
     color:#173452;
+
+    font-size:15px;
+
 }
+
 
 input:focus,
 select:focus,
 textarea:focus{
+
     border-color:#0875df;
-    box-shadow:0 0 0 3px rgba(8,117,223,.08);
+
+    box-shadow:
+    0 0 0 3px rgba(8,117,223,.08);
+
 }
+
+
+textarea{
+
+    resize:vertical;
+
+}
+
 
 /* =========================================================
-   BUTTON
-========================================================= */
+   BUTTONS
+   ========================================================= */
 
 .btn{
+
     border:0;
+
     border-radius:10px;
-    padding:11px 17px;
-    cursor:pointer;
+
+    padding:11px 18px;
+
+    font-size:15px;
+
     font-weight:bold;
-    white-space:nowrap;
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:5px;
+
+    transition:.2s;
+
 }
+
+
+.btn:hover{
+
+    transform:translateY(-1px);
+
+}
+
 
 .btn-primary{
+
     background:#0875df;
+
     color:#fff;
+
 }
+
 
 .btn-primary:hover{
+
     background:#0565c5;
+
 }
+
 
 .btn-gold{
+
     background:#ffd447;
+
     color:#08294c;
+
 }
+
 
 .btn-danger{
+
     background:#dc3545;
+
     color:#fff;
+
 }
+
 
 .btn-secondary{
+
     background:#eaf3fb;
+
     color:#173452;
+
 }
 
+
 .btn-success{
-    background:#198754;
+
+    background:#159447;
+
     color:#fff;
+
 }
+
 
 /* =========================================================
    MESSAGE
-========================================================= */
+   ========================================================= */
 
 .message{
+
     display:none;
-    margin-top:13px;
-    padding:11px 13px;
+
+    margin-top:14px;
+
+    padding:12px 14px;
+
     border-radius:10px;
+
     text-align:center;
+
     font-weight:bold;
-    line-height:1.5;
+
 }
+
 
 .message.success{
+
     display:block;
+
     color:#137333;
+
     background:#e9f8ee;
+
 }
+
 
 .message.error{
+
     display:block;
+
     color:#b42318;
+
     background:#ffe9e7;
+
 }
 
+
 .message.info{
+
     display:block;
+
     color:#075b9f;
+
     background:#e8f4ff;
+
 }
+
 
 /* =========================================================
    STUDENT CARD
-========================================================= */
+   ========================================================= */
 
 .student-card{
+
     display:none;
+
 }
+
 
 .student-header{
+
     display:grid;
-    grid-template-columns:90px 1fr;
-    gap:18px;
+
+    grid-template-columns:120px 1fr;
+
+    gap:22px;
+
     align-items:center;
-    padding-bottom:18px;
+
+    padding-bottom:22px;
+
     border-bottom:1px solid #e3ebf3;
+
 }
+
+
+/* =========================================================
+   STUDENT PHOTO
+   ========================================================= */
+
+.student-photo-box{
+
+    width:110px;
+
+    height:130px;
+
+    position:relative;
+
+}
+
 
 .student-photo{
-    width:90px;
-    height:110px;
+
+    width:110px;
+
+    height:130px;
+
     object-fit:cover;
-    border-radius:12px;
-    background:#edf5fc;
-    border:1px solid #dbe7f0;
+
+    border-radius:14px;
+
+    background:#eef3f7;
+
+    border:1px solid #d7e3ee;
+
+    display:block;
+
 }
+
+
+/*
+   This is NOT the Madrasah logo.
+   It is only shown when student photo is unavailable.
+*/
+
+.photo-placeholder{
+
+    position:absolute;
+
+    inset:0;
+
+    width:110px;
+
+    height:130px;
+
+    border-radius:14px;
+
+    background:
+    linear-gradient(
+        145deg,
+        #eef4f8,
+        #dce8f1
+    );
+
+    border:1px solid #d0dde7;
+
+    display:none;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+
+    color:#7b8c9b;
+
+}
+
+
+.photo-placeholder-icon{
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:50%;
+
+    background:#cbd9e4;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:20px;
+
+    margin-bottom:7px;
+
+}
+
+
+.photo-placeholder span{
+
+    font-size:11px;
+
+}
+
 
 .student-info h2{
+
     color:#031a35;
-    margin-bottom:5px;
-    font-size:24px;
+
+    margin-bottom:7px;
+
+    font-size:26px;
+
 }
+
 
 .student-info p{
+
     color:#718399;
-    line-height:1.8;
+
+    line-height:2;
+
 }
 
+
 .student-info strong{
+
     color:#173452;
+
 }
+
 
 /* =========================================================
    FORM
-========================================================= */
+   ========================================================= */
 
 .form-grid{
+
     display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:13px;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:15px;
+
 }
+
 
 .form-group label{
+
     display:block;
+
     color:#173452;
+
     font-weight:bold;
-    margin-bottom:5px;
+
+    margin-bottom:7px;
+
 }
 
+
 .full{
+
     grid-column:1/-1;
+
 }
+
 
 /* =========================================================
    PROGRESS
-========================================================= */
+   ========================================================= */
 
 .progress-box{
+
     background:#f5faff;
+
     border:1px solid #dce8f4;
-    border-radius:15px;
-    padding:18px;
-    margin-top:18px;
+
+    border-radius:17px;
+
+    padding:20px;
+
+    margin-top:20px;
+
 }
+
 
 .progress-head{
+
     display:flex;
-    justify-content:space-between;
+
     align-items:center;
-    margin-bottom:9px;
+
+    justify-content:space-between;
+
+    margin-bottom:10px;
+
 }
+
 
 .progress-head strong{
+
     color:#0875df;
+
 }
+
 
 .progress-bar{
-    height:14px;
+
+    height:15px;
+
     border-radius:20px;
+
     overflow:hidden;
+
     background:#dce8f4;
+
 }
+
 
 .progress-fill{
+
     height:100%;
+
     width:0;
-    background:linear-gradient(90deg,#0875df,#03a9f4);
+
+    background:
+    linear-gradient(
+        90deg,
+        #0875df,
+        #03a9f4
+    );
+
     border-radius:20px;
+
     transition:.4s;
+
 }
+
 
 /* =========================================================
-   ACTION BAR
-========================================================= */
+   ACTIONS
+   ========================================================= */
 
 .actions{
+
     display:flex;
-    gap:9px;
+
+    gap:10px;
+
     flex-wrap:wrap;
-    margin-top:20px;
+
+    margin-top:22px;
+
 }
+
 
 /* =========================================================
    TABLE
-========================================================= */
+   ========================================================= */
 
 .table-wrap{
+
+    width:100%;
+
     overflow-x:auto;
-    -webkit-overflow-scrolling:touch;
+
 }
+
 
 table{
+
     width:100%;
+
     border-collapse:collapse;
-    min-width:780px;
+
+    min-width:850px;
+
 }
 
+
 thead{
+
     background:#031a35;
+
     color:#fff;
+
 }
+
 
 th,
 td{
-    padding:11px 9px;
+
+    padding:12px 10px;
+
     text-align:center;
+
     border-bottom:1px solid #e3ebf2;
+
     font-size:14px;
+
 }
+
+
+td:first-child{
+
+    text-align:left;
+
+}
+
 
 tbody tr:hover{
+
     background:#f7fbff;
+
 }
 
-.empty{
-    text-align:center;
-    padding:30px;
-    color:#718399;
-}
 
 /* =========================================================
-   BADGES
-========================================================= */
+   EMPTY
+   ========================================================= */
 
-.badge{
-    display:inline-block;
-    padding:4px 9px;
-    border-radius:20px;
-    font-size:12px;
-    font-weight:bold;
+.empty{
+
+    text-align:center;
+
+    padding:30px;
+
+    color:#718399;
+
 }
 
-.badge-blue{
-    background:#e5f2ff;
-    color:#0764b5;
-}
-
-.badge-green{
-    background:#e8f8ee;
-    color:#147a3d;
-}
 
 /* =========================================================
    FOOTER
-========================================================= */
+   ========================================================= */
 
 .footer{
+
     background:#02152c;
+
     color:#aebfd0;
+
     text-align:center;
-    padding:20px;
+
+    padding:22px;
+
+    font-size:14px;
+
 }
 
-/* =========================================================
-   LOADING
-========================================================= */
-
-.loading{
-    opacity:.65;
-    pointer-events:none;
-}
 
 /* =========================================================
    PRINT
-========================================================= */
+   ========================================================= */
 
 @media print{
 
     body{
+
         background:#fff;
+
     }
 
     .header,
     .search-card,
     .footer,
     .actions,
-    .more-wrap,
     .no-print{
+
         display:none!important;
+
     }
 
     .page{
+
         padding:0;
+
     }
 
     .card{
+
         box-shadow:none;
+
         border:0;
-        padding:10px;
+
+        border-radius:0;
+
     }
 
     .student-card{
+
         display:block!important;
+
     }
 
-    table{
-        min-width:0;
+    .history-card{
+
+        display:block!important;
+
     }
 
 }
 
+
 /* =========================================================
-   RESPONSIVE
-========================================================= */
+   TABLET
+   ========================================================= */
 
 @media(max-width:850px){
 
     .search-grid{
+
         grid-template-columns:1fr 1fr;
+
     }
 
-    .search-grid button{
+    .search-grid .btn{
+
         grid-column:1/-1;
+
     }
 
     .form-grid{
+
         grid-template-columns:1fr;
+
     }
 
     .full{
+
         grid-column:auto;
+
     }
 
 }
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
 
 @media(max-width:600px){
 
     .header{
-        padding:9px 0;
+
+        padding:11px 0;
+
     }
+
 
     .header-inner{
+
         flex-direction:row;
+
     }
+
+
+    .brand{
+
+        gap:9px;
+
+    }
+
 
     .logo{
-        width:46px;
-        height:46px;
+
+        width:48px;
+
+        height:48px;
+
     }
+
 
     .brand h1{
-        font-size:17px;
+
+        font-size:18px;
+
     }
+
 
     .brand small{
-        font-size:6px;
+
+        font-size:7px;
+
         letter-spacing:1px;
+
     }
+
 
     .home-btn{
+
         padding:8px 11px;
+
         font-size:13px;
+
     }
+
 
     .page{
-        padding:25px 0 45px;
+
+        padding:30px 0 55px;
+
     }
 
-    .page-title{
-        margin-bottom:20px;
-    }
 
     .page-title h2{
-        font-size:28px;
+
+        font-size:29px;
+
     }
+
 
     .page-title p{
+
         font-size:13px;
+
     }
+
 
     .card{
-        padding:16px;
-        border-radius:17px;
+
+        padding:19px;
+
+        border-radius:18px;
+
     }
 
-    .search-grid{
-        grid-template-columns:1fr;
-    }
-
-    .search-grid button{
-        grid-column:auto;
-    }
-
-    .student-header{
-        grid-template-columns:1fr;
-        text-align:center;
-    }
-
-    .student-photo{
-        margin:auto;
-    }
-
-    .student-info h2{
-        font-size:21px;
-    }
-
-    .section-head{
-        align-items:center;
-    }
 
     .card-title{
-        font-size:18px;
+
+        font-size:19px;
+
+    }
+
+
+    .search-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+
+    .search-grid .btn{
+
+        grid-column:auto;
+
+    }
+
+
+    .student-header{
+
+        grid-template-columns:1fr;
+
+        text-align:center;
+
+    }
+
+
+    .student-photo-box{
+
+        margin:auto;
+
+    }
+
+
+    .student-info h2{
+
+        font-size:22px;
+
+    }
+
+
+    .actions{
+
+        display:grid;
+
+        grid-template-columns:1fr 1fr;
+
+    }
+
+
+    .actions .btn{
+
+        width:100%;
+
     }
 
 }
 
+
 /* =========================================================
    VERY SMALL MOBILE
-========================================================= */
+   ========================================================= */
 
-@media(max-width:380px){
-
-    .container{
-        width:94%;
-    }
+@media(max-width:390px){
 
     .brand h1{
-        font-size:15px;
+
+        font-size:16px;
+
     }
+
+
+    .brand small{
+
+        display:none;
+
+    }
+
 
     .home-btn{
-        font-size:12px;
+
         padding:7px 9px;
+
+        font-size:12px;
+
     }
 
+
     .page-title h2{
-        font-size:25px;
+
+        font-size:26px;
+
+    }
+
+
+    .actions{
+
+        grid-template-columns:1fr;
+
     }
 
 }
 
 </style>
+
 </head>
+
 
 <body>
 
+
 <!-- =======================================================
-HEADER
+     HEADER
 ======================================================= -->
 
 <header class="header">
 
 <div class="container header-inner">
 
+
 <div class="brand">
 
 <img
-src="img/logo.png"
-class="logo"
-alt="মাদরাসায়ে নূরুল কুরআন"
-onerror="this.style.display='none';">
+    src="img/logo.png"
+    class="logo"
+    alt="মাদরাসায়ে নূরুল কুরআন">
+
 
 <div>
 
-<h1>মাদরাসায়ে নূরুল কুরআন</h1>
+<h1>
+মাদরাসায়ে নূরুল কুরআন
+</h1>
 
 <small>
 MADRASHA-E NURUL QURAN
@@ -756,21 +1223,24 @@ MADRASHA-E NURUL QURAN
 
 </div>
 
+
 <a
-href="index.html"
-class="home-btn">
+    href="index.html"
+    class="home-btn">
 
 🏠 হোম
 
 </a>
+
 
 </div>
 
 </header>
 
 
+
 <!-- =======================================================
-MAIN
+     MAIN
 ======================================================= -->
 
 <main class="page">
@@ -779,7 +1249,7 @@ MAIN
 
 
 <!-- =====================================================
-TITLE
+     TITLE
 ===================================================== -->
 
 <div class="page-title">
@@ -799,216 +1269,173 @@ NAZERA DEPARTMENT
 </div>
 
 
+
 <!-- =====================================================
-SEARCH CARD
+     SEARCH CARD
 ===================================================== -->
 
 <div class="card search-card">
 
-<div class="section-head">
 
 <div class="card-title">
 🔎 শিক্ষার্থী খুঁজুন
 </div>
 
-<div class="more-wrap">
-
-<button
-class="more-btn"
-onclick="toggleMenu('searchMenu')">
-
-⋮
-
-</button>
-
-<div
-id="searchMenu"
-class="more-menu">
-
-<button onclick="clearSearch();closeMenus();">
-🔄 সার্চ পরিষ্কার
-</button>
-
-<button onclick="focusStudentId();closeMenus();">
-🪪 Student ID লিখুন
-</button>
-
-</div>
-
-</div>
-
-</div>
-
 
 <div class="search-grid">
 
-<input
-id="roll"
-type="text"
-placeholder="রোল নম্বর"
-autocomplete="off">
 
 <input
-id="studentId"
-type="text"
-placeholder="শিক্ষার্থী আইডি"
-autocomplete="off">
+    id="roll"
+    type="text"
+    placeholder="রোল নম্বর">
+
+
+<input
+    id="studentId"
+    type="text"
+    placeholder="শিক্ষার্থী আইডি">
+
 
 <button
-id="searchBtn"
-class="btn btn-primary"
-onclick="findStudent()">
+    class="btn btn-primary"
+    onclick="findStudent()">
 
 🔍 খুঁজুন
 
 </button>
 
+
 </div>
 
 
 <div
-id="message"
-class="message">
+    id="message"
+    class="message">
 </div>
 
+
 </div>
+
 
 
 <!-- =====================================================
-STUDENT CARD
+     STUDENT CARD
 ===================================================== -->
 
 <div
-id="studentCard"
-class="card student-card">
-
-
-<div class="section-head">
-
-<div class="card-title">
-👨‍🎓 শিক্ষার্থীর তথ্য
-</div>
-
-<div class="more-wrap">
-
-<button
-class="more-btn"
-onclick="toggleMenu('studentMenu')">
-
-⋮
-
-</button>
-
-<div
-id="studentMenu"
-class="more-menu">
-
-<button onclick="window.print();closeMenus();">
-🖨️ প্রিন্ট
-</button>
-
-<button onclick="clearSearch();closeMenus();">
-🔍 অন্য শিক্ষার্থী খুঁজুন
-</button>
-
-</div>
-
-</div>
-
-</div>
+    id="studentCard"
+    class="card student-card">
 
 
 <div class="student-header">
 
 
-<img
-id="studentPhoto"
-class="student-photo"
-src="img/student-placeholder.jpg"
-alt="Student Photo"
-onerror="this.src='img/logo.png';">
+<!-- STUDENT PHOTO -->
 
+<div class="student-photo-box">
+
+
+<img
+    id="studentPhoto"
+    class="student-photo"
+    src=""
+    alt="শিক্ষার্থীর ছবি"
+    style="display:none;">
+
+
+<!-- NO LOGO HERE -->
+
+<div
+    id="photoPlaceholder"
+    class="photo-placeholder">
+
+
+<div class="photo-placeholder-icon">
+👤
+</div>
+
+
+<span>
+ছবি নেই
+</span>
+
+
+</div>
+
+
+</div>
+
+
+
+<!-- STUDENT INFORMATION -->
 
 <div class="student-info">
+
 
 <h2 id="studentName">
 শিক্ষার্থীর নাম
 </h2>
 
+
 <p>
 
 🪪 Student ID:
-<strong id="showStudentId">—</strong>
+<strong id="showStudentId">
+—
+</strong>
 
 <br>
+
 
 🔢 Roll:
-<strong id="showRoll">—</strong>
+<strong id="showRoll">
+—
+</strong>
 
 <br>
+
 
 👨‍👦 পিতা:
-<strong id="showFather">—</strong>
+<strong id="showFather">
+—
+</strong>
 
 <br>
 
+
 📚 শ্রেণি:
-<strong id="showClass">—</strong>
+<strong id="showClass">
+—
+</strong>
 
 </p>
 
-</div>
 
 </div>
 
 
-<!-- ===================================================
-PROGRESS ENTRY
-=================================================== -->
+</div>
+
+
+
+<!-- =================================================
+     PROGRESS FORM
+================================================= -->
 
 <div
-class="section-head"
-style="margin-top:25px;">
+    class="card-title"
+    style="margin-top:28px;">
 
-<div class="card-title">
 📝 নাজেরা প্রগ্রেস এন্ট্রি
-</div>
-
-<div class="more-wrap">
-
-<button
-class="more-btn"
-onclick="toggleMenu('entryMenu')">
-
-⋮
-
-</button>
-
-<div
-id="entryMenu"
-class="more-menu">
-
-<button onclick="saveProgress();closeMenus();">
-💾 Progress Save
-</button>
-
-<button onclick="clearForm();closeMenus();">
-🔄 ফর্ম পরিষ্কার
-</button>
-
-<button onclick="window.print();closeMenus();">
-🖨️ প্রিন্ট
-</button>
-
-</div>
-
-</div>
 
 </div>
 
 
 <div class="form-grid">
 
+
+<!-- DATE -->
 
 <div class="form-group">
 
@@ -1017,11 +1444,14 @@ class="more-menu">
 </label>
 
 <input
-id="progressDate"
-type="date">
+    id="progressDate"
+    type="date">
 
 </div>
 
+
+
+<!-- LEVEL -->
 
 <div class="form-group">
 
@@ -1048,6 +1478,9 @@ type="date">
 </div>
 
 
+
+<!-- SURAH -->
+
 <div class="form-group">
 
 <label>
@@ -1055,12 +1488,15 @@ type="date">
 </label>
 
 <input
-id="surah"
-type="text"
-placeholder="যেমন: সূরা আল-বাকারা">
+    id="surah"
+    type="text"
+    placeholder="যেমন: সূরা আল-বাকারা">
 
 </div>
 
+
+
+<!-- AYAT -->
 
 <div class="form-group">
 
@@ -1069,12 +1505,15 @@ placeholder="যেমন: সূরা আল-বাকারা">
 </label>
 
 <input
-id="ayat"
-type="text"
-placeholder="যেমন: আয়াত ১-২০">
+    id="ayat"
+    type="text"
+    placeholder="যেমন: আয়াত ১-২০">
 
 </div>
 
+
+
+<!-- PARA -->
 
 <div class="form-group">
 
@@ -1124,6 +1563,9 @@ placeholder="যেমন: আয়াত ১-২০">
 </div>
 
 
+
+<!-- PROGRESS -->
+
 <div class="form-group">
 
 <label>
@@ -1131,15 +1573,18 @@ placeholder="যেমন: আয়াত ১-২০">
 </label>
 
 <input
-id="progress"
-type="number"
-min="0"
-max="100"
-value="0"
-oninput="updateProgress()">
+    id="progress"
+    type="number"
+    min="0"
+    max="100"
+    value="0"
+    oninput="updateProgress()">
 
 </div>
 
+
+
+<!-- TILAWAT -->
 
 <div class="form-group">
 
@@ -1170,6 +1615,9 @@ oninput="updateProgress()">
 </div>
 
 
+
+<!-- TAJWEED -->
+
 <div class="form-group">
 
 <label>
@@ -1199,6 +1647,9 @@ oninput="updateProgress()">
 </div>
 
 
+
+<!-- COMMENT -->
+
 <div class="form-group full">
 
 <label>
@@ -1206,20 +1657,23 @@ oninput="updateProgress()">
 </label>
 
 <textarea
-id="teacherComment"
-rows="3"
-placeholder="শিক্ষার্থীর অগ্রগতি সম্পর্কে মন্তব্য লিখুন..."></textarea>
+    id="teacherComment"
+    rows="4"
+    placeholder="শিক্ষার্থীর অগ্রগতি সম্পর্কে মন্তব্য লিখুন..."></textarea>
 
 </div>
 
+
 </div>
 
 
-<!-- ===================================================
-PROGRESS BAR
-=================================================== -->
+
+<!-- =================================================
+     PROGRESS BAR
+================================================= -->
 
 <div class="progress-box">
+
 
 <div class="progress-head">
 
@@ -1233,116 +1687,84 @@ PROGRESS BAR
 
 </div>
 
+
 <div class="progress-bar">
 
 <div
-id="progressFill"
-class="progress-fill">
+    id="progressFill"
+    class="progress-fill">
 </div>
 
 </div>
 
+
 </div>
 
 
-<!-- ACTIONS -->
-<div class="actions no-print">
+
+<!-- =================================================
+     ACTIONS
+================================================= -->
+
+<div class="actions">
+
 
 <button
-class="btn btn-primary"
-onclick="saveProgress()">
+    class="btn btn-primary"
+    onclick="saveProgress()">
 
-💾 Save
+💾 Progress Save
 
 </button>
 
+
 <button
-class="btn btn-secondary"
-onclick="clearForm()">
+    class="btn btn-secondary"
+    onclick="clearForm()">
 
 🔄 Clear
 
 </button>
 
-<div class="more-wrap">
 
 <button
-class="more-btn"
-onclick="toggleMenu('actionMenu')">
+    class="btn btn-gold"
+    onclick="window.print()">
 
-⋮
-
-</button>
-
-<div
-id="actionMenu"
-class="more-menu">
-
-<button onclick="window.print();closeMenus();">
 🖨️ Print
+
 </button>
 
-<button onclick="clearForm();closeMenus();">
-🧹 নতুন এন্ট্রি
-</button>
-
-</div>
-
-</div>
 
 </div>
 
 
 </div>
+
 
 
 <!-- =====================================================
-HISTORY
+     HISTORY
 ===================================================== -->
 
 <div
-id="historyCard"
-class="card"
-style="display:none;">
+    id="historyCard"
+    class="card history-card"
+    style="display:none;">
 
-<div class="section-head">
 
 <div class="card-title">
+
 📋 শিক্ষার্থীর নাজেরা প্রগ্রেস
-</div>
-
-<div class="more-wrap">
-
-<button
-class="more-btn"
-onclick="toggleMenu('historyMenu')">
-
-⋮
-
-</button>
-
-<div
-id="historyMenu"
-class="more-menu">
-
-<button onclick="loadCurrentHistory();closeMenus();">
-🔄 Refresh
-</button>
-
-<button onclick="window.print();closeMenus();">
-🖨️ Print
-</button>
-
-</div>
-
-</div>
 
 </div>
 
 
 <div class="table-wrap">
 
+
 <table>
+
 
 <thead>
 
@@ -1376,7 +1798,7 @@ class="more-menu">
 তাজবিদ
 </th>
 
-<th class="no-print">
+<th>
 অ্যাকশন
 </th>
 
@@ -1384,13 +1806,16 @@ class="more-menu">
 
 </thead>
 
-<tbody id="historyBody">
 
+<tbody id="historyBody">
 </tbody>
+
 
 </table>
 
+
 </div>
+
 
 </div>
 
@@ -1400,8 +1825,9 @@ class="more-menu">
 </main>
 
 
+
 <!-- =======================================================
-FOOTER
+     FOOTER
 ======================================================= -->
 
 <footer class="footer">
@@ -1413,455 +1839,602 @@ FOOTER
 </footer>
 
 
+
 <script>
 
 /* =========================================================
-SUPABASE
+   SUPABASE
 ========================================================= */
 
 const SUPABASE_URL =
 "https://qavublwhqiqsgpcmfyft.supabase.co";
 
+
 const SUPABASE_KEY =
 "sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
 
+
 const supabaseClient =
 window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
+    SUPABASE_URL,
+    SUPABASE_KEY
 );
 
 
 /* =========================================================
-GLOBAL
+   GLOBAL
 ========================================================= */
 
 let currentStudent = null;
+
 let editingId = null;
 
-const today =
-new Date().toISOString().split("T")[0];
+
+/* =========================================================
+   YEAR
+========================================================= */
 
 document.getElementById("year").textContent =
 new Date().getFullYear();
 
-document.getElementById("progressDate").value =
-today;
-
 
 /* =========================================================
-THREE DOT MENU
+   DEFAULT DATE
 ========================================================= */
 
-function toggleMenu(id){
-
-closeMenus(id);
-
-const menu =
-document.getElementById(id);
-
-if(menu){
-    menu.classList.toggle("show");
-}
-
-}
-
-
-function closeMenus(except=null){
-
-document
-.querySelectorAll(".more-menu")
-.forEach(menu=>{
-
-if(menu.id !== except){
-    menu.classList.remove("show");
-}
-
-});
-
-}
-
-
-document.addEventListener("click",function(e){
-
-if(
-!e.target.closest(".more-wrap")
-){
-    closeMenus();
-}
-
-});
+document.getElementById("progressDate").value =
+new Date()
+    .toISOString()
+    .split("T")[0];
 
 
 /* =========================================================
-MESSAGE
+   MESSAGE
 ========================================================= */
 
 function showMessage(text,type){
 
-const box =
-document.getElementById("message");
+    const box =
+        document.getElementById("message");
 
-box.className =
-"message " + type;
 
-box.textContent =
-text;
+    box.className =
+        "message " + type;
+
+
+    box.textContent =
+        text;
 
 }
 
 
 /* =========================================================
-STUDENT SEARCH
+   FIND STUDENT
+   IMPORTANT:
+   Do NOT assume "roll" column exists.
+   We search by student_id first and check roll aliases.
 ========================================================= */
 
 async function findStudent(){
 
-const roll =
-document
-.getElementById("roll")
-.value
-.trim();
+    const roll =
+        document
+        .getElementById("roll")
+        .value
+        .trim();
 
-const studentId =
-document
-.getElementById("studentId")
-.value
-.trim();
 
+    const studentId =
+        document
+        .getElementById("studentId")
+        .value
+        .trim();
 
-if(!roll || !studentId){
 
-showMessage(
-"❌ রোল নম্বর এবং শিক্ষার্থী আইডি দুটোই দিন।",
-"error"
-);
+    if(!roll || !studentId){
 
-return;
+        showMessage(
+            "❌ রোল নম্বর এবং শিক্ষার্থী আইডি দিন।",
+            "error"
+        );
 
-}
+        return;
 
+    }
 
-showMessage(
-"⏳ শিক্ষার্থীর তথ্য খোঁজা হচ্ছে...",
-"info"
-);
 
+    showMessage(
+        "⏳ শিক্ষার্থীর তথ্য খোঁজা হচ্ছে...",
+        "info"
+    );
 
-const searchBtn =
-document.getElementById("searchBtn");
 
-searchBtn.disabled = true;
+    try{
 
-searchBtn.textContent =
-"⏳ খোঁজা হচ্ছে...";
 
+        /*
+         * Search using student_id only.
+         * This avoids the previous problem where
+         * the database did not have a "roll" column.
+         */
 
-try{
+        const response =
+            await supabaseClient
 
-let student = null;
-let firstError = null;
+            .from("students")
 
+            .select("*")
 
-/* =====================================================
-   FIRST: CURRENT DATABASE STRUCTURE
-   roll_number ব্যবহার করা হচ্ছে
-===================================================== */
+            .eq("student_id",studentId);
 
-const result1 =
-await supabaseClient
 
-.from("students")
+        if(response.error){
 
-.select(`
-id,
-student_id,
-roll_number,
-name,
-father_name,
-mother_name,
-phone,
-class_id,
-session,
-admission_date,
-address,
-photo_url,
-created_at
-`)
+            throw response.error;
 
-.eq("roll_number",roll)
+        }
 
-.eq("student_id",studentId)
 
-.maybeSingle();
+        const students =
+            response.data || [];
 
 
-if(!result1.error){
+        if(!students.length){
 
-student =
-result1.data;
+            showMessage(
+                "❌ এই Student ID-এর কোনো শিক্ষার্থী পাওয়া যায়নি।",
+                "error"
+            );
 
-}else{
+            hideStudent();
 
-firstError =
-result1.error;
+            return;
 
+        }
 
-/* =====================================================
-   FALLBACK:
-   যদি পুরোনো database-এ roll column থাকে
-===================================================== */
 
-const result2 =
-await supabaseClient
+        /*
+         * Find correct roll.
+         * Supports:
+         * roll
+         * roll_number
+         * student_roll
+         * class_roll
+         */
 
-.from("students")
+        const found =
+            students.find(student => {
 
-.select(`
-id,
-student_id,
-roll,
-name,
-father_name,
-mother_name,
-phone,
-class_id,
-session,
-admission_date,
-address,
-photo_url,
-created_at
-`)
+                const studentRoll =
+                    String(
+                        student.roll ??
+                        student.roll_number ??
+                        student.student_roll ??
+                        student.class_roll ??
+                        ""
+                    )
+                    .trim();
 
-.eq("roll",roll)
+                return studentRoll === roll;
 
-.eq("student_id",studentId)
+            });
 
-.maybeSingle();
 
+        if(!found){
 
-if(!result2.error){
+            showMessage(
+                "❌ Student ID পাওয়া গেছে, কিন্তু এই Roll নম্বরের সাথে মিল নেই।",
+                "error"
+            );
 
-student =
-result2.data;
+            hideStudent();
 
-}else{
+            return;
 
-throw result2.error || firstError;
+        }
 
-}
 
-}
+        currentStudent =
+            found;
 
 
-if(!student){
+        displayStudent(found);
 
-showMessage(
-"❌ এই Roll ও Student ID-এর কোনো শিক্ষার্থী পাওয়া যায়নি।",
-"error"
-);
 
-document
-.getElementById("studentCard")
-.style.display="none";
+        await loadHistory(found.id);
 
-document
-.getElementById("historyCard")
-.style.display="none";
 
-return;
+        showMessage(
+            "✅ শিক্ষার্থীর তথ্য পাওয়া গেছে।",
+            "success"
+        );
 
-}
 
+    }catch(error){
 
-/* =====================================================
-   CLASS NAME LOAD
-===================================================== */
+        console.error(
+            "Student Load Error:",
+            error
+        );
 
-let className =
-"—";
 
-if(student.class_id){
+        showMessage(
+            "❌ Student Load Error: " +
+            (error.message || "অজানা সমস্যা"),
+            "error"
+        );
 
-const classResult =
-await supabaseClient
-
-.from("classes")
-
-.select("id,name")
-
-.eq("id",student.class_id)
-
-.maybeSingle();
-
-
-if(!classResult.error && classResult.data){
-
-className =
-classResult.data.name ||
-"—";
-
-}
-
-}
-
-
-student.resolved_class_name =
-className;
-
-
-currentStudent =
-student;
-
-
-displayStudent(student);
-
-await loadHistory(student.id);
-
-
-showMessage(
-"✅ শিক্ষার্থীর তথ্য পাওয়া গেছে।",
-"success"
-);
-
-
-}catch(error){
-
-console.error(
-"Student Search Error:",
-error
-);
-
-showMessage(
-"❌ শিক্ষার্থীর তথ্য পাওয়া যায়নি: " +
-(error.message || "অজানা সমস্যা"),
-"error"
-);
-
-}finally{
-
-searchBtn.disabled = false;
-
-searchBtn.textContent =
-"🔍 খুঁজুন";
-
-}
+    }
 
 }
 
 
 /* =========================================================
-DISPLAY STUDENT
+   HIDE STUDENT
 ========================================================= */
 
-function displayStudent(student){
+function hideStudent(){
 
-const photo =
-student.photo_url ||
-student.photo ||
-"img/student-placeholder.jpg";
-
-
-document
-.getElementById("studentPhoto")
-.src =
-photo;
+    document
+        .getElementById("studentCard")
+        .style.display="none";
 
 
-document
-.getElementById("studentName")
-.textContent =
-student.name ||
-student.student_name ||
-"শিক্ষার্থীর নাম";
+    document
+        .getElementById("historyCard")
+        .style.display="none";
 
 
-document
-.getElementById("showStudentId")
-.textContent =
-student.student_id ||
-student.id ||
-"—";
-
-
-document
-.getElementById("showRoll")
-.textContent =
-student.roll_number ||
-student.roll ||
-"—";
-
-
-document
-.getElementById("showFather")
-.textContent =
-student.father_name ||
-student.father ||
-student.guardian_name ||
-"—";
-
-
-document
-.getElementById("showClass")
-.textContent =
-student.resolved_class_name ||
-student.class_name ||
-student.class ||
-student.grade ||
-"—";
-
-
-document
-.getElementById("studentCard")
-.style.display =
-"block";
+    currentStudent = null;
 
 }
 
 
 /* =========================================================
-UPDATE PROGRESS
+   DISPLAY STUDENT
+========================================================= */
+
+async function displayStudent(student){
+
+    /*
+     * Student name
+     */
+
+    const name =
+        student.name ||
+        student.student_name ||
+        student.full_name ||
+        "শিক্ষার্থীর নাম";
+
+
+    document
+        .getElementById("studentName")
+        .textContent =
+        name;
+
+
+    /*
+     * Student ID
+     */
+
+    document
+        .getElementById("showStudentId")
+        .textContent =
+        student.student_id ||
+        student.id ||
+        "—";
+
+
+    /*
+     * Roll
+     */
+
+    const roll =
+        student.roll ??
+        student.roll_number ??
+        student.student_roll ??
+        student.class_roll ??
+        "—";
+
+
+    document
+        .getElementById("showRoll")
+        .textContent =
+        roll;
+
+
+    /*
+     * Father
+     */
+
+    document
+        .getElementById("showFather")
+        .textContent =
+
+        student.father_name ||
+
+        student.father ||
+
+        student.fatherName ||
+
+        student.guardian_name ||
+
+        "—";
+
+
+    /*
+     * Class
+     */
+
+    let className =
+        student.class_name ||
+        student.class ||
+        student.grade ||
+        student.className ||
+        "";
+
+
+    /*
+     * If class_name is not directly stored,
+     * try classes table using class_id.
+     */
+
+    if(
+        !className &&
+        student.class_id
+    ){
+
+        try{
+
+            const {
+                data,
+                error
+            } =
+            await supabaseClient
+
+            .from("classes")
+
+            .select("name")
+
+            .eq("id",student.class_id)
+
+            .maybeSingle();
+
+
+            if(!error && data){
+
+                className =
+                    data.name || "";
+
+            }
+
+        }catch(e){
+
+            console.warn(
+                "Class lookup failed:",
+                e
+            );
+
+        }
+
+    }
+
+
+    document
+        .getElementById("showClass")
+        .textContent =
+        className || "—";
+
+
+    /*
+     * =====================================================
+     * STUDENT PHOTO
+     * =====================================================
+     *
+     * NEVER use img/logo.png here.
+     */
+
+    const photoElement =
+        document
+        .getElementById("studentPhoto");
+
+
+    const placeholder =
+        document
+        .getElementById("photoPlaceholder");
+
+
+    const possiblePhotos = [
+
+        student.photo_url,
+
+        student.photo,
+
+        student.image_url,
+
+        student.image,
+
+        student.student_photo,
+
+        student.profile_photo,
+
+        student.profile_image
+
+    ];
+
+
+    let photoUrl = "";
+
+
+    for(
+        const candidate of possiblePhotos
+    ){
+
+        if(
+            candidate &&
+            String(candidate).trim()
+        ){
+
+            const candidateText =
+                String(candidate).trim();
+
+
+            /*
+             * Do not allow Madrasah logo to
+             * become student photo.
+             */
+
+            const lower =
+                candidateText.toLowerCase();
+
+
+            if(
+                lower.includes("img/logo") ||
+                lower.includes("/logo.png") ||
+                lower.includes("logo.jpg") ||
+                lower.includes("logo.jpeg") ||
+                lower.endsWith("/logo")
+            ){
+
+                continue;
+
+            }
+
+
+            photoUrl =
+                candidateText;
+
+            break;
+
+        }
+
+    }
+
+
+    if(photoUrl){
+
+        photoElement.src =
+            photoUrl;
+
+        photoElement.style.display =
+            "block";
+
+        placeholder.style.display =
+            "none";
+
+
+        /*
+         * If image URL is broken,
+         * show neutral placeholder.
+         */
+
+        photoElement.onerror =
+            function(){
+
+                this.onerror = null;
+
+                this.src = "";
+
+                this.style.display =
+                    "none";
+
+                placeholder.style.display =
+                    "flex";
+
+            };
+
+    }else{
+
+        photoElement.src = "";
+
+        photoElement.style.display =
+            "none";
+
+        placeholder.style.display =
+            "flex";
+
+    }
+
+
+    /*
+     * Show student card
+     */
+
+    document
+        .getElementById("studentCard")
+        .style.display =
+        "block";
+
+
+    /*
+     * Scroll into view on mobile
+     */
+
+    setTimeout(() => {
+
+        document
+            .getElementById("studentCard")
+            .scrollIntoView({
+                behavior:"smooth",
+                block:"start"
+            });
+
+    },100);
+
+}
+
+
+/* =========================================================
+   UPDATE PROGRESS
 ========================================================= */
 
 function updateProgress(){
 
-let value =
-Number(
-document
-.getElementById("progress")
-.value
-);
+    let value =
+        Number(
+            document
+            .getElementById("progress")
+            .value
+        );
 
 
-if(!Number.isFinite(value)){
-    value = 0;
-}
+    if(isNaN(value)){
 
-if(value < 0){
-    value = 0;
-}
+        value = 0;
 
-if(value > 100){
-    value = 100;
-}
+    }
 
 
-document
-.getElementById("progress")
-.value =
-value;
+    if(value < 0){
+
+        value = 0;
+
+    }
 
 
-document
-.getElementById("progressText")
-.textContent =
-value + "%";
+    if(value > 100){
+
+        value = 100;
+
+    }
 
 
-document
-.getElementById("progressFill")
-.style.width =
-value + "%";
+    document
+        .getElementById("progress")
+        .value =
+        value;
+
+
+    document
+        .getElementById("progressText")
+        .textContent =
+        value + "%";
+
+
+    document
+        .getElementById("progressFill")
+        .style.width =
+        value + "%";
 
 }
 
@@ -1870,826 +2443,879 @@ updateProgress();
 
 
 /* =========================================================
-SAVE PROGRESS
+   SAVE PROGRESS
 ========================================================= */
 
 async function saveProgress(){
 
-if(!currentStudent){
+    if(!currentStudent){
 
-showMessage(
-"❌ আগে একজন শিক্ষার্থী খুঁজুন।",
-"error"
-);
+        showMessage(
+            "❌ আগে একজন শিক্ষার্থী খুঁজুন।",
+            "error"
+        );
 
-return;
+        return;
 
-}
+    }
 
 
-const progressDate =
-document
-.getElementById("progressDate")
-.value;
+    const progressDate =
+        document
+        .getElementById("progressDate")
+        .value;
 
-const level =
-document
-.getElementById("level")
-.value;
 
-const surah =
-document
-.getElementById("surah")
-.value
-.trim();
+    const level =
+        document
+        .getElementById("level")
+        .value;
 
-const ayat =
-document
-.getElementById("ayat")
-.value
-.trim();
 
-const para =
-document
-.getElementById("para")
-.value;
+    const surah =
+        document
+        .getElementById("surah")
+        .value
+        .trim();
 
-const progress =
-Number(
-document
-.getElementById("progress")
-.value || 0
-);
 
-const tilawat =
-document
-.getElementById("tilawat")
-.value;
+    const ayat =
+        document
+        .getElementById("ayat")
+        .value
+        .trim();
 
-const tajweed =
-document
-.getElementById("tajweed")
-.value;
 
-const teacherComment =
-document
-.getElementById("teacherComment")
-.value
-.trim();
+    const para =
+        document
+        .getElementById("para")
+        .value;
 
 
-if(!progressDate){
+    const progress =
+        Number(
+            document
+            .getElementById("progress")
+            .value || 0
+        );
 
-showMessage(
-"❌ তারিখ নির্বাচন করুন।",
-"error"
-);
 
-return;
+    const tilawat =
+        document
+        .getElementById("tilawat")
+        .value;
 
-}
 
+    const tajweed =
+        document
+        .getElementById("tajweed")
+        .value;
 
-if(progress < 0 || progress > 100){
 
-showMessage(
-"❌ অগ্রগতি ০ থেকে ১০০ এর মধ্যে হতে হবে।",
-"error"
-);
+    const teacherComment =
+        document
+        .getElementById("teacherComment")
+        .value
+        .trim();
 
-return;
 
-}
+    if(!progressDate){
 
+        showMessage(
+            "❌ তারিখ নির্বাচন করুন।",
+            "error"
+        );
 
-const payload = {
+        return;
 
-student_id:
-currentStudent.id,
+    }
 
-progress_date:
-progressDate,
 
-level:
-level,
+    if(progress < 0 || progress > 100){
 
-surah:
-surah,
+        showMessage(
+            "❌ অগ্রগতি ০ থেকে ১০০-এর মধ্যে হতে হবে।",
+            "error"
+        );
 
-ayat:
-ayat,
+        return;
 
-para:
-para,
+    }
 
-progress:
-progress,
 
-tilawat:
-tilawat,
+    try{
 
-tajweed:
-tajweed,
 
-teacher_comment:
-teacherComment
+        const payload = {
 
-};
+            student_id:
+                currentStudent.id,
 
+            progress_date:
+                progressDate,
 
-try{
+            level:
+                level,
 
-let response;
+            surah:
+                surah,
 
+            ayat:
+                ayat,
 
-if(editingId){
+            para:
+                para,
 
-response =
-await supabaseClient
+            progress:
+                progress,
 
-.from("nazera_progress")
+            tilawat:
+                tilawat,
 
-.update(payload)
+            tajweed:
+                tajweed,
 
-.eq("id",editingId);
+            teacher_comment:
+                teacherComment
 
-}else{
+        };
 
-response =
-await supabaseClient
 
-.from("nazera_progress")
+        let response;
 
-.insert([payload]);
 
-}
+        if(editingId){
 
+            response =
+                await supabaseClient
 
-if(response.error){
+                .from("nazera_progress")
 
-throw response.error;
+                .update(payload)
 
-}
+                .eq(
+                    "id",
+                    editingId
+                );
 
 
-showMessage(
-editingId
-?
-"✅ Progress সফলভাবে আপডেট হয়েছে।"
-:
-"✅ Progress সফলভাবে Save হয়েছে।",
-"success"
-);
+        }else{
 
+            response =
+                await supabaseClient
 
-editingId = null;
+                .from("nazera_progress")
 
-clearForm(false);
+                .insert([
+                    payload
+                ]);
 
-await loadHistory(
-currentStudent.id
-);
+        }
 
 
-}catch(error){
+        if(response.error){
 
-console.error(
-"Progress Save Error:",
-error
-);
+            throw response.error;
 
-showMessage(
-"❌ Progress Save Error: " +
-(error.message || "অজানা সমস্যা"),
-"error"
-);
+        }
 
-}
+
+        showMessage(
+
+            editingId
+
+            ?
+
+            "✅ Progress সফলভাবে আপডেট হয়েছে।"
+
+            :
+
+            "✅ Progress সফলভাবে Save হয়েছে।",
+
+            "success"
+
+        );
+
+
+        editingId = null;
+
+
+        clearForm(false);
+
+
+        await loadHistory(
+            currentStudent.id
+        );
+
+
+    }catch(error){
+
+        console.error(
+            "Progress Save Error:",
+            error
+        );
+
+
+        showMessage(
+            "❌ Progress Save Error: " +
+            (error.message || "অজানা সমস্যা"),
+            "error"
+        );
+
+    }
 
 }
 
 
 /* =========================================================
-LOAD HISTORY
+   LOAD HISTORY
 ========================================================= */
 
 async function loadHistory(studentDbId){
 
-const {
-data,
-error
-} =
-await supabaseClient
-
-.from("nazera_progress")
-
-.select("*")
-
-.eq("student_id",studentDbId)
-
-.order(
-"progress_date",
-{
-ascending:false
-}
-);
+    try{
 
 
-if(error){
+        const {
+            data,
+            error
+        } =
 
-console.error(
-"History Error:",
-error
-);
+        await supabaseClient
 
-showMessage(
-"❌ Progress History Load Error: " +
-error.message,
-"error"
-);
+        .from("nazera_progress")
 
-document
-.getElementById("historyCard")
-.style.display="none";
+        .select("*")
 
-return;
+        .eq(
+            "student_id",
+            studentDbId
+        )
 
-}
-
-
-const rows =
-data || [];
-
-const body =
-document
-.getElementById("historyBody");
+        .order(
+            "progress_date",
+            {
+                ascending:false
+            }
+        );
 
 
-if(!rows.length){
+        if(error){
 
-body.innerHTML = `
+            throw error;
 
-<tr>
-
-<td
-colspan="8"
-class="empty">
-
-এই শিক্ষার্থীর কোনো Progress এখনো Save করা হয়নি।
-
-</td>
-
-</tr>
-
-`;
-
-document
-.getElementById("historyCard")
-.style.display="block";
-
-return;
-
-}
+        }
 
 
-body.innerHTML =
-rows
-.map(row=>{
-
-const safeRow =
-JSON.stringify(row)
-.replace(/'/g,"&#39;");
-
-return `
-
-<tr>
-
-<td>
-${formatDate(row.progress_date)}
-</td>
-
-<td>
-${escapeHTML(row.surah || "—")}
-</td>
-
-<td>
-${escapeHTML(row.para || "—")}
-</td>
-
-<td>
-${escapeHTML(row.ayat || "—")}
-</td>
-
-<td>
-
-<span class="badge badge-blue">
-
-${Number(row.progress || 0)}%
-
-</span>
-
-</td>
-
-<td>
-${escapeHTML(row.tilawat || "—")}
-</td>
-
-<td>
-${escapeHTML(row.tajweed || "—")}
-</td>
-
-<td class="no-print">
-
-<div
-class="more-wrap">
-
-<button
-class="more-btn"
-style="width:38px;height:36px;font-size:20px;"
-onclick="toggleMenu('rowMenu${row.id}')">
-
-⋮
-
-</button>
-
-<div
-id="rowMenu${row.id}"
-class="more-menu">
-
-<button
-onclick='editProgress(${safeRow});closeMenus();'>
-
-✏️ Edit
-
-</button>
-
-<button
-class="danger"
-onclick="deleteProgress('${escapeAttribute(row.id)}');closeMenus();">
-
-🗑️ Delete
-
-</button>
-
-</div>
-
-</div>
-
-</td>
-
-</tr>
-
-`;
-
-})
-.join("");
+        const rows =
+            data || [];
 
 
-document
-.getElementById("historyCard")
-.style.display =
-"block";
+        const body =
+            document
+            .getElementById("historyBody");
+
+
+        if(!rows.length){
+
+            body.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="8"
+                        class="empty">
+
+                        এই শিক্ষার্থীর কোনো Progress এখনো Save করা হয়নি।
+
+                    </td>
+
+                </tr>
+
+            `;
+
+
+            document
+                .getElementById("historyCard")
+                .style.display =
+                "block";
+
+
+            return;
+
+        }
+
+
+        body.innerHTML =
+
+            rows
+            .map(row => {
+
+
+                const progress =
+                    Number(
+                        row.progress || 0
+                    );
+
+
+                return `
+
+                <tr>
+
+                    <td>
+                        ${formatDate(
+                            row.progress_date
+                        )}
+                    </td>
+
+
+                    <td>
+                        ${escapeHTML(
+                            row.surah || "—"
+                        )}
+                    </td>
+
+
+                    <td>
+                        ${escapeHTML(
+                            row.para || "—"
+                        )}
+                    </td>
+
+
+                    <td>
+                        ${escapeHTML(
+                            row.ayat || "—"
+                        )}
+                    </td>
+
+
+                    <td>
+
+                        <strong>
+                            ${progress}%
+                        </strong>
+
+                    </td>
+
+
+                    <td>
+                        ${escapeHTML(
+                            row.tilawat || "—"
+                        )}
+                    </td>
+
+
+                    <td>
+                        ${escapeHTML(
+                            row.tajweed || "—"
+                        )}
+                    </td>
+
+
+                    <td>
+
+                        <div
+                            style="
+                            display:flex;
+                            gap:5px;
+                            justify-content:center;
+                            ">
+
+
+                            <button
+                                class="btn btn-secondary"
+                                style="
+                                padding:7px 10px;
+                                font-size:13px;
+                                "
+                                onclick='editProgress(${JSON.stringify(row).replace(/'/g,"&#39;")})'>
+
+                                ✏️
+
+                            </button>
+
+
+                            <button
+                                class="btn btn-danger"
+                                style="
+                                padding:7px 10px;
+                                font-size:13px;
+                                "
+                                onclick="deleteProgress('${escapeJS(row.id)}')">
+
+                                🗑️
+
+                            </button>
+
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+                `;
+
+            })
+            .join("");
+
+
+        document
+            .getElementById("historyCard")
+            .style.display =
+            "block";
+
+
+    }catch(error){
+
+        console.error(
+            "History Load Error:",
+            error
+        );
+
+
+        document
+            .getElementById("historyCard")
+            .style.display =
+            "block";
+
+
+        document
+            .getElementById("historyBody")
+            .innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="8"
+                    class="empty">
+
+                    ❌ Progress history load করা যায়নি।
+
+                </td>
+
+            </tr>
+
+            `;
+
+    }
 
 }
 
 
 /* =========================================================
-CURRENT HISTORY
-========================================================= */
-
-async function loadCurrentHistory(){
-
-if(!currentStudent){
-
-showMessage(
-"❌ আগে একজন শিক্ষার্থী নির্বাচন করুন।",
-"error"
-);
-
-return;
-
-}
-
-await loadHistory(
-currentStudent.id
-);
-
-showMessage(
-"✅ Progress History আপডেট হয়েছে।",
-"success"
-);
-
-}
-
-
-/* =========================================================
-EDIT
+   EDIT PROGRESS
 ========================================================= */
 
 function editProgress(row){
 
-editingId =
-row.id;
+    editingId =
+        row.id;
 
 
-document
-.getElementById("progressDate")
-.value =
-row.progress_date || "";
+    document
+        .getElementById("progressDate")
+        .value =
+        row.progress_date || "";
 
 
-document
-.getElementById("level")
-.value =
-row.level || "নাজেরা";
+    document
+        .getElementById("level")
+        .value =
+        row.level || "নাজেরা";
 
 
-document
-.getElementById("surah")
-.value =
-row.surah || "";
+    document
+        .getElementById("surah")
+        .value =
+        row.surah || "";
 
 
-document
-.getElementById("ayat")
-.value =
-row.ayat || "";
+    document
+        .getElementById("ayat")
+        .value =
+        row.ayat || "";
 
 
-document
-.getElementById("para")
-.value =
-row.para || "";
+    document
+        .getElementById("para")
+        .value =
+        row.para || "";
 
 
-document
-.getElementById("progress")
-.value =
-row.progress || 0;
+    document
+        .getElementById("progress")
+        .value =
+        row.progress || 0;
 
 
-document
-.getElementById("tilawat")
-.value =
-row.tilawat || "ভালো";
+    document
+        .getElementById("tilawat")
+        .value =
+        row.tilawat || "ভালো";
 
 
-document
-.getElementById("tajweed")
-.value =
-row.tajweed || "ভালো";
+    document
+        .getElementById("tajweed")
+        .value =
+        row.tajweed || "ভালো";
 
 
-document
-.getElementById("teacherComment")
-.value =
-row.teacher_comment || "";
+    document
+        .getElementById("teacherComment")
+        .value =
+        row.teacher_comment || "";
 
 
-updateProgress();
+    updateProgress();
 
 
-window.scrollTo({
-
-top:
-document
-.getElementById("studentCard")
-.offsetTop - 20,
-
-behavior:
-"smooth"
-
-});
+    showMessage(
+        "✏️ Progress edit mode চালু হয়েছে। Save করলে update হবে।",
+        "info"
+    );
 
 
-showMessage(
-"✏️ Progress Edit Mode চালু হয়েছে। Save করলে Update হবে।",
-"info"
-);
+    document
+        .getElementById("studentCard")
+        .scrollIntoView({
+            behavior:"smooth",
+            block:"start"
+        });
 
 }
 
 
 /* =========================================================
-DELETE
+   DELETE
 ========================================================= */
 
 async function deleteProgress(id){
 
-if(!confirm(
-"এই Progress record-টি কি Delete করতে চান?"
-)){
+    if(!confirm(
+        "এই Progress record-টি কি Delete করতে চান?"
+    )){
 
-return;
+        return;
 
-}
-
-
-try{
-
-const {
-error
-} =
-await supabaseClient
-
-.from("nazera_progress")
-
-.delete()
-
-.eq("id",id);
+    }
 
 
-if(error){
-
-throw error;
-
-}
+    try{
 
 
-showMessage(
-"✅ Progress Delete হয়েছে।",
-"success"
-);
+        const {
+            error
+        } =
+
+        await supabaseClient
+
+        .from("nazera_progress")
+
+        .delete()
+
+        .eq(
+            "id",
+            id
+        );
 
 
-if(currentStudent){
+        if(error){
 
-await loadHistory(
-currentStudent.id
-);
+            throw error;
 
-}
+        }
 
 
-}catch(error){
+        showMessage(
+            "✅ Progress Delete হয়েছে।",
+            "success"
+        );
 
-console.error(
-"Delete Error:",
-error
-);
 
-showMessage(
-"❌ Delete Error: " +
-error.message,
-"error"
-);
+        if(currentStudent){
 
-}
+            await loadHistory(
+                currentStudent.id
+            );
+
+        }
+
+
+    }catch(error){
+
+        console.error(
+            "Delete Error:",
+            error
+        );
+
+
+        showMessage(
+            "❌ Delete Error: " +
+            (error.message || "অজানা সমস্যা"),
+            "error"
+        );
+
+    }
 
 }
 
 
 /* =========================================================
-CLEAR FORM
+   CLEAR FORM
 ========================================================= */
 
 function clearForm(show=true){
 
-editingId = null;
+    editingId =
+        null;
 
 
-document
-.getElementById("progressDate")
-.value =
-new Date()
-.toISOString()
-.split("T")[0];
+    document
+        .getElementById("progressDate")
+        .value =
+        new Date()
+        .toISOString()
+        .split("T")[0];
 
 
-document
-.getElementById("level")
-.value =
-"নাজেরা";
+    document
+        .getElementById("level")
+        .value =
+        "নাজেরা";
 
 
-document
-.getElementById("surah")
-.value =
-"";
+    document
+        .getElementById("surah")
+        .value =
+        "";
 
 
-document
-.getElementById("ayat")
-.value =
-"";
+    document
+        .getElementById("ayat")
+        .value =
+        "";
 
 
-document
-.getElementById("para")
-.value =
-"";
+    document
+        .getElementById("para")
+        .value =
+        "";
 
 
-document
-.getElementById("progress")
-.value =
-"0";
+    document
+        .getElementById("progress")
+        .value =
+        "0";
 
 
-document
-.getElementById("tilawat")
-.value =
-"চমৎকার";
+    document
+        .getElementById("tilawat")
+        .value =
+        "চমৎকার";
 
 
-document
-.getElementById("tajweed")
-.value =
-"চমৎকার";
+    document
+        .getElementById("tajweed")
+        .value =
+        "চমৎকার";
 
 
-document
-.getElementById("teacherComment")
-.value =
-"";
+    document
+        .getElementById("teacherComment")
+        .value =
+        "";
 
 
-updateProgress();
+    updateProgress();
 
 
-if(show){
+    if(show){
 
-showMessage(
-"🔄 ফর্ম পরিষ্কার করা হয়েছে।",
-"info"
-);
+        showMessage(
+            "🔄 Form পরিষ্কার করা হয়েছে।",
+            "info"
+        );
 
-}
-
-}
-
-
-/* =========================================================
-CLEAR SEARCH
-========================================================= */
-
-function clearSearch(){
-
-document
-.getElementById("roll")
-.value =
-"";
-
-document
-.getElementById("studentId")
-.value =
-"";
-
-
-document
-.getElementById("studentCard")
-.style.display =
-"none";
-
-
-document
-.getElementById("historyCard")
-.style.display =
-"none";
-
-
-currentStudent =
-null;
-
-editingId =
-null;
-
-
-document
-.getElementById("message")
-.className =
-"message";
-
-document
-.getElementById("message")
-.textContent =
-"";
-
-
-document
-.getElementById("roll")
-.focus();
-
-}
-
-
-function focusStudentId(){
-
-document
-.getElementById("studentId")
-.focus();
+    }
 
 }
 
 
 /* =========================================================
-DATE FORMAT
+   DATE FORMAT
 ========================================================= */
 
 function formatDate(date){
 
-if(!date){
+    if(!date){
 
-return "—";
+        return "—";
 
-}
+    }
 
-const d =
-new Date(date + "T00:00:00");
 
-return d.toLocaleDateString(
-"bn-BD",
-{
-year:"numeric",
-month:"long",
-day:"numeric"
-}
-);
+    try{
+
+        return new Date(date)
+
+            .toLocaleDateString(
+                "bn-BD",
+                {
+                    year:"numeric",
+                    month:"long",
+                    day:"numeric"
+                }
+            );
+
+    }catch(e){
+
+        return date;
+
+    }
 
 }
 
 
 /* =========================================================
-HTML ESCAPE
+   HTML ESCAPE
 ========================================================= */
 
 function escapeHTML(value){
 
-return String(value ?? "")
+    return String(
+        value ?? ""
+    )
 
-.replace(/&/g,"&amp;")
-.replace(/</g,"&lt;")
-.replace(/>/g,"&gt;")
-.replace(/"/g,"&quot;")
-.replace(/'/g,"&#039;");
+    .replace(
+        /&/g,
+        "&amp;"
+    )
 
-}
+    .replace(
+        /</g,
+        "&lt;"
+    )
 
+    .replace(
+        />/g,
+        "&gt;"
+    )
 
-function escapeAttribute(value){
+    .replace(
+        /"/g,
+        "&quot;"
+    )
 
-return String(value ?? "")
-.replace(/\\/g,"\\\\")
-.replace(/'/g,"\\'");
+    .replace(
+        /'/g,
+        "&#039;"
+    );
 
 }
 
 
 /* =========================================================
-ENTER SEARCH
+   JS STRING ESCAPE
 ========================================================= */
 
-document
-.getElementById("roll")
-.addEventListener(
-"keydown",
-function(e){
+function escapeJS(value){
 
-if(e.key === "Enter"){
+    return String(
+        value ?? ""
+    )
 
-findStudent();
+    .replace(
+        /\\/g,
+        "\\\\"
+    )
+
+    .replace(
+        /'/g,
+        "\\'"
+    )
+
+    .replace(
+        /"/g,
+        '\\"'
+    )
+
+    .replace(
+        /\n/g,
+        "\\n"
+    )
+
+    .replace(
+        /\r/g,
+        "\\r"
+    );
 
 }
-
-});
-
-
-document
-.getElementById("studentId")
-.addEventListener(
-"keydown",
-function(e){
-
-if(e.key === "Enter"){
-
-findStudent();
-
-}
-
-});
 
 
 /* =========================================================
-IMAGE FALLBACK
+   ENTER SEARCH
 ========================================================= */
 
 document
-.getElementById("studentPhoto")
-.addEventListener(
-"error",
-function(){
+    .getElementById("roll")
+    .addEventListener(
+        "keydown",
+        function(e){
 
-if(this.src.indexOf("logo.png") === -1){
+            if(e.key === "Enter"){
 
-this.src =
-"img/logo.png";
+                findStudent();
 
-}
+            }
 
-});
+        }
+    );
+
+
+document
+    .getElementById("studentId")
+    .addEventListener(
+        "keydown",
+        function(e){
+
+            if(e.key === "Enter"){
+
+                findStudent();
+
+            }
+
+        }
+    );
+
+
+/* =========================================================
+   PHOTO SAFETY
+========================================================= */
+
+document
+    .getElementById("studentPhoto")
+    .addEventListener(
+        "error",
+        function(){
+
+            this.style.display =
+                "none";
+
+            this.src = "";
+
+            document
+                .getElementById("photoPlaceholder")
+                .style.display =
+                "flex";
+
+        }
+    );
 
 
 </script>
+
 
 </body>
 </html>
