@@ -1,948 +1,197 @@
-<!DOCTYPE html>
-<html lang="bn">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>শিক্ষার্থী ব্যবস্থাপনা | মাদরাসায়ে নূরুল কুরআন</title>
-
+<!DOCTYPE html><html lang="bn"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Students</title>
+<script>(function(){function show(m){var d=document.getElementById("__err");if(!d){d=document.createElement("div");d.id="__err";d.style.cssText="position:fixed;inset:auto 8px 8px 8px;z-index:9999;background:#fde8e8;color:#a11;border:1px solid #e3a;padding:10px;border-radius:10px;font:13px monospace;white-space:pre-wrap;max-height:40vh;overflow:auto";(document.body||document.documentElement).appendChild(d)}d.textContent+=m+"\n"}
+window.addEventListener("error",function(e){show("JS error: "+e.message+" ("+(e.filename||"").split("/").pop()+":"+e.lineno+")")});window.addEventListener("unhandledrejection",function(e){show("Promise error: "+(e.reason&&e.reason.message||e.reason))})})();</script>
 <link rel="stylesheet" href="https://banglawebfonts.pages.dev/css/bornomala.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Noto+Naskh+Arabic:wght@400;700&display=swap">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>:root{--g:#0e5a40;--gd:#093a29;--gold:#c9a227;--bg:#f3ede0;--cream:#f3ead0}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Bornomala",serif;background:var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cg fill='none' stroke='%230e5a40' stroke-opacity='.09' stroke-width='1.2'%3E%3Ccircle cx='30' cy='30' r='14'/%3E%3Cpath d='M30 4l6 14 14-6-6 14 14 6-14 6 6 14-14-6-6 14-6-14-14 6 6-14-14-6 14-6-6-14 14 6z'/%3E%3C/g%3E%3C/svg%3E");color:#17382c;padding-bottom:110px}
+html[lang=en] body,html[lang=en] select{font-family:Inter,sans-serif}
+html[lang=ar] body,html[lang=ar] select{font-family:"Noto Naskh Arabic",serif}
+.top{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fffdf8;border-bottom:1px solid rgba(201,162,39,.3);position:sticky;top:0;z-index:20}
+.sn{flex:1;color:var(--g);font-size:15px}
+.acts{display:flex;gap:8px;align-items:center}
+.tb,select{border:1px solid rgba(201,162,39,.35);background:#fffdf8;color:var(--g);border-radius:12px;padding:8px 11px;font-size:14px;cursor:pointer}
+main{max-width:1100px;margin:14px auto;padding:0 14px}
+.hero{display:flex;align-items:center;justify-content:center;gap:12px;background:linear-gradient(135deg,#0c4a34,#093a29);color:#fff;border-radius:22px;padding:30px 16px;box-shadow:0 10px 26px rgba(14,70,50,.25)}
+.hi{width:46px;height:46px;border-radius:14px;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;color:#e8c766}
+h1{font-size:22px;font-weight:700}.nm{font-weight:500}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.card{background:#fffdf8;border:1px solid rgba(201,162,39,.25);border-top:3px solid var(--gold);border-radius:20px;padding:20px 8px 16px;text-align:center;box-shadow:0 8px 20px rgba(14,70,50,.1);color:inherit;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:12px;transition:.2s}
+.card:hover{transform:translateY(-3px)}
+.ic{width:52px;height:52px;border-radius:50%;background:var(--cream);color:var(--g);display:flex;align-items:center;justify-content:center;font-size:20px}
+.nm{font-size:13px;line-height:1.4}
+@media(min-width:760px){.grid{grid-template-columns:repeat(5,1fr)}.nm{font-size:15px}}
+.bn{position:fixed;inset:auto 0 0 0;display:flex;background:#fffdf8;border-radius:26px 26px 0 0;box-shadow:0 -6px 24px rgba(14,70,50,.15);padding:8px 6px calc(8px + env(safe-area-inset-bottom,0px));z-index:30}
+.bn a{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;color:#6b7d73;padding:6px 2px;border-radius:16px;text-decoration:none}
+.bn a i{font-size:20px}.bn a.active{background:#e9f1ea;color:var(--g);font-weight:700}
+.fab{position:fixed;inset-inline-end:16px;bottom:92px;width:54px;height:54px;border-radius:50%;background:var(--g);color:#fff;border:3px solid #fff;display:flex;align-items:center;justify-content:center;font-size:21px;box-shadow:0 8px 20px rgba(14,90,64,.4);z-index:31}
+@media print{.top,.bn,.fab{display:none}body{background:#fff;padding:0}.hero{background:#0e5a40!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}.card{box-shadow:none;break-inside:avoid}.grid{grid-template-columns:repeat(4,1fr)}}
 
-<style>
-*{box-sizing:border-box}
-html,body{margin:0;padding:0}
-body{font-family:'Bornomala',sans-serif;background:#eef3f9;color:#18344d;font-size:14px}
-button,input,select,textarea{font-family:inherit}
+.sv{width:1em;height:1em;fill:currentColor;vertical-align:-.125em;display:inline-block}
+.rail{position:fixed;inset-block:58px 0;inset-inline-start:0;width:46px;background:linear-gradient(180deg,#0f5a40,#093a29);display:flex;flex-direction:column;align-items:center;gap:6px;padding-top:14px;z-index:25}
+.rail a{width:36px;height:36px;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#e8c766;font-size:16px}
+.rail a.on{background:#e8c766;color:#073826}
+main{margin-inline-start:56px;margin-inline-end:10px;max-width:none;padding:0}
+.top{padding-inline-start:56px}
+@media(min-width:760px){main{margin-inline-start:70px;margin-inline-end:20px}}
+@media print{.rail{display:none}main{margin:0}}
 
-.topbar{
- min-height:64px;
- background:linear-gradient(135deg,#0759ad,#087ed3);
- color:#fff;
- display:flex;
- align-items:center;
- justify-content:space-between;
- gap:12px;
- padding:10px 22px;
- box-shadow:0 4px 16px #0041823d
-}
-.brand{display:flex;align-items:center;gap:10px}
-.brand-logo{
- width:40px;height:40px;border-radius:11px;
- background:#ffffff29;display:grid;place-items:center;font-size:20px
-}
-.brand h1{margin:0;font-size:18px}
-.brand small{font-size:9px;opacity:.85}
-.top-actions{display:flex;gap:7px}
-.top-actions a,.top-actions button{
- color:#fff;text-decoration:none;border:0;border-radius:8px;
- background:#ffffff24;padding:8px 12px;cursor:pointer
-}
-
-.container{max-width:1400px;margin:auto;padding:16px}
-.alert{
- display:none;padding:10px 13px;margin-bottom:12px;
- border-radius:8px;background:#fff0f0;color:#a12626;
- border:1px solid #ffd0d0
-}
-.alert.ok{background:#edf9f1;color:#176b2e;border-color:#bfe8ca}
-
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
-.stat{
- background:#fff;border-radius:12px;padding:13px 15px;
- box-shadow:0 5px 18px #1a354f14;display:flex;align-items:center;gap:12px
-}
-.stat-icon{
- width:42px;height:42px;border-radius:10px;background:#edf4ff;
- display:grid;place-items:center;font-size:20px
-}
-.stat b{display:block;font-size:21px;color:#172d42}
-.stat span{font-size:12px;color:#778490}
-
-.card{
- background:#fff;border-radius:13px;padding:16px;margin-bottom:16px;
- box-shadow:0 5px 18px #1a354f14
-}
-.card-title{
- display:flex;align-items:center;justify-content:space-between;
- gap:10px;margin-bottom:13px;flex-wrap:wrap
-}
-.card-title h2{margin:0;font-size:18px;color:#19486d}
-
-.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 14px}
-.field label{display:block;font-size:12px;font-weight:700;color:#31485c;margin-bottom:5px}
-.field input,.field select,.field textarea{
- width:100%;border:1px solid #dbe3eb;border-radius:8px;
- padding:9px 10px;background:#fff;color:#263d51;outline:none
-}
-.field input:focus,.field select:focus,.field textarea:focus{
- border-color:#1681d2;box-shadow:0 0 0 2px #1681d214
-}
-.field textarea{min-height:75px;resize:vertical}
-.full{grid-column:1/-1}
-.actions{display:flex;gap:8px;margin-top:4px;flex-wrap:wrap}
-
-.btn{border:0;border-radius:8px;padding:9px 14px;cursor:pointer;font-weight:700}
-.btn-primary{background:#0879c9;color:#fff}
-.btn-secondary{background:#edf2f7;color:#344b60}
-.btn-green{background:#198c51;color:#fff}
-.btn-gold{background:#f0c83e;color:#332b05}
-.btn:disabled{opacity:.55;cursor:not-allowed}
-
-.toolbar{
- display:grid;grid-template-columns:1.7fr 1fr 1fr auto;
- gap:8px;margin-bottom:10px
-}
-.toolbar input,.toolbar select{
- width:100%;padding:9px 10px;border:1px solid #dbe3eb;
- border-radius:8px;background:#fff;outline:none
-}
-.toolbar-actions{display:flex;gap:7px;flex-wrap:wrap}
-
-.table-wrap{overflow:auto;border:1px solid #e2e8ef;border-radius:9px}
-table{width:100%;border-collapse:collapse;min-width:1050px}
-th,td{
- padding:8px 7px;border-bottom:1px solid #edf1f5;
- text-align:left;white-space:nowrap
-}
-th{background:#edf5ff;color:#18476e;font-size:12px}
-td{font-size:12px}
-tbody tr:hover{background:#f8fbff}
-.student-photo{
- width:34px;height:34px;object-fit:cover;border-radius:50%;
- border:1px solid #d9e3ee;background:#f2f5f8
-}
-.empty{text-align:center!important;padding:30px!important;color:#7a8792}
-.row-actions{display:flex;gap:5px}
-.mini{border:0;border-radius:6px;padding:5px 8px;cursor:pointer;font-size:11px}
-.edit{background:#e7f2ff;color:#0564a9}
-.del{background:#ffe8e8;color:#b52a2a}
-.print-one{background:#eaf8ef;color:#19723a}
-
-.footer{text-align:center;color:#8b98a5;font-size:11px;padding:10px 0 22px}
+.top{padding-inline-start:56px}main{max-width:1300px;margin:14px auto;margin-inline-start:56px;margin-inline-end:10px;padding:0 0 150px}@media(min-width:760px){main{margin-inline-start:70px}}
+.hero2{background:linear-gradient(135deg,#0c4a34,#093a29);color:#fff;border-radius:22px;padding:18px 14px;text-align:center;box-shadow:0 10px 26px rgba(14,70,50,.25)}.hero2 h1{font-size:22px;display:flex;gap:10px;align-items:center;justify-content:center}.hero2 .bt{display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap}
+.hbt{border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.14);color:#fff;border-radius:10px;padding:8px 14px;font-size:14px;cursor:pointer;display:inline-flex;gap:8px;align-items:center;text-decoration:none}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:14px}@media(min-width:800px){.stats{grid-template-columns:repeat(4,1fr)}}
+.st{background:#fffdf8;border:1px solid rgba(201,162,39,.25);border-top:3px solid #0e5a40;border-radius:18px;padding:14px;display:flex;gap:12px;align-items:center;box-shadow:0 8px 20px rgba(14,70,50,.1)}.st i{width:44px;height:44px;border-radius:14px;background:#0e4a35;color:#e8c766;display:flex;align-items:center;justify-content:center;flex:none}.st b{display:block;font-size:22px;color:#0e5a40}.st span{font-size:12px;color:#3d5a4d}
+.card{background:#fffdf8;border-radius:20px;padding:14px;margin-top:14px;box-shadow:0 8px 20px rgba(14,70,50,.1)}
+.tools{display:grid;grid-template-columns:1fr;gap:8px}@media(min-width:800px){.tools{grid-template-columns:2fr 1fr 1fr auto}}
+.tools input,.tools select{padding:11px 12px;border:1px solid #d9dedd;border-radius:10px;font-size:14px;background:#fff;color:#17382c;width:100%}
+.btn{border:0;border-radius:10px;padding:10px 14px;color:#fff;font-size:14px;cursor:pointer;display:inline-flex;gap:8px;align-items:center}
+.ptools{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.grp{border:1px solid #e3e3e3;border-top:3px solid #c9a227;border-radius:16px;margin-top:14px;background:#fff;overflow:hidden}.gh{display:flex;align-items:center;gap:10px;padding:12px 14px;background:#f3ead0;flex-wrap:wrap}.gh b{font-size:17px;color:#0e5a40}.gh .n{background:#0e5a40;color:#fff;border-radius:999px;padding:2px 12px;font-size:13px}.gh .sp{flex:1}
+.tw{overflow:auto}table.t{width:100%;border-collapse:collapse;min-width:900px}.t th{background:#edf4ee;color:#0e5a40;font-size:12px;padding:8px;text-align:start;white-space:nowrap}.t td{padding:8px;border-top:1px solid #edf1f0;font-size:13px;white-space:nowrap}.t tr:hover{background:#faf7ec}
+.ph{width:36px;height:36px;border-radius:50%;object-fit:cover;border:1px solid #d9e3ee;background:#f2f5f8;display:inline-flex;align-items:center;justify-content:center;color:#889}
+.mini{border:0;border-radius:7px;padding:5px 9px;cursor:pointer;font-size:12px;text-decoration:none;display:inline-block}.m1{background:#e7f2ff;color:#0564a9}.m2{background:#eaf8ef;color:#19723a}.m3{background:#ffe8e8;color:#b52a2a}
+.ra{display:flex;gap:5px}.nw{background:#f5d25c;color:#5a4300;border-radius:6px;padding:0 6px;font-size:11px;margin-inline-start:6px}
+.al{display:none;padding:10px 13px;margin-top:12px;border-radius:10px;background:#dff3e8;color:#0e5a40}.al.bad{background:#fde8e8;color:#a11}.al.on{display:block}.emp{text-align:center;color:#7a8a80;padding:24px}
 #printArea{display:none}
-
-@media(max-width:900px){
- .stats{grid-template-columns:repeat(2,1fr)}
- .toolbar{grid-template-columns:1fr 1fr}
-}
-@media(max-width:600px){
- body{font-size:13px}
- .topbar{padding:10px}
- .brand h1{font-size:15px}
- .brand small{font-size:8px}
- .top-actions a,.top-actions button{padding:7px 8px;font-size:11px}
- .container{padding:10px}
- .stats{gap:8px}
- .stat{padding:10px}
- .stat-icon{width:34px;height:34px;font-size:17px}
- .stat b{font-size:17px}
- .stat span{font-size:10px}
- .form-grid,.toolbar{grid-template-columns:1fr}
- .full{grid-column:auto}
- .toolbar-actions{display:grid;grid-template-columns:1fr 1fr}
- .card{padding:12px}
-}
-
-/* PRINT LAYOUT */
-@page listPage{size:A4 landscape;margin:7mm}
-@page profilePage{size:A4 portrait;margin:10mm}
-
 @media print{
- html,body{
-  margin:0!important;padding:0!important;width:100%!important;
-  background:#fff!important;color:#111!important
- }
+ @page{size:A4 landscape;margin:8mm}
  body>*:not(#printArea){display:none!important}
- #printArea{
-  display:block!important;width:100%!important;margin:0!important;
-  padding:0!important;font-family:'Bornomala',sans-serif!important;
-  color:#111!important
- }
- #printArea.list-print{page:listPage}
-
- .print-header{text-align:center;margin-bottom:6px}
- .print-header h1{margin:0 0 3px;font-size:21px;line-height:1.4}
- .print-header h2{margin:0 0 3px;font-size:15px;line-height:1.4}
- .print-header p{margin:0;font-size:10px}
-
- .print-meta{
-  display:flex;justify-content:space-between;gap:8px;
-  border-top:1px solid #333;border-bottom:1px solid #333;
-  padding:5px 0;margin:7px 0;font-size:10px
- }
- .print-table{
-  width:100%!important;min-width:0!important;
-  border-collapse:collapse!important;table-layout:auto
- }
- .print-table thead{display:table-header-group}
- .print-table tr{break-inside:avoid;page-break-inside:avoid}
- .print-table th,.print-table td{
-  border:1px solid #555!important;padding:4px 3px;
-  font-size:9px;line-height:1.35;color:#111!important;
-  white-space:normal;overflow-wrap:anywhere
- }
- .print-table th{
-  background:#edf3f8!important;
-  -webkit-print-color-adjust:exact;print-color-adjust:exact
- }
- .print-img{
-  width:25px;height:25px;object-fit:cover;display:block;margin:auto
- }
- .print-footer{text-align:center;margin-top:8px;font-size:9px;color:#555}
-
- #printArea.profile-print{page:profilePage}
- #printArea.profile-print .profile{
-  width:100%!important;max-width:none!important;min-height:0!important;
-  margin:0!important;padding:9mm!important;
-  border:1.5px solid #18344d;border-radius:3mm;
-  box-sizing:border-box!important;background:#fff!important
- }
- .profile-top{text-align:center;margin-bottom:7mm}
- .profile-photo{
-  display:block;width:28mm;height:28mm;object-fit:cover;
-  border-radius:50%;border:1px solid #777;margin:0 auto 4mm
- }
- .profile-title{margin:0;font-size:23px;line-height:1.5;font-weight:700}
- .profile-sub{margin:2px 0;font-size:12px;line-height:1.5}
- .profile-table{
-  width:100%!important;min-width:0!important;table-layout:fixed!important;
-  border-collapse:collapse!important;margin-top:6mm
- }
- .profile-table tr{break-inside:avoid;page-break-inside:avoid}
- .profile-table td{
-  border:1px solid #555!important;padding:9px 10px;
-  font-size:12px;line-height:1.5;white-space:normal!important;
-  overflow-wrap:anywhere;vertical-align:middle;color:#111!important
- }
- .profile-table td:first-child{
-  width:34%!important;font-weight:700;background:#edf3f8!important;
-  -webkit-print-color-adjust:exact;print-color-adjust:exact
- }
- .profile-table td:nth-child(2){width:66%!important;background:#fff!important}
- .profile-footer{
-  display:flex;justify-content:space-between;gap:15mm;
-  margin-top:30mm;font-size:11px
- }
- .profile-footer span{
-  min-width:35%;padding-top:3mm;border-top:1px solid #555;text-align:center
- }
- #printArea.profile-print .print-footer{margin-top:10mm}
+ html,body{background:#fff!important;padding:0!important;margin:0!important;color:#111!important}
+ #printArea{display:block!important}
+ .pcls{break-after:page;page-break-after:always}.pcls:last-child{break-after:auto;page-break-after:auto}
+ .ph1{text-align:center;margin-bottom:6px}.ph1 h1{font-size:21px;margin:0 0 3px}.ph1 h2{font-size:15px;margin:0 0 3px}.ph1 p{font-size:10px;margin:0}
+ .pm{display:flex;justify-content:space-between;border-top:1px solid #333;border-bottom:1px solid #333;padding:5px 0;margin:7px 0;font-size:11px}
+ .pt{width:100%;border-collapse:collapse}.pt thead{display:table-header-group}.pt tr{break-inside:avoid}
+ .pt th,.pt td{border:1px solid #555;padding:4px 3px;font-size:9.5px;color:#111;white-space:normal;overflow-wrap:anywhere;text-align:start}.pt th{background:#edf3f8;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .pi{width:25px;height:25px;object-fit:cover;display:block;margin:auto}.pf{text-align:center;margin-top:8px;font-size:9px;color:#555}
+ .prof{border:1.5px solid #18344d;border-radius:3mm;padding:9mm;min-height:0}.prof .tp{text-align:center;margin-bottom:6mm}.prof .pp{width:28mm;height:28mm;object-fit:cover;border-radius:50%;border:1px solid #777;margin:0 auto 4mm;display:block}
+ .prof h1{font-size:23px;margin:0}.prof .sub{font-size:12px;margin:2px 0}.prof table{width:100%;border-collapse:collapse;margin-top:6mm;table-layout:fixed}.prof td{border:1px solid #555;padding:9px 10px;font-size:12px;white-space:normal;overflow-wrap:anywhere}.prof td:first-child{width:34%;font-weight:700;background:#edf3f8;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .sg{display:flex;justify-content:space-between;gap:15mm;margin-top:30mm;font-size:11px}.sg span{min-width:35%;padding-top:3mm;border-top:1px solid #555;text-align:center}
 }
-</style>
-</head>
-
-<body>
-
-<header class="topbar no-print">
- <div class="brand">
-  <div class="brand-logo">🎓</div>
-  <div>
-   <h1>শিক্ষার্থী ব্যবস্থাপনা</h1>
-   <small>MADRASA-E NURUL QURAN</small>
-  </div>
- </div>
- <div class="top-actions">
-  <a href="admin.html">🏠 Dashboard</a>
-  <button id="logoutBtn" type="button">↪ Logout</button>
- </div>
-</header>
-
-<main class="container no-print">
- <div id="alert" class="alert"></div>
-
- <section class="stats">
-  <div class="stat"><div class="stat-icon">👨‍🎓</div><div><b id="totalStudents">0</b><span>মোট শিক্ষার্থী</span></div></div>
-  <div class="stat"><div class="stat-icon">📅</div><div><b id="yearStudents">0</b><span>নির্বাচিত বছরের শিক্ষার্থী</span></div></div>
-  <div class="stat"><div class="stat-icon">🏫</div><div><b id="totalClasses">0</b><span>মোট শ্রেণি</span></div></div>
-  <div class="stat"><div class="stat-icon">📝</div><div><b id="pendingAdmission">0</b><span>Pending Admission</span></div></div>
- </section>
-
- <section class="card">
-  <div class="card-title"><h2>➕ নতুন শিক্ষার্থী যোগ করুন</h2></div>
-
-  <form id="studentForm">
-   <input type="hidden" id="editId">
-
-   <div class="form-grid">
-    <div class="field">
-     <label>Student ID <span style="color:#d22">*</span></label>
-     <input id="studentId" required placeholder="Student ID লিখুন" autocomplete="off">
-    </div>
-
-    <div class="field">
-     <label>Roll Number <span style="color:#d22">*</span></label>
-     <input id="rollNumber" required placeholder="যেমন: 01" autocomplete="off">
-    </div>
-
-    <div class="field">
-     <label>শিক্ষার্থীর নাম <span style="color:#d22">*</span></label>
-     <input id="name" required placeholder="শিক্ষার্থীর পূর্ণ নাম">
-    </div>
-
-    <div class="field">
-     <label>পিতার নাম</label>
-     <input id="fatherName" placeholder="পিতার নাম">
-    </div>
-
-    <div class="field">
-     <label>মাতার নাম</label>
-     <input id="motherName" placeholder="মাতার নাম">
-    </div>
-
-    <div class="field">
-     <label>মোবাইল নম্বর <span style="color:#d22">*</span></label>
-     <input id="phone" type="tel" required placeholder="01XXXXXXXXX" autocomplete="off">
-    </div>
-
-    <div class="field">
-     <label>শিক্ষাবর্ষ <span style="color:#d22">*</span></label>
-     <select id="session" required>
-      <option value="">শিক্ষাবর্ষ নির্বাচন করুন</option>
-     </select>
-    </div>
-
-    <div class="field">
-     <label>শ্রেণি <span style="color:#d22">*</span></label>
-     <select id="classId" required>
-      <option value="">শ্রেণি নির্বাচন করুন</option>
-     </select>
-    </div>
-
-    <div class="field">
-     <label>ভর্তি তারিখ</label>
-     <input id="admissionDate" type="date">
-    </div>
-
-    <div class="field">
-     <label>ছবি</label>
-     <input id="photo" type="file" accept="image/*">
-    </div>
-
-    <div class="field full">
-     <label>ঠিকানা</label>
-     <textarea id="address" placeholder="শিক্ষার্থীর পূর্ণ ঠিকানা"></textarea>
-    </div>
-
-    <div class="actions full">
-     <button class="btn btn-primary" type="submit" id="saveBtn">💾 শিক্ষার্থী সংরক্ষণ</button>
-     <button class="btn btn-secondary" type="button" id="resetBtn">↻ Reset</button>
-    </div>
-   </div>
-  </form>
- </section>
-
- <section class="card">
-  <div class="card-title">
-   <h2>👨‍🎓 শিক্ষার্থীদের তালিকা</h2>
-   <div class="toolbar-actions">
-    <button class="btn btn-green" id="filteredPrintBtn" type="button">🖨 Filtered Print</button>
-    <button class="btn btn-gold" id="allPrintBtn" type="button">🖨 All Print</button>
-   </div>
-  </div>
-
-  <div class="toolbar">
-   <input id="search" type="search" placeholder="🔎 Roll / Student ID / নাম / মোবাইল / পিতার নাম দিয়ে খুঁজুন...">
-
-   <select id="filterSession">
-    <option value="">সব শিক্ষাবর্ষ</option>
-   </select>
-
-   <select id="filterClass">
-    <option value="">সব শ্রেণি</option>
-   </select>
-
-   <button class="btn btn-secondary" id="clearBtn" type="button">✕ Clear</button>
-  </div>
-
-  <div class="table-wrap">
-   <table>
-    <thead>
-     <tr>
-      <th>ছবি</th>
-      <th>Student ID</th>
-      <th>Roll</th>
-      <th>নাম</th>
-      <th>পিতার নাম</th>
-      <th>মাতার নাম</th>
-      <th>মোবাইল</th>
-      <th>শ্রেণি</th>
-      <th>বছর</th>
-      <th>ভর্তি তারিখ</th>
-      <th>Action</th>
-     </tr>
-    </thead>
-    <tbody id="studentTable">
-     <tr><td colspan="11" class="empty">লোড হচ্ছে...</td></tr>
-    </tbody>
-   </table>
-  </div>
- </section>
-</main>
-
-<footer class="footer no-print">
- © 2026 মাদরাসায়ে নূরুল কুরআন — Student Management System
-</footer>
-
-<div id="printArea"></div>
-
+button,input,select,textarea{font-family:inherit}</style></head><body>
+<header class="top"><a class="tb" href="dashboard.html"><svg class="sv" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M277.8 8.6c-12.3-11.4-31.3-11.4-43.5 0l-224 208c-9.6 9-12.8 22.9-8 35.1S18.8 272 32 272h16v176c0 35.3 28.7 64 64 64h288c35.3 0 64-28.7 64-64V272h16c13.2 0 25-8.1 29.8-20.3s1.6-26.2-8-35.1zM240 320h32c26.5 0 48 21.5 48 48v96H192v-96c0-26.5 21.5-48 48-48"/></svg></a><b class="sn" data-t="schoolName"></b><div class="acts"><button class="tb" id="lo" title="Logout"><svg class="sv" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M505 273c9.4-9.4 9.4-24.6 0-33.9L361 95c-6.9-6.9-17.2-8.9-26.2-5.2S320 102.3 320 112v80H208c-26.5 0-48 21.5-48 48v32c0 26.5 21.5 48 48 48h112v80c0 9.7 5.8 18.5 14.8 22.2s19.3 1.7 26.2-5.2zM160 96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96C43 32 0 75 0 128v256c0 53 43 96 96 96h64c17.7 0 32-14.3 32-32s-14.3-32-32-32H96c-17.7 0-32-14.3-32-32V128c0-17.7 14.3-32 32-32z"/></svg></button><select id="lang"><option value="bn">বাংলা</option><option value="en">English</option><option value="ar">العربية</option></select></div></header>
+<aside class="rail"><a href="dashboard.html" class=""><svg class="sv" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M384 96H256v128h128zm64 128v192c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96c0-35.3 28.7-64 64-64h320c35.3 0 64 28.7 64 64zM64 288v128h128V288zm128-64V96H64v128zm64 64v128h128V288z"/></svg></a><a href="students.html" class="on"><svg class="sv" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M241.3-13c-11.4-2.3-23.1-2.3-34.5 0L19.3 24.5C8.1 26.7 0 36.6 0 48c0 10.3 6.5 19.3 16 22.6V144L.3 222.6c-.2.9-.3 1.9-.3 2.9 0 8 6.5 14.6 14.6 14.6h34.9c8 0 14.6-6.5 14.6-14.6 0-1-.1-1.9-.3-2.9L48 144V77.3l48 9.6V144c0 70.7 57.3 128 128 128s128-57.3 128-128V86.9l76.7-15.3C439.9 69.3 448 59.4 448 48s-8.1-21.3-19.3-23.5zM224 224c-44.2 0-80-35.8-80-80h160c0 44.2-35.8 80-80 80m-103.9 96.1C58.7 348.3 16 410.3 16 482.3c0 16.4 13.3 29.7 29.7 29.7H200V366l-57.4-43c-6.5-4.9-15.2-6.2-22.6-2.8zM248 512h154.3c16.4 0 29.7-13.3 29.7-29.7 0-72-42.7-134-104.1-162.1-7.4-3.4-16.1-2.1-22.6 2.8l-57.4 43v146z"/></svg></a><a href="donations-hub.html" class=""><svg class="sv" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M288-16c-13.3 0-24 10.7-24 24v12h-1.8C225.6 20 196 49.7 196 86.2c0 33.4 24.9 61.6 58 65.7l61 7.6c5.1.6 9 5 9 10.2 0 5.7-4.6 10.2-10.2 10.2l-73.8.1c-15.5 0-28 12.5-28 28s12.5 28 28 28h24v12c0 13.3 10.7 24 24 24s24-10.7 24-24v-12h1.8c36.6 0 66.2-29.7 66.2-66.2 0-33.4-24.9-61.6-58-65.7l-61-7.6c-5.1-.6-9-5-9-10.2 0-5.7 4.6-10.2 10.2-10.2L328 76c15.5 0 28-12.5 28-28s-12.5-28-28-28h-16V8c0-13.3-10.7-24-24-24M109.3 341.5 66.7 384H32c-17.7 0-32 14.3-32 32v64c0 17.7 14.3 32 32 32h320.5c29 0 57.3-9.3 80.7-26.5l126.6-93.3c17.8-13.1 21.6-38.1 8.5-55.9s-38.1-21.6-55.9-8.5L392.6 416H280c-13.3 0-24-10.7-24-24s10.7-24 24-24h72c17.7 0 32-14.3 32-32s-14.3-32-32-32H199.8c-33.9 0-66.5 13.5-90.5 37.5"/></svg></a><a href="accounts-hub.html" class=""><svg class="sv" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M64 0C28.7 0 0 28.7 0 64v384c0 35.3 28.7 64 64 64h256c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64zm32 64h192c17.7 0 32 14.3 32 32v32c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V96c0-17.7 14.3-32 32-32m16 168a24 24 0 1 1-48 0 24 24 0 1 1 48 0m80 24a24 24 0 1 1 0-48 24 24 0 1 1 0 48m128-24a24 24 0 1 1-48 0 24 24 0 1 1 48 0M88 352a24 24 0 1 1 0-48 24 24 0 1 1 0 48m128-24a24 24 0 1 1-48 0 24 24 0 1 1 48 0m80 24a24 24 0 1 1 0-48 24 24 0 1 1 0 48M64 424c0-13.3 10.7-24 24-24h112c13.3 0 24 10.7 24 24s-10.7 24-24 24H88c-13.3 0-24-10.7-24-24m232-24c13.3 0 24 10.7 24 24s-10.7 24-24 24-24-10.7-24-24 10.7-24 24-24"/></svg></a><a href="settings-hub.html" class=""><svg class="sv" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M195.1 9.5
+c3-14.8 16.1-25.5 31.3-25.5h59.8c15.2 0 28.3 10.7 31.3 25.5l14.5 70c14.1 6 27.3 13.7 39.3 22.8l67.8-22.5c14.4-4.8 30.2 1.2 37.8 14.4l29.9 51.8c7.6 13.2 4.9 29.8-6.5 39.9L447 233.3c.9 7.4 1.3 15 1.3 22.7s-.5 15.3-1.3 22.7l53.4 47.5c11.4 10.1 14 26.8 6.5 39.9L477 417.9c-7.6 13.1-23.4 19.2-37.8 14.4l-67.8-22.5c-12.1 9.1-25.3 16.7-39.3 22.8l-14.4 69.9c-3.1 14.9-16.2 25.5-31.3 25.5h-59.8c-15.2 0-28.3-10.7-31.3-25.5l-14.4-69.9c-14.1-6-27.2-13.7-39.3-22.8l-68.1 22.5c-14.4 4.8-30.2-1.2-37.8-14.4L5.8 366.1c-7.6-13.2-4.9-29.8 6.5-39.9l53.4-47.5c-.9-7.4-1.3-15-1.3-22.7s.5-15.3 1.3-22.7l-53.4-47.5C.9 175.7-1.7 159 5.8 145.9l29.9-51.8c7.6-13.2 23.4-19.2 37.8-14.4l67.8 22.5c12.1-9.1 25.3-16.7 39.3-22.8zM256.3 336a80 80 0 1 0-.6-160 80 80 0 1 0 .6 160"/></svg></a><a href="attendance-students.html" class=""><svg class="sv" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 256c0-114.9 93.1-208 208-208 63.1 0 119.6 28.1 157.8 72.5 8.6 10.1 23.8 11.2 33.8 2.6s11.2-23.8 2.6-33.8C403.3 34.6 333.7 0 256 0 114.6 0 0 114.6 0 256v40c0 13.3 10.7 24 24 24s24-10.7 24-24zm458.5-52.9c-2.7-13-15.5-21.3-28.4-18.5s-21.3 15.5-18.5 28.4c2.9 13.9 4.5 28.3 4.5 43.1v40c0 13.3 10.7 24 24 24s24-10.7 24-24v-40c0-18.1-1.9-35.8-5.5-52.9zM256 80c-19 0-37.4 3-54.5 8.6-15.2 5-18.7 23.7-8.3 35.9 7.1 8.3 18.8 10.8 29.4 7.9s21.8-4.4 33.4-4.4c70.7 0 128 57.3 128 128v24.9c0 25.2-1.5 50.3-4.4 75.3-1.7 14.6 9.4 27.8 24.2 27.8 11.8 0 21.9-8.6 23.3-20.3 3.3-27.4 5-55 5-82.7v-24.9c0-97.2-78.8-176-176-176zm-105.3 68.7c-9.1-10.6-25.3-11.4-33.9-.4C93.7 178.1 80 215.4 80 256v24.9c0 24.2-2.6 48.4-7.8 71.9-3.4 15.6 7.9 31.1 23.9 31.1 10.5 0 19.9-7 22.2-17.3 6.4-28.1 9.7-56.8 9.7-85.8v-24.9c0-27.2 8.5-52.4 22.9-73.1 7.2-10.4 8-24.6-.2-34.2zM256 160c-53 0-96 43-96 96v24.9c0 35.9-4.6 71.5-13.8 106.1-3.8 14.3 6.7 29 21.5 29 9.5 0 17.9-6.2 20.4-15.4 10.5-39 15.9-79.2 15.9-119.7V256c0-28.7 23.3-52 52-52s52 23.3 52 52v24.9c0 36.3-3.5 72.4-10.4 107.9-2.7 13.9 7.7 27.2 21.8 27.2 10.2 0 19-7 21-17 7.7-38.8 11.6-78.3 11.6-118.1V256c0-53-43-96-96-96m24 96c0-13.3-10.7-24-24-24s-24 10.7-24 24v24.9c0 59.9-11 119.3-32.5 175.2l-5.9 15.3c-4.8 12.4 1.4 26.3 13.8 31s26.3-1.4 31-13.8l5.9-15.3A536.2 536.2 0 0 0 280 280.9z"/></svg></a><a href="reports.html" class=""><svg class="sv" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M0 64C0 28.7 28.7 0 64 0h149.5c17 0 33.3 6.7 45.3 18.7l106.5 106.6c12 12 18.7 28.3 18.7 45.3V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64zm208-5.5V152c0 13.3 10.7 24 24 24h93.5zM120 256c-13.3 0-24 10.7-24 24s10.7 24 24 24h144c13.3 0 24-10.7 24-24s-10.7-24-24-24zm0 96c-13.3 0-24 10.7-24 24s10.7 24 24 24h144c13.3 0 24-10.7 24-24s-10.7-24-24-24z"/></svg></a><a href="sms.html" class=""><svg class="sv" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M224 0c-17.7 0-32 14.3-32 32v3.2C119 50 64 114.6 64 192v21.7c0 48.1-16.4 94.8-46.4 132.4l-9.8 12.2C2.7 364.6 0 372.4 0 380.5 0 400.1 15.9 416 35.5 416h376.9c19.6 0 35.5-15.9 35.5-35.5 0-8.1-2.7-15.9-7.8-22.2l-9.8-12.2c-29.9-37.6-46.3-84.3-46.3-132.4V192c0-77.4-55-142-128-156.8V32c0-17.7-14.3-32-32-32m-62 464c7.1 27.6 32.2 48 62 48s54.9-20.4 62-48z"/></svg></a></aside>
+<main>
+<div class="hero2"><h1><svg class="sv" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M241.3-13c-11.4-2.3-23.1-2.3-34.5 0L19.3 24.5C8.1 26.7 0 36.6 0 48c0 10.3 6.5 19.3 16 22.6V144L.3 222.6c-.2.9-.3 1.9-.3 2.9 0 8 6.5 14.6 14.6 14.6h34.9c8 0 14.6-6.5 14.6-14.6 0-1-.1-1.9-.3-2.9L48 144V77.3l48 9.6V144c0 70.7 57.3 128 128 128s128-57.3 128-128V86.9l76.7-15.3C439.9 69.3 448 59.4 448 48s-8.1-21.3-19.3-23.5zM224 224c-44.2 0-80-35.8-80-80h160c0 44.2-35.8 80-80 80m-103.9 96.1C58.7 348.3 16 410.3 16 482.3c0 16.4 13.3 29.7 29.7 29.7H200V366l-57.4-43c-6.5-4.9-15.2-6.2-22.6-2.8zM248 512h154.3c16.4 0 29.7-13.3 29.7-29.7 0-72-42.7-134-104.1-162.1-7.4-3.4-16.1-2.1-22.6 2.8l-57.4 43v146z"/></svg><span data-t="title"></span></h1><div class="bt"><a class="hbt" href="online-admission.html"><svg class="sv" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M136 128a120 120 0 1 1 240 0 120 120 0 1 1-240 0M48 482.3C48 383.8 127.8 304 226.3 304h59.4c98.5 0 178.3 79.8 178.3 178.3 0 16.4-13.3 29.7-29.7 29.7H77.7C61.3 512 48 498.7 48 482.3M544 96c13.3 0 24 10.7 24 24v48h48c13.3 0 24 10.7 24 24s-10.7 24-24 24h-48v48c0 13.3-10.7 24-24 24s-24-10.7-24-24v-48h-48c-13.3 0-24-10.7-24-24s10.7-24 24-24h48v-48c0-13.3 10.7-24 24-24"/></svg><span data-t="sAdd"></span></a><a class="hbt" href="dashboard.html"><svg class="sv" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 288H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H109.3l105.4-105.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg><span data-t="sBack"></span></a></div></div>
+<div class="stats"><div class="st"><i><svg class="sv" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M241.3-13c-11.4-2.3-23.1-2.3-34.5 0L19.3 24.5C8.1 26.7 0 36.6 0 48c0 10.3 6.5 19.3 16 22.6V144L.3 222.6c-.2.9-.3 1.9-.3 2.9 0 8 6.5 14.6 14.6 14.6h34.9c8 0 14.6-6.5 14.6-14.6 0-1-.1-1.9-.3-2.9L48 144V77.3l48 9.6V144c0 70.7 57.3 128 128 128s128-57.3 128-128V86.9l76.7-15.3C439.9 69.3 448 59.4 448 48s-8.1-21.3-19.3-23.5zM224 224c-44.2 0-80-35.8-80-80h160c0 44.2-35.8 80-80 80m-103.9 96.1C58.7 348.3 16 410.3 16 482.3c0 16.4 13.3 29.7 29.7 29.7H200V366l-57.4-43c-6.5-4.9-15.2-6.2-22.6-2.8zM248 512h154.3c16.4 0 29.7-13.3 29.7-29.7 0-72-42.7-134-104.1-162.1-7.4-3.4-16.1-2.1-22.6 2.8l-57.4 43v146z"/></svg></i><div><b id="cT">0</b><span data-t="stTotal"></span></div></div><div class="st"><i><svg class="sv" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M128 0c17.7 0 32 14.3 32 32v32h128V32c0-17.7 14.3-32 32-32s32 14.3 32 32v32h32c35.3 0 64 28.7 64 64v288c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128c0-35.3 28.7-64 64-64h32V32c0-17.7 14.3-32 32-32M64 240v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16m128 0v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16m144-16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zM64 368v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16m144-16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zm112 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16"/></svg></i><div><b id="cY">0</b><span data-t="stYear"></span></div></div><div class="st"><i><svg class="sv" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M0 192c0-35.3 28.7-64 64-64h64L255.9 12.9c18.3-16.4 46-16.4 64.2 0L448 128h64c35.3 0 64 28.7 64 64v256c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64zm224 184v88h128v-88c0-22.1-17.9-40-40-40h-48c-22.1 0-40 17.9-40 40m-112 8c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16zm16-144v-32c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16m368 144c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16zm16-144v-32c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16m-224 16a64 64 0 1 0 0-128 64 64 0 1 0 0 128"/></svg></i><div><b id="cC">0</b><span data-t="stCls"></span></div></div><a class="st" href="online-admission.html" style="text-decoration:none;color:inherit"><i><svg class="sv" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M128.1 0c-35.3 0-64 28.7-64 64v384c0 35.3 28.7 64 64 64h146.2l10.9-54.5c4.3-21.7 15-41.6 30.6-57.2L448 268.1v-97.5c0-17-6.7-33.3-18.7-45.3L322.8 18.7C310.8 6.7 294.5 0 277.6 0zm261.5 176h-93.5c-13.3 0-24-10.7-24-24V58.5zm-
+57.3 290.9-11.9 59.6c-.2.9-.3 1.9-.3 2.9 0 8 6.5 14.6 14.6 14.6 1 0 1.9-.1 2.9-.3l59.6-11.9c12.4-2.5 23.8-8.6 32.7-17.5l118.9-118.9-80-80-118.9 118.9c-8.9 8.9-15 20.3-17.5 32.7zm267.8-123c22.1-22.1 22.1-57.9 0-80s-57.9-22.1-80 0l-28.8 28.8 80 80z"/></svg></i><div><b id="cP">0</b><span data-t="stPend"></span></div></a></div>
+<div class="al" id="al"></div>
+<div class="card"><div class="tools"><input id="q" type="search"><select id="fy"></select><select id="fc"></select><button class="btn" id="clr" style="background:#6c7683"><svg class="sv" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M55.1 73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L147.2 256 9.9 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l137.3-137.4 137.4 137.3c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.8 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192.5 210.7z"/></svg><span data-t="clear"></span></button></div>
+<div class="ptools"><button class="btn" id="pF" style="background:#198c51"><svg class="sv" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M64 64c0-35.3 28.7-64 64-64h213.5c17 0 33.3 6.7 45.3 18.7l42.5 42.5c12 12 18.7 28.3 18.7 45.3V144H64zM0 256c0-35.3 28.7-64 64-64h384c35.3 0 64 28.7 64 64v96c0 17.7-14.3 32-32 32h-32v64c0 35.3-28.7 64-64 64H128c-35.3 0-64-28.7-64-64v-64H32c-17.7 0-32-14.3-32-32zm128 160v32h256v-96H128zm328-144a24 24 0 1 0-48 0 24 24 0 1 0 48 0"/></svg><span data-t="pf"></span></button><button class="btn" id="pA" style="background:#b89322"><svg class="sv" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M64 64c0-35.3 28.7-64 64-64h213.5c17 0 33.3 6.7 45.3 18.7l42.5 42.5c12 12 18.7 28.3 18.7 45.3V144H64zM0 256c0-35.3 28.7-64 64-64h384c35.3 0 64 28.7 64 64v96c0 17.7-14.3 32-32 32h-32v64c0 35.3-28.7 64-64 64H128c-35.3 0-64-28.7-64-64v-64H32c-17.7 0-32-14.3-32-32zm128 160v32h256v-96H128zm328-144a24 24 0 1 0-48 0 24 24 0 1 0 48 0"/></svg><span data-t="pa"></span></button></div></div>
+<div id="list"></div></main>
+<nav class="bn"><a href="dashboard.html" class=""><svg class="sv" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M277.8 8.6c-12.3-11.4-31.3-11.4-43.5 0l-224 208c-9.6 9-12.8 22.9-8 35.1S18.8 272 32 272h16v176c0 35.3 28.7 64 64 64h288c35.3 0 64-28.7 64-64V272h16c13.2 0 25-8.1 29.8-20.3s1.6-26.2-8-35.1zM240 320h32c26.5 0 48 21.5 48 48v96H192v-96c0-26.5 21.5-48 48-48"/></svg><span data-t="n_dashboard"></span></a><a href="students.html" class="active"><svg class="sv" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M241.3-13c-11.4-2.3-23.1-2.3-34.5 0L19.3 24.5C8.1 26.7 0 36.6 0 48c0 10.3 6.5 19.3 16 22.6V144L.3 222.6c-.2.9-.3 1.9-.3 2.9 0 8 6.5 14.6 14.6 14.6h34.9c8 0 14.6-6.5 14.6-14.6 0-1-.1-1.9-.3-2.9L48 144V77.3l48 9.6V144c0 70.7 57.3 128 128 128s128-57.3 128-128V86.9l76.7-15.3C439.9 69.3 448 59.4 448 48s-8.1-21.3-19.3-23.5zM224 224c-44.2 0-80-35.8-80-80h160c0 44.2-35.8 80-80 80m-103.9 96.1C58.7 348.3 16 410.3 16 482.3c0 16.4 13.3 29.7 29.7 29.7H200V366l-57.4-43c-6.5-4.9-15.2-6.2-22.6-2.8zM248 512h154.3c16.4 0 29.7-13.3 29.7-29.7 0-72-42.7-134-104.1-162.1-7.4-3.4-16.1-2.1-22.6 2.8l-57.4 43v146z"/></svg><span data-t="n_students"></span></a><a href="donations-hub.html" class=""><svg class="sv" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M288-16c-13.3 0-24 10.7-24 24v12h-1.8C225.6 20 196 49.7 196 86.2c0 33.4 24.9 61.6 58 65.7l61 7.6c5.1.6 9 5 9 10.2 0 5.7-4.6 10.2-10.2 10.2l-73.8.1c-15.5 0-28 12.5-28 28s12.5 28 28 28h24v12c0 13.3 10.7 24 24 24s24-10.7 24-24v-12h1.8c36.6 0 66.2-29.7 66.2-66.2 0-33.4-24.9-61.6-58-65.7l-61-7.6c-5.1-.6-9-5-9-10.2 0-5.7 4.6-10.2 10.2-10.2L328 76c15.5 0 28-12.5 28-28s-12.5-28-28-28h-16V8c0-13.3-10.7-24-24-24M109.3 341.5 66.7 384H32c-17.7 0-32 14.3-32 32v64c0 17.7 14.3 32 32 32h320.5c29 0 57.3-9.3 80.7-26.5l126.6-93.3c17.8-13.1 21.6-38.1 8.5-55.9s-38.1-21.6-55.9-8.5L392.6 416H280c-13.3 0-24-10.7-24-24s10.7-24 24-24h72c17.7 0 32-14.3 32-32s-14.3-32-32-32H199.8c-33.9 0-66.5 13.5-90.5 37.5"/></svg><span data-t="n_donation"></span></a><a href="accounts-hub.html" class=""><svg class="sv" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M0 419.6V109.5c0-23.2 24.1-38.6 46.3-32C134 103.7 196 83 258.4 62.2c64.5-21.5 129.4-43.1 223.3-13.1C500.2 55 512 72.9 512 92.4v310.1c0 23.2-24.1 38.6-46.2 32-87.7-26.2-149.8-5.5-212.1 15.3-64.5 21.5-129.4 43.1-223.3 13.1C11.9 457 .1 439.1.1 419.6zM336 256c0-53-35.8-96-80-96s-80 43-80 96 35.8 96 80 96 80-43 80-96M120 413.6c4.4 0 7.9-3.8 7.2-8.1-4.6-27.8-27-49.5-55.2-53-4.4-.5-8 3.1-8 7.5v39.9c0 3.6 2.4 6.8 6 7.7 17.9 4.2 34.3 6.1 50 6.1zm318.5-51.1c5 .8 9.5-3 9.5-8v-42.6c0-4.4-3.6-8.1-8-7.5-25.2 3.1-45.9 20.9-53.2 44.6-1.4 4.7 2.3 9.1 7.2 9.2 14.2.4 29 1.7 44.4 4.3zM448 152v-39.9c0-3.6-2.5-6.8-6-7.7-17.9-4.2-34.3-6.1-50-6.1-4.4 0-7.9 3.8-7.2 8.1 4.6 27.8 27 49.5 55.2 53 4.4.5 8-3.1 8-7.5zm-322.8 10.9c1.4-4.7-2.3-9.1-7.2-9.2-14.2-.4-29-1.7-44.4-4.3-5-.8-9.5 3-9.5 8L64 200c0 4.4 3.6 8.1 
+8 7.5 25.2-3.1 45.9-20.9 53.2-44.6"/></svg><span data-t="n_accounts"></span></a><a href="settings-hub.html" class=""><svg class="sv" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M195.1 9.5c3-14.8 16.1-25.5 31.3-25.5h59.8c15.2 0 28.3 10.7 31.3 25.5l14.5 70c14.1 6 27.3 13.7 39.3 22.8l67.8-22.5c14.4-4.8 30.2 1.2 37.8 14.4l29.9 51.8c7.6 13.2 4.9 29.8-6.5 39.9L447 233.3c.9 7.4 1.3 15 1.3 22.7s-.5 15.3-1.3 22.7l53.4 47.5c11.4 10.1 14 26.8 6.5 39.9L477 417.9c-7.6 13.1-23.4 19.2-37.8 14.4l-67.8-22.5c-12.1 9.1-25.3 16.7-39.3 22.8l-14.4 69.9c-3.1 14.9-16.2 25.5-31.3 25.5h-59.8c-15.2 0-28.3-10.7-31.3-25.5l-14.4-69.9c-14.1-6-27.2-13.7-39.3-22.8l-68.1 22.5c-14.4 4.8-30.2-1.2-37.8-14.4L5.8 366.1c-7.6-13.2-4.9-29.8 6.5-39.9l53.4-47.5c-.9-7.4-1.3-15-1.3-22.7s.5-15.3 1.3-22.7l-53.4-47.5C.9 175.7-1.7 159 5.8 145.9l29.9-51.8c7.6-13.2 23.4-19.2 37.8-14.4l67.8 22.5c12.1-9.1 25.3-16.7 39.3-22.8zM256.3 336a80 80 0 1 0-.6-160 80 80 0 1 0 .6 160"/></svg><span data-t="n_settings"></span></a></nav><div id="printArea"></div>
 <script>
-const SUPABASE_URL="https://qavublwhqiqsgpcmfyft.supabase.co";
-const SUPABASE_KEY="sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
-
-const {createClient}=supabase;
-const db=createClient(SUPABASE_URL,SUPABASE_KEY,{
- auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}
-});
-
-let students=[];
-let classes=[];
-let sessions=[];
-
-const $=id=>document.getElementById(id);
-
-function esc(v){
- return String(v??"")
- .replaceAll("&","&amp;")
- .replaceAll("<","&lt;")
- .replaceAll(">","&gt;")
- .replaceAll('"',"&quot;")
- .replaceAll("'","&#039;");
-}
-
-function normalize(v){
- return String(v??"").trim().toLowerCase();
-}
-
-function showMessage(msg,type="error"){
- const box=$("alert");
- box.textContent=msg;
- box.className="alert"+(type==="ok"?" ok":"");
- box.style.display="block";
- clearTimeout(window.__msgTimer);
- window.__msgTimer=setTimeout(()=>box.style.display="none",7000);
-}
-
-function friendlyError(error){
- if(!error)return "অজানা সমস্যা হয়েছে।";
- const msg=error.message||error.error_description||String(error);
-
- if(/invalid api key/i.test(msg))
-  return "Supabase API Key সঠিক নয়। Publishable Key যাচাই করুন।";
-
- if(/row-level security|permission denied|not authorized/i.test(msg))
-  return "Database Permission/RLS-এর কারণে কাজটি করা যাচ্ছে না।";
-
- if(/duplicate key/i.test(msg))
-  return "Student ID বা Roll Number আগে থেকেই ব্যবহার করা হয়েছে।";
-
- return msg;
-}
-
-function formatDate(v){
- if(!v)return "";
- const d=new Date(v);
- if(Number.isNaN(d.getTime()))return String(v);
- return d.toLocaleDateString("bn-BD",{
-  day:"2-digit",month:"2-digit",year:"numeric"
- });
-}
-
-function classNameById(id){
- const c=classes.find(x=>String(x.id)===String(id));
- return c?c.name:"—";
-}
-
-async function checkAuth(){
- const {data,error}=await db.auth.getSession();
- if(error){showMessage(friendlyError(error));return false;}
- if(!data?.session){
-  window.location.href="login.html";
-  return false;
- }
- return true;
-}
-
-db.auth.onAuthStateChange(event=>{
- if(event==="SIGNED_OUT")window.location.href="login.html";
-});
-
-async function loadClasses(){
- const {data,error}=await db.from("classes").select("*").order("id",{ascending:true});
- if(error)throw error;
- classes=data||[];
- $("totalClasses").textContent=classes.length;
-
- $("classId").innerHTML=
-  '<option value="">শ্রেণি নির্বাচন করুন</option>'+
-  classes.map(c=>`<option value="${esc(c.id)}">${esc(c.name)}</option>`).join("");
-
- $("filterClass").innerHTML=
-  '<option value="">সব শ্রেণি</option>'+
-  classes.map(c=>`<option value="${esc(c.id)}">${esc(c.name)}</option>`).join("");
-}
-
-async function loadSessions(){
- const {data,error}=await db.from("sessions").select("*").order("year",{ascending:false});
-
- if(!error&&data?.length){
-  sessions=data;
- }else{
-  const years=[...new Set(students.map(s=>s.session).filter(Boolean).map(String))]
-   .sort((a,b)=>Number(b)-Number(a));
-  sessions=years.map((year,i)=>({id:"local-"+i,year}));
- }
- fillYears();
-}
-
-function fillYears(){
- const years=[...new Set(sessions.map(s=>s.year??s.name??s.session).filter(v=>String(v??"").trim()!=="").map(String))];
- const currentYear=String(new Date().getFullYear());
- if(!years.includes(currentYear))years.unshift(currentYear);
-
- $("session").innerHTML=
-  '<option value="">শিক্ষাবর্ষ নির্বাচন করুন</option>'+
-  years.map(y=>`<option value="${esc(y)}">${esc(y)}</option>`).join("");
-
- $("filterSession").innerHTML=
-  '<option value="">সব শিক্ষাবর্ষ</option>'+
-  years.map(y=>`<option value="${esc(y)}">${esc(y)}</option>`).join("");
-
- if(!$("editId").value)$("session").value=currentYear;
-}
-
-async function loadStudents(){
- $("studentTable").innerHTML='<tr><td colspan="11" class="empty">লোড হচ্ছে...</td></tr>';
-
- const {data,error}=await db.from("students").select("*")
-  .order("class_id",{ascending:true})
-  .order("roll_number",{ascending:true});
-
- if(error){
-  $("studentTable").innerHTML=`<tr><td colspan="11" class="empty">${esc(friendlyError(error))}</td></tr>`;
-  showMessage(friendlyError(error));
-  return;
- }
-
- students=data||[];
- $("totalStudents").textContent=students.length;
- renderStudents();
- updateYearCount();
- await loadSessions();
-}
-
-function getFilteredStudents(){
- const q=normalize($("search").value);
- const year=String($("filterSession").value||"").trim();
- const cls=String($("filterClass").value||"").trim();
-
- return students.filter(s=>{
-  const yearOK=!year||String(s.session??"").trim()===year;
-  const classOK=!cls||String(s.class_id)===cls;
-  const text=[s.roll_number,s.student_id,s.name,s.phone,s.father_name,s.mother_name].map(normalize).join(" ");
-  return yearOK&&classOK&&(!q||text.includes(q));
- });
-}
-
-function renderStudents(){
- const list=getFilteredStudents();
- if(!list.length){
-  $("studentTable").innerHTML='<tr><td colspan="11" class="empty">কোনো শিক্ষার্থীর তথ্য পাওয়া যায়নি।</td></tr>';
-  return;
- }
-
- $("studentTable").innerHTML=list.map(s=>`
-  <tr>
-   <td>${s.photo_url?`<img class="student-photo" src="${esc(s.photo_url)}" alt="ছবি">`:"—"}</td>
-   <td>${esc(s.student_id||"—")}</td>
-   <td><b>${esc(s.roll_number||"—")}</b></td>
-   <td>${esc(s.name||"—")}</td>
-   <td>${esc(s.father_name||"—")}</td>
-   <td>${esc(s.mother_name||"—")}</td>
-   <td>${esc(s.phone||"—")}</td>
-   <td>${esc(classNameById(s.class_id))}</td>
-   <td>${esc(s.session||"—")}</td>
-   <td>${esc(formatDate(s.admission_date)||"—")}</td>
-   <td>
-    <div class="row-actions">
-     <button class="mini edit" onclick="editStudent('${esc(s.id)}')" type="button">✏ Edit</button>
-     <button class="mini print-one" onclick="printStudent('${esc(s.id)}')" type="button">🖨</button>
-     <button class="mini del" onclick="deleteStudent('${esc(s.id)}')" type="button">🗑</button>
-    </div>
-   </td>
-  </tr>
- `).join("");
-}
-
-function updateYearCount(){
- const year=String($("filterSession").value||"").trim();
- $("yearStudents").textContent=year
-  ?students.filter(s=>String(s.session||"").trim()===year).length
-  :students.length;
-}
-
-async function rollExists(roll,year,classId,excludeId=""){
- const {data,error}=await db.from("students")
-  .select("id,roll_number,session,class_id")
-  .eq("roll_number",roll)
-  .eq("class_id",classId);
- if(error)throw error;
- return (data||[]).some(r=>
-  String(r.id)!==String(excludeId||"")&&
-  String(r.session||"").trim()===String(year||"").trim()
- );
-}
-
-async function studentIdExists(studentId,excludeId=""){
- const clean=String(studentId||"").trim();
- if(!clean)return false;
- const {data,error}=await db.from("students").select("id,student_id").eq("student_id",clean);
- if(error)throw error;
- return (data||[]).some(r=>String(r.id)!==String(excludeId||""));
-}
-
-async function uploadPhoto(file,studentId){
- if(!file)return null;
- const ext=(file.name.split(".").pop()||"jpg").toLowerCase();
- const safe=String(studentId).trim().replace(/[^a-zA-Z0-9_-]/g,"_");
- const path=`${safe}/${Date.now()}.${ext}`;
-
- const {error}=await db.storage.from("student-photo").upload(path,file,{
-  upsert:true,contentType:file.type||"image/jpeg"
- });
- if(error)throw error;
-
- const {data}=db.storage.from("student-photo").getPublicUrl(path);
- return data?.publicUrl||null;
-}
-
-$("studentForm").addEventListener("submit",async e=>{
- e.preventDefault();
-
- const btn=$("saveBtn");
- btn.disabled=true;
- btn.textContent="সংরক্ষণ হচ্ছে...";
-
- try{
-  const editId=$("editId").value.trim();
-  const studentId=$("studentId").value.trim();
-  const roll=$("rollNumber").value.trim();
-  const name=$("name").value.trim();
-  const father=$("fatherName").value.trim();
-  const mother=$("motherName").value.trim();
-  const phone=$("phone").value.trim();
-  const year=$("session").value.trim();
-  const classId=$("classId").value.trim();
-  const admissionDate=$("admissionDate").value||null;
-  const address=$("address").value.trim();
-  const file=$("photo").files[0];
-
-  if(!studentId||!roll||!name||!phone||!year||!classId){
-   showMessage("Student ID, Roll, নাম, মোবাইল, শিক্ষাবর্ষ ও শ্রেণি পূরণ করুন।");
-   return;
-  }
-
-  if(await studentIdExists(studentId,editId)){
-   showMessage(`Student ID "${studentId}" আগে থেকেই আছে।`);
-   $("studentId").focus();
-   return;
-  }
-
-  if(await rollExists(roll,year,classId,editId)){
-   showMessage(`এই শ্রেণি ও শিক্ষাবর্ষে Roll ${roll} ইতোমধ্যে আছে।`);
-   $("rollNumber").focus();
-   return;
-  }
-
-  let photoUrl=null;
-  if(file)photoUrl=await uploadPhoto(file,studentId);
-
-  const payload={
-   student_id:studentId,
-   roll_number:roll,
-   name:name,
-   father_name:father||null,
-   mother_name:mother||null,
-   phone:phone,
-   class_id:classId,
-   session:year,
-   admission_date:admissionDate,
-   address:address||null
-  };
-
-  if(photoUrl)payload.photo_url=photoUrl;
-
-  if(editId){
-   const {data,error}=await db.from("students").update(payload).eq("id",editId).select("*");
-   if(error)throw error;
-   if(!data?.length)throw new Error("Update হয়নি। Database RLS/Permission পরীক্ষা করুন।");
-   showMessage("শিক্ষার্থীর তথ্য সফলভাবে আপডেট হয়েছে।","ok");
-  }else{
-   const {data,error}=await db.from("students").insert(payload).select("*");
-   if(error)throw error;
-   if(!data?.length)throw new Error("শিক্ষার্থী যোগ হয়নি। Database Permission পরীক্ষা করুন।");
-   showMessage("শিক্ষার্থী সফলভাবে যোগ হয়েছে।","ok");
-  }
-
-  resetForm();
-  await loadStudents();
-
- }catch(error){
-  console.error("Student Save/Update Error:",error);
-  showMessage(friendlyError(error));
- }finally{
-  btn.disabled=false;
-  btn.textContent="💾 শিক্ষার্থী সংরক্ষণ";
- }
-});
-
-window.editStudent=function(id){
- const s=students.find(x=>String(x.id)===String(id));
- if(!s)return;
-
- $("editId").value=s.id||"";
- $("studentId").value=s.student_id||"";
- $("rollNumber").value=s.roll_number||"";
- $("name").value=s.name||"";
- $("fatherName").value=s.father_name||"";
- $("motherName").value=s.mother_name||"";
- $("phone").value=s.phone||"";
- $("session").value=s.session||"";
- $("classId").value=s.class_id||"";
- $("admissionDate").value=s.admission_date?String(s.admission_date).substring(0,10):"";
- $("address").value=s.address||"";
- $("photo").value="";
- $("saveBtn").textContent="💾 তথ্য আপডেট করুন";
-
- window.scrollTo({top:0,behavior:"smooth"});
- setTimeout(()=>$("studentId").focus(),300);
-};
-
-window.deleteStudent=async function(id){
- const s=students.find(x=>String(x.id)===String(id));
- if(!s)return;
-
- if(!confirm(`"${s.name}" (Roll: ${s.roll_number||"—"}) শিক্ষার্থীকে মুছে ফেলবেন?`))return;
-
- try{
-  const {error}=await db.from("students").delete().eq("id",id);
-  if(error)throw error;
-  showMessage("শিক্ষার্থী মুছে ফেলা হয়েছে।","ok");
-  await loadStudents();
- }catch(error){
-  console.error(error);
-  showMessage(friendlyError(error));
- }
-};
-
-function resetForm(){
- $("studentForm").reset();
- $("editId").value="";
- $("studentId").value="";
- $("saveBtn").textContent="💾 শিক্ষার্থী সংরক্ষণ";
- $("session").value=String(new Date().getFullYear());
-}
-
-$("resetBtn").addEventListener("click",resetForm);
-$("search").addEventListener("input",renderStudents);
-$("filterSession").addEventListener("change",()=>{
- renderStudents();
- updateYearCount();
-});
-$("filterClass").addEventListener("change",renderStudents);
-$("clearBtn").addEventListener("click",()=>{
- $("search").value="";
- $("filterSession").value="";
- $("filterClass").value="";
- renderStudents();
- updateYearCount();
-});
-
-function printHeader(title,meta){
- return `
-  <div class="print-header">
-   <h1>মাদরাসায়ে নূরুল কুরআন</h1>
-   <h2>${esc(title)}</h2>
-   <p>MADRASA-E NURUL QURAN</p>
-   <p>ভল্লবপুর, দিঘলী, চন্দ্রগঞ্জ, লক্ষ্মীপুর</p>
-  </div>
-  <div class="print-meta">
-   <span>${esc(meta)}</span>
-   <span>তারিখ: ${esc(formatDate(new Date()))}</span>
-  </div>
- `;
-}
-
-function preparePrint(){
- const imgs=[...$("printArea").querySelectorAll("img")];
- Promise.all(imgs.map(img=>new Promise(resolve=>{
-  if(img.complete)resolve();
-  else{
-   img.onload=resolve;
-   img.onerror=resolve;
-  }
- }))).then(()=>setTimeout(()=>window.print(),250));
-}
-
-function buildListPrint(list,title,meta){
- $("printArea").className="list-print";
-
- const rows=list.map((s,i)=>`
-  <tr>
-   <td>${i+1}</td>
-   <td>${s.photo_url?`<img class="print-img" src="${esc(s.photo_url)}" alt="">`:"—"}</td>
-   <td>${esc(s.student_id||"—")}</td>
-   <td>${esc(s.roll_number||"—")}</td>
-   <td>${esc(s.name||"—")}</td>
-   <td>${esc(s.father_name||"—")}</td>
-   <td>${esc(s.mother_name||"—")}</td>
-   <td>${esc(s.phone||"—")}</td>
-   <td>${esc(classNameById(s.class_id))}</td>
-   <td>${esc(s.session||"—")}</td>
-   <td>${esc(formatDate(s.admission_date)||"—")}</td>
-  </tr>
- `).join("");
-
- $("printArea").innerHTML=`
-  ${printHeader(title,meta)}
-  <table class="print-table">
-   <thead>
-    <tr>
-     <th>ক্রমিক</th>
-     <th>ছবি</th>
-     <th>Student ID</th>
-     <th>Roll</th>
-     <th>নাম</th>
-     <th>পিতার নাম</th>
-     <th>মাতার নাম</th>
-     <th>মোবাইল</th>
-     <th>শ্রেণি</th>
-     <th>বছর</th>
-     <th>ভর্তি তারিখ</th>
-    </tr>
-   </thead>
-   <tbody>${rows}</tbody>
-  </table>
-  <div class="print-footer">© 2026 মাদরাসায়ে নূরুল কুরআন — Student Management System</div>
- `;
-
- preparePrint();
-}
-
-$("filteredPrintBtn").addEventListener("click",()=>{
- const list=getFilteredStudents();
- if(!list.length){
-  showMessage("Print করার মতো কোনো শিক্ষার্থী নেই।");
-  return;
- }
-
- const year=$("filterSession").value;
- const cls=$("filterClass").value;
- const meta=[
-  year?`শিক্ষাবর্ষ: ${year}`:"সকল শিক্ষাবর্ষ",
-  cls?`শ্রেণি: ${classNameById(cls)}`:"সকল শ্রেণি",
-  `মোট: ${list.length} জন`
- ].join(" | ");
-
- buildListPrint(list,"শিক্ষার্থী তালিকা",meta);
-});
-
-$("allPrintBtn").addEventListener("click",()=>{
- if(!students.length){
-  showMessage("Print করার মতো কোনো শিক্ষার্থী নেই।");
-  return;
- }
- buildListPrint(students,"সকল শিক্ষার্থী তালিকা",`মোট: ${students.length} জন`);
-});
-
-window.printStudent=function(id){
- const s=students.find(x=>String(x.id)===String(id));
- if(!s){
-  showMessage("শিক্ষার্থীর তথ্য পাওয়া যায়নি।");
-  return;
- }
-
- const fields=[
-  ["Student ID",s.student_id],
-  ["Roll Number",s.roll_number],
-  ["শিক্ষার্থীর নাম",s.name],
-  ["পিতার নাম",s.father_name],
-  ["মাতার নাম",s.mother_name],
-  ["মোবাইল নম্বর",s.phone],
-  ["শ্রেণি",classNameById(s.class_id)],
-  ["শিক্ষাবর্ষ",s.session],
-  ["ভর্তি তারিখ",formatDate(s.admission_date)],
-  ["ঠিকানা",s.address]
- ];
-
- $("printArea").className="profile-print";
-
- $("printArea").innerHTML=`
-  <div class="profile">
-   <div class="profile-top">
-    ${s.photo_url?`<img class="profile-photo" src="${esc(s.photo_url)}" alt="শিক্ষার্থীর ছবি">`:""}
-    <h1 class="profile-title">মাদরাসায়ে নূরুল কুরআন</h1>
-    <div class="profile-sub">শিক্ষার্থী তথ্যপত্র</div>
-    <div class="profile-sub">MADRASA-E NURUL QURAN</div>
-    <div class="profile-sub">ভল্লবপুর, দিঘলী, চন্দ্রগঞ্জ, লক্ষ্মীপুর</div>
-   </div>
-
-   <table class="profile-table">
-    <tbody>
-     ${fields.map(([label,value])=>`
-      <tr>
-       <td>${esc(label)}</td>
-       <td>${esc(value||"—")}</td>
-      </tr>
-     `).join("")}
-    </tbody>
-   </table>
-
-   <div class="profile-footer">
-    <span>অভিভাবকের স্বাক্ষর</span>
-    <span>অফিস কর্তৃপক্ষের স্বাক্ষর</span>
-   </div>
-  </div>
-  <div class="print-footer">© 2026 মাদরাসায়ে নূরুল কুরআন — Student Management System</div>
- `;
-
- preparePrint();
-};
-
-window.addEventListener("afterprint",()=>{
- $("printArea").innerHTML="";
- $("printArea").className="";
-});
-
-async function loadPendingAdmission(){
- try{
-  const {count,error}=await db.from("admission_applications")
-   .select("*",{count:"exact",head:true})
-   .eq("status","pending");
-
-  if(!error)$("pendingAdmission").textContent=count||0;
- }catch(error){
-  console.error(error);
- }
-}
-
-$("logoutBtn").addEventListener("click",async()=>{
- await db.auth.signOut();
- window.location.href="login.html";
-});
-
-(async function init(){
- const ok=await checkAuth();
- if(!ok)return;
-
- try{
-  await loadClasses();
-  await loadStudents();
-  await loadPendingAdmission();
- }catch(error){
-  console.error(error);
-  showMessage(friendlyError(error));
- }
+const TX={"schoolName": ["মাদরাসায়ে নূরুল কুরআন", "Madrasa Nurul Quran", "مدرسة نور القرآن"], "addr": ["ভল্লবপুর, দিঘলী, চন্দ্রগঞ্জ, লক্ষ্মীপুর", "Vallabpur, Dighli, Chandraganj, Laxmipur", "فالاببور، ديغلي، شاندراغانج، لاكشميبور"], "title": ["শিক্ষার্থী তালিকা", "Student List", "قائمة الطلاب"], "sAdd": ["নতুন ভর্তি", "New Admission", "قبول جديد"], "sBack": ["ড্যাশবোর্ড", "Dashboard", "لوحة التحكم"], "stTotal": ["মোট শিক্ষার্থী", "Total Students", "إجمالي الطلاب"], "stYear": ["নির্বাচিত বছরের শিক্ষার্থী", "Students of selected year", "طلاب السنة المختارة"], "stCls": ["মোট শ্রেণি", "Total Classes", "إجمالي الصفوف"], "stPend": ["Pending Admission", "Pending Admission", "طلبات قيد الانتظار"], "search": ["Roll / Student ID / নাম / মোবাইল / পিতার নাম দিয়ে খুঁজুন…", "Search Roll / Student ID / name / mobile / father…", "ابحث بالرقم / الاسم / الجوال / الأب…"], "allYears": ["সব শিক্ষাবর্ষ", "All sessions", "كل الجلسات"], "allCls": ["সব শ্রেণি", "All classes", "كل الصفوف"], "clear": ["Clear", "Clear", "مسح"], "pf": ["Filtered Print", "Filtered Print", "طباعة المحدد"], "pa": ["All Print", "All Print", "طباعة الكل"], "pc": ["শ্রেণি Print", "Print class", "طباعة الصف"], "thPhoto": ["ছবি", "Photo", "الصورة"], "thSid": ["Student ID", "Student ID", "رقم الطالب"], "thRoll": ["Roll", "Roll", "الرقم"], "thName": ["নাম", "Name", "الاسم"], "thFather": ["পিতার নাম", "Father", "الأب"], "thMother": ["মাতার নাম", "Mother", "الأم"], "thPhone": ["মোবাইল", "Mobile", "الجوال"], "thYear": ["বছর", "Year", "السنة"], "thDate": ["ভর্তি তারিখ", "Admission Date", "تاريخ القبول"], "thAct": ["Action", "Action", "إجراء"], "thSl": ["ক্রমিক", "SL", "م"], "thCls": ["শ্রেণি", "Class", "الصف"], "edit": ["Edit", "Edit", "تعديل"], "del": ["মুছুন", "Delete", "حذف"], "prn": ["Print", "Print", "طباعة"], "cnt": ["জন", "students", "طالب"], "none": ["কোনো শিক্ষার্থী পাওয়া যায়নি।", "No students found.", "لا يوجد طلاب."], "loading": ["লোড হচ্ছে…", "Loading…", "جارٍ التحميل…"], "delq": ["মুছে ফেলবেন?", "Delete this student?", "حذف هذا الطالب؟"], "delok": ["শিক্ষার্থী মুছে ফেলা হয়েছে।", "Student deleted.", "تم حذف الطالب."], "noprint": ["Print করার মতো কোনো শিক্ষার্থী নেই।", "Nothing to print.", "لا شيء للطباعة."], "pTitle": ["শিক্ষার্থী তালিকা", "Student List", "قائمة الطلاب"], "pAllT": ["সকল শিক্ষার্থী তালিকা (শ্রেণিভিত্তিক)", "All Students (Class-wise)", "جميع الطلاب (حسب الصف)"], "pClassT": ["শ্রেণি", "Class", "الصف"], "pYear": ["শিক্ষাবর্ষ", "Session", "الجلسة"], "pTot": ["মোট", "Total", "المجموع"], "pDate": ["তারিখ", "Date", "التاريخ"], "prof": ["শিক্ষার্থী তথ্যপত্র", "Student Profile", "بيانات الطالب"], "lName": ["শিক্ষার্থীর নাম", "Student Name", "اسم الطالب"], "lAddr": ["ঠিকানা", "Address", "العنوان"], "sig1": ["অভিভাবকের স্বাক্ষর", "Guardian Signature", "توقيع ولي الأمر"], "sig2": ["অফিস কর্তৃপক্ষের স্বাক্ষর", "Office Signature", "توقيع الإدارة"], "n_dashboard": ["ড্যাশবোর্ড", "Dashboard", "لوحة التحكم"], "n_students": ["শিক্ষার্থী", "Students", "الطلاب"], "n_donation": ["অনুদান", "Donation", "التبرعات"], "n_accounts": ["হিসাব", "Accounts", "الحسابات"], "n_settings": ["সেটিংস", "Settings", "الإعدادات"], "newb": ["নতুন", "New", "جديد"]};const LG=["bn","en","ar"];
+let lang=(function(){var v=String(localStorage.getItem("nurul_dashboard_language")||"bn").toLowerCase();return v[0]=="e"?"en":v[0]=="a"?"ar":"bn"})();
+const sb=window.supabase?window.supabase.createClient("https://qavublwhqiqsgpcmfyft.supabase.co","sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ",{auth:{persistSession:true,autoRefreshToken:true}}):null;
+let ST=[],CL=[],SE=[],PEND=0;const $=i=>document.getElementById(i);
+const li=()=>LG.indexOf(lang),t=k=>(TX[k]||[k,k,k])[li()];
+const esc=v=>String(v==null?"":v).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+const LOC=()=>({bn:"bn-BD",en:"en-GB",ar:"ar"})[lang];
+const fd=v=>{if(!v)return"";const d=new Date(v);return isNaN(d)?String(v):d.toLocaleDateString(LOC(),{day:"2-digit",month:"2-digit",year:"numeric"})};
+const nf=n=>Number(n||0).toLocaleString(LOC());
+const cn=id=>{const c=CL.find(x=>String(x.id)===String(id));return c?c.name:"—"};
+function msg(m,bad){const a=$("al");a.textContent=m;a.className="al on"+(bad?" bad":"");clearTimeout(window.__m);window.__m=setTimeout(()=>a.className="al",6000)}
+function fill(){document.documentElement.lang=lang;document.documentElement.dir=lang=="ar"?"rtl":"ltr";$("lang").value=lang;
+ document.querySelectorAll("[data-t]").forEach(e=>e.textContent=t(e.dataset.t));document.title=t("title");$("q").placeholder=t("search");
+ const yv=$("fy").value,cv=$("fc").value;
+ const ys=[...new Set(SE.map(s=>String(s.year!=null?s.year:(s.name!=null?s.name:s.session||""))).concat(ST.map(s=>String(s.session||""))).filter(Boolean))].sort((a,b)=>b-a);
+ $("fy").innerHTML='<option value="">'+t("allYears")+'</option>'+ys.map(y=>'<option>'+esc(y)+'</option>').join("");$("fy").value=yv;
+ $("fc").innerHTML='<option value="">'+t("allCls")+'</option>'+CL.map(c=>'<option value="'+esc(c.id)+'">'+esc(c.name)+'</option>').join("");$("fc").value=cv;render()}
+function flt(){const q=$("q").value.trim().toLowerCase(),y=$("fy").value,c=$("fc").value;
+ return ST.filter(s=>(!y||String(s.session||"").trim()===y)&&(!c||String(s.class_id)===c)&&(!q||[s.roll_number,s.student_id,s.name,s.phone,s.father_name,s.mother_name].map(x=>String(x==null?"":x).toLowerCase()).join(" ").includes(q)))}
+function groups(list){const m={};list.forEach(s=>{(m[s.class_id]=m[s.class_id]||[]).push(s)});
+ const ids=CL.map(c=>String(c.id)).filter(i=>m[i]).concat(Object.keys(m).filter(i=>!CL.some(c=>String(c.id)===i)));
+ return ids.map(i=>[i,m[i].sort((a,b)=>(parseInt(a.roll_number)||0)-(parseInt(b.roll_number)||0)||String(a.roll_number).localeCompare(String(b.roll_number)))])}
+function isNew(s){const d=new Date(s.admission_date||s.created_at);return !isNaN(d)&&(Date.now()-d)/864e5<=7}
+function render(){const list=flt(),y=$("fy").value;$("cT").textContent=nf(ST.length);$("cC").textContent=nf(CL.length);$("cP").textContent=nf(PEND);$("cY").textContent=nf(y?ST.filter(s=>String(s.session||"").trim()===y).length:ST.length);
+ const g=groups(list);if(!g.length){$("list").innerHTML='<div class="card emp">'+t("none")+'</div>';return}
+ $("list").innerHTML=g.map(([cid,arr])=>'<div class="grp"><div class="gh"><b>'+esc(cn(cid))+'</b><span class="n">'+nf(arr.length)+' '+t("cnt")+'</span><span class="sp"></span><button class="btn" data-pc="'+esc(cid)+'" style="background:#198c51">'+t("pc")+'</button></div><div class="tw"><table class="t"><thead><tr><th>'+t("thPhoto")+'</th><th>'+t("thSid")+'</th><th>'+t("thRoll")+'</th><th>'+t("thName")+'</th><th>'+t("thFather")+'</th><th>'+t("thMother")+'</th><th>'+t("thPhone")+'</th><th>'+t("thYear")+'</th><th>'+t("thDate")+'</th><th>'+t("thAct")+'</th></tr></thead><tbody>'+arr.map(s=>'<tr><td>'+(s.photo_url?'<img class="ph" src="'+esc(s.photo_url)+'">':'<span class="ph">👤</span>')+'</td><td>'+esc(s.student_id||"—")+'</td><td><b>'+esc(s.roll_number||"—")+'</b></td><td>'+esc(s.name||"—")+(isNew(s)?'<span class="nw">'+t("newb")+'</span>':'')+'</td><td>'+esc(s.father_name||"—")+'</td><td>'+esc(s.mother_name||"—")+'</td><td>'+esc(s.phone||"—")+'</td><td>'+esc(s.session||"—")+'</td><td>'+esc(fd(s.admission_date)||"—")+'</td><td><div class="ra"><a class="mini m1" href="online-admission.html?edit='+encodeURIComponent(s.id)+'">'+t("edit")+'</a><button class="mini m2" data-ps="'+esc(s.id)+'">'+t("prn")+'</button><button class="mini m3" data-ds="'+esc(s.id)+'">'+t("del")+'</button></div></td></tr>').join("")+'</tbody></table></div></div>').join("")}
+function head(title,meta){return '<div class="ph1"><h1>'+t("schoolName")+'</h1><h2>'+esc(title)+'</h2><p>'+t("addr")+'</p></div><div class="pm"><span>'+esc(meta)+'</span><span>'+t("pDate")+': '+fd(new Date())+'</span></div>'}
+function ptable(arr){return '<table class="pt"><thead><tr><th>'+t("thSl")+'</th><th>'+t("thPhoto")+'</th><th>'+t("thSid")+'</th><th>'+t("thRoll")+'</th><th>'+t("thName")+'</th><th>'+t("thFather")+'</th><th>'+t("thMother")+'</th><th>'+t("thPhone")+'</th><th>'+t("thYear")+'</th><th>'+t("thDate")+'</th></tr></thead><tbody>'+arr.map((s,i)=>'<tr><td>'+nf(i+1)+'</td><td>'+(s.photo_url?'<img class="pi" src="'+esc(s.photo_url)+'">':'—')+'</td><td>'+esc(s.student_id||"—")+'</td><td>'+esc(s.roll_number||"—")+'</td><td>'+esc(s.name||"—")+'</td><td>'+esc(s.father_name||"—")+'</td><td>'+esc(s.mother_name||"—")+'</td><td>'+esc(s.phone||"—")+'</td><td>'+esc(s.session||"—")+'</td><td>'+esc(fd(s.admission_date)||"—")+'</td></tr>').join("")+'</tbody></table>'}
+function doPrint(html){$("printArea").innerHTML=html;const im=[...$("printArea").querySelectorAll("img")];Promise.all(im.map(i=>new Promise(r=>{if(i.complete)r();else{i.onload=r;i.onerror=r}}))).then(()=>setTimeout(()=>window.print(),250))}
+function classPages(list,title,meta){return groups(list).map(([cid,arr])=>'<div class="pcls">'+head(title,t("pClassT")+': '+cn(cid)+' | '+meta+' | '+t("pTot")+': '+nf(arr.length))+ptable(arr)+'<div class="pf">© '+t("schoolName")+'</div></div>').join("")}
+function metaOf(){const y=$("fy").value;return y?t("pYear")+': '+y:t("allYears")}
+document.addEventListener("click",async e=>{
+ const pc=e.target.closest("[data-pc]");if(pc){const arr=flt().filter(s=>String(s.class_id)===pc.dataset.pc);if(!arr.length){msg(t("noprint"),1);return}doPrint(classPages(arr,t("pTitle"),metaOf()));return}
+ const ps=e.target.closest("[data-ps]");if(ps){profile(ps.dataset.ps);return}
+ const ds=e.target.closest("[data-ds]");if(ds){const s=ST.find(x=>String(x.id)===ds.dataset.ds);if(!s||!confirm('"'+s.name+'" — '+t("delq")))return;const r=await sb.from("students").delete().eq("id",s.id);if(r.error){msg(r.error.message,1);return}msg(t("delok"));load();}});
+$("pF").onclick=()=>{const l=flt();if(!l.length){msg(t("noprint"),1);return}doPrint(classPages(l,t("pTitle"),metaOf()))};
+$("pA").onclick=()=>{if(!ST.length){msg(t("noprint"),1);return}doPrint(classPages(ST,t("pAllT"),t("allYears")))};
+function profile(id){const s=ST.find(x=>String(x.id)===String(id));if(!s)return;const F=[["thSid",s.student_id],["thRoll",s.roll_number],["lName",s.name],["thFather",s.father_name],["thMother",s.mother_name],["thPhone",s.phone],["pClassT",cn(s.class_id)],["pYear",s.session],["thDate",fd(s.admission_date)],["lAddr",s.address]];
+ doPrint('<div class="prof"><div class="tp">'+(s.photo_url?'<img class="pp" src="'+esc(s.photo_url)+'">':'')+'<h1>'+t("schoolName")+'</h1><div class="sub">'+t("prof")+'</div><div class="sub">'+t("addr")+'</div></div><table><tbody>'+F.map(f=>'<tr><td>'+t(f[0])+'</td><td>'+esc(f[1]||"—")+'</td></tr>').join("")+'</tbody></table><div class="sg"><span>'+t("sig1")+'</span><span>'+t("sig2")+'</span></div></div>')}
+window.addEventListener("afterprint",()=>{$("printArea").innerHTML=""});
+["q"].forEach(i=>$(i).oninput=render);["fy","fc"].forEach(i=>$(i).onchange=render);
+$("clr").onclick=()=>{$("q").value="";$("fy").value="";$("fc").value="";render()};
+$("lang").onchange=e=>{lang=e.target.value;localStorage.setItem("nurul_dashboard_language",lang);fill()};
+$("lo").onclick=async()=>{if(sb)await sb.auth.signOut();location.href="login.html"};
+async function load(){$("list").innerHTML='<div class="card emp">'+t("loading")+'</div>';
+ const a=await sb.from("students").select("*").order("class_id",{ascending:true}).order("roll_number",{ascending:true});if(a.error){$("list").innerHTML="";msg(a.error.message,1);return}ST=a.data||[];
+ const b=await sb.from("classes").select("*").order("id",{ascending:true});CL=b.data||[];
+ try{const c=await sb.from("sessions").select("*");SE=c.data||[]}catch(x){}
+ try{const p=await sb.from("admission_applications").select("*",{count:"exact",head:true}).eq("status","pending");PEND=p.count!=null?p.count:(Array.isArray(p.data)?p.data.length:0)}catch(x){}
+ fill()}
+(async function(){fill();if(!sb){msg("Supabase offline",1);return}const s=await sb.auth.getSession();if(!(s.data&&s.data.session)){location.href="login.html";return}load()})();
+</script><!--SD--><script>(function(){
+var IC={sms:"<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d=\"M256 480c141.4 0 256-107.5 256-240S397.4 0 256 0 0 107.5 0 240c0 54.3 19.2 104.3 51.6 144.5L2.8 476.8c-4.8 9-3.3 20 3.6 27.5s17.8 9.8 27.1 5.8l118.4-50.7c31.8 13.2 67 20.6 104.1 20.6M140.8 172.8H160c8.8 0 16 7.2 16 16s-7.2 16-16 16h-19.2c-5.3 0-9.6 4.3-9.6 9.6s4.3 9.6 9.6 9.6c23 0 41.6 18.6 41.6 41.6s-18.6 41.6-41.6 41.6h-25.6c-8.8 0-16-7.2-16-16s7.2-16 16-16h25.6c5.3 0 9.6-4.3 9.6-9.6s-4.3-9.6-9.6-9.6c-23 0-41.6-18.6-41.6-41.6s18.6-41.6 41.6-41.6m188.8 41.6c0-23 18.6-41.6 41.6-41.6h19.2c8.8 0 16 7.2 16 16s-7.2 16-16 16h-19.2c-5.3 0-9.6 4.3-9.6 9.6s4.3 9.6 9.6 9.6c23 0 41.6 18.6 41.6 41.6s-18.6 41.6-41.6 41.6h-25.6c-8.8 0-16-7.2-16-16s7.2-16 16-16h25.6c5.3 0 9.6-4.3 9.6-9.6s-4.3-9.6-9.6-9.6c-23 0-41.6-18.6-41.6-41.6m-98.3-33.8 24.7 41.1 24.7-41.1c3.7-6.2 11.1-9.1 18-7.2s11.7 8.2 11.7 15.4v102.4c0 8.8-7.2 16-16 16s-16-7.2-16-16v-44.6l-8.7 14.5c-2.9 4.8-8.1 7.8-13.7 7.8s-10.8-3-13.7-7.8l-8.7-14.5v44.6c0 8.8-7.2 16-16 16s-16-7.2-16-16V188.8c0-7.2 4.8-13.5 11.7-15.4s14.3 1 18 7.2\"/></svg>",user:"<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 448 512\"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d=\"M224 248a120 120 0 1 0 0-240 120 120 0 1 0 0 240m-29.7 56C95.8 304 16 383.8 16 482.3c0 16.4 13.3 29.7 29.7 29.7h356.6c16.4 0 29.7-13.3 29.7-29.7 0-98.5-79.8-178.3-178.3-178.3z\"/></svg>",inv:"<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 384 512\"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d=\"M64 0C28.7 0 0 28.7 0 64v384c0 35.3 28.7 64 64 64h256c35.3 0 64-28.7 64-64V170.5c0-17-6.7-33.3-18.7-45.3L258.7 18.7C246.7 6.7 230.5 0 213.5 0zm261.5 176H232c-13.3 0-24-10.7-24-24V58.5zM64 384v-64c0-17.7 14.3-32 32-32h192c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32M88 64h48c13.3 0 24 10.7 24 24s-10.7 24-24 24H88c-13.3 0-24-10.7-24-24s10.7-24 24-24m0 96h48c13.3 0 24 10.7 24 24s-10.7 24-24 24H88c-13.3 0-24-10.7-24-24s10.7-24 24-24\"/></svg>",bolt:"<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 448 512\"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d=\"M338.8-9.9c11.9 8.6 16.3 24.2 10.9 37.8L271.3 224H416c13.5 0 25.5 8.4 30.1 21.1s.7 26.9-9.6 35.5l-288 240c-11.3 9.4-27.4 9.9-39.3 1.3s-16.3-24.2-10.9-37.8L176.7 288H32c-13.5 0-25.5-8.4-30.1-21.1s-.7-26.9 9.6-35.5l288-240c11.3-9.4 27.4-9.9 39.3-1.3\"/></svg>",plus:"<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 448 512\"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d=\"M256 64c0-17.7-14.3-32-32-32s-32 14.3-32 32v160H32c-17.7 0-32 14.3-32 32s14.3 32 32 32h160v160c0 17.7 14.3 32 32 32s32-14.3 32-32V288h160c17.7 0 32-14.3 32-32s-14.3-32-32-32H256z\"/></svg>",search:"<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 
+1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d=\"M416 208c0 45.9-14.9 88.3-40 122.7l126.6 126.7c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.1-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0s208 93.1 208 208M208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288\"/></svg>",x:"<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 384 512\"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d=\"M55.1 73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L147.2 256 9.9 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l137.3-137.4 137.4 137.3c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.8 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192.5 210.7z\"/></svg>",back:"<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d=\"M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 288H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H109.3l105.4-105.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z\"/></svg>",rec:"<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 384 512\"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d=\"M14 2.2c8.5-3.9 18.5-2.5 25.6 3.6L80 40.4l40.4-34.6c9-7.7 22.3-7.7 31.2 0L192 40.4l40.4-34.6c9-7.7 22.2-7.7 31.2 0L304 40.4l40.4-34.6c7.1-6.1 17.1-7.5 25.6-3.6s14 12.4 14 21.8v464c0 9.4-5.5 17.9-14 21.8s-18.5 2.5-25.6-3.6L304 471.6l-40.4 34.6c-9 7.7-22.2 7.7-31.2 0L192 471.6l-40.4 34.6c-9 7.7-22.3 7.7-31.2 0L80 471.6l-40.4 34.6c-7.1 6.1-17.1 7.5-25.6 3.6S0 497.4 0 488V24C0 14.6 5.5 6.1 14 2.2M104 136c-13.3 0-24 10.7-24 24s10.7 24 24 24h176c13.3 0 24-10.7 24-24s-10.7-24-24-24zM80 352c0 13.3 10.7 24 24 24h176c13.3 0 24-10.7 24-24s-10.7-24-24-24H104c-13.3 0-24 10.7-24 24m24-120c-13.3 0-24 10.7-24 24s10.7 24 24 24h176c13.3 0 24-10.7 24-24s-10.7-24-24-24z\"/></svg>",card:"<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 576 512\"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d=\"M0 96c0-35.3 28.7-64 64-64h448c35.3 0 64 28.7 64 64zm0 48h576v272c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64zm247.3 272c20.2 0 35.3-19.4 22.4-35-14.7-17.7-36.9-29-61.7-29h-64c-24.8 0-47 11.3-61.7 29-12.9 15.6 2.2 35 22.4 35h142.5zM176 312a56 56 0 1 0 0-112 56 56 0 1 0 0 112m184-104c-13.3 0-24 10.7-24 24s10.7 24 24 24h112c13.3 0 24-10.7 24-24s-10.7-24-24-24zm0 96c-13.3 0-24 10.7-24 24s10.7 24 24 24h112c13.3 0 24-10.7 24-24s-10.7-24-24-24z\"/></svg>",info:"<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d=\"M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512m-32-352a32 32 0 1 1 64 0 32 32 0 1 1-64 0m-8 64h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24h-80c-13.3 0-24-10.7-24-24s10.7-24 24-24h24v-64h-24c-13.3 0-24-10.7-24-24s10.7-24 24-24\"/></svg>"};
+var T={
+bn:{inv:"ইনভয়েস খুঁজুন / Search Invoice",rn:"রসিদ নম্বর / Receipt Number",ex:"উদাহরণ: 304",ih:"ইনভয়েস দেখতে রসিদ নম্বর লিখুন / Enter receipt number to view invoice",close:"বন্ধ করুন / Close",search:"খুঁজুন / Search",
+ st:"ছাত্র/ছাত্রী খুঁজুন",reg:"রেজিস্ট্রেশন নম্বর",ex2:"উদাহরণ: ১২৩৪৫",sh:"ছাত্র/ছাত্রীর সম্পূর্ণ তথ্য দেখতে রেজিস্ট্রেশন নম্বর লিখুন",back:"ফিরে যান",s2:"খুঁজুন",nf:"কোনো ছাত্র/ছাত্রী পাওয়া যায়নি",cls:"ক্লাস",nm:"নাম",rl:"রোল",need:"নম্বর লিখুন"},
+en:{inv:"Search Invoice",rn:"Receipt Number",ex:"Example: 304",ih:"Enter receipt number to view the invoice",close:"Close",search:"Search",
+ st:"Search Student",reg:"Registration Number",ex2:"Example: 12345",sh:"Enter the registration number to view full student details",back:"Go back",s2:"Search",nf:"No student found",cls:"Class",nm:"Name",rl:"Roll",need:"Enter a number"},
+ar:{inv:"البحث عن فاتورة",rn:"رقم الإيصال",ex:"مثال: 304",ih:"أدخل رقم الإيصال لعرض الفاتورة",close:"إغلاق",search:"بحث",
+ st:"البحث عن طالب",reg:"رقم التسجيل",ex2:"مثال: 12345",sh:"أدخل رقم التسجيل لعرض بيانات الطالب كاملة",back:"رجوع",s2:"بحث",nf:"لم يتم العثور على طالب",cls:"الصف",nm:"الاسم",rl:"الرقم",need:"أدخل الرقم"}};
+function L(){var l=localStorage.getItem("nurul_dashboard_language")||document.documentElement.lang||"bn";return T[l]?l:"bn"}
+function t(k){return T[L()][k]}
+var css=document.createElement("style");css.textContent=
+".sd{position:fixed;inset-inline-end:16px;bottom:92px;z-index:90;display:flex;flex-direction:column;align-items:center;gap:12px}"+
+".sd button{border:3px solid #fff;border-radius:50%;width:58px;height:58px;color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;cursor:pointer;box-shadow:0 8px 20px rgba(0,0,0,.28);transition:.25s}"+
+".sd .opt{opacity:0;pointer-events:none;transform:translateY(20px) scale(.6)}.sd.open .opt{opacity:1;pointer-events:auto;transform:none}"+
+".sd.open .opt:nth-child(4){transition-delay:.02s}.sd.open .opt:nth-child(3){transition-delay:.06s}.sd.open .opt:nth-child(2){transition-delay:.1s}.sd.open .opt:nth-child(1){transition-delay:.14s}"+
+".sd .sdmain{background:#0e5a40;width:62px;height:62px}.sd.open .sdmain{transform:rotate(45deg)}.sd svg,.sdm svg{width:1em;height:1em;fill:currentColor}"+
+".sdm{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;display:none;align-items:center;justify-content:center;padding:16px}.sdm.show{display:flex}"+
+".sdb{background:#fff;border-radius:22px;width:100%;max-width:520px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.4)}"+
+".sdh{display:flex;align-items:center;gap:12px;padding:18px 20px;color:#fff;font-size:20px;font-weight:600}.sdh .x{margin-inline-start:auto;cursor:pointer;font-size:18px;background:none;border:0;color:#fff}"+
+".sdc{padding:18px 20px;color:#17382c}.sdc label{display:flex;gap:8px;align-items:center;font-weight:600;margin-bottom:10px}"+
+".sdc input{width:100%;padding:14px;border:2px solid #7fb7d8;border-radius:14px;font-size:17px;font-family:inherit;outline:none}.sdc input:focus{border-color:#0e5a40;box-shadow:0 0 0 4px rgba(14,90,64,.15)}"+
+".sdc p{color:#6b7d73;font-size:14px;margin-top:8px;display:flex;gap:8px}.sdf{border-top:1px solid #eee;padding:16px 20px;display:flex;flex-direction:column;gap:12px}"+
+".sdf button{border:0;border-radius:14px;padding:14px;font-size:17px;font-family:inherit;color:#fff;cursor:pointer;display:flex;gap:8px;align-items:center;justify-content:center}"+
+".sdres{margin-top:12px;background:#e9f1ea;border-radius:14px;padding:12px;font-size:15px}";
+document.head.appendChild(css);
+document.querySelectorAll(".fab").forEach(function(e){e.remove()});
+var sd=document.createElement("div");sd.className="sd";
+sd.innerHTML='<button class="opt" data-a="sms" style="background:#0e7a5a" title="SMS">'+IC.sms+'</button><button class="opt" data-a="stu" style="background:#127a5a">'+IC.user+'</button><button class="opt" data-a="inv" style="background:#d9626a">'+IC.inv+'</button><button class="opt" data-a="pay" style="background:#0b63c9">'+IC.bolt+'</button><button class="sdmain">'+IC.plus+'</button>';
+/* order: bolt on top */
+var btns=[].slice.call(sd.querySelectorAll(".opt")).reverse();btns.forEach(function(b){sd.insertBefore(b,sd.querySelector(".sdmain"))});
+document.body.appendChild(sd);
+var m=document.createElement("div");m.className="sdm";document.body.appendChild(m);
+function open(){sd.classList.toggle("open")}
+sd.querySelector(".sdmain").onclick=open;
+function modal(kind){
+ var inv=kind==="inv",col=inv?"#dc3545":"#0e5a40",rtl=L()==="ar";
+ m.dir=rtl?"rtl":"ltr";
+ m.innerHTML='<div class="sdb"><div class="sdh" style="background:'+col+'">'+(inv?IC.inv:IC.search)+'<span>'+(inv?t("inv"):t("st"))+'</span><button class="x">'+IC.x+'</button></div>'+
+ '<div class="sdc"><label>'+(inv?'<span style="color:#dc3545">'+IC.rec+'</span>'+t("rn"):IC.card+t("reg"))+'</label><input id="sdIn" inputmode="numeric" placeholder="'+(inv?t("ex"):t("ex2"))+'"><p>'+IC.info+'<span>'+(inv?t("ih"):t("sh"))+'</span></p><div id="sdRes"></div></div>'+
+ '<div class="sdf">'+(inv?'<button class="cl" style="background:#6c7683">'+IC.x+t("close")+'</button>':'<button class="cl" style="background:#fff;color:#17382c">'+IC.back+t("back")+'</button>')+'<button class="go" style="background:'+(inv?'#dc3545':'linear-gradient(135deg,#1c8a63,#0a5a40)')+'">'+IC.search+(inv?t("search"):t("s2"))+'</button></div></div>';
+ m.classList.add("show");sd.classList.remove("open");
+ var inp=m.querySelector("#sdIn");setTimeout(function(){inp.focus()},50);
+ function close(){m.classList.remove("show")}
+ m.querySelector(".x").onclick=close;m.querySelector(".cl").onclick=close;m.onclick=function(e){if(e.target===m)close()};
+ function go(){var v=inp.value.trim();if(!v){inp.focus();return}
+  if(inv){location.href="invoice.html?receipt="+encodeURIComponent(v);return}
+  var res=m.querySelector("#sdRes");res.className="sdres";res.textContent="…";
+  var q=(typeof db!=="undefined")?db:null;
+  if(!q){location.href="students.html?reg="+encodeURIComponent(v);return}
+  q.from("students").select("*").or("student_id.eq."+v+",roll_number.eq."+v).limit(1).then(function(r){
+   var s=r.data&&r.data[0];
+   res.innerHTML=s?'<b>'+t("nm")+':</b> '+(s.name||"")+'<br><b>'+t("rl")+':</b> '+(s.roll_number||"-")+'<br><b>ID:</b> '+(s.student_id||s.id)+'<br><a href="students.html?reg='+encodeURIComponent(v)+'" style="color:#0e5a40;font-weight:700">→</a>':t("nf")}).catch(function(){res.textContent=t("nf")})}
+ m.querySelector(".go").onclick=go;inp.onkeydown=function(e){if(e.key==="Enter")go()}}
+sd.addEventListener("click",function(e){var b=e.target.closest(".opt");if(!b)return;var a=b.dataset.a;
+ if(a==="pay")location.href="payment-receipt.html";else if(a==="sms")location.href="sms.html";else modal(a)});
 })();
-</script>
-</body>
-</html>
+</script><!--/SD--></body></html>
