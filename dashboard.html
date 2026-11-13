@@ -3072,7 +3072,7 @@ class="nav-item">
 
 
 <a
-href="settings.html"
+href="settings-hub.html"
 class="nav-item">
 
 <i class="fa-solid fa-gear"></i>
@@ -3982,7 +3982,7 @@ data-i18n="complaints">
 
 
 <a
-href="settings.html"
+href="settings-hub.html"
 class="quick-card">
 
 <div class="quick-icon">
@@ -7096,5 +7096,26 @@ function modal(kind){
 sd.addEventListener("click",function(e){var b=e.target.closest(".opt");if(!b)return;var a=b.dataset.a;
  if(a==="pay")location.href="payment-receipt.html";else if(a==="sms")location.href="sms.html";else modal(a)});
 })();
-</script><!--/SD--></body>
+</script><!--/SD-->
+<script id="teacher-page-access-guard">
+(()=>{
+ const role=sessionStorage.getItem('madrasa_login_role');
+ if(role!=='teacher') return;
+ let teacher={};
+ try{teacher=JSON.parse(sessionStorage.getItem('madrasa_teacher_login')||'{}')}catch(e){}
+ const allowed=new Set(Array.isArray(teacher.allowed_pages)?teacher.allowed_pages:[]);
+ const current=(location.pathname.split('/').pop()||'dashboard.html').toLowerCase();
+ const keyFor=url=>String(url||'').split('?')[0].split('/').pop().toLowerCase().replace(/\.html$/,'');
+ const aliases={'dashboard':'dashboard','settings-hub':'settings-hub'};
+ const can=url=>{const k=keyFor(url);return allowed.has(k)||allowed.has(k+'.html')||allowed.has(url)||allowed.has('*')};
+ document.querySelectorAll('a[href*=".html"]').forEach(a=>{
+   const href=a.getAttribute('href')||'';
+   if(!can(href)){a.hidden=true;a.setAttribute('aria-hidden','true');}
+ });
+ if(current!=='dashboard.html' && !can(current)){
+   document.body.innerHTML='<main style="font-family:Arial,sans-serif;max-width:520px;margin:15vh auto;padding:28px;text-align:center"><h2>অ্যাক্সেস অনুমোদিত নয়</h2><p>এই পেজটি দেখার অনুমতি আপনার নেই।</p><a href="dashboard.html">ড্যাশবোর্ডে ফিরে যান</a></main>';
+ }
+})();
+</script>
+</body>
 </html>
