@@ -5563,20 +5563,10 @@ document
 
         try{
 
-            const activeRole = sessionStorage.getItem("madrasa_login_role");
-
-            if(activeRole === "teacher"){
-                sessionStorage.removeItem("madrasa_login_role");
-                sessionStorage.removeItem("madrasa_teacher_login");
-                sessionStorage.removeItem("madrasa_auth_user");
-                window.location.href = "login.html";
-                return;
-            }
-
             await db.auth.signOut();
-            sessionStorage.removeItem("madrasa_login_role");
-            sessionStorage.removeItem("madrasa_auth_user");
-            window.location.href = "login.html";
+
+            window.location.href =
+                "admin.html";
 
         }catch(error){
 
@@ -5597,74 +5587,50 @@ document
 
 async function checkAuth(){
 
-    /*
-      Teacher login uses verify_teacher_login RPC, not Supabase Auth.
-      Therefore validate the teacher login record first and do not
-      redirect a valid teacher to the Admin Login page.
-    */
-    const activeRole = sessionStorage.getItem("madrasa_login_role");
-
-    if(activeRole === "teacher"){
-        try{
-            const teacher = JSON.parse(
-                sessionStorage.getItem("madrasa_teacher_login") || "null"
-            );
-
-            if(
-                teacher &&
-                teacher.role === "teacher" &&
-                teacher.id !== undefined &&
-                teacher.id !== null &&
-                String(teacher.id).trim() !== "" &&
-                (teacher.phone || teacher.mobile)
-            ){
-                return true;
-            }
-        }catch(teacherSessionError){
-            console.error("Teacher session error:", teacherSessionError);
-        }
-
-        sessionStorage.removeItem("madrasa_login_role");
-        sessionStorage.removeItem("madrasa_teacher_login");
-        sessionStorage.removeItem("madrasa_auth_user");
-        window.location.replace("login.html");
-        return false;
-    }
-
     try{
-        const {data,error} = await db.auth.getSession();
+
+        const {
+            data,
+            error
+        } =
+        await db.auth.getSession();
+
 
         if(error){
-            console.error("Auth error:", error.message);
-            window.location.replace("login.html");
+
+            console.error(
+                "Auth error:",
+                error.message
+            );
+
             return false;
+
         }
 
-        if(!data || !data.session){
-            sessionStorage.removeItem("madrasa_login_role");
-            sessionStorage.removeItem("madrasa_auth_user");
-            window.location.replace("login.html");
+
+        if(
+            !data.session
+        ){
+
+            window.location.href =
+                "admin.html";
+
             return false;
+
         }
 
-        const authRole = String(
-            data.session.user?.app_metadata?.role ||
-            data.session.user?.user_metadata?.role ||
-            "admin"
-        ).toLowerCase();
 
-        if(authRole === "teacher"){
-            window.location.replace("login.html");
-            return false;
-        }
-
-        sessionStorage.setItem("madrasa_login_role", "admin");
         return true;
 
     }catch(error){
-        console.error("Auth:", error);
-        window.location.replace("login.html");
+
+        console.error(
+            "Auth:",
+            error
+        );
+
         return false;
+
     }
 
 }
@@ -6975,16 +6941,11 @@ async function loadDashboard(){
 db.auth.onAuthStateChange(
     (event,session)=>{
 
-        // RPC-based teacher sessions are stored separately from Supabase Auth.
-        // A null Supabase session must not terminate a valid teacher session.
-        if(sessionStorage.getItem("madrasa_login_role") === "teacher"){
-            return;
-        }
-
         if(!session){
-            sessionStorage.removeItem("madrasa_login_role");
-            sessionStorage.removeItem("madrasa_auth_user");
-            window.location.replace("login.html");
+
+            window.location.href =
+                "admin.html";
+
         }
 
     }
@@ -7136,23 +7097,39 @@ sd.addEventListener("click",function(e){var b=e.target.closest(".opt");if(!b)ret
  if(a==="pay")location.href="payment-receipt.html";else if(a==="sms")location.href="sms.html";else modal(a)});
 })();
 </script><!--/SD-->
+<style id="teacher-access-visibility-style">
+/* Keep denied teacher links hidden even when component CSS sets display. */
+html.teacher-mode [data-teacher-denied="1"]{display:none!important;visibility:hidden!important}
+html.teacher-mode .teacher-denied-section{display:none!important}
+</style>
 <script id="teacher-page-access-guard">
 (()=>{
  const role=sessionStorage.getItem('madrasa_login_role');
  if(role!=='teacher') return;
+ document.documentElement.classList.add('teacher-mode');
  let teacher={};
  try{teacher=JSON.parse(sessionStorage.getItem('madrasa_teacher_login')||'{}')}catch(e){}
- const allowed=new Set(Array.isArray(teacher.allowed_pages)?teacher.allowed_pages:[]);
+ const allowed=new Set((Array.isArray(teacher.allowed_pages)?teacher.allowed_pages:[]).map(x=>String(x).trim().toLowerCase().replace(/\.html$/,'')));
  const current=(location.pathname.split('/').pop()||'dashboard.html').toLowerCase();
- const keyFor=url=>String(url||'').split('?')[0].split('/').pop().toLowerCase().replace(/\.html$/,'');
- const aliases={'dashboard':'dashboard','settings-hub':'settings-hub'};
- const can=url=>{const k=keyFor(url);return allowed.has(k)||allowed.has(k+'.html')||allowed.has(url)||allowed.has('*')};
- document.querySelectorAll('a[href*=".html"]').forEach(a=>{
+ const keyFor=url=>String(url||'').split(/[?#]/)[0].split('/').pop().toLowerCase().replace(/\.html$/,'');
+ const can=url=>{const k=keyFor(url);return k==='dashboard'||allowed.has(k)||allowed.has('*')};
+ document.querySelectorAll('a[href]').forEach(a=>{
    const href=a.getAttribute('href')||'';
-   if(!can(href)){a.hidden=true;a.setAttribute('aria-hidden','true');}
+   if(!/\.html(?:[?#]|$)/i.test(href)) return;
+   if(!can(href)){a.setAttribute('data-teacher-denied','1');a.setAttribute('aria-hidden','true');a.setAttribute('tabindex','-1');}
+ });
+ // Hide navigation group headings that no longer have an available link.
+ document.querySelectorAll('.sidebar .nav-item').forEach(a=>{
+   if(a.hasAttribute('data-teacher-denied')){
+     const parent=a.parentElement;
+     if(parent && parent.classList.contains('nav-group')){
+       const links=[...parent.querySelectorAll('.nav-item')];
+       if(links.length && links.every(x=>x.hasAttribute('data-teacher-denied'))) parent.classList.add('teacher-denied-section');
+     }
+   }
  });
  if(current!=='dashboard.html' && !can(current)){
-   document.body.innerHTML='<main style="font-family:Arial,sans-serif;max-width:520px;margin:15vh auto;padding:28px;text-align:center"><h2>অ্যাক্সেস অনুমোদিত নয়</h2><p>এই পেজটি দেখার অনুমতি আপনার নেই।</p><a href="dashboard.html">ড্যাশবোর্ডে ফিরে যান</a></main>';
+   document.body.innerHTML='<main style="font-family:Bornomala,serif;max-width:520px;margin:15vh auto;padding:28px;text-align:center;background:#fff;border-radius:16px"><h2>অ্যাক্সেস অনুমোদিত নয়</h2><p>এই পেজটি দেখার অনুমতি আপনার নেই।</p><a href="dashboard.html">ড্যাশবোর্ডে ফিরে যান</a></main>';
  }
 })();
 </script>

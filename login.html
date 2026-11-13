@@ -1504,11 +1504,21 @@ async function teacherLogin(){
         phone:
           teacher.phone ||
           teacher.mobile ||
+          teacher.mobile_number ||
           mobile,
 
-        role:"teacher",
+        mobile:
+          teacher.mobile ||
+          teacher.phone ||
+          teacher.mobile_number ||
+          mobile,
 
-        allowed_pages:Array.isArray(teacher.allowed_pages) ? teacher.allowed_pages : [],
+        allowed_pages:
+          Array.isArray(teacher.allowed_pages)
+            ? teacher.allowed_pages
+            : [],
+
+        role:"teacher",
 
         at:Date.now()
 
