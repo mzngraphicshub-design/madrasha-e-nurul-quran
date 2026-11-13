@@ -5563,10 +5563,20 @@ document
 
         try{
 
-            await db.auth.signOut();
+            const activeRole = sessionStorage.getItem("madrasa_login_role");
 
-            window.location.href =
-                "admin.html";
+            if(activeRole === "teacher"){
+                sessionStorage.removeItem("madrasa_login_role");
+                sessionStorage.removeItem("madrasa_teacher_login");
+                sessionStorage.removeItem("madrasa_auth_user");
+                window.location.href = "login.html";
+                return;
+            }
+
+            await db.auth.signOut();
+            sessionStorage.removeItem("madrasa_login_role");
+            sessionStorage.removeItem("madrasa_auth_user");
+            window.location.href = "login.html";
 
         }catch(error){
 
@@ -5587,50 +5597,74 @@ document
 
 async function checkAuth(){
 
-    try{
+    /*
+      Teacher login uses verify_teacher_login RPC, not Supabase Auth.
+      Therefore validate the teacher login record first and do not
+      redirect a valid teacher to the Admin Login page.
+    */
+    const activeRole = sessionStorage.getItem("madrasa_login_role");
 
-        const {
-            data,
-            error
-        } =
-        await db.auth.getSession();
-
-
-        if(error){
-
-            console.error(
-                "Auth error:",
-                error.message
+    if(activeRole === "teacher"){
+        try{
+            const teacher = JSON.parse(
+                sessionStorage.getItem("madrasa_teacher_login") || "null"
             );
 
-            return false;
-
+            if(
+                teacher &&
+                teacher.role === "teacher" &&
+                teacher.id !== undefined &&
+                teacher.id !== null &&
+                String(teacher.id).trim() !== "" &&
+                (teacher.phone || teacher.mobile)
+            ){
+                return true;
+            }
+        }catch(teacherSessionError){
+            console.error("Teacher session error:", teacherSessionError);
         }
 
+        sessionStorage.removeItem("madrasa_login_role");
+        sessionStorage.removeItem("madrasa_teacher_login");
+        sessionStorage.removeItem("madrasa_auth_user");
+        window.location.replace("login.html");
+        return false;
+    }
 
-        if(
-            !data.session
-        ){
+    try{
+        const {data,error} = await db.auth.getSession();
 
-            window.location.href =
-                "admin.html";
-
+        if(error){
+            console.error("Auth error:", error.message);
+            window.location.replace("login.html");
             return false;
-
         }
 
+        if(!data || !data.session){
+            sessionStorage.removeItem("madrasa_login_role");
+            sessionStorage.removeItem("madrasa_auth_user");
+            window.location.replace("login.html");
+            return false;
+        }
 
+        const authRole = String(
+            data.session.user?.app_metadata?.role ||
+            data.session.user?.user_metadata?.role ||
+            "admin"
+        ).toLowerCase();
+
+        if(authRole === "teacher"){
+            window.location.replace("login.html");
+            return false;
+        }
+
+        sessionStorage.setItem("madrasa_login_role", "admin");
         return true;
 
     }catch(error){
-
-        console.error(
-            "Auth:",
-            error
-        );
-
+        console.error("Auth:", error);
+        window.location.replace("login.html");
         return false;
-
     }
 
 }
@@ -6941,11 +6975,16 @@ async function loadDashboard(){
 db.auth.onAuthStateChange(
     (event,session)=>{
 
+        // RPC-based teacher sessions are stored separately from Supabase Auth.
+        // A null Supabase session must not terminate a valid teacher session.
+        if(sessionStorage.getItem("madrasa_login_role") === "teacher"){
+            return;
+        }
+
         if(!session){
-
-            window.location.href =
-                "admin.html";
-
+            sessionStorage.removeItem("madrasa_login_role");
+            sessionStorage.removeItem("madrasa_auth_user");
+            window.location.replace("login.html");
         }
 
     }
