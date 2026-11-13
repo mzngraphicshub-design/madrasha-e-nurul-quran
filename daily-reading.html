@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>দৈনিক পড়া | মাদরাসায়ে নূরুল কুরআন</title>
+<link href="https://banglawebfonts.pages.dev/css/bornomala.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--navy:#08284e;--blue:#145bb5;--gold:#e9b949;--bg:#f2f6fc;--ink:#17263b;--muted:#68788e;--line:#e1e9f3;--green:#16834b;--red:#c93636}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Bornomala",sans-serif;background:linear-gradient(135deg,#edf4ff,#f8fbff);color:var(--ink);min-height:100vh;padding:22px}
+.wrap{max-width:980px;margin:auto}
+header{background:linear-gradient(120deg,#061b36,#104a8c);color:white;padding:25px;border-radius:22px;box-shadow:0 14px 35px #08284e20}
+header .top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+header h1{font-size:30px}
+header p{color:#c7d9f1;margin-top:5px;font-size:15px}
+.pill{background:#ffffff18;border:1px solid #ffffff30;border-radius:30px;padding:7px 13px;font-size:13px}
+.card{background:white;border:1px solid var(--line);border-radius:20px;padding:22px;margin-top:18px;box-shadow:0 10px 30px #102d5010}
+.card h2{font-size:23px;color:var(--navy);margin-bottom:15px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field.full{grid-column:1/-1}
+label{font-size:15px;color:#34445a}
+input,textarea,select{width:100%;border:1px solid #d5dfeb;border-radius:12px;padding:12px 13px;font:inherit;font-size:16px;outline:none;background:#fff;color:var(--ink)}
+input:focus,textarea:focus,select:focus{border-color:#3b82d6;box-shadow:0 0 0 3px #3b82d618}
+textarea{min-height:90px;resize:vertical}
+button,.btn{border:0;border-radius:12px;padding:12px 17px;font:inherit;font-size:16px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.primary{background:linear-gradient(120deg,#0d47a1,#1976d2);color:white}
+.secondary{background:#edf4ff;color:#124a8c;border:1px solid #d5e5fa}
+.whatsapp{background:#e7f8ed;color:#087b39;border:1px solid #c7efd5}
+.danger{background:#fff0f0;color:#b42323}
+button:disabled{opacity:.55;cursor:wait}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}
+.msg{min-height:24px;margin-top:12px;font-size:14px;color:var(--muted)}
+.msg.error{color:var(--red)}.msg.success{color:var(--green)}
+.student-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stat{background:#f3f7fd;border:1px solid #e3ebf6;padding:12px;border-radius:13px}
+.stat small{display:block;color:var(--muted);font-size:13px}.stat strong{font-size:17px;color:var(--navy);overflow-wrap:anywhere}
+.reading{border:1px solid var(--line);border-left:4px solid var(--blue);border-radius:14px;padding:16px;margin-top:12px;background:#fff}
+.reading-head{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:var(--muted);font-size:14px;margin-bottom:8px}
+.reading h3{font-size:20px;color:var(--navy);margin-bottom:6px}
+.reading p{white-space:pre-wrap;line-height:1.65;margin-top:6px}
+.reading b{color:#263b57}
+.empty{text-align:center;color:var(--muted);padding:30px 10px}
+.hidden{display:none!important}
+@media(max-width:620px){body{padding:12px}.grid{grid-template-columns:1fr}.student-summary{grid-template-columns:1fr}.card{padding:16px}header{padding:20px}header h1{font-size:25px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+ <div class="top">
+  <div><h1><i class="fa-solid fa-book-open"></i> দৈনিক পড়া</h1><p>মাদরাসায়ে নূরুল কুরআন · Student Learning Portal</p></div>
+  <span class="pill" id="viewLabel">লোড হচ্ছে...</span>
+ </div>
+</header>
+
+<section class="card hidden" id="adminPanel">
+ <h2><i class="fa-solid fa-user-pen"></i> শিক্ষার্থীর দৈনিক পড়া যোগ করুন</h2>
+ <div class="grid">
+  <div class="field"><label for="searchId">Student ID</label><input id="searchId" placeholder="শিক্ষার্থীর ID লিখুন"></div>
+  <div class="field" style="align-self:end"><button class="primary" id="findStudent"><i class="fa-solid fa-magnifying-glass"></i> শিক্ষার্থী খুঁজুন</button></div>
+ </div>
+ <div id="studentInfo" class="student-summary hidden" style="margin-top:14px">
+  <div class="stat"><small>শিক্ষার্থীর নাম</small><strong id="sName">—</strong></div>
+  <div class="stat"><small>শ্রেণি</small><strong id="sClass">—</strong></div>
+  <div class="stat"><small>অভিভাবকের মোবাইল</small><strong id="sPhone">—</strong></div>
+ </div>
+ <form id="readingForm" class="hidden" style="margin-top:18px">
+  <div class="grid">
+   <div class="field"><label for="readingDate">তারিখ</label><input id="readingDate" type="date" required></div>
+   <div class="field"><label for="subject">বিষয়</label><select id="subject" required><option value="">বিষয় নির্বাচন করুন</option><option>নাজেরা</option><option>হিফজ</option><option>আমপারা</option><option>কায়দা</option><option>দোয়া</option><option>মাসআলা</option><option>অন্যান্য</option></select></div>
+   <div class="field full"><label for="lesson">আজকের পড়া</label><textarea id="lesson" required placeholder="যেমন: সূরা বাকারা, আয়াত ১–১০"></textarea></div>
+   <div class="field full"><label for="homework">বাসার পড়া / মুখস্থ</label><textarea id="homework" placeholder="বাসায় কী পড়বে বা মুখস্থ করবে"></textarea></div>
+   <div class="field full"><label for="teacherNote">শিক্ষকের মন্তব্য</label><textarea id="teacherNote" placeholder="প্রয়োজনীয় নির্দেশনা বা মন্তব্য"></textarea></div>
+  </div>
+  <div class="actions"><button class="primary" id="saveReading" type="submit"><i class="fa-solid fa-floppy-disk"></i> পড়া সংরক্ষণ করুন</button><button class="whatsapp" id="sendWhatsApp" type="button"><i class="fa-brands fa-whatsapp"></i> WhatsApp বার্তা তৈরি</button></div>
+ </form>
+ <div class="msg" id="adminMsg" aria-live="polite"></div>
+</section>
+
+<section class="card hidden" id="studentPanel">
+ <h2><i class="fa-solid fa-graduation-cap"></i> আমার দৈনিক পড়া</h2>
+ <div class="student-summary">
+  <div class="stat"><small>শিক্ষার্থীর নাম</small><strong id="pName">—</strong></div>
+  <div class="stat"><small>Student ID</small><strong id="pId">—</strong></div>
+  <div class="stat"><small>শ্রেণি</small><strong id="pClass">—</strong></div>
+ </div>
+ <div class="actions"><button class="secondary" id="refreshReadings"><i class="fa-solid fa-rotate"></i> পড়া রিফ্রেশ করুন</button></div>
+ <div class="msg" id="studentMsg" aria-live="polite"></div>
+ <div id="readingList"><div class="empty">দৈনিক পড়া লোড হচ্ছে...</div></div>
+</section>
+</div>
+
+<script>
+const SUPABASE_URL="https://qavublwhqiqsgpcmfyft.supabase.co";
+const SUPABASE_KEY="sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const $=id=>document.getElementById(id);
+let selectedStudent=null;
+let currentView=new URLSearchParams(location.search).get("view") || (sessionStorage.getItem("madrasa_login_role")==="admin" ? "admin" : "student");
+
+function showMsg(id,text,type=""){const el=$(id);el.textContent=text;el.className="msg "+type;}
+function getSavedStudent(){
+ let raw=sessionStorage.getItem("madrasa_student_login")||localStorage.getItem("madrasa_student_login");
+ if(!raw)return null;
+ try{return JSON.parse(raw)}catch(e){return null}
+}
+function normalizePhone(v){return String(v||"").replace(/[^\d]/g,"").replace(/^0/,"880");}
+function escapeHtml(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function bnDate(v){try{return new Date(v+"T00:00:00").toLocaleDateString("bn-BD",{year:"numeric",month:"long",day:"numeric"})}catch(e){return v}}
+function renderReadings(rows){
+ const list=$("readingList");
+ if(!rows || !rows.length){list.innerHTML='<div class="empty"><i class="fa-regular fa-folder-open"></i><br>এখনো কোনো দৈনিক পড়া যোগ করা হয়নি।</div>';return;}
+ list.innerHTML=rows.map(r=>`
+ <article class="reading">
+  <div class="reading-head"><span><i class="fa-regular fa-calendar"></i> ${escapeHtml(bnDate(r.reading_date))}</span><span>${escapeHtml(r.subject||"")}</span></div>
+  <h3>${escapeHtml(r.subject||"দৈনিক পড়া")}</h3>
+  <p><b>আজকের পড়া:</b>\n${escapeHtml(r.lesson||"—")}</p>
+  ${r.homework?`<p><b>বাসার পড়া:</b>\n${escapeHtml(r.homework)}</p>`:""}
+  ${r.teacher_note?`<p><b>শিক্ষকের মন্তব্য:</b>\n${escapeHtml(r.teacher_note)}</p>`:""}
+ </article>`).join("");
+}
+async function loadStudentReadings(){
+ const login=getSavedStudent();
+ if(!login || !login.student_id || !login.mobile){
+  $("studentPanel").classList.remove("hidden");
+  showMsg("studentMsg","লগইন তথ্য পাওয়া যায়নি। Student ID ও অভিভাবকের নম্বর দিয়ে আবার লগইন করুন।","error");
+  $("readingList").innerHTML='<div class="empty"><a href="login.html">লগইন পেজে যান</a></div>';return;
+ }
+ $("pName").textContent=login.name||"—";$("pId").textContent=login.student_id;$("pClass").textContent=login.class_id||"—";
+ $("studentPanel").classList.remove("hidden");$("viewLabel").textContent="শিক্ষার্থী পোর্টাল";
+ showMsg("studentMsg","দৈনিক পড়া আনা হচ্ছে...");
+ const {data,error}=await db.rpc("get_student_daily_readings",{p_student_id:String(login.student_id),p_mobile:String(login.mobile)});
+ if(error){console.error(error);showMsg("studentMsg","পড়া লোড করা যায়নি। Supabase SQL সেটআপ ও নেটওয়ার্ক পরীক্ষা করুন।","error");$("readingList").innerHTML="";return;}
+ renderReadings(data||[]);showMsg("studentMsg",(data||[]).length+"টি পড়ার তথ্য পাওয়া গেছে।","success");
+}
+async function findStudent(){
+ const id=$("searchId").value.trim();if(!id){showMsg("adminMsg","Student ID লিখুন।","error");return;}
+ $("findStudent").disabled=true;showMsg("adminMsg","শিক্ষার্থী খোঁজা হচ্ছে...");
+ try{
+  const {data,error}=await db.from("students").select("id,student_id,name,class_id,session,phone").eq("student_id",id).maybeSingle();
+  if(error)throw error;if(!data){selectedStudent=null;$("studentInfo").classList.add("hidden");$("readingForm").classList.add("hidden");showMsg("adminMsg","এই ID-তে শিক্ষার্থী পাওয়া যায়নি।","error");return;}
+  selectedStudent=data;$("sName").textContent=data.name||"—";$("sClass").textContent=data.class_id||"—";$("sPhone").textContent=data.phone||"নম্বর নেই";
+  $("studentInfo").classList.remove("hidden");$("readingForm").classList.remove("hidden");showMsg("adminMsg","শিক্ষার্থী পাওয়া গেছে। এখন পড়ার তথ্য লিখুন।","success");
+ }catch(e){console.error(e);showMsg("adminMsg","শিক্ষার্থী খুঁজতে সমস্যা: "+(e.message||"অজানা ত্রুটি"),"error");}
+ finally{$("findStudent").disabled=false;}
+}
+async function saveReading(e){
+ e.preventDefault();if(!selectedStudent){showMsg("adminMsg","আগে Student ID দিয়ে শিক্ষার্থী খুঁজুন।","error");return;}
+ const payload={p_student_id:String(selectedStudent.student_id),p_reading_date:$("readingDate").value,p_subject:$("subject").value,p_lesson:$("lesson").value.trim(),p_homework:$("homework").value.trim(),p_teacher_note:$("teacherNote").value.trim()};
+ if(!payload.p_reading_date||!payload.p_subject||!payload.p_lesson){showMsg("adminMsg","তারিখ, বিষয় ও আজকের পড়া পূরণ করুন।","error");return;}
+ $("saveReading").disabled=true;showMsg("adminMsg","পড়া সংরক্ষণ করা হচ্ছে...");
+ try{
+  const {error}=await db.rpc("admin_add_daily_reading",payload);if(error)throw error;
+  showMsg("adminMsg","দৈনিক পড়া সফলভাবে সংরক্ষণ হয়েছে।","success");
+  $("readingForm").reset();$("readingDate").value=new Date().toISOString().slice(0,10);
+ }catch(e){console.error(e);showMsg("adminMsg","সংরক্ষণ হয়নি: "+(e.message||"SQL/RLS সেটআপ পরীক্ষা করুন।"),"error");}
+ finally{$("saveReading").disabled=false;}
+}
+function whatsappMessage(){
+ if(!selectedStudent)return;
+ const phone=normalizePhone(selectedStudent.phone);if(!phone){showMsg("adminMsg","শিক্ষার্থীর রেকর্ডে guardian mobile/phone নম্বর নেই।","error");return;}
+ const date=$("readingDate").value;const subject=$("subject").value;const lesson=$("lesson").value.trim();const homework=$("homework").value.trim();const note=$("teacherNote").value.trim();
+ if(!date||!subject||!lesson){showMsg("adminMsg","WhatsApp বার্তার জন্য তারিখ, বিষয় ও পড়া পূরণ করুন।","error");return;}
+ const text=`মাদরাসায়ে নূরুল কুরআন\nদৈনিক পড়ার বিবরণ\nশিক্ষার্থী: ${selectedStudent.name||""}\nStudent ID: ${selectedStudent.student_id}\nতারিখ: ${bnDate(date)}\nবিষয়: ${subject}\nআজকের পড়া: ${lesson}${homework?"\nবাসার পড়া: "+homework:""}${note?"\nশিক্ষকের মন্তব্য: "+note:""}`;
+ window.open("https://wa.me/"+phone+"?text="+encodeURIComponent(text),"_blank","noopener");
+}
+async function init(){
+ $("readingDate").value=new Date().toISOString().slice(0,10);
+ if(currentView==="admin"){
+  const {data,error}=await db.auth.getSession();
+  if(error||!data?.session){$("viewLabel").textContent="অ্যাডমিন লগইন প্রয়োজন";$("adminPanel").classList.remove("hidden");showMsg("adminMsg",'Admin হিসেবে login করে আবার এই পেজ খুলুন। <a href="login.html">Login</a>',"error");return;}
+  $("viewLabel").textContent="অ্যাডমিন / শিক্ষক ব্যবস্থাপনা";$("adminPanel").classList.remove("hidden");
+ }else{await loadStudentReadings();}
+}
+$("findStudent").addEventListener("click",findStudent);
+$("readingForm").addEventListener("submit",saveReading);
+$("sendWhatsApp").addEventListener("click",whatsappMessage);
+$("refreshReadings").addEventListener("click",loadStudentReadings);
+init();
+</script>
+</body>
+</html>
