@@ -7112,7 +7112,13 @@ html.teacher-mode .teacher-denied-section{display:none!important}
  const allowed=new Set((Array.isArray(teacher.allowed_pages)?teacher.allowed_pages:[]).map(x=>String(x).trim().toLowerCase().replace(/\.html$/,'')));
  const current=(location.pathname.split('/').pop()||'dashboard.html').toLowerCase();
  const keyFor=url=>String(url||'').split(/[?#]/)[0].split('/').pop().toLowerCase().replace(/\.html$/,'');
- const can=url=>{const k=keyFor(url);return k==='dashboard'||allowed.has(k)||allowed.has('*')};
+ const can=url=>{const k=keyFor(url);return k==='dashboard'||k==='students-hub'||allowed.has(k)||allowed.has('*')};
+ // Teacher bottom navigation: keep Students Hub; hide Accounts and Settings hubs.
+ document.querySelectorAll('.bottom-nav a[href="accounts-hub.html"], .bottom-nav a[href="settings-hub.html"]').forEach(a=>{
+   a.setAttribute('data-teacher-denied','1');
+   a.setAttribute('aria-hidden','true');
+   a.setAttribute('tabindex','-1');
+ });
  document.querySelectorAll('a[href]').forEach(a=>{
    const href=a.getAttribute('href')||'';
    if(!/\.html(?:[?#]|$)/i.test(href)) return;
