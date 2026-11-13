@@ -1,20 +1,655 @@
-<!doctype html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>শিক্ষক অ্যাক্সেস ব্যবস্থাপনা</title><link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet"><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><style>*{box-sizing:border-box}body{margin:0;background:#f3f7f9;color:#163344;font-family:'Hind Siliguri',sans-serif}.top{background:linear-gradient(120deg,#075b7c,#08739b);color:white;padding:22px max(16px,calc((100% - 1100px)/2));display:flex;justify-content:space-between;align-items:center;gap:12px}.top h1{font-size:23px;margin:0}.wrap{max-width:1100px;margin:22px auto;padding:0 14px}.panel{background:#fff;border:1px solid #e2ebef;border-radius:16px;padding:18px;margin-bottom:18px;box-shadow:0 6px 22px #0b48600b}.row{display:flex;gap:12px;flex-wrap:wrap}.field{flex:1;min-width:180px}label{display:block;font-weight:600;margin:5px 0}input{width:100%;padding:11px;border:1px solid #cbdbe2;border-radius:9px;font:inherit}button,.btn{border:0;border-radius:9px;padding:10px 15px;background:#08739b;color:#fff;font:600 15px inherit;cursor:pointer}button.secondary{background:#e8f2f6;color:#075b7c}button.danger{background:#b42332}.list{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;margin-top:12px}.perm{border:1px solid #e1ebef;border-radius:9px;padding:9px;display:flex;gap:8px;align-items:center}.perm input{width:auto}.muted{color:#607987;font-size:14px}.status{padding:10px;border-radius:9px;margin:10px 0;display:none}.status.err{display:block;background:#fff0f0;color:#a21d2a}.status.ok{display:block;background:#e9f8ef;color:#17683a}.teacher{padding:12px;border:1px solid #e1ebef;border-radius:11px;margin:8px 0;display:flex;justify-content:space-between;gap:12px;align-items:center}.teacher small{display:block;color:#607987}.actions{display:flex;gap:7px;flex-wrap:wrap}.headrow{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.all{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}@media(max-width:600px){.teacher{align-items:flex-start;flex-direction:column}.top h1{font-size:19px}}</style></head><body><header class="top"><div><h1>শিক্ষক অ্যাক্সেস ব্যবস্থাপনা</h1><div>মোবাইল নম্বরভিত্তিক লগইন ও পেজ অনুমতি</div></div><a class="btn" href="settings-hub.html" style="background:#fff;color:#075b7c;text-decoration:none">হাবে ফিরুন</a></header><main class="wrap"><div id="status" class="status"></div><section class="panel"><h2 id="formTitle">নতুন শিক্ষক অ্যাকাউন্ট</h2><form id="teacherForm"><input type="hidden" id="editId"><div class="row"><div class="field"><label>শিক্ষকের নাম</label><input id="name" required placeholder="পূর্ণ নাম"></div><div class="field"><label>মোবাইল নম্বর</label><input id="mobile" required inputmode="tel" placeholder="01XXXXXXXXX"></div><div class="field"><label>পাসওয়ার্ড</label><input id="password" type="text" required placeholder="লগইন পাসওয়ার্ড"></div></div><div class="row" style="margin-top:12px"><div class="field"><label>পদবি</label><input id="designation" placeholder="সহকারী শিক্ষক"></div><div class="field"><label>বিষয়</label><input id="subject" placeholder="কুরআন শিক্ষা"></div></div><h3>পেজ অ্যাক্সেস নির্বাচন করুন</h3><p class="muted">যে পেজে টিক দেবেন, শিক্ষক ড্যাশবোর্ডে সেই পেজের লিংক দেখতে পাবেন।</p><div class="all"><button type="button" class="secondary" id="selectAll">সব নির্বাচন</button><button type="button" class="secondary" id="clearAll">সব বাতিল</button></div><div id="pageList" class="list"></div><div class="all"><button type="submit" id="saveBtn">শিক্ষক সংরক্ষণ করুন</button><button type="button" class="secondary" id="cancelBtn" hidden>বাতিল</button></div></form></section><section class="panel"><div class="headrow"><h2>শিক্ষক অ্যাকাউন্টসমূহ</h2><span class="muted" id="count">লোড হচ্ছে...</span></div><div id="teacherList">লোড হচ্ছে...</div></section></main><script>
+<!doctype html>
+<html lang="bn" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>শিক্ষক অ্যাক্সেস ব্যবস্থাপনা | মাদরাসায়ে নূরুল কুরআন</title>
+<link rel="stylesheet" href="https://banglawebfonts.pages.dev/css/bornomala.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{box-sizing:border-box}
+:root{--primary:#54b3d0;--deep:#075b7c;--blue:#08739b;--bg:#f1f6f8;--text:#17313d;--muted:#71838c;--border:#dce8ed;--danger:#c83242;--green:#16834b}
+html,body,button,input,select,textarea{font-family:"Bornomala",serif!important}
+body{margin:0;background:var(--bg);color:var(--text);min-height:100vh}
+.top{background:linear-gradient(120deg,#075b7c,#08739b);color:#fff;padding:15px max(14px,calc((100% - 1100px)/2));display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.top h1{font-size:23px;margin:0}
+.top p{margin:3px 0 0;font-size:14px;opacity:.9}
+.top-actions{display:flex;gap:8px;align-items:center}
+.top a{border:0;border-radius:9px;padding:9px 13px;background:#fff;color:var(--deep);text-decoration:none;font-weight:600;cursor:pointer}
+.langmenu{display:flex;gap:5px;background:#ffffff20;padding:4px;border-radius:10px}
+.langmenu button{border:0;background:transparent;color:white;padding:6px 9px;border-radius:7px;cursor:pointer}
+.langmenu button.active{background:#fff;color:var(--deep)}
+.wrap{max-width:1100px;margin:20px auto;padding:0 14px}
+.panel{background:#fff;border:1px solid var(--border);border-radius:15px;padding:18px;margin-bottom:16px;box-shadow:0 6px 22px #0b48600b}
+.panel h2{font-size:20px;margin:0 0 14px}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+.field{flex:1;min-width:180px}
+label{display:block;font-weight:600;margin:5px 0}
+input{width:100%;padding:11px;border:1px solid #cbdbe2;border-radius:9px;font-size:15px;background:#fff;color:var(--text)}
+button{border:0;border-radius:9px;padding:10px 15px;background:var(--blue);color:#fff;font-size:15px;font-weight:600;cursor:pointer}
+button:disabled{opacity:.55;cursor:wait}
+button.secondary{background:#e8f2f6;color:var(--deep)}
+button.danger{background:var(--danger)}
+.list{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px;margin-top:12px}
+.perm{border:1px solid #e1ebef;border-radius:9px;padding:9px;display:flex;gap:8px;align-items:center}
+.perm input{width:auto}
+.muted{color:var(--muted);font-size:14px}
+.status{padding:11px 13px;border-radius:9px;margin:10px 0 14px;display:none}
+.status.err{display:block;background:#fff0f0;color:#a21d2a}
+.status.ok{display:block;background:#e9f8ef;color:#17683a}
+.status.info{display:block;background:#eaf4fa;color:#075b7c}
+.teacher{padding:12px;border:1px solid #e1ebef;border-radius:11px;margin:8px 0;display:flex;justify-content:space-between;gap:12px;align-items:center}
+.teacher small{display:block;color:var(--muted)}
+.actions{display:flex;gap:7px;flex-wrap:wrap}
+.headrow{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.all{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.loading{display:flex;align-items:center;gap:10px;padding:15px;color:var(--muted)}
+.spinner{width:18px;height:18px;border:3px solid #d9e8ee;border-top-color:var(--blue);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+html[lang="en"] body,html[lang="en"] button,html[lang="en"] input{font-family:Inter,system-ui,sans-serif!important}
+html[lang="ar"] body,html[lang="ar"] button,html[lang="ar"] input{font-family:"Noto Naskh Arabic",serif!important}
+html[dir="rtl"] .top,html[dir="rtl"] .teacher{direction:rtl}
+html[dir="rtl"] .perm{direction:rtl}
+@media(max-width:600px){
+.teacher{align-items:flex-start;flex-direction:column}
+.top h1{font-size:20px}
+.top{padding:13px 14px}
+.panel{padding:14px}
+}
+</style>
+</head>
+<body>
+<header class="top">
+<div>
+<h1 data-i="title">শিক্ষক অ্যাক্সেস ব্যবস্থাপনা</h1>
+<p data-i="subtitle">মোবাইল নম্বরভিত্তিক লগইন ও পেজ অনুমতি</p>
+</div>
+<div class="top-actions">
+<div class="langmenu" aria-label="Language">
+<button data-lang="bn">বাংলা</button>
+<button data-lang="en">EN</button>
+<button data-lang="ar">العربية</button>
+</div>
+<a href="settings-hub.html" data-i="back">হাবে ফিরুন</a>
+</div>
+</header>
+
+<main class="wrap">
+<div id="status" class="status"></div>
+
+<section class="panel">
+<h2 id="formTitle" data-i="newAccount">নতুন শিক্ষক অ্যাকাউন্ট</h2>
+<form id="teacherForm">
+<input type="hidden" id="editId">
+<div class="row">
+<div class="field">
+<label data-i="teacherName">শিক্ষকের নাম</label>
+<input id="name" required data-ph="fullName" placeholder="পূর্ণ নাম">
+</div>
+<div class="field">
+<label data-i="mobile">মোবাইল নম্বর</label>
+<input id="mobile" required inputmode="tel" data-ph="mobilePh" placeholder="01XXXXXXXXX">
+</div>
+<div class="field">
+<label data-i="password">পাসওয়ার্ড</label>
+<input id="password" type="password" required data-ph="passwordPh" placeholder="লগইন পাসওয়ার্ড">
+</div>
+</div>
+<div class="row" style="margin-top:12px">
+<div class="field">
+<label data-i="designation">পদবি</label>
+<input id="designation" data-ph="designationPh" placeholder="সহকারী শিক্ষক">
+</div>
+<div class="field">
+<label data-i="subject">বিষয়</label>
+<input id="subject" data-ph="subjectPh" placeholder="কুরআন শিক্ষা">
+</div>
+</div>
+<h3 data-i="choosePages">পেজ অ্যাক্সেস নির্বাচন করুন</h3>
+<p class="muted" data-i="pageHint">যে পেজে টিক দেবেন, শিক্ষক ড্যাশবোর্ডে সেই পেজের লিংক দেখতে পাবেন।</p>
+<div class="all">
+<button type="button" class="secondary" id="selectAll" data-i="selectAll">সব নির্বাচন</button>
+<button type="button" class="secondary" id="clearAll" data-i="clearAll">সব বাতিল</button>
+</div>
+<div id="pageList" class="list"></div>
+<div class="all">
+<button type="submit" id="saveBtn" data-i="save">শিক্ষক সংরক্ষণ করুন</button>
+<button type="button" class="secondary" id="cancelBtn" hidden data-i="cancel">বাতিল</button>
+</div>
+</form>
+</section>
+
+<section class="panel">
+<div class="headrow">
+<h2 data-i="accounts">শিক্ষক অ্যাকাউন্টসমূহ</h2>
+<span class="muted" id="count"></span>
+</div>
+<div id="teacherList">
+<div class="loading"><span class="spinner"></span><span data-i="loading">লোড হচ্ছে...</span></div>
+</div>
+</section>
+</main>
+
+<script>
 'use strict';
-const SUPABASE_URL='https://qavublwhqiqsgpcmfyft.supabase.co';
+  const SUPABASE_URL='https://qavublwhqiqsgpcmfyft.supabase.co';
 const SUPABASE_KEY='sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ';
-const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
-const PAGES=[{"key": "dashboard", "label": "ড্যাশবোর্ড", "url": "dashboard.html"}, {"key": "students", "label": "শিক্ষার্থী", "url": "students.html"}, {"key": "teachers", "label": "শিক্ষক", "url": "teachers.html"}, {"key": "employees", "label": "কর্মচারী", "url": "employees.html"}, {"key": "members", "label": "সদস্য", "url": "members.html"}, {"key": "classes", "label": "ক্লাস", "url": "classes.html"}, {"key": "subjects", "label": "বিষয়", "url": "subjects.html"}, {"key": "session", "label": "সেশন", "url": "session.html"}, {"key": "results", "label": "ফলাফল", "url": "results.html"}, {"key": "fees", "label": "ফি সংগ্রহ", "url": "fees.html"}, {"key": "salary", "label": "বেতন", "url": "salary.html"}, {"key": "income", "label": "দৈনন্দিন আয়", "url": "income.html"}, {"key": "expenses", "label": "দৈনন্দিন ব্যয়", "url": "expenses.html"}, {"key": "attendance-students", "label": "শিক্ষার্থী উপস্থিতি", "url": "attendance-students.html"}, {"key": "attendance-teachers", "label": "শিক্ষক উপস্থিতি", "url": "attendance-teachers.html"}, {"key": "attendance-employees", "label": "কর্মচারী উপস্থিতি", "url": "attendance-employees.html"}, {"key": "sms", "label": "SMS সিস্টেম", "url": "sms.html"}, {"key": "notices", "label": "নোটিশ", "url": "notices.html"}, {"key": "gallery", "label": "ফটো গ্যালারি", "url": "gallery.html"}, {"key": "videos", "label": "ভিডিও গ্যালারি", "url": "videos.html"}, {"key": "reports", "label": "রিপোর্ট", "url": "reports.html"}, {"key": "online-admission", "label": "অনলাইন ভর্তি", "url": "online-admission.html"}, {"key": "reports-certificates", "label": "রিপোর্ট ও সার্টিফিকেট", "url": "reports-certificates.html"}, {"key": "nazera-progress", "label": "নাজেরা অগ্রগতি", "url": "nazera-progress.html"}, {"key": "hifz-progress", "label": "হিফজ অগ্রগতি", "url": "hifz-progress.html"}, {"key": "quran-ampara-tracking", "label": "কুরআন/আমপারা ট্র্যাকিং", "url": "quran-ampara-tracking.html"}, {"key": "dua-hadith-record", "label": "দোয়া ও হাদিস", "url": "dua-hadith-record.html"}, {"key": "behavior-discipline", "label": "আচরণ ও শৃঙ্খলা", "url": "behavior-discipline.html"}, {"key": "parent-daily-report", "label": "অভিভাবক রিপোর্ট", "url": "parent-daily-report.html"}, {"key": "complaints", "label": "অভিযোগ বক্স", "url": "complaints.html"}, {"key": "settings-hub", "label": "সেটিংস হাব", "url": "settings-hub.html"}];
+
+const db=window.supabase.createClient(
+ SUPABASE_URL,
+ SUPABASE_KEY,
+ {auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}}
+);
+
+const PAGES=[
+{"key":"dashboard","label":"ড্যাশবোর্ড","url":"dashboard.html"},
+{"key":"students","label":"শিক্ষার্থী","url":"students.html"},
+{"key":"teachers","label":"শিক্ষক","url":"teachers.html"},
+{"key":"employees","label":"কর্মচারী","url":"employees.html"},
+{"key":"members","label":"সদস্য","url":"members.html"},
+{"key":"classes","label":"ক্লাস","url":"classes.html"},
+{"key":"subjects","label":"বিষয়","url":"subjects.html"},
+{"key":"session","label":"সেশন","url":"session.html"},
+{"key":"results","label":"ফলাফল","url":"results.html"},
+{"key":"fees","label":"ফি সংগ্রহ","url":"fees.html"},
+{"key":"salary","label":"বেতন","url":"salary.html"},
+{"key":"income","label":"দৈনন্দিন আয়","url":"income.html"},
+{"key":"expenses","label":"দৈনন্দিন ব্যয়","url":"expenses.html"},
+{"key":"attendance-students","label":"শিক্ষার্থী উপস্থিতি","url":"attendance-students.html"},
+{"key":"attendance-teachers","label":"শিক্ষক উপস্থিতি","url":"attendance-teachers.html"},
+{"key":"attendance-employees","label":"কর্মচারী উপস্থিতি","url":"attendance-employees.html"},
+{"key":"sms","label":"SMS সিস্টেম","url":"sms.html"},
+{"key":"notices","label":"নোটিশ","url":"notices.html"},
+{"key":"gallery","label":"ফটো গ্যালারি","url":"gallery.html"},
+{"key":"videos","label":"ভিডিও গ্যালারি","url":"videos.html"},
+{"key":"reports","label":"রিপোর্ট","url":"reports.html"},
+{"key":"online-admission","label":"অনলাইন ভর্তি","url":"online-admission.html"},
+{"key":"reports-certificates","label":"রিপোর্ট ও সার্টিফিকেট","url":"reports-certificates.html"},
+{"key":"nazera-progress","label":"নাজেরা অগ্রগতি","url":"nazera-progress.html"},
+{"key":"hifz-progress","label":"হিফজ অগ্রগতি","url":"hifz-progress.html"},
+{"key":"quran-ampara-tracking","label":"কুরআন/আমপারা ট্র্যাকিং","url":"quran-ampara-tracking.html"},
+{"key":"dua-hadith-record","label":"দোয়া ও হাদিস","url":"dua-hadith-record.html"},
+{"key":"behavior-discipline","label":"আচরণ ও শৃঙ্খলা","url":"behavior-discipline.html"},
+{"key":"parent-daily-report","label":"অভিভাবক রিপোর্ট","url":"parent-daily-report.html"},
+{"key":"complaints","label":"অভিযোগ বক্স","url":"complaints.html"},
+{"key":"settings-hub","label":"সেটিংস হাব","url":"settings-hub.html"}
+];
+const I18N={
+bn:{
+title:'শিক্ষক অ্যাক্সেস ব্যবস্থাপনা',
+subtitle:'মোবাইল নম্বরভিত্তিক লগইন ও পেজ অনুমতি',
+back:'হাবে ফিরুন',
+newAccount:'নতুন শিক্ষক অ্যাকাউন্ট',
+teacherName:'শিক্ষকের নাম',
+mobile:'মোবাইল নম্বর',
+password:'পাসওয়ার্ড',
+designation:'পদবি',
+subject:'বিষয়',
+fullName:'পূর্ণ নাম',
+mobilePh:'01XXXXXXXXX',
+passwordPh:'লগইন পাসওয়ার্ড (নতুন অ্যাকাউন্টে আবশ্যক)',
+designationPh:'সহকারী শিক্ষক',
+subjectPh:'কুরআন শিক্ষা',
+choosePages:'পেজ অ্যাক্সেস নির্বাচন করুন',
+pageHint:'যে পেজে টিক দেবেন, শিক্ষক ড্যাশবোর্ডে সেই পেজের লিংক দেখতে পাবেন।',
+selectAll:'সব নির্বাচন',
+clearAll:'সব বাতিল',
+save:'শিক্ষক সংরক্ষণ করুন',
+cancel:'বাতিল',
+accounts:'শিক্ষক অ্যাকাউন্টসমূহ',
+loading:'লোড হচ্ছে...',
+loadingFailed:'তালিকা লোড করা যায়নি। আবার চেষ্টা করুন।',
+retry:'আবার চেষ্টা করুন',
+noTeachers:'এখনো কোনো শিক্ষক নেই।',
+count:'জন শিক্ষক',
+edit:'এডিট / অ্যাক্সেস',
+delete:'ডিলিট',
+enabled:'লগইন চালু',
+disabled:'লগইন বন্ধ',
+pages:'পেজ',
+noName:'নাম নেই',
+noMobile:'মোবাইল নেই',
+sessionMissing:'অ্যাডমিন সেশন পাওয়া যায়নি। আবার অ্যাডমিন হিসেবে লগইন করুন।',
+invalidMobile:'সঠিক ১১ সংখ্যার বাংলাদেশি মোবাইল নম্বর দিন।',
+needPassword:'পাসওয়ার্ড লিখুন।',
+saved:'শিক্ষকের তথ্য ও অনুমতি সংরক্ষণ হয়েছে।',
+created:'নতুন শিক্ষক অ্যাকাউন্ট তৈরি হয়েছে।',
+deleted:'শিক্ষক অ্যাকাউন্ট মুছে ফেলা হয়েছে।',
+confirmDelete:'এই শিক্ষকের অ্যাকাউন্ট মুছে ফেলবেন?',
+saveError:'সংরক্ষণ হয়নি: ',
+loadError:'শিক্ষক তালিকা লোড হয়নি: ',
+deleteError:'ডিলিট হয়নি: ',
+editTitle:'শিক্ষক তথ্য ও অ্যাক্সেস সম্পাদনা'
+},
+en:{
+title:'Teacher Access Management',
+subtitle:'Mobile number login and page permissions',
+back:'Back to Hub',
+newAccount:'New Teacher Account',
+teacherName:'Teacher Name',
+mobile:'Mobile Number',
+password:'Password',
+designation:'Designation',
+subject:'Subject',
+fullName:'Full name',
+mobilePh:'01XXXXXXXXX',
+passwordPh:'Login password (required for new account)',
+designationPh:'Assistant Teacher',
+subjectPh:'Quran Studies',
+choosePages:'Select Page Access',
+pageHint:'Teachers will only see links to the pages selected here.',
+selectAll:'Select All',
+clearAll:'Clear All',
+save:'Save Teacher',
+cancel:'Cancel',
+accounts:'Teacher Accounts',
+loading:'Loading...',
+loadingFailed:'Could not load the list. Please try again.',
+retry:'Retry',
+noTeachers:'No teachers added yet.',
+count:'teachers',
+edit:'Edit / Access',
+delete:'Delete',
+enabled:'Login enabled',
+disabled:'Login disabled',
+pages:'pages',
+noName:'Unnamed',
+noMobile:'No mobile',
+sessionMissing:'Admin session not found. Please sign in again as admin.',
+invalidMobile:'Enter a valid 11-digit Bangladesh mobile number.',
+needPassword:'Please enter a password.',
+saved:'Teacher details and permissions saved.',
+created:'New teacher account created.',
+deleted:'Teacher account deleted.',
+confirmDelete:'Delete this teacher account?',
+saveError:'Save failed: ',
+loadError:'Could not load teachers: ',
+deleteError:'Delete failed: ',
+editTitle:'Edit Teacher Details & Access'
+},
+ar:{
+title:'إدارة صلاحيات المعلمين',
+subtitle:'تسجيل الدخول برقم الهاتف وصلاحيات الصفحات',
+back:'العودة إلى المركز',
+newAccount:'حساب معلم جديد',
+teacherName:'اسم المعلم',
+mobile:'رقم الهاتف',
+password:'كلمة المرور',
+designation:'المسمى الوظيفي',
+subject:'المادة',
+fullName:'الاسم الكامل',
+mobilePh:'01XXXXXXXXX',
+passwordPh:'كلمة المرور (مطلوبة للحساب الجديد)',
+designationPh:'معلم مساعد',
+subjectPh:'تعليم القرآن',
+choosePages:'اختيار صلاحيات الصفحات',
+pageHint:'سيظهر للمعلم فقط روابط الصفحات المحددة هنا.',
+selectAll:'تحديد الكل',
+clearAll:'إلغاء الكل',
+save:'حفظ المعلم',
+cancel:'إلغاء',
+accounts:'حسابات المعلمين',
+loading:'جار التحميل...',
+loadingFailed:'تعذر تحميل القائمة. حاول مرة أخرى.',
+retry:'إعادة المحاولة',
+noTeachers:'لا يوجد معلمون بعد.',
+count:'معلمون',
+edit:'تعديل / الصلاحيات',
+delete:'حذف',
+enabled:'الدخول مفعّل',
+disabled:'الدخول متوقف',
+pages:'صفحات',
+noName:'بلا اسم',
+noMobile:'لا يوجد هاتف',
+sessionMissing:'لم يتم العثور على جلسة المسؤول. سجّل الدخول مجدداً.',
+invalidMobile:'أدخل رقم هاتف بنغلاديشي صحيحاً من 11 رقماً.',
+needPassword:'أدخل كلمة المرور.',
+saved:'تم حفظ بيانات المعلم وصلاحياته.',
+created:'تم إنشاء حساب المعلم.',
+deleted:'تم حذف حساب المعلم.',
+confirmDelete:'هل تريد حذف حساب هذا المعلم؟',
+saveError:'فشل الحفظ: ',
+loadError:'تعذر تحميل المعلمين: ',
+deleteError:'فشل الحذف: ',
+editTitle:'تعديل بيانات المعلم وصلاحياته'
+}
+};
+
+let lang=localStorage.getItem('nurul_dashboard_language')||'bn';
+if(!I18N[lang])lang='bn';
+
 let rows=[];
 const $=id=>document.getElementById(id);
-function notice(msg,type='ok'){const el=$('status');el.textContent=msg;el.className='status '+(type==='err'?'err':'ok');}
-function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-function drawPages(selected=[]){$('pageList').innerHTML=PAGES.map(p=>`<label class="perm"><input type="checkbox" class="pageCheck" value="${p.key}" ${selected.includes(p.key)?'checked':''}><span>${p.label}</span></label>`).join('');}
-function selectedPages(){return [...document.querySelectorAll('.pageCheck:checked')].map(x=>x.value);}
-async function init(){const {data:{session},error}=await db.auth.getSession();if(error||!session){location.href='admin.html';return;}const {data:{user}}=await db.auth.getUser();const role=user?.app_metadata?.role;if(role!=='admin'){notice('শুধু অ্যাডমিন এই পেজ ব্যবহার করতে পারবেন।','err');$('teacherForm').hidden=true;return;}drawPages();await load();}
-async function load(){const {data,error}=await db.from('teachers').select('id,teacher_id,name,mobile,phone,password,login_password,login_enabled,allowed_pages,designation,subject').order('id',{ascending:false});if(error){notice('শিক্ষক তালিকা লোড হয়নি: '+error.message,'err');return;}rows=data||[];$('count').textContent=rows.length+' জন শিক্ষক';$('teacherList').innerHTML=rows.map(t=>`<div class="teacher"><div><strong>${esc(t.name||'নাম নেই')}</strong><small>${esc(t.mobile||t.phone||'মোবাইল নেই')} · ${t.login_enabled===false?'লগইন বন্ধ':'লগইন চালু'} · ${(t.allowed_pages||[]).length} পেজ</small></div><div class="actions"><button class="secondary" onclick="editTeacher(${Number(t.id)})">এডিট / অ্যাক্সেস</button><button class="danger" onclick="removeTeacher(${Number(t.id)})">ডিলিট</button></div></div>`).join('')||'<p class="muted">এখনো কোনো শিক্ষক নেই।</p>';}
-function reset(){ $('teacherForm').reset();$('editId').value='';$('formTitle').textContent='নতুন শিক্ষক অ্যাকাউন্ট';$('password').required=true;$('cancelBtn').hidden=true;drawPages();}
-window.editTeacher=id=>{const t=rows.find(x=>Number(x.id)===Number(id));if(!t)return;$('editId').value=t.id;$('name').value=t.name||'';$('mobile').value=t.mobile||t.phone||'';$('password').value=t.password||t.login_password||'';$('designation').value=t.designation||'';$('subject').value=t.subject||'';$('password').required=false;$('formTitle').textContent='শিক্ষক তথ্য ও অ্যাক্সেস সম্পাদনা';$('cancelBtn').hidden=false;drawPages(t.allowed_pages||[]);window.scrollTo({top:0,behavior:'smooth'});};
-window.removeTeacher=async id=>{const t=rows.find(x=>Number(x.id)===Number(id));if(!t||!confirm((t.name||'এই শিক্ষক')+'-এর অ্যাকাউন্ট মুছে ফেলবেন?'))return;const {error}=await db.from('teachers').delete().eq('id',id);if(error){notice('ডিলিট হয়নি: '+error.message,'err');return;}notice('শিক্ষক অ্যাকাউন্ট মুছে ফেলা হয়েছে।');await load();};
-$('teacherForm').addEventListener('submit',async e=>{e.preventDefault();const id=$('editId').value,mobile=$('mobile').value.trim(),password=$('password').value.trim();if(!/^01[0-9]{9}$/.test(mobile)){notice('সঠিক ১১ সংখ্যার বাংলাদেশি মোবাইল নম্বর দিন।','err');return;}if(!id&&!password){notice('পাসওয়ার্ড লিখুন।','err');return;}const payload={name:$('name').value.trim(),mobile,phone:mobile,teacher_id:mobile,designation:$('designation').value.trim(),subject:$('subject').value.trim(),allowed_pages:selectedPages(),login_enabled:true};if(password){payload.password=password;payload.login_password=password;}$('saveBtn').disabled=true;let q=id?db.from('teachers').update(payload).eq('id',id):db.from('teachers').insert(payload);const {error}=await q;if(error){notice('সংরক্ষণ হয়নি: '+error.message,'err');}else{notice(id?'শিক্ষকের তথ্য ও অনুমতি আপডেট হয়েছে।':'নতুন শিক্ষক অ্যাকাউন্ট তৈরি হয়েছে।');reset();await load();}$('saveBtn').disabled=false;});
-$('selectAll').onclick=()=>document.querySelectorAll('.pageCheck').forEach(x=>x.checked=true);$('clearAll').onclick=()=>document.querySelectorAll('.pageCheck').forEach(x=>x.checked=false);$('cancelBtn').onclick=reset;init();
-</script></body></html>
+const tr=k=>I18N[lang][k]||I18N.bn[k]||k;
+
+function applyLanguage(l){
+ lang=I18N[l]?l:'bn';
+ document.documentElement.lang=lang;
+ document.documentElement.dir=lang==='ar'?'rtl':'ltr';
+ document.title=tr('title')+' | Madrasa Nurul Quran';
+
+ document.querySelectorAll('[data-i]').forEach(el=>{
+  el.textContent=tr(el.dataset.i);
+ });
+ document.querySelectorAll('[data-ph]').forEach(el=>{
+  el.placeholder=tr(el.dataset.ph);
+ });
+ document.querySelectorAll('[data-lang]').forEach(b=>{
+  b.classList.toggle('active',b.dataset.lang===lang);
+ });
+
+ localStorage.setItem('nurul_dashboard_language',lang);
+ drawPages(selectedPages());
+ if(rows.length)renderTeachers();
+}
+
+document.querySelectorAll('[data-lang]').forEach(b=>{
+ b.addEventListener('click',()=>applyLanguage(b.dataset.lang));
+});
+
+function notice(msg,type='ok'){
+ const el=$('status');
+ el.textContent=msg;
+ el.className='status '+(type==='err'?'err':type==='info'?'info':'ok');
+}
+
+function esc(s){
+ return String(s??'').replace(/[&<>"']/g,c=>({
+  '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+ }[c]));
+}
+
+const PAGE_NAMES={
+en:{
+dashboard:'Dashboard',students:'Students',teachers:'Teachers',
+employees:'Employees',members:'Members',classes:'Classes',
+subjects:'Subjects',session:'Sessions',results:'Results',
+fees:'Fee Collection',salary:'Salary',income:'Daily Income',
+expenses:'Daily Expenses','attendance-students':'Student Attendance',
+'attendance-teachers':'Teacher Attendance',
+'attendance-employees':'Employee Attendance',
+sms:'SMS System',notices:'Notices',gallery:'Photo Gallery',
+videos:'Video Gallery',reports:'Reports',
+'online-admission':'Online Admission',
+'reports-certificates':'Reports & Certificates',
+'nazera-progress':'Nazera Progress','hifz-progress':'Hifz Progress',
+'quran-ampara-tracking':'Quran / Ampara Tracking',
+'dua-hadith-record':'Dua & Hadith',
+'behavior-discipline':'Behaviour & Discipline',
+'parent-daily-report':'Parent Daily Report',
+complaints:'Complaints','settings-hub':'Settings Hub'
+},
+ar:{
+dashboard:'لوحة التحكم',students:'الطلاب',teachers:'المعلمون',
+employees:'الموظفون',members:'الأعضاء',classes:'الفصول',
+subjects:'المواد',session:'الجلسات',results:'النتائج',
+fees:'تحصيل الرسوم',salary:'الرواتب',income:'الإيرادات اليومية',
+expenses:'المصروفات اليومية','attendance-students':'حضور الطلاب',
+'attendance-teachers':'حضور المعلمين',
+'attendance-employees':'حضور الموظفين',
+sms:'نظام الرسائل',notices:'الإعلانات',gallery:'معرض الصور',
+videos:'معرض الفيديو',reports:'التقارير',
+'online-admission':'القبول الإلكتروني',
+'reports-certificates':'التقارير والشهادات',
+'nazera-progress':'تقدم الناظرة','hifz-progress':'تقدم الحفظ',
+'quran-ampara-tracking':'متابعة القرآن والأجزاء',
+'dua-hadith-record':'الأدعية والحديث',
+'behavior-discipline':'السلوك والانضباط',
+'parent-daily-report':'تقرير ولي الأمر',
+complaints:'الشكاوى','settings-hub':'مركز الإعدادات'
+}
+};
+function drawPages(selected=[]){
+ $('pageList').innerHTML=PAGES.map(p=>`
+  <label class="perm">
+   <input type="checkbox" class="pageCheck" value="${p.key}"
+   ${selected.includes(p.key)?'checked':''}>
+   <span>${esc(PAGE_NAMES[lang]?.[p.key]||p.label)}</span>
+  </label>
+ `).join('');
+}
+
+function selectedPages(){
+ return [...document.querySelectorAll('.pageCheck:checked')]
+  .map(x=>x.value);
+}
+
+function renderTeachers(){
+ $('count').textContent=rows.length+' '+tr('count');
+
+ $('teacherList').innerHTML=rows.map(t=>`
+  <div class="teacher">
+   <div>
+    <strong>${esc(t.name||tr('noName'))}</strong>
+    <small>
+     ${esc(t.mobile||t.phone||tr('noMobile'))}
+     · ${t.login_enabled===false?tr('disabled'):tr('enabled')}
+     · ${(t.allowed_pages||[]).length} ${tr('pages')}
+    </small>
+   </div>
+   <div class="actions">
+    <button class="secondary" onclick="editTeacher(${Number(t.id)})">
+     ${tr('edit')}
+    </button>
+    <button class="danger" onclick="removeTeacher(${Number(t.id)})">
+     ${tr('delete')}
+    </button>
+   </div>
+  </div>
+ `).join('')||`<p class="muted">${tr('noTeachers')}</p>`;
+}
+
+async function load(){
+ $('teacherList').innerHTML=`
+  <div class="loading">
+   <span class="spinner"></span>${tr('loading')}
+  </div>`;
+
+ try{
+  const request=db.from('teachers')
+   .select('id,teacher_id,name,mobile,phone,login_enabled,allowed_pages,designation,subject')
+   .order('id',{ascending:false});
+
+  const result=await Promise.race([
+   request,
+   new Promise((_,reject)=>setTimeout(
+    ()=>reject(new Error('Request timed out. Check internet and Supabase RLS policies.')),
+    20000
+   ))
+  ]);
+
+  const {data,error}=result;
+
+  if(error)throw error;
+
+  rows=data||[];
+  renderTeachers();
+
+ }catch(error){
+  $('teacherList').innerHTML=`
+   <p class="muted">${tr('loadingFailed')} (${esc(error.message)})</p>
+   <button type="button" id="retryLoad">${tr('retry')}</button>
+  `;
+  $('retryLoad').onclick=load;
+  notice(tr('loadError')+error.message,'err');
+ }
+}
+
+function reset(){
+ $('teacherForm').reset();
+ $('editId').value='';
+ $('formTitle').textContent=tr('newAccount');
+ $('password').required=true;
+ $('password').placeholder=tr('passwordPh');
+ $('cancelBtn').hidden=true;
+ drawPages();
+}
+
+window.editTeacher=id=>{
+ const t=rows.find(x=>Number(x.id)===Number(id));
+ if(!t)return;
+
+ $('editId').value=t.id;
+ $('name').value=t.name||'';
+ $('mobile').value=t.mobile||t.phone||'';
+
+ // Existing password is never fetched or displayed.
+ $('password').value='';
+ $('password').placeholder=
+  lang==='en'?'Leave blank to keep current password':
+  lang==='ar'?'اتركه فارغاً للإبقاء على كلمة المرور':
+  'পরিবর্তন না করলে ফাঁকা রাখুন';
+
+ $('designation').value=t.designation||'';
+ $('subject').value=t.subject||'';
+ $('password').required=false;
+ $('formTitle').textContent=tr('editTitle');
+ $('cancelBtn').hidden=false;
+
+ drawPages(t.allowed_pages||[]);
+ window.scrollTo({top:0,behavior:'smooth'});
+};
+
+window.removeTeacher=async id=>{
+ const t=rows.find(x=>Number(x.id)===Number(id));
+ if(!t||!confirm(tr('confirmDelete')+' '+(t.name||'')))return;
+
+ const {error}=await db.from('teachers').delete().eq('id',id);
+
+ if(error){
+  notice(tr('deleteError')+error.message,'err');
+  return;
+ }
+
+ notice(tr('deleted'));
+ await load();
+};
+
+$('teacherForm').addEventListener('submit',async e=>{
+ e.preventDefault();
+
+ const id=$('editId').value;
+ const mobile=$('mobile').value.trim();
+ const password=$('password').value.trim();
+
+ if(!/^01[0-9]{9}$/.test(mobile)){
+  notice(tr('invalidMobile'),'err');
+  return;
+ }
+
+ if(!id&&!password){
+  notice(tr('needPassword'),'err');
+  return;
+ }
+
+ const payload={
+  name:$('name').value.trim(),
+  mobile,
+  phone:mobile,
+  teacher_id:mobile,
+  designation:$('designation').value.trim(),
+  subject:$('subject').value.trim(),
+  allowed_pages:selectedPages(),
+  login_enabled:true
+ };
+
+ // Current verify_teacher_login RPC compares the password
+ // with the teachers.password column.
+ if(password){
+  payload.password=password;
+  payload.login_password=password;
+ }
+
+ $('saveBtn').disabled=true;
+
+ try{
+  const q=id
+   ?db.from('teachers').update(payload).eq('id',id)
+   :db.from('teachers').insert(payload);
+
+  const {error}=await q;
+
+  if(error){
+   notice(tr('saveError')+error.message,'err');
+  }else{
+   notice(id?tr('saved'):tr('created'));
+   reset();
+   await load();
+  }
+
+ }catch(err){
+  notice(tr('saveError')+err.message,'err');
+ }finally{
+  $('saveBtn').disabled=false;
+ }
+});
+
+$('selectAll').onclick=()=>{
+ document.querySelectorAll('.pageCheck').forEach(x=>x.checked=true);
+};
+
+$('clearAll').onclick=()=>{
+ document.querySelectorAll('.pageCheck').forEach(x=>x.checked=false);
+};
+
+$('cancelBtn').onclick=reset;
+
+async function init(){
+ applyLanguage(lang);
+ drawPages();
+
+ $('teacherList').innerHTML=`
+  <div class="loading">
+   <span class="spinner"></span>${tr('loading')}
+  </div>`;
+
+ try{
+  const result=await Promise.race([
+   db.auth.getSession(),
+   new Promise((_,rej)=>setTimeout(
+    ()=>rej(new Error('Connection timeout')),
+    15000
+   ))
+  ]);
+
+  const session=result?.data?.session;
+
+  if(result?.error)throw result.error;
+
+  if(!session){
+   $('teacherForm').hidden=true;
+   $('teacherList').innerHTML='';
+   notice(tr('sessionMissing'),'err');
+   return;
+  }
+
+  // Supabase RLS must enforce admin-only database access.
+  await load();
+
+ }catch(err){
+  $('teacherForm').hidden=true;
+
+  $('teacherList').innerHTML=`
+   <p class="muted">${esc(err.message||'Connection error')}</p>
+   <button id="retryInit">${tr('retry')}</button>
+  `;
+
+  $('retryInit').onclick=()=>{
+   $('teacherForm').hidden=false;
+   init();
+  };
+
+  notice(tr('loadError')+(err.message||''),'err');
+ }
+}
+
+init();
+</script>
+</body>
+</html>
+
+  
+
+  
