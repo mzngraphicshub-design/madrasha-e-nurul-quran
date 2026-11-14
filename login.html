@@ -1962,6 +1962,14 @@ document
 
 (function initLoginPage(){
 
+  // শিক্ষক লগইন থেকে ফিরে এলে Teacher tab-ই প্রথমে দেখাবে।
+  try{
+    if(sessionStorage.getItem("madrasa_login_role")==="teacher"){
+      const teacherTab=document.querySelector('.tab[data-role="teacher"]');
+      if(teacherTab) teacherTab.click();
+    }
+  }catch(e){}
+
   /*
     এখানে কোনো getSession()
     এবং কোনো automatic redirect নেই।

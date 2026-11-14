@@ -2444,6 +2444,19 @@ body.rtl .section-title-left{flex-direction:row-reverse}
 .empty{text-align:center;color:#7a8a80;padding:18px}
 </style>
 
+
+<style id="teacher-role-early-style">
+html.teacher-mode [data-teacher-denied="1"]{display:none!important;visibility:hidden!important}
+html.teacher-mode .teacher-denied-section{display:none!important}
+</style>
+<script id="teacher-role-early-check">
+try{
+ if(sessionStorage.getItem('madrasa_login_role')==='teacher'){
+  document.documentElement.classList.add('teacher-mode');
+ }
+}catch(e){}
+</script>
+
 </head>
 
 <body class="theme-green">
@@ -7097,8 +7110,8 @@ sd.addEventListener("click",function(e){var b=e.target.closest(".opt");if(!b)ret
  if(a==="pay")location.href="payment-receipt.html";else if(a==="sms")location.href="sms.html";else modal(a)});
 })();
 </script><!--/SD-->
+
 <style id="teacher-access-visibility-style">
-/* Keep denied teacher links hidden even when component CSS sets display. */
 html.teacher-mode [data-teacher-denied="1"]{display:none!important;visibility:hidden!important}
 html.teacher-mode .teacher-denied-section{display:none!important}
 </style>
@@ -7106,34 +7119,72 @@ html.teacher-mode .teacher-denied-section{display:none!important}
 (()=>{
  const role=sessionStorage.getItem('madrasa_login_role');
  if(role!=='teacher') return;
+
  document.documentElement.classList.add('teacher-mode');
+
  let teacher={};
  try{teacher=JSON.parse(sessionStorage.getItem('madrasa_teacher_login')||'{}')}catch(e){}
- const allowed=new Set((Array.isArray(teacher.allowed_pages)?teacher.allowed_pages:[]).map(x=>String(x).trim().toLowerCase().replace(/\.html$/,'')));
+
+ const allowed=new Set(
+   (Array.isArray(teacher.allowed_pages)?teacher.allowed_pages:[])
+   .map(x=>String(x).trim().toLowerCase().replace(/\\.html$/,''))
+   .filter(Boolean)
+ );
+ const blocked=new Set(['donations-hub','accounts-hub','settings-hub']);
  const current=(location.pathname.split('/').pop()||'dashboard.html').toLowerCase();
- const keyFor=url=>String(url||'').split(/[?#]/)[0].split('/').pop().toLowerCase().replace(/\.html$/,'');
- const can=url=>{const k=keyFor(url);return k==='dashboard'||k==='students-hub'||allowed.has(k)||allowed.has('*')};
- // Teacher bottom navigation: keep Students Hub; hide Accounts and Settings hubs.
- document.querySelectorAll('.bottom-nav a[href="accounts-hub.html"], .bottom-nav a[href="settings-hub.html"]').forEach(a=>{
+ const keyFor=url=>String(url||'').split(/[?#]/)[0].split('/').pop().toLowerCase().replace(/\\.html$/,'');
+ const can=url=>{
+   const k=keyFor(url);
+   if(blocked.has(k)) return false;
+   return k==='dashboard' || allowed.has(k) || allowed.has('*');
+ };
+ const deny=a=>{
    a.setAttribute('data-teacher-denied','1');
    a.setAttribute('aria-hidden','true');
    a.setAttribute('tabindex','-1');
- });
- document.querySelectorAll('a[href]').forEach(a=>{
+ };
+
+ // Sidebar / three-dot menu: only links explicitly assigned to this teacher.
+ document.querySelectorAll('.sidebar a[href], .dropdown-menu a[href]').forEach(a=>{
    const href=a.getAttribute('href')||'';
-   if(!/\.html(?:[?#]|$)/i.test(href)) return;
-   if(!can(href)){a.setAttribute('data-teacher-denied','1');a.setAttribute('aria-hidden','true');a.setAttribute('tabindex','-1');}
+   if(/\\.html(?:[?#]|$)/i.test(href) && !can(href)) deny(a);
  });
- // Hide navigation group headings that no longer have an available link.
- document.querySelectorAll('.sidebar .nav-item').forEach(a=>{
-   if(a.hasAttribute('data-teacher-denied')){
-     const parent=a.parentElement;
-     if(parent && parent.classList.contains('nav-group')){
-       const links=[...parent.querySelectorAll('.nav-item')];
-       if(links.length && links.every(x=>x.hasAttribute('data-teacher-denied'))) parent.classList.add('teacher-denied-section');
-     }
+
+ // Build mobile bottom navigation from the teacher's permitted sidebar links.
+ const bottom=document.querySelector('.bottom-nav');
+ if(bottom){
+   const dashboardLink=bottom.querySelector('a[href="dashboard.html"]');
+   bottom.innerHTML='';
+   if(dashboardLink) bottom.appendChild(dashboardLink);
+   const sourceLinks=[...document.querySelectorAll('.sidebar a.nav-item[href]')];
+   const seen=new Set(['dashboard']);
+   sourceLinks.forEach(source=>{
+     const href=source.getAttribute('href')||'';
+     const key=keyFor(href);
+     if(!key || seen.has(key) || !can(href)) return;
+     seen.add(key);
+     const label=source.querySelector('span')?.textContent?.trim() || source.textContent.trim();
+     const icon=source.querySelector('i')?.className || 'fa-solid fa-circle';
+     const a=document.createElement('a');
+     a.href=href;
+     a.innerHTML='<i class="'+icon+'"></i><span></span>';
+     a.querySelector('span').textContent=label;
+     bottom.appendChild(a);
+   });
+   bottom.querySelectorAll('a').forEach(a=>{
+     a.classList.toggle('active',keyFor(a.href)===keyFor(current));
+   });
+ }
+
+ // Hide empty sidebar groups after filtering.
+ document.querySelectorAll('.sidebar .nav-group').forEach(group=>{
+   const links=[...group.querySelectorAll('a.nav-item')];
+   if(links.length && links.every(a=>a.hasAttribute('data-teacher-denied'))){
+     group.classList.add('teacher-denied-section');
    }
  });
+
+ // Prevent direct URL access to pages not assigned to this teacher.
  if(current!=='dashboard.html' && !can(current)){
    document.body.innerHTML='<main style="font-family:Bornomala,serif;max-width:520px;margin:15vh auto;padding:28px;text-align:center;background:#fff;border-radius:16px"><h2>অ্যাক্সেস অনুমোদিত নয়</h2><p>এই পেজটি দেখার অনুমতি আপনার নেই।</p><a href="dashboard.html">ড্যাশবোর্ডে ফিরে যান</a></main>';
  }
