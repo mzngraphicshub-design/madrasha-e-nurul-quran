@@ -192,32 +192,229 @@
 
 </script>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>অভিভাবক দৈনিক রিপোর্ট | মাদরাসায়ে নূরুল কুরআন</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>window.mnqPatchSupabase&&window.mnqPatchSupabase()</script>
 <style>
 @font-face{font-family:Bornomala;src:url(fonts/Bornomala-Regular.ttf)}
-*{box-sizing:border-box}
-body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;
- font-family:Bornomala,system-ui,sans-serif;background:#f4efe0;color:#17382c}
-.card{max-width:460px;width:100%;text-align:center;background:#fffdf8;border:1px solid rgba(201,162,39,.4);
- border-top:4px solid #0e5a40;border-radius:24px;padding:32px 22px;box-shadow:0 10px 28px rgba(14,70,50,.12)}
-.ic{width:72px;height:72px;margin:0 auto 14px;border-radius:22px;background:#0e4a35;color:#e8c766;
- display:flex;align-items:center;justify-content:center;font-size:34px}
-h1{margin:0 0 6px;color:#0e5a40;font-size:26px}
-p{margin:6px 0;color:#3d5a4d}
-.en{font-size:14px;opacity:.8}
-a{display:inline-block;margin-top:18px;background:#0e5a40;color:#fff;text-decoration:none;
- padding:12px 26px;border-radius:999px}
+:root{--g:#0e5a40;--gd:#0a3d2c;--gold:#c9a227;--bg:#f4efe0;--card:#fffdf8;--ink:#17382c;--muted:#5b7468;--line:rgba(201,162,39,.4);--red:#c0392b;--blue:#1f6fb5;--cream:#f1ead2}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0}
+body{font-family:Bornomala,system-ui,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;padding-bottom:calc(40px + env(safe-area-inset-bottom,0px))}
+.top{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;padding:calc(9px + env(safe-area-inset-top,0px)) 12px 9px;background:var(--card);border-bottom:1px solid var(--line)}
+.hbtn{width:42px;height:42px;border-radius:13px;border:1px solid var(--line);background:var(--card);color:var(--g);display:flex;align-items:center;justify-content:center;text-decoration:none;font:inherit;font-size:20px;cursor:pointer;flex:none}
+.hbtn svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ttl{flex:1;color:var(--g);font-size:16px;line-height:1.25}
+.wrap{max-width:900px;margin:0 auto;padding:14px}
+.hero{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border-radius:24px;padding:18px;border:1px solid rgba(201,162,39,.5);box-shadow:0 10px 24px rgba(10,61,44,.22)}
+.hero h1{margin:0 0 4px;font-size:24px}
+.hero p{margin:0;font-size:14px;opacity:.88}
+.hero .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;margin-top:14px;box-shadow:0 4px 12px rgba(14,70,50,.07)}
+.card h3{margin:0 0 8px;color:var(--g);font-size:18px}
+label{display:block;font-size:14px;margin:10px 0 4px;color:var(--muted)}
+input,select,textarea{width:100%;font:inherit;font-size:16px;padding:11px 13px;border:1px solid var(--line);border-radius:14px;background:#fff;color:var(--ink);outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--g);box-shadow:0 0 0 3px rgba(14,90,64,.14)}
+textarea{min-height:74px;resize:vertical}
+.row{display:flex;gap:10px;flex-wrap:wrap}.row>*{flex:1;min-width:140px}
+.btn{border:0;background:var(--g);color:#fff;font:inherit;font-size:15px;padding:11px 18px;border-radius:14px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;text-decoration:none}
+.btn:disabled{opacity:.55}
+.btn.gold{background:var(--gold);color:#1d2b22}.btn.red{background:var(--red)}.btn.ghost{background:transparent;color:var(--g);border:1px solid var(--line)}
+.btn.sm{padding:7px 12px;font-size:13px;border-radius:11px}
+.hero .btn.ghost{color:#fff;border-color:rgba(255,255,255,.4);background:rgba(255,255,255,.1)}
+.tabs{display:flex;gap:8px;margin-top:14px}
+.tab{flex:1;text-align:center;padding:11px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--g);font:inherit;font-size:15px;cursor:pointer}
+.tab.on{background:var(--g);color:#fff;border-color:var(--g)}
+.chips{display:flex;gap:7px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:#fff;color:var(--ink);font:inherit;font-size:14px;padding:7px 13px;border-radius:999px;cursor:pointer}
+.chip.on{background:var(--g);color:#fff;border-color:var(--g)}
+.chip.abs.on{background:var(--red);border-color:var(--red)}.chip.lv.on{background:var(--gold);border-color:var(--gold);color:#1d2b22}
+.empty{text-align:center;color:var(--muted);padding:26px 10px;font-size:15px}
+.badge{display:inline-block;padding:3px 11px;border-radius:999px;font-size:12px;background:var(--cream);color:var(--g)}
+.muted{color:var(--muted);font-size:13px}
+.toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--gd);color:#fff;padding:11px 18px;border-radius:14px;z-index:99;display:none;max-width:90%;text-align:center;font-size:15px}
+.toast.err{background:var(--red)}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;z-index:60;padding:14px}
+.modal.show{display:flex}
+.modal .box{background:var(--card);border-radius:20px;padding:16px;max-width:560px;width:100%;max-height:90vh;overflow:auto}
+.spin{display:inline-block;width:18px;height:18px;border:3px solid var(--line);border-top-color:var(--g);border-radius:50%;animation:sp .8s linear infinite;vertical-align:middle;margin-right:8px}
+@keyframes sp{to{transform:rotate(360deg)}}
+.hide{display:none!important}
+
+.st{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px;margin-top:10px}
+.sth{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.sth b{flex:1;font-size:16px;line-height:1.3}
+.sid{font-size:12px;color:var(--muted)}
+.ok{color:var(--g);font-size:13px}
+details{margin-top:9px}
+summary{cursor:pointer;color:var(--g);font-size:14px;padding:4px 0}
+.sh{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.savebar{position:sticky;bottom:calc(8px + env(safe-area-inset-bottom,0px));margin-top:14px;display:flex;gap:8px;z-index:20}
+.savebar .btn{flex:1;box-shadow:0 6px 16px rgba(0,0,0,.2)}
+.hrow{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;margin-top:10px;font-size:15px;line-height:1.6}
 </style>
 </head>
 <body>
-<!-- PLACEHOLDER: এই ফাইলটি (parent-daily-report.html) এর বদলে আসল পেজের HTML লিখলেই হবে। -->
-<div class="card">
- <div class="ic">&#9881;</div>
- <h1>অভিভাবক দৈনিক রিপোর্ট</h1>
- <p>এই পেজটির কাজ চলছে, খুব শীঘ্রই চালু হবে।</p>
- <p class="en">Parent Daily Report — coming soon</p>
- <a href="javascript:history.length>1?history.back():location.href='dashboard.html'">ফিরে যান</a>
+<div class="top"><a class="hbtn" href="dashboard.html" aria-label="হোম"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></a><div class="ttl">অভিভাবক দৈনিক রিপোর্ট</div><button class="hbtn" onclick="goBack()" aria-label="ফিরে যান"><svg viewBox="0 0 24 24"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg></button></div>
+<div class="wrap">
+
+<div class="hero"><h1>অভিভাবকের জন্য দৈনিক রিপোর্ট</h1><p>প্রতিদিনের উপস্থিতি, পড়া, হোমওয়ার্ক ও আচরণ লিখুন এবং অভিভাবকের কাছে পাঠান।</p></div>
+<div class="tabs"><button class="tab on" id="tabW" onclick="tab('W')">রিপোর্ট লিখুন</button><button class="tab" id="tabH" onclick="tab('H')">আগের রিপোর্ট</button></div>
+
+<div id="paneW">
+ <div class="card">
+  <div class="row"><div><label>তারিখ</label><input type="date" id="date"></div><div><label>ক্লাস</label><select id="cls"></select></div></div>
+  <label>শিক্ষার্থী খুঁজুন</label><input id="q" placeholder="নাম বা রোল লিখুন">
+  <div class="row" style="margin-top:12px"><button class="btn ghost sm" onclick="allPresent()">সবাই উপস্থিত</button><button class="btn ghost sm" onclick="loadList()">রিফ্রেশ</button></div>
+ </div>
+ <div id="list"><div class="empty">ক্লাস নির্বাচন করুন</div></div>
+ <div class="savebar hide" id="savebar"><button class="btn gold" id="saveBtn" onclick="saveAll()">সব সেভ করুন</button></div>
 </div>
+
+<div id="paneH" class="hide">
+ <div class="card">
+  <div class="row"><div><label>শুরুর তারিখ</label><input type="date" id="hfrom"></div><div><label>শেষ তারিখ</label><input type="date" id="hto"></div></div>
+  <div class="row"><div><label>ক্লাস</label><select id="hcls"></select></div><div><label>নাম খুঁজুন</label><input id="hq" placeholder="শিক্ষার্থীর নাম"></div></div>
+  <div style="margin-top:12px"><button class="btn" onclick="loadHist()">দেখুন</button></div>
+ </div>
+ <div id="hlist"></div>
+</div>
+
+</div>
+<div class="toast" id="toast"></div>
+<script>
+
+const SB_URL="https://qavublwhqiqsgpcmfyft.supabase.co";
+const SB_KEY="sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
+const sb=window.supabase.createClient(SB_URL,SB_KEY);
+const ROLE=(sessionStorage.getItem('madrasa_login_role')||'').toLowerCase();
+const IS_ADMIN=ROLE==='admin';
+let ME='Admin';
+try{if(ROLE==='teacher'){const t=JSON.parse(sessionStorage.getItem('madrasa_teacher_login')||'{}');ME=t.name||'শিক্ষক';}}catch(e){}
+const $=id=>document.getElementById(id);
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pad=n=>String(n).padStart(2,'0');
+const today=()=>{const d=new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())};
+const bnDate=d=>{try{return new Date(String(d).slice(0,10)+'T00:00:00').toLocaleDateString('bn-BD',{day:'numeric',month:'long',year:'numeric'})}catch(e){return d||''}};
+const bnNum=n=>{try{return Number(n||0).toLocaleString('bn-BD')}catch(e){return n}};
+let _tt;
+function toast(msg,err){const t=$('toast');t.textContent=msg;t.className='toast'+(err?' err':'');t.style.display='block';clearTimeout(_tt);_tt=setTimeout(()=>t.style.display='none',err?4500:2400)}
+const loading=(m)=>'<div class="empty"><span class="spin"></span>'+esc(m||'লোড হচ্ছে...')+'</div>';
+const errBox=(e)=>'<div class="empty">❌ '+esc(e&&e.message?e.message:e)+'<br><span class="muted">টেবিল তৈরি না থাকলে new-pages.sql চালান।</span></div>';
+const clsName=c=>c.class_name||c.name||('Class '+c.id);
+async function loadClasses(){const r=await sb.from('classes').select('*').order('id');if(r.error){toast('Class load error: '+r.error.message,true);return[]}return r.data||[]}
+function fillSel(sel,list,ph,val,lab){sel.innerHTML=(ph!==null?'<option value="">'+esc(ph)+'</option>':'')+list.map(x=>'<option value="'+esc(val(x))+'">'+esc(lab(x))+'</option>').join('')}
+function fillClassSel(sel,list,ph){fillSel(sel,list,ph,c=>c.id,clsName)}
+function phoneBD(p){let d=String(p||'').replace(/\D/g,'');if(d.startsWith('01'))d='88'+d;return d}
+function goBack(){if(history.length>1)history.back();else location.href=(ROLE==='teacher'?'teacher-dashboard':'dashboard')+'.html'}
+function openModal(id){$(id).classList.add('show')}
+function closeModal(id){$(id).classList.remove('show')}
+document.addEventListener('click',e=>{if(e.target.classList&&e.target.classList.contains('modal'))e.target.classList.remove('show')});
+
+
+let CLASSES=[],STU=[],ROWS={};
+const ATT=[['present','উপস্থিত',''],['absent','অনুপস্থিত','abs'],['leave','ছুটি','lv']];
+const ATTL={present:'উপস্থিত',absent:'অনুপস্থিত',leave:'ছুটি',late:'দেরিতে'};
+const BEH=[['','— বাছাই করুন —'],['excellent','চমৎকার'],['good','ভালো'],['average','মোটামুটি'],['improve','উন্নতি দরকার']];
+const BEHL={excellent:'চমৎকার',good:'ভালো',average:'মোটামুটি',improve:'উন্নতি দরকার'};
+function tab(t){$('paneW').classList.toggle('hide',t!=='W');$('paneH').classList.toggle('hide',t!=='H');$('tabW').classList.toggle('on',t==='W');$('tabH').classList.toggle('on',t==='H')}
+async function init(){
+  CLASSES=await loadClasses();
+  fillClassSel($('cls'),CLASSES,'ক্লাস নির্বাচন করুন');
+  fillClassSel($('hcls'),CLASSES,'সব ক্লাস');
+  $('date').value=today();$('hto').value=today();
+  const d=new Date();d.setDate(d.getDate()-7);$('hfrom').value=d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+  $('cls').onchange=loadList;$('date').onchange=loadList;$('q').oninput=render;
+}
+async function loadList(){
+  const cid=$('cls').value,date=$('date').value;
+  $('savebar').classList.add('hide');
+  if(!cid||!date){$('list').innerHTML='<div class="empty">ক্লাস ও তারিখ নির্বাচন করুন</div>';return}
+  $('list').innerHTML=loading();
+  const [s,r]=await Promise.all([
+    sb.from('students').select('*').eq('class_id',cid).order('roll_number'),
+    sb.from('parent_daily_reports').select('*').eq('report_date',date).eq('class_id',cid)]);
+  if(s.error){$('list').innerHTML=errBox(s.error);return}
+  if(r.error){$('list').innerHTML=errBox(r.error);return}
+  STU=s.data||[];ROWS={};
+  (r.data||[]).forEach(x=>ROWS[x.student_id]={att:x.attendance||'',lesson:x.lesson_text||'',hw:x.homework||'',beh:x.behavior||'',note:x.note||'',saved:true,dirty:false});
+  render();
+}
+function row(id){return ROWS[id]||(ROWS[id]={att:'',lesson:'',hw:'',beh:'',note:'',saved:false,dirty:false})}
+function render(){
+  const f=($('q').value||'').trim().toLowerCase();
+  const list=STU.filter(s=>!f||String(s.name||'').toLowerCase().includes(f)||String(s.roll_number||'').includes(f));
+  if(!STU.length){$('list').innerHTML='<div class="empty">এই ক্লাসে কোনো শিক্ষার্থী নেই</div>';return}
+  $('list').innerHTML=list.map(s=>{
+    const r=row(s.id),filled=(r.lesson||r.hw||r.beh||r.note)?' ✎':'';
+    return '<div class="st" data-id="'+s.id+'"><div class="sth"><b>'+esc(s.roll_number?s.roll_number+'. ':'')+esc(s.name)+'</b>'+(r.saved&&!r.dirty?'<span class="ok">✓ সেভ</span>':'')+'</div>'+
+    '<div class="chips">'+ATT.map(a=>'<button class="chip '+a[2]+(r.att===a[0]?' on':'')+'" data-att="'+a[0]+'">'+a[1]+'</button>').join('')+'</div>'+
+    '<details'+(filled?' open':'')+'><summary>বিস্তারিত লিখুন'+filled+'</summary>'+
+    '<label>আজকের পড়া</label><textarea data-f="lesson">'+esc(r.lesson)+'</textarea>'+
+    '<label>হোমওয়ার্ক</label><textarea data-f="hw">'+esc(r.hw)+'</textarea>'+
+    '<label>আচরণ</label><select data-f="beh">'+BEH.map(b=>'<option value="'+b[0]+'"'+(r.beh===b[0]?' selected':'')+'>'+b[1]+'</option>').join('')+'</select>'+
+    '<label>মন্তব্য</label><input data-f="note" value="'+esc(r.note)+'">'+
+    '<div class="sh"><button class="btn sm" data-share="wa">WhatsApp</button><button class="btn ghost sm" data-share="sms">SMS</button><button class="btn ghost sm" data-share="copy">কপি</button></div></details></div>';
+  }).join('')||'<div class="empty">কোনো শিক্ষার্থী পাওয়া যায়নি</div>';
+  $('savebar').classList.toggle('hide',!STU.length);
+}
+function msgFor(s){
+  const r=row(s.id),c=CLASSES.find(x=>String(x.id)===String($('cls').value));
+  return 'আসসালামু আলাইকুম,\nমাদরাসায়ে নূরুল কুরআন — দৈনিক রিপোর্ট ('+bnDate($('date').value)+')\n'+
+   'শিক্ষার্থী: '+s.name+(c?' ('+clsName(c)+')':'')+'\n'+
+   (r.att?'উপস্থিতি: '+ATTL[r.att]+'\n':'')+(r.lesson?'আজকের পড়া: '+r.lesson+'\n':'')+(r.hw?'হোমওয়ার্ক: '+r.hw+'\n':'')+
+   (r.beh?'আচরণ: '+BEHL[r.beh]+'\n':'')+(r.note?'মন্তব্য: '+r.note+'\n':'')+'জাযাকাল্লাহ।';
+}
+$('list').addEventListener('click',e=>{
+  const card=e.target.closest('.st');if(!card)return;const id=Number(card.dataset.id),s=STU.find(x=>x.id===id);
+  const a=e.target.closest('[data-att]');
+  if(a){const r=row(id);r.att=r.att===a.dataset.att?'':a.dataset.att;r.dirty=true;card.querySelectorAll('[data-att]').forEach(b=>b.classList.toggle('on',b.dataset.att===r.att));const ok=card.querySelector('.ok');if(ok)ok.remove();return}
+  const sh=e.target.closest('[data-share]');
+  if(sh&&s){const m=msgFor(s),ph=phoneBD(s.mobile||s.guardian_mobile);
+    if(sh.dataset.share==='copy'){(navigator.clipboard?navigator.clipboard.writeText(m):Promise.reject()).then(()=>toast('কপি হয়েছে'),()=>toast('কপি করা যায়নি',true));return}
+    if(!ph){toast('অভিভাবকের মোবাইল নম্বর নেই',true);return}
+    if(sh.dataset.share==='wa')window.open('https://wa.me/'+ph+'?text='+encodeURIComponent(m),'_blank');
+    else location.href='sms:+'+ph+'?body='+encodeURIComponent(m)}
+});
+$('list').addEventListener('input',e=>{
+  const card=e.target.closest('.st'),f=e.target.dataset.f;if(!card||!f)return;
+  const r=row(Number(card.dataset.id));r[f]=e.target.value;r.dirty=true;
+});
+function allPresent(){STU.forEach(s=>{const r=row(s.id);if(!r.att){r.att='present';r.dirty=true}});render()}
+async function saveAll(){
+  const cid=Number($('cls').value),date=$('date').value;
+  const rows=STU.filter(s=>ROWS[s.id]&&ROWS[s.id].dirty).map(s=>{const r=ROWS[s.id];return{report_date:date,class_id:cid,student_id:s.id,attendance:r.att||null,lesson_text:r.lesson||null,homework:r.hw||null,behavior:r.beh||null,note:r.note||null,created_by:ME}});
+  if(!rows.length){toast('নতুন কোনো পরিবর্তন নেই');return}
+  $('saveBtn').disabled=true;
+  const r=await sb.from('parent_daily_reports').upsert(rows,{onConflict:'report_date,student_id'});
+  $('saveBtn').disabled=false;
+  if(r.error){toast('সেভ হয়নি: '+r.error.message,true);return}
+  rows.forEach(x=>{const o=ROWS[x.student_id];o.saved=true;o.dirty=false});
+  toast(rows.length+' জনের রিপোর্ট সেভ হয়েছে');render();
+}
+async function loadHist(){
+  $('hlist').innerHTML=loading();
+  let q=sb.from('parent_daily_reports').select('*').order('report_date',{ascending:false}).limit(300);
+  if($('hfrom').value)q=q.gte('report_date',$('hfrom').value);
+  if($('hto').value)q=q.lte('report_date',$('hto').value);
+  if($('hcls').value)q=q.eq('class_id',$('hcls').value);
+  const r=await q;if(r.error){$('hlist').innerHTML=errBox(r.error);return}
+  let data=r.data||[];
+  const ids=[...new Set(data.map(x=>x.student_id))];
+  const names={};
+  if(ids.length){const s=await sb.from('students').select('id,name,roll_number').in('id',ids);(s.data||[]).forEach(x=>names[x.id]=x)}
+  const f=($('hq').value||'').trim().toLowerCase();
+  if(f)data=data.filter(x=>String((names[x.student_id]||{}).name||'').toLowerCase().includes(f));
+  $('hlist').innerHTML=data.map(x=>{const n=names[x.student_id]||{};
+    return '<div class="hrow"><b>'+esc(n.name||('ID '+x.student_id))+'</b> <span class="badge">'+esc(bnDate(x.report_date))+'</span>'+
+    (x.attendance?'<br>উপস্থিতি: '+esc(ATTL[x.attendance]||x.attendance):'')+(x.lesson_text?'<br>পড়া: '+esc(x.lesson_text):'')+(x.homework?'<br>হোমওয়ার্ক: '+esc(x.homework):'')+
+    (x.behavior?'<br>আচরণ: '+esc(BEHL[x.behavior]||x.behavior):'')+(x.note?'<br>মন্তব্য: '+esc(x.note):'')+
+    '<br><span class="muted">লিখেছেন: '+esc(x.created_by||'-')+'</span>'+(IS_ADMIN?' <button class="btn red sm" onclick="delRep('+x.id+')">মুছুন</button>':'')+'</div>'}).join('')||'<div class="empty">কোনো রিপোর্ট পাওয়া যায়নি</div>';
+}
+async function delRep(id){if(!confirm('এই রিপোর্ট মুছে ফেলবেন?'))return;const r=await sb.from('parent_daily_reports').delete().eq('id',id);if(r.error){toast(r.error.message,true);return}toast('মুছে ফেলা হয়েছে');loadHist()}
+init();
+
+</script>
 </body>
 </html>

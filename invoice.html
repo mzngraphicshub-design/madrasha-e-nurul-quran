@@ -192,32 +192,174 @@
 
 </script>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ইনভয়েস | মাদরাসায়ে নূরুল কুরআন</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>window.mnqPatchSupabase&&window.mnqPatchSupabase()</script>
 <style>
 @font-face{font-family:Bornomala;src:url(fonts/Bornomala-Regular.ttf)}
-*{box-sizing:border-box}
-body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;
- font-family:Bornomala,system-ui,sans-serif;background:#f4efe0;color:#17382c}
-.card{max-width:460px;width:100%;text-align:center;background:#fffdf8;border:1px solid rgba(201,162,39,.4);
- border-top:4px solid #0e5a40;border-radius:24px;padding:32px 22px;box-shadow:0 10px 28px rgba(14,70,50,.12)}
-.ic{width:72px;height:72px;margin:0 auto 14px;border-radius:22px;background:#0e4a35;color:#e8c766;
- display:flex;align-items:center;justify-content:center;font-size:34px}
-h1{margin:0 0 6px;color:#0e5a40;font-size:26px}
-p{margin:6px 0;color:#3d5a4d}
-.en{font-size:14px;opacity:.8}
-a{display:inline-block;margin-top:18px;background:#0e5a40;color:#fff;text-decoration:none;
- padding:12px 26px;border-radius:999px}
+:root{--g:#0e5a40;--gd:#0a3d2c;--gold:#c9a227;--bg:#f4efe0;--card:#fffdf8;--ink:#17382c;--muted:#5b7468;--line:rgba(201,162,39,.4);--red:#c0392b;--blue:#1f6fb5;--cream:#f1ead2}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0}
+body{font-family:Bornomala,system-ui,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;padding-bottom:calc(40px + env(safe-area-inset-bottom,0px))}
+.top{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;padding:calc(9px + env(safe-area-inset-top,0px)) 12px 9px;background:var(--card);border-bottom:1px solid var(--line)}
+.hbtn{width:42px;height:42px;border-radius:13px;border:1px solid var(--line);background:var(--card);color:var(--g);display:flex;align-items:center;justify-content:center;text-decoration:none;font:inherit;font-size:20px;cursor:pointer;flex:none}
+.hbtn svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ttl{flex:1;color:var(--g);font-size:16px;line-height:1.25}
+.wrap{max-width:900px;margin:0 auto;padding:14px}
+.hero{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border-radius:24px;padding:18px;border:1px solid rgba(201,162,39,.5);box-shadow:0 10px 24px rgba(10,61,44,.22)}
+.hero h1{margin:0 0 4px;font-size:24px}
+.hero p{margin:0;font-size:14px;opacity:.88}
+.hero .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;margin-top:14px;box-shadow:0 4px 12px rgba(14,70,50,.07)}
+.card h3{margin:0 0 8px;color:var(--g);font-size:18px}
+label{display:block;font-size:14px;margin:10px 0 4px;color:var(--muted)}
+input,select,textarea{width:100%;font:inherit;font-size:16px;padding:11px 13px;border:1px solid var(--line);border-radius:14px;background:#fff;color:var(--ink);outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--g);box-shadow:0 0 0 3px rgba(14,90,64,.14)}
+textarea{min-height:74px;resize:vertical}
+.row{display:flex;gap:10px;flex-wrap:wrap}.row>*{flex:1;min-width:140px}
+.btn{border:0;background:var(--g);color:#fff;font:inherit;font-size:15px;padding:11px 18px;border-radius:14px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;text-decoration:none}
+.btn:disabled{opacity:.55}
+.btn.gold{background:var(--gold);color:#1d2b22}.btn.red{background:var(--red)}.btn.ghost{background:transparent;color:var(--g);border:1px solid var(--line)}
+.btn.sm{padding:7px 12px;font-size:13px;border-radius:11px}
+.hero .btn.ghost{color:#fff;border-color:rgba(255,255,255,.4);background:rgba(255,255,255,.1)}
+.tabs{display:flex;gap:8px;margin-top:14px}
+.tab{flex:1;text-align:center;padding:11px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--g);font:inherit;font-size:15px;cursor:pointer}
+.tab.on{background:var(--g);color:#fff;border-color:var(--g)}
+.chips{display:flex;gap:7px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:#fff;color:var(--ink);font:inherit;font-size:14px;padding:7px 13px;border-radius:999px;cursor:pointer}
+.chip.on{background:var(--g);color:#fff;border-color:var(--g)}
+.chip.abs.on{background:var(--red);border-color:var(--red)}.chip.lv.on{background:var(--gold);border-color:var(--gold);color:#1d2b22}
+.empty{text-align:center;color:var(--muted);padding:26px 10px;font-size:15px}
+.badge{display:inline-block;padding:3px 11px;border-radius:999px;font-size:12px;background:var(--cream);color:var(--g)}
+.muted{color:var(--muted);font-size:13px}
+.toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--gd);color:#fff;padding:11px 18px;border-radius:14px;z-index:99;display:none;max-width:90%;text-align:center;font-size:15px}
+.toast.err{background:var(--red)}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;z-index:60;padding:14px}
+.modal.show{display:flex}
+.modal .box{background:var(--card);border-radius:20px;padding:16px;max-width:560px;width:100%;max-height:90vh;overflow:auto}
+.spin{display:inline-block;width:18px;height:18px;border:3px solid var(--line);border-top-color:var(--g);border-radius:50%;animation:sp .8s linear infinite;vertical-align:middle;margin-right:8px}
+@keyframes sp{to{transform:rotate(360deg)}}
+.hide{display:none!important}
+
+.sr{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;margin-top:10px;display:flex;align-items:center;gap:10px;cursor:pointer}
+.sr b{flex:1}
+.inv{background:#fff;color:#111;border:1px solid #ccc;border-radius:12px;padding:22px;margin-top:14px;max-width:760px;margin-left:auto;margin-right:auto}
+.inv .hd{display:flex;align-items:center;gap:14px;border-bottom:2px solid var(--g);padding-bottom:12px}
+.inv .hd img{width:64px;height:64px;object-fit:contain}
+.inv .hd h2{margin:0;color:var(--g);font-size:22px}
+.inv .hd small{color:#555}
+.inv .tt{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;margin:14px 0 6px}
+.inv .tt h3{margin:0;font-size:20px;letter-spacing:1px}
+.inv table{width:100%;border-collapse:collapse;margin-top:12px;font-size:15px}
+.inv th,.inv td{border:1px solid #bbb;padding:8px 10px;text-align:left}
+.inv th{background:#f0f4f1}
+.inv td.n,.inv th.n{text-align:right}
+.inv .info{display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;font-size:15px;margin-top:8px}
+.inv .sig{display:flex;justify-content:space-between;margin-top:46px;font-size:14px}
+.inv .sig div{border-top:1px solid #555;padding-top:4px;min-width:130px;text-align:center}
+.stamp{display:inline-block;border:2px solid var(--g);color:var(--g);padding:2px 12px;border-radius:8px;transform:rotate(-6deg);font-size:18px}
+.stamp.due{border-color:var(--red);color:var(--red)}
+@media print{
+ body{background:#fff;padding:0}
+ .top,.hero,.noprint,.toast,.tabs{display:none!important}
+ .wrap{padding:0;max-width:none}
+ .inv{border:0;margin:0;max-width:none;padding:0}
+ @page{margin:14mm}
+}
 </style>
 </head>
 <body>
-<!-- PLACEHOLDER: এই ফাইলটি (invoice.html) এর বদলে আসল পেজের HTML লিখলেই হবে। -->
-<div class="card">
- <div class="ic">&#9881;</div>
- <h1>ইনভয়েস</h1>
- <p>এই পেজটির কাজ চলছে, খুব শীঘ্রই চালু হবে।</p>
- <p class="en">Invoice — coming soon</p>
- <a href="javascript:history.length>1?history.back():location.href='dashboard.html'">ফিরে যান</a>
+<div class="top"><a class="hbtn" href="dashboard.html" aria-label="হোম"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></a><div class="ttl">ইনভয়েস</div><button class="hbtn" onclick="goBack()" aria-label="ফিরে যান"><svg viewBox="0 0 24 24"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg></button></div>
+<div class="wrap">
+
+<div class="hero noprint"><h1>ইনভয়েস / ফি রসিদ</h1><p>শিক্ষার্থীর ফি পেমেন্টের রসিদ দেখুন ও প্রিন্ট করুন।</p></div>
+<div id="view"></div>
+
 </div>
+<div class="toast" id="toast"></div>
+<script>
+
+const SB_URL="https://qavublwhqiqsgpcmfyft.supabase.co";
+const SB_KEY="sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
+const sb=window.supabase.createClient(SB_URL,SB_KEY);
+const ROLE=(sessionStorage.getItem('madrasa_login_role')||'').toLowerCase();
+const IS_ADMIN=ROLE==='admin';
+let ME='Admin';
+try{if(ROLE==='teacher'){const t=JSON.parse(sessionStorage.getItem('madrasa_teacher_login')||'{}');ME=t.name||'শিক্ষক';}}catch(e){}
+const $=id=>document.getElementById(id);
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pad=n=>String(n).padStart(2,'0');
+const today=()=>{const d=new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())};
+const bnDate=d=>{try{return new Date(String(d).slice(0,10)+'T00:00:00').toLocaleDateString('bn-BD',{day:'numeric',month:'long',year:'numeric'})}catch(e){return d||''}};
+const bnNum=n=>{try{return Number(n||0).toLocaleString('bn-BD')}catch(e){return n}};
+let _tt;
+function toast(msg,err){const t=$('toast');t.textContent=msg;t.className='toast'+(err?' err':'');t.style.display='block';clearTimeout(_tt);_tt=setTimeout(()=>t.style.display='none',err?4500:2400)}
+const loading=(m)=>'<div class="empty"><span class="spin"></span>'+esc(m||'লোড হচ্ছে...')+'</div>';
+const errBox=(e)=>'<div class="empty">❌ '+esc(e&&e.message?e.message:e)+'<br><span class="muted">টেবিল তৈরি না থাকলে new-pages.sql চালান।</span></div>';
+const clsName=c=>c.class_name||c.name||('Class '+c.id);
+async function loadClasses(){const r=await sb.from('classes').select('*').order('id');if(r.error){toast('Class load error: '+r.error.message,true);return[]}return r.data||[]}
+function fillSel(sel,list,ph,val,lab){sel.innerHTML=(ph!==null?'<option value="">'+esc(ph)+'</option>':'')+list.map(x=>'<option value="'+esc(val(x))+'">'+esc(lab(x))+'</option>').join('')}
+function fillClassSel(sel,list,ph){fillSel(sel,list,ph,c=>c.id,clsName)}
+function phoneBD(p){let d=String(p||'').replace(/\D/g,'');if(d.startsWith('01'))d='88'+d;return d}
+function goBack(){if(history.length>1)history.back();else location.href=(ROLE==='teacher'?'teacher-dashboard':'dashboard')+'.html'}
+function openModal(id){$(id).classList.add('show')}
+function closeModal(id){$(id).classList.remove('show')}
+document.addEventListener('click',e=>{if(e.target.classList&&e.target.classList.contains('modal'))e.target.classList.remove('show')});
+
+
+const Q=new URLSearchParams(location.search);
+const fmt=n=>'৳ '+bnNum(n);
+async function boot(){
+  const rec=Q.get('receipt')||Q.get('id'),stu=Q.get('student');
+  if(rec)return showInvoice(rec);
+  if(stu)return showStudent(stu);
+  showSearch();
+}
+function showSearch(){
+  $('view').innerHTML='<div class="card noprint"><h3>শিক্ষার্থী খুঁজুন</h3><label>নাম, আইডি বা রোল</label><div class="row"><input id="sq" placeholder="লিখুন..."><button class="btn" style="flex:0 0 auto" onclick="doSearch()">খুঁজুন</button></div></div><div id="res"></div><div class="card noprint"><h3>রসিদ নম্বর দিয়ে</h3><div class="row"><input id="rq" placeholder="রসিদ / ফি আইডি"><button class="btn gold" style="flex:0 0 auto" onclick="location.href=\'invoice.html?receipt=\'+encodeURIComponent($(\'rq\').value.trim())">দেখুন</button></div></div>';
+  $('sq').addEventListener('keydown',e=>{if(e.key==='Enter')doSearch()});
+}
+async function doSearch(){
+  const v=$('sq').value.trim();if(!v)return;
+  $('res').innerHTML=loading();
+  let q=sb.from('students').select('id,name,student_id,roll_number,class_id').limit(25);
+  q=/^\d+$/.test(v)?q.or('student_id.eq.'+v+',roll_number.eq.'+v+',name.ilike.%'+v+'%'):q.ilike('name','%'+v+'%');
+  const r=await q;if(r.error){$('res').innerHTML=errBox(r.error);return}
+  $('res').innerHTML=(r.data||[]).map(s=>'<div class="sr" onclick="location.href=\'invoice.html?student='+s.id+'\'"><b>'+esc(s.name)+'</b><span class="muted">ID: '+esc(s.student_id||s.id)+' · রোল: '+esc(s.roll_number||'-')+'</span></div>').join('')||'<div class="empty">কাউকে পাওয়া যায়নি</div>';
+}
+async function showStudent(id){
+  $('view').innerHTML=loading();
+  const [s,f]=await Promise.all([sb.from('students').select('*').eq('id',id).limit(1),sb.from('fees').select('*').eq('student_id',id).order('payment_date',{ascending:false})]);
+  if(s.error||f.error){$('view').innerHTML=errBox(s.error||f.error);return}
+  const st=(s.data||[])[0];if(!st){$('view').innerHTML='<div class="empty">শিক্ষার্থী পাওয়া যায়নি</div>';return}
+  $('view').innerHTML='<div class="card"><h3>'+esc(st.name)+'</h3><div class="muted">ID: '+esc(st.student_id||st.id)+' · রোল: '+esc(st.roll_number||'-')+'</div></div>'+
+   ((f.data||[]).map(x=>'<div class="sr" onclick="location.href=\'invoice.html?receipt='+x.id+'\'"><b>'+esc(x.fee_month||'ফি')+'</b><span>'+fmt(x.paid_amount)+'</span><span class="muted">'+esc(x.payment_date?bnDate(x.payment_date):'')+'</span></div>').join('')||'<div class="empty">কোনো ফি রেকর্ড নেই</div>')+
+   '<div style="margin-top:14px"><a class="btn ghost" href="invoice.html">← নতুন খোঁজ</a></div>';
+}
+async function findFee(v){
+  if(/^\d+$/.test(v)){const x=await sb.from('fees').select('*').eq('id',Number(v)).limit(1);if(x.data&&x.data[0])return x.data[0]}
+  const y=await sb.from('fees').select('*').eq('receipt_no',v).limit(1);
+  return y.data&&y.data[0]||null;
+}
+async function showInvoice(v){
+  $('view').innerHTML=loading();
+  const fee=await findFee(v);
+  if(!fee){$('view').innerHTML='<div class="empty">এই নম্বরের কোনো রসিদ পাওয়া যায়নি<br><br><a class="btn ghost" href="invoice.html">← খুঁজুন</a></div>';return}
+  const [s,c]=await Promise.all([sb.from('students').select('*').eq('id',fee.student_id).limit(1),sb.from('classes').select('*').limit(200)]);
+  const st=(s.data||[])[0]||{},cl=(c.data||[]).find(x=>x.id===st.class_id);
+  const amount=Number(fee.amount||0),paid=Number(fee.paid_amount||0),due=Math.max(0,amount-paid);
+  const no=fee.receipt_no||('INV-'+String(fee.id).padStart(6,'0'));
+  $('view').innerHTML='<div class="noprint" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px"><button class="btn" onclick="window.print()">🖨 প্রিন্ট / PDF</button><a class="btn ghost" href="invoice.html?student='+esc(fee.student_id)+'">← সব ফি</a></div>'+
+  '<div class="inv"><div class="hd"><img src="img/logo.png" alt="" onerror="this.style.display=\'none\'"><div><h2>মাদরাসায়ে নূরুল কুরআন</h2><small>ফি আদায়ের রসিদ</small></div></div>'+
+  '<div class="tt"><h3>INVOICE</h3><div><b>নং:</b> '+esc(no)+'<br><b>তারিখ:</b> '+esc(fee.payment_date?bnDate(fee.payment_date):'-')+'</div></div>'+
+  '<div class="info"><div><b>নাম:</b> '+esc(st.name||'-')+'</div><div><b>আইডি:</b> '+esc(st.student_id||st.id||'-')+'</div><div><b>ক্লাস:</b> '+esc(cl?clsName(cl):'-')+'</div><div><b>রোল:</b> '+esc(st.roll_number||'-')+'</div></div>'+
+  '<table><thead><tr><th>বিবরণ</th><th class="n">ধার্য</th><th class="n">পরিশোধ</th><th class="n">বাকি</th></tr></thead><tbody><tr><td>'+esc(fee.fee_month?fee.fee_month+' মাসের ফি':'ফি')+'</td><td class="n">'+fmt(amount)+'</td><td class="n">'+fmt(paid)+'</td><td class="n">'+fmt(due)+'</td></tr></tbody></table>'+
+  '<div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;flex-wrap:wrap;gap:8px"><div><b>পেমেন্ট মাধ্যম:</b> '+esc(fee.payment_method||'-')+'</div><span class="stamp'+(due>0?' due':'')+'">'+(due>0?'বাকি আছে':'পরিশোধিত')+'</span></div>'+
+  '<div class="sig"><div>অভিভাবক / প্রদানকারী</div><div>গ্রহণকারী</div></div></div>';
+}
+boot();
+
+</script>
 </body>
 </html>

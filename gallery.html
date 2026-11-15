@@ -192,32 +192,185 @@
 
 </script>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>গ্যালারি | মাদরাসায়ে নূরুল কুরআন</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ফটো গ্যালারি | মাদরাসায়ে নূরুল কুরআন</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>window.mnqPatchSupabase&&window.mnqPatchSupabase()</script>
 <style>
 @font-face{font-family:Bornomala;src:url(fonts/Bornomala-Regular.ttf)}
-*{box-sizing:border-box}
-body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;
- font-family:Bornomala,system-ui,sans-serif;background:#f4efe0;color:#17382c}
-.card{max-width:460px;width:100%;text-align:center;background:#fffdf8;border:1px solid rgba(201,162,39,.4);
- border-top:4px solid #0e5a40;border-radius:24px;padding:32px 22px;box-shadow:0 10px 28px rgba(14,70,50,.12)}
-.ic{width:72px;height:72px;margin:0 auto 14px;border-radius:22px;background:#0e4a35;color:#e8c766;
- display:flex;align-items:center;justify-content:center;font-size:34px}
-h1{margin:0 0 6px;color:#0e5a40;font-size:26px}
-p{margin:6px 0;color:#3d5a4d}
-.en{font-size:14px;opacity:.8}
-a{display:inline-block;margin-top:18px;background:#0e5a40;color:#fff;text-decoration:none;
- padding:12px 26px;border-radius:999px}
+:root{--g:#0e5a40;--gd:#0a3d2c;--gold:#c9a227;--bg:#f4efe0;--card:#fffdf8;--ink:#17382c;--muted:#5b7468;--line:rgba(201,162,39,.4);--red:#c0392b;--blue:#1f6fb5;--cream:#f1ead2}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0}
+body{font-family:Bornomala,system-ui,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;padding-bottom:calc(40px + env(safe-area-inset-bottom,0px))}
+.top{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;padding:calc(9px + env(safe-area-inset-top,0px)) 12px 9px;background:var(--card);border-bottom:1px solid var(--line)}
+.hbtn{width:42px;height:42px;border-radius:13px;border:1px solid var(--line);background:var(--card);color:var(--g);display:flex;align-items:center;justify-content:center;text-decoration:none;font:inherit;font-size:20px;cursor:pointer;flex:none}
+.hbtn svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ttl{flex:1;color:var(--g);font-size:16px;line-height:1.25}
+.wrap{max-width:900px;margin:0 auto;padding:14px}
+.hero{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border-radius:24px;padding:18px;border:1px solid rgba(201,162,39,.5);box-shadow:0 10px 24px rgba(10,61,44,.22)}
+.hero h1{margin:0 0 4px;font-size:24px}
+.hero p{margin:0;font-size:14px;opacity:.88}
+.hero .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;margin-top:14px;box-shadow:0 4px 12px rgba(14,70,50,.07)}
+.card h3{margin:0 0 8px;color:var(--g);font-size:18px}
+label{display:block;font-size:14px;margin:10px 0 4px;color:var(--muted)}
+input,select,textarea{width:100%;font:inherit;font-size:16px;padding:11px 13px;border:1px solid var(--line);border-radius:14px;background:#fff;color:var(--ink);outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--g);box-shadow:0 0 0 3px rgba(14,90,64,.14)}
+textarea{min-height:74px;resize:vertical}
+.row{display:flex;gap:10px;flex-wrap:wrap}.row>*{flex:1;min-width:140px}
+.btn{border:0;background:var(--g);color:#fff;font:inherit;font-size:15px;padding:11px 18px;border-radius:14px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;text-decoration:none}
+.btn:disabled{opacity:.55}
+.btn.gold{background:var(--gold);color:#1d2b22}.btn.red{background:var(--red)}.btn.ghost{background:transparent;color:var(--g);border:1px solid var(--line)}
+.btn.sm{padding:7px 12px;font-size:13px;border-radius:11px}
+.hero .btn.ghost{color:#fff;border-color:rgba(255,255,255,.4);background:rgba(255,255,255,.1)}
+.tabs{display:flex;gap:8px;margin-top:14px}
+.tab{flex:1;text-align:center;padding:11px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--g);font:inherit;font-size:15px;cursor:pointer}
+.tab.on{background:var(--g);color:#fff;border-color:var(--g)}
+.chips{display:flex;gap:7px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:#fff;color:var(--ink);font:inherit;font-size:14px;padding:7px 13px;border-radius:999px;cursor:pointer}
+.chip.on{background:var(--g);color:#fff;border-color:var(--g)}
+.chip.abs.on{background:var(--red);border-color:var(--red)}.chip.lv.on{background:var(--gold);border-color:var(--gold);color:#1d2b22}
+.empty{text-align:center;color:var(--muted);padding:26px 10px;font-size:15px}
+.badge{display:inline-block;padding:3px 11px;border-radius:999px;font-size:12px;background:var(--cream);color:var(--g)}
+.muted{color:var(--muted);font-size:13px}
+.toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--gd);color:#fff;padding:11px 18px;border-radius:14px;z-index:99;display:none;max-width:90%;text-align:center;font-size:15px}
+.toast.err{background:var(--red)}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;z-index:60;padding:14px}
+.modal.show{display:flex}
+.modal .box{background:var(--card);border-radius:20px;padding:16px;max-width:560px;width:100%;max-height:90vh;overflow:auto}
+.spin{display:inline-block;width:18px;height:18px;border:3px solid var(--line);border-top-color:var(--g);border-radius:50%;animation:sp .8s linear infinite;vertical-align:middle;margin-right:8px}
+@keyframes sp{to{transform:rotate(360deg)}}
+.hide{display:none!important}
+
+.gr{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
+@media(min-width:640px){.gr{grid-template-columns:repeat(3,1fr)}}
+.ph{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;position:relative}
+.ph img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;cursor:pointer;background:#e7e1cc}
+.ph .cap{padding:7px 9px;font-size:13px;line-height:1.35}
+.ph .x{position:absolute;top:6px;right:6px;background:rgba(192,57,43,.92);color:#fff;border:0;border-radius:10px;padding:4px 9px;font:inherit;font-size:12px}
+.lb{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:80;display:none;flex-direction:column;align-items:center;justify-content:center;padding:14px}
+.lb.show{display:flex}
+.lb img{max-width:100%;max-height:78vh;border-radius:10px}
+.lb p{color:#fff;margin:12px 0 0;text-align:center}
+.lb button{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:14px;background:#fff;border:0;border-radius:12px;padding:8px 14px;font:inherit}
+.prog{height:8px;background:var(--cream);border-radius:6px;overflow:hidden;margin-top:10px}
+.prog i{display:block;height:100%;width:0;background:var(--g);transition:width .2s}
 </style>
 </head>
 <body>
-<!-- PLACEHOLDER: এই ফাইলটি (gallery.html) এর বদলে আসল পেজের HTML লিখলেই হবে। -->
-<div class="card">
- <div class="ic">&#9881;</div>
- <h1>গ্যালারি</h1>
- <p>এই পেজটির কাজ চলছে, খুব শীঘ্রই চালু হবে।</p>
- <p class="en">Gallery — coming soon</p>
- <a href="javascript:history.length>1?history.back():location.href='dashboard.html'">ফিরে যান</a>
+<div class="top"><a class="hbtn" href="dashboard.html" aria-label="হোম"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></a><div class="ttl">ফটো গ্যালারি</div><button class="hbtn" onclick="goBack()" aria-label="ফিরে যান"><svg viewBox="0 0 24 24"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg></button></div>
+<div class="wrap">
+
+<div class="hero"><h1>ফটো গ্যালারি</h1><p>মাদরাসার অনুষ্ঠান ও কার্যক্রমের ছবি।</p>
+ <div class="acts"><button class="btn gold" onclick="openNew()">+ ছবি যোগ করুন</button></div></div>
+<div class="card"><div class="chips" id="cats"></div></div>
+<div class="gr" id="grid"></div>
+<div class="lb" id="lb" onclick="this.classList.remove('show')"><button>বন্ধ করুন</button><img id="lbi" alt=""><p id="lbc"></p></div>
+
+<div class="modal" id="m"><div class="box">
+ <h3>নতুন ছবি</h3>
+ <label>ছবি বাছাই করুন (একাধিক হতে পারে)</label><input type="file" id="files" accept="image/*" multiple>
+ <label>অথবা ছবির লিংক</label><input id="url" placeholder="https://...">
+ <label>শিরোনাম / ক্যাপশন</label><input id="title">
+ <label>ক্যাটাগরি</label><input id="cat" list="catl" placeholder="যেমন: অনুষ্ঠান"><datalist id="catl"></datalist>
+ <div class="prog hide" id="pg"><i id="pgi"></i></div>
+ <div class="row" style="margin-top:14px"><button class="btn" id="sv" onclick="save()">আপলোড</button><button class="btn ghost" onclick="closeModal('m')">বাতিল</button></div>
+ <p class="muted">ছবি স্বয়ংক্রিয়ভাবে ছোট করে আপলোড হবে।</p>
+</div></div>
+
 </div>
+<div class="toast" id="toast"></div>
+<script>
+
+const SB_URL="https://qavublwhqiqsgpcmfyft.supabase.co";
+const SB_KEY="sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
+const sb=window.supabase.createClient(SB_URL,SB_KEY);
+const ROLE=(sessionStorage.getItem('madrasa_login_role')||'').toLowerCase();
+const IS_ADMIN=ROLE==='admin';
+let ME='Admin';
+try{if(ROLE==='teacher'){const t=JSON.parse(sessionStorage.getItem('madrasa_teacher_login')||'{}');ME=t.name||'শিক্ষক';}}catch(e){}
+const $=id=>document.getElementById(id);
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pad=n=>String(n).padStart(2,'0');
+const today=()=>{const d=new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())};
+const bnDate=d=>{try{return new Date(String(d).slice(0,10)+'T00:00:00').toLocaleDateString('bn-BD',{day:'numeric',month:'long',year:'numeric'})}catch(e){return d||''}};
+const bnNum=n=>{try{return Number(n||0).toLocaleString('bn-BD')}catch(e){return n}};
+let _tt;
+function toast(msg,err){const t=$('toast');t.textContent=msg;t.className='toast'+(err?' err':'');t.style.display='block';clearTimeout(_tt);_tt=setTimeout(()=>t.style.display='none',err?4500:2400)}
+const loading=(m)=>'<div class="empty"><span class="spin"></span>'+esc(m||'লোড হচ্ছে...')+'</div>';
+const errBox=(e)=>'<div class="empty">❌ '+esc(e&&e.message?e.message:e)+'<br><span class="muted">টেবিল তৈরি না থাকলে new-pages.sql চালান।</span></div>';
+const clsName=c=>c.class_name||c.name||('Class '+c.id);
+async function loadClasses(){const r=await sb.from('classes').select('*').order('id');if(r.error){toast('Class load error: '+r.error.message,true);return[]}return r.data||[]}
+function fillSel(sel,list,ph,val,lab){sel.innerHTML=(ph!==null?'<option value="">'+esc(ph)+'</option>':'')+list.map(x=>'<option value="'+esc(val(x))+'">'+esc(lab(x))+'</option>').join('')}
+function fillClassSel(sel,list,ph){fillSel(sel,list,ph,c=>c.id,clsName)}
+function phoneBD(p){let d=String(p||'').replace(/\D/g,'');if(d.startsWith('01'))d='88'+d;return d}
+function goBack(){if(history.length>1)history.back();else location.href=(ROLE==='teacher'?'teacher-dashboard':'dashboard')+'.html'}
+function openModal(id){$(id).classList.add('show')}
+function closeModal(id){$(id).classList.remove('show')}
+document.addEventListener('click',e=>{if(e.target.classList&&e.target.classList.contains('modal'))e.target.classList.remove('show')});
+
+
+let ALL=[],CAT='';
+async function load(){
+  $('grid').innerHTML=loading();
+  const r=await sb.from('gallery_photos').select('*').order('created_at',{ascending:false}).limit(500);
+  if(r.error){$('grid').innerHTML=errBox(r.error);return}
+  ALL=r.data||[];
+  const cats=[...new Set(ALL.map(x=>x.category).filter(Boolean))];
+  $('catl').innerHTML=cats.map(c=>'<option value="'+esc(c)+'">').join('');
+  $('cats').innerHTML=['সব'].concat(cats).map((c,i)=>'<button class="chip'+((i===0&&!CAT)||c===CAT?' on':'')+'" data-c="'+esc(i===0?'':c)+'">'+esc(c)+'</button>').join('');
+  render();
+}
+$('cats').addEventListener('click',e=>{const b=e.target.closest('[data-c]');if(!b)return;CAT=b.dataset.c;$('cats').querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',x===b));render()});
+function render(){
+  const L=ALL.filter(x=>!CAT||x.category===CAT);
+  $('grid').innerHTML=L.map(x=>'<div class="ph"><img loading="lazy" src="'+esc(x.image_url)+'" alt="'+esc(x.title||'')+'" data-id="'+x.id+'">'+(IS_ADMIN?'<button class="x" data-del="'+x.id+'">মুছুন</button>':'')+(x.title?'<div class="cap">'+esc(x.title)+'</div>':'')+'</div>').join('')||'<div class="empty" style="grid-column:1/-1">কোনো ছবি নেই</div>';
+}
+$('grid').addEventListener('click',e=>{
+  const d=e.target.closest('[data-del]');if(d){del(Number(d.dataset.del));return}
+  const i=e.target.closest('img[data-id]');if(i){const x=ALL.find(k=>k.id===Number(i.dataset.id));$('lbi').src=x.image_url;$('lbc').textContent=x.title||'';$('lb').classList.add('show')}
+});
+function openNew(){$('files').value='';$('url').value='';$('title').value='';$('pg').classList.add('hide');openModal('m')}
+function compress(file,max,q){return new Promise((res,rej)=>{const img=new Image(),u=URL.createObjectURL(file);
+  img.onload=()=>{const k=Math.min(1,max/Math.max(img.width,img.height)),w=Math.round(img.width*k),h=Math.round(img.height*k),c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);
+    c.toBlob(b=>{URL.revokeObjectURL(u);b?res(b):rej(new Error('ছবি প্রসেস করা যায়নি'))},'image/jpeg',q)};
+  img.onerror=()=>rej(new Error('ছবি পড়া যায়নি'));img.src=u})}
+async function save(){
+  const files=[...$('files').files],url=$('url').value.trim();
+  if(!files.length&&!url){toast('ছবি বা লিংক দিন',true);return}
+  $('sv').disabled=true;$('pg').classList.remove('hide');
+  const total=files.length||1;let done=0,fail=0;
+  try{
+    if(files.length){
+      for(const f of files){
+        try{
+          const blob=await compress(f,1600,.82),path=Date.now()+'-'+Math.random().toString(36).slice(2,8)+'.jpg';
+          const up=await sb.storage.from('gallery').upload(path,blob,{contentType:'image/jpeg'});
+          if(up.error)throw up.error;
+          const pu=sb.storage.from('gallery').getPublicUrl(path).data.publicUrl;
+          const ins=await sb.from('gallery_photos').insert([{title:$('title').value.trim()||null,category:$('cat').value.trim()||null,image_url:pu,storage_path:path,created_by:ME}]);
+          if(ins.error)throw ins.error;
+        }catch(e){fail++;console.error(e);toast('আপলোড সমস্যা: '+(e.message||e),true)}
+        done++;$('pgi').style.width=Math.round(done/total*100)+'%';
+      }
+    }else{
+      const ins=await sb.from('gallery_photos').insert([{title:$('title').value.trim()||null,category:$('cat').value.trim()||null,image_url:url,created_by:ME}]);
+      if(ins.error)throw ins.error;
+    }
+  }catch(e){toast('সেভ হয়নি: '+(e.message||e),true);$('sv').disabled=false;return}
+  $('sv').disabled=false;
+  if(!fail){closeModal('m');toast('ছবি যোগ হয়েছে')}
+  load();
+}
+async function del(id){
+  if(!confirm('ছবিটি মুছে ফেলবেন?'))return;
+  const x=ALL.find(k=>k.id===id);
+  if(x&&x.storage_path)await sb.storage.from('gallery').remove([x.storage_path]);
+  const r=await sb.from('gallery_photos').delete().eq('id',id);
+  if(r.error){toast(r.error.message,true);return}toast('মুছে ফেলা হয়েছে');load();
+}
+load();
+
+</script>
 </body>
 </html>
