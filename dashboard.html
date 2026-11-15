@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
+<script src="js/access-guard.js"></script>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7084,7 +7085,7 @@ var css=document.createElement("style");css.textContent=
 ".sd button{border:3px solid #fff;border-radius:50%;width:58px;height:58px;color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;cursor:pointer;box-shadow:0 8px 20px rgba(0,0,0,.28);transition:.25s}"+
 ".sd .opt{opacity:0;pointer-events:none;transform:translateY(20px) scale(.6)}.sd.open .opt{opacity:1;pointer-events:auto;transform:none}"+
 ".sd.open .opt:nth-child(4){transition-delay:.02s}.sd.open .opt:nth-child(3){transition-delay:.06s}.sd.open .opt:nth-child(2){transition-delay:.1s}.sd.open .opt:nth-child(1){transition-delay:.14s}"+
-".sd .main{background:#0e5a40;width:62px;height:62px}.sd.open .main{transform:rotate(45deg)}.sd svg,.sdm svg{width:1em;height:1em;fill:currentColor}"+
+".sd .sdmain{background:#0e5a40;width:62px;height:62px}.sd.open .sdmain{transform:rotate(45deg)}.sd svg,.sdm svg{width:1em;height:1em;fill:currentColor}"+
 ".sdm{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;display:none;align-items:center;justify-content:center;padding:16px}.sdm.show{display:flex}"+
 ".sdb{background:#fff;border-radius:22px;width:100%;max-width:520px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.4)}"+
 ".sdh{display:flex;align-items:center;gap:12px;padding:18px 20px;color:#fff;font-size:20px;font-weight:600}.sdh .x{margin-inline-start:auto;cursor:pointer;font-size:18px;background:none;border:0;color:#fff}"+
@@ -7096,13 +7097,13 @@ var css=document.createElement("style");css.textContent=
 document.head.appendChild(css);
 document.querySelectorAll(".fab").forEach(function(e){e.remove()});
 var sd=document.createElement("div");sd.className="sd";
-sd.innerHTML='<button class="opt" data-a="sms" style="background:#0e7a5a" title="SMS">'+IC.sms+'</button><button class="opt" data-a="stu" style="background:#127a5a">'+IC.user+'</button><button class="opt" data-a="inv" style="background:#d9626a">'+IC.inv+'</button><button class="opt" data-a="pay" style="background:#0b63c9">'+IC.bolt+'</button><button class="main">'+IC.plus+'</button>';
+sd.innerHTML='<button class="opt" data-a="sms" style="background:#0e7a5a" title="SMS">'+IC.sms+'</button><button class="opt" data-a="stu" style="background:#127a5a">'+IC.user+'</button><button class="opt" data-a="inv" style="background:#d9626a">'+IC.inv+'</button><button class="opt" data-a="pay" style="background:#0b63c9">'+IC.bolt+'</button><button class="sdmain">'+IC.plus+'</button>';
 /* order: bolt on top */
-var btns=[].slice.call(sd.querySelectorAll(".opt")).reverse();btns.forEach(function(b){sd.insertBefore(b,sd.querySelector(".main"))});
+var btns=[].slice.call(sd.querySelectorAll(".opt")).reverse();btns.forEach(function(b){sd.insertBefore(b,sd.querySelector(".sdmain"))});
 document.body.appendChild(sd);
 var m=document.createElement("div");m.className="sdm";document.body.appendChild(m);
 function open(){sd.classList.toggle("open")}
-sd.querySelector(".main").onclick=open;
+sd.querySelector(".sdmain").onclick=open;
 function modal(kind){
  var inv=kind==="inv",col=inv?"#dc3545":"#0e5a40",rtl=L()==="ar";
  m.dir=rtl?"rtl":"ltr";
