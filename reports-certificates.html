@@ -1,7 +1,196 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script src="js/access-guard.js?v=20261116b"></script>
+<script>/* MNQ access guard (inline) */
+/* =========================================================
+   মাদরাসায়ে নূরুল কুরআন — Shared Access Guard
+   সব পেজের <head> এর একদম শুরুতে লোড হয়:
+   (এই কোড প্রতিটি পেজের <head> এ inline বসানো আছে)
+   - Admin   : সব পেজ
+   - Teacher : শুধু dashboard + allowed_pages (hub/settings বন্ধ)
+   - Student : শুধু student-dashboard, payment-receipt, invoice
+   নতুন পেজ বানালে কিছু করতে হবে না; Teacher-কে access দিতে
+   teacher-access পেজ থেকে পেজের নাম (যেমন: students) যোগ করুন।
+   ========================================================= */
+(function () {
+  "use strict";
+  window.MNQ_GUARD_VERSION = "20261116b";
+
+  /* ---------------------------------------------------------
+     Teacher session shim
+     Teacher login RPC দিয়ে হয়, Supabase Auth session তৈরি হয় না।
+     কিন্তু বেশিরভাগ পেজ getSession() খালি দেখলে login এ ফেরত পাঠায়।
+     তাই শুধু Teacher হলে getSession()/getUser() এ "teacher session"
+     দেখানো হয়। (Admin/Student এ কিছুই বদলায় না।)
+     supabase-js CDN <script> এর ঠিক পরে mnqPatchSupabase() চালাতে হয়।
+     --------------------------------------------------------- */
+  window.mnqPatchSupabase = function () {
+    try {
+      if ((sessionStorage.getItem("madrasa_login_role") || "").toLowerCase() !== "teacher") return;
+      var sb = window.supabase;
+      if (!sb || typeof sb.createClient !== "function" || sb.__mnqPatched) return;
+      var t = {};
+      try { t = JSON.parse(sessionStorage.getItem("madrasa_teacher_login") || "{}") || {}; } catch (e) {}
+      var user = {
+        id: String(t.id || t.teacher_id || t.phone || "teacher"),
+        email: t.email || "",
+        role: "authenticated",
+        aud: "authenticated",
+        app_metadata: { role: "teacher" },
+        user_metadata: { role: "teacher", name: t.name || "" }
+      };
+      var fake = {
+        access_token: "teacher-session", refresh_token: "", token_type: "bearer",
+        expires_in: 86400, expires_at: Math.floor(Date.now() / 1000) + 86400, user: user
+      };
+      var orig = sb.createClient;
+      var wrapped = function () {
+        var c = orig.apply(this, arguments);
+        try {
+          var a = c.auth, rs = a.getSession.bind(a), ru = a.getUser.bind(a), ro = a.onAuthStateChange.bind(a);
+          a.getSession = async function () {
+            var r = await rs();
+            return (r && r.data && r.data.session) ? r : { data: { session: fake }, error: null };
+          };
+          a.getUser = async function () {
+            var r = await ru();
+            return (r && r.data && r.data.user) ? r : { data: { user: user }, error: null };
+          };
+          a.onAuthStateChange = function (cb) {
+            return ro(function (ev, s) { return cb(ev, s || fake); });
+          };
+        } catch (e) { console.warn("teacher shim:", e); }
+        return c;
+      };
+      var copy = {};
+      Object.keys(sb).forEach(function (k) { copy[k] = sb[k]; });
+      copy.createClient = wrapped;
+      copy.__mnqPatched = true;
+      window.supabase = copy;
+    } catch (e) { console.warn("mnqPatchSupabase:", e); }
+  };
+
+  var PUBLIC = ["", "index", "login", "login-teacher", "students-login", "online-admission-public"];
+  var TEACHER_BLOCKED = ["donations-hub", "accounts-hub", "settings-hub", "settings", "teacher-access", "admin"];
+  var STUDENT_ALLOWED = ["student-dashboard", "payment-receipt", "invoice", "students-login"];
+
+  function keyFor(url) {
+    return String(url || "").split(/[?#]/)[0].split("/").pop().toLowerCase().replace(/\.html$/, "");
+  }
+  function read(k) { try { return JSON.parse(sessionStorage.getItem(k) || "null"); } catch (e) { return null; } }
+
+  var current = keyFor(location.pathname) || "index";
+  if (PUBLIC.indexOf(current) > -1) return;
+
+  var role = (sessionStorage.getItem("madrasa_login_role") || "").toLowerCase();
+  var isStudent = !!sessionStorage.getItem("madrasa_student_login") && role !== "admin" && role !== "teacher";
+
+  if (role === "admin") return;                       // Admin = সব
+
+  if (!role && !isStudent) {                          // লগইন নেই
+    location.replace("login.html");
+    return;
+  }
+
+  var allowed = {};
+  if (role === "teacher") {
+    var t = read("madrasa_teacher_login") || {};
+    (Array.isArray(t.allowed_pages) ? t.allowed_pages : []).forEach(function (p) {
+      p = keyFor(p); if (p) allowed[p] = 1;
+    });
+  }
+
+  function can(url) {
+    var k = keyFor(url);
+    if (!k) return true;
+    if (isStudent) return STUDENT_ALLOWED.indexOf(k) > -1;
+    if (TEACHER_BLOCKED.indexOf(k) > -1) return false;
+    if (k === "teacher-dashboard") return true;      /* শিক্ষকের নিজস্ব ড্যাশবোর্ড */
+    if (k === "dashboard" || k === "student-dashboard") return false;  /* admin dashboard শিক্ষকের জন্য নয় */
+    return !!allowed[k] || !!allowed["*"];
+  }
+
+  var home = isStudent ? "student-dashboard.html" : "teacher-dashboard.html";
+
+  /* সরাসরি URL দিয়ে ঢোকা আটকানো */
+  if (!can(current)) {
+    document.documentElement.style.visibility = "hidden";
+    location.replace(home);
+    return;
+  }
+
+  /* লুকানোর CSS (পেজ আঁকার আগেই) */
+  var st = document.createElement("style");
+  st.textContent = 'html body [data-denied="1"],html body a[data-denied="1"]{display:none!important;visibility:hidden!important;pointer-events:none!important}';
+  document.documentElement.appendChild(st);
+
+  var SD_MAP = { sms: "sms", stu: "students", inv: "invoice", pay: "payment-receipt" };
+
+  function deny(el) {
+    el.setAttribute("data-denied", "1");
+    el.setAttribute("aria-hidden", "true");
+    el.setAttribute("tabindex", "-1");
+    /* inline !important — পেজের নিজের CSS যেন ওভাররাইড করতে না পারে */
+    el.style.setProperty("display", "none", "important");
+  }
+
+  function sweep() {
+    document.querySelectorAll("a[href]").forEach(function (a) {
+      var h = a.getAttribute("href") || "";
+      if (!/\.html(?:[?#]|$)/i.test(h)) return;
+      if (!isStudent && keyFor(h) === "dashboard") { a.setAttribute("href", "teacher-dashboard.html"); return; }
+      if (!can(h)) deny(a);
+    });
+    /* onclick="location.href='x.html'" ধরনের বাটন/কার্ড */
+    document.querySelectorAll("[onclick*='.html']").forEach(function (el) {
+      var m = /([A-Za-z0-9_\-]+\.html)/.exec(el.getAttribute("onclick") || "");
+      if (m && !can(m[1])) deny(el);
+    });
+    document.querySelectorAll("[data-href],[data-url]").forEach(function (el) {
+      var u = el.getAttribute("data-href") || el.getAttribute("data-url") || "";
+      if (/\.html/i.test(u) && !can(u)) deny(el);
+    });
+    document.querySelectorAll(".sd .opt").forEach(function (b) {
+      var k = SD_MAP[b.dataset.a];
+      if (k && !can(k)) deny(b);
+    });
+    /* খালি গ্রুপ লুকানো */
+    document.querySelectorAll(".nav-group, .bottom-nav-group").forEach(function (g) {
+      var l = g.querySelectorAll("a[href]");
+      if (l.length && Array.prototype.every.call(l, function (a) { return a.getAttribute("data-denied") === "1"; }))
+        g.style.setProperty("display", "none", "important");
+    });
+  }
+
+
+  /* ডিবাগ: যেকোনো পেজের URL এর শেষে ?guarddebug দিলে নিচে একটা বার্তা আসবে */
+  if (/[?&]guarddebug/.test(location.search)) {
+    document.addEventListener("DOMContentLoaded", function () {
+      var d = document.createElement("div");
+      d.style.cssText = "position:fixed;left:6px;right:6px;top:6px;z-index:2147483647;background:#111;color:#0f0;font:12px monospace;padding:8px;border-radius:8px;white-space:pre-wrap";
+      d.textContent = "guard v" + window.MNQ_GUARD_VERSION + " | page=" + current + " | role=" + (role || (isStudent ? "student" : "none")) +
+        " | allowed=" + Object.keys(allowed).join(",") +
+        " | hidden=" + document.querySelectorAll('[data-denied="1"]').length;
+      document.body.appendChild(d);
+    });
+  }
+
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest("[data-denied=\"1\"]");
+    if (a) { e.preventDefault(); e.stopPropagation(); }
+  }, true);
+
+  document.addEventListener("DOMContentLoaded", function () {
+    sweep();
+    var pending = false;
+    new MutationObserver(function () {
+      if (pending) return; pending = true;
+      setTimeout(function () { pending = false; sweep(); }, 50);
+    }).observe(document.body, { childList: true, subtree: true });
+  });
+})();
+
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
