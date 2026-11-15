@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<script src="js/access-guard.js?v=20261116b"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>শিক্ষক ড্যাশবোর্ড | মাদরাসায়ে নূরুল কুরআন</title>
+<style>
+@font-face{font-family:Bornomala;src:url(fonts/Bornomala-Regular.ttf)}
+:root{--g:#0e5a40;--gd:#0a3d2c;--gold:#c9a227;--cream:#f4efe0;--card:#fffdf8;--ink:#17382c;--muted:#5b7468;
+ --bg:#f4efe0;--line:rgba(201,162,39,.38)}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1d17;--card:#16291f;--ink:#e9f2ec;--muted:#9db5a8;--line:rgba(201,162,39,.35);--cream:#1f3a2c}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0}
+body{font-family:Bornomala,system-ui,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;
+ padding:0 0 calc(24px + env(safe-area-inset-bottom,0px))}
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:10px;
+ padding:calc(10px + env(safe-area-inset-top,0px)) 14px 10px;background:var(--card);border-bottom:1px solid var(--line)}
+.logo{width:42px;height:42px;border-radius:14px;background:var(--g);color:#e8c766;display:flex;align-items:center;justify-content:center;flex:none}
+.logo svg{width:24px;height:24px}
+.ttl{flex:1;color:var(--g);font-size:16px;line-height:1.25}
+@media (prefers-color-scheme:dark){.ttl{color:#8fd5b3}}
+.out{border:0;background:var(--g);color:#fff;font:inherit;font-size:14px;padding:9px 16px;border-radius:14px;cursor:pointer}
+.wrap{max-width:760px;margin:0 auto;padding:14px}
+.hero{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border-radius:24px;padding:20px;
+ border:1px solid rgba(201,162,39,.5);box-shadow:0 10px 24px rgba(10,61,44,.25)}
+.badge{display:inline-block;background:rgba(255,255,255,.12);color:#e8c766;border:1px solid rgba(232,199,102,.4);
+ padding:5px 14px;border-radius:999px;font-size:13px}
+.hero h1{margin:12px 0 2px;font-size:27px;font-weight:700}
+.hero .nm{font-size:19px;color:#e8c766;margin:0}
+.hero .dt{margin:10px 0 0;font-size:13px;opacity:.85}
+.search{margin:16px 0 6px;position:relative}
+.search input{width:100%;font:inherit;font-size:16px;padding:13px 16px;border-radius:16px;border:1px solid var(--line);
+ background:var(--card);color:var(--ink);outline:none}
+.search input:focus{border-color:var(--g);box-shadow:0 0 0 3px rgba(14,90,64,.15)}
+h2{display:flex;align-items:center;gap:8px;margin:22px 0 10px;font-size:19px;color:var(--g)}
+@media (prefers-color-scheme:dark){h2{color:#8fd5b3}}
+h2::before{content:"";width:4px;height:22px;border-radius:2px;background:var(--gold)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media (min-width:560px){.grid{grid-template-columns:repeat(3,1fr)}}
+a.c{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;
+ min-height:128px;padding:16px 10px;background:var(--card);color:var(--ink);text-decoration:none;
+ border:1px solid var(--line);border-top:4px solid var(--gold);border-radius:22px;
+ box-shadow:0 4px 12px rgba(14,70,50,.08);transition:transform .12s}
+a.c:active{transform:scale(.97)}
+.ic{width:56px;height:56px;border-radius:50%;background:var(--cream);color:var(--g);display:flex;align-items:center;justify-content:center}
+@media (prefers-color-scheme:dark){.ic{color:#e8c766}}
+.ic svg{width:27px;height:27px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.lb{font-size:15px;line-height:1.3}
+.empty{background:var(--card);border:1px dashed var(--line);border-radius:20px;padding:26px 18px;text-align:center;color:var(--muted);margin-top:18px}
+.stale{display:none;background:#fff3cd;color:#664d03;border:1px solid #ffda6a;border-radius:14px;padding:10px 14px;margin-bottom:12px;font-size:14px}
+.hide{display:none!important}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V9l7-5 7 5v12"/><path d="M10 21v-5h4v5"/></svg></div>
+  <div class="ttl">মাদরাসায়ে নূরুল কুরআন</div>
+  <button class="out" id="out">Logout</button>
+</div>
+
+<div class="wrap">
+  <div class="stale" id="stale">আপনার ব্রাউজারে পুরনো <b>js/access-guard.js</b> চলছে। ফাইলটি আপলোড করে পেজ রিফ্রেশ করুন।</div>
+
+  <div class="hero">
+    <span class="badge">শিক্ষক পোর্টাল</span>
+    <h1>আসসালামু আলাইকুম</h1>
+    <p class="nm" id="tname"></p>
+    <p class="dt" id="tdate"></p>
+  </div>
+
+  <div class="search"><input id="q" type="search" placeholder="পেজ খুঁজুন..." autocomplete="off"></div>
+
+  <div id="groups"></div>
+  <div class="empty hide" id="empty">আপনাকে এখনো কোনো পেজের অনুমতি দেওয়া হয়নি।<br>অনুগ্রহ করে অ্যাডমিনের সাথে যোগাযোগ করুন।</div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  /* ---- লগইন যাচাই ---- */
+  var role=(sessionStorage.getItem("madrasa_login_role")||"").toLowerCase();
+  if(role==="admin"){location.replace("dashboard.html");return;}
+  if(role!=="teacher"){location.replace("login.html");return;}
+
+  var T={};try{T=JSON.parse(sessionStorage.getItem("madrasa_teacher_login")||"{}")||{};}catch(e){}
+  document.getElementById("tname").textContent=T.name||"";
+  try{document.getElementById("tdate").textContent=new Date().toLocaleDateString("bn-BD",{weekday:"long",day:"numeric",month:"long",year:"numeric"});}catch(e){}
+  if(window.MNQ_GUARD_VERSION!=="20261116b")document.getElementById("stale").style.display="block";
+
+  /* ---- আইকন ---- */
+  var I={
+   users:'<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+   userplus:'<path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/>',
+   book:'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>',
+   open:'<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>',
+   layers:'<polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>',
+   cal:'<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>',
+   check:'<path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>',
+   award:'<circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>',
+   chart:'<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>',
+   file:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>',
+   bell:'<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>',
+   msg:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+   image:'<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>',
+   video:'<polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/>',
+   shield:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+   money:'<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>'
+  };
+
+  /* ---- পেজ তালিকা: key -> [লেবেল, আইকন, গ্রুপ] ---- */
+  var G1="শিক্ষার্থী ও ক্লাস",G2="উপস্থিতি",G3="পড়া ও অগ্রগতি",G4="রিপোর্ট ও যোগাযোগ",G5="অন্যান্য";
+  var C={
+   "students":["শিক্ষার্থী","users",G1],"online-admission":["অনলাইন ভর্তি","userplus",G1],
+   "classes":["ক্লাস","layers",G1],"subjects":["বিষয়","book",G1],"session":["সেশন","cal",G1],
+   "attendance-students":["শিক্ষার্থী উপস্থিতি","check",G2],"attendance-teachers":["শিক্ষক উপস্থিতি","check",G2],
+   "attendance-employees":["কর্মচারী উপস্থিতি","check",G2],"attendance":["উপস্থিতি","check",G2],"attendance-view":["উপস্থিতি দেখুন","check",G2],
+   "results":["ফলাফল","award",G3],"marksheet":["মার্কশিট","award",G3],
+   "nazera-progress":["নাজেরা অগ্রগতি","open",G3],"hifz-progress":["হিফজ অগ্রগতি","open",G3],
+   "quran-ampara-tracking":["কুরআন/আমপারা ট্র্যাকিং","open",G3],"dua-hadith-record":["দোয়া ও হাদিস","open",G3],
+   "behavior-discipline":["আচরণ ও শৃঙ্খলা","shield",G3],"daily-reading":["দৈনিক পড়া","book",G3],"daily-lesson":["দৈনিক পাঠ","book",G3],
+   "parent-daily-report":["অভিভাবক রিপোর্ট","file",G4],"reports":["রিপোর্ট","chart",G4],
+   "reports-certificates":["রিপোর্ট ও সার্টিফিকেট","file",G4],"notices":["নোটিশ","bell",G4],
+   "sms":["SMS সিস্টেম","msg",G4],"complaints":["অভিযোগ বক্স","msg",G4],
+   "gallery":["ফটো গ্যালারি","image",G4],"videos":["ভিডিও গ্যালারি","video",G4],
+   "teachers":["শিক্ষক","users",G5],"employees":["কর্মচারী","users",G5],"members":["সদস্য","users",G5],
+   "fees":["ফি সংগ্রহ","money",G5],"salary":["বেতন","money",G5],"income":["দৈনন্দিন আয়","money",G5],"expenses":["দৈনন্দিন ব্যয়","money",G5]
+  };
+  var NEVER={"dashboard":1,"teacher-dashboard":1,"settings-hub":1,"settings":1,"teacher-access":1,"donations-hub":1,"accounts-hub":1,"students-hub":0,"admin":1};
+
+  var allowed=(Array.isArray(T.allowed_pages)?T.allowed_pages:[]).map(function(p){return String(p).split(/[?#]/)[0].replace(/\.html$/i,"").toLowerCase();});
+  var seen={},items=[];
+  allowed.forEach(function(k){if(!k||seen[k]||NEVER[k]===1)return;seen[k]=1;
+    var c=C[k]||[k,"file",G5];items.push({k:k,l:c[0],i:c[1],g:c[2]});});
+
+  var order=[G1,G2,G3,G4,G5];
+  var box=document.getElementById("groups");
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+  function draw(filter){
+    var f=(filter||"").trim().toLowerCase(),html="",n=0;
+    order.forEach(function(g){
+      var list=items.filter(function(x){return x.g===g&&(!f||x.l.toLowerCase().indexOf(f)>-1);});
+      if(!list.length)return;
+      n+=list.length;
+      html+='<h2>'+esc(g)+'</h2><div class="grid">'+list.map(function(x){
+        return '<a class="c" href="'+esc(x.k)+'.html"><span class="ic"><svg viewBox="0 0 24 24">'+(I[x.i]||I.file)+'</svg></span><span class="lb">'+esc(x.l)+'</span></a>';
+      }).join("")+'</div>';
+    });
+    box.innerHTML=html;
+    document.getElementById("empty").classList.toggle("hide",n>0||!!f);
+  }
+  draw("");
+  document.getElementById("q").addEventListener("input",function(){draw(this.value);});
+
+  document.getElementById("out").addEventListener("click",function(){
+    if(!confirm("লগআউট করতে চান?"))return;
+    try{sessionStorage.clear();}catch(e){}
+    location.replace("login.html");
+  });
+})();
+</script>
+</body>
+</html>
