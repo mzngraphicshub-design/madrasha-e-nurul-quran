@@ -215,8 +215,10 @@ function showTab(n){TAB=n;["add","req","pub"].forEach(x=>{document.getElementByI
  const h=document.querySelector('.hero2 h1 span');if(h)h.textContent=n=="req"?t("h_req"):n=="pub"?t("h_pub"):t(EDIT?"title_edit":"title");
  const tb=document.getElementById("tabs");tb.className="tabs"+(ADMIN?" show":"");tb.innerHTML=["req","add","pub"].map(x=>'<button data-tab="'+x+'" class="'+(x==n?"on":"")+'">'+t("tab_"+x)+'</button>').join("");
  if(n=="req")loadApps()}
-async function gate(){let ok=false;try{const r=await sb.auth.getSession();ok=!!(r.data&&r.data.session)}catch(e){}ADMIN=ok;
- if(!ok){document.body.classList.add("pub");const h=document.querySelector('.tb[href="dashboard.html"]');if(h)h.href="index.html";TAB="pub"}else if(!EDIT)TAB="req";else TAB="add"}
+async function gate(){
+ /* এটি ওয়েবসাইটের পাবলিক ভর্তি ফর্ম: অ্যাডমিন লগইন থাকলেও শুধু "অনলাইন ফর্ম" দেখাবে */
+ ADMIN=false;document.body.classList.add("pub");
+ const h=document.querySelector('.tb[href="dashboard.html"]');if(h)h.href="index.html";TAB="pub"}
 
 boot();
 </script><!--SD--><script>(function(){
