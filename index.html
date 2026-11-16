@@ -217,7 +217,58 @@ button,input,select,textarea{ font-family:inherit }
     .footer-grid{ grid-template-columns:1fr }
     .student-info-grid, .student-fee-summary{ grid-template-columns:1fr }
 }
+
+@media print{ body > *:not(#resultModal){display:none!important} #resultModal{position:static!important;background:#fff!important;display:block!important;padding:0!important} .result-close,#resultModal button,#resultModal select{display:none!important} .result-box{box-shadow:none!important;max-height:none!important;overflow:visible!important} }
+
+/* ===== সব লেখা Bornomala (আরবি অক্ষর Bornomala-তে নেই, তাই শুধু আরবির জন্য Naskh) ===== */
+:root{ --ff:"Bornomala","Noto Naskh Arabic",system-ui,sans-serif }
+html,body,*,*::before,*::after{ font-family:var(--ff)!important }
+.bismillah{ font-family:"Noto Naskh Arabic","Amiri","Traditional Arabic",serif!important }
+/* ===== প্রধানের বক্তব্য — চিঠির মতো দুই পাশ সমান ===== */
+.message-content.letter p{ text-align:justify; text-justify:inter-word; line-height:2; margin:0 0 14px; color:var(--muted); text-indent:1.6em; hyphens:manual; word-spacing:.02em }
+.message-content.letter p.bismillah{ text-align:center; text-indent:0; font-size:26px; color:var(--navy); margin:14px 0 8px; line-height:1.9 }
+.message-content.letter p.salam{ text-align:start; text-indent:0; font-weight:700; color:var(--navy) }
+.message-content.letter h3.pledge{ margin:20px 0 8px; color:var(--navy); font-size:20px; text-align:start }
+.message-content.letter .signature{ margin-top:22px; text-align:end; line-height:1.9 }
+.message-content.letter h2{ text-align:center; line-height:1.5; margin:6px 0 4px }
+.message-content.letter small{ display:block; text-align:center }
+/* ===== ভাষা বাটন ===== */
+.lang-wrap{ position:relative; margin-inline-start:14px; display:flex; align-items:center }
+.lang-btn{ width:46px; height:46px; border-radius:14px; border:1px solid #cfe0f1; background:#fff; color:var(--navy); display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0 }
+.lang-btn:hover{ background:#eef6ff }
+.lang-menu{ display:none; position:absolute; top:calc(100% + 8px); inset-inline-end:0; min-width:150px; background:#fff; border:1px solid #dbe6f1; border-radius:16px; box-shadow:0 14px 34px rgba(8,50,110,.2); padding:6px; z-index:200 }
+.lang-menu.show{ display:block }
+.lang-menu button{ display:block; width:100%; text-align:start; padding:11px 14px; border:0; border-radius:11px; background:none; color:var(--navy); font-size:16px; cursor:pointer }
+.lang-menu button:hover{ background:#eef6ff }
+.lang-menu button.on{ background:linear-gradient(135deg,var(--navy),var(--blue)); color:#fff }
+@media(max-width:950px){ .lang-wrap{ margin-inline-start:auto } .menu{ margin-left:10px!important; color:var(--navy)!important } }
+/* ===== ফুটার: সবার নিচে কপিরাইট + ডেভেলপার ===== */
+.copyright{ text-align:center }
+.copyright .copyline{ line-height:1.8 }
+.copyright .devline{ margin-top:10px; display:flex; align-items:center; justify-content:center; gap:7px; font-size:12px; color:#8fa4ba }
+.copyright .devline b{ color:#cfe3f7; letter-spacing:.3px; font-weight:700 }
+.copyright .devlogo{ flex:none; border-radius:6px }
+/* ===== আরবি (RTL) ===== */
+html[dir=rtl] body{ direction:rtl }
+html[dir=rtl] .back-top{ right:auto; left:20px }
+html[dir=rtl] .message-content.letter p{ text-indent:0; text-indent:1.6em }
+html[dir=rtl] .ticker-track{ direction:rtl }
+@media(max-width:600px){ .message-content.letter h2{ font-size:26px } .message-content.letter p.bismillah{ font-size:22px } .copyright{ padding-bottom:58px } }
+
+/* ===== পরিসংখ্যান অ্যানিমেশন ===== */
+.stat{ position:relative; opacity:0; transform:translateY(34px) scale(.94); transition:opacity .7s cubic-bezier(.2,.8,.2,1), transform .7s cubic-bezier(.2,.8,.2,1), background .3s; transition-delay:calc(var(--i,0)*140ms) }
+.stats-grid.stats-in .stat{ opacity:1; transform:none }
+.stat:hover{ background:rgba(255,255,255,.06) }
+.st-ic{ display:block; font-style:normal; font-size:30px; margin-bottom:6px; animation:stFloat 3.2s ease-in-out infinite; animation-delay:calc(var(--i,0)*.4s) }
+@keyframes stFloat{ 0%,100%{ transform:translateY(0) } 50%{ transform:translateY(-6px) } }
+.stat strong{ font-variant-numeric:tabular-nums; text-shadow:0 0 22px rgba(255,212,71,.35) }
+.stat strong.pop{ animation:stPop .55s ease }
+@keyframes stPop{ 0%{ transform:scale(1) } 40%{ transform:scale(1.18) } 100%{ transform:scale(1) } }
+.stat::after{ content:""; display:block; width:0; height:3px; background:var(--gold); border-radius:3px; margin:12px auto 0; transition:width .9s ease .6s }
+.stats-grid.stats-in .stat::after{ width:46px }
+@media (prefers-reduced-motion:reduce){ .stat{ opacity:1; transform:none; transition:none } .st-ic{ animation:none } .stat::after{ width:46px; transition:none } }
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="topbar">
@@ -246,6 +297,7 @@ button,input,select,textarea{ font-family:inherit }
 <div class="header-right">
 <a href="login.html" class="portal-btn"> 🔐 লগইন </a>
 </div>
+<div class="lang-wrap" id="langWrap"><button class="lang-btn" id="langBtn" type="button" aria-label="Language" aria-haspopup="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 0 20 15.3 15.3 0 0 1 0-20z"/></svg></button><div class="lang-menu" id="langMenu"><button type="button" data-l="bn">বাংলা</button><button type="button" data-l="en">English</button><button type="button" data-l="ar">العربية</button></div></div>
 <button class="menu" onclick="toggleMenu()" > ☰ </button>
 </div>
 </header>
@@ -363,11 +415,11 @@ button,input,select,textarea{ font-family:inherit }
 </section>
 <section class="section stats">
 <div class="container">
-<div class="stats-grid reveal">
-<div class="stat"> <strong>০৩</strong> <span>শিক্ষা বিভাগ</span> </div>
-<div class="stat"> <strong>১০+</strong> <span>অভিজ্ঞ শিক্ষক</span> </div>
-<div class="stat"> <strong>৩০০+</strong> <span>শিক্ষার্থী</span> </div>
-<div class="stat"> <strong>২০২৬</strong> <span>শিক্ষাবর্ষ</span> </div>
+<div class="stats-grid reveal" id="statsGrid">
+<div class="stat" style="--i:0"> <i class="st-ic">🏫</i><strong id="stDepts">০৩</strong> <span>শিক্ষা বিভাগ</span> </div>
+<div class="stat" style="--i:1"> <i class="st-ic">👨‍🏫</i><strong id="stTeachers">১০+</strong> <span>অভিজ্ঞ শিক্ষক</span> </div>
+<div class="stat" style="--i:2"> <i class="st-ic">🎓</i><strong id="stStudents">৩০০+</strong> <span>শিক্ষার্থী</span> </div>
+<div class="stat" style="--i:3"> <i class="st-ic">📅</i><strong id="stSession">২০২৬</strong> <span>শিক্ষাবর্ষ</span> </div>
 </div>
 </div>
 </section>
@@ -403,12 +455,20 @@ button,input,select,textarea{ font-family:inherit }
 <div class="principal-photo">
 <img src="img/principal.jpg" alt="প্রধানের ছবি" onerror="this.onerror=null;this.src='img/principal.png';" >
 </div>
-<div class="message-content">
+<div class="message-content letter">
 <small style="color:#0875df"> প্রধানের বক্তব্য </small>
-<h2> কোরআনের আলোয় আলোকিত হোক প্রতিটি হৃদয়, গড়ে উঠুক আদর্শ প্রজন্ম” </h2>
-<p> بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ
-<p> আসসালামু আলাইকুম ওয়া রহমাতুল্লাহ। </p>
-আলহামদুলিল্লাহ! মহান আল্লাহ তায়ালার অশেষ শুকরিয়া, তিনি আমাদেরকে তাঁর পবিত্র কালাম আল-কোরআনের শিক্ষা ছড়িয়ে দেওয়ার এবং কোমলমতি শিশুদের সুন্দর ভবিষ্যৎ গড়ার একটি মহৎ সুযোগ দান করেছেন। মাদরাসায়ে নূরুল কুরআন আমাদের কাছে শুধু একটি শিক্ষাপ্রতিষ্ঠানের নাম নয়—এটি একটি স্বপ্ন, একটি দায়িত্ব এবং একটি সুন্দর প্রজন্ম গড়ার প্রত্যয়। আমরা বিশ্বাস করি, শিশুর হাতে শুধু বই তুলে দিলেই শিক্ষা পূর্ণ হয় না; তার হৃদয়ে ঈমান, জীবনে আদব-আখলাক এবং চরিত্রে নৈতিকতার আলো জ্বালাতে হয়। তাই আমাদের শিক্ষা কার্যক্রমের মূল লক্ষ্য হলো—কোরআন ও সুন্নাহর আলোকে শিক্ষার্থীদের জ্ঞানী, নৈতিক, সুশৃঙ্খল, আত্মবিশ্বাসী ও আদর্শ মানুষ হিসেবে গড়ে তোলা। আমরা চাই, আমাদের শিক্ষার্থীরা পবিত্র কোরআন শিখবে, নামাজ ও দ্বীনের মৌলিক শিক্ষা অর্জন করবে; পাশাপাশি বাংলা, ইংরেজি, গণিতসহ প্রয়োজনীয় সাধারণ শিক্ষায় দক্ষতা অর্জন করবে। যেন তারা ভবিষ্যতে দ্বীন ও দুনিয়ার জ্ঞানকে সমন্বয় করে নিজেদের জীবনকে সুন্দরভাবে গড়ে তুলতে পারে। আমাদের স্বপ্ন আমাদের স্বপ্ন—প্রতিটি শিক্ষার্থী হবে একজন আদর্শ মুসলিম, সুন্দর চরিত্রের মানুষ এবং সমাজের জন্য একজন আলোকিত নাগরিক। আমাদের বিশ্বাস, একটি শিশুর সুন্দর ভবিষ্যৎ গড়ে উঠলে একটি পরিবার আলোকিত হয়; আর হাজারো শিশু আলোকিত হলে আলোকিত হয় পুরো সমাজ। এই লক্ষ্যকে সামনে রেখে আমাদের সম্মানিত শিক্ষকবৃন্দ আন্তরিকতা, ভালোবাসা ও দায়িত্বশীলতার সঙ্গে শিক্ষার্থীদের পাঠদান ও পরিচর্যা করে যাচ্ছেন। একই সঙ্গে আমরা অভিভাবকদেরও আমাদের শিক্ষা পরিবারের গুরুত্বপূর্ণ অংশ মনে করি। কারণ শিক্ষক, অভিভাবক ও প্রতিষ্ঠানের সম্মিলিত প্রচেষ্টাই পারে একটি শিশুর জীবনে কাঙ্ক্ষিত পরিবর্তন আনতে। আপনার সন্তানের জন্য আমাদের অঙ্গীকার আপনার সন্তান আমাদের কাছে শুধু একজন শিক্ষার্থী নয়—সে আমাদের আমানত। তার মেধা, চরিত্র, নৈতিকতা ও ভবিষ্যৎ গঠনে আমরা সর্বোচ্চ আন্তরিকতা নিয়ে কাজ করতে চাই। আমরা চাই, আমাদের মাদরাসা থেকে বের হওয়া প্রতিটি শিক্ষার্থী যেন তার পরিবার, সমাজ ও দেশের জন্য কল্যাণের কারণ হয়। আসুন, আমরা একসঙ্গে আমাদের সন্তানদের হাতে কোরআনের আলো তুলে দিই, হৃদয়ে নৈতিকতার বীজ বপন করি এবং তাদেরকে একটি সুন্দর ভবিষ্যতের পথে এগিয়ে দিই। মহান আল্লাহ তায়ালা মাদরাসায়ে নূরুল কুরআনের সকল শিক্ষা কার্যক্রম, শিক্ষক, শিক্ষার্থী, অভিভাবক ও শুভাকাঙ্ক্ষীদের প্রচেষ্টা কবুল করুন। আমাদের সন্তানদের কোরআনের আলোয় আলোকিত করে দ্বীন ও মানবতার সেবায় কবুল করুন। আমিন, ইয়া রাব্বাল আলামিন। </p>
+<h2> “কোরআনের আলোয় আলোকিত হোক প্রতিটি হৃদয়, গড়ে উঠুক আদর্শ প্রজন্ম” </h2>
+<p class="bismillah" lang="ar" dir="rtl">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
+<p class="salam"> আসসালামু আলাইকুম ওয়া রহমাতুল্লাহ। </p>
+<p> আলহামদুলিল্লাহ! মহান আল্লাহ তায়ালার অশেষ শুকরিয়া, তিনি আমাদেরকে তাঁর পবিত্র কালাম আল-কোরআনের শিক্ষা ছড়িয়ে দেওয়ার এবং কোমলমতি শিশুদের সুন্দর ভবিষ্যৎ গড়ার একটি মহৎ সুযোগ দান করেছেন। মাদরাসায়ে নূরুল কুরআন আমাদের কাছে শুধু একটি শিক্ষাপ্রতিষ্ঠানের নাম নয়—এটি একটি স্বপ্ন, একটি দায়িত্ব এবং একটি সুন্দর প্রজন্ম গড়ার প্রত্যয়। </p>
+<p> আমরা বিশ্বাস করি, শিশুর হাতে শুধু বই তুলে দিলেই শিক্ষা পূর্ণ হয় না; তার হৃদয়ে ঈমান, জীবনে আদব-আখলাক এবং চরিত্রে নৈতিকতার আলো জ্বালাতে হয়। তাই আমাদের শিক্ষা কার্যক্রমের মূল লক্ষ্য হলো—কোরআন ও সুন্নাহর আলোকে শিক্ষার্থীদের জ্ঞানী, নৈতিক, সুশৃঙ্খল, আত্মবিশ্বাসী ও আদর্শ মানুষ হিসেবে গড়ে তোলা। </p>
+<p> আমরা চাই, আমাদের শিক্ষার্থীরা পবিত্র কোরআন শিখবে, নামাজ ও দ্বীনের মৌলিক শিক্ষা অর্জন করবে; পাশাপাশি বাংলা, ইংরেজি, গণিতসহ প্রয়োজনীয় সাধারণ শিক্ষায় দক্ষতা অর্জন করবে। যেন তারা ভবিষ্যতে দ্বীন ও দুনিয়ার জ্ঞানকে সমন্বয় করে নিজেদের জীবনকে সুন্দরভাবে গড়ে তুলতে পারে। </p>
+<p> আমাদের স্বপ্ন—প্রতিটি শিক্ষার্থী হবে একজন আদর্শ মুসলিম, সুন্দর চরিত্রের মানুষ এবং সমাজের জন্য একজন আলোকিত নাগরিক। আমাদের বিশ্বাস, একটি শিশুর সুন্দর ভবিষ্যৎ গড়ে উঠলে একটি পরিবার আলোকিত হয়; আর হাজারো শিশু আলোকিত হলে আলোকিত হয় পুরো সমাজ। </p>
+<p> এই লক্ষ্যকে সামনে রেখে আমাদের সম্মানিত শিক্ষকবৃন্দ আন্তরিকতা, ভালোবাসা ও দায়িত্বশীলতার সঙ্গে শিক্ষার্থীদের পাঠদান ও পরিচর্যা করে যাচ্ছেন। একই সঙ্গে আমরা অভিভাবকদেরও আমাদের শিক্ষা পরিবারের গুরুত্বপূর্ণ অংশ মনে করি। কারণ শিক্ষক, অভিভাবক ও প্রতিষ্ঠানের সম্মিলিত প্রচেষ্টাই পারে একটি শিশুর জীবনে কাঙ্ক্ষিত পরিবর্তন আনতে। </p>
+<h3 class="pledge"> আপনার সন্তানের জন্য আমাদের অঙ্গীকার </h3>
+<p> আপনার সন্তান আমাদের কাছে শুধু একজন শিক্ষার্থী নয়—সে আমাদের আমানত। তার মেধা, চরিত্র, নৈতিকতা ও ভবিষ্যৎ গঠনে আমরা সর্বোচ্চ আন্তরিকতা নিয়ে কাজ করতে চাই। আমরা চাই, আমাদের মাদরাসা থেকে বের হওয়া প্রতিটি শিক্ষার্থী যেন তার পরিবার, সমাজ ও দেশের জন্য কল্যাণের কারণ হয়। </p>
+<p> আসুন, আমরা একসঙ্গে আমাদের সন্তানদের হাতে কোরআনের আলো তুলে দিই, হৃদয়ে নৈতিকতার বীজ বপন করি এবং তাদেরকে একটি সুন্দর ভবিষ্যতের পথে এগিয়ে দিই। </p>
+<p> মহান আল্লাহ তায়ালা মাদরাসায়ে নূরুল কুরআনের সকল শিক্ষা কার্যক্রম, শিক্ষক, শিক্ষার্থী, অভিভাবক ও শুভাকাঙ্ক্ষীদের প্রচেষ্টা কবুল করুন। আমাদের সন্তানদের কোরআনের আলোয় আলোকিত করে দ্বীন ও মানবতার সেবায় কবুল করুন। আমিন, ইয়া রাব্বাল আলামিন। </p>
 <div class="signature"> মাওলানা আব্দুস সাত্তার (জিহাদ) <br> প্রধান শিক্ষক ও পরিচালক <br> মাদরাসায়ে নূরুল কুরআন </div>
 </div>
 </div>
@@ -507,6 +567,7 @@ button,input,select,textarea{ font-family:inherit }
 <li> ✓ হিফজ বিভাগ </li>
 <li> ✓ সঠিক তথ্য দিয়ে আবেদন করুন </li>
 </ul>
+<a class="btn btn-gold" href="online-admission-public.html" style="display:inline-block;margin-top:18px;text-decoration:none">📋 সম্পূর্ণ অনলাইন ভর্তি ফর্ম</a>
 </div>
 <form class="admission-form" id="admissionForm" onsubmit="submitAdmission(event)" >
 <div class="form-title"> ভর্তি আবেদন ফর্ম </div>
@@ -534,6 +595,7 @@ button,input,select,textarea{ font-family:inherit }
 <textarea id="appAddress" rows="4" required placeholder="বর্তমান ঠিকানা" ></textarea>
 <button class="submit-btn" type="submit" > 📨 ভর্তি আবেদন পাঠান </button>
 <div class="admission-message" id="admissionMessage" ></div>
+<p style="margin-top:12px;font-size:14px;text-align:center"><a href="online-admission-public.html" style="color:#0875df">ছবি ও বিস্তারিত তথ্যসহ সম্পূর্ণ ফর্ম পূরণ করতে এখানে চাপুন →</a></p>
 </form>
 </div>
 </div>
@@ -646,10 +708,73 @@ button,input,select,textarea{ font-family:inherit }
 <p> ✉️ madrasayenurulquran2019@gmail.com </p>
 </div>
 </div>
-<div class="copyright"> © <span id="year"></span> মাদরাসায়ে নূরুল কুরআন — সর্বস্বত্ব সংরক্ষিত। </div>
+<div class="copyright"><div class="copyline"> © <span id="year"></span> মাদরাসায়ে নূরুল কুরআন — সর্বস্বত্ব সংরক্ষিত। </div><div class="devline"><span>ডেভেলপার:</span><svg class="devlogo" viewBox="0 0 64 64" width="22" height="22" aria-hidden="true"><defs><linearGradient id="mznG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0875df"/><stop offset="1" stop-color="#00c2a8"/></linearGradient></defs><rect width="64" height="64" rx="16" fill="url(#mznG)"/><path d="M14 45V27M14 34c0-6.5 4-9 8.5-9S31 27.5 31 34v11M31 34c0-6.5 4-9 8.5-9S48 27.5 48 34v11" stroke="#fff" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="50" cy="16" r="4.2" fill="#ffd447"/></svg><b dir="ltr">mzn Graphics Hub</b></div></div>
 </div>
 </footer>
 <button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" > ↑ </button>
+<script>
+/* ===== ভাষা: বাংলা / English / العربية (ড্যাশবোর্ডের সাথে একই সেটিং) ===== */
+(function(){
+  var DICT={"মাদরাসায়ে নূরুল কুরআন": ["Madrasa-e Nurul Quran", "مدرسة نور القرآن"], "লোড হচ্ছে...": ["Loading...", "جارٍ التحميل..."], "নোটিশ": ["Notices", "الإشعارات"], "ফলাফল": ["Results", "النتائج"], "ভর্তি": ["Admission", "القبول"], "যোগাযোগ": ["Contact", "اتصل بنا"], "MADRASHA-E NURUL QURAN": ["MADRASHA-E NURUL QURAN", "مدرسة نور القرآن"], "🔐 লগইন": ["🔐 Login", "🔐 تسجيل الدخول"], "হোম": ["Home", "الرئيسية"], "পরিচিতি": ["About", "من نحن"], "একাডেমিক": ["Academic", "الأكاديمي"], "প্রধানের বক্তব্য": ["Principal's Message", "كلمة المدير"], "শিক্ষকবৃন্দ": ["Teachers", "المعلمون"], "শিক্ষার্থী": ["Students", "الطلاب"], "গ্যালারি": ["Gallery", "المعرض"], "📢 গুরুত্বপূর্ণ নোটিশ": ["📢 Important Notice", "📢 إشعار مهم"], "মাদরাসায়ে নূরুল কুরআনের অফিসিয়াল ওয়েবসাইটে আপনাকে স্বাগতম।": ["Welcome to the official website of Madrasa-e Nurul Quran.", "مرحباً بكم في الموقع الرسمي لمدرسة نور القرآن."], "সকল নোটিশ, ফলাফল ও গুরুত্বপূর্ণ তথ্য নিয়মিত আপডেট করা হবে।": ["All notices, results and important information will be updated regularly.", "سيتم تحديث جميع الإشعارات والنتائج والمعلومات المهمة بانتظام."], "ভর্তি ও একাডেমিক তথ্যের জন্য মাদরাসা অফিসে যোগাযোগ করুন।": ["For admission and academic information, please contact the madrasa office.", "للاستفسار عن القبول والمعلومات الأكاديمية يُرجى التواصل مع مكتب المدرسة."], "কুরআনের আলোয়": ["In the Light of the Quran", "في نور القرآن"], "গড়ি সুন্দর ভবিষ্যৎ": ["We Build a Bright Future", "نبني مستقبلاً مشرقاً"], "মাদরাসায়ে নূরুল কুরআন — কুরআন, সুন্নাহ, নৈতিকতা ও প্রয়োজনীয় শিক্ষার সমন্বয়ে শিক্ষার্থীদের জ্ঞানী, আদর্শবান ও দায়িত্বশীল মানুষ হিসেবে গড়ে তোলার একটি সুন্দর প্রয়াস।": ["Madrasa-e Nurul Quran is a noble effort to shape students into knowledgeable, principled and responsible people through a blend of the Quran, Sunnah, ethics and essential education.", "مدرسة نور القرآن جهد مبارك لتنشئة الطلاب علماء ذوي مبادئ ومسؤولية، من خلال الجمع بين القرآن والسنة والأخلاق والتعليم الضروري."], "📚 একাডেমিক বিভাগ": ["📚 Academic Departments", "📚 الأقسام الأكاديمية"], "📊 ফলাফল দেখুন": ["📊 View Results", "📊 عرض النتائج"], "🎓 ভর্তি আবেদন": ["🎓 Apply for Admission", "🎓 التقديم للقبول"], "🏫 আমাদের শিক্ষা ব্যবস্থা": ["🏫 Our Education System", "🏫 نظامنا التعليمي"], "নূরানী বিভাগ": ["Noorani Department", "قسم النورانية"], "কুরআন শিক্ষার ভিত্তি": ["Foundation of Quran learning", "أساس تعلّم القرآن"], "নাজেরা বিভাগ": ["Nazera Department", "قسم الناظرة"], "বিশুদ্ধ কুরআন তিলাওয়াত": ["Correct Quran recitation", "تلاوة القرآن الصحيحة"], "হিফজ বিভাগ": ["Hifz Department", "قسم الحفظ"], "কুরআন হিফজ ও মুরাজাআ": ["Quran memorization & revision", "حفظ القرآن ومراجعته"], "অভিজ্ঞ শিক্ষকবৃন্দ": ["Experienced Teachers", "معلمون ذوو خبرة"], "সুশৃঙ্খল শিক্ষা পরিবেশ": ["Disciplined learning environment", "بيئة تعليمية منضبطة"], "ডিজিটাল ব্যবস্থাপনা": ["Digital Management", "الإدارة الرقمية"], "আধুনিক অনলাইন সেবা": ["Modern online services", "خدمات حديثة عبر الإنترنت"], "ফলাফল পোর্টাল": ["Result Portal", "بوابة النتائج"], "রোল ও আইডি দিয়ে ফলাফল দেখুন": ["View results with roll & ID", "اعرض النتيجة برقم التسجيل والهوية"], "নোটিশ বোর্ড": ["Notice Board", "لوحة الإعلانات"], "সকল গুরুত্বপূর্ণ নোটিশ দেখুন": ["See all important notices", "اطّلع على جميع الإشعارات المهمة"], "ভর্তি আবেদন": ["Admission Application", "طلب القبول"], "অনলাইনে ভর্তি আবেদন করুন": ["Apply for admission online", "قدّم طلب القبول عبر الإنترنت"], "জ্ঞান • আমল • আখলাক": ["Knowledge • Deeds • Character", "علم • عمل • أخلاق"], "শিক্ষার মাধ্যমে সুন্দর মানুষ গড়ার প্রত্যয়": ["Committed to building good human beings through education", "عزيمتنا بناء الإنسان الصالح عبر التعليم"], "আমাদের পরিচিতি": ["About Us", "من نحن"], "শিক্ষা হোক চরিত্র গঠনের মাধ্যম": ["Let education shape character", "ليكن التعليم وسيلة لبناء الشخصية"], "মাদরাসায়ে নূরুল কুরআন শিক্ষার্থীদের কুরআন ও ইসলামি শিক্ষার পাশাপাশি প্রয়োজনীয় জ্ঞান, নৈতিকতা ও দায়িত্ববোধে সমৃদ্ধ করার লক্ষ্যে কাজ করে যাচ্ছে।": ["Madrasa-e Nurul Quran works to enrich students with the Quran and Islamic education along with essential knowledge, ethics and a sense of responsibility.", "تعمل مدرسة نور القرآن على إثراء الطلاب بالقرآن والتعليم الإسلامي إلى جانب المعرفة الضرورية والأخلاق وروح المسؤولية."], "আমাদের উদ্দেশ্য শুধু একজন শিক্ষার্থীকে শিক্ষিত করা নয়; বরং তাকে একজন আদর্শ, সৎ ও দায়িত্বশীল মানুষ হিসেবে গড়ে তোলা।": ["Our goal is not merely to educate a student, but to shape them into an exemplary, honest and responsible person.", "هدفنا ليس تعليم الطالب فحسب، بل تنشئته إنساناً قدوة صادقاً ومسؤولاً."], "✓ কুরআন ও সুন্নাহভিত্তিক শিক্ষা": ["✓ Education based on the Quran & Sunnah", "✓ تعليم قائم على القرآن والسنة"], "✓ নৈতিক ও আদর্শিক শিক্ষা": ["✓ Moral and value-based education", "✓ تعليم أخلاقي وقيمي"], "✓ অভিজ্ঞ শিক্ষকবৃন্দ": ["✓ Experienced teachers", "✓ معلمون ذوو خبرة"], "✓ সুন্দর ও নিরাপদ পরিবেশ": ["✓ A beautiful and safe environment", "✓ بيئة جميلة وآمنة"], "শিক্ষা বিভাগ": ["Education Departments", "أقسام التعليم"], "অভিজ্ঞ শিক্ষক": ["Experienced Teachers", "معلمون ذوو خبرة"], "শিক্ষাবর্ষ": ["Academic Year", "العام الدراسي"], "আমাদের শিক্ষা বিভাগ": ["Our Education Departments", "أقسامنا التعليمية"], "শিক্ষার্থীর প্রয়োজন ও যোগ্যতা অনুযায়ী বিভিন্ন পর্যায়ে শিক্ষা কার্যক্রম পরিচালিত হয়।": ["Educational programs are conducted at different levels according to each student's needs and ability.", "تُنفَّذ البرامج التعليمية على مستويات مختلفة وفق احتياجات الطالب وقدراته."], "আরবি বর্ণমালা, মাখরাজ, প্রয়োজনীয় দোয়া ও কুরআন শিক্ষার প্রাথমিক ভিত্তি।": ["Arabic alphabet, makharij, essential duas and the basic foundation of Quran learning.", "الحروف العربية والمخارج والأدعية الضرورية والأساس الأول لتعلّم القرآن."], "তাজবিদ ও মাখরাজের নিয়ম অনুসরণ করে বিশুদ্ধ কুরআন তিলাওয়াতের প্রশিক্ষণ।": ["Training in correct Quran recitation following the rules of Tajweed and Makharij.", "التدريب على تلاوة القرآن الصحيحة وفق أحكام التجويد والمخارج."], "পরিকল্পিত সবক, আমুখতা ও মুরাজাআর মাধ্যমে কুরআন হিফজের ব্যবস্থা।": ["Quran memorization through planned lessons, recall (amukhta) and revision (muraja'a).", "حفظ القرآن عبر دروس مخططة وتسميع ومراجعة منتظمة."], "“কোরআনের আলোয় আলোকিত হোক প্রতিটি হৃদয়, গড়ে উঠুক আদর্শ প্রজন্ম”": ["“May every heart be illuminated by the light of the Quran, and may an exemplary generation arise.”", "«لتستنر كل القلوب بنور القرآن، ولينشأ جيل قدوة.»"], "আসসালামু আলাইকুম ওয়া রহমাতুল্লাহ।": ["Assalamu Alaikum wa Rahmatullah.", "السلام عليكم ورحمة الله وبركاته."], "আলহামদুলিল্লাহ! মহান আল্লাহ তায়ালার অশেষ শুকরিয়া, তিনি আমাদেরকে তাঁর পবিত্র কালাম আল-কোরআনের শিক্ষা ছড়িয়ে দেওয়ার এবং কোমলমতি শিশুদের সুন্দর ভবিষ্যৎ গড়ার একটি মহৎ সুযোগ দান করেছেন। মাদরাসায়ে নূরুল কুরআন আমাদের কাছে শুধু একটি শিক্ষাপ্রতিষ্ঠানের নাম নয়—এটি একটি স্বপ্ন, একটি দায়িত্ব এবং একটি সুন্দর প্রজন্ম গড়ার প্রত্যয়।": ["Alhamdulillah! We are deeply grateful to Almighty Allah for granting us this noble opportunity to spread the teachings of His holy Book, the Quran, and to build a beautiful future for tender-hearted children. Madrasa-e Nurul Quran is not merely the name of an educational institution to us — it is a dream, a responsibility, and a commitment to raising a beautiful generation.", "الحمد لله! نشكر الله تعالى شكراً جزيلاً أن منحنا فرصة عظيمة لنشر تعليم كتابه الكريم وبناء مستقبل جميل للأطفال الصغار. إن مدرسة نور القرآن ليست عندنا مجرد اسم لمؤسسة تعليمية، بل هي حلم ومسؤولية وعزم على تنشئة جيل جميل."], "আমরা বিশ্বাস করি, শিশুর হাতে শুধু বই তুলে দিলেই শিক্ষা পূর্ণ হয় না; তার হৃদয়ে ঈমান, জীবনে আদব-আখলাক এবং চরিত্রে নৈতিকতার আলো জ্বালাতে হয়। তাই আমাদের শিক্ষা কার্যক্রমের মূল লক্ষ্য হলো—কোরআন ও সুন্নাহর আলোকে শিক্ষার্থীদের জ্ঞানী, নৈতিক, সুশৃঙ্খল, আত্মবিশ্বাসী ও আদর্শ মানুষ হিসেবে গড়ে তোলা।": ["We believe that education is not complete by merely putting books in a child's hands; the light of faith must be kindled in the heart, good manners and etiquette in daily life, and morality in character. That is why the core goal of our educational program is to nurture students in the light of the Quran and Sunnah into knowledgeable, ethical, disciplined, confident and exemplary human beings.", "نؤمن بأن التعليم لا يكتمل بمجرد وضع الكتب في يد الطفل؛ بل لا بد من إشعال نور الإيمان في قلبه، والآداب والأخلاق في حياته، والقيم في شخصيته. ولذلك فإن الهدف الأساس لبرنامجنا التعليمي هو تنشئة الطلاب في ضوء القرآن والسنة ليكونوا علماء أخلاقيين منضبطين واثقين بأنفسهم وقدوة حسنة."], "আমরা চাই, আমাদের শিক্ষার্থীরা পবিত্র কোরআন শিখবে, নামাজ ও দ্বীনের মৌলিক শিক্ষা অর্জন করবে; পাশাপাশি বাংলা, ইংরেজি, গণিতসহ প্রয়োজনীয় সাধারণ শিক্ষায় দক্ষতা অর্জন করবে। যেন তারা ভবিষ্যতে দ্বীন ও দুনিয়ার জ্ঞানকে সমন্বয় করে নিজেদের জীবনকে সুন্দরভাবে গড়ে তুলতে পারে।": ["We want our students to learn the holy Quran and acquire the basics of Salah and the religion, while also gaining proficiency in essential general education such as Bangla, English and Mathematics — so that in the future they can combine religious and worldly knowledge and build their lives beautifully.", "نريد أن يتعلم طلابنا القرآن الكريم ويكتسبوا أساسيات الصلاة والدين، وأن يتقنوا كذلك التعليم العام الضروري كالبنغالية والإنجليزية والرياضيات، ليجمعوا في المستقبل بين علوم الدين والدنيا ويبنوا حياتهم على أحسن وجه."], "আমাদের স্বপ্ন—প্রতিটি শিক্ষার্থী হবে একজন আদর্শ মুসলিম, সুন্দর চরিত্রের মানুষ এবং সমাজের জন্য একজন আলোকিত নাগরিক। আমাদের বিশ্বাস, একটি শিশুর সুন্দর ভবিষ্যৎ গড়ে উঠলে একটি পরিবার আলোকিত হয়; আর হাজারো শিশু আলোকিত হলে আলোকিত হয় পুরো সমাজ।": ["Our dream is that every student becomes an exemplary Muslim, a person of beautiful character, and an enlightened citizen for society. We believe that when a child's future is built beautifully, a family is illuminated; and when thousands of children are enlightened, the whole society is illuminated.", "حلمنا أن يصبح كل طالب مسلماً قدوة، حسن الخلق، ومواطناً مستنيراً لمجتمعه. ونؤمن بأنه إذا بُني مستقبل الطفل بناءً حسناً أضاء ذلك أسرته، وإذا استنار آلاف الأطفال استنار المجتمع كله."], "এই লক্ষ্যকে সামনে রেখে আমাদের সম্মানিত শিক্ষকবৃন্দ আন্তরিকতা, ভালোবাসা ও দায়িত্বশীলতার সঙ্গে শিক্ষার্থীদের পাঠদান ও পরিচর্যা করে যাচ্ছেন। একই সঙ্গে আমরা অভিভাবকদেরও আমাদের শিক্ষা পরিবারের গুরুত্বপূর্ণ অংশ মনে করি। কারণ শিক্ষক, অভিভাবক ও প্রতিষ্ঠানের সম্মিলিত প্রচেষ্টাই পারে একটি শিশুর জীবনে কাঙ্ক্ষিত পরিবর্তন আনতে।": ["With this goal in mind, our respected teachers teach and care for the students with sincerity, love and responsibility. We also regard parents as an important part of our educational family, because only the combined effort of teachers, parents and the institution can bring the desired change in a child's life.", "وانطلاقاً من هذا الهدف يقوم معلمونا الكرام بتعليم الطلاب ورعايتهم بإخلاص ومحبة وشعور بالمسؤولية. كما نعدّ أولياء الأمور جزءاً مهماً من أسرتنا التعليمية، فالجهد المشترك بين المعلم وولي الأمر والمؤسسة هو وحده القادر على إحداث التغيير المنشود في حياة الطفل."], "আপনার সন্তানের জন্য আমাদের অঙ্গীকার": ["Our Promise for Your Child", "وعدنا لطفلكم"], "আপনার সন্তান আমাদের কাছে শুধু একজন শিক্ষার্থী নয়—সে আমাদের আমানত। তার মেধা, চরিত্র, নৈতিকতা ও ভবিষ্যৎ গঠনে আমরা সর্বোচ্চ আন্তরিকতা নিয়ে কাজ করতে চাই। আমরা চাই, আমাদের মাদরাসা থেকে বের হওয়া প্রতিটি শিক্ষার্থী যেন তার পরিবার, সমাজ ও দেশের জন্য কল্যাণের কারণ হয়।": ["To us, your child is not just a student — he or she is our trust (amanah). We wish to work with the utmost sincerity in building their talent, character, morality and future. We want every student who graduates from our madrasa to become a source of good for their family, society and country.", "طفلكم عندنا ليس مجرد طالب، بل هو أمانة لدينا. ونريد أن نعمل بأقصى درجات الإخلاص في بناء موهبته وشخصيته وأخلاقه ومستقبله. ونتمنى أن يكون كل خريج من مدرستنا سبباً للخير لأسرته ومجتمعه ووطنه."], "আসুন, আমরা একসঙ্গে আমাদের সন্তানদের হাতে কোরআনের আলো তুলে দিই, হৃদয়ে নৈতিকতার বীজ বপন করি এবং তাদেরকে একটি সুন্দর ভবিষ্যতের পথে এগিয়ে দিই।": ["Let us together place the light of the Quran in our children's hands, sow the seeds of morality in their hearts, and guide them along the path to a beautiful future.", "فلنعمل معاً على أن نضع نور القرآن في أيدي أبنائنا، ونغرس بذور الأخلاق في قلوبهم، ونمضي بهم نحو مستقبل جميل."], "মহান আল্লাহ তায়ালা মাদরাসায়ে নূরুল কুরআনের সকল শিক্ষা কার্যক্রম, শিক্ষক, শিক্ষার্থী, অভিভাবক ও শুভাকাঙ্ক্ষীদের প্রচেষ্টা কবুল করুন। আমাদের সন্তানদের কোরআনের আলোয় আলোকিত করে দ্বীন ও মানবতার সেবায় কবুল করুন। আমিন, ইয়া রাব্বাল আলামিন।": ["May Almighty Allah accept the efforts of everyone involved in Madrasa-e Nurul Quran — its educational activities, teachers, students, parents and well-wishers — and may He illuminate our children with the light of the Quran and accept them in the service of the religion and humanity. Ameen, Ya Rabbal Alameen.", "نسأل الله تعالى أن يتقبل جهود كل من يعمل في مدرسة نور القرآن: برامجها التعليمية ومعلميها وطلابها وأولياء أمورها ومحبيها، وأن ينير أبناءنا بنور القرآن ويتقبلهم في خدمة الدين والإنسانية. آمين يا رب العالمين."], "মাওলানা আব্দুস সাত্তার (জিহাদ)": ["Maulana Abdus Sattar (Jihad)", "مولانا عبد الستار (جهاد)"], "প্রধান শিক্ষক ও পরিচালক": ["Head Teacher & Director", "المعلم الرئيس والمدير"], "সর্বশেষ আপডেট": ["Latest Updates", "آخر المستجدات"], "নোটিশ ও ঘোষণা": ["Notices & Announcements", "الإشعارات والإعلانات"], "মাদরাসা কর্তৃপক্ষ কর্তৃক প্রকাশিত সর্বশেষ নোটিশ ও PDF এখানে দেখা যাবে।": ["The latest notices and PDFs published by the madrasa authority will be available here.", "ستجدون هنا آخر الإشعارات وملفات PDF الصادرة عن إدارة المدرسة."], "নোটিশ লোড হচ্ছে...": ["Loading notices...", "جارٍ تحميل الإشعارات..."], "📌 গুরুত্বপূর্ণ লিংক": ["📌 Important Links", "📌 روابط مهمة"], "ফলাফল →": ["Results →", "النتائج ←"], "ভর্তি →": ["Admission →", "القبول ←"], "শিক্ষার্থী সেবা →": ["Student Services →", "خدمات الطلاب ←"], "যোগাযোগ →": ["Contact →", "اتصل بنا ←"], "STUDENT RESULT PORTAL": ["STUDENT RESULT PORTAL", "بوابة نتائج الطلاب"], "পরীক্ষার ফলাফল": ["Exam Results", "نتائج الامتحانات"], "শিক্ষার্থীর রোল নম্বর ও আইডি ব্যবহার করে অনলাইনে পরীক্ষার ফলাফল দেখা যাবে।": ["Exam results can be viewed online using the student's roll number and ID.", "يمكن الاطلاع على نتائج الامتحانات عبر الإنترنت باستخدام رقم التسجيل وهوية الطالب."], "🔒 নিরাপদ ফলাফল অনুসন্ধান ব্যবস্থা": ["🔒 Secure result lookup system", "🔒 نظام آمن للبحث عن النتائج"], "ফলাফল দেখুন": ["View Result", "عرض النتيجة"], "Student Services": ["Student Services", "خدمات الطلاب"], "শিক্ষার্থী সেবা": ["Student Services", "خدمات الطلاب"], "শিক্ষার্থী আইডি": ["Student ID", "هوية الطالب"], "শিক্ষার্থীর পরিচয় ও তথ্য": ["Student identity & information", "هوية الطالب ومعلوماته"], "এডমিট কার্ড": ["Admit Card", "بطاقة الدخول"], "পরীক্ষার এডমিট কার্ড": ["Exam admit card", "بطاقة دخول الامتحان"], "বেতন / ফি": ["Fees", "الرسوم"], "শিক্ষার্থীর ফি সংক্রান্ত তথ্য": ["Student fee information", "معلومات رسوم الطالب"], "ডাউনলোড": ["Downloads", "التنزيلات"], "প্রয়োজনীয় ফাইল ডাউনলোড": ["Download necessary files", "تنزيل الملفات الضرورية"], "ONLINE ADMISSION": ["ONLINE ADMISSION", "القبول عبر الإنترنت"], "মাদরাসায়ে নূরুল কুরআনে ভর্তির জন্য নিচের ফর্মটি পূরণ করুন।": ["Fill in the form below to apply for admission to Madrasa-e Nurul Quran.", "املأ النموذج أدناه للتقديم على القبول في مدرسة نور القرآن."], "🎓 ভর্তি শুরু করুন": ["🎓 Start Admission", "🎓 ابدأ التقديم"], "অনলাইনে আবেদন করার পর মাদরাসা কর্তৃপক্ষ আবেদন যাচাই করে প্রয়োজনীয় যোগাযোগ করবে।": ["After you apply online, the madrasa authority will review your application and contact you as needed.", "بعد التقديم عبر الإنترنت ستراجع إدارة المدرسة طلبكم وتتواصل معكم عند الحاجة."], "✓ নূরানী বিভাগ": ["✓ Noorani Department", "✓ قسم النورانية"], "✓ নাজেরা বিভাগ": ["✓ Nazera Department", "✓ قسم الناظرة"], "✓ হিফজ বিভাগ": ["✓ Hifz Department", "✓ قسم الحفظ"], "✓ সঠিক তথ্য দিয়ে আবেদন করুন": ["✓ Apply with correct information", "✓ قدّم الطلب بمعلومات صحيحة"], "📋 সম্পূর্ণ অনলাইন ভর্তি ফর্ম": ["📋 Full Online Admission Form", "📋 نموذج القبول الكامل عبر الإنترنت"], "ভর্তি আবেদন ফর্ম": ["Admission Application Form", "نموذج طلب القبول"], "বিভাগ নির্বাচন করুন": ["Select department", "اختر القسم"], "নূরানী": ["Noorani", "النورانية"], "নাজেরা": ["Nazera", "الناظرة"], "হিফজ": ["Hifz", "الحفظ"], "লিঙ্গ নির্বাচন করুন": ["Select gender", "اختر الجنس"], "ছাত্র": ["Boy", "ولد"], "ছাত্রী": ["Girl", "بنت"], "📨 ভর্তি আবেদন পাঠান": ["📨 Submit Application", "📨 إرسال الطلب"], "ছবি ও বিস্তারিত তথ্যসহ সম্পূর্ণ ফর্ম পূরণ করতে এখানে চাপুন →": ["Tap here to fill the full form with photo and detailed information →", "اضغط هنا لملء النموذج الكامل مع الصورة والمعلومات التفصيلية ←"], "আমাদের শিক্ষকবৃন্দ": ["Our Teachers", "معلمونا"], "শিক্ষক ও কর্মীবৃন্দ": ["Teachers & Staff", "المعلمون والموظفون"], "একাডেমিক বিভাগ": ["Academic Departments", "الأقسام الأكاديمية"], "আমাদের স্মৃতি": ["Our Memories", "ذكرياتنا"], "ফটো গ্যালারি": ["Photo Gallery", "معرض الصور"], "আমাদের সাথে যোগাযোগ করুন": ["Contact Us", "تواصل معنا"], "ঠিকানা": ["Address", "العنوان"], "ভল্লবপুর, দিঘলী, চন্দ্রগঞ্জ, লক্ষ্মীপুর": ["Bhallabpur, Dighali, Chandraganj, Laxmipur", "بهلّبپور، ديغلي، تشاندراغنج، لاكشميبور"], "মোবাইল": ["Mobile", "الجوال"], "০১৩১২-০৪০৩০১": ["01312-040301", "01312-040301"], "ই-মেইল": ["E-mail", "البريد الإلكتروني"], "অনলাইন যোগাযোগ": ["Online Contact", "التواصل عبر الإنترنت"], "ভর্তি, ফলাফল, নোটিশ অথবা যেকোনো প্রয়োজনীয় তথ্যের জন্য আমাদের সাথে যোগাযোগ করুন।": ["For admission, results, notices or any other necessary information, please contact us.", "للاستفسار عن القبول أو النتائج أو الإشعارات أو أي معلومات أخرى يُرجى التواصل معنا."], "📞 যোগাযোগ করুন": ["📞 Contact Us", "📞 اتصل بنا"], "কুরআনের আলোয় শিক্ষার্থীদের সুন্দর ভবিষ্যৎ গড়ার প্রত্যয়ে।": ["Committed to building a beautiful future for students in the light of the Quran.", "عزمٌ على بناء مستقبل جميل للطلاب في ضوء القرآن."], "প্রতিষ্ঠান": ["Institution", "المؤسسة"], "আমাদের সম্পর্কে": ["About Us", "من نحن"], "সেবা": ["Services", "الخدمات"], "📍 ভল্লবপুর, চন্দ্রগঞ্জ, লক্ষ্মীপুর": ["📍 Bhallabpur, Chandraganj, Laxmipur", "📍 بهلّبپور، تشاندراغنج، لاكشميبور"], "📞 ০১৩১২-০৪০৩০১": ["📞 01312-040301", "📞 01312-040301"], "মাদরাসায়ে নূরুল কুরআন — সর্বস্বত্ব সংরক্ষিত।": ["Madrasa-e Nurul Quran — All rights reserved.", "مدرسة نور القرآن — جميع الحقوق محفوظة."], "ডেভেলপার:": ["Developed by", "تطوير:"], "প্রধানের ছবি": ["Photo of the Principal", "صورة المدير"], "রোল নম্বর": ["Roll number", "رقم التسجيل"], "শিক্ষার্থীর নাম": ["Student's name", "اسم الطالب"], "পিতা/অভিভাবকের নাম": ["Father / guardian's name", "اسم الأب / ولي الأمر"], "মোবাইল নম্বর": ["Mobile number", "رقم الجوال"], "বর্তমান ঠিকানা": ["Present address", "العنوان الحالي"], "শিক্ষক ১": ["Teacher", "معلم"], "শিক্ষক ২": ["Teacher", "معلم"], "শিক্ষক ৩": ["Teacher", "معلم"], "শিক্ষক ৪": ["Teacher", "معلم"], "মাদরাসা ছবি ১": ["Madrasa photo", "صورة من المدرسة"], "মাদরাসা ছবি ২": ["Madrasa photo", "صورة من المدرسة"], "মাদরাসা ছবি ৩": ["Madrasa photo", "صورة من المدرسة"], "মাদরাসা ছবি ৪": ["Madrasa photo", "صورة من المدرسة"], "মাদরাসা ছবি ৫": ["Madrasa photo", "صورة من المدرسة"], "মাদরাসা ছবি ৬": ["Madrasa photo", "صورة من المدرسة"], "নোটিশ লোড করতে সমস্যা হয়েছে।": ["Could not load notices.", "تعذّر تحميل الإشعارات."], "নোটিশ লোড করা যাচ্ছে না।": ["Notices cannot be loaded.", "لا يمكن تحميل الإشعارات."], "বর্তমানে কোনো নোটিশ প্রকাশ করা হয়নি।": ["No notices have been published yet.", "لم يتم نشر أي إشعار حالياً."], "📄 PDF দেখুন": ["📄 View PDF", "📄 عرض PDF"], "সাধারণ নোটিশ": ["General Notice", "إشعار عام"], "ফলাফল অনুসন্ধান করা হচ্ছে...": ["Searching for result...", "جارٍ البحث عن النتيجة..."], "রোল নম্বর ও শিক্ষার্থী আইডি লিখুন।": ["Please enter roll number and student ID.", "يرجى إدخال رقم التسجيل وهوية الطالب."], "এই রোল ও আইডির কোনো শিক্ষার্থী পাওয়া যায়নি।": ["No student found with this roll and ID.", "لم يُعثر على طالب بهذا الرقم والهوية."], "এই শিক্ষার্থীর ফলাফল এখনো প্রকাশিত হয়নি।": ["This student's result has not been published yet.", "لم تُنشر نتيجة هذا الطالب بعد."], "ফলাফল দেখাতে সমস্যা হয়েছে। কিছুক্ষণ পর আবার চেষ্টা করুন।": ["There was a problem showing the result. Please try again shortly.", "حدثت مشكلة في عرض النتيجة. يرجى المحاولة مرة أخرى بعد قليل."], "প্রয়োজনীয় তথ্য পূরণ করুন।": ["Please fill in the required information.", "يرجى ملء المعلومات المطلوبة."], "আবেদন পাঠানো হচ্ছে...": ["Sending application...", "جارٍ إرسال الطلب..."], "আবেদন পাঠানো যায়নি। আবার চেষ্টা করুন।": ["Application could not be sent. Please try again.", "تعذّر إرسال الطلب. حاول مرة أخرى."], "আবেদন পাঠাতে সমস্যা হয়েছে।": ["There was a problem sending the application.", "حدثت مشكلة أثناء إرسال الطلب."], "আপনার ভর্তি আবেদন সফলভাবে পাঠানো হয়েছে": ["Your admission application was submitted successfully", "تم إرسال طلب القبول الخاص بكم بنجاح"], "আবেদন নং:": ["Application No:", "رقم الطلب:"], "মাদরাসা কর্তৃপক্ষ যোগাযোগ করবে।": ["The madrasa authority will contact you.", "ستتواصل معكم إدارة المدرسة."], "📊 পরীক্ষার ফলাফল": ["📊 Exam Result", "📊 نتيجة الامتحان"], "ক্লাস:": ["Class:", "الصف:"], "রোল:": ["Roll:", "رقم التسجيل:"], "আইডি:": ["ID:", "الهوية:"], "ক্রম": ["No.", "م"], "বিষয়": ["Subject", "المادة"], "পূর্ণমান": ["Full Marks", "الدرجة الكاملة"], "প্রাপ্ত নম্বর": ["Marks Obtained", "الدرجة المحصّلة"], "ফল": ["Status", "الحالة"], "উত্তীর্ণ": ["Passed", "ناجح"], "অনুত্তীর্ণ": ["Failed", "راسب"], "মোট নম্বর:": ["Total Marks:", "المجموع:"], "শতকরা:": ["Percentage:", "النسبة:"], "গ্রেড:": ["Grade:", "التقدير:"], "ফলাফল:": ["Result:", "النتيجة:"], "🖨 প্রিন্ট": ["🖨 Print", "🖨 طباعة"], "পরীক্ষা": ["Exam", "الامتحان"], "লিঙ্গ": ["Gender", "الجنس"]}, KEY="nurul_dashboard_language", LANGS=["bn","en","ar"], ATTRS=["placeholder","alt","title","aria-label"];
+  var LANG="bn"; try{var sv=localStorage.getItem(KEY); if(LANGS.indexOf(sv)>-1) LANG=sv;}catch(e){}
+  window.LOCALE=function(){return LANG==="en"?"en-GB":LANG==="ar"?"ar-EG":"bn-BD"};
+  var norm=function(s){return String(s).replace(/\s+/g," ").trim()};
+  window.L=function(bn){var e=DICT[norm(bn)]; if(!e||LANG==="bn") return bn; return LANG==="en"?e[0]:e[1]};
+  var nodes=[], attrs=[];
+  function reg(n){
+    if(n.__k!==undefined) return;
+    var v=n.nodeValue; if(!v||!/\S/.test(v)){n.__k=null;return}
+    var k=norm(v);
+    if(DICT[k]){n.__k=k;n.__o=v;n.__l=v.match(/^\s*/)[0];n.__t=v.match(/\s*$/)[0];nodes.push(n)} else n.__k=null;
+  }
+  function put(n){
+    var e=DICT[n.__k]; if(!e) return;
+    n.nodeValue = LANG==="bn" ? n.__o : n.__l+(LANG==="en"?e[0]:e[1])+n.__t;
+  }
+  function regAttr(el){
+    ATTRS.forEach(function(a){
+      if(!el.hasAttribute||!el.hasAttribute(a)) return;
+      el.__a=el.__a||{}; if(el.__a[a]!==undefined) return;
+      var v=el.getAttribute(a), k=norm(v);
+      if(DICT[k]){el.__a[a]=v;attrs.push([el,a,k])} else el.__a[a]=null;
+    });
+  }
+  function putAttr(x){var e=DICT[x[2]]; x[0].setAttribute(x[1], LANG==="bn"?x[0].__a[x[1]]:(LANG==="en"?e[0]:e[1]))}
+  function scan(root){
+    var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:function(n){var p=n.parentNode&&n.parentNode.nodeName;return(p==="SCRIPT"||p==="STYLE")?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT}});
+    var n; while((n=w.nextNode())) reg(n);
+    if(root.nodeType===1){ regAttr(root); root.querySelectorAll("["+ATTRS.join("],[")+"]").forEach(regAttr); }
+  }
+  function apply(){
+    nodes=nodes.filter(function(n){return n.isConnected}); nodes.forEach(put);
+    attrs=attrs.filter(function(x){return x[0].isConnected}); attrs.forEach(putAttr);
+    var h=document.documentElement; h.setAttribute("lang",LANG); h.setAttribute("dir",LANG==="ar"?"rtl":"ltr");
+    document.querySelectorAll("#langMenu button").forEach(function(b){b.classList.toggle("on",b.dataset.l===LANG)});
+  }
+  function setLang(l){
+    LANG=l; try{localStorage.setItem(KEY,l)}catch(e){}
+    apply();
+    if(typeof updateClock==="function") updateClock(); if(typeof refreshStats==="function") refreshStats();
+    try{ if(typeof RESULT_CTX!=="undefined"&&RESULT_CTX&&document.getElementById("resultModal").classList.contains("show")) renderResult(); }catch(e){}
+    var m=document.getElementById("langMenu"); if(m) m.classList.remove("show");
+  }
+  document.addEventListener("DOMContentLoaded",function(){
+    scan(document.body); apply();
+    new MutationObserver(function(ms){
+      ms.forEach(function(m){ m.addedNodes.forEach(function(n){
+        var a=nodes.length,b=attrs.length;
+        if(n.nodeType===3){reg(n)} else if(n.nodeType===1){scan(n)}
+        for(var i=a;i<nodes.length;i++) put(nodes[i]);
+        for(var j=b;j<attrs.length;j++) putAttr(attrs[j]);
+      })});
+    }).observe(document.body,{childList:true,subtree:true});
+    var btn=document.getElementById("langBtn"), menu=document.getElementById("langMenu");
+    btn.addEventListener("click",function(e){e.stopPropagation();menu.classList.toggle("show")});
+    menu.addEventListener("click",function(e){var b=e.target.closest("button[data-l]"); if(b) setLang(b.dataset.l)});
+    document.addEventListener("click",function(e){if(!e.target.closest("#langWrap")) menu.classList.remove("show")});
+  });
+})();
+</script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const SUPABASE_URL = "https://qavublwhqiqsgpcmfyft.supabase.co";
@@ -657,8 +782,8 @@ const SUPABASE_KEY = "sb_publishable_AKYAjFdlgz7r2IyjKk9GWA_-QDuDPKQ";
 const supabaseClient = window.supabase.createClient( SUPABASE_URL, SUPABASE_KEY );
 function updateClock(){
     const now = new Date();
-    document.getElementById("clock").textContent = now.toLocaleTimeString("bn-BD",{ hour:"2-digit", minute:"2-digit", second:"2-digit" });
-    document.getElementById("dateBn").textContent = now.toLocaleDateString("bn-BD",{ weekday:"long", year:"numeric", month:"long", day:"numeric" });
+    document.getElementById("clock").textContent = now.toLocaleTimeString(LOCALE(),{ hour:"2-digit", minute:"2-digit", second:"2-digit" });
+    document.getElementById("dateBn").textContent = now.toLocaleDateString(LOCALE(),{ weekday:"long", year:"numeric", month:"long", day:"numeric" });
 }
 updateClock();
 setInterval(updateClock,1000);
@@ -677,7 +802,7 @@ function formatBanglaDate(dateValue){
     if(!dateValue) return "";
     const d = new Date(dateValue);
     if(isNaN(d.getTime())) return "";
-    return d.toLocaleDateString("bn-BD",{ day:"2-digit", month:"long", year:"numeric" });
+    return d.toLocaleDateString(LOCALE(),{ day:"2-digit", month:"long", year:"numeric" });
 }
 function getNoticeDateParts(dateValue){
     if(!dateValue){ return { day:"০১", month:"নোটিশ" }; }
@@ -736,94 +861,147 @@ async function loadNotices(){
 }
 loadNotices();
 supabaseClient.channel("public-notices-index").on("postgres_changes",{ event:"*", schema:"public", table:"notices" }, function(){ loadNotices(); }).subscribe();
+const bn2en = v => String(v||"").replace(/[০-৯]/g, d => "০১২৩৪৫৬৭৮৯".indexOf(d)).trim();
+const bnN = n => { try{ return Number(n).toLocaleString(LOCALE(),{maximumFractionDigits:2}); }catch(e){ return n; } };
+function resGrade(p,failed){
+    if(failed>0) return "F";
+    if(p>=80) return "A+"; if(p>=70) return "A"; if(p>=60) return "A-";
+    if(p>=50) return "B";  if(p>=40) return "C";  if(p>=33) return "D";
+    return "F";
+}
+let RESULT_CTX = null;
 async function checkResult(){
-    const roll = document.getElementById("roll").value.trim();
-    const studentId = document.getElementById("studentId").value.trim();
+    const roll = bn2en(document.getElementById("roll").value);
+    const sid  = bn2en(document.getElementById("studentId").value);
     const msg = document.getElementById("resultMessage");
-    if( !roll || !studentId ){
-        msg.innerHTML = "<p style='color:#ffd447;margin-top:10px'>রোল নম্বর ও শিক্ষার্থী আইডি লিখুন।</p>";
-        return;
-    }
+    const warn = t => msg.innerHTML = "<p style='color:#ffd447;margin-top:10px'>"+t+"</p>";
+    if( !roll || !sid ){ warn("রোল নম্বর ও শিক্ষার্থী আইডি লিখুন।"); return; }
     msg.innerHTML = "<p style='color:#fff;margin-top:10px'>ফলাফল অনুসন্ধান করা হচ্ছে...</p>";
     try{
-        const { data, error } = await supabaseClient.from("results").select("*").eq("roll",roll).eq("student_id",studentId);
-        if(error){
-            console.error("Result Error:", error);
-            msg.innerHTML = "<p style='color:#ffd447;margin-top:10px'>ফলাফল খুঁজে পাওয়া যায়নি।</p>";
-            return;
-        }
-        if( !data || data.length === 0 ){
-            msg.innerHTML = "<p style='color:#ffd447;margin-top:10px'>এই রোল ও আইডির কোনো ফলাফল পাওয়া যায়নি।</p>";
-            return;
-        }
-        showResult(data);
+        /* 1) শিক্ষার্থী খুঁজে বের করা (আইডি + রোল মিলতে হবে) */
+        const sr = await supabaseClient.from("students").select("*").eq("student_id", sid).limit(10);
+        if(sr.error) throw sr.error;
+        const st = (sr.data||[]).find(x => String(x.roll_number ?? "").trim() === roll);
+        if(!st){ warn("এই রোল ও আইডির কোনো শিক্ষার্থী পাওয়া যায়নি।"); return; }
+
+        /* 2) শুধু প্রকাশিত ফলাফল */
+        const rr = await supabaseClient.from("results").select("*").eq("student_id", st.student_id).eq("published", true);
+        if(rr.error) throw rr.error;
+        const now = Date.now();
+        const rows = (rr.data||[]).filter(r => r.published === true && (!r.published_at || new Date(r.published_at).getTime() <= now));
+        if(!rows.length){ warn("এই শিক্ষার্থীর ফলাফল এখনো প্রকাশিত হয়নি।"); return; }
+
+        /* 3) বিষয় ও ক্লাস */
+        const [sj, cl] = await Promise.all([
+            supabaseClient.from("subjects").select("*"),
+            supabaseClient.from("classes").select("*")
+        ]);
+        const subj = {}; (sj.data||[]).forEach(x => subj[String(x.id)] = x);
+        const cls = (cl.data||[]).find(x => String(x.id) === String(st.class_id));
+
+        /* 4) পরীক্ষা অনুযায়ী ভাগ */
+        const groups = {};
+        rows.forEach(r => {
+            const key = (r.session||"") + "||" + (r.exam_name||"");
+            (groups[key] = groups[key] || {session:r.session||"", exam:r.exam_name||"", rows:[], at:0}).rows.push(r);
+            groups[key].at = Math.max(groups[key].at, r.published_at ? new Date(r.published_at).getTime() : 0);
+        });
+        const list = Object.values(groups).sort((a,b) => (b.at - a.at) || String(b.session).localeCompare(String(a.session)));
+        RESULT_CTX = {st, cls, subj, list, cur:0};
+        msg.innerHTML = "";
+        renderResult();
     }catch(error){
-        console.error(error);
-        msg.innerHTML = "<p style='color:#ffd447;margin-top:10px'>ফলাফল দেখাতে সমস্যা হয়েছে।</p>";
+        console.error("Result Error:", error);
+        warn("ফলাফল দেখাতে সমস্যা হয়েছে। কিছুক্ষণ পর আবার চেষ্টা করুন।");
     }
 }
-function showResult(results){
-    const modal = document.getElementById("resultModal");
-    const content = document.getElementById("resultContent");
-    let total = 0;
-    let count = 0;
-    let rows = "";
-    results.forEach((r,index)=>{
-        const subject = r.subject_name || r.subject || r.subjectName || "বিষয়";
-        const marks = r.marks ?? r.mark ?? r.total_marks ?? r.score ?? "";
-        const numeric = Number(marks);
-        if(!isNaN(numeric)){ total += numeric; count++; }
-        rows += `<tr> <td> ${index+1} </td> <td> ${escapeHTML(subject)} </td> <td> ${escapeHTML(marks)} </td> </tr>`;
+function renderResult(){
+    const C = RESULT_CTX, g = C.list[C.cur];
+    let totalGot = 0, totalFull = 0, failed = 0, rowsHtml = "";
+    g.rows.slice().sort((a,b)=>Number(a.subject_id)-Number(b.subject_id)).forEach((r,i)=>{
+        const sj = C.subj[String(r.subject_id)] || {};
+        const name = sj.subject_name || sj.name || sj.title || L("বিষয়");
+        const full = Number(sj.full_mark ?? sj.full_marks ?? sj.total_mark ?? sj.total_marks ?? 100);
+        const pass = Number(sj.pass_mark ?? sj.pass_marks ?? 33);
+        const got = Number(r.marks);
+        const ok = !isNaN(got) && got >= pass;
+        if(!isNaN(got)){ totalGot += got; totalFull += full; }
+        if(!ok) failed++;
+        rowsHtml += `<tr><td>${bnN(i+1)}</td><td>${escapeHTML(name)}</td><td>${bnN(full)}</td><td><b>${isNaN(got)?"-":bnN(got)}</b></td><td style="color:${ok?"#0a7a3d":"#c0392b"}">${ok?L("উত্তীর্ণ"):L("অনুত্তীর্ণ")}</td></tr>`;
     });
-    const average = count ? (total/count).toFixed(2) : "০";
-    content.innerHTML = `
-        <h2> 📊 পরীক্ষার ফলাফল </h2>
-        <p style="color:#718399"> রোল: <strong> ${escapeHTML(document.getElementById("roll").value)} </strong> &nbsp; | &nbsp; আইডি: <strong> ${escapeHTML(document.getElementById("studentId").value)} </strong> </p>
+    const pct = totalFull ? (totalGot/totalFull*100) : 0;
+    const grade = resGrade(pct, failed);
+    const picker = C.list.length > 1
+        ? `<select onchange="RESULT_CTX.cur=this.value;renderResult()" style="width:100%;padding:10px;border-radius:12px;border:1px solid #cfd9e6;margin:10px 0;font:inherit">${C.list.map((x,i)=>`<option value="${i}" ${i===C.cur?"selected":""}>${escapeHTML((x.exam||L("পরীক্ষা"))+(x.session?" — "+x.session:""))}</option>`).join("")}</select>` : "";
+    document.getElementById("resultContent").innerHTML = `
+        <h2>${L("📊 পরীক্ষার ফলাফল")}</h2>
+        <p style="color:#718399;line-height:1.8">
+          <strong>${escapeHTML(C.st.name||"")}</strong><br>
+          ${C.cls ? L("ক্লাস:")+" "+escapeHTML(C.cls.class_name||C.cls.name||"")+" &nbsp;|&nbsp; " : ""}${L("রোল:")} <strong>${escapeHTML(C.st.roll_number)}</strong> &nbsp;|&nbsp; ${L("আইডি:")} <strong>${escapeHTML(C.st.student_id)}</strong><br>
+          ${escapeHTML(g.exam)}${g.session ? " — "+escapeHTML(g.session) : ""}
+        </p>${picker}
         <table class="result-table">
-            <thead> <tr> <th> ক্রম </th> <th> বিষয় </th> <th> নম্বর </th> </tr> </thead>
-            <tbody> ${rows} </tbody>
+          <thead><tr><th>${L("ক্রম")}</th><th>${L("বিষয়")}</th><th>${L("পূর্ণমান")}</th><th>${L("প্রাপ্ত নম্বর")}</th><th>${L("ফল")}</th></tr></thead>
+          <tbody>${rowsHtml}</tbody>
         </table>
-        <div class="result-total"> মোট নম্বর: ${total} &nbsp;&nbsp; | &nbsp;&nbsp; গড়: ${average} </div>
-    `;
-    modal.classList.add("show");
+        <div class="result-total">
+          ${L("মোট নম্বর:")} ${bnN(totalGot)} / ${bnN(totalFull)} &nbsp;|&nbsp; ${L("শতকরা:")} ${bnN(pct.toFixed(2))}% &nbsp;|&nbsp; ${L("গ্রেড:")} <b>${grade}</b><br>
+          <span style="color:${failed?"#c0392b":"#0a7a3d"};font-weight:700">${L("ফলাফল:")} ${failed ? L("অনুত্তীর্ণ") : L("উত্তীর্ণ")}</span>
+        </div>
+        <button onclick="window.print()" style="margin-top:14px;padding:10px 18px;border:0;border-radius:12px;background:#0875df;color:#fff;font:inherit;cursor:pointer">${L("🖨 প্রিন্ট")}</button>`;
+    document.getElementById("resultModal").classList.add("show");
 }
 function closeResult(){ document.getElementById("resultModal").classList.remove("show"); }
 document.getElementById("resultModal").addEventListener("click", function(e){ if(e.target === this){ closeResult(); } });
+async function insertApplication(row){
+    let r = Object.assign({}, row), dropped = [];
+    for(let i=0;i<40;i++){
+        const x = await supabaseClient.from("admission_applications").insert(r).select();
+        if(!x.error) return {data:x.data, dropped};
+        const m = /'([a-z_0-9]+)' column/.exec(x.error.message) || /column "?([a-z_0-9]+)"?/.exec(x.error.message);
+        if(m && (m[1] in r)){ delete r[m[1]]; dropped.push(m[1]); } else return {error:x.error, dropped};
+    }
+    return {error:{message:"too many unknown columns"}, dropped};
+}
 async function submitAdmission(e){
     e.preventDefault();
     const msg = document.getElementById("admissionMessage");
+    const btn = e.target.querySelector("button[type=submit]");
     const name = document.getElementById("appName").value.trim();
     const father = document.getElementById("appFather").value.trim();
-    const mobile = document.getElementById("appMobile").value.trim();
+    const mobile = bn2en(document.getElementById("appMobile").value);
     const dob = document.getElementById("appDob").value;
     const division = document.getElementById("appDivision").value;
     const gender = document.getElementById("appGender").value;
     const address = document.getElementById("appAddress").value.trim();
     if( !name || !mobile ){
-        msg.style.color="#d00";
-        msg.textContent= "প্রয়োজনীয় তথ্য পূরণ করুন।";
-        return;
+        msg.style.color="#d00"; msg.textContent= "প্রয়োজনীয় তথ্য পূরণ করুন।"; return;
     }
-    msg.style.color="#0875df";
-    msg.textContent= "আবেদন পাঠানো হচ্ছে...";
+    msg.style.color="#0875df"; msg.textContent= "আবেদন পাঠানো হচ্ছে..."; if(btn) btn.disabled = true;
     try{
-        const { error } = await supabaseClient.from("admissions").insert([{
-            student_name:name, father_name:father, mobile:mobile, date_of_birth: dob || null, division:division, gender:gender, address:address
-        }]);
-        if(error){
-            console.error("Admission Error:", error);
-            msg.style.color="#d00";
-            msg.textContent= "আবেদন পাঠানো যায়নি। আবার চেষ্টা করুন।";
-            return;
+        /* ড্যাশবোর্ডের "ভর্তি আবেদন (Pending)" তালিকায় আসার জন্য admission_applications টেবিলে সেভ হয় */
+        const res = await insertApplication({
+            name:name, father_name_text:father||null, phone:mobile, date_of_birth:dob||null,
+            gender:gender||null, applying_class_name:division||null, address_text:address||null,
+            admission_reason_text:"ওয়েবসাইট (হোম পেজ) থেকে আবেদন", status:"pending"
+        });
+        if(res.error){
+            console.error("Admission Error:", res.error);
+            msg.style.color="#d00"; msg.textContent= "আবেদন পাঠানো যায়নি। আবার চেষ্টা করুন।";
+            if(btn) btn.disabled = false; return;
         }
-        msg.style.color="#0875df";
-        msg.textContent= "আপনার ভর্তি আবেদন সফলভাবে পাঠানো হয়েছে।";
+        const id = res.data && res.data[0] ? res.data[0].id : null;
+        if(id && res.dropped.indexOf("phone")>-1){
+            await supabaseClient.from("admission_applications").update({alternative_guardian_text:"Mobile: "+mobile}).eq("id", id);
+        }
+        msg.style.color="#0a7a3d";
+        msg.textContent= L("আপনার ভর্তি আবেদন সফলভাবে পাঠানো হয়েছে")+(id?" ("+L("আবেদন নং:")+" "+id+")":"")+". "+L("মাদরাসা কর্তৃপক্ষ যোগাযোগ করবে।");
         document.getElementById("admissionForm").reset();
     }catch(error){
         console.error(error);
-        msg.style.color="#d00";
-        msg.textContent= "আবেদন পাঠাতে সমস্যা হয়েছে।";
+        msg.style.color="#d00"; msg.textContent= "আবেদন পাঠাতে সমস্যা হয়েছে।";
     }
+    if(btn) btn.disabled = false;
 }
 const observer = new IntersectionObserver( entries => entries.forEach( entry=>{ if(entry.isIntersecting){ entry.target.classList.add("show"); } } ), {threshold:.1} );
 document.querySelectorAll(".reveal").forEach( el=>observer.observe(el) );
@@ -836,6 +1014,58 @@ window.addEventListener("scroll", ()=>{
     links.forEach( l=>{ l.classList.toggle("active", l.getAttribute("href") === "#"+current); } );
 });
 document.querySelectorAll(".nav a").forEach( l=>{ l.addEventListener("click", ()=>{ document.getElementById("nav").classList.remove("open"); } ); } );
+</script>
+<script>
+/* ===== লাইভ পরিসংখ্যান: শিক্ষক / শিক্ষার্থী / শিক্ষাবর্ষ Supabase থেকে, count-up অ্যানিমেশনসহ ===== */
+(function(){
+  var grid=document.getElementById("statsGrid"); if(!grid) return;
+  var K=["depts","teachers","students","session"];
+  var els={depts:document.getElementById("stDepts"),teachers:document.getElementById("stTeachers"),students:document.getElementById("stStudents"),session:document.getElementById("stSession")};
+  var target={depts:3,teachers:null,students:null,session:null};      /* null = ডাটাবেস থেকে পাওয়া যায়নি */
+  var FALLBACK={depts:3,teachers:10,students:300,session:new Date().getFullYear()};
+  var shown={depts:0,teachers:0,students:0,session:0}, token={}, started=false;
+  var reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function fmt(k,n){ n=Math.round(n); try{ return n.toLocaleString(LOCALE(),{useGrouping:k!=="session",minimumIntegerDigits:k==="depts"?2:1}); }catch(e){ return String(n); } }
+  function paint(k,n){ els[k].textContent=fmt(k,n); shown[k]=n; }
+  function animate(k,to,dur){
+    var from=shown[k], id=(token[k]=(token[k]||0)+1);
+    if(reduce||from===to){ paint(k,to); return; }
+    var t0=performance.now();
+    (function step(t){
+      if(token[k]!==id) return;
+      var p=Math.min(1,(t-t0)/dur), e=p===1?1:1-Math.pow(2,-10*p);
+      paint(k, from+(to-from)*e);
+      if(p<1) requestAnimationFrame(step);
+      else{ els[k].classList.remove("pop"); void els[k].offsetWidth; els[k].classList.add("pop"); }
+    })(t0);
+  }
+  function load(){
+    return Promise.all([
+      supabaseClient.from("teachers").select("id",{count:"exact",head:true}),
+      supabaseClient.from("students").select("id",{count:"exact",head:true}),
+      supabaseClient.from("sessions").select("year").order("year",{ascending:false}).limit(1)
+    ]).then(function(r){
+      if(!r[0].error && r[0].count!=null) target.teachers=r[0].count;
+      if(!r[1].error && r[1].count!=null) target.students=r[1].count;
+      var y=r[2].data && r[2].data[0] && Number(r[2].data[0].year);
+      if(!r[2].error && y) target.session=y;
+    }).catch(function(){});
+  }
+  function value(k){ return target[k]!=null?target[k]:FALLBACK[k]; }
+  function run(){ K.forEach(function(k,i){ setTimeout(function(){ animate(k,value(k),1700+i*150); }, 250+i*140); }); }
+  var loaded=load();
+  var obs=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting && !started){ started=true; grid.classList.add("stats-in"); loaded.then(run); obs.disconnect(); }
+    });
+  },{threshold:.25});
+  obs.observe(grid);
+  /* নতুন শিক্ষক/শিক্ষার্থী/সেশন যোগ হলে নিজে নিজে বাড়বে (প্রতি ১ মিনিটে + ট্যাব ফিরলে) */
+  function refresh(){ if(!started) return; load().then(function(){ ["teachers","students","session"].forEach(function(k){ if(target[k]!=null && target[k]!==shown[k]) animate(k,target[k],1200); }); }); }
+  setInterval(refresh,60000);
+  document.addEventListener("visibilitychange",function(){ if(!document.hidden) refresh(); });
+  window.refreshStats=function(){ K.forEach(function(k){ if(started) paint(k,shown[k]); }); };
+})();
 </script>
 </body>
 </html>

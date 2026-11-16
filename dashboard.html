@@ -7397,5 +7397,41 @@ html.teacher-mode .teacher-denied-section{display:none!important}
  }
 })();
 </script>
+
+<script>
+/* ===== নতুন ভর্তি আবেদন (Pending) কার্ড — ওয়েবসাইট থেকে আসা আবেদন ===== */
+(function(){
+  var L={bn:["নতুন ভর্তি আবেদন (Pending)","টি আবেদন অপেক্ষমাণ — দেখতে চাপুন","কোনো নতুন আবেদন নেই"],
+         en:["New Admission Applications (Pending)","pending — tap to review","No new applications"],
+         ar:["طلبات القبول الجديدة","طلبات معلقة — اضغط للمراجعة","لا توجد طلبات جديدة"]};
+  function lang(){var l=(document.documentElement.lang||"bn").slice(0,2);return L[l]?l:"bn"}
+  var n=null;
+  function paint(){
+    var a=document.getElementById("pendAdm");if(!a)return;var t=L[lang()];
+    a.querySelector("b").textContent=t[0];
+    a.querySelector("small").textContent=n===null?"…":(n>0?(lang()==="bn"?n.toLocaleString("bn-BD"):n)+" "+t[1]:t[2]);
+    a.querySelector(".pn").textContent=n===null?"…":(lang()==="bn"?n.toLocaleString("bn-BD"):n);
+    a.style.background=n>0?"linear-gradient(135deg,#c9a227,#e8c766)":"linear-gradient(135deg,#0e4a35,#0e5a40)";
+    a.style.color=n>0?"#1d2b22":"#fff";
+  }
+  function mount(){
+    var g=document.getElementById("sysStats");if(!g||document.getElementById("pendAdm"))return;
+    var a=document.createElement("a");a.id="pendAdm";a.href="online-admission.html";
+    a.style.cssText="display:flex;align-items:center;gap:12px;text-decoration:none;border-radius:20px;padding:14px 16px;margin:16px 0 14px;box-shadow:0 6px 16px rgba(0,0,0,.12)";
+    a.innerHTML='<span style="font-size:28px">🎓</span><span style="flex:1;line-height:1.5"><b></b><br><small></small></span><span class="pn" style="min-width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.9);color:#0e5a40;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px"></span>';
+    g.parentNode.insertBefore(a,g.previousElementSibling||g);paint();
+  }
+  async function load(){
+    try{
+      if(typeof db==="undefined")return;
+      var r=await db.from("admission_applications").select("id",{count:"exact",head:true}).eq("status","pending");
+      if(!r.error&&r.count!=null){n=r.count;paint()}
+    }catch(e){}
+  }
+  function start(){mount();load();setInterval(load,60000);document.addEventListener("visibilitychange",function(){if(!document.hidden)load()});
+    new MutationObserver(paint).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]})}
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",start);else start();
+})();
+</script>
 </body>
 </html>
