@@ -371,7 +371,7 @@ $("clr").onclick=()=>{$("q").value="";$("fy").value="";$("fc").value="";render()
 $("lang").onchange=e=>{lang=e.target.value;localStorage.setItem("nurul_dashboard_language",lang);fill()};
 $("lo").onclick=async()=>{if(sb)await sb.auth.signOut();location.href="login.html"};
 async function load(){$("list").innerHTML='<div class="card emp">'+t("loading")+'</div>';
- const a=await sb.from("students").select("*").order("class_id",{ascending:true}).order("roll_number",{ascending:true});if(a.error){$("list").innerHTML="";msg(a.error.message,1);return}ST=a.data||[];
+ const a=await sb.from("students").select("*").order("class_id",{ascending:true}).order("roll_number",{ascending:true});if(a.error){$("list").innerHTML="";msg(a.error.message,1);return}ST=(a.data||[]).filter(x=>x.is_active!==false);
  const b=await sb.from("classes").select("*").order("id",{ascending:true});CL=b.data||[];
  try{const c=await sb.from("sessions").select("*");SE=c.data||[]}catch(x){}
  try{const p=await sb.from("admission_applications").select("*",{count:"exact",head:true}).eq("status","pending");PEND=p.count!=null?p.count:(Array.isArray(p.data)?p.data.length:0)}catch(x){}

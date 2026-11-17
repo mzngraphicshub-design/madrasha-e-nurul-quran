@@ -758,7 +758,7 @@ function openSet(){const m=$("setM");let h='<div class="sb"><h3>'+t("setT")+'</h
   localStorage.setItem("nurul_idcard_cfg",JSON.stringify(CFG));m.className="sm";render()}}
 $("setB").onclick=openSet;
 async function load(){const a=await sb.from("students").select("*").order("class_id",{ascending:true}).order("roll_number",{ascending:true});
- if(a.error){msg(a.error.message,1);return}ST=a.data||[];
+ if(a.error){msg(a.error.message,1);return}ST=(a.data||[]).filter(x=>x.is_active!==false);
  const b=await sb.from("classes").select("*").order("id",{ascending:true});CL=b.data||[];
  try{const c=await sb.from("sessions").select("*");SE=c.data||[]}catch(x){}
  try{const c=await sb.from("sections").select("*");SC=c.data||[]}catch(x){}
