@@ -328,6 +328,27 @@ button,input,select,textarea{font-family:inherit}
 .t th[data-sort]{cursor:pointer}.t th[data-sort]:after{content:"\21C5";opacity:.4;margin-inline-start:6px;font-size:12px}.t th.asc:after{content:"\2191";opacity:1}.t th.desc:after{content:"\2193";opacity:1}.t td.c1{white-space:nowrap}
 .grid9{display:grid;grid-template-columns:repeat(3,54mm);gap:5mm 6mm;justify-content:center}
 .pv{--s:.4}@media(min-width:900px){.pv{--s:.45}}
+
+/* === ID card layout fixes + logo === */
+.idc .lgi{display:flex;align-items:center;justify-content:center;background:#fff;border-radius:50%;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.25);box-sizing:border-box;padding:4px}
+.idc .lgi img{width:100%;height:100%;object-fit:contain;border-radius:50%}
+/* reference – front */
+.idc .sn{top:442px;text-align:center;line-height:1.2}
+.idc .dt,.idc[dir=rtl] .dt{left:45px;top:502px;width:450px;text-align:center;font-size:22px;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.idc .rows{top:566px}.idc .row{font-size:30px;line-height:1.4}
+.idc .adr{top:652px}.idc .alb{font-size:30px}.idc .at{font-size:24px;line-height:1.3;max-height:64px}
+.idc .phn{top:772px;font-size:34px}
+/* reference – back */
+.idc .bh{left:30px;top:30px;width:400px;display:flex;align-items:center;gap:14px;font-size:27px;line-height:1.25;color:var(--c1)}
+.idc .bh .lgi{flex:none}
+.idc .pin{top:672px}
+/* green – front */
+.idc .gh1{top:14px}.idc .gs{font-size:20px;margin-top:2px}
+/* green – back */
+.idc .gh2{top:12px;font-size:26px}
+.idc .gq{top:158px}.idc .qb2{width:200px;height:200px}.idc .qc2{font-size:22px;margin-top:8px}
+.idc .gib{top:410px}.idc .gi{font-size:23px;line-height:1.9}
+.idc .gnt{top:574px;height:182px;display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1.45;overflow:hidden}
 </style></head><body>
 <header class="top">
 <a class="tb" href="dashboard.html">
@@ -593,35 +614,13 @@ const li=()=>L3.indexOf(lang),t=k=>(TX[k]||[k,k,k])[li()];
 const esc=v=>String(v==null?"":v).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 const LOC=()=>({bn:"bn-BD",en:"en-GB",ar:"ar"})[lang];
 let ST=[],CL=[],SE=[],SC=[],PAGE=1,PS=10,SEL=new Set(),FIL=[],FILT={cls:"",ses:"",sec:""},SORT={k:"",d:1},TYPE="green",LAYOUT="pair";
-const DEF={name:{bn:("\u0989\u09ae\u09cd\u09ae\u09c7 \u0995\u09c1\u09b2\u09b8\u09c1\u09ae (\u09b0\u09be\u0983) \u09ae\u09b9\u09bf\u09b2\u09be \u09ae\u09be\u09a6\u09b0\u09be\u09b8\u09be \u0993 \u09ae\u09c1\u09b8\u09b2\u09bf\u09ae \u09b6\u09bf\u09b6\u09c1 \u098f\u0995"+
-"\u09be\u09a1\u09c7\u09ae\u09bf"),en:"Umme Kulsum (RA) Women's Madrasa & Muslim Shishu Academy",ar:("\u0645\u062f\u0631\u0633\u0629 \u0623\u0645 \u0643\u0644\u062b\u0648\u0645 (\u0631\u0636\u064a \u0627\u0644\u0644\u0647 \u0639\u0646\u0647\u0627) \u0644\u0644\u0628\u0646\u0627\u062a \u0648\u0623\u0643\u0627\u062f\u064a\u0645\u064a\u0629 \u0627"+
-"\u0644\u0623\u0637\u0641\u0627\u0644 \u0627\u0644\u0645\u0633\u0644\u0645\u064a\u0646")},
- top:"\u0628\u0650\u0633\u0652\u0645\u0650 \u0627\u0644\u0644\u0651\u064e\u0647\u0650 \u0627\u0644\u0631\u0651\u064e\u062d\u0652\u0645\u064e\u0670\u0646\u0650 \u0627\u0644\u0631\u0651\u064e\u062d\u0650\u064a\u0645\u0650",
- hijri:{bn:"\u09e7\u09ea\u09ea\u09ed-\u09ea\u09ee \u09b9\u09bf.",en:"1447-48 AH",ar:"\u0661\u0664\u0664\u0667-\u0664\u0668 \u0647\u0640"},
- notice:{bn:("\u09aa\u09b0\u09bf\u099a\u09af\u09bc\u09aa\u09a4\u09cd\u09b0\u099f\u09bf \u09aa\u09cd\u09b0\u09ae\u09be\u09a3 \u0995\u09b0\u09c7 \u0995\u09be\u09b0\u09cd\u09a1\u09a7\u09be\u09b0\u09c0 \u0989\u0995\u09cd\u09a4 \u09aa\u09cd\u09b0\u09a4\u09bf\u09b7"+
-"\u09cd\u09a0\u09be\u09a8\u09c7\u09b0 \u09b6\u09bf\u0995\u09cd\u09b7\u09be\u09b0\u09cd\u09a5\u09c0\u0964 \u0995\u09be\u09b0\u09cd\u09a1\u099f\u09bf \u0995\u09cb\u09a5\u09be\u0993 \u09aa\u09be\u0993\u09af\u09bc\u09be \u0997\u09c7\u09b2\u09c7 "+
-"\u09ae\u09be\u09a6\u09b0\u09be\u09b8\u09be \u0995\u09b0\u09cd\u09a4\u09c3\u09aa\u0995\u09cd\u09b7\u09c7\u09b0 \u09a8\u09bf\u0995\u099f \u09b9\u09b8\u09cd\u09a4\u09be\u09a8\u09cd\u09a4\u09b0\u09c7\u09b0 \u0985\u09a8\u09c1\u09b0\u09cb\u09a7 \u09b0"+
-"\u0987\u09b2\u0964"),en:"This card certifies that the holder is a student of this institution. If found, please return it to the madrasa authority.",ar:("\u062a\u062b\u0628\u062a \u0647\u0630\u0647 \u0627\u0644\u0628\u0637\u0627\u0642\u0629 \u0623\u0646 \u062d\u0627\u0645\u0644\u0647\u0627 \u0637\u0627\u0644\u0628 \u0641\u064a \u0647\u0630\u0647 \u0627\u0644\u0645\u0624\u0633\u0633\u0629. \u0639"+
-"\u0646\u062f \u0627\u0644\u0639\u062b\u0648\u0631 \u0639\u0644\u064a\u0647\u0627 \u064a\u0631\u062c\u0649 \u062a\u0633\u0644\u064a\u0645\u0647\u0627 \u0625\u0644\u0649 \u0625\u062f\u0627\u0631\u0629 \u0627\u0644\u0645\u062f\u0631\u0633\u0629"+
-".")},
- office:{bn:"\u0986\u09aa\u09a8\u09be\u09b0 \u09a0\u09bf\u0995\u09be\u09a8\u09be \u098f\u0996\u09be\u09a8\u09c7 \u09b2\u09bf\u0996\u09c1\u09a8",en:"Write your address here",ar:"\u0627\u0643\u062a\u0628 \u0639\u0646\u0648\u0627\u0646\u0643 \u0647\u0646\u0627"},campus:{bn:"",en:"",ar:""},
- gsub:{bn:"\u09ae\u09be\u09a6\u09b0\u09be\u09b8\u09be \u0993 \u09ae\u09c1\u09b8\u09b2\u09bf\u09ae \u09b6\u09bf\u09b6\u09c1 \u098f\u0995\u09be\u09a1\u09c7\u09ae\u09bf",en:"Madrasa & Muslim Shishu Academy",ar:"\u0645\u062f\u0631\u0633\u0629 \u0648\u0623\u0643\u0627\u062f\u064a\u0645\u064a\u0629 \u0627\u0644\u0623\u0637\u0641\u0627\u0644 \u0627\u0644\u0645\u0633\u0644\u0645\u064a\u0646"},
-
- gnotice:{bn:("\u09af\u09a6\u09bf \u098f\u0987 \u0986\u0987\u09a1\u09bf \u0995\u09be\u09b0\u09cd\u09a1 \u0995\u09cb\u09a8\u09cb \u09b8\u09ae\u09cd\u09ae\u09be\u09a8\u09bf\u09a4 \u09ac\u09cd\u09af\u0995\u09cd\u09a4\u09bf \u09aa\u09c7\u09af\u09bc\u09c7 \u09a5"+
-"\u09be\u0995\u09c7\u09a8 \u0985\u09a8\u09c1\u0997\u09cd\u09b0\u09b9 \u0995\u09b0\u09c7 \u09a8\u09bf\u099a\u09c7\u09b0 \u09a0\u09bf\u0995\u09be\u09a8\u09be\u09af\u09bc \u09ab\u09c7\u09b0\u09a4 \u09a6\u09c7\u0993\u09af\u09bc\u09be\u09b0 \u0985"+
-"\u09a8\u09c1\u09b0\u09cb\u09a7 \u09b0\u0987\u09b2\u0964"),en:"If you find this ID card, please kindly return it to the address below.",ar:("\u0625\u0630\u0627 \u0639\u062b\u0631\u062a \u0639\u0644\u0649 \u0647\u0630\u0647 \u0627\u0644\u0628\u0637\u0627\u0642\u0629 \u0641\u064a\u0631\u062c\u0649 \u0625\u0639\u0627\u062f\u062a\u0647\u0627 \u0625\u0644\u0649 \u0627\u0644\u0639\u0646"+
-"\u0648\u0627\u0646 \u0623\u062f\u0646\u0627\u0647.")},
- gfoot:{bn:("\u09b0\u09be\u09b7\u09cd\u099f\u09cd\u09b0 \u09ac\u09bf\u09b0\u09cb\u09a7\u09c0 \u0995\u09be\u099c\u09c7 \u099c\u09a1\u09bc\u09bf\u09a4 \u09a8\u09be \u09a5\u09be\u0995\u09be\u09b0 \u09b6\u09b0\u09cd\u09a4\u09c7 \u09b6\u09c1\u09a7\u09c1\u09ae"+
-"\u09be\u09a4\u09cd\u09b0 \u0985\u09a7\u09cd\u09af\u09af\u09bc\u09a8\u0995\u09be\u09b2\u09c0\u09a8 \u09b8\u09ae\u09af\u09bc\u09c7\u09b0 \u099c\u09a8\u09cd\u09af \u098f\u099f\u09bf \u09ac\u09c8\u09a7\u0964"),en:"Valid only during the study period, provided the holder is not involved in any anti-state activity.",
-ar:("\u0635\u0627\u0644\u062d\u0629 \u0641\u0642\u0637 \u062e\u0644\u0627\u0644 \u0641\u062a\u0631\u0629 \u0627\u0644\u062f\u0631\u0627\u0633\u0629 \u0628\u0634\u0631\u0637 \u0639\u062f\u0645 \u0627\u0644\u0645\u0634\u0627\u0631\u0643\u0629 \u0641"+
-"\u064a \u0623\u064a \u0646\u0634\u0627\u0637 \u0636\u062f \u0627\u0644\u062f\u0648\u0644\u0629.")},
- phone1:"01XXXXXXXXX",phone2:"01XXXXXXXXX",verify:"",years:1,c1:"#1d4e79",c2:"#6e6b2c",c3:"#f6b26b"};
+const DEF={"name": {"bn": "মাদরাসায়ে নূরুল কুরআন", "en": "Madrasa-e Nurul Quran", "ar": "مدرسة نور القرآن"}, "top": "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ", "hijri": {"bn": "১৪৪৭-৪৮ হি.", "en": "1447-48 AH", "ar": "١٤٤٧-٤٨ هـ"}, "notice": {"bn": "পরিচয়পত্রটি প্রমাণ করে কার্ডধারী উক্ত প্রতিষ্ঠানের শিক্ষার্থী। কার্ডটি কোথাও পাওয়া গেলে মাদরাসা কর্তৃপক্ষের নিকট হস্তান্তরের অনুরোধ রইল।", "en": "This card certifies that the holder is a student of this institution. If found, please return it to the madrasa authority.", "ar": "تثبت هذه البطاقة أن حاملها طالب في هذه المؤسسة. عند العثور عليها يرجى تسليمها إلى إدارة المدرسة."}, "office": {"bn": "ভল্লবপুর, দিঘলী, চন্দ্রগঞ্জ, লক্ষ্মীপুর", "en": "Bhallabpur, Dighali, Chandraganj, Laxmipur", "ar": "بهلّبپور، ديغلي، تشاندراغنج، لاكشميبور"}, "campus": {"bn": "", "en": "", "ar": ""}, "gsub": {"bn": "জ্ঞান • আমল • আখলাক", "en": "Knowledge • Deeds • Character", "ar": "علم • عمل • أخلاق"}, "gnotice": {"bn": "যদি এই আইডি কার্ড কোনো সম্মানিত ব্যক্তি পেয়ে থাকেন অনুগ্রহ করে নিচের ঠিকানায় ফেরত দেওয়ার অনুরোধ রইল।", "en": "If you find this ID card, please kindly return it to the address below.", "ar": "إذا عثرت على هذه البطاقة فيرجى إعادتها إلى العنوان أدناه."}, "gfoot": {"bn": "রাষ্ট্র বিরোধী কাজে জড়িত না থাকার শর্তে শুধুমাত্র অধ্যয়নকালীন সময়ের জন্য এটি বৈধ।", "en": "Valid only during the study period, provided the holder is not involved in any anti-state activity.", "ar": "صالحة فقط خلال فترة الدراسة بشرط عدم المشاركة في أي نشاط ضد الدولة."}, "phone1": "01312-040301", "phone2": "01312-040301", "verify": "", "years": 1, "c1": "#1d4e79", "c2": "#6e6b2c", "c3": "#f6b26b", "logo": "img/logo.png"};
 let CFG=JSON.parse(JSON.stringify(DEF));
-try{const s=JSON.parse(localStorage.getItem("nurul_idcard_cfg")||"{}");for(const k in s){if(s[k]&&typeof s[k]=="object"&&!Array.isArray(s[k]))Object.assign(CFG[k],s[k]);else CFG[k]=s[k]}}catch(e){}
+try{const s=JSON.parse(localStorage.getItem("nurul_idcard_cfg_v2")||"{}");for(const k in s){if(s[k]&&typeof s[k]=="object"&&!Array.isArray(s[k]))Object.assign(CFG[k],s[k]);else CFG[k]=s[k]}}catch(e){}
 const DG={bn:"\u09e6\u09e7\u09e8\u09e9\u09ea\u09eb\u09ec\u09ed\u09ee\u09ef",ar:"\u0660\u0661\u0662\u0663\u0664\u0665\u0666\u0667\u0668\u0669"};
 const dg=v=>{v=String(v==null?"":v);const m=DG[lang];return m?v.replace(/[0-9]/g,d=>m[d]):v};
 const fd=d=>dg(new Date(d).toLocaleDateString("en-GB",{day:"2-digit",month:"2-digit",year:"numeric"}));
-const cn=id=>{const c=CL.find(x=>String(x.id)===String(id));return c?c.name:"\u2014"};
+const cn=id=>{const c=CL.find(x=>String(x.id)===String(id));return c?(c.name||c.class_name):"\u2014"};
 const secName=s=>{const c=SC.find(x=>String(x.id)===String(s.section_id));return (c&&c.name)||s.section||"--"};
 const gender=s=>{const g=String(s.gender||s.sex||"").toLowerCase();if(!g)return"-";return /^(f|female|girl)|\u09ae\u09c7\u09af\u09bc\u09c7|\u099b\u09be\u09a4\u09cd\u09b0\u09c0|\u0628\u0646\u062a|\u0623\u0646\u062b\u0649/.test(g)?t("cGirl"):t("cBoy")};
 function sess(s){const y=parseInt(s.session)||new Date().getFullYear();return dg(y+"-"+String((y+1)%100).padStart(2,"0"))+" "+({bn:"\u0996\u09cd\u09b0\u09bf.",en:"AD",ar:"\u0645"})[lang]}
@@ -631,7 +630,11 @@ function qrSvg(txt){try{if(typeof qrcode!=="function")throw 0;const q=qrcode(0,"
 const PIN='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M0 188.6C0 84.4 86 0 192 0s192 84.4 192 188.6c0 119.3-120.2 262.3-170.4 316.8-11.8 12.8-31.5 12.8-43.3 0C120.1 450.9-.1 307.9-.1 188.6zM192 256a64 64 0 1 0 0-128 64 64 0 1 0 0 128"/></svg>',PHN=('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M160.2 25c-7.9-18.9-28.5-28.9-48.1-23.6l-5.5 1.5C42 20.5-13.2 83.1 2.9 159.3 40 334.3 177.7 472 352.7 509.1 429 525.3 491.5 470 509.1 405.4l1.5-5.5c5.4-19.7-4.7-40.3-23.'+
 '5-48.1l-97.3-40.5c-16.5-6.9-35.6-2.1-47 11.8l-38.6 47.2c-70.3-34.9-126.9-93.3-159.4-165l44.2-36c13.9-11.3 18.6-30.4 11.8-47z"/></svg>'),USR='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224 248a120 120 0 1 0 0-240 120 120 0 1 0 0 240m-29.7 56C95.8 304 16 383.8 16 482.3c0 16.4 13.3 29.7 29.7 29.7h356.6c16.4 0 29.7-13.3 29.7-29.7 0-98.5-79.8-178.3-178.3-178.3z"/></svg>';
 
-const verifyOf=s=>CFG.verify?CFG.verify.replace("{id}",encodeURIComponent(s.student_id||"")):"STUDENT|"+(s.student_id||"")+"|"+(s.name||"")+"|"+cn(s.class_id);
+const LOGO_URL=()=>{try{return new URL(CFG.logo||"img/logo.png",location.href).href}catch(e){return "img/logo.png"}};
+const LGI=(sz,st)=>'<span class="lgi" style="width:'+sz+'px;height:'+sz+'px;'+(st||"")+'"><img src="'+esc(LOGO_URL())+'" alt=""></span>';
+const LG=(sz,top)=>LGI(sz,"position:absolute;left:"+((540-sz)/2)+"px;top:"+top+"px");
+/* QR: প্রতিটি শিক্ষার্থীর নিজস্ব যাচাই-লিংক — স্ক্যান করলে ওই শিক্ষার্থীর পরিচয় দেখায় */
+const verifyOf=s=>CFG.verify?CFG.verify.replace("{id}",encodeURIComponent(s.student_id||"")):new URL("student-verify.html?id="+encodeURIComponent(s.student_id||s.id||""),location.href).href;
 const validOf=()=>fd(new Date(new Date().getFullYear()+(+CFG.years||1)-1,11,31));
 /* ---------- reference design (navy / olive) ---------- */
 function bgFront(){return '<svg class="a" style="left:0;top:0" width="540" height="860" viewBox="0 0 540 860"><rect width="540" height="860" fill="#eaf4f8"/>'
@@ -645,10 +648,10 @@ function bgFront(){return '<svg class="a" style="left:0;top:0" width="540" heigh
 function frontRef(s){const nm=CFG.name[lang]||"",fs=nm.length>46?27:nm.length>30?31:36,sn=(s.name||"");
  const row=(k,v)=>'<div class="row"><span>'+t(k)+' :</span><b>'+esc(v)+'</b></div>';
  return '<div class="idc" dir="'+(lang=="ar"?"rtl":"ltr")+'" style="--c1:'+CFG.c1+';--c2:'+CFG.c2+';--c3:'+CFG.c3+'">'+bgFront()
- +'<div class="a ttl"><div class="ar1">'+esc(CFG.top)+'</div><div class="nm1" style="font-size:'+fs+'px">'+esc(nm)+'</div></div>'
+ +LG(64,16)+'<div class="a ttl" style="top:86px"><div class="ar1" style="font-size:28px">'+esc(CFG.top)+'</div><div class="nm1" style="font-size:'+Math.min(fs,34)+'px">'+esc(nm)+'</div></div>'
  +'<div class="a ph">'+(s.photo_url?'<img src="'+esc(s.photo_url)+'" crossorigin="anonymous">':USR)+'</div>'
- +'<div class="a dt">'+sess(s)+'<br>'+esc(CFG.hijri[lang])+'<br><small>ID: '+esc(dg(s.student_id||""))+'</small></div>'
- +'<div class="a sn" style="font-size:'+(sn.length>20?40:50)+'px">'+esc(sn)+'</div>'
+ +'<div class="a sn" style="font-size:'+(sn.length>20?38:46)+'px">'+esc(sn)+'</div>'
+ +'<div class="a dt">'+sess(s)+' &nbsp;·&nbsp; '+esc(CFG.hijri[lang])+' &nbsp;·&nbsp; <small>ID: '+esc(dg(s.student_id||""))+'</small></div>'
  +'<div class="a rows">'+row("cFather",s.father_name||"\u2014")+row("cClass",cn(s.class_id)+"  |  "+t("cRoll")+" "+dg(s.roll_number||"\u2014"))+'</div>'
  +'<div class="a adr"><div class="alb">'+t("cAddr")+'</div><div class="at">'+PIN+'<span>'+esc(s.address||"\u2014")+'</span></div></div>'
  +'<div class="a phn">'+PHN+'<b>'+esc(dg(s.phone||CFG.phone1))+'</b></div></div>'}
@@ -658,6 +661,7 @@ function backRef(s){const valid=validOf(),issue=fd(new Date());
  +'<path d="M470 0V92" stroke="var(--c1)" stroke-width="3"/><path d="M440 92h60l-8 30h-44z" fill="var(--c1)"/><path d="M452 122h36q-18 38 -36 0z" fill="var(--c3)"/>'
  +'<path d="M0 690Q70 702 92 800L0 822Z" fill="var(--c1)"/><path d="M0 730Q44 748 62 820L0 834Z" fill="#fff"/><path d="M0 772Q26 788 34 836L0 844Z" fill="var(--c3)"/>'
  +'<path d="M0 846Q150 822 320 842T540 832V860H0Z" fill="var(--c1)"/></svg>'
+ +'<div class="a bh">'+LGI(64)+'<b>'+esc(CFG.name[lang])+'</b></div>'
  +'<div class="a nt">'+esc(CFG.notice[lang])+'</div>'
  +'<div class="a inf">ID: '+esc(dg(s.student_id||""))+'<br>'+t("cIssue")+': '+issue+'<br>'+t("cValid")+': '+valid+'</div>'
  +'<div class="a qr"><div class="qb">'+qrSvg(verifyOf(s))+'</div><div class="qc">'+t("cScan")+'</div></div>'
@@ -671,7 +675,7 @@ function frontGreen(s){const nm=CFG.name[lang]||"",fs=nm.length>46?25:nm.length>
  +'<svg class="a" style="left:0;top:0" width="540" height="860" viewBox="0 0 540 860"><defs><linearGradient id="gbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6fbf7"/><stop offset="1" stop-color="#dcefe3"/></linearGradient></defs>'
  +'<rect width="540" height="860" fill="url(#gbg)"/><path d="M0 0H540V215Q270 285 0 215Z" fill="#0f5a40"/><path d="M0 215Q270 285 540 215" stroke="#c9a227" stroke-width="6" fill="none"/>'
  +'<path d="M150 372V290A120 120 0 0 1 390 290V372Z" fill="#fff" stroke="#c9a227" stroke-width="7"/></svg>'
- +'<div class="a gh1"><div class="gn" style="font-size:'+fs+'px">'+esc(nm)+'</div><div class="gs">'+esc(CFG.gsub[lang])+'</div></div>'
+ +'<div class="a gh1">'+LGI(60,"margin:0 auto 4px")+'<div class="gn" style="font-size:'+Math.min(fs,30)+'px">'+esc(nm)+'</div><div class="gs">'+esc(CFG.gsub[lang])+'</div></div>'
  +'<div class="a gph">'+(s.photo_url?'<img src="'+esc(s.photo_url)+'" crossorigin="anonymous">':USR)+'</div>'
  +'<div class="a gnm" style="font-size:'+((s.name||"").length>22?34:42)+'px">'+esc(s.name||"")+'</div>'
  +'<div class="a gtb">'+rows.map((r,i)=>'<div class="gr'+(i%2?" o":"")+'"><span>'+t(r[0])+'</span><i>:</i><b>'+esc(r[1])+'</b></div>').join("")+'</div>'
@@ -680,10 +684,10 @@ function backGreen(s){const valid=validOf(),issue=fd(new Date());
  return '<div class="idc gc" dir="'+(lang=="ar"?"rtl":"ltr")+'">'
  +'<svg class="a" style="left:0;top:0" width="540" height="860" viewBox="0 0 540 860"><defs><linearGradient id="gbg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6fbf7"/><stop offset="1" stop-color="#d4ead9"/></linearGradient></defs>'
  +'<rect width="540" height="860" fill="url(#gbg2)"/><path d="M0 0H540V140Q270 190 0 140Z" fill="#0f5a40"/><path d="M0 140Q270 190 540 140" stroke="#c9a227" stroke-width="6" fill="none"/></svg>'
- +'<div class="a gh2">'+esc(CFG.name[lang])+'</div>'
+ +'<div class="a gh2">'+LGI(50,"margin:0 auto 2px")+esc(CFG.name[lang])+'</div>'
  +'<div class="a gq"><div class="qb2">'+qrSvg(verifyOf(s))+'</div><div class="qc2">'+t("cScan")+'</div></div>'
  +'<div class="a gib"><div class="gi"><span>'+t("cMobile")+'</span><b>'+esc(dg(s.phone||"-"))+'</b></div><div class="gi"><span>'+t("cIssueD")+'</span><b>'+issue+'</b></div><div class="gi"><span>'+t("cValid")+'</span><b>'+valid+'</b></div></div>'
- +'<div class="a gnt">'+esc(CFG.gnotice[lang])+(CFG.office[lang]?'<br><b>'+esc(CFG.office[lang])+'</b>':'')+'</div>'
+ +'<div class="a gnt"><div>'+esc(CFG.gnotice[lang])+(CFG.office[lang]?'<br><b>'+esc(CFG.office[lang])+'</b>':'')+'</div></div>'
  +'<div class="a gfb"><span>'+esc(CFG.gfoot[lang])+'</span></div></div>'}
 const front=s=>TYPE=="ref"?frontRef(s):frontGreen(s),back=s=>TYPE=="ref"?backRef(s):backGreen(s);
 /* ---------- table ---------- */
@@ -753,9 +757,9 @@ function openSet(){const m=$("setM");let h='<div class="sb"><h3>'+t("setT")+'</h
  h+='<div class="sa"><button class="btn" id="sSave" style="background:#0e5a40">'+t("save")+'</button><button class="btn" id="sRes" style="background:#b8860b">'+t("reset")+'</button><button class="btn" id="sCls" style="background:#6c7683">'+t("close")+'</button></div></div>';
  m.innerHTML=h;m.className="sm show";
  $("sCls").onclick=()=>m.className="sm";
- $("sRes").onclick=()=>{localStorage.removeItem("nurul_idcard_cfg");CFG=JSON.parse(JSON.stringify(DEF));m.className="sm";render()};
+ $("sRes").onclick=()=>{localStorage.removeItem("nurul_idcard_cfg_v2");CFG=JSON.parse(JSON.stringify(DEF));m.className="sm";render()};
  $("sSave").onclick=()=>{m.querySelectorAll("[data-k]").forEach(i=>{const p=i.dataset.k.split(".");if(p.length==2)CFG[p[0]][p[1]]=i.value;else CFG[p[0]]=i.type=="number"?(+i.value||1):i.value});
-  localStorage.setItem("nurul_idcard_cfg",JSON.stringify(CFG));m.className="sm";render()}}
+  localStorage.setItem("nurul_idcard_cfg_v2",JSON.stringify(CFG));m.className="sm";render()}}
 $("setB").onclick=openSet;
 async function load(){const a=await sb.from("students").select("*").order("class_id",{ascending:true}).order("roll_number",{ascending:true});
  if(a.error){msg(a.error.message,1);return}ST=(a.data||[]).filter(x=>x.is_active!==false);
