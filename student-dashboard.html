@@ -1423,6 +1423,16 @@ a{
     }
 }
 
+
+/* ===== দৈনিক বাড়ির কাজ ===== */
+.hw-day{margin:14px 0 8px;font-size:13px;color:var(--muted);font-weight:700}
+.hw-card{background:#fff;border:1px solid var(--border);border-left:5px solid var(--blue);border-radius:16px;padding:14px 16px;margin-bottom:10px;box-shadow:var(--shadow);line-height:1.8}
+.hw-card.today{border-left-color:var(--success);background:#f3fbf6}
+.hw-top{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
+.hw-pill{display:inline-block;padding:2px 11px;border-radius:999px;font-size:11px;background:var(--light-blue);color:var(--blue3)}
+.hw-pill.new{background:var(--success);color:#fff}.hw-pill.due{background:#fff1e6;color:var(--warning)}
+.hw-text{white-space:pre-wrap;font-size:13px;color:var(--text)}
+.hw-by{margin-top:8px;font-size:11px;color:var(--muted)}
 </style>
 </head>
 
@@ -1588,6 +1598,18 @@ a{
             </span>
 
         </div>
+
+        <div class="nav-item"
+             data-page="homework">
+
+            <i class="fa-solid fa-book-open-reader"></i>
+
+            <span>
+                দৈনিক বাড়ির কাজ
+            </span>
+
+        </div>
+
 
 <a href="daily-reading.html?view=student">
   দৈনিক পড়া
@@ -1891,6 +1913,23 @@ a{
 
             </div>
 
+
+            <div class="card summary-card" style="cursor:pointer" onclick="document.getElementById('homework').scrollIntoView({behavior:'smooth'})">
+
+                <div class="summary-icon">
+                    <i class="fa-solid fa-book-open-reader"></i>
+                </div>
+
+                <div>
+                    <div class="summary-label">
+                        আজকের বাড়ির কাজ
+                    </div>
+                    <div class="summary-value" id="summaryHomework">
+                        -
+                    </div>
+                </div>
+
+            </div>
 
             <div class="card summary-card">
 
@@ -2528,6 +2567,35 @@ a{
         <!-- =================================================
              NOTICES
         ================================================== -->
+
+        <section
+            class="section"
+            id="homework">
+
+            <div class="section-title">
+
+                <div class="section-title-left">
+
+                    <i class="fa-solid fa-book-open-reader"></i>
+
+                    <h2>
+                        দৈনিক বাড়ির কাজ
+                    </h2>
+
+                </div>
+
+            </div>
+
+            <div
+                id="studentHomework"
+                class="loading">
+
+                বাড়ির কাজ লোড হচ্ছে...
+
+            </div>
+
+        </section>
+
 
         <section
             class="section"
@@ -4767,6 +4835,100 @@ async function loadProgressSummary(){
    LOAD ALL
 ===================================================== */
 
+
+/* =====================================================
+   DAILY HOMEWORK (ক্লাস অনুযায়ী)
+===================================================== */
+
+async function loadHomework(){
+
+    const box = document.getElementById("studentHomework");
+
+    if(!box)
+        return;
+
+    const cid = currentStudent && currentStudent.class_id;
+
+    if(!cid){
+
+        box.innerHTML = `<div class="student-empty"><i class="fa-regular fa-folder-open"></i> ক্লাসের তথ্য পাওয়া যায়নি।</div>`;
+
+        return;
+    }
+
+    const r = await db
+        .from("daily_homework")
+        .select("*")
+        .eq("class_id", cid)
+        .order("hw_date",{ascending:false})
+        .order("id",{ascending:false})
+        .limit(60);
+
+    if(r.error){
+
+        box.innerHTML = `<div class="student-empty"><i class="fa-regular fa-folder-open"></i> বাড়ির কাজ পাওয়া যায়নি।</div>`;
+
+        return;
+    }
+
+    const rows = r.data || [];
+
+    const d = new Date();
+    const pad = n => String(n).padStart(2,"0");
+    const today = d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
+    const bn = x => {
+        try{
+            return new Date(String(x).slice(0,10)+"T00:00:00")
+                .toLocaleDateString("bn-BD",{day:"numeric",month:"long",year:"numeric"});
+        }catch(e){ return x; }
+    };
+
+    const todayCount = rows.filter(x => String(x.hw_date).slice(0,10) === today).length;
+
+    const sum = document.getElementById("summaryHomework");
+
+    if(sum)
+        sum.textContent = todayCount
+            ? todayCount.toLocaleString("bn-BD")+" টি"
+            : "নেই";
+
+    if(!rows.length){
+
+        box.innerHTML = `<div class="student-empty"><i class="fa-regular fa-folder-open"></i> এখনো কোনো বাড়ির কাজ দেওয়া হয়নি।</div>`;
+
+        return;
+    }
+
+    let last = "";
+    let html = "";
+
+    rows.forEach(x=>{
+
+        const day = String(x.hw_date).slice(0,10);
+
+        if(day !== last){
+
+            last = day;
+
+            html += `<div class="hw-day">${day === today ? "আজ — " : ""}${esc(bn(day))}</div>`;
+        }
+
+        html += `
+            <div class="hw-card ${day === today ? "today" : ""}">
+                <div class="hw-top">
+                    ${day === today ? `<span class="hw-pill new">নতুন</span>` : ""}
+                    ${x.subject ? `<span class="hw-pill">${esc(x.subject)}</span>` : ""}
+                    ${x.due_date ? `<span class="hw-pill due">জমা: ${esc(bn(x.due_date))}</span>` : ""}
+                </div>
+                <div class="hw-text">${esc(x.details)}</div>
+                <div class="hw-by">শিক্ষক: ${esc(x.created_by || "-")}</div>
+            </div>
+        `;
+    });
+
+    box.innerHTML = html;
+}
+
 async function loadAll(){
 
     if(!currentStudent)
@@ -4799,6 +4961,8 @@ async function loadAll(){
         loadBehavior(),
 
         loadNotices(),
+
+        loadHomework(),
 
         loadReports(),
 
