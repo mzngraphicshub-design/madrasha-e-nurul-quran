@@ -207,10 +207,6 @@ content="width=device-width, initial-scale=1.0">
 
 <!-- ================= PDF ================= -->
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
-
 <!-- ================= BANGLA FONT ================= -->
 
 <link
@@ -2655,257 +2651,70 @@ function getDateRangeData(
 PDF GENERATOR
 ===================================================== */
 
-function generatePDF(
-    list,
-    from,
-    to,
-    reportTitle
-){
+function generatePDF(list,from,to,reportTitle){
 
-    if(
-        !list ||
-        !list.length
-    ){
-
-        alert(
-            "❌ এই তারিখের মধ্যে কোনো Expense record নেই।"
-        );
-
+    if(!list || !list.length){
+        alert("❌ এই তারিখের মধ্যে কোনো Expense record নেই।");
         return;
-
     }
 
+    /* ভাষা: ড্যাশবোর্ডে নির্বাচিত ভাষা (বাংলা / English / العربية) */
+    let lg = String(localStorage.getItem("nurul_dashboard_language") || "bn").toLowerCase();
+    if(lg !== "en" && lg !== "ar") lg = "bn";
+    const L = {
+        school:{bn:"মাদরাসায়ে নূরুল কুরআন",en:"Madrasa-e Nurul Quran",ar:"مدرسة نور القرآن"},
+        title:{bn:"খরচের রিপোর্ট",en:"Expense Report",ar:"تقرير المصروفات"},
+        date:{bn:"তারিখ",en:"Date",ar:"التاريخ"},to:{bn:"থেকে",en:"to",ar:"إلى"},all:{bn:"সকল খরচ",en:"All expense records",ar:"كل المصروفات"},
+        total:{bn:"মোট খরচ",en:"Total expense",ar:"إجمالي المصروفات"},records:{bn:"রেকর্ড",en:"Records",ar:"السجلات"},
+        c:{bn:["শিরোনাম","ধরন","টাকা","তারিখ","মাধ্যম","যাকে দেওয়া","বিবরণ"],en:["Title","Type","Amount","Date","Method","Paid to","Description"],ar:["العنوان","النوع","المبلغ","التاريخ","الطريقة","المدفوع إلى","الوصف"]},
+        gen:{bn:"প্রস্তুত",en:"Generated",ar:"أُنشئ في"},page:{bn:"পৃষ্ঠা",en:"Page",ar:"صفحة"},popup:{bn:"পপআপ বন্ধ আছে — অনুমতি দিন",en:"Popup blocked — please allow popups",ar:"النوافذ المنبثقة محظورة"}
+    };
+    const loc = lg==="en" ? "en-GB" : lg==="ar" ? "ar-EG" : "bn-BD";
+    const nf = n => { try{ return Number(n||0).toLocaleString(loc,{maximumFractionDigits:2}); }catch(e){ return money(n); } };
+    const e = v => String(v==null||v===""?"-":v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 
-    const {
-        jsPDF
-    } =
-    window.jspdf;
-
-
-    const doc =
-    new jsPDF({
-        orientation:"landscape",
-        unit:"mm",
-        format:"a4"
-    });
-
-
-    /* HEADER */
-
-    doc.setFontSize(17);
-
-    doc.text(
-        "MADRASHA-E NURUL QURAN",
-        148,
-        13,
-        {
-            align:"center"
-        }
-    );
-
-
-    doc.setFontSize(13);
-
-    doc.text(
-        reportTitle,
-        148,
-        21,
-        {
-            align:"center"
-        }
-    );
-
-
-    doc.setFontSize(9);
-
+    const total = list.reduce((sum,item)=>sum+(Number(item.amount)||0),0);
 
     const rangeText =
-    from && to
-    ? `Date: ${from} to ${to}`
-    : from
-    ? `Date: ${from}`
-    : to
-    ? `Date: ${to}`
-    : "All Expense Records";
+        from && to ? L.date[lg]+": "+from+" "+L.to[lg]+" "+to
+        : from ? L.date[lg]+": "+from
+        : to ? L.date[lg]+": "+to
+        : L.all[lg];
 
+    const abs = u => new URL(u,location.href).href;
 
-    doc.text(
-        rangeText,
-        148,
-        27,
-        {
-            align:"center"
-        }
+    const rows = list.map((item,i)=>
+        "<tr><td>"+(i+1)+"</td><td>"+e(item.title)+"</td><td>"+e(item.expense_type)+"</td><td class=n>"+e("৳ "+nf(item.amount))+"</td><td>"+e(normalizeDate(item.expense_date))+"</td><td>"+e(item.payment_method)+"</td><td>"+e(item.paid_to)+"</td><td>"+e(item.description)+"</td></tr>"
+    ).join("");
+
+    const w = window.open("","_blank","width=1100,height=800");
+    if(!w){ alert(L.popup[lg]); return; }
+
+    w.document.write(
+      '<!DOCTYPE html><html lang="'+lg+'" dir="'+(lg==="ar"?"rtl":"ltr")+'"><head><meta charset="utf-8"><title>'+e(reportTitle||L.title[lg])+'</title>'+
+      '<link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet">'+
+      '<style>@font-face{font-family:Bornomala;src:url('+abs("fonts/Bornomala-Regular.ttf")+')}'+
+      '*{box-sizing:border-box;font-family:"Bornomala","Noto Naskh Arabic",Arial,sans-serif!important}'+
+      '@page{size:A4 landscape;margin:10mm}body{margin:0;color:#17382c}'+
+      '.hd{text-align:center;border-bottom:2px solid #c9a227;padding-bottom:8px;margin-bottom:10px}.hd img{width:54px;height:54px;object-fit:contain}'+
+      '.hd h1{margin:2px 0;color:#0f5a40;font-size:22px}.hd h2{margin:2px 0;font-size:16px}.hd p{margin:2px 0;font-size:12px;color:#555}'+
+      '.sm{display:flex;justify-content:space-between;font-size:13px;margin:6px 0 8px}'+
+      'table{width:100%;border-collapse:collapse;font-size:12px}th,td{border:1px solid #9fb3a8;padding:5px 7px;text-align:start;vertical-align:top}'+
+      'th{background:#e8f2ec;color:#0f5a40}thead{display:table-header-group}tr{page-break-inside:avoid}td.n,th.n{text-align:end}'+
+      'tfoot td{font-weight:700;background:#f4f8f5}.ft{margin-top:8px;font-size:11px;color:#666;text-align:center}'+
+      '</style></head><body>'+
+      '<div class="hd"><img src="'+abs("img/logo.png")+'" alt=""><h1>'+e(L.school[lg])+'</h1><h2>'+e(L.title[lg])+'</h2><p>'+e(rangeText)+'</p></div>'+
+      '<div class="sm"><span><b>'+e(L.total[lg])+':</b> ৳ '+e(nf(total))+'</span><span><b>'+e(L.records[lg])+':</b> '+e(nf(list.length))+'</span></div>'+
+      '<table><thead><tr><th>#</th>'+L.c[lg].map((h,i)=>'<th'+(i===2?' class="n"':'')+'>'+e(h)+'</th>').join("")+'</tr></thead><tbody>'+rows+'</tbody>'+
+      '<tfoot><tr><td colspan="3">'+e(L.total[lg])+'</td><td class="n">৳ '+e(nf(total))+'</td><td colspan="4"></td></tr></tfoot></table>'+
+      '<div class="ft">'+e(L.gen[lg])+': '+e(today())+'</div></body></html>'
     );
-
-
-    /* TOTAL */
-
-    const total =
-    list.reduce(
-        (
-            sum,
-            item
-        ) =>
-        sum +
-        (Number(item.amount)||0),
-        0
-    );
-
-
-    doc.setFontSize(10);
-
-    doc.text(
-        `Total Expense: BDT ${money(total)}`,
-        14,
-        35
-    );
-
-
-    doc.text(
-        `Records: ${list.length}`,
-        285,
-        35,
-        {
-            align:"right"
-        }
-    );
-
-
-    /* TABLE */
-
-    const rows =
-    list.map(
-        item => [
-
-            item.title || "-",
-
-            item.expense_type || "-",
-
-            `BDT ${money(
-                item.amount
-            )}`,
-
-            normalizeDate(
-                item.expense_date
-            ) || "-",
-
-            item.payment_method || "-",
-
-            item.paid_to || "-",
-
-            item.description || "-"
-
-        ]
-    );
-
-
-    doc.autoTable({
-
-        startY:40,
-
-        head:[[
-
-            "Title",
-            "Type",
-            "Amount",
-            "Date",
-            "Method",
-            "Paid To",
-            "Description"
-
-        ]],
-
-        body:rows,
-
-        theme:"grid",
-
-        styles:{
-
-            fontSize:7,
-
-            cellPadding:2,
-
-            overflow:"linebreak"
-
-        },
-
-        headStyles:{
-
-            fontSize:8
-
-        },
-
-        columnStyles:{
-
-            0:{cellWidth:42},
-
-            1:{cellWidth:28},
-
-            2:{cellWidth:28},
-
-            3:{cellWidth:25},
-
-            4:{cellWidth:25},
-
-            5:{cellWidth:35},
-
-            6:{cellWidth:80}
-
-        },
-
-        margin:{
-
-            left:10,
-
-            right:10
-
-        }
-
-    });
-
-
-    /* FOOTER */
-
-    const pageCount =
-    doc.internal
-    .getNumberOfPages();
-
-
-    for(
-        let i=1;
-        i<=pageCount;
-        i++
-    ){
-
-        doc.setPage(i);
-
-        doc.setFontSize(8);
-
-        doc.text(
-
-            `Generated: ${today()} | Page ${i} of ${pageCount}`,
-
-            148,
-
-            202,
-
-            {
-                align:"center"
-            }
-
-        );
-
-    }
-
-
-    const fileName =
-    `Expense_Report_${from || "all"}_${to || "all"}.pdf`;
-
-
-    doc.save(
-        fileName
-    );
+    w.document.close();
+
+    w.onload = () => {
+        (w.document.fonts && w.document.fonts.ready ? w.document.fonts.ready : Promise.resolve())
+        .then(()=>setTimeout(()=>{ try{ w.focus(); w.print(); }catch(err){} },350));
+    };
 
 }
 
